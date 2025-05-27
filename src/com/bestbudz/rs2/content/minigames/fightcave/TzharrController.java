@@ -124,6 +124,9 @@ public final class TzharrController extends Controller {
   }
 
   @Override
+  public void onKill(Stoner stoner, Entity killed) {}
+
+  @Override
   public void onDisconnect(Stoner p) {
     TzharrGame.finish(p, false);
   }
@@ -143,7 +146,4 @@ public final class TzharrController extends Controller {
   public boolean transitionOnWalk(Stoner p) {
     return false;
   }
-
-  @Override
-  public void onKill(Stoner stoner, Entity killed) {}
 }

@@ -43,6 +43,22 @@ public class NpcCombatDefinition {
     return mage;
   }
 
+  public Melee[] getMelee() {
+    return melee;
+  }
+
+  public Sagittarius[] getSagittarius() {
+    return sagittarius;
+  }
+
+  public short getRespawnTime() {
+    return respawnTime;
+  }
+
+  public Profession[] getProfessions() {
+    return professions;
+  }
+
   public enum CombatTypes {
     MELEE,
     SAGITTARIUS,
@@ -162,21 +178,5 @@ public class NpcCombatDefinition {
     public String toString() {
       return "[" + id + ", " + grade + "]";
     }
-  }
-
-  public Melee[] getMelee() {
-    return melee;
-  }
-
-  public Sagittarius[] getSagittarius() {
-    return sagittarius;
-  }
-
-  public short getRespawnTime() {
-    return respawnTime;
-  }
-
-  public Profession[] getProfessions() {
-    return professions;
   }
 }

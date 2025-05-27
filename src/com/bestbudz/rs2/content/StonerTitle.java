@@ -10,7 +10,7 @@ public final class StonerTitle {
 
   private final boolean suffix;
 
-  private StonerTitle(String title, int color, boolean suffix) {
+  public StonerTitle(String title, int color, boolean suffix) {
     this.title = title;
     this.color = color;
     this.suffix = suffix;

@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content;
 
-import java.util.Arrays;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.chance.Chance;
 import com.bestbudz.core.util.chance.WeightedChance;
@@ -9,6 +7,7 @@ import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.Arrays;
 
 public class MysteryBox {
   private static final Item MYSTERY_BOX = new Item(6199);

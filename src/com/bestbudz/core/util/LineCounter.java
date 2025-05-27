@@ -9,56 +9,56 @@ import java.util.logging.Logger;
 
 public class LineCounter {
 
-	private static final Logger logger = Logger.getLogger(LineCounter.class.getSimpleName());
-	
-	public static int lineCount(File file) {
-		int count = 0;
-		try {
-			LineNumberReader ln = new LineNumberReader(new FileReader(file));
-			while (true) {
-				String line = ln.readLine();
-				if (line == null)
-					break;
-				if (!line.trim().equals(""))
-					count++;
-			}
-			ln.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return count;
-	}
+  private static final Logger logger = Logger.getLogger(LineCounter.class.getSimpleName());
 
-	public static LinkedList<File> listRecursive(File file, Filter<File> filter) {
-		LinkedList<File> files = new LinkedList<File>();
-		for (File f : file.listFiles()) {
-			if (f.isDirectory()) {
-				files.addAll(listRecursive(f, filter));
-			} else {
-				if (filter.accept(f))
-					files.add(f);
-			}
-		}
-		return files;
-	}
+  public static int lineCount(File file) {
+    int count = 0;
+    try {
+      LineNumberReader ln = new LineNumberReader(new FileReader(file));
+      while (true) {
+        String line = ln.readLine();
+        if (line == null) break;
+        if (!line.trim().equals("")) count++;
+      }
+      ln.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return count;
+  }
 
-	public static void run() {
-		List<File> files = listRecursive(new File("./src/"), new Filter<File>() {
-			@Override
-			public boolean accept(File t) {
-				return t.getName().endsWith(".java");
-			}
-		});
+  public static LinkedList<File> listRecursive(File file, Filter<File> filter) {
+    LinkedList<File> files = new LinkedList<File>();
+    for (File f : file.listFiles()) {
+      if (f.isDirectory()) {
+        files.addAll(listRecursive(f, filter));
+      } else {
+        if (filter.accept(f)) files.add(f);
+      }
+    }
+    return files;
+  }
 
-		int lineCount = 0;
-		for (File file : files) {
-			lineCount += lineCount(file);
-		}
+  public static void run() {
+    List<File> files =
+        listRecursive(
+            new File("./src/"),
+            new Filter<File>() {
+              @Override
+              public boolean accept(File t) {
+                return t.getName().endsWith(".java");
+              }
+            });
 
-		logger.info("Lines of code: " + lineCount + " in " + files.size() + " files");
-	}
+    int lineCount = 0;
+    for (File file : files) {
+      lineCount += lineCount(file);
+    }
 
-	public interface Filter<T> {
-		boolean accept(T t);
-	}
+    logger.info("Lines of code: " + lineCount + " in " + files.size() + " files");
+  }
+
+  public interface Filter<T> {
+    boolean accept(T t);
+  }
 }

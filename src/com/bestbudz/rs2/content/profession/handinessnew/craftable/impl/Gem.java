@@ -39,6 +39,11 @@ public enum Gem implements Craftable {
   }
 
   @Override
+  public String getName() {
+    return "Gem";
+  }
+
+  @Override
   public int getAnimation() {
     switch (this) {
       case OPAL:
@@ -78,17 +83,12 @@ public enum Gem implements Craftable {
   }
 
   @Override
-  public String getProductionMessage() {
-    return null;
-  }
-
-  @Override
   public Item[] getIngediants(int index) {
     return new Item[] {with};
   }
 
   @Override
-  public String getName() {
-    return "Gem";
+  public String getProductionMessage() {
+    return null;
   }
 }

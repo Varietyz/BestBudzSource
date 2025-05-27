@@ -327,17 +327,16 @@ public class ObjectManager {
     return false;
   }
 
-	public static void process() {
-		while (!register.isEmpty()) {
-			var obj = register.pollFirst();
-			if (obj == null) continue;
+  public static void process() {
+    while (!register.isEmpty()) {
+      var obj = register.pollFirst();
+      if (obj == null) continue;
 
-			active.remove(obj); // ensures no duplicates
-			active.add(obj);    // re-registers it
-			send.add(obj);      // queues for sending
-		}
-	}
-
+      active.remove(obj); // ensures no duplicates
+      active.add(obj); // re-registers it
+      send.add(obj); // queues for sending
+    }
+  }
 
   public static void queueSend(GameObject o) {
     send.add(o);

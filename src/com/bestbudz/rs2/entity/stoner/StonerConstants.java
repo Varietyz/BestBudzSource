@@ -1,7 +1,7 @@
 package com.bestbudz.rs2.entity.stoner;
 
 import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.content.io.StonerSaveUtil;
+import com.bestbudz.rs2.content.io.sqlite.StonerSaveUtil;
 import com.bestbudz.rs2.entity.Location;
 
 public final class StonerConstants {

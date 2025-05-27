@@ -136,6 +136,9 @@ public class FightPitsWaitingController extends Controller {
   }
 
   @Override
+  public void onKill(Stoner stoner, Entity killed) {}
+
+  @Override
   public void onDisconnect(Stoner p) {
     FightPits.removeFromWaitingRoom(p);
   }
@@ -159,7 +162,4 @@ public class FightPitsWaitingController extends Controller {
   public boolean transitionOnWalk(Stoner p) {
     return false;
   }
-
-  @Override
-  public void onKill(Stoner stoner, Entity killed) {}
 }

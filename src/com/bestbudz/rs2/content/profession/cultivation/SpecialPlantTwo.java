@@ -565,6 +565,64 @@ public class SpecialPlantTwo {
     return true;
   }
 
+  public boolean curePlant(int objectX, int objectY, int itemId) {
+    if (stoner.getProfession().locked()) {
+      return false;
+    }
+    final SpecialPlantFieldsData specialPlantFieldsData =
+        SpecialPlantFieldsData.forIdPosition(objectX, objectY);
+    if (specialPlantFieldsData == null || itemId != 6036) {
+      return false;
+    }
+    final SpecialPlantData specialPlantData =
+        SpecialPlantData.forId(specialPlantSeeds[specialPlantFieldsData.getSpecialPlantsIndex()]);
+    if (specialPlantData == null) {
+      return false;
+    }
+    if (specialPlantState[specialPlantFieldsData.getSpecialPlantsIndex()] != 1) {
+      stoner.send(new SendMessage("This plant doesn't need to be cured."));
+      return true;
+    }
+    stoner.getBox().remove(itemId, 1);
+    stoner.getBox().add(229, 1);
+    stoner.getUpdateFlags().sendAnimation(new Animation(CultivationConstants.CURING_ANIM));
+    stoner.getProfession().lock(7);
+    specialPlantState[specialPlantFieldsData.getSpecialPlantsIndex()] = 0;
+    Controller controller = stoner.getController();
+    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
+    TaskQueue.queue(
+        new Task(
+            stoner, 7, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
+          @Override
+          public void execute() {
+            stoner.send(new SendMessage("You cure the plant with a PK 13-14."));
+            stop();
+          }
+
+          @Override
+          public void onStop() {
+            updateSpecialPlants();
+            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
+            stoner.setController(controller);
+          }
+        });
+    return true;
+  }
+
+  private void resetSpecialPlants(int index) {
+    specialPlantSeeds[index] = 0;
+    specialPlantState[index] = 0;
+    diseaseChance[index] = 1;
+    hasFullyGrown[index] = false;
+  }
+
+  public boolean checkIfRaked(int objectX, int objectY) {
+    final SpecialPlantFieldsData specialPlantFieldData =
+        SpecialPlantFieldsData.forIdPosition(objectX, objectY);
+    if (specialPlantFieldData == null) return false;
+    return specialPlantStages[specialPlantFieldData.getSpecialPlantsIndex()] == 3;
+  }
+
   public enum SpecialPlantData {
     BELLADONNA(5281, 2398, 1, 63, 280, 0.15, 91, 512, 0x04, 0x08, -1, 0, 5, 8),
     CACTUS(5280, 6016, 1, 55, 550, 0.15, 66.5, 25, 0x08, 0x12, 0x1f, 374, 11, 17),
@@ -788,63 +846,5 @@ public class SpecialPlantTwo {
     public String[][] getMessages() {
       return messages;
     }
-  }
-
-  public boolean curePlant(int objectX, int objectY, int itemId) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
-    final SpecialPlantFieldsData specialPlantFieldsData =
-        SpecialPlantFieldsData.forIdPosition(objectX, objectY);
-    if (specialPlantFieldsData == null || itemId != 6036) {
-      return false;
-    }
-    final SpecialPlantData specialPlantData =
-        SpecialPlantData.forId(specialPlantSeeds[specialPlantFieldsData.getSpecialPlantsIndex()]);
-    if (specialPlantData == null) {
-      return false;
-    }
-    if (specialPlantState[specialPlantFieldsData.getSpecialPlantsIndex()] != 1) {
-      stoner.send(new SendMessage("This plant doesn't need to be cured."));
-      return true;
-    }
-    stoner.getBox().remove(itemId, 1);
-    stoner.getBox().add(229, 1);
-    stoner.getUpdateFlags().sendAnimation(new Animation(CultivationConstants.CURING_ANIM));
-    stoner.getProfession().lock(7);
-    specialPlantState[specialPlantFieldsData.getSpecialPlantsIndex()] = 0;
-    Controller controller = stoner.getController();
-    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
-    TaskQueue.queue(
-        new Task(
-            stoner, 7, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
-          @Override
-          public void execute() {
-            stoner.send(new SendMessage("You cure the plant with a PK 13-14."));
-            stop();
-          }
-
-          @Override
-          public void onStop() {
-            updateSpecialPlants();
-            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
-            stoner.setController(controller);
-          }
-        });
-    return true;
-  }
-
-  private void resetSpecialPlants(int index) {
-    specialPlantSeeds[index] = 0;
-    specialPlantState[index] = 0;
-    diseaseChance[index] = 1;
-    hasFullyGrown[index] = false;
-  }
-
-  public boolean checkIfRaked(int objectX, int objectY) {
-    final SpecialPlantFieldsData specialPlantFieldData =
-        SpecialPlantFieldsData.forIdPosition(objectX, objectY);
-    if (specialPlantFieldData == null) return false;
-    return specialPlantStages[specialPlantFieldData.getSpecialPlantsIndex()] == 3;
   }
 }

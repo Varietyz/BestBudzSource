@@ -4,7 +4,6 @@ import com.bestbudz.core.cache.map.MapLoading;
 import com.bestbudz.core.cache.map.ObjectDef;
 import com.bestbudz.core.cache.map.RSInterface;
 import com.bestbudz.core.cache.map.Region;
-import com.bestbudz.core.util.FileHandler;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.content.Emotes;
 import com.bestbudz.rs2.content.FountainOfRune;
@@ -59,117 +58,114 @@ import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.object.ObjectConstants;
 import com.bestbudz.rs2.entity.object.ObjectManager;
 import com.bestbudz.rs2.entity.stoner.net.in.PacketHandler;
-import org.javacord.api.DiscordApi;
 
 public class GameDataLoader {
 
-	public static DiscordApi discord;
-	private static int stage = 0;
+  private static int stage = 0;
 
-	public static void load() {
-	try {
-		GameDefinitionLoader.declare();
-		new Thread() {
-			@Override
-			public void run() {
-			try {
-				ObjectDef.loadConfig();
-				ObjectConstants.declare();
-				MapLoading.load();
-				Region.sort();
-				GameDefinitionLoader.loadAlternateIds();
-				MapLoading.processDoors();
-				GameDefinitionLoader.clearAlternates();
-				ObjectManager.declare();
-				GlobalItemHandler.spawnGroundItems();
-				Mob.spawnBosses();
-				GameDefinitionLoader.loadNpcSpawns();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+  public static void load() {
+    try {
+      GameDefinitionLoader.declare();
+      new Thread() {
+        @Override
+        public void run() {
+          try {
+            ObjectDef.loadConfig();
+            ObjectConstants.declare();
+            MapLoading.load();
+            Region.sort();
+            GameDefinitionLoader.loadAlternateIds();
+            MapLoading.processDoors();
+            GameDefinitionLoader.clearAlternates();
+            ObjectManager.declare();
+            GlobalItemHandler.spawnGroundItems();
+            Mob.spawnBosses();
+            GameDefinitionLoader.loadNpcSpawns();
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
 
-			GameDataLoader.stage += 1;
-			}
-		}.start();
+          GameDataLoader.stage += 1;
+        }
+      }.start();
 
-		RSInterface.unpack();
-		GameDefinitionLoader.loadNpcDefinitions();
-		GameDefinitionLoader.loadItemDefinitions();
-		GameDefinitionLoader.loadRareDropChances();
-		GameDefinitionLoader.loadEquipmentDefinitions();
-		GameDefinitionLoader.loadShopDefinitions();
-		GameDefinitionLoader.setRequirements();
-		GameDefinitionLoader.loadWeaponDefinitions();
-		GameDefinitionLoader.loadSpecialAssaultDefinitions();
-		GameDefinitionLoader.loadSagittariusVigourDefinitions();
-		GameDefinitionLoader.loadSpecialAssaultDefinitions();
-		GameDefinitionLoader.loadCombatSpellDefinitions();
-		GameDefinitionLoader.loadFoodDefinitions();
-		GameDefinitionLoader.loadPotionDefinitions();
-		GameDefinitionLoader.loadSagittariusWeaponDefinitions();
-		GameDefinitionLoader.loadNpcCombatDefinitions();
-		GameDefinitionLoader.loadNpcDropDefinitions();
-		GameDefinitionLoader.loadItemBonusDefinitions();
-		GodWarsData.declare();
-		Quarrying.declare();
-		PyramidPlunder.declare();
-		PlunderConstants.UrnBitPosition.declare();
-		PlunderConstants.DoorBitPosition.declare();
-		ClueScrollManager.declare();
-		FountainOfRune.declare();
-		Exercisement.declare();
-		Arrow.declare();
-		Bolt.declare();
-		Carvable.declare();
-		Crossbow.declare();
-		Featherable.declare();
-		Stringable.declare();
-		Craftable.declare();
-		HideTanData.declare();
-		Jewelry.declare();
-		Spinnable.declare();
-		com.bestbudz.rs2.content.profession.handinessnew.craftable.impl.Gem.declare();
-		Hide.declare();
-		Cultivation.declare();
-		Shop.declare();
-		MageConstants.declare();
-		MercenaryMonsters.declare();
-		DuelingConstants.declare();
-		MobConstants.declare();
-		Emotes.declare();
-		PoisonWeapons.declare();
-		SpecialAssaultHandler.declare();
-		FoodieData.declare();
-		Glass.declare();
-		Weedsmoker.Weed.declare();
-		Pyromaniac.Wood.declare();
-		FishableData.Fishable.declare();
-		Fisher.FisherSpots.declare();
-		ToolData.Tools.declare();
-		FinishedPotionData.declare();
-		UntrimmedWeedData.declare();
-		GrindingData.declare();
-		UnfinishedPotionData.declare();
-		MageEffects.declare();
-		BoneBurying.Bones.declare();
-		AmmoData.Ammo.declare();
-		Professions.declare();
-		LumberingAxeData.declare();
-		EquipmentConstants.declare();
-		PacketHandler.declare();
-		MobConstants.MobDissapearDelay.declare();
-		MobAbilities.declare();
-		SmeltingData.declare();
-		OneLineDialogue.declare();
-		Announcement.sequence();
-		FileHandler.load();
-		stage += 1;
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	}
+      RSInterface.unpack();
+      GameDefinitionLoader.loadNpcDefinitions();
+      GameDefinitionLoader.loadItemDefinitions();
+      GameDefinitionLoader.loadRareDropChances();
+      GameDefinitionLoader.loadEquipmentDefinitions();
+      GameDefinitionLoader.loadShopDefinitions();
+      GameDefinitionLoader.setRequirements();
+      GameDefinitionLoader.loadWeaponDefinitions();
+      GameDefinitionLoader.loadSpecialAssaultDefinitions();
+      GameDefinitionLoader.loadSagittariusVigourDefinitions();
+      GameDefinitionLoader.loadSpecialAssaultDefinitions();
+      GameDefinitionLoader.loadCombatSpellDefinitions();
+      GameDefinitionLoader.loadFoodDefinitions();
+      GameDefinitionLoader.loadPotionDefinitions();
+      GameDefinitionLoader.loadSagittariusWeaponDefinitions();
+      GameDefinitionLoader.loadNpcCombatDefinitions();
+      GameDefinitionLoader.loadNpcDropDefinitions();
+      GameDefinitionLoader.loadItemBonusDefinitions();
+      GodWarsData.declare();
+      Quarrying.declare();
+      PyramidPlunder.declare();
+      PlunderConstants.UrnBitPosition.declare();
+      PlunderConstants.DoorBitPosition.declare();
+      ClueScrollManager.declare();
+      FountainOfRune.declare();
+      Exercisement.declare();
+      Arrow.declare();
+      Bolt.declare();
+      Carvable.declare();
+      Crossbow.declare();
+      Featherable.declare();
+      Stringable.declare();
+      Craftable.declare();
+      HideTanData.declare();
+      Jewelry.declare();
+      Spinnable.declare();
+      com.bestbudz.rs2.content.profession.handinessnew.craftable.impl.Gem.declare();
+      Hide.declare();
+      Cultivation.declare();
+      Shop.declare();
+      MageConstants.declare();
+      MercenaryMonsters.declare();
+      DuelingConstants.declare();
+      MobConstants.declare();
+      Emotes.declare();
+      PoisonWeapons.declare();
+      SpecialAssaultHandler.declare();
+      FoodieData.declare();
+      Glass.declare();
+      Weedsmoker.Weed.declare();
+      Pyromaniac.Wood.declare();
+      FishableData.Fishable.declare();
+      Fisher.FisherSpots.declare();
+      ToolData.Tools.declare();
+      FinishedPotionData.declare();
+      UntrimmedWeedData.declare();
+      GrindingData.declare();
+      UnfinishedPotionData.declare();
+      MageEffects.declare();
+      BoneBurying.Bones.declare();
+      AmmoData.Ammo.declare();
+      Professions.declare();
+      LumberingAxeData.declare();
+      EquipmentConstants.declare();
+      PacketHandler.declare();
+      MobConstants.MobDissapearDelay.declare();
+      MobAbilities.declare();
+      SmeltingData.declare();
+      OneLineDialogue.declare();
+      Announcement.sequence();
+      stage += 1;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-	public static boolean loaded() {
-	return stage == 2;
-	}
+  public static boolean loaded() {
+    return stage == 2;
+  }
 }

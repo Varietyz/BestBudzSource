@@ -212,12 +212,11 @@ public class StonerCommand implements Command {
 
       case "devilspact":
         for (int i = 0; i < 25; i++) {
-          stoner.getGrades()[i] = 420;
-          stoner.getMaxGrades()[i] = 420;
+          stoner.getGrades()[i] = 419;
+          stoner.getMaxGrades()[i] = 419;
           stoner.getProfession().getExperience()[i] = Profession.EXP_FOR_GRADE[418];
         }
         stoner.getProfession().update();
-        stoner.setAppearanceUpdateRequired(true);
         World.sendGlobalMessage(
             "<col=F01C1C>"
                 + Utility.formatStonerName(stoner.getUsername())
@@ -232,11 +231,11 @@ public class StonerCommand implements Command {
         stoner.setMercenaryPoints(0);
         stoner.send(
             new SendMessage("You have lost your rank, items, cash, cannacredits and points!"));
-        stoner.getMage().teleport(3358, 3878, 0, TeleportTypes.SPELL_BOOK);
         stoner.setRights(0);
         String title = "DEVILSBITCH";
         title = title.trim();
         stoner.setStonerTitle(StonerTitle.create(title, 0xFF0000, false));
+		stoner.setDead(true);
         stoner.setAppearanceUpdateRequired(true);
         return true;
     }

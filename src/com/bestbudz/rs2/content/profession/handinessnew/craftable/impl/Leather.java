@@ -31,6 +31,11 @@ public enum Leather implements Craftable {
   }
 
   @Override
+  public String getName() {
+    return "Leather";
+  }
+
+  @Override
   public int getAnimation() {
     return 1249;
   }
@@ -60,10 +65,5 @@ public enum Leather implements Craftable {
   @Override
   public String getProductionMessage() {
     return null;
-  }
-
-  @Override
-  public String getName() {
-    return "Leather";
   }
 }

@@ -157,6 +157,21 @@ public class IkushzDropParser {
   }
 
   static class ItemDrop {
+    public final int itemId;
+    public final int min, max;
+    public final Rarity rarity;
+    public ItemDrop(int itemId, int min, int max, Rarity rarity) {
+      this.itemId = itemId;
+      this.min = min;
+      this.max = max;
+      this.rarity = rarity;
+    }
+
+    @Override
+    public String toString() {
+      return "[" + itemId + ", " + min + ", " + max + ", " + rarity.name() + "]";
+    }
+
     enum Rarity {
       ALWAYS,
       COMMON,
@@ -171,22 +186,6 @@ public class IkushzDropParser {
         }
         return UNCOMMON;
       }
-    }
-
-    public final int itemId;
-    public final int min, max;
-    public final Rarity rarity;
-
-    public ItemDrop(int itemId, int min, int max, Rarity rarity) {
-      this.itemId = itemId;
-      this.min = min;
-      this.max = max;
-      this.rarity = rarity;
-    }
-
-    @Override
-    public String toString() {
-      return "[" + itemId + ", " + min + ", " + max + ", " + rarity.name() + "]";
     }
   }
 }

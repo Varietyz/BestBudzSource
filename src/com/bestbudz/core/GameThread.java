@@ -1,5 +1,8 @@
 package com.bestbudz.core;
 
+import com.bestbudz.core.task.Task;
+import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
+import com.bestbudz.rs2.entity.stoner.Stoner;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.IoHandlerFactory;
 import io.netty.channel.MultiThreadIoEventLoopGroup;
@@ -80,35 +83,35 @@ public class GameThread extends Thread {
 
     logger.info("Binding port and initializing threads..");
 
-	  EventLoopGroup bossGroup;
-	  EventLoopGroup workerGroup;
-	  Class<? extends ServerSocketChannel> serverChannelClass;
-	  IoHandlerFactory ioHandlerFactory;
+    EventLoopGroup bossGroup;
+    EventLoopGroup workerGroup;
+    Class<? extends ServerSocketChannel> serverChannelClass;
+    IoHandlerFactory ioHandlerFactory;
 
-	  if (Epoll.isAvailable()) {
-		  ioHandlerFactory = EpollIoHandler.newFactory();
-		  serverChannelClass = EpollServerSocketChannel.class;
-		  logger.info("Using Epoll Event Loop");
-	  } else if (KQueue.isAvailable()) {
-		  ioHandlerFactory = KQueueIoHandler.newFactory();
-		  serverChannelClass = KQueueServerSocketChannel.class;
-		  logger.info("Using KQueue Event Loop");
-	  } else {
-		  ioHandlerFactory = NioIoHandler.newFactory();
-		  serverChannelClass = NioServerSocketChannel.class;
-		  logger.warning("Falling back to NIO Event Loop");
-	  }
+    if (Epoll.isAvailable()) {
+      ioHandlerFactory = EpollIoHandler.newFactory();
+      serverChannelClass = EpollServerSocketChannel.class;
+      logger.info("Using Epoll Event Loop");
+    } else if (KQueue.isAvailable()) {
+      ioHandlerFactory = KQueueIoHandler.newFactory();
+      serverChannelClass = KQueueServerSocketChannel.class;
+      logger.info("Using KQueue Event Loop");
+    } else {
+      ioHandlerFactory = NioIoHandler.newFactory();
+      serverChannelClass = NioServerSocketChannel.class;
+      logger.warning("Falling back to NIO Event Loop");
+    }
 
-	  bossGroup = new MultiThreadIoEventLoopGroup(1, ioHandlerFactory);
-	  workerGroup = new MultiThreadIoEventLoopGroup(ioHandlerFactory);
+    bossGroup = new MultiThreadIoEventLoopGroup(1, ioHandlerFactory);
+    workerGroup = new MultiThreadIoEventLoopGroup(ioHandlerFactory);
 
-	  ServerBootstrap serverBootstrap = new ServerBootstrap();
-	  serverBootstrap.group(bossGroup, workerGroup)
-		  .channel(serverChannelClass)
-		  .childHandler(new PipelineFactory());
+    ServerBootstrap serverBootstrap = new ServerBootstrap();
+    serverBootstrap
+        .group(bossGroup, workerGroup)
+        .channel(serverChannelClass)
+        .childHandler(new PipelineFactory());
 
-
-	  new LoginThread();
+    new LoginThread();
     new NetworkThread();
 
     while (true) {
@@ -120,6 +123,23 @@ public class GameThread extends Thread {
         Thread.sleep(2000);
       }
     }
+	  TaskQueue.queue(new Task(1000) { // 5 Min
+		  @Override
+		  public void execute() {
+			  for (Stoner stoner : World.getStoners()) {
+				  if (stoner != null && stoner.isActive()) {
+					  SaveWorker.enqueueSave(stoner);
+				  }
+			  }
+			  System.out.println("[AUTOSAVE] All active stoners enqueued for save.");
+		  }
+
+		  @Override
+		  public void onStop()
+		  {
+// NO-OP
+		  }
+	  });
 
     logger.info("Server successfully launched. [Took " + timer.elapsed() / 1000 + " seconds]");
   }
@@ -134,11 +154,12 @@ public class GameThread extends Thread {
     }
 
     try {
-		long start = System.nanoTime();
-		World.process();
-		System.out.println("World.process(): " + ((System.nanoTime() - start) / 1_000_000.0) + "ms");
+      World.process();
 
-	} catch (Exception e) {
+	  //long start = System.nanoTime();
+      //System.out.println("World.process(): " + ((System.nanoTime() - start) / 1_000_000.0) + "ms");
+
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }

@@ -181,8 +181,16 @@ public class UpdateFlags {
     return isUpdateRequired;
   }
 
+  public void setUpdateRequired(boolean isUpdateRequired) {
+    this.isUpdateRequired = isUpdateRequired;
+  }
+
   public boolean isForceMovement() {
     return forceMovement;
+  }
+
+  public void setForceMovement(boolean forceMovement) {
+    this.forceMovement = forceMovement;
   }
 
   public void reset() {
@@ -253,11 +261,11 @@ public class UpdateFlags {
     this.hitUpdateCombatType2 = hitUpdateCombatType2;
   }
 
-  public void setUpdateRequired(boolean isUpdateRequired) {
-    this.isUpdateRequired = isUpdateRequired;
-  }
+	public void faceDirection(int direction) {
+		this.entityFaceIndex = direction;
+		this.entityFaceUpdate = true;
+		this.isUpdateRequired = true;
+	}
 
-  public void setForceMovement(boolean forceMovement) {
-    this.forceMovement = forceMovement;
-  }
+
 }

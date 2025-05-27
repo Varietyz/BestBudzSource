@@ -23,11 +23,6 @@ public class SeaTrollQueen extends Mob {
   }
 
   @Override
-  public int getRespawnTime() {
-    return 60;
-  }
-
-  @Override
   public void updateCombatType() {
     CombatTypes type = CombatTypes.MELEE;
     if (getCombat().getAssaulting() != null) {
@@ -85,5 +80,10 @@ public class SeaTrollQueen extends Mob {
           break;
       }
     }
+  }
+
+  @Override
+  public int getRespawnTime() {
+    return 60;
   }
 }

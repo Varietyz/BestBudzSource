@@ -133,6 +133,9 @@ public class ForgingTask extends Task {
     if (++loop == amount) stop();
   }
 
+  @Override
+  public void onStop() {}
+
   public double getExperience() {
     switch (bar.getId()) {
       case 2349:
@@ -170,7 +173,4 @@ public class ForgingTask extends Task {
     }
     return stoner.getEquipment().isWearingItem(6575);
   }
-
-  @Override
-  public void onStop() {}
 }

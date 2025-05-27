@@ -9,21 +9,22 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.PacketHandler;
 import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.Channel;
 
 public class Client {
 
-	private final List<Mob> mobs = new LinkedList<Mob>();
+	private final List<Mob> mobs = new ArrayList<>();
 	private final Queue<ReceivedPacket> incomingPackets = new ConcurrentLinkedQueue<ReceivedPacket>();
 	private final Utility.Stopwatch timeoutStopwatch = new Utility.Stopwatch();
-	private final Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
+	private Map<Integer, TinterfaceText> interfaceText;
+
 	private Channel channel;
 	private Queue<OutgoingPacket> outgoingPackets = new ConcurrentLinkedQueue<OutgoingPacket>();
 	private Stages stage = Stages.LOGGING_IN;
@@ -70,12 +71,15 @@ public class Client {
 
 
 	public void disconnect() {
-	if (outgoingPackets != null) {
-		synchronized (outgoingPackets) {
-			outgoingPackets = null;
+		if (outgoingPackets != null) {
+			outgoingPackets.clear();
+		}
+		if (channel != null) {
+			channel.close();
 		}
 	}
-	}
+
+
 
 	public synchronized ISAACCipher getDecryptor() {
 	return decryptor;
@@ -164,15 +168,10 @@ public class Client {
 		if (outgoingPackets == null) {
 			return;
 		}
-		synchronized (incomingPackets) {
-			if (outgoingPackets == null) {
-				return;
-			}
-
-			while ((p = incomingPackets.poll()) != null) {
-				packetHandler.handlePacket(p);
-			}
+		while ((p = incomingPackets.poll()) != null) {
+			packetHandler.handlePacket(p);
 		}
+
 
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -186,20 +185,13 @@ public class Client {
 	}
 
 	try {
-		synchronized (channel) {
-			if (channel == null) {
-				return;
+
+			OutgoingPacket p;
+			while ((p = outgoingPackets.poll()) != null) {
+				p.execute(this);
 			}
-			synchronized (outgoingPackets) {
-				if (outgoingPackets == null) {
-					return;
-				}
-				OutgoingPacket p = null;
-				while ((p = outgoingPackets.poll()) != null) {
-					p.execute(this);
-				}
-			}
-		}
+
+
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -208,24 +200,15 @@ public class Client {
 	public void queueIncomingPacket(ReceivedPacket packet) {
 	resetLastPacketReceived();
 
-	synchronized (incomingPackets) {
 		incomingPackets.offer(packet);
-	}
 	}
 
 	public void queueOutgoingPacket(OutgoingPacket o) {
-	if (outgoingPackets == null) {
-		return;
-	}
-
-	synchronized (outgoingPackets) {
-		if (outgoingPackets == null) {
-			return;
+		if (outgoingPackets != null) {
+			outgoingPackets.offer(o);
 		}
+	}
 
-		outgoingPackets.offer(o);
-	}
-	}
 
 	public void reset() {
 	packetHandler.reset();
@@ -242,17 +225,19 @@ public class Client {
 
 			return;
 		}
-		synchronized (outgoingPackets) {
-			channel.writeAndFlush(buffer);
+		channel.writeAndFlush(buffer);
 
-		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
 	}
 
 	public boolean checkSendString(String text, int id) {
-	if (!interfaceText.containsKey(id)) {
+		if (interfaceText == null) {
+			interfaceText = new HashMap<>();
+		}
+
+		if (!interfaceText.containsKey(id)) {
 		interfaceText.put(id, new TinterfaceText(text, id));
 	} else {
 		TinterfaceText t = interfaceText.get(id);

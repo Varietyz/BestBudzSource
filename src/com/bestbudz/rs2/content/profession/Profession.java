@@ -2,6 +2,8 @@ package com.bestbudz.rs2.content.profession;
 
 import com.bestbudz.rs2.content.Advance;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
+import com.bestbudz.rs2.content.io.sqlite.SaveCache;
+import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
@@ -18,7 +20,7 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 public class Profession {
 
   public static final int[] EXP_FOR_GRADE = {
-    0, 15053, 30322, 45812, 61525, 77465, 93635, 110038, 126678, 143558,
+    0, 0, 15053, 30322, 45812, 61525, 77465, 93635, 110038, 126678, 143558,
     160681, 178051, 195671, 213546, 231678, 250072, 268732, 287660, 306862, 326340,
     346099, 366144, 386477, 407104, 428028, 449254, 470786, 492629, 514786, 537264,
     560065, 583195, 606659, 630461, 654607, 679101, 703948, 729154, 754723, 780660,
@@ -90,8 +92,8 @@ public class Profession {
   private final int meleeExp = 300;
   private final int sagittariusExp = 210;
   private final int mageExp = 120;
+  private final int combatGrade = 0;
   private double[] experience = new double[Professions.PROFESSION_COUNT];
-  private int combatGrade = 0;
   private long totalGrade = 0;
   private boolean expLock = false;
   private long lock = 0L;
@@ -108,21 +110,22 @@ public class Profession {
       }
   }
 
-  private static long binarySearch(double experience, int min, int max) {
-    while (min <= max) {
-      int mid = (min + max) / 2;
-      double value = EXP_FOR_GRADE[mid];
+	private static long binarySearch(double experience, int min, int max) {
+		while (min <= max) {
+			int mid = (min + max) / 2;
+			double value = EXP_FOR_GRADE[mid];
 
-      if (value > experience) {
-        max = mid - 1;
-      } else if (mid + 1 >= EXP_FOR_GRADE.length || EXP_FOR_GRADE[mid + 1] > experience) {
-        return mid + 1;
-      } else {
-        min = mid + 1;
-      }
-    }
-    return 0;
-  }
+			if (value > experience) {
+				max = mid - 1;
+			} else if (mid + 1 >= EXP_FOR_GRADE.length || EXP_FOR_GRADE[mid + 1] > experience) {
+				return mid;
+			} else {
+				min = mid + 1;
+			}
+		}
+		return 0;
+	}
+
 
   public void addCombatExperience(CombatTypes type, long hit) {
     if ((expLock) || (stoner.getMage().isDFireShieldEffect())) {
@@ -187,71 +190,53 @@ public class Profession {
     addExperience(3, exp * meleeExp * 1.33D);
   }
 
-  public double addExperience(int id, double experience) {
-    if ((expLock) && (id <= 6)) {
-      return 0;
-    }
+	public double addExperience(int id, double experience) {
+		if ((expLock) && (id <= 6)) {
+			return 0;
+		}
 
-    experience = experience * Professions.EXPERIENCE_RATES[id] * 1.0D;
+		experience = experience * Professions.EXPERIENCE_RATES[id] * 1.0D;
 
-    this.experience[id] += experience;
+		this.experience[id] += experience;
 
-    if (stoner.getMaxGrades()[id] == EXP_FOR_GRADE.length - 1) {
+		// Remove the 1,000,000,000 cap check since EXP_FOR_GRADE already has the max
+		long newGrade = getGradeForExperience(id, this.experience[id]);
 
-      if (this.experience[id] < 1_000_000_000) {
-        stoner.send(new SendExpCounter(id, (int) experience));
-      }
+		int cap = EXP_FOR_GRADE.length - 1;
+		if (newGrade > cap) {
+			newGrade = cap;
+		}
 
-      if (this.experience[id] >= 1_000_000_000) {
-        this.experience[id] = 1_000_000_000;
-      }
+		if (stoner.getMaxGrades()[id] < newGrade) {
+			getGrades()[id] = ((newGrade - (stoner.getMaxGrades()[id] - getGrades()[id])));
+			stoner.getMaxGrades()[id] = newGrade;
 
-      update(id);
-      return experience;
-    }
+			updateTotalGrade();
+			onUpgrade(newGrade, id);
+			stoner.setAppearanceUpdateRequired(true);
 
-    long newGrade = getGradeForExperience(id, this.experience[id]);
+			if (newGrade == cap) {
+				World.sendGlobalMessage(
+					"<col=855907><img=12> "
+						+ stoner.getUsername()
+						+ " has achieved grade "
+						+ cap
+						+ " in "
+						+ Professions.PROFESSION_NAMES[id]
+						+ "! Advance grade: "
+						+ stoner.getProfessionAdvances()[id]);
+				stoner.getUpdateFlags().sendForceMessage("SMOKE SESH!");
+				stoner.getUpdateFlags().sendGraphic(new Graphic(354, true));
+				stoner.getUpdateFlags().sendAnimation(new Animation(884));
+			}
+		}
 
-    int cap = EXP_FOR_GRADE.length - 1;
-    if (newGrade > cap) {
-      newGrade = cap;
-    }
-
-    if (stoner.getMaxGrades()[id] < newGrade) {
-      getGrades()[id] = ((newGrade - (stoner.getMaxGrades()[id] - getGrades()[id])));
-      stoner.getMaxGrades()[id] = ((newGrade));
-
-      updateTotalGrade();
-
-      onUpgrade(newGrade, id);
-
-      stoner.setAppearanceUpdateRequired(true);
-
-      if (newGrade == cap) {
-        World.sendGlobalMessage(
-            "<col=855907><img=12> "
-                + stoner.getUsername()
-                + " has achieved grade "
-                + cap
-                + " in "
-                + Professions.PROFESSION_NAMES[id]
-                + "! Advance grade: "
-                + stoner.getProfessionAdvances()[id]);
-        stoner.getUpdateFlags().sendForceMessage("SMOKE SESH!");
-        stoner.getUpdateFlags().sendGraphic(new Graphic(354, true));
-        stoner.getUpdateFlags().sendAnimation(new Animation(884));
-      }
-    }
-
-    if (this.experience[id] >= 1000000000) {
-      this.experience[id] = 1000000000;
-    } else {
-      stoner.send(new SendExpCounter(id, (int) experience));
-    }
-
-    update(id);
-    return experience;
-  }
+		// Remove the 1,000,000,000 cap here as well
+		stoner.send(new SendExpCounter(id, (int) experience));
+		SaveCache.markDirty(stoner);
+		update(id);
+		return experience;
+	}
 
   public void deductFromGrade(int id, int amount) {
     getGrades()[id] = ((getGrades()[id] - amount));
@@ -310,15 +295,31 @@ public class Profession {
     this.experience = experience;
   }
 
-  public long getGradeForExperience(final int id, double experience) {
-    int maxGrade = EXP_FOR_GRADE.length - 1;
-    if (experience >= EXP_FOR_GRADE[maxGrade]) {
-      return maxGrade;
-    }
-    return binarySearch(experience, 0, maxGrade);
-  }
+	public long getGradeForExperience(final int id, double experience) {
+		// Check for exact max grade first
+		if (experience >= EXP_FOR_GRADE[EXP_FOR_GRADE.length - 1]) {
+			return EXP_FOR_GRADE.length - 1;
+		}
 
-  public long[] getGrades() {
+		// Binary search for the correct grade
+		int low = 0;
+		int high = EXP_FOR_GRADE.length - 1;
+		int result = 0;
+
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			if (EXP_FOR_GRADE[mid] <= experience) {
+				result = mid;
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+		}
+
+		return result;
+	}
+
+	public long[] getGrades() {
     return stoner.getGrades();
   }
 
@@ -336,11 +337,6 @@ public class Profession {
     long total = 0L;
 
     for (int ii = 0; ii < experience.length; ii++) {
-      if (ii == Professions.SUMMONING
-          || ii == Professions.CONSTRUCTION
-          || ii == Professions.DUNGEONEERING) {
-        continue;
-      }
 
       double i = experience[ii];
       total = (long) (total + (i > 1_000_000_000.0D ? 1_000_000_000.0D : i));
@@ -430,6 +426,7 @@ public class Profession {
     String line2 = "You have reached grade " + lvl + "!";
 
     stoner.getClient().queueOutgoingPacket(new SendMessage(line1));
+	  SaveWorker.enqueueSave(stoner);
 
     if (profession == Professions.CULTIVATION) {
       stoner.send(new SendInterfaceConfig(4888, 200, 5340));
@@ -453,7 +450,6 @@ public class Profession {
           .getClient()
           .queueOutgoingPacket(new SendString(line2, Professions.CHAT_INTERFACES[profession][3]));
     }
-
     stoner.getUpdateFlags().setUpdateRequired(true);
   }
 
@@ -505,6 +501,7 @@ public class Profession {
 
   public void update() {
     for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
+
       update(i);
     }
   }
@@ -520,6 +517,7 @@ public class Profession {
       stoner.send(new SendColor(Professions.REFRESH_DATA[id][1], 0x070707));
       stoner.send(new SendColor(Professions.REFRESH_DATA[id][0], 0x070707));
     }
+
   }
 
   public void resetColors() {
@@ -536,18 +534,22 @@ public class Profession {
     }
   }
 
-  public void updateGradesForExperience() {
-    for (int i = 0; i < Professions.PROFESSION_COUNT; i++)
-      stoner.getMaxGrades()[i] = getGradeForExperience(i, experience[i]);
-  }
+	public void updateGradesForExperience() {
+		int capGrade = EXP_FOR_GRADE.length - 1;
+		for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
+			stoner.getMaxGrades()[i] = getGradeForExperience(i, experience[i]);
+			// Ensure current grade matches max grade
+			if (getGrades()[i] < stoner.getMaxGrades()[i]) {
+				getGrades()[i] = stoner.getMaxGrades()[i];
+			}
+		}
+	}
+
 
   public void updateTotalGrade() {
     totalGrade = 0;
 
     for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
-      if (i == Professions.CONSTRUCTION) {
-        continue;
-      }
       totalGrade += stoner.getMaxGrades()[i];
     }
   }

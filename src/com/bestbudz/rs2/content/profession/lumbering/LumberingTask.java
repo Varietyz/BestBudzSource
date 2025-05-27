@@ -192,6 +192,9 @@ public class LumberingTask extends Task {
     animate();
   }
 
+  @Override
+  public void onStop() {}
+
   private void handleGivingLogs() {
     stoner.getBox().add(new Item(tree.getReward(), 1));
     stoner.getProfession().addExperience(Professions.LUMBERING, tree.getExperience());
@@ -223,9 +226,6 @@ public class LumberingTask extends Task {
     }
     return false;
   }
-
-  @Override
-  public void onStop() {}
 
   private void successfulAttempt() {
     stoner.getClient().queueOutgoingPacket(new SendSound(1312, 5, 0));

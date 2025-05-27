@@ -29,3 +29,6 @@ gradle-app.setting
 /data/logs/err
 /data/logs
 *.zip
+*.db-wal
+*.db-shm
+*.db

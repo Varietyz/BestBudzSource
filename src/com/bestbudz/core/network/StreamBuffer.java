@@ -3,8 +3,72 @@ package com.bestbudz.core.network;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-
 public abstract class StreamBuffer {
+
+  public static final int[] BIT_MASK = {
+    0,
+    0x1,
+    0x3,
+    0x7,
+    0xf,
+    0x1f,
+    0x3f,
+    0x7f,
+    0xff,
+    0x1ff,
+    0x3ff,
+    0x7ff,
+    0xfff,
+    0x1fff,
+    0x3fff,
+    0x7fff,
+    0xffff,
+    0x1ffff,
+    0x3ffff,
+    0x7ffff,
+    0xfffff,
+    0x1fffff,
+    0x3fffff,
+    0x7fffff,
+    0xffffff,
+    0x1ffffff,
+    0x3ffffff,
+    0x7ffffff,
+    0xfffffff,
+    0x1fffffff,
+    0x3fffffff,
+    0x7fffffff,
+    -1
+  };
+  private AccessType accessType = AccessType.BYTE_ACCESS;
+  private int bitLocation = 0;
+
+  public static final InBuffer newInBuffer(ByteBuf data) {
+    return new InBuffer(data);
+  }
+
+  public static final OutBuffer newOutBuffer(int size) {
+    return new OutBuffer(size);
+  }
+
+  public AccessType getAccessType() {
+    return accessType;
+  }
+
+  public void setAccessType(AccessType accessType) {
+    this.accessType = accessType;
+    switchAccessType(accessType);
+  }
+
+  public int getBitLocation() {
+    return bitLocation;
+  }
+
+  public void setBitLocation(int bitLocation) {
+    this.bitLocation = bitLocation;
+  }
+
+  abstract void switchAccessType(AccessType type);
 
   public enum AccessType {
     BYTE_ACCESS,
@@ -16,6 +80,13 @@ public abstract class StreamBuffer {
     BIG,
     MIDDLE,
     INVERSE_MIDDLE
+  }
+
+  public enum ValueType {
+    STANDARD,
+    A,
+    C,
+    S
   }
 
   public static final class InBuffer extends StreamBuffer {
@@ -264,6 +335,14 @@ public abstract class StreamBuffer {
         throw new UnsupportedOperationException("Reading bits is not implemented!");
       }
     }
+
+	  public boolean readable() {
+		  return buffer != null && buffer.isReadable();
+	  }
+
+	  public int readableBytes() {
+		  return buffer != null ? buffer.readableBytes() : 0;
+	  }
   }
 
   public static final class OutBuffer extends StreamBuffer {
@@ -389,7 +468,7 @@ public abstract class StreamBuffer {
       writeInt(value, ValueType.STANDARD, ByteOrder.BIG);
     }
 
-    public void writeInt(int value, ByteOrder order) {
+    public void writeInt(long value, ByteOrder order) {
       writeInt(value, ValueType.STANDARD, order);
     }
 
@@ -397,7 +476,7 @@ public abstract class StreamBuffer {
       writeInt(value, type, ByteOrder.BIG);
     }
 
-    public void writeInt(int value, ValueType type, ByteOrder order) {
+    public void writeInt(long value, ValueType type, ByteOrder order) {
       switch (order) {
         case BIG:
           writeByte(value >> 24);
@@ -514,79 +593,8 @@ public abstract class StreamBuffer {
       lengthLocation = buffer.writerIndex();
       writeShort(0);
     }
+
   }
 
-  public enum ValueType {
-    STANDARD,
-    A,
-    C,
-    S
-  }
 
-  public static final int[] BIT_MASK = {
-    0,
-    0x1,
-    0x3,
-    0x7,
-    0xf,
-    0x1f,
-    0x3f,
-    0x7f,
-    0xff,
-    0x1ff,
-    0x3ff,
-    0x7ff,
-    0xfff,
-    0x1fff,
-    0x3fff,
-    0x7fff,
-    0xffff,
-    0x1ffff,
-    0x3ffff,
-    0x7ffff,
-    0xfffff,
-    0x1fffff,
-    0x3fffff,
-    0x7fffff,
-    0xffffff,
-    0x1ffffff,
-    0x3ffffff,
-    0x7ffffff,
-    0xfffffff,
-    0x1fffffff,
-    0x3fffffff,
-    0x7fffffff,
-    -1
-  };
-
-  public static final InBuffer newInBuffer(ByteBuf data) {
-    return new InBuffer(data);
-  }
-
-  public static final OutBuffer newOutBuffer(int size) {
-    return new OutBuffer(size);
-  }
-
-  private AccessType accessType = AccessType.BYTE_ACCESS;
-
-  private int bitLocation = 0;
-
-  public AccessType getAccessType() {
-    return accessType;
-  }
-
-  public int getBitLocation() {
-    return bitLocation;
-  }
-
-  public void setAccessType(AccessType accessType) {
-    this.accessType = accessType;
-    switchAccessType(accessType);
-  }
-
-  public void setBitLocation(int bitLocation) {
-    this.bitLocation = bitLocation;
-  }
-
-  abstract void switchAccessType(AccessType type);
 }

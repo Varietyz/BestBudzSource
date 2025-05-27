@@ -7,10 +7,10 @@ import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
 public final class SendProfession extends OutgoingPacket {
 
   private final int id;
-  private final int grade;
-  private final int exp;
+  private final long grade;
+  private final long exp;
 
-  public SendProfession(int id, int grade, int exp) {
+  public SendProfession(int id, long grade, long exp) {
     this.id = id;
     this.grade = grade;
     this.exp = exp;

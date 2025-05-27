@@ -301,6 +301,10 @@ public abstract class ItemContainer {
     return items;
   }
 
+  public void setItems(Item[] items) {
+    this.items = items;
+  }
+
   public int getItemSlot(int id) {
     for (int i = 0; i < size; i++) {
       if (items[i] == null) {
@@ -817,14 +821,6 @@ public abstract class ItemContainer {
     return amount;
   }
 
-  public enum ContainerTypes {
-    NEVER_STACK,
-
-    STACK,
-
-    ALWAYS_STACK
-  }
-
   public void setId(int slot, int id) {
     if ((slot > size) || (slot < 0)) {
       return;
@@ -840,10 +836,6 @@ public abstract class ItemContainer {
 
     onAdd(items[slot]);
     update();
-  }
-
-  public void setItems(Item[] items) {
-    this.items = items;
   }
 
   public void setSlot(Item item, int slot) {
@@ -976,4 +968,12 @@ public abstract class ItemContainer {
   }
 
   public abstract void update();
+
+  public enum ContainerTypes {
+    NEVER_STACK,
+
+    STACK,
+
+    ALWAYS_STACK
+  }
 }

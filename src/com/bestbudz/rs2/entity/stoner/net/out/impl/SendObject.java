@@ -25,7 +25,7 @@ public class SendObject extends OutgoingPacket {
     out.writeHeader(client.getEncryptor(), getOpcode());
     out.writeByte(0, StreamBuffer.ValueType.S);
     out.writeShort(o.getId(), StreamBuffer.ByteOrder.LITTLE);
-    out.writeByte(((o.getType() << 2) + (o.getFace() & 3)), StreamBuffer.ValueType.S);
+    out.writeByte((((long) o.getType() << 2) + (o.getFace() & 3)), StreamBuffer.ValueType.S);
     client.send(out.getBuffer());
   }
 

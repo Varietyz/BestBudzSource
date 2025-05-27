@@ -28,7 +28,8 @@ public class SendAnimateObject extends OutgoingPacket {
     StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
     out.writeHeader(client.getEncryptor(), 160);
     out.writeByte(0, StreamBuffer.ValueType.S);
-    out.writeByte((object.getType() << 2) + (object.getFace() & 3), StreamBuffer.ValueType.S);
+    out.writeByte(
+        ((long) object.getType() << 2) + (object.getFace() & 3), StreamBuffer.ValueType.S);
     out.writeShort(animation, StreamBuffer.ValueType.A);
     client.send(out.getBuffer());
   }

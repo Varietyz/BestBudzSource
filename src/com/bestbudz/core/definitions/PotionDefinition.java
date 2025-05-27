@@ -16,6 +16,10 @@ public class PotionDefinition {
     return name;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
   public PotionTypes getPotionType() {
     return potionType;
   }
@@ -52,9 +56,5 @@ public class PotionDefinition {
     public int getProfessionId() {
       return professionId;
     }
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 }

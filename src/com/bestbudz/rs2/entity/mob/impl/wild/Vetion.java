@@ -58,14 +58,6 @@ public class Vetion extends Mob {
 	}
 
 	@Override
-	public void onDeath() {
-	transform(6611);
-	spawnPets = true;
-	secondTrans = false;
-	pet1 = pet2 = null;
-	}
-
-	@Override
 	public void onHit(Entity entity, Hit hit) {
 	if (entity != null && !entity.isNpc()) {
 		int random = Utility.random(10);
@@ -87,6 +79,14 @@ public class Vetion extends Mob {
 			}
 		}
 	}
+	}
+
+	@Override
+	public void onDeath() {
+	transform(6611);
+	spawnPets = true;
+	secondTrans = false;
+	pet1 = pet2 = null;
 	}
 
 	private void doReborn() {

@@ -1,6 +1,5 @@
 package com.bestbudz.core.network;
 
-import com.bestbudz.core.network.ChannelHandler;
 import com.bestbudz.core.network.login.Encoder;
 import com.bestbudz.core.network.login.LoginDecoder;
 import io.netty.channel.ChannelInitializer;

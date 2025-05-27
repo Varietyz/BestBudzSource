@@ -9,23 +9,18 @@ import com.bestbudz.rs2.entity.pathfinding.SimplePathWalker;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class MobWalkTask extends Task {
+
   private final Mob mob;
-  private final Location l;
+  private final Location destination;
   private final boolean shouldWait;
   private byte wait = 0;
 
-  public MobWalkTask(Mob mob, Location l, boolean shouldWait) {
-    super(
-        mob,
-        1,
-        true,
-        Task.StackType.NEVER_STACK,
-        Task.BreakType.NEVER,
-        TaskIdentifier.CURRENT_ACTION);
+  public MobWalkTask(Mob mob, Location destination, boolean shouldWait) {
+    super(mob, 1, true, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CURRENT_ACTION);
     this.mob = mob;
-    mob.setForceWalking(true);
-    this.l = l;
+    this.destination = destination;
     this.shouldWait = shouldWait;
+    mob.setForceWalking(true);
   }
 
   @Override
@@ -35,33 +30,37 @@ public class MobWalkTask extends Task {
       return;
     }
 
-    if (Utility.getManhattanDistance(l, mob.getLocation()) <= 0) {
+    if (Utility.getManhattanDistance(destination, mob.getLocation()) == 0) {
       stop();
-    } else {
-      SimplePathWalker.walkToNextTile(mob, l);
-
-      if (mob.getMovementHandler().getPrimaryDirection() == -1) {
-        if (shouldWait) {
-          if (wait != 0) {
-            wait = ((byte) (wait - 1));
-            return;
-          }
-
-          for (Stoner p : World.getStoners()) {
-            if ((p != null) && (mob.getLocation().isViewableFrom(p.getLocation()))) {
-              wait = 15;
-              return;
-            }
-          }
-
-          mob.teleport(l);
-        }
-
-        stop();
-      } else {
-        mob.getCombat().reset();
-      }
+      return;
     }
+
+    SimplePathWalker.walkToNextTile(mob, destination);
+
+    if (mob.getMovementHandler().getPrimaryDirection() != -1) {
+      mob.getCombat().reset();
+      return;
+    }
+
+    if (shouldWait) {
+      if (wait > 0) {
+        wait--;
+        return;
+      }
+
+      // Delay only if a player is nearby
+      for (Stoner stoner : World.getStoners()) {
+        if (stoner != null && mob.getLocation().isViewableFrom(stoner.getLocation())) {
+          wait = 15;
+          return;
+        }
+      }
+
+      // Teleport only if safe
+      mob.teleport(destination);
+    }
+
+    stop();
   }
 
   @Override

@@ -166,6 +166,9 @@ public class WildernessController extends Controller {
   }
 
   @Override
+  public void onKill(Stoner stoner, Entity killed) {}
+
+  @Override
   public void onDisconnect(Stoner p) {}
 
   @Override
@@ -192,7 +195,4 @@ public class WildernessController extends Controller {
   public boolean transitionOnWalk(Stoner p) {
     return true;
   }
-
-  @Override
-  public void onKill(Stoner stoner, Entity killed) {}
 }

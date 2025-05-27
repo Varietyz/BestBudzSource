@@ -543,6 +543,113 @@ public class Flowers {
     return true;
   }
 
+  public boolean curePlant(int objectX, int objectY, int itemId) {
+    if (stoner.getProfession().locked()) {
+      return false;
+    }
+    final FlowerFieldsData flowerFieldsData =
+        FlowerFieldsData.forIdPosition(new Point(objectX, objectY));
+    if (flowerFieldsData == null || itemId != 6036) {
+      return false;
+    }
+    final FlowerData flowerData = FlowerData.forId(flowerSeeds[flowerFieldsData.getFlowerIndex()]);
+    if (flowerData == null) {
+      return false;
+    }
+    if (flowerState[flowerFieldsData.getFlowerIndex()] != 2) {
+      stoner.send(new SendMessage("This plant doesn't need to be cured."));
+      return true;
+    }
+    stoner.getBox().remove(itemId, 1);
+    stoner.getBox().add(229, 1);
+    stoner.getUpdateFlags().sendAnimation(new Animation(CultivationConstants.CURING_ANIM));
+    flowerState[flowerFieldsData.getFlowerIndex()] = 0;
+    stoner.getProfession().lock(7);
+    Controller controller = stoner.getController();
+    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
+    TaskQueue.queue(
+        new Task(
+            stoner, 7, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
+          @Override
+          public void execute() {
+            stoner.send(new SendMessage("You cure the plant with a PK 13-14."));
+            stop();
+          }
+
+          @Override
+          public void onStop() {
+            updateFlowerStates();
+            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
+            stoner.setController(controller);
+          }
+        });
+    return true;
+  }
+
+  public boolean plantScareCrow(int objectX, int objectY, int itemId) {
+    if (stoner.getProfession().locked()) {
+      return false;
+    }
+    final FlowerFieldsData flowerFieldsData =
+        FlowerFieldsData.forIdPosition(new Point(objectX, objectY));
+    if (flowerFieldsData == null || itemId != SCARECROW) {
+      return false;
+    }
+    if (flowerStages[flowerFieldsData.getFlowerIndex()] != 3) {
+      stoner.send(new SendMessage("You need to clear the patch before planting a scarecrow"));
+      return false;
+    }
+    stoner.getBox().remove(SCARECROW, 1);
+    stoner.getUpdateFlags().sendAnimation(new Animation(832));
+    stoner.getProfession().lock(2);
+    Controller controller = stoner.getController();
+    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
+    TaskQueue.queue(
+        new Task(
+            stoner, 2, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
+          @Override
+          public void execute() {
+            stoner.send(
+                new SendMessage(
+                    "You put a scarecrow on the flower patch, and some weeds start to grow around it."));
+            flowerSeeds[flowerFieldsData.getFlowerIndex()] = 0x24;
+            flowerStages[flowerFieldsData.getFlowerIndex()] = 4;
+            flowerTimer[flowerFieldsData.getFlowerIndex()] = Cultivation.getMinutesCounter(stoner);
+            stop();
+          }
+
+          @Override
+          public void onStop() {
+            updateFlowerStates();
+            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
+            stoner.setController(controller);
+          }
+        });
+    return true;
+  }
+
+  @SuppressWarnings("unused")
+  private void resetFlowers() {
+    for (int i = 0; i < flowerStages.length; i++) {
+      flowerSeeds[i] = 0;
+      flowerState[i] = 0;
+      diseaseChance[i] = 0;
+    }
+  }
+
+  private void resetFlowers(int index) {
+    flowerSeeds[index] = 0;
+    flowerState[index] = 0;
+    diseaseChance[index] = 1;
+  }
+
+  public boolean checkIfRaked(int objectX, int objectY) {
+    final FlowerFieldsData flowerFieldsData =
+        FlowerFieldsData.forIdPosition(new Point(objectX, objectY));
+    if (flowerFieldsData == null) return false;
+    return flowerStages[flowerFieldsData.getFlowerIndex()] == 3;
+  }
+
   public enum FlowerData {
     MARIGOLD(5096, 6010, 2, 20, 0.35, 8.5, 47, 0x08, 0x0c),
     ROSEMARY(5097, 6014, 11, 20, 0.32, 12, 66.5, 0x0d, 0x11),
@@ -762,112 +869,5 @@ public class Flowers {
     public String[][] getMessages() {
       return messages;
     }
-  }
-
-  public boolean curePlant(int objectX, int objectY, int itemId) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
-    final FlowerFieldsData flowerFieldsData =
-        FlowerFieldsData.forIdPosition(new Point(objectX, objectY));
-    if (flowerFieldsData == null || itemId != 6036) {
-      return false;
-    }
-    final FlowerData flowerData = FlowerData.forId(flowerSeeds[flowerFieldsData.getFlowerIndex()]);
-    if (flowerData == null) {
-      return false;
-    }
-    if (flowerState[flowerFieldsData.getFlowerIndex()] != 2) {
-      stoner.send(new SendMessage("This plant doesn't need to be cured."));
-      return true;
-    }
-    stoner.getBox().remove(itemId, 1);
-    stoner.getBox().add(229, 1);
-    stoner.getUpdateFlags().sendAnimation(new Animation(CultivationConstants.CURING_ANIM));
-    flowerState[flowerFieldsData.getFlowerIndex()] = 0;
-    stoner.getProfession().lock(7);
-    Controller controller = stoner.getController();
-    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
-    TaskQueue.queue(
-        new Task(
-            stoner, 7, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
-          @Override
-          public void execute() {
-            stoner.send(new SendMessage("You cure the plant with a PK 13-14."));
-            stop();
-          }
-
-          @Override
-          public void onStop() {
-            updateFlowerStates();
-            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
-            stoner.setController(controller);
-          }
-        });
-    return true;
-  }
-
-  public boolean plantScareCrow(int objectX, int objectY, int itemId) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
-    final FlowerFieldsData flowerFieldsData =
-        FlowerFieldsData.forIdPosition(new Point(objectX, objectY));
-    if (flowerFieldsData == null || itemId != SCARECROW) {
-      return false;
-    }
-    if (flowerStages[flowerFieldsData.getFlowerIndex()] != 3) {
-      stoner.send(new SendMessage("You need to clear the patch before planting a scarecrow"));
-      return false;
-    }
-    stoner.getBox().remove(SCARECROW, 1);
-    stoner.getUpdateFlags().sendAnimation(new Animation(832));
-    stoner.getProfession().lock(2);
-    Controller controller = stoner.getController();
-    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
-    TaskQueue.queue(
-        new Task(
-            stoner, 2, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
-          @Override
-          public void execute() {
-            stoner.send(
-                new SendMessage(
-                    "You put a scarecrow on the flower patch, and some weeds start to grow around it."));
-            flowerSeeds[flowerFieldsData.getFlowerIndex()] = 0x24;
-            flowerStages[flowerFieldsData.getFlowerIndex()] = 4;
-            flowerTimer[flowerFieldsData.getFlowerIndex()] = Cultivation.getMinutesCounter(stoner);
-            stop();
-          }
-
-          @Override
-          public void onStop() {
-            updateFlowerStates();
-            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
-            stoner.setController(controller);
-          }
-        });
-    return true;
-  }
-
-  @SuppressWarnings("unused")
-  private void resetFlowers() {
-    for (int i = 0; i < flowerStages.length; i++) {
-      flowerSeeds[i] = 0;
-      flowerState[i] = 0;
-      diseaseChance[i] = 0;
-    }
-  }
-
-  private void resetFlowers(int index) {
-    flowerSeeds[index] = 0;
-    flowerState[index] = 0;
-    diseaseChance[index] = 1;
-  }
-
-  public boolean checkIfRaked(int objectX, int objectY) {
-    final FlowerFieldsData flowerFieldsData =
-        FlowerFieldsData.forIdPosition(new Point(objectX, objectY));
-    if (flowerFieldsData == null) return false;
-    return flowerStages[flowerFieldsData.getFlowerIndex()] == 3;
   }
 }

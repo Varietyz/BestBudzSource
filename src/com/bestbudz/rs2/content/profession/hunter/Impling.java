@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.hunter;
 
-import java.util.HashMap;
-import java.util.Random;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Location;
@@ -10,6 +7,8 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.HashMap;
+import java.util.Random;
 
 public class Impling {
 
@@ -72,6 +71,72 @@ public class Impling {
     };
     int random_location = Utility.randomNumber(location.length - 1);
     impling.teleport(new Location(location[random_location][0], location[random_location][1]));
+  }
+
+  public static void appendImpling() {
+    for (int i = 0; i < 20; i++) {
+      int[] implings = {1028, 1029, 1030, 1031, 1032, 1033, 1034, 1035, 6063, 6064, 6064, 6064};
+      int[][] location = {
+        {2320, 3810},
+        {3148, 3508},
+        {2999, 3356},
+        {2987, 3408},
+        {2655, 2662},
+        {2667, 2648},
+        {3092, 3230},
+        {3072, 3246},
+        {3078, 3267},
+        {3052, 3268},
+        {3020, 3245},
+        {3371, 3267},
+        {3083, 3484},
+        {3100, 3504},
+        {3074, 3506},
+        {2906, 3149},
+        {2328, 3795},
+        {2359, 3800},
+        {3037, 3236},
+        {2026, 3208},
+        {2996, 3193},
+        {3008, 3168},
+        {2974, 3391},
+        {2962, 3378},
+        {2949, 3375},
+        {2941, 3361},
+        {2972, 3342},
+        {3032, 3369},
+        {3043, 3357},
+        {3061, 3372},
+        {2972, 3301},
+        {2911, 3171},
+        {2883, 3175},
+        {2925, 3146},
+        {2342, 3819},
+        {2359, 3800},
+        {2359, 3800},
+        {3187, 3229},
+        {3217, 3249},
+        {3236, 3226},
+        {3236, 3201},
+        {3220, 3216},
+        {3209, 3232},
+        {3263, 3234},
+        {3263, 3234},
+        {3132, 3405},
+        {3155, 3420},
+        {3194, 3433},
+        {3218, 3425},
+        {3242, 3438},
+        {3265, 3420},
+        {3233, 3434}
+      };
+      int npc = Utility.randomNumber(implings.length - 1);
+      int random_location = Utility.randomNumber(location.length - 1);
+      new Mob(
+          implings[npc],
+          true,
+          new Location(location[random_location][0], location[random_location][1]));
+    }
   }
 
   public enum ImplingRewards {
@@ -409,72 +474,6 @@ public class Impling {
       public int getJar() {
         return itemId;
       }
-    }
-  }
-
-  public static void appendImpling() {
-    for (int i = 0; i < 20; i++) {
-      int[] implings = {1028, 1029, 1030, 1031, 1032, 1033, 1034, 1035, 6063, 6064, 6064, 6064};
-      int[][] location = {
-        {2320, 3810},
-        {3148, 3508},
-        {2999, 3356},
-        {2987, 3408},
-        {2655, 2662},
-        {2667, 2648},
-        {3092, 3230},
-        {3072, 3246},
-        {3078, 3267},
-        {3052, 3268},
-        {3020, 3245},
-        {3371, 3267},
-        {3083, 3484},
-        {3100, 3504},
-        {3074, 3506},
-        {2906, 3149},
-        {2328, 3795},
-        {2359, 3800},
-        {3037, 3236},
-        {2026, 3208},
-        {2996, 3193},
-        {3008, 3168},
-        {2974, 3391},
-        {2962, 3378},
-        {2949, 3375},
-        {2941, 3361},
-        {2972, 3342},
-        {3032, 3369},
-        {3043, 3357},
-        {3061, 3372},
-        {2972, 3301},
-        {2911, 3171},
-        {2883, 3175},
-        {2925, 3146},
-        {2342, 3819},
-        {2359, 3800},
-        {2359, 3800},
-        {3187, 3229},
-        {3217, 3249},
-        {3236, 3226},
-        {3236, 3201},
-        {3220, 3216},
-        {3209, 3232},
-        {3263, 3234},
-        {3263, 3234},
-        {3132, 3405},
-        {3155, 3420},
-        {3194, 3433},
-        {3218, 3425},
-        {3242, 3438},
-        {3265, 3420},
-        {3233, 3434}
-      };
-      int npc = Utility.randomNumber(implings.length - 1);
-      int random_location = Utility.randomNumber(location.length - 1);
-      new Mob(
-          implings[npc],
-          true,
-          new Location(location[random_location][0], location[random_location][1]));
     }
   }
 }

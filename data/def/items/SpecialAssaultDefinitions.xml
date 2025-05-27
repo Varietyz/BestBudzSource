@@ -48,7 +48,7 @@
 		<button>29138</button>
 		<amount>10.0</amount>
 	</SpecialAssaultDefinition>
-    <SpecialAssaultDefinition>
+	<SpecialAssaultDefinition>
 		<id>20076</id>
 		<barId1>7574</barId1>
 		<barId2>7586</barId2>
@@ -293,7 +293,7 @@
 		<button>29124</button>
 		<amount>10</amount>
 	</SpecialAssaultDefinition>
-		<SpecialAssaultDefinition>
+	<SpecialAssaultDefinition>
 		<id>12926</id>
 		<barId1>7549</barId1>
 		<barId2>7561</barId2>
@@ -314,14 +314,14 @@
 		<button>29124</button>
 		<amount>5</amount>
 	</SpecialAssaultDefinition>
-		<SpecialAssaultDefinition>
+	<SpecialAssaultDefinition>
 		<id>6724</id>
 		<barId1>7549</barId1>
 		<barId2>7561</barId2>
 		<button>29124</button>
 		<amount>5.5</amount>
 	</SpecialAssaultDefinition>
-		<SpecialAssaultDefinition>
+	<SpecialAssaultDefinition>
 		<id>12924</id>
 		<barId1>7549</barId1>
 		<barId2>7561</barId2>

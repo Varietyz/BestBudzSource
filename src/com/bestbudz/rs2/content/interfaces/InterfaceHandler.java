@@ -11,14 +11,15 @@ public abstract class InterfaceHandler {
     this.stoner = stoner;
   }
 
-  public static void writeText(InterfaceHandler interfacetext) {
-    int line = interfacetext.startingLine();
-    for (int i1 = 0; i1 < interfacetext.text().length; i1++) {
-      interfacetext.stoner.send(new SendString(interfacetext.text()[i1], line++));
-    }
-  }
+	public static void writeText(InterfaceHandler handler) {
+		int frame = handler.startingLine();
+		for (String line : handler.text()) {
+			handler.stoner.send(new SendString(line, frame++));
+			System.out.println("Sending text to frame " + frame + ": " + line);
+		}
+	}
 
-  protected abstract String[] text();
+	protected abstract String[] text();
 
   protected abstract int startingLine();
 }

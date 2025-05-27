@@ -68,6 +68,11 @@ public class F2PArenaController extends GenericMinigameController {
   }
 
   @Override
+  public boolean canTrade() {
+    return false;
+  }
+
+  @Override
   public boolean canUseCombatType(Stoner paramStoner, CombatTypes paramCombatTypes) {
     return true;
   }
@@ -107,6 +112,9 @@ public class F2PArenaController extends GenericMinigameController {
   public void onDisconnect(Stoner paramStoner) {}
 
   @Override
+  public void onTeleport(Stoner p) {}
+
+  @Override
   public void tick(Stoner paramStoner) {}
 
   @Override
@@ -123,12 +131,4 @@ public class F2PArenaController extends GenericMinigameController {
   public boolean canDrop(Stoner stoner) {
     return true;
   }
-
-  @Override
-  public boolean canTrade() {
-    return false;
-  }
-
-  @Override
-  public void onTeleport(Stoner p) {}
 }

@@ -97,7 +97,7 @@ public class RegenerateProfessionTask extends Task {
       long max = entity.getMaxGrades()[i];
 
       if (lvl != max) {
-        entity.getGrades()[i] += (lvl < max ? 1 : -1);
+        entity.getGrades()[i] += (lvl < max ? 1 : 0);
         if (profession != null) {
           profession.update(i);
         }

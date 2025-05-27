@@ -52,7 +52,7 @@ public class MembershipDialogue extends Dialogue {
             stoner,
             "Okay!",
             "Coming soon",
-            "I have purchased something",
+            "I have something",
             "Update rank",
             "Nevermind");
         break;
@@ -61,10 +61,10 @@ public class MembershipDialogue extends Dialogue {
             stoner,
             5523,
             Emotion.DEFAULT,
-            "BestBudz cannacredits can be purchased on our online store.",
+            "BestBudz cannacredits can be obtained by advancing professions.",
             "They can be used for buying items from my store ",
-            "and many other features in game.",
-            "Including purchasing cannacredits in the cannacredits tab.");
+            "and some other features in game.",
+            "Including spawning cannacredits in the cannacredits tab.");
         setNext(1);
         break;
       case 3:

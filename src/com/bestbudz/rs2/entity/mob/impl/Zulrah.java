@@ -53,6 +53,20 @@ public class Zulrah extends Mob implements CombatEffect {
   }
 
   @Override
+  public void onHit(Entity entity, Hit hit) {
+    if (entity == null) {
+      return;
+    }
+
+    int random = Utility.random(11);
+    if (random == 0 && getOwner().isHitZulrah()) {
+      move();
+    } else if (random == 5) {
+      snakes();
+    }
+  }
+
+  @Override
   public void onDeath() {
     for (Mob snakes : SNAKELING) {
       if (!snakes.isDead()) {
@@ -68,20 +82,6 @@ public class Zulrah extends Mob implements CombatEffect {
                     + "</col>."));
     getOwner().getProperties().addProperty(this, 1);
     AchievementHandler.activateAchievement(getOwner(), AchievementList.KILL_100_ZULRAHS, 1);
-  }
-
-  @Override
-  public void onHit(Entity entity, Hit hit) {
-    if (entity == null) {
-      return;
-    }
-
-    int random = Utility.random(11);
-    if (random == 0 && getOwner().isHitZulrah()) {
-      move();
-    } else if (random == 5) {
-      snakes();
-    }
   }
 
   private int getNextForm() {

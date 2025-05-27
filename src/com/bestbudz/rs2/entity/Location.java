@@ -1,144 +1,132 @@
 package com.bestbudz.rs2.entity;
 
-import com.bestbudz.core.util.Utility;
-
 public class Location {
-	private short x = 0;
+	public static final int REGION_OFFSET = 6;
+	public static final int VIEW_DISTANCE = 15;
+	private short x;
+	private short y;
+	private short z;
 
-	private short y = 0;
-
-	private short z = 0;
-
-	public Location() {
-	}
+	public Location() {}
 
 	public Location(int x, int y) {
-	this(x, y, 0);
+		this(x, y, 0);
 	}
 
 	public Location(int x, int y, int z) {
-	this.x = ((short) x);
-	this.y = ((short) y);
-	this.z = ((short) z);
+		this.x = (short) x;
+		this.y = (short) y;
+		this.z = (short) z;
 	}
 
 	public Location(Location other) {
-	x = ((short) other.getX());
-	y = ((short) other.getY());
-	z = ((short) other.getZ());
+		this.x = other.x;
+		this.y = other.y;
+		this.z = other.z;
 	}
 
 	public Location(Location other, int z) {
-	x = ((short) other.getX());
-	y = ((short) other.getY());
-	this.z = ((short) z);
-	}
-
-	public static boolean inGnomeCourse(Entity entity) {
-	return entity.getLocation().inLocation(new Location(2469, 3414), new Location(2490, 3440), true) && entity.getLocation().getZ() == 0;
-	}
-
-	public static boolean inBarbarianCourse(Entity entity) {
-	return entity.getLocation().inLocation(new Location(2530, 3543), new Location(2553, 3556), true) && entity.getLocation().getZ() == 0;
-	}
-
-	public static boolean inWildernessCourse(Entity entity) {
-	return entity.getLocation().inLocation(new Location(2992, 3931), new Location(3007, 3961), true) && entity.getLocation().getZ() == 0;
+		this.x = other.x;
+		this.y = other.y;
+		this.z = (short) z;
 	}
 
 	@Override
 	public int hashCode() {
-	return x << 16 | y << 8 | z;
+		return (x << 16) | (y << 8) | z;
 	}
 
 	@Override
 	public boolean equals(Object other) {
-	if ((other instanceof Location)) {
+		if (this == other) return true;
+		if (!(other instanceof Location)) return false;
 		Location p = (Location) other;
-		return (x == p.x) && (y == p.y) && (z == p.z);
-	}
-	return false;
+		return x == p.x && y == p.y && z == p.z;
 	}
 
 	@Override
 	public String toString() {
-	return "Location(" + x + ", " + y + ", " + z + ")";
+		return "Location(" + x + ", " + y + ", " + z + ")";
 	}
 
+	// Optimized accessors
 	public int getLocalX() {
-	return getLocalX(this);
+		return x - ((x >> 3) - REGION_OFFSET) * 8;
 	}
 
 	public int getLocalX(Location base) {
-	return x - 8 * base.getRegionX();
+		return x - base.getRegionX() * 8;
 	}
 
 	public int getLocalY() {
-	return getLocalY(this);
+		return y - ((y >> 3) - REGION_OFFSET) * 8;
 	}
 
 	public int getLocalY(Location base) {
-	return y - 8 * base.getRegionY();
+		return y - base.getRegionY() * 8;
 	}
 
 	public int getRegionX() {
-	return (x >> 3) - 6;
+		return (x >> 3) - REGION_OFFSET;
 	}
 
 	public int getRegionY() {
-	return (y >> 3) - 6;
+		return (y >> 3) - REGION_OFFSET;
 	}
 
 	public int getX() {
-	return x;
+		return x;
 	}
 
 	public void setX(int x) {
-	this.x = ((short) x);
+		this.x = (short) x;
 	}
 
 	public int getY() {
-	return y;
+		return y;
 	}
 
 	public void setY(int y) {
-	this.y = ((short) y);
+		this.y = (short) y;
 	}
 
 	public int getZ() {
-	return z;
+		return z;
 	}
 
 	public Location setZ(int z) {
-	this.z = ((short) z);
-	return this;
-	}
-
-	public boolean inKingBlackDragonArea() {
-	return x >= 2250 && x <= 2290 && y >= 4670 && y <= 4714;
-	}
-
-	public boolean isViewableFrom(Location other) {
-	Location p = Utility.delta(this, other);
-	return (other.z == z) && (p.x <= 14) && (p.x >= -15) && (p.y <= 14) && (p.y >= -15);
-	}
-
-	public void move(int amountX, int amountY) {
-	x = ((short) (x + amountX));
-	y = ((short) (y + amountY));
+		this.z = (short) z;
+		return this;
 	}
 
 	public void setAs(Location other) {
-	x = other.x;
-	y = other.y;
-	z = other.z;
+		this.x = other.x;
+		this.y = other.y;
+		this.z = other.z;
 	}
 
-	public boolean inLocation(Location southWest, Location northEast, boolean inclusive) {
-	return !inclusive ? this.x > southWest.getX() && this.x < northEast.getX() && this.y > southWest.getY() && this.y < northEast.getY() : this.x >= southWest.getX() && this.x <= northEast.getX() && this.y >= southWest.getY() && this.y <= northEast.getY();
+	public void move(int dx, int dy) {
+		this.x += dx;
+		this.y += dy;
 	}
 
-	public final boolean inBarrows() {
-	return (x > 3539 && x < 3582 && y >= 9675 && y < 9722);
+	// Inline the view distance check – avoids Utility.delta(...) allocation
+	public boolean isViewableFrom(Location other) {
+		return this.z == other.z &&
+			Math.abs(this.x - other.x) <= VIEW_DISTANCE &&
+			Math.abs(this.y - other.y) <= VIEW_DISTANCE;
+	}
+
+	// Area flags – make static cached zones for better performance if needed
+	public boolean inKingBlackDragonArea() {
+		return x >= 2250 && x <= 2290 && y >= 4670 && y <= 4714;
+	}
+
+	// Optional: extract location check to utility for reuse
+	public boolean inBounds(Location sw, Location ne, boolean inclusive) {
+		if (inclusive) {
+			return x >= sw.x && x <= ne.x && y >= sw.y && y <= ne.y;
+		}
+		return x > sw.x && x < ne.x && y > sw.y && y < ne.y;
 	}
 }

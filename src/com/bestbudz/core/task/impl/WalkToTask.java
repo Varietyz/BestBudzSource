@@ -41,8 +41,8 @@ public abstract class WalkToTask extends Task {
     }
   }
 
-  public abstract void onDestination();
-
   @Override
   public void onStop() {}
+
+  public abstract void onDestination();
 }

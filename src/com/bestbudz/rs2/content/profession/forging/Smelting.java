@@ -108,10 +108,10 @@ public class Smelting extends Task {
     if (++smelted == amount) stop();
   }
 
+  @Override
+  public void onStop() {}
+
   public boolean isSuccess(Stoner stoner, SmeltingData data) {
     return Professions.isSuccess(stoner, 13, data.gradeRequired);
   }
-
-  @Override
-  public void onStop() {}
 }

@@ -17,11 +17,6 @@ public class ChaosElemental extends Mob {
   }
 
   @Override
-  public int getRespawnTime() {
-    return 60;
-  }
-
-  @Override
   public void hit(Hit hit) {
 
     if (isDead()) {
@@ -37,6 +32,11 @@ public class ChaosElemental extends Mob {
     } else if (random == 10) {
       equipmentSpecial();
     }
+  }
+
+  @Override
+  public int getRespawnTime() {
+    return 60;
   }
 
   private Projectile getProjectile(int id) {

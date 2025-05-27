@@ -1,4 +1,4 @@
-	<list>
+<list>
 	<EquipmentDefinition>
 		<id>35</id>
 		<slot>3</slot>
@@ -124123,7 +124123,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-		<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13200</id>
 		<slot>1</slot>
 		<requirements>
@@ -124151,7 +124151,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13201</id>
 		<slot>1</slot>
 		<requirements>
@@ -124179,7 +124179,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13202</id>
 		<slot>1</slot>
 		<requirements>
@@ -124207,7 +124207,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13203</id>
 		<slot>1</slot>
 		<requirements>
@@ -124235,7 +124235,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13204</id>
 		<slot>1</slot>
 		<requirements>
@@ -124263,7 +124263,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13205</id>
 		<slot>1</slot>
 		<requirements>
@@ -124291,7 +124291,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13206</id>
 		<slot>1</slot>
 		<requirements>
@@ -124319,7 +124319,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13207</id>
 		<slot>1</slot>
 		<requirements>
@@ -124347,7 +124347,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13208</id>
 		<slot>1</slot>
 		<requirements>
@@ -124375,7 +124375,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13209</id>
 		<slot>1</slot>
 		<requirements>
@@ -124403,7 +124403,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13210</id>
 		<slot>1</slot>
 		<requirements>
@@ -124431,7 +124431,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13211</id>
 		<slot>1</slot>
 		<requirements>
@@ -124459,7 +124459,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13212</id>
 		<slot>1</slot>
 		<requirements>
@@ -124487,7 +124487,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13213</id>
 		<slot>1</slot>
 		<requirements>
@@ -124515,7 +124515,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13214</id>
 		<slot>1</slot>
 		<requirements>
@@ -124543,7 +124543,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13215</id>
 		<slot>1</slot>
 		<requirements>
@@ -124571,7 +124571,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13216</id>
 		<slot>1</slot>
 		<requirements>
@@ -124599,7 +124599,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13217</id>
 		<slot>1</slot>
 		<requirements>
@@ -124627,7 +124627,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13218</id>
 		<slot>1</slot>
 		<requirements>
@@ -124655,7 +124655,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13219</id>
 		<slot>1</slot>
 		<requirements>
@@ -124683,7 +124683,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13220</id>
 		<slot>1</slot>
 		<requirements>
@@ -124711,7 +124711,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13221</id>
 		<slot>1</slot>
 		<requirements>
@@ -124739,7 +124739,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-			<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13222</id>
 		<slot>1</slot>
 		<requirements>
@@ -124767,7 +124767,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-				<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>13223</id>
 		<slot>1</slot>
 		<requirements>
@@ -124795,7 +124795,7 @@
 			<int>1</int>
 		</requirements>
 	</EquipmentDefinition>
-					<EquipmentDefinition>
+	<EquipmentDefinition>
 		<id>1511</id>
 		<slot>5</slot>
 		<requirements>

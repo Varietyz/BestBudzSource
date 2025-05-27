@@ -133,6 +133,9 @@ public class DefaultController extends Controller {
   public void onDeath(Stoner p) {}
 
   @Override
+  public void onKill(Stoner stoner, Entity killed) {}
+
+  @Override
   public void onDisconnect(Stoner p) {}
 
   @Override
@@ -150,7 +153,4 @@ public class DefaultController extends Controller {
   public boolean transitionOnWalk(Stoner p) {
     return true;
   }
-
-  @Override
-  public void onKill(Stoner stoner, Entity killed) {}
 }

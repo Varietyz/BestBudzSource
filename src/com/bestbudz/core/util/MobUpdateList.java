@@ -1,77 +1,63 @@
 package com.bestbudz.core.util;
 
 import com.bestbudz.rs2.entity.mob.Mob;
-import java.util.List;
-import java.util.Queue;
-import java.util.Vector;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.*;
 
 public class MobUpdateList {
 
-	private final List<UpdateableMob> list = new Vector<UpdateableMob>();
+  private final Map<Mob, UpdateableMob> tracked = new HashMap<>();
 
-	private final Queue<UpdateableMob> incr = new ConcurrentLinkedQueue<UpdateableMob>();
-	private final Queue<UpdateableMob> decr = new ConcurrentLinkedQueue<UpdateableMob>();
-	private final Queue<UpdateableMob> remove = new ConcurrentLinkedQueue<UpdateableMob>();
+  private final Set<Mob> incr = new HashSet<>();
+  private final Set<Mob> decr = new HashSet<>();
+  private final Set<Mob> remove = new HashSet<>();
 
-	public MobUpdateList() {
-	}
+  public void incr(Mob mob) {
+    incr.add(mob);
+  }
 
-	private void add(UpdateableMob u) {
-		int i = list.indexOf(u);
+  public void decr(Mob mob) {
+    decr.add(mob);
+  }
 
-		if (i > -1) {
-			list.get(i).viewed += 1;
-		} else {
-			list.add(u);
-		}
-	}
+  public void toRemoval(Mob mob) {
+    remove.add(mob);
+  }
 
-	public void decr(Mob mob) {
-		decr.add(new UpdateableMob(mob));
-	}
+  public List<UpdateableMob> getList() {
+    return new ArrayList<>(tracked.values());
+  }
 
-	private void definiteRemove(UpdateableMob u) {
-		list.remove(u);
-	}
+  public void process() {
+    // Handle increments
+    for (Mob mob : incr) {
+      tracked.compute(
+          mob,
+          (m, u) -> {
+            if (u == null) {
+              return new UpdateableMob(m);
+            }
+            u.viewed++;
+            return u;
+          });
+    }
+    incr.clear();
 
-	public List<UpdateableMob> getList() {
-		return list;
-	}
+    // Handle decrements
+    for (Mob mob : decr) {
+      UpdateableMob u = tracked.get(mob);
+      if (u != null) {
+        u.viewed--;
+        if (u.viewed <= 0) {
+          tracked.remove(mob);
+        }
+      }
+    }
+    decr.clear();
 
-	public void incr(Mob mob) {
-		incr.add(new UpdateableMob(mob));
-	}
-
-	public final void process() {
-		UpdateableMob a = null;
-
-		while ((a = incr.poll()) != null) {
-			add(a);
-		}
-
-		while ((a = decr.poll()) != null) {
-			remove(a);
-		}
-
-		while ((a = remove.poll()) != null) {
-			definiteRemove(a);
-		}
-	}
-
-	private void remove(UpdateableMob u) {
-		int i = list.indexOf(u);
-
-		if (i > -1) {
-			UpdateableMob l = list.get(i);
-			l.viewed--;
-			if (l.viewed <= 0) {
-				list.remove(u);
-			}
-		}
-	}
-
-	public void toRemoval(Mob mob) {
-		remove.add(new UpdateableMob(mob));
-	}
+    // Final removals
+    for (Mob mob : remove) {
+      tracked.remove(mob);
+    }
+    remove.clear();
+  }
 }

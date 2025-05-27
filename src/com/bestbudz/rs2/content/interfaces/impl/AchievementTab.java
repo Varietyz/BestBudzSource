@@ -23,20 +23,22 @@ public class AchievementTab extends InterfaceHandler {
     for (AchievementList achievement : AchievementList.values()) {
       if (last != achievement.getDifficulty()) {
         last = achievement.getDifficulty();
-        text[shift++] = "@or2@[@lre@ " + Utility.capitalize(last.name().toLowerCase()) + " @or2@]";
+        text[shift++] = "[ [ [@lre@ " + Utility.capitalize(last.name().toLowerCase()) + " ] ] ]";
       }
       int completed = stoner.getStonerAchievements().get(achievement);
       if (completed > achievement.getCompleteAmount()) {
         completed = achievement.getCompleteAmount();
       }
 
-      int color =
-          completed == achievement.getCompleteAmount()
-              ? 0x00FF00
-              : completed > 0 ? 0xFFFF00 : 0xFF0000;
-      stoner.send(new SendColor(startingLine() + shift, color));
-      text[shift++] = " " + achievement.getName();
-    }
+		String tag =
+			completed == achievement.getCompleteAmount()
+				? "@gre@" // green = complete
+				: completed > 0 ? "@yel@" // yellow = in progress
+				: "@red@"; // red = not started
+
+		text[shift++] = tag + " " + achievement.getName();
+
+	}
   }
 
   @Override

@@ -22,15 +22,9 @@ public class PrivateMessagingPacket extends IncomingPacket {
   public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
     switch (opcode) {
       case 188:
-        long name = in.readLong();
-        stoner.getPrivateMessaging().addFriend(name);
-        break;
       case 215:
-        name = in.readLong();
-        stoner.getPrivateMessaging().removeFriend(name);
-        break;
       case 133:
-        name = in.readLong();
+        long name = in.readLong();
         stoner.getPrivateMessaging().addIgnore(name);
         break;
       case 74:

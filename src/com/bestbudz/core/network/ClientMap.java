@@ -6,6 +6,8 @@ import com.bestbudz.rs2.entity.stoner.net.Client;
 
 public class ClientMap {
 
+  private ClientMap() {}
+
   public static boolean allow(Client client) {
     byte am = 0;
 
@@ -19,6 +21,4 @@ public class ClientMap {
 
     return am < 9;
   }
-
-  private ClientMap() {}
 }

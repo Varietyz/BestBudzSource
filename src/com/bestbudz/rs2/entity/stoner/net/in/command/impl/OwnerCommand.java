@@ -8,8 +8,6 @@ import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.content.combat.Hit.HitTypes;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.gambling.Gambling;
-import com.bestbudz.rs2.content.gambling.Lottery;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
 import com.bestbudz.rs2.content.membership.RankHandler;
@@ -36,16 +34,6 @@ public class OwnerCommand implements Command {
         for (int i = 0; i < 4; i++) {
           stoner.hit(new Hit(10, HitTypes.MONEY));
         }
-        return true;
-      case "gambledata":
-        DialogueManager.sendStatement(stoner, "@blu@" + Utility.format(Gambling.MONEY_TRACKER));
-        return true;
-      case "forcedraw":
-        Lottery.draw();
-        return true;
-      case "announcelottery":
-      case "yelllottery":
-        Lottery.announce();
         return true;
       case "massboo":
       case "massscare":

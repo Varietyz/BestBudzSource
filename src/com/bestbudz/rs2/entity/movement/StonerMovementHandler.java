@@ -2,7 +2,9 @@ package com.bestbudz.rs2.entity.movement;
 
 import com.bestbudz.BestbudzConstants;
 import com.bestbudz.core.cache.map.Region;
+import com.bestbudz.rs2.GameConstants;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelingConstants;
+import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
@@ -53,15 +55,26 @@ public class StonerMovementHandler extends MovementHandler {
         stoner.getRunEnergy().toggleResting();
       }
 
-      if ((!forceMove)
-          && (!BestbudzConstants.WALK_CHECK)
-          && (!Region.getRegion(stoner.getLocation())
-              .canMove(stoner.getLocation(), walkPoint.getDirection()))) {
-        reset();
-        return;
-      }
+		Region region = Region.getRegion(stoner.getLocation());
+		int nextX = stoner.getLocation().getX() + GameConstants.DIR[walkPoint.getDirection()][0];
+		int nextY = stoner.getLocation().getY() + GameConstants.DIR[walkPoint.getDirection()][1];
+		int z = stoner.getLocation().getZ();
 
-      stoner.getMovementHandler().getLastLocation().setAs(stoner.getLocation());
+		boolean hardBlocked = !region.canMove(stoner.getLocation(), walkPoint.getDirection());
+		boolean softBlocked = region.isNpcOnTile(nextX, nextY, z);
+
+		if (hardBlocked && !softBlocked) {
+			Stoner.recordCollision(new Location(nextX, nextY, z));
+		}
+
+		if (hardBlocked) {
+			reset();
+			return;
+		}
+
+
+
+		stoner.getMovementHandler().getLastLocation().setAs(stoner.getLocation());
       stoner
           .getLocation()
           .move(
@@ -81,16 +94,26 @@ public class StonerMovementHandler extends MovementHandler {
         Point runPoint = waypoints.poll();
 
         if ((runPoint != null) && (runPoint.getDirection() != -1)) {
-          if ((!forceMove)
-              && (!BestbudzConstants.WALK_CHECK)
-              && (!Region.getRegion(stoner.getLocation())
-                  .canMove(stoner.getLocation(), runPoint.getDirection()))) {
+			Region region = Region.getRegion(stoner.getLocation());
+			int nextX = stoner.getLocation().getX() + GameConstants.DIR[runPoint.getDirection()][0];
+			int nextY = stoner.getLocation().getY() + GameConstants.DIR[runPoint.getDirection()][1];
+			int z = stoner.getLocation().getZ();
 
-            reset();
-            return;
-          }
+			boolean hardBlocked = !region.canMove(stoner.getLocation(), runPoint.getDirection());
+			boolean softBlocked = region.isNpcOnTile(nextX, nextY, z);
 
-          stoner.getMovementHandler().getLastLocation().setAs(stoner.getLocation());
+			if (hardBlocked && !softBlocked) {
+				Stoner.recordCollision(new Location(nextX, nextY, z));
+			}
+
+			if (hardBlocked) {
+				reset();
+				return;
+			}
+
+
+
+			stoner.getMovementHandler().getLastLocation().setAs(stoner.getLocation());
           stoner
               .getLocation()
               .move(

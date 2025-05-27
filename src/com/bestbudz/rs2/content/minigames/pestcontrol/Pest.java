@@ -99,6 +99,18 @@ public abstract class Pest extends Mob {
     }
   }
 
+  public PestControlGame getGame() {
+    return game;
+  }
+
+  @Override
+  public int getMaxHit(CombatTypes type) {
+    return getDefinition().getGrade() / 10;
+  }
+
+  @Override
+  public void updateCombatType() {}
+
   @Override
   public void doAliveMobProcessing() {
     tick();
@@ -173,17 +185,5 @@ public abstract class Pest extends Mob {
     return new Animation(-1);
   }
 
-  public PestControlGame getGame() {
-    return game;
-  }
-
-  @Override
-  public int getMaxHit(CombatTypes type) {
-    return getDefinition().getGrade() / 10;
-  }
-
   public abstract void tick();
-
-  @Override
-  public void updateCombatType() {}
 }

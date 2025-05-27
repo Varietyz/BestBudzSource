@@ -31,11 +31,6 @@ public class CrazyArchaeologist extends Mob {
   }
 
   @Override
-  public void onDeath() {
-    getUpdateFlags().sendForceMessage(deathMessage);
-  }
-
-  @Override
   public void onHit(Entity entity, Hit hit) {
     if (entity != null && !entity.isNpc()) {
       int random = Utility.random(10);
@@ -47,6 +42,11 @@ public class CrazyArchaeologist extends Mob {
         getUpdateFlags().sendForceMessage(Utility.randomElement(messages));
       }
     }
+  }
+
+  @Override
+  public void onDeath() {
+    getUpdateFlags().sendForceMessage(deathMessage);
   }
 
   public void special(Stoner stoner) {

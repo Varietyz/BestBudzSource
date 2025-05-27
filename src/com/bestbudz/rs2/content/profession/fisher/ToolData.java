@@ -68,18 +68,18 @@ public class ToolData {
     private final int animation;
     private final short[] outcomes;
 
+    Tools(int toolId, int animation, short[] outcomes) {
+      this.toolId = toolId;
+      this.outcomes = outcomes;
+      this.animation = animation;
+    }
+
     public static Tools forId(int id) {
       return tools.get(Integer.valueOf(id));
     }
 
     public static final void declare() {
       for (Tools tool : values()) tools.put(Integer.valueOf(tool.getToolId()), tool);
-    }
-
-    Tools(int toolId, int animation, short[] outcomes) {
-      this.toolId = toolId;
-      this.outcomes = outcomes;
-      this.animation = animation;
     }
 
     public int getAnimationId() {

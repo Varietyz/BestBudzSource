@@ -179,8 +179,16 @@ public class SagittariusProfession {
     return karilEffectActive;
   }
 
+  public void setKarilEffectActive(boolean karilEffectActive) {
+    this.karilEffectActive = karilEffectActive;
+  }
+
   public boolean isOnyxEffectActive() {
     return onyxEffectActive;
+  }
+
+  public void setOnyxEffectActive(boolean onyxEffectActive) {
+    this.onyxEffectActive = onyxEffectActive;
   }
 
   public void removeArrowsOnAssault() {
@@ -254,14 +262,6 @@ public class SagittariusProfession {
         aLocation = (assault == null ? stoner.getLocation() : assault.getLocation());
         break;
     }
-  }
-
-  public void setKarilEffectActive(boolean karilEffectActive) {
-    this.karilEffectActive = karilEffectActive;
-  }
-
-  public void setOnyxEffectActive(boolean onyxEffectActive) {
-    this.onyxEffectActive = onyxEffectActive;
   }
 
   public boolean isBloodForfeitEffectActive() {

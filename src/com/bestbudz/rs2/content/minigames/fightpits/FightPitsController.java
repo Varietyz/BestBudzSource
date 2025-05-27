@@ -128,6 +128,9 @@ public class FightPitsController extends Controller {
   }
 
   @Override
+  public void onKill(Stoner stoner, Entity killed) {}
+
+  @Override
   public void onDisconnect(Stoner p) {}
 
   @Override
@@ -147,7 +150,4 @@ public class FightPitsController extends Controller {
   public boolean transitionOnWalk(Stoner p) {
     return false;
   }
-
-  @Override
-  public void onKill(Stoner stoner, Entity killed) {}
 }

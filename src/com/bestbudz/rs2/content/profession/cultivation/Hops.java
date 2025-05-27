@@ -565,6 +565,64 @@ public class Hops {
     return true;
   }
 
+  public boolean curePlant(int objectX, int objectY, int itemId) {
+    if (stoner.getProfession().locked()) {
+      return false;
+    }
+    final HopsFieldsData hopsFieldsData = HopsFieldsData.forIdPosition(objectX, objectY);
+    if (hopsFieldsData == null || itemId != 6036) {
+      return false;
+    }
+    final HopsData hopsData = HopsData.forId(hopsSeeds[hopsFieldsData.getHopsIndex()]);
+    if (hopsData == null) {
+      return false;
+    }
+    if (hopsState[hopsFieldsData.getHopsIndex()] != 2) {
+      stoner.send(new SendMessage("This plant doesn't need to be cured."));
+      return true;
+    }
+    stoner.getBox().remove(itemId, 1);
+    stoner.getBox().add(229, 1);
+    stoner.getUpdateFlags().sendAnimation(new Animation(CultivationConstants.CURING_ANIM));
+    stoner.getProfession().lock(7);
+    hopsState[hopsFieldsData.getHopsIndex()] = 0;
+
+    Controller controller = stoner.getController();
+    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
+    TaskQueue.queue(
+        new Task(
+            stoner, 7, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
+          @Override
+          public void execute() {
+            stoner.send(new SendMessage("You cure the plant with a PK 13-14."));
+            stop();
+          }
+
+          @Override
+          public void onStop() {
+            updateHopsStates();
+            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
+            stoner.setController(controller);
+          }
+        });
+    return true;
+  }
+
+  private void resetHops(int index) {
+    hopsSeeds[index] = 0;
+    hopsState[index] = 0;
+    diseaseChance[index] = 1;
+    hopsHarvest[index] = 0;
+    hasFullyGrown[index] = false;
+    hopsWatched[index] = false;
+  }
+
+  public boolean checkIfRaked(int objectX, int objectY) {
+    final HopsFieldsData hopsFieldsData = HopsFieldsData.forIdPosition(objectX, objectY);
+    if (hopsFieldsData == null) return false;
+    return hopsStages[hopsFieldsData.getHopsIndex()] == 3;
+  }
+
   public enum HopsData {
     BARLEY(5305, 6006, 4, 3, new int[] {6032, 3}, 40, 0.35, 8.5, 9.5, 0x31, 0x35),
     HAMMERSTONE(5307, 5994, 4, 4, new int[] {6010, 1}, 40, 0.35, 9, 10, 0x04, 0x08),
@@ -827,63 +885,5 @@ public class Hops {
     public String[][] getMessages() {
       return messages;
     }
-  }
-
-  public boolean curePlant(int objectX, int objectY, int itemId) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
-    final HopsFieldsData hopsFieldsData = HopsFieldsData.forIdPosition(objectX, objectY);
-    if (hopsFieldsData == null || itemId != 6036) {
-      return false;
-    }
-    final HopsData hopsData = HopsData.forId(hopsSeeds[hopsFieldsData.getHopsIndex()]);
-    if (hopsData == null) {
-      return false;
-    }
-    if (hopsState[hopsFieldsData.getHopsIndex()] != 2) {
-      stoner.send(new SendMessage("This plant doesn't need to be cured."));
-      return true;
-    }
-    stoner.getBox().remove(itemId, 1);
-    stoner.getBox().add(229, 1);
-    stoner.getUpdateFlags().sendAnimation(new Animation(CultivationConstants.CURING_ANIM));
-    stoner.getProfession().lock(7);
-    hopsState[hopsFieldsData.getHopsIndex()] = 0;
-
-    Controller controller = stoner.getController();
-    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
-    TaskQueue.queue(
-        new Task(
-            stoner, 7, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
-          @Override
-          public void execute() {
-            stoner.send(new SendMessage("You cure the plant with a PK 13-14."));
-            stop();
-          }
-
-          @Override
-          public void onStop() {
-            updateHopsStates();
-            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
-            stoner.setController(controller);
-          }
-        });
-    return true;
-  }
-
-  private void resetHops(int index) {
-    hopsSeeds[index] = 0;
-    hopsState[index] = 0;
-    diseaseChance[index] = 1;
-    hopsHarvest[index] = 0;
-    hasFullyGrown[index] = false;
-    hopsWatched[index] = false;
-  }
-
-  public boolean checkIfRaked(int objectX, int objectY) {
-    final HopsFieldsData hopsFieldsData = HopsFieldsData.forIdPosition(objectX, objectY);
-    if (hopsFieldsData == null) return false;
-    return hopsStages[hopsFieldsData.getHopsIndex()] == 3;
   }
 }

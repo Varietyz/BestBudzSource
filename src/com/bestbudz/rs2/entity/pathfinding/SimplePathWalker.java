@@ -7,73 +7,41 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.Walking;
 
 public class SimplePathWalker {
-  public static boolean walkable(Entity entity, int i) {
-    return entity.getMovementHandler().canMoveTo(i);
-  }
 
-  public static void walkToNextTile(Mob mob, Location waypoint) {
-    if (mob.getLocation().equals(waypoint)) {
-      return;
-    }
+	public static boolean walkable(Entity entity, int dir) {
+		return entity.getMovementHandler().canMoveTo(dir);
+	}
 
-    int direction = -1;
+	public static void walkToNextTile(Mob mob, Location target) {
+		Location loc = mob.getLocation();
 
-    final int x = mob.getLocation().getX();
-    final int y = mob.getLocation().getY();
-    final int xDifference = waypoint.getX() - mob.getLocation().getX();
-    final int yDifference = waypoint.getY() - mob.getLocation().getY();
+		if (loc.equals(target)) {
+			return;
+		}
 
-    int toX = 0;
-    int toY = 0;
+		int x = loc.getX();
+		int y = loc.getY();
+		int dx = Integer.compare(target.getX(), x);
+		int dy = Integer.compare(target.getY(), y);
 
-    if (xDifference > 0) {
-      toX = 1;
-    } else if (xDifference < 0) {
-      toX = -1;
-    }
+		int toDir = GameConstants.getDirection(x, y, x + dx, y + dy);
 
-    if (yDifference > 0) {
-      toY = 1;
-    } else if (yDifference < 0) {
-      toY = -1;
-    }
+		if (toDir != -1 && walkable(mob, toDir)) {
+			Walking.walk(mob, toDir);
+			return;
+		}
 
-    int toDir = GameConstants.getDirection(x, y, x + toX, y + toY);
+		// Diagonal blocked — try horizontal or vertical fallback
+		int horDir = GameConstants.getDirection(x, y, x + dx, y);
+		int verDir = GameConstants.getDirection(x, y, x, y + dy);
 
-    if (walkable(mob, toDir)) {
-      direction = toDir;
-    } else {
-      if (toDir == 0) {
-        if (walkable(mob, 3)) {
-          direction = 3;
-        } else if (walkable(mob, 1)) {
-          direction = 1;
-        }
-      } else if (toDir == 2) {
-        if (walkable(mob, 1)) {
-          direction = 1;
-        } else if (walkable(mob, 4)) {
-          direction = 4;
-        }
-      } else if (toDir == 5) {
-        if (walkable(mob, 3)) {
-          direction = 3;
-        } else if (walkable(mob, 6)) {
-          direction = 6;
-        }
-      } else if (toDir == 7) {
-        if (walkable(mob, 4)) {
-          direction = 4;
-        } else if (walkable(mob, 6)) {
-          direction = 6;
-        }
-      }
-    }
+		// Bias: vertical > horizontal (adjust this if you prefer the opposite)
+		if (verDir != -1 && walkable(mob, verDir)) {
+			Walking.walk(mob, verDir);
+		} else if (horDir != -1 && walkable(mob, horDir)) {
+			Walking.walk(mob, horDir);
+		}
 
-    if (direction == -1) {
-      return;
-    }
 
-    Walking.walk(mob, direction);
-  }
+	}
 }

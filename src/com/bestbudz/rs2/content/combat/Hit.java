@@ -80,6 +80,22 @@ public class Hit {
     return damage;
   }
 
+  public void setDamage(long damage) {
+    this.damage = damage;
+  }
+
+  public HitTypes getType() {
+    return type;
+  }
+
+  public void setType(HitTypes type) {
+    this.type = type;
+  }
+
+  public boolean isSuccess() {
+    return success;
+  }
+
   public enum HitTypes {
     NONE,
     MELEE,
@@ -90,21 +106,5 @@ public class Hit {
     DEFLECT,
     CANNON,
     MONEY
-  }
-
-  public HitTypes getType() {
-    return type;
-  }
-
-  public boolean isSuccess() {
-    return success;
-  }
-
-  public void setDamage(long damage) {
-    this.damage = damage;
-  }
-
-  public void setType(HitTypes type) {
-    this.type = type;
   }
 }

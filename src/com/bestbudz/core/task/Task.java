@@ -105,12 +105,11 @@ public abstract class Task {
     return immediate;
   }
 
-	public boolean isAssociateActive() {
-		return entity != null && entity.isActive();
-	}
+  public boolean isAssociateActive() {
+    return entity != null && entity.isActive();
+  }
 
-
-	public boolean isAssociated() {
+  public boolean isAssociated() {
     return entity != null;
   }
 
@@ -140,6 +139,19 @@ public abstract class Task {
     stopped = true;
   }
 
+  public boolean stopped() {
+    if (stopped) return true;
+    if (entity == null) return false;
+    if (!entity.isActive()) return true;
+    if (breakType == BreakType.ON_MOVE) {
+      var move = entity.getMovementHandler();
+      return move.isFlagged() && !move.isForced();
+    }
+    return false;
+  }
+
+  public void onStart() {}
+
   public enum BreakType {
     NEVER,
     ON_MOVE
@@ -149,18 +161,4 @@ public abstract class Task {
     STACK,
     NEVER_STACK
   }
-
-	public boolean stopped() {
-		if (stopped) return true;
-		if (entity == null) return false;
-		if (!entity.isActive()) return true;
-		if (breakType == BreakType.ON_MOVE) {
-			var move = entity.getMovementHandler();
-			return move.isFlagged() && !move.isForced();
-		}
-		return false;
-	}
-
-
-  public void onStart() {}
 }

@@ -3,58 +3,22 @@ package com.bestbudz.core.util;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
-import java.text.DecimalFormat;
+import io.netty.buffer.ByteBuf;
 import java.text.NumberFormat;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import io.netty.buffer.ByteBuf;
-
 
 public class Utility {
 
-	public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
-	public static final int LOGIN_RESPONSE_OK = 2;
 	public static final int LOGIN_RESPONSE_INVALID_USERNAME = 22;
 	public static final int LOGIN_RESPONSE_INVALID_CREDENTIALS = 3;
-	public static final int LOGIN_RESPONSE_ACCOUNT_DISABLED = 4;
-	public static final int LOGIN_RESPONSE_ACCOUNT_ONLINE = 5;
 	public static final int LOGIN_RESPONSE_UPDATED = 6;
-	public static final int LOGIN_RESPONSE_WORLD_FULL = 7;
-	public static final int LOGIN_RESPONSE_LOGIN_SERVER_OFFLINE = 8;
 	public static final int LOGIN_RESPONSE_LOGIN_LIMIT_EXCEEDED = 9;
-	public static final int LOGIN_RESPONSE_BAD_SESSION_ID = 10;
-	public static final int LOGIN_RESPONSE_PLEASE_TRY_AGAIN = 11;
-	public static final int LOGIN_RESPONSE_NEED_MEMBERS = 12;
 	public static final int LOGIN_RESPONSE_COULD_NOT_COMPLETE_LOGIN = 13;
 	public static final int LOGIN_RESPONSE_SERVER_BEING_UPDATED = 14;
-	public static final int LOGIN_RESPONSE_LOGIN_ATTEMPTS_EXCEEDED = 16;
-	public static final int LOGIN_RESPONSE_MEMBERS_ONLY_AREA = 17;
-	public static final int EQUIPMENT_SLOT_HEAD = 0;
-	public static final int EQUIPMENT_SLOT_CAPE = 1;
-	public static final int EQUIPMENT_SLOT_AMULET = 2;
-	public static final int EQUIPMENT_SLOT_WEAPON = 3;
-	public static final int EQUIPMENT_SLOT_CHEST = 4;
-	public static final int EQUIPMENT_SLOT_SHIELD = 5;
-	public static final int LEGS_SLOT = 7;
-	public static final int EQUIPMENT_SLOT_HANDS = 9;
-	public static final int EQUIPMENT_SLOT_FEET = 10;
-	public static final int EQUIPMENT_SLOT_RING = 12;
-	public static final int EQUIPMENT_SLOT_ARROWS = 13;
-	public static final int APPEARANCE_SLOT_CHEST = 1;
-	public static final int APPEARANCE_SLOT_ARMS = 2;
-	public static final int APPEARANCE_SLOT_LEGS = 4;
-	public static final int APPEARANCE_SLOT_HEAD = 0;
-	public static final int APPEARANCE_SLOT_HANDS = 3;
-	public static final int APPEARANCE_SLOT_FEET = 5;
-	public static final int APPEARANCE_SLOT_BEARD = 6;
-	public static final int GENDER_MALE = 0;
-	public static final int GENDER_FEMALE = 1;
 	public static final int[] packetLengths = { 0, 0, 0, 1, -1, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 8, 0, 6, 2, 2, 0,
 			0, 2, 0, 6, 0, 12, 0, 0, 0, 0,
@@ -86,43 +50,6 @@ public class Utility {
 	private static final char[] xlateTable = { ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '\243', '$', '%', '"', '[', ']', '>', '<', '_', '^' };
 	private static ZonedDateTime zonedDateTime;
 
-	public static String convertTime(String input) {
-	try {
-		input = input.toLowerCase();
-
-		if (input.contains("am")) {
-			return input.replace("am", "").trim();
-		} else if (input.contains("pm")) {
-			if (input.contains("12")) {
-				return "12";
-			} else {
-				int t = Integer.parseInt(input.substring(0, input.indexOf("p")).trim());
-
-				return "" + (t + 12);
-			}
-		} else {
-			int time = Integer.parseInt(input);
-
-			if (time > 11 && time != 24) {
-				if (time > 12) {
-					return (time - 12) + " pm";
-				} else {
-					return "12 pm";
-				}
-			} else if (time == 24) {
-				return "12 am";
-			} else {
-				return time + " am";
-			}
-		}
-
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-
-	return null;
-	}
-
 	public static String getCurrentServerTime() {
 	zonedDateTime = ZonedDateTime.now();
 	int hour = zonedDateTime.getHour();
@@ -131,20 +58,6 @@ public class Utility {
 	String minutePrefix = minute < 10 ? "0" + minute : "" + minute;
 	String prefix = hour > 12 ? "PM" : "AM";
 	return hourPrefix + ":" + minutePrefix + " " + prefix;
-	}
-
-	public static String formatText(String s) {
-	for (int i = 0; i < s.length(); i++) {
-		if (i == 0) {
-			s = String.format("%s%s", Character.toUpperCase(s.charAt(0)), s.substring(1));
-		}
-		if (!Character.isLetterOrDigit(s.charAt(i))) {
-			if (i + 1 < s.length()) {
-				s = String.format("%s%s%s", s.subSequence(0, i + 1), Character.toUpperCase(s.charAt(i + 1)), s.substring(i + 2));
-			}
-		}
-	}
-	return s.replace("_", " ");
 	}
 
 	public static Location delta(Location a, Location b) {
@@ -183,33 +96,7 @@ public class Utility {
 	return NumberFormat.getInstance().format(num);
 	}
 
-	public static String formatBillionBestBucks(int[] amount) {
-	int num = 0;
-	int rem = 0;
 
-	for (int i : amount) {
-		num += i / 1000;
-		rem += i % 1000;
-	}
-
-	if (rem >= 1000) {
-		num += rem / 1000;
-	}
-
-	int bill = num / 1000000;
-	num -= bill * 1000000;
-
-	int mill = num / 1000;
-
-	String z = "";
-	if (mill < 10) {
-		z = "00";
-	} else if (mill < 100) {
-		z = "0";
-	}
-
-	return bill + "." + z + mill + "B";
-	}
 
 	public static String formatBestBucks(int amount) {
 	if (amount >= 10000000) {
@@ -267,7 +154,7 @@ public class Utility {
 	}
 
 	public static int getElapsed(int day, int year) {
-	if (year < 2013) {
+	if (year < 2022) {
 		return 0;
 	}
 
@@ -334,20 +221,6 @@ public class Utility {
 		return bldr.toString();
 	}
 
-
-	public static final <E> E getWhereNotEqualTo(List<E> list, E e) {
-	List<E> sub = new ArrayList<E>();
-
-	for (Iterator<E> i = list.iterator(); i.hasNext();) {
-		E k = i.next();
-		if (!k.equals(e)) {
-			sub.add(k);
-		}
-	}
-
-	return sub.get(randomNumber(sub.size()));
-	}
-
 	public static int getYear() {
 	Calendar c = Calendar.getInstance();
 	return c.get(Calendar.YEAR);
@@ -364,15 +237,6 @@ public class Utility {
 		}
 	}
 	return value;
-	}
-
-	public static boolean isExpired(int day, int year, int length) {
-		return getElapsed(day, year) >= length;
-	}
-
-	public static boolean isWeekend() {
-	int day = Calendar.getInstance().get(7);
-	return (day == 1) || (day == 6) || (day == 7);
 	}
 
 	public static String longToStonerName2(long l) {
@@ -409,21 +273,18 @@ public class Utility {
 	return (int) (java.lang.Math.random() * length);
 	}
 
-	public static void sendPacketToStoners(OutgoingPacket packet, List<Stoner> stoners) {
-	for (Stoner i : stoners) {
-		if (i == null) {
-			continue;
-		}
-		i.getClient().queueOutgoingPacket(packet);
-	}
-	}
 
 	public static int random(int range) {
 	return (int) (java.lang.Math.random() * (range + 1));
 	}
 
 	public static <T> T randomElement(Collection<T> collection) {
-	return new ArrayList<T>(collection).get((int) (RANDOM.nextDouble() * collection.size()));
+	int index = RANDOM.nextInt(collection.size());
+		for (T element : collection) {
+			if (index-- == 0)
+				return element;
+		}
+		throw new IllegalArgumentException("Empty collection");
 	}
 
 	public static <T> T randomElement(T[] array) {
@@ -516,20 +377,6 @@ public class Utility {
 	return "" + price;
 	}
 
-	public static String formatNumber(int amount) {
-	if (amount >= 1_000 && amount < 1_000_000) {
-		return (amount / 1_000) + "K";
-	}
-
-	if (amount >= 1_000_000) {
-		return (amount / 1_000_000) + "M";
-	}
-
-	if (amount >= 1_000_000_000) {
-		return (amount / 1_000_000_000) + "B";
-	}
-	return "" + amount;
-	}
 
 	public static String getFormattedTime(int secs) {
 	if (secs < 60)

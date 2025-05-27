@@ -51,10 +51,10 @@ public abstract class ForceMovementTask extends Task {
     }
   }
 
-  public abstract void onDestination();
-
   @Override
   public void onStop() {
     stoner.setController(to);
   }
+
+  public abstract void onDestination();
 }

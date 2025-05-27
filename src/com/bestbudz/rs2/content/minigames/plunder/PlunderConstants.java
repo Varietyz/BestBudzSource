@@ -30,6 +30,8 @@ public class PlunderConstants {
 
   public static final Animation SARCOPHAGUS_SEARCH_START = new Animation(4344);
   public static final Animation SARCOPHAGUS_SEARCH_END = new Animation(4345);
+  public static final int DOOR_ANIMATION = 4338;
+  public static final int SPEAR_TRAP_ANIMATION = 459;
 
   public enum DoorBitPosition {
     DOOR_1(26618, 9),
@@ -60,8 +62,6 @@ public class PlunderConstants {
       return 1 << bitPosition;
     }
   }
-
-  public static final int DOOR_ANIMATION = 4338;
 
   public enum UrnBitPosition {
     URN_1(26610, 22, 23, 0),
@@ -117,6 +117,4 @@ public class PlunderConstants {
       }
     }
   }
-
-  public static final int SPEAR_TRAP_ANIMATION = 459;
 }

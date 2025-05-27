@@ -14,189 +14,188 @@ import java.util.Objects;
 
 public class Item {
 
-	private short id;
-	private int amount;
+  private short id;
+  private int amount;
 
-	public Item() {
-	}
+  public Item() {}
 
-	public Item(int id) {
-	this.id = ((short) id);
-	amount = 1;
-	}
+  public Item(int id) {
+    this.id = ((short) id);
+    amount = 1;
+  }
 
-	public Item(int id, int amount) {
-	this.id = ((short) id);
-	this.amount = amount;
-	}
+  public Item(int id, int amount) {
+    this.id = ((short) id);
+    this.amount = amount;
+  }
 
-	public Item(Item item) {
-	id = ((short) item.getId());
-	amount = item.getAmount();
-	}
+  public Item(Item item) {
+    id = ((short) item.getId());
+    amount = item.getAmount();
+  }
 
-	public static ItemDefinition getDefinition(int id) {
-	return GameDefinitionLoader.getItemDef(id);
-	}
+  public static ItemDefinition getDefinition(int id) {
+    return GameDefinitionLoader.getItemDef(id);
+  }
 
-	public static EquipmentDefinition getEquipmentDefinition(int id) {
-	return GameDefinitionLoader.getEquipmentDefinition(id);
-	}
+  public static EquipmentDefinition getEquipmentDefinition(int id) {
+    return GameDefinitionLoader.getEquipmentDefinition(id);
+  }
 
-	public static FoodDefinition getFoodDefinition(int id) {
-	if ((id < 0) || (id > 20144)) {
-		return null;
-	}
+  public static FoodDefinition getFoodDefinition(int id) {
+    if ((id < 0) || (id > 20144)) {
+      return null;
+    }
 
-	return GameDefinitionLoader.getFoodDefinition(id);
-	}
+    return GameDefinitionLoader.getFoodDefinition(id);
+  }
 
-	public static short[] getItemBonuses(int id) {
-	ItemBonusDefinition def = GameDefinitionLoader.getItemBonusDefinition(id);
-	if (def != null) {
-		return def.getBonuses();
-	}
-	return null;
-	}
+  public static short[] getItemBonuses(int id) {
+    ItemBonusDefinition def = GameDefinitionLoader.getItemBonusDefinition(id);
+    if (def != null) {
+      return def.getBonuses();
+    }
+    return null;
+  }
 
-	public static PotionDefinition getPotionDefinition(int id) {
-	if ((id < 0) || (id > 20144)) {
-		return null;
-	}
+  public static PotionDefinition getPotionDefinition(int id) {
+    if ((id < 0) || (id > 20144)) {
+      return null;
+    }
 
-	return GameDefinitionLoader.getPotionDefinition(id);
-	}
+    return GameDefinitionLoader.getPotionDefinition(id);
+  }
 
-	public static SagittariusWeaponDefinition getSagittariusDefinition(int id) {
-	return GameDefinitionLoader.getSagittariusWeaponDefinition(id);
-	}
+  public static SagittariusWeaponDefinition getSagittariusDefinition(int id) {
+    return GameDefinitionLoader.getSagittariusWeaponDefinition(id);
+  }
 
-	public static int getSagittariusVigourBonus(int id) {
-	SagittariusVigourDefinition def = GameDefinitionLoader.getSagittariusVigourDefinition(id);
-	return def == null ? 0 : def.getBonus();
-	}
+  public static int getSagittariusVigourBonus(int id) {
+    SagittariusVigourDefinition def = GameDefinitionLoader.getSagittariusVigourDefinition(id);
+    return def == null ? 0 : def.getBonus();
+  }
 
-	public static SpecialAssaultDefinition getSpecialDefinition(int id) {
-	return GameDefinitionLoader.getSpecialDefinition(id);
-	}
+  public static SpecialAssaultDefinition getSpecialDefinition(int id) {
+    return GameDefinitionLoader.getSpecialDefinition(id);
+  }
 
-	public static WeaponDefinition getWeaponDefinition(int id) {
-	if ((id < 0) || (id > 20144)) {
-		return null;
-	}
+  public static WeaponDefinition getWeaponDefinition(int id) {
+    if ((id < 0) || (id > 20144)) {
+      return null;
+    }
 
-	return GameDefinitionLoader.getWeaponDefinition(id);
-	}
+    return GameDefinitionLoader.getWeaponDefinition(id);
+  }
 
-	public void add(int amount) {
-	this.amount += amount;
-	}
+  public void add(int amount) {
+    this.amount += amount;
+  }
 
-	@Override
-	public int hashCode() {
-	return Objects.hash(id, amount);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, amount);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-	if ((obj instanceof Item)) {
-		Item item = (Item) obj;
-		return item.getId() == id;
-	}
-	return false;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if ((obj instanceof Item)) {
+      Item item = (Item) obj;
+      return item.getId() == id;
+    }
+    return false;
+  }
 
-	@Override
-	public String toString() {
-	return "Item [id=" + id + ", amount=" + amount + "]";
-	}
+  @Override
+  public String toString() {
+    return "Item [id=" + id + ", amount=" + amount + "]";
+  }
 
-	public int getAmount() {
-	return amount;
-	}
+  public int getAmount() {
+    return amount;
+  }
 
-	public void setAmount(int amount) {
-	this.amount = amount;
-	}
+  public void setAmount(int amount) {
+    this.amount = amount;
+  }
 
-	public ItemDefinition getDefinition() {
-	return GameDefinitionLoader.getItemDef(id);
-	}
+  public ItemDefinition getDefinition() {
+    return GameDefinitionLoader.getItemDef(id);
+  }
 
-	public EquipmentDefinition getEquipmentDefinition() {
-	return GameDefinitionLoader.getEquipmentDefinition(id);
-	}
+  public EquipmentDefinition getEquipmentDefinition() {
+    return GameDefinitionLoader.getEquipmentDefinition(id);
+  }
 
-	public FoodDefinition getFoodDefinition() {
-	return GameDefinitionLoader.getFoodDefinition(id);
-	}
+  public FoodDefinition getFoodDefinition() {
+    return GameDefinitionLoader.getFoodDefinition(id);
+  }
 
-	public int getId() {
-	return id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public void setId(int id) {
-	this.id = ((short) id);
-	}
+  public void setId(int id) {
+    this.id = ((short) id);
+  }
 
-	public short[] getItemBonuses() {
-	ItemBonusDefinition def = GameDefinitionLoader.getItemBonusDefinition(id);
-	if (def != null) {
-		return def.getBonuses();
-	}
-	return null;
-	}
+  public short[] getItemBonuses() {
+    ItemBonusDefinition def = GameDefinitionLoader.getItemBonusDefinition(id);
+    if (def != null) {
+      return def.getBonuses();
+    }
+    return null;
+  }
 
-	public byte[][] getItemRequirements() {
-	return GameDefinitionLoader.getItemRequirements(id);
-	}
+  public byte[][] getItemRequirements() {
+    return GameDefinitionLoader.getItemRequirements(id);
+  }
 
-	public PotionDefinition getPotionDefinition() {
-	return GameDefinitionLoader.getPotionDefinition(id);
-	}
+  public PotionDefinition getPotionDefinition() {
+    return GameDefinitionLoader.getPotionDefinition(id);
+  }
 
-	public SagittariusWeaponDefinition getSagittariusDefinition() {
-	return GameDefinitionLoader.getSagittariusWeaponDefinition(id);
-	}
+  public SagittariusWeaponDefinition getSagittariusDefinition() {
+    return GameDefinitionLoader.getSagittariusWeaponDefinition(id);
+  }
 
-	public int getSagittariusVigourBonus() {
-	SagittariusVigourDefinition def = GameDefinitionLoader.getSagittariusVigourDefinition(id);
-	return def == null ? 0 : def.getBonus();
-	}
+  public int getSagittariusVigourBonus() {
+    SagittariusVigourDefinition def = GameDefinitionLoader.getSagittariusVigourDefinition(id);
+    return def == null ? 0 : def.getBonus();
+  }
 
-	public SpecialAssaultDefinition getSpecialDefinition() {
-	return GameDefinitionLoader.getSpecialDefinition(id);
-	}
+  public SpecialAssaultDefinition getSpecialDefinition() {
+    return GameDefinitionLoader.getSpecialDefinition(id);
+  }
 
-	public WeaponDefinition getWeaponDefinition() {
-	return GameDefinitionLoader.getWeaponDefinition(id);
-	}
+  public WeaponDefinition getWeaponDefinition() {
+    return GameDefinitionLoader.getWeaponDefinition(id);
+  }
 
-	public void note() {
-	int noteId = getDefinition().getNoteId();
+  public void note() {
+    int noteId = getDefinition().getNoteId();
 
-	if (noteId == -1) {
-		return;
-	}
+    if (noteId == -1) {
+      return;
+    }
 
-	id = ((short) noteId);
-	}
+    id = ((short) noteId);
+  }
 
-	public void remove(int amount) {
-	this.amount -= amount;
-	}
+  public void remove(int amount) {
+    this.amount -= amount;
+  }
 
-	public Item getSingle() {
-	return new Item(id, 1);
-	}
+  public Item getSingle() {
+    return new Item(id, 1);
+  }
 
-	public void unNote() {
-	int noteId = getDefinition().getNoteId();
+  public void unNote() {
+    int noteId = getDefinition().getNoteId();
 
-	if (noteId == -1) {
-		return;
-	}
+    if (noteId == -1) {
+      return;
+    }
 
-	id = ((short) noteId);
-	}
+    id = ((short) noteId);
+  }
 }

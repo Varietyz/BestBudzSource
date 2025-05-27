@@ -107,12 +107,12 @@ public enum Stringable implements Fletchable {
   }
 
   @Override
-  public String getProductionMessage() {
-    return null;
+  public Item[] getIngediants() {
+    return new Item[] {use, with};
   }
 
   @Override
-  public Item[] getIngediants() {
-    return new Item[] {use, with};
+  public String getProductionMessage() {
+    return null;
   }
 }

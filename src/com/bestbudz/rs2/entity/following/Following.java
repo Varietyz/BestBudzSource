@@ -235,6 +235,10 @@ public abstract class Following {
     return ignoreDistance;
   }
 
+  public void setIgnoreDistance(boolean ignoreDistance) {
+    this.ignoreDistance = ignoreDistance;
+  }
+
   public boolean isWithinDistance() {
     int x1 = entity.getLocation().getX();
     int x2 = following.getLocation().getX();
@@ -282,16 +286,6 @@ public abstract class Following {
     lastY = 0;
   }
 
-  public enum FollowType {
-    DEFAULT,
-    COMBAT,
-    FOLLOW_TO
-  }
-
-  public void setIgnoreDistance(boolean ignoreDistance) {
-    this.ignoreDistance = ignoreDistance;
-  }
-
   public void updateWaypoint() {
     if (following == null) {
       return;
@@ -325,5 +319,11 @@ public abstract class Following {
     } else if (type == FollowType.FOLLOW_TO) {
       newWaypoint.setAs(getFollowToLocation());
     }
+  }
+
+  public enum FollowType {
+    DEFAULT,
+    COMBAT,
+    FOLLOW_TO
   }
 }

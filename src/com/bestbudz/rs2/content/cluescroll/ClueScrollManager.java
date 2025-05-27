@@ -881,9 +881,18 @@ public enum ClueScrollManager {
     }
   }
 
-  public interface ClueReward {
+  public static ClueScroll getClue(int id) {
+    return CLUE_SCROLLS.get(id);
+  }
 
-    Item getReward();
+  public static boolean stonerHasScroll(Stoner stoner) {
+    for (int i = 0; i < stoner.getBox().getItems().length; i++) {
+      if (stoner.getBox().getItems()[i] != null
+          && getClue(stoner.getBox().getItems()[i].getId()) != null) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public boolean clickItem(Stoner stoner, int item) {
@@ -951,17 +960,8 @@ public enum ClueScrollManager {
     }
   }
 
-  public static ClueScroll getClue(int id) {
-    return CLUE_SCROLLS.get(id);
-  }
+  public interface ClueReward {
 
-  public static boolean stonerHasScroll(Stoner stoner) {
-    for (int i = 0; i < stoner.getBox().getItems().length; i++) {
-      if (stoner.getBox().getItems()[i] != null
-          && getClue(stoner.getBox().getItems()[i].getId()) != null) {
-        return true;
-      }
-    }
-    return false;
+    Item getReward();
   }
 }

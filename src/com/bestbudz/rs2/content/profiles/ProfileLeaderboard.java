@@ -1,12 +1,11 @@
 package com.bestbudz.rs2.content.profiles;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ProfileLeaderboard implements Comparable<Object> {
 

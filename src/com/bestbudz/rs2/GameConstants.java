@@ -134,9 +134,9 @@ public class GameConstants {
         }
       }
 
-      int dist = Utility.getManhattanDistance(x2, x2, x, y);
+		int dist = Math.abs(x2 - x) + Math.abs(y2 - y); // inline to avoid function call
 
-      if (dist < lowDist) {
+		if (dist < lowDist) {
         lowX = x2;
         lowY = y2;
         lowDist = dist;
@@ -146,25 +146,27 @@ public class GameConstants {
     return lowX != 0 ? new Location(lowX, lowY, z) : null;
   }
 
-  public static final int getDirection(int x, int y) {
-    for (int i = 0; i < 8; i++) {
-      if ((DIR[i][0] == x) && (DIR[i][1] == y)) {
-        return i;
-      }
-    }
-    return -1;
-  }
+	private static final int[][] DIRECTION_LOOKUP = {
+		{5, 6, 7}, // dx: -1, 0, 1 — dy: -1
+		{3, -1, 4}, // dx: -1, 0, 1 — dy: 0
+		{0, 1, 2}   // dx: -1, 0, 1 — dy: +1
+	};
 
-  public static final int getDirection(int x, int y, int x2, int y2) {
-    int xDiff = x2 - x;
-    int yDiff = y2 - y;
-    for (int i = 0; i < DIR.length; i++) {
-      if ((xDiff == DIR[i][0]) && (yDiff == DIR[i][1])) {
-        return i;
-      }
-    }
-    return -1;
-  }
+	// Replaces getDirection(xDiff, yDiff)
+	public static int getDirection(int dx, int dy) {
+		if (dx < -1 || dx > 1 || dy < -1 || dy > 1) {
+			return -1;
+		}
+		return DIRECTION_LOOKUP[dy + 1][dx + 1];
+	}
+
+	// Replaces getDirection(x, y, x2, y2)
+	public static int getDirection(int x, int y, int x2, int y2) {
+		int dx = x2 - x;
+		int dy = y2 - y;
+		return getDirection(dx, dy);
+	}
+
 
   public static Location[] getEdges(int x, int y, int size) {
     if (size <= 1) {
@@ -195,10 +197,9 @@ public class GameConstants {
         int x2 = x + SIZES[i][k][0];
         int y2 = y + SIZES[i][k][1];
 
-        if ((x2 - blockX < blockSize)
-            && (x2 - blockX > -1)
-            && (y2 - blockY < blockSize)
-            && (y2 - blockY > -1)) {
+		  if ((x2 >= blockX && x2 < blockX + blockSize)
+			  && (y2 >= blockY && y2 < blockY + blockSize))
+		  {
           return true;
         }
       }

@@ -19,6 +19,30 @@ public class Scorpia extends Mob {
   }
 
   @Override
+  public void hit(Hit hit) {
+
+    if (isDead()) {
+      return;
+    }
+
+    super.hit(hit);
+
+    if (getGrades()[3] < 100 && !isSpawnGuardians()) {
+      spawnGuardians();
+    }
+  }
+
+  @Override
+  public void onAssault(Entity assault, long hit, CombatTypes type, boolean success) {
+    super.onAssault(assault, hit, type, success);
+    if (success) {
+      if (Utility.random(10) == 0) {
+        assault.poison(20);
+      }
+    }
+  }
+
+  @Override
   public void doAliveMobProcessing() {
     if (isSpawnGuardians()) {
       boolean clear = false;
@@ -52,30 +76,6 @@ public class Scorpia extends Mob {
   @Override
   public int getRespawnTime() {
     return 60;
-  }
-
-  @Override
-  public void hit(Hit hit) {
-
-    if (isDead()) {
-      return;
-    }
-
-    super.hit(hit);
-
-    if (getGrades()[3] < 100 && !isSpawnGuardians()) {
-      spawnGuardians();
-    }
-  }
-
-  @Override
-  public void onAssault(Entity assault, long hit, CombatTypes type, boolean success) {
-    super.onAssault(assault, hit, type, success);
-    if (success) {
-      if (Utility.random(10) == 0) {
-        assault.poison(20);
-      }
-    }
   }
 
   @Override

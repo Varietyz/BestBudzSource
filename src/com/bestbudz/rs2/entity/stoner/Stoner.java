@@ -36,8 +36,8 @@ import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.CreditTab;
 import com.bestbudz.rs2.content.interfaces.impl.MiscInterfaces;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
-import com.bestbudz.rs2.content.io.StonerSave;
-import com.bestbudz.rs2.content.io.StonerSaveUtil;
+import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
+import com.bestbudz.rs2.content.io.sqlite.StonerSave;
 import com.bestbudz.rs2.content.membership.CreditPurchase;
 import com.bestbudz.rs2.content.minigames.StonerMinigames;
 import com.bestbudz.rs2.content.minigames.barrows.Barrows.Brother;
@@ -105,6 +105,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -121,7 +122,27 @@ public class Stoner extends Entity {
           }
         }
       };
-  private final List<Mob> activePets = new ArrayList<>();
+	public static final Map<Location, Integer> pathMemory = new HashMap<>();
+
+	public static void recordCollision(Location loc) {
+		pathMemory.put(loc, pathMemory.getOrDefault(loc, 0) + 1);
+	}
+
+	public void decayPathMemory() {
+		pathMemory.entrySet().removeIf(e -> {
+			int newVal = e.getValue() - 1;
+			if (newVal <= 0) return true;
+			e.setValue(newVal);
+			return false;
+		});
+	}
+
+	public int getMemoryPenalty(Location loc) {
+		return pathMemory.getOrDefault(loc, 0);
+	}
+
+
+	private final List<Mob> activePets = new ArrayList<>();
   private final List<Stoner> stoners = new LinkedList<Stoner>();
   private final StonerAnimations stonerAnimations = new StonerAnimations();
   private final RunEnergy runEnergy = new RunEnergy(this);
@@ -149,7 +170,6 @@ public class Stoner extends Entity {
   private final Summoning summoning = new Summoning(this);
   private final PriceChecker priceChecker = new PriceChecker(this, 28);
   private final RareDropEP rareDropEP = new RareDropEP();
-  private final StonerOwnedShops stonerShop = new StonerOwnedShops(this);
   private final Skulling skulling = new Skulling();
   private final LocalObjects objects = new LocalObjects(this);
   private final InterfaceManager interfaceManager = new InterfaceManager();
@@ -213,8 +233,6 @@ public class Stoner extends Entity {
   private int[] professionAdvances = new int[Professions.PROFESSION_COUNT];
   private int[] cluesCompleted = new int[4];
   private String pin;
-  private String shopMotto;
-  private String shopColor;
   private long shopCollection;
   private Location currentRegion = new Location(0, 0, 0);
   private NecromanceBook necromance = new NecromanceBook(this);
@@ -1134,10 +1152,6 @@ public class Stoner extends Entity {
     return stoners;
   }
 
-  public StonerOwnedShops getStonerShop() {
-    return stonerShop;
-  }
-
   public byte[] getPouches() {
     return pouches;
   }
@@ -1388,14 +1402,14 @@ public class Stoner extends Entity {
 
     username = NameUtil.uppercaseFirstLetter(username);
 
-    usernameToLong = Utility.nameToLong(username.toLowerCase());
+    usernameToLong = Utility.nameToLong(username);
 
     int response = 2;
 
     if ((password.length() == 0) || (username.length() == 0) || (username.length() > 12)) {
       response = 3;
-    } else if ((banned) || (StonerSaveUtil.isIPBanned(this))) {
-      response = 4;
+    } else if ((banned) || Boolean.TRUE.equals(getAttributes().get("banned_ip"))) {
+		response = 4;
     } else if ((password != null) && (!password.equals(client.getEnteredPassword()))) {
       response = 3;
     } else if (World.isUpdating()) {
@@ -1419,8 +1433,9 @@ public class Stoner extends Entity {
 
     send(new SendString(getMoneyPouch() + "", 8135));
 
-    if (StonerSaveUtil.isIPMuted(this)) {
-      setMuted(true);
+	  if (Boolean.TRUE.equals(getAttributes().get("muted_ip"))) {
+
+		  setMuted(true);
       setMuteLength(-1);
     }
 
@@ -1562,8 +1577,6 @@ public class Stoner extends Entity {
 
     controller.onControllerInit(this);
 
-    stonerShop.setName(username);
-
     for (Necromance necromance : Necromance.values()) {
       send(
           new SendConfig(
@@ -1592,10 +1605,12 @@ public class Stoner extends Entity {
     send(new SendConfig(1992, getSideStones()));
     String ts = "";
     ts = ts + "**" + this.getUsername() + " came to get high asf.**";
+
     return true;
   }
 
-  public void logout(boolean force) {
+
+	public void logout(boolean force) {
     if (isActive()) {
       if (force) {
         ControllerManager.onForceLogout(this);
@@ -1641,7 +1656,7 @@ public class Stoner extends Entity {
       if (DwarfMultiCannon.hasCannon(this)) {
         DwarfMultiCannon.getCannon(this).onLogout();
       }
-
+	  SaveWorker.enqueueSave(this);
       StonerSave.save(this);
 
       if (!BestbudzConstants.DEV_MODE) {}
@@ -1915,13 +1930,6 @@ public class Stoner extends Entity {
     expCounter += exp;
   }
 
-  public String getShopMotto() {
-    return shopMotto;
-  }
-
-  public void setShopMotto(String shopMotto) {
-    this.shopMotto = shopMotto;
-  }
 
   public long getShopCollection() {
     return shopCollection;
@@ -2073,14 +2081,6 @@ public class Stoner extends Entity {
 
   public void setDelay(Stopwatch delay) {
     this.delay = delay;
-  }
-
-  public String getShopColor() {
-    return shopColor;
-  }
-
-  public void setShopColor(String shopColor) {
-    this.shopColor = shopColor;
   }
 
   public String getUid() {

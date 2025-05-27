@@ -119,6 +119,17 @@ public class Barrows {
     return -1;
   }
 
+  public static void onBarrowsDeath(Stoner p, Mob mob) {
+    Brother bro = Brother.getBarrowsBrother(mob);
+
+    if (bro == null) {
+      return;
+    }
+
+    p.getKillRecord()[bro.ordinal()] = true;
+    p.setBarrowsKC(p.getBarrowsKC() + 1);
+  }
+
   public enum Brother {
     AHRIM(1672),
     GUTHAN(1674),
@@ -154,16 +165,5 @@ public class Barrows {
     public int getNpcId() {
       return npcId;
     }
-  }
-
-  public static void onBarrowsDeath(Stoner p, Mob mob) {
-    Brother bro = Brother.getBarrowsBrother(mob);
-
-    if (bro == null) {
-      return;
-    }
-
-    p.getKillRecord()[bro.ordinal()] = true;
-    p.setBarrowsKC(p.getBarrowsKC() + 1);
   }
 }

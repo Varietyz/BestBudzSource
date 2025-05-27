@@ -108,7 +108,7 @@ public enum PyramidPlunder {
   }
 
   public boolean changeFloor(Stoner stoner, int floor) {
-    if (stoner.getGrades()[Professions.ACCOMPLISHER] < 21 + floor * 10) {
+    if (stoner.getGrades()[Professions.ACCOMPLISHER] < 21 + floor * 10L) {
       return false;
     }
 

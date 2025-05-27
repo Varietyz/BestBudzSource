@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.summoning;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.core.definitions.ItemDefinition;
 import com.bestbudz.rs2.content.profession.summoning.impl.Minotaur;
 import com.bestbudz.rs2.content.profession.summoning.impl.SpiritJelly;
@@ -11,6 +8,8 @@ import com.bestbudz.rs2.content.profession.summoning.impl.SpiritTerrorBird;
 import com.bestbudz.rs2.content.profession.summoning.impl.SpiritWolf;
 import com.bestbudz.rs2.content.profession.summoning.impl.UnicornStallion;
 import com.bestbudz.rs2.entity.item.Item;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SummoningConstants {
   public static final int SHARD_ID = 18016;

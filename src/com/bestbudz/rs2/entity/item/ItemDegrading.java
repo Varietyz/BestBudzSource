@@ -176,6 +176,14 @@ public class ItemDegrading {
     return degrading;
   }
 
+  public void setDegrading(DegradedItem[] degrading) {
+    if (degrading.length < 50) {
+      for (int i = 0; i < degrading.length; i++) {
+        if (degrading[i] != null) this.degrading[i] = degrading[i];
+      }
+    } else this.degrading = degrading;
+  }
+
   public DegradedItem getDegradingReference(int id) {
     for (DegradedItem i : degrading) {
       if ((i != null) && (i.getId() == id)) {
@@ -184,34 +192,6 @@ public class ItemDegrading {
     }
 
     return null;
-  }
-
-  public static class DegradedItem {
-    private final int id;
-    private final int maxHits;
-    private int hits;
-
-    public DegradedItem(int id, int hits, int maxHits) {
-      this.id = id;
-      this.hits = hits;
-      this.maxHits = maxHits;
-    }
-
-    public boolean degrade() {
-      return hits >= maxHits;
-    }
-
-    public int getHits() {
-      return hits;
-    }
-
-    public int getId() {
-      return id;
-    }
-
-    public void incr() {
-      hits += 1;
-    }
   }
 
   public void insert(DegradedItem add) {
@@ -240,11 +220,31 @@ public class ItemDegrading {
       }
   }
 
-  public void setDegrading(DegradedItem[] degrading) {
-    if (degrading.length < 50) {
-      for (int i = 0; i < degrading.length; i++) {
-        if (degrading[i] != null) this.degrading[i] = degrading[i];
-      }
-    } else this.degrading = degrading;
+  public static class DegradedItem {
+    private final int id;
+    private final int maxHits;
+    private int hits;
+
+    public DegradedItem(int id, int hits, int maxHits) {
+      this.id = id;
+      this.hits = hits;
+      this.maxHits = maxHits;
+    }
+
+    public boolean degrade() {
+      return hits >= maxHits;
+    }
+
+    public int getHits() {
+      return hits;
+    }
+
+    public int getId() {
+      return id;
+    }
+
+    public void incr() {
+      hits += 1;
+    }
   }
 }

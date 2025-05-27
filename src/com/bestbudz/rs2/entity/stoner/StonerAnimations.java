@@ -54,8 +54,16 @@ public class StonerAnimations {
     return turn90CWEmote;
   }
 
+  public void setTurn90CWEmote(int turn90cwEmote) {
+    turn90CWEmote = turn90cwEmote;
+  }
+
   public int getWalkEmote() {
     return walkEmote;
+  }
+
+  public void setWalkEmote(int walkEmote) {
+    this.walkEmote = walkEmote;
   }
 
   public void set(
@@ -96,13 +104,5 @@ public class StonerAnimations {
         turn90CCWEmote,
         runEmote);
     return anims;
-  }
-
-  public void setTurn90CWEmote(int turn90cwEmote) {
-    turn90CWEmote = turn90cwEmote;
-  }
-
-  public void setWalkEmote(int walkEmote) {
-    this.walkEmote = walkEmote;
   }
 }

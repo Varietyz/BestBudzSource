@@ -92,7 +92,7 @@ public class Mage {
     double aegis = MageFormulas.getMageAegisRoll(entity.getCombat().getAssaulting());
     double chance = FormulaData.getChance(accuracy, aegis);
     boolean accurate = FormulaData.isAccurateHit(chance);
-	  entity.getCombat().setHitChance(chance);
+    entity.getCombat().setHitChance(chance);
 
     success = accurate;
 
@@ -106,7 +106,6 @@ public class Mage {
         nextHit == -2
             ? entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.MAGE) + 1))
             : nextHit;
-
 
     if (nextHit != -2) {
       nextHit = -2;
@@ -126,7 +125,6 @@ public class Mage {
 
     if (hit.getDamage() > -1) {
       TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
-
     }
 
     Graphic end = null;
@@ -138,33 +136,37 @@ public class Mage {
 
     if (end != null) {
       TaskQueue.queue(new GraphicTask(assault.getHitDelay(), false, end, assaulting));
-		if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage())) {
-			long secondHitDamage = hit.getDamage() / 2;
+      if (FormulaData.isDoubleHit(
+          entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage())) {
+        long secondHitDamage = hit.getDamage() / 2;
 
-			if (secondHitDamage > 0) {
-				Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
+        if (secondHitDamage > 0) {
+          Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
 
-				// Copy of 'assaulting' must be made effectively final for the inner class
-				final Entity target = assaulting;
+          // Copy of 'assaulting' must be made effectively final for the inner class
+          final Entity target = assaulting;
 
-				TaskQueue.queue(new Task(1) { // 1 tick = 300ms
-					@Override
-					public void execute() {
-						Combat.applyHit(target, secondHit);
-						if (entity instanceof Stoner) {
-							((Stoner) entity).getClient().queueOutgoingPacket(
-								new SendMessage("@gre@Double strike landed! Bonus: " + secondHitDamage)
-							);
-						}
-						entity.getCombat().resetHitChain();
-						stop();
-					}
+          TaskQueue.queue(
+              new Task(1) { // 1 tick = 300ms
+                @Override
+                public void execute() {
+                  Combat.applyHit(target, secondHit);
+                  if (entity instanceof Stoner) {
+                    ((Stoner) entity)
+                        .getClient()
+                        .queueOutgoingPacket(
+                            new SendMessage(
+                                "@gre@Double strike landed! Bonus: " + secondHitDamage));
+                  }
+                  entity.getCombat().resetHitChain();
+                  stop();
+                }
 
-					@Override
-					public void onStop() {}
-				});
-			}
-		}
+                @Override
+                public void onStop() {}
+              });
+        }
+      }
     }
     assaulting.getCombat().setInCombat(entity);
   }

@@ -18,7 +18,6 @@ public class UseBankDialogue extends Dialogue {
         stoner.getBank().openBank();
         return true;
       case DialogueConstants.OPTIONS_2_2:
-        stoner.start(new ShopExchangeDialogue(stoner));
         return true;
     }
     return false;

@@ -12,6 +12,11 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 public class InputFieldPacket extends IncomingPacket {
 
   @Override
+  public int getMaxDuplicates() {
+    return 1;
+  }
+
+  @Override
   public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
     int id = in.readShort();
     String text = in.readString();
@@ -36,10 +41,5 @@ public class InputFieldPacket extends IncomingPacket {
         DropTable.searchNpc(stoner, text);
         break;
     }
-  }
-
-  @Override
-  public int getMaxDuplicates() {
-    return 1;
   }
 }

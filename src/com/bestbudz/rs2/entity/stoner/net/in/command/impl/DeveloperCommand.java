@@ -20,7 +20,7 @@ import com.bestbudz.rs2.content.combat.special.SpecialAssaultHandler;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.OneLineDialogue;
 import com.bestbudz.rs2.content.exercisement.Exercisement;
-import com.bestbudz.rs2.content.io.StonerSave.StonerContainer;
+import com.bestbudz.rs2.content.io.sqlite.StonerSave;
 import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
 import com.bestbudz.rs2.content.membership.RankHandler;
 import com.bestbudz.rs2.content.minigames.plunder.PyramidPlunder;
@@ -86,8 +86,8 @@ public class DeveloperCommand implements Command {
           if (target == null) {
             target = new Stoner();
             target.setUsername(name);
-            if (!StonerContainer.loadDetails(target)) {
-              stoner.send(new SendMessage("The stoner '" + name + "' could not be found."));
+			  if (!StonerSave.load(target)) {
+				  stoner.send(new SendMessage("The stoner '" + name + "' could not be found."));
               return true;
             }
           }

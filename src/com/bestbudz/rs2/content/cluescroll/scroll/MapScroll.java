@@ -46,12 +46,12 @@ public class MapScroll implements ClueScroll {
   }
 
   @Override
-  public ClueDifficulty getDifficulty() {
-    return difficulty;
+  public int getScrollId() {
+    return scrollId;
   }
 
   @Override
-  public int getScrollId() {
-    return scrollId;
+  public ClueDifficulty getDifficulty() {
+    return difficulty;
   }
 }

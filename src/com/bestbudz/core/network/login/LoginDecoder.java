@@ -5,12 +5,11 @@ import com.bestbudz.core.network.ISAACCipher;
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.World;
-import com.bestbudz.rs2.entity.stoner.net.Client;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.Client;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.handler.codec.ByteToMessageDecoder;
-
 import java.security.SecureRandom;
 import java.util.List;
 

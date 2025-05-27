@@ -478,6 +478,78 @@ public class NecromanceBook {
     return hit.getDamage();
   }
 
+  public byte getHeadicon() {
+    return (byte) headIcon;
+  }
+
+  public boolean[] getQuickNecromances() {
+    return quickNecromances;
+  }
+
+  public void setQuickNecromances(boolean[] quickNecromances) {
+    this.quickNecromances = quickNecromances;
+  }
+
+  public boolean isQuickNecromance(Necromance necromance) {
+    return quickNecromances[necromance.ordinal()];
+  }
+
+  public void drain() {
+    int amount = 0;
+    for (Necromance necromance : Necromance.values()) {
+      if (active(necromance)) {
+        if (++drain[necromance.ordinal()] >= getAffectedDrainRate(necromance) / 0.6) {
+          amount++;
+          drain[necromance.ordinal()] = 0;
+        }
+      }
+    }
+
+    if (amount > 0) {
+      drain(amount);
+    }
+  }
+
+  public void drain(long drain) {
+    long necromance = stoner.getProfession().getGrades()[5];
+    if (drain >= necromance) {
+      for (int i = 0; i < this.drain.length; i++) {
+        this.drain[i] = 0;
+      }
+
+      disable();
+      stoner.getProfession().setGrade(5, 0);
+      stoner
+          .getClient()
+          .queueOutgoingPacket(
+              new SendMessage(
+                  "You have run out of necromance points; you must recharge at an altar."));
+    } else {
+      stoner.getProfession().deductFromGrade(5, drain < 1 ? 1 : (int) Math.ceil(drain));
+
+      if (stoner.getProfession().getGrades()[5] <= 0) {
+        disable();
+        stoner
+            .getClient()
+            .queueOutgoingPacket(
+                new SendMessage(
+                    "You have run out of necromance points; you must recharge at an altar."));
+      }
+    }
+  }
+
+  public void disable() {
+    for (Necromance necromance : Necromance.values()) {
+      if (active(necromance)) {
+        forceToggle(necromance, false);
+      }
+    }
+  }
+
+  public void disable(Necromance necromance) {
+    forceToggle(necromance, false);
+  }
+
   public enum NecromanceType {
     OVER_HEAD,
     AEGIS,
@@ -568,77 +640,5 @@ public class NecromanceBook {
     public NecromanceType getType() {
       return type;
     }
-  }
-
-  public byte getHeadicon() {
-    return (byte) headIcon;
-  }
-
-  public void setQuickNecromances(boolean[] quickNecromances) {
-    this.quickNecromances = quickNecromances;
-  }
-
-  public boolean[] getQuickNecromances() {
-    return quickNecromances;
-  }
-
-  public boolean isQuickNecromance(Necromance necromance) {
-    return quickNecromances[necromance.ordinal()];
-  }
-
-  public void drain() {
-    int amount = 0;
-    for (Necromance necromance : Necromance.values()) {
-      if (active(necromance)) {
-        if (++drain[necromance.ordinal()] >= getAffectedDrainRate(necromance) / 0.6) {
-          amount++;
-          drain[necromance.ordinal()] = 0;
-        }
-      }
-    }
-
-    if (amount > 0) {
-      drain(amount);
-    }
-  }
-
-  public void drain(long drain) {
-    long necromance = stoner.getProfession().getGrades()[5];
-    if (drain >= necromance) {
-      for (int i = 0; i < this.drain.length; i++) {
-        this.drain[i] = 0;
-      }
-
-      disable();
-      stoner.getProfession().setGrade(5, 0);
-      stoner
-          .getClient()
-          .queueOutgoingPacket(
-              new SendMessage(
-                  "You have run out of necromance points; you must recharge at an altar."));
-    } else {
-      stoner.getProfession().deductFromGrade(5, drain < 1 ? 1 : (int) Math.ceil(drain));
-
-      if (stoner.getProfession().getGrades()[5] <= 0) {
-        disable();
-        stoner
-            .getClient()
-            .queueOutgoingPacket(
-                new SendMessage(
-                    "You have run out of necromance points; you must recharge at an altar."));
-      }
-    }
-  }
-
-  public void disable() {
-    for (Necromance necromance : Necromance.values()) {
-      if (active(necromance)) {
-        forceToggle(necromance, false);
-      }
-    }
-  }
-
-  public void disable(Necromance necromance) {
-    forceToggle(necromance, false);
   }
 }

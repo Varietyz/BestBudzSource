@@ -1,14 +1,13 @@
 package com.bestbudz.rs2.content.trading;
 
-import java.math.BigInteger;
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemContainer;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
+import java.math.BigInteger;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class TradeContainer extends ItemContainer {
 

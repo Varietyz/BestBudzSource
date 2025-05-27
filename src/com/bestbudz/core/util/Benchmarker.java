@@ -11,6 +11,8 @@ public class Benchmarker {
 
   private static int timer = 0;
 
+  private Benchmarker() {}
+
   public static void print() {
     int id = 0;
 
@@ -57,6 +59,4 @@ public class Benchmarker {
       benchmarks.remove(id);
     }
   }
-
-  private Benchmarker() {}
 }

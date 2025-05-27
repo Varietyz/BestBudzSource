@@ -80,14 +80,14 @@ public class RunEnergy {
     this.running = running;
   }
 
-	public void onRun() {
-		// Infinite run for everyone
-		energy = 100.0D;
-		update();
-		allowed = false;
-	}
+  public void onRun() {
+    // Infinite run for everyone
+    energy = 100.0D;
+    update();
+    allowed = false;
+  }
 
-	public void reset() {
+  public void reset() {
     running = false;
     allowed = true;
   }

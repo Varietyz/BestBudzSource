@@ -17,165 +17,161 @@ import java.util.Map;
 
 public class Pyromaniac {
 
-	public static final String USING_ON_FIRE_KEY = "woodonfirekey";
-	public static final int BURNING_ANIMATION = 4975;
+  public static final String USING_ON_FIRE_KEY = "woodonfirekey";
+  public static final int BURNING_ANIMATION = 4975;
 
-	public static boolean burnin(Stoner stoner, int id, int experience, int time) {
-	Wood wood = Wood.forId(id);
+  public static boolean burnin(Stoner stoner, int id, int experience, int time) {
+    Wood wood = Wood.forId(id);
 
-	if (wood == null) {
-		return false;
-	}
+    if (wood == null) {
+      return false;
+    }
 
-	if (!stoner.getEquipment().isWearingItem(6575)) {
-				DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-		return false;
-	}
+    if (!stoner.getEquipment().isWearingItem(6575)) {
+      DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
+      return false;
+    }
 
-	if (System.currentTimeMillis() - stoner.getCurrentStunDelay() < stoner.getSetStunDelay()) {
-		return false;
-	}
+    if (System.currentTimeMillis() - stoner.getCurrentStunDelay() < stoner.getSetStunDelay()) {
+      return false;
+    }
 
-	 if (stoner.getProfession().locked()) {
-		 return true;
-	 }
+    if (stoner.getProfession().locked()) {
+      return true;
+    }
 
     stoner.freeze(5, 5);
-	stoner.setCurrentStunDelay(System.currentTimeMillis() + wood.getStunTime() * 1000L);
-	stoner.getProfession().lock(3);
-	stoner.getUpdateFlags().sendAnimation(new Animation(4975));
-            stoner.getUpdateFlags().sendGraphic(new Graphic(831));
-	stoner.getBox().remove(wood.getId(), 1);
-	stoner.getBox().add(995, 1000);
-	stoner.getProfession().addExperience(11, wood.experience);
-	AchievementHandler.activateAchievement(stoner, AchievementList.BURN_1500_WOOD, 1);
-	AchievementHandler.activateAchievement(stoner, AchievementList.BURN_12500_WOOD, 1);
+    stoner.setCurrentStunDelay(System.currentTimeMillis() + wood.getStunTime() * 1000L);
+    stoner.getProfession().lock(3);
+    stoner.getUpdateFlags().sendAnimation(new Animation(4975));
+    stoner.getUpdateFlags().sendGraphic(new Graphic(831));
+    stoner.getBox().remove(wood.getId(), 1);
+    stoner.getBox().add(995, 1000);
+    stoner.getProfession().addExperience(11, wood.experience);
+    AchievementHandler.activateAchievement(stoner, AchievementList.BURN_1500_WOOD, 1);
+    AchievementHandler.activateAchievement(stoner, AchievementList.BURN_12500_WOOD, 1);
 
+    return true;
+  }
 
+  public static void finishOnAltar(Stoner stoner, int amount) {
+    if (stoner.getAttributes().get("woodonfirekey") == null) {
+      return;
+    }
 
-	return true;
-	}
+    int item = stoner.getAttributes().getInt("woodonfirekey");
 
-	public static void finishOnAltar(Stoner stoner, int amount) {
-	if (stoner.getAttributes().get("woodonfirekey") == null) {
-		return;
-	}
+    Wood wood = Wood.forId(item);
 
-	int item = stoner.getAttributes().getInt("woodonfirekey");
+    if (wood == null) {
+      return;
+    }
 
-	Wood wood = Wood.forId(item);
+    int invAmount = stoner.getBox().getItemAmount(item);
 
-	if (wood == null) {
-		return;
-	}
+    if (invAmount == 0) return;
+    if (invAmount < amount) {
+      amount = invAmount;
+    }
 
-	int invAmount = stoner.getBox().getItemAmount(item);
+    stoner.getProfession().lock(5);
 
-	if (invAmount == 0)
-		return;
-	if (invAmount < amount) {
-		amount = invAmount;
-	}
+    stoner.getUpdateFlags().sendAnimation(new Animation(4975));
+    stoner.getUpdateFlags().sendGraphic(new Graphic(831));
+    stoner.getBox().remove(new Item(item, amount));
+    stoner.getProfession().addExperience(11, (wood.experience) * amount);
+    stoner.getBox().add(995, 100);
+    AchievementHandler.activateAchievement(stoner, AchievementList.BURN_1500_WOOD, 1);
+    AchievementHandler.activateAchievement(stoner, AchievementList.BURN_12500_WOOD, 1);
+  }
 
-	stoner.getProfession().lock(5);
+  public static boolean useWoodOnAltar(Stoner p, int item, int object) {
+    if (object == 5249) {
+      Wood wood = Wood.forId(item);
 
-	stoner.getUpdateFlags().sendAnimation(new Animation(4975));
-            stoner.getUpdateFlags().sendGraphic(new Graphic(831));
-	stoner.getBox().remove(new Item(item, amount));
-	stoner.getProfession().addExperience(11, (wood.experience) * amount);
-	stoner.getBox().add(995, 100);
-	AchievementHandler.activateAchievement(stoner, AchievementList.BURN_1500_WOOD, 1);
-	AchievementHandler.activateAchievement(stoner, AchievementList.BURN_12500_WOOD, 1);
-	}
+      if (wood == null) {
+        return false;
+      }
+      if (!p.getEquipment().isWearingItem(6575)) {
+        DialogueManager.sendItem1(p, "You must be wearing a tool ring to do this!", 6575);
+        return false;
+      }
 
-	public static boolean useWoodOnAltar(Stoner p, int item, int object) {
-	if (object == 5249) {
-		Wood wood = Wood.forId(item);
+      TaskQueue.queue(
+          new Task(
+              p, 3, true, StackType.NEVER_STACK, BreakType.ON_MOVE, TaskIdentifier.WOOD_ON_FIRE) {
 
-		if (wood == null) {
-			return false;
-		}
-		if (!p.getEquipment().isWearingItem(6575)) {
-					DialogueManager.sendItem1(p, "You must be wearing a tool ring to do this!", 6575);
-			return false;
-		}
+            @Override
+            public void execute() {
+              if (!p.getBox().hasItemId(item)) {
+                stop();
+                return;
+              }
 
-		TaskQueue.queue(new Task(p, 3, true, StackType.NEVER_STACK, BreakType.ON_MOVE, TaskIdentifier.WOOD_ON_FIRE) {
+              if (p.getProfession().locked()) {
+                return;
+              }
 
+              p.getProfession().lock(5);
 
-			@Override
-			public void execute() {
-			if (!p.getBox().hasItemId(item)) {
-				stop();
-				return;
-			}
+              p.getUpdateFlags().sendAnimation(new Animation(2286));
+              p.getBox().remove(item);
+              p.getBox().add(995, 100);
+              p.getProfession().addExperience(11, wood.experience / 4.0);
+            }
 
-			if (p.getProfession().locked()) {
-				return;
-			}
+            @Override
+            public void onStop() {}
+          });
 
-			p.getProfession().lock(5);
+      return true;
+    }
 
-			p.getUpdateFlags().sendAnimation(new Animation(2286));
-			p.getBox().remove(item);
-			p.getBox().add(995, 100);
-			p.getProfession().addExperience(11, wood.experience / 4.0);
-			}
+    return false;
+  }
 
-			@Override
-			public void onStop() {
-			}
-		});
+  public enum Wood {
+    NORMAL_LOG(1511, 140.0D, 5),
+    ACHEY_LOG(2862, 140.0D, 5),
+    OAK_LOG(1521, 160.0D, 5),
+    WILLOW_LOG(1519, 190.0D, 5),
+    TEAK_LOG(6333, 1105.0D, 5),
+    ARCTIC_PINE_LOG(10810, 1125.0D, 5),
+    MAPLE_LOG(1517, 1135.0D, 5),
+    MOHOGANY_LOG(6332, 1157.5D, 5),
+    EUCALYPTUS_LOG(12581, 1193.5D, 5),
+    YEW_LOG(1515, 1202.5D, 5),
+    MAGE_LOG(1513, 1460.5D, 5);
 
-		return true;
-	}
+    private static final Map<Integer, Wood> wood = new HashMap<Integer, Wood>();
+    private final int id;
+    private final double experience;
+    int stunTime;
 
-	return false;
-	}
+    Wood(int id, double experience, int time) {
+      this.id = id;
+      this.experience = experience;
+      stunTime = time;
+    }
 
-	public enum Wood {
-		NORMAL_LOG(1511, 140.0D, 5),
-		ACHEY_LOG(2862, 140.0D, 5),
-		OAK_LOG(1521, 160.0D, 5),
-		WILLOW_LOG(1519, 190.0D, 5),
-		TEAK_LOG(6333, 1105.0D, 5),
-		ARCTIC_PINE_LOG(10810, 1125.0D, 5),
-		MAPLE_LOG(1517, 1135.0D, 5),
-		MOHOGANY_LOG(6332, 1157.5D, 5),
-		EUCALYPTUS_LOG(12581, 1193.5D, 5),
-		YEW_LOG(1515, 1202.5D, 5),
-		MAGE_LOG(1513, 1460.5D, 5);
+    public static final void declare() {
+      for (Wood w : values()) wood.put(Integer.valueOf(w.getId()), w);
+    }
 
-		private static final Map<Integer, Wood> wood = new HashMap<Integer, Wood>();
-		private final int id;
-		private final double experience;
-		int stunTime;
+    public static Wood forId(int id) {
+      return wood.get(Integer.valueOf(id));
+    }
 
-		Wood(int id, double experience, int time) {
-		this.id = id;
-		this.experience = experience;
-		stunTime = time;
-		}
+    public int getStunTime() {
+      return stunTime;
+    }
 
-		public static final void declare() {
-		for (Wood w : values())
-			wood.put(Integer.valueOf(w.getId()), w);
-		}
+    public double getExperience() {
+      return experience;
+    }
 
-		public static Wood forId(int id) {
-		return wood.get(Integer.valueOf(id));
-		}
-
-		public int getStunTime() {
-			return stunTime;
-			}
-
-			public double getExperience() {
-				return experience;
-				}
-
-		public int getId() {
-		return id;
-		}
-	}
+    public int getId() {
+      return id;
+    }
+  }
 }

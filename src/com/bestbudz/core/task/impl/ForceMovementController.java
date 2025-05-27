@@ -55,6 +55,11 @@ public class ForceMovementController extends Controller {
   }
 
   @Override
+  public boolean canDrop(Stoner stoner) {
+    return false;
+  }
+
+  @Override
   public boolean canLogOut() {
     return false;
   }
@@ -135,11 +140,6 @@ public class ForceMovementController extends Controller {
 
   @Override
   public boolean transitionOnWalk(Stoner p) {
-    return false;
-  }
-
-  @Override
-  public boolean canDrop(Stoner stoner) {
     return false;
   }
 }

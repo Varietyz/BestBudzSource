@@ -4,7 +4,7 @@ import com.bestbudz.rs2.entity.Location;
 
 public class NpcSpawnDefinition {
 
-  private final byte face = -1;
+  private byte face = -1;
   private short id;
   private Location location;
   private boolean walk;

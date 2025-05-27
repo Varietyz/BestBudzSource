@@ -9,8 +9,8 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>4740</id>
-			<amount>1</amount>
+				<id>4740</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -19,20 +19,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -41,20 +41,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -218,20 +218,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -240,20 +240,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -262,40 +262,40 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -304,36 +304,36 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -342,52 +342,52 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -396,52 +396,52 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -450,52 +450,52 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -504,52 +504,52 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -558,68 +558,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -628,68 +628,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -698,68 +698,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -768,68 +768,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -838,68 +838,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -908,68 +908,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -978,68 +978,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1048,68 +1048,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1118,88 +1118,88 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1208,84 +1208,84 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1294,88 +1294,88 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1384,84 +1384,84 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1470,100 +1470,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1572,100 +1572,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1679,100 +1679,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -1781,100 +1781,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2193,100 +2193,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2295,100 +2295,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2422,20 +2422,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2444,20 +2444,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2466,108 +2466,108 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9142</id>
-			<amount>1</amount>
+				<id>9142</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9289</id>
-			<amount>1</amount>
+				<id>9289</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9296</id>
-			<amount>1</amount>
+				<id>9296</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9303</id>
-			<amount>1</amount>
+				<id>9303</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9143</id>
-			<amount>1</amount>
+				<id>9143</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9290</id>
-			<amount>1</amount>
+				<id>9290</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9297</id>
-			<amount>1</amount>
+				<id>9297</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9304</id>
-			<amount>1</amount>
+				<id>9304</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9340</id>
-			<amount>1</amount>
+				<id>9340</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9243</id>
-			<amount>1</amount>
+				<id>9243</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2576,108 +2576,108 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9142</id>
-			<amount>1</amount>
+				<id>9142</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9289</id>
-			<amount>1</amount>
+				<id>9289</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9296</id>
-			<amount>1</amount>
+				<id>9296</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9303</id>
-			<amount>1</amount>
+				<id>9303</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9143</id>
-			<amount>1</amount>
+				<id>9143</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9290</id>
-			<amount>1</amount>
+				<id>9290</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9297</id>
-			<amount>1</amount>
+				<id>9297</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9304</id>
-			<amount>1</amount>
+				<id>9304</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9340</id>
-			<amount>1</amount>
+				<id>9340</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9243</id>
-			<amount>1</amount>
+				<id>9243</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2686,148 +2686,148 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>9242</id>
-			<amount>1</amount>
+				<id>9242</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9241</id>
-			<amount>1</amount>
+				<id>9241</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9340</id>
-			<amount>1</amount>
+				<id>9340</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9144</id>
-			<amount>1</amount>
+				<id>9144</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9291</id>
-			<amount>1</amount>
+				<id>9291</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9298</id>
-			<amount>1</amount>
+				<id>9298</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9305</id>
-			<amount>1</amount>
+				<id>9305</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9243</id>
-			<amount>1</amount>
+				<id>9243</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9341</id>
-			<amount>1</amount>
+				<id>9341</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9244</id>
-			<amount>1</amount>
+				<id>9244</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9342</id>
-			<amount>1</amount>
+				<id>9342</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9245</id>
-			<amount>1</amount>
+				<id>9245</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9142</id>
-			<amount>1</amount>
+				<id>9142</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9289</id>
-			<amount>1</amount>
+				<id>9289</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9296</id>
-			<amount>1</amount>
+				<id>9296</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9303</id>
-			<amount>1</amount>
+				<id>9303</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9143</id>
-			<amount>1</amount>
+				<id>9143</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9290</id>
-			<amount>1</amount>
+				<id>9290</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9297</id>
-			<amount>1</amount>
+				<id>9297</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9304</id>
-			<amount>1</amount>
+				<id>9304</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2836,148 +2836,148 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>9242</id>
-			<amount>1</amount>
+				<id>9242</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9241</id>
-			<amount>1</amount>
+				<id>9241</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9340</id>
-			<amount>1</amount>
+				<id>9340</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9144</id>
-			<amount>1</amount>
+				<id>9144</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9291</id>
-			<amount>1</amount>
+				<id>9291</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9298</id>
-			<amount>1</amount>
+				<id>9298</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9305</id>
-			<amount>1</amount>
+				<id>9305</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9243</id>
-			<amount>1</amount>
+				<id>9243</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9341</id>
-			<amount>1</amount>
+				<id>9341</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9244</id>
-			<amount>1</amount>
+				<id>9244</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9342</id>
-			<amount>1</amount>
+				<id>9342</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9245</id>
-			<amount>1</amount>
+				<id>9245</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9142</id>
-			<amount>1</amount>
+				<id>9142</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9289</id>
-			<amount>1</amount>
+				<id>9289</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9296</id>
-			<amount>1</amount>
+				<id>9296</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9303</id>
-			<amount>1</amount>
+				<id>9303</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9143</id>
-			<amount>1</amount>
+				<id>9143</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9290</id>
-			<amount>1</amount>
+				<id>9290</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9297</id>
-			<amount>1</amount>
+				<id>9297</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9304</id>
-			<amount>1</amount>
+				<id>9304</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -2986,148 +2986,148 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>9242</id>
-			<amount>1</amount>
+				<id>9242</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9241</id>
-			<amount>1</amount>
+				<id>9241</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9340</id>
-			<amount>1</amount>
+				<id>9340</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9144</id>
-			<amount>1</amount>
+				<id>9144</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9291</id>
-			<amount>1</amount>
+				<id>9291</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9298</id>
-			<amount>1</amount>
+				<id>9298</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9305</id>
-			<amount>1</amount>
+				<id>9305</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9243</id>
-			<amount>1</amount>
+				<id>9243</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9341</id>
-			<amount>1</amount>
+				<id>9341</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9244</id>
-			<amount>1</amount>
+				<id>9244</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9342</id>
-			<amount>1</amount>
+				<id>9342</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9245</id>
-			<amount>1</amount>
+				<id>9245</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9142</id>
-			<amount>1</amount>
+				<id>9142</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9289</id>
-			<amount>1</amount>
+				<id>9289</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9296</id>
-			<amount>1</amount>
+				<id>9296</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9303</id>
-			<amount>1</amount>
+				<id>9303</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9143</id>
-			<amount>1</amount>
+				<id>9143</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9290</id>
-			<amount>1</amount>
+				<id>9290</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9297</id>
-			<amount>1</amount>
+				<id>9297</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9304</id>
-			<amount>1</amount>
+				<id>9304</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -3136,140 +3136,140 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>9340</id>
-			<amount>1</amount>
+				<id>9340</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9144</id>
-			<amount>1</amount>
+				<id>9144</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9291</id>
-			<amount>1</amount>
+				<id>9291</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9298</id>
-			<amount>1</amount>
+				<id>9298</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9305</id>
-			<amount>1</amount>
+				<id>9305</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9243</id>
-			<amount>1</amount>
+				<id>9243</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9341</id>
-			<amount>1</amount>
+				<id>9341</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9244</id>
-			<amount>1</amount>
+				<id>9244</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9342</id>
-			<amount>1</amount>
+				<id>9342</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9245</id>
-			<amount>1</amount>
+				<id>9245</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9142</id>
-			<amount>1</amount>
+				<id>9142</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9289</id>
-			<amount>1</amount>
+				<id>9289</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9296</id>
-			<amount>1</amount>
+				<id>9296</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9303</id>
-			<amount>1</amount>
+				<id>9303</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9143</id>
-			<amount>1</amount>
+				<id>9143</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9290</id>
-			<amount>1</amount>
+				<id>9290</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9297</id>
-			<amount>1</amount>
+				<id>9297</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9304</id>
-			<amount>1</amount>
+				<id>9304</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -3298,20 +3298,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -3320,20 +3320,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -3342,20 +3342,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -3364,20 +3364,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -3411,588 +3411,588 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
-		<SagittariusWeaponDefinition>
+	<SagittariusWeaponDefinition>
 		<id>12765</id>
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
-		<SagittariusWeaponDefinition>
+	<SagittariusWeaponDefinition>
 		<id>12766</id>
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
-		<SagittariusWeaponDefinition>
+	<SagittariusWeaponDefinition>
 		<id>12767</id>
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
-		<SagittariusWeaponDefinition>
+	<SagittariusWeaponDefinition>
 		<id>12768</id>
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4001,116 +4001,116 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4189,68 +4189,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4259,68 +4259,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4329,116 +4329,116 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4447,68 +4447,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4517,68 +4517,68 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4587,84 +4587,84 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4673,84 +4673,84 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4759,100 +4759,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4861,100 +4861,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -4963,100 +4963,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5065,140 +5065,140 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>9340</id>
-			<amount>1</amount>
+				<id>9340</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9144</id>
-			<amount>1</amount>
+				<id>9144</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9291</id>
-			<amount>1</amount>
+				<id>9291</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9298</id>
-			<amount>1</amount>
+				<id>9298</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9305</id>
-			<amount>1</amount>
+				<id>9305</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9243</id>
-			<amount>1</amount>
+				<id>9243</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9341</id>
-			<amount>1</amount>
+				<id>9341</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9244</id>
-			<amount>1</amount>
+				<id>9244</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9342</id>
-			<amount>1</amount>
+				<id>9342</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9245</id>
-			<amount>1</amount>
+				<id>9245</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9142</id>
-			<amount>1</amount>
+				<id>9142</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9289</id>
-			<amount>1</amount>
+				<id>9289</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9296</id>
-			<amount>1</amount>
+				<id>9296</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9303</id>
-			<amount>1</amount>
+				<id>9303</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9143</id>
-			<amount>1</amount>
+				<id>9143</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9290</id>
-			<amount>1</amount>
+				<id>9290</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9297</id>
-			<amount>1</amount>
+				<id>9297</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9304</id>
-			<amount>1</amount>
+				<id>9304</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5282,20 +5282,20 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5309,8 +5309,8 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>15243</id>
-			<amount>1</amount>
+				<id>15243</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5319,8 +5319,8 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>15243</id>
-			<amount>1</amount>
+				<id>15243</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5329,116 +5329,116 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5447,116 +5447,116 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5565,116 +5565,116 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5683,116 +5683,116 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11212</id>
-			<amount>1</amount>
+				<id>11212</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11227</id>
-			<amount>1</amount>
+				<id>11227</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11228</id>
-			<amount>1</amount>
+				<id>11228</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>11229</id>
-			<amount>1</amount>
+				<id>11229</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -5816,250 +5816,250 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
-		<SagittariusWeaponDefinition>
+	<SagittariusWeaponDefinition>
 		<id>11785</id>
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>9242</id>
-			<amount>1</amount>
+				<id>9242</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9241</id>
-			<amount>1</amount>
+				<id>9241</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9340</id>
-			<amount>1</amount>
+				<id>9340</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9144</id>
-			<amount>1</amount>
+				<id>9144</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9291</id>
-			<amount>1</amount>
+				<id>9291</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9298</id>
-			<amount>1</amount>
+				<id>9298</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9305</id>
-			<amount>1</amount>
+				<id>9305</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9243</id>
-			<amount>1</amount>
+				<id>9243</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9341</id>
-			<amount>1</amount>
+				<id>9341</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9244</id>
-			<amount>1</amount>
+				<id>9244</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9342</id>
-			<amount>1</amount>
+				<id>9342</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9245</id>
-			<amount>1</amount>
+				<id>9245</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>877</id>
-			<amount>1</amount>
+				<id>877</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>878</id>
-			<amount>1</amount>
+				<id>878</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6061</id>
-			<amount>1</amount>
+				<id>6061</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>6062</id>
-			<amount>1</amount>
+				<id>6062</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9140</id>
-			<amount>1</amount>
+				<id>9140</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9287</id>
-			<amount>1</amount>
+				<id>9287</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9294</id>
-			<amount>1</amount>
+				<id>9294</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9301</id>
-			<amount>1</amount>
+				<id>9301</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9141</id>
-			<amount>1</amount>
+				<id>9141</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9288</id>
-			<amount>1</amount>
+				<id>9288</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9295</id>
-			<amount>1</amount>
+				<id>9295</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9302</id>
-			<amount>1</amount>
+				<id>9302</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13083</id>
-			<amount>1</amount>
+				<id>13083</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13084</id>
-			<amount>1</amount>
+				<id>13084</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13085</id>
-			<amount>1</amount>
+				<id>13085</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>13086</id>
-			<amount>1</amount>
+				<id>13086</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9142</id>
-			<amount>1</amount>
+				<id>9142</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9289</id>
-			<amount>1</amount>
+				<id>9289</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9296</id>
-			<amount>1</amount>
+				<id>9296</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9303</id>
-			<amount>1</amount>
+				<id>9303</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9143</id>
-			<amount>1</amount>
+				<id>9143</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9290</id>
-			<amount>1</amount>
+				<id>9290</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9297</id>
-			<amount>1</amount>
+				<id>9297</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>9304</id>
-			<amount>1</amount>
+				<id>9304</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>
@@ -6068,100 +6068,100 @@
 		<type>SHOT</type>
 		<arrows>
 			<item>
-			<id>882</id>
-			<amount>1</amount>
+				<id>882</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>883</id>
-			<amount>1</amount>
+				<id>883</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5616</id>
-			<amount>1</amount>
+				<id>5616</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5622</id>
-			<amount>1</amount>
+				<id>5622</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>884</id>
-			<amount>1</amount>
+				<id>884</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>885</id>
-			<amount>1</amount>
+				<id>885</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5617</id>
-			<amount>1</amount>
+				<id>5617</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5623</id>
-			<amount>1</amount>
+				<id>5623</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>886</id>
-			<amount>1</amount>
+				<id>886</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>887</id>
-			<amount>1</amount>
+				<id>887</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5618</id>
-			<amount>1</amount>
+				<id>5618</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5624</id>
-			<amount>1</amount>
+				<id>5624</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>888</id>
-			<amount>1</amount>
+				<id>888</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>889</id>
-			<amount>1</amount>
+				<id>889</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5619</id>
-			<amount>1</amount>
+				<id>5619</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5625</id>
-			<amount>1</amount>
+				<id>5625</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>890</id>
-			<amount>1</amount>
+				<id>890</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>891</id>
-			<amount>1</amount>
+				<id>891</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5620</id>
-			<amount>1</amount>
+				<id>5620</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5626</id>
-			<amount>1</amount>
+				<id>5626</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>892</id>
-			<amount>1</amount>
+				<id>892</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>893</id>
-			<amount>1</amount>
+				<id>893</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5621</id>
-			<amount>1</amount>
+				<id>5621</id>
+				<amount>1</amount>
 			</item>
 			<item>
-			<id>5627</id>
-			<amount>1</amount>
+				<id>5627</id>
+				<amount>1</amount>
 			</item>
 		</arrows>
 	</SagittariusWeaponDefinition>

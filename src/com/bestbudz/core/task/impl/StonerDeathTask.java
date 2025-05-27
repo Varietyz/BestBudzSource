@@ -8,6 +8,7 @@ import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.content.combat.Hit.HitTypes;
 import com.bestbudz.rs2.content.combat.impl.StonerDrops;
+import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
 import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
@@ -133,7 +134,7 @@ public class StonerDeathTask extends Task {
     }
 
     stoner.getCombat().forRespawn();
-
+	  SaveWorker.enqueueSave(stoner);
     stop();
   }
 

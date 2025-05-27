@@ -1,10 +1,5 @@
 package com.bestbudz.rs2.content.minigames.weapongame;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.Utility;
@@ -22,6 +17,10 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendEquipment;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStonerHint;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStonerOption;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 public class WeaponGame {
 

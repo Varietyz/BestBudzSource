@@ -120,6 +120,9 @@ public class DuelStakeController extends Controller {
   public void onDeath(Stoner p) {}
 
   @Override
+  public void onKill(Stoner stoner, Entity killed) {}
+
+  @Override
   public void onDisconnect(Stoner p) {}
 
   @Override
@@ -137,7 +140,4 @@ public class DuelStakeController extends Controller {
   public boolean transitionOnWalk(Stoner p) {
     return false;
   }
-
-  @Override
-  public void onKill(Stoner stoner, Entity killed) {}
 }

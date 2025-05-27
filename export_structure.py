@@ -32,6 +32,9 @@ def save_tree_structure(start_path, exclude_entries=None, output_file="folder_st
             ".idea",
             ".settings",
             "mapdata",
+            "build",
+            ".gradle",
+            "TODO.MD"
         ]
     
     # Mapping of file extensions to emojis

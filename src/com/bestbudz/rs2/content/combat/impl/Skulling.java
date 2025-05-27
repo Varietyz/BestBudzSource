@@ -1,11 +1,10 @@
 package com.bestbudz.rs2.content.combat.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Skulling {
 

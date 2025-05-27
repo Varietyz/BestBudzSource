@@ -84,6 +84,24 @@ public class Tutorial extends Dialogue {
     }
   }
 
+  public void nChat(String[] chat) {
+    DialogueManager.sendNpcChat(stoner, GUIDE, Emotion.HAPPY_TALK, chat);
+    next += 1;
+  }
+
+  public void pChat(String[] chat) {
+    DialogueManager.sendStonerChat(stoner, Emotion.HAPPY, chat);
+    next += 1;
+  }
+
+  public void tele(int x, int y) {
+    stoner.teleport(new Location(x, y, 0));
+  }
+
+  public void tele(int x, int y, int z) {
+    stoner.teleport(new Location(x, y, z));
+  }
+
   public static class TutorialController extends DefaultController {
 
     @Override
@@ -118,23 +136,5 @@ public class Tutorial extends Dialogue {
     public boolean transitionOnWalk(Stoner p) {
       return false;
     }
-  }
-
-  public void nChat(String[] chat) {
-    DialogueManager.sendNpcChat(stoner, GUIDE, Emotion.HAPPY_TALK, chat);
-    next += 1;
-  }
-
-  public void pChat(String[] chat) {
-    DialogueManager.sendStonerChat(stoner, Emotion.HAPPY, chat);
-    next += 1;
-  }
-
-  public void tele(int x, int y) {
-    stoner.teleport(new Location(x, y, 0));
-  }
-
-  public void tele(int x, int y, int z) {
-    stoner.teleport(new Location(x, y, z));
   }
 }

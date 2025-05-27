@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content;
 
-import java.text.NumberFormat;
-import java.util.HashMap;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
@@ -22,6 +19,8 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.text.NumberFormat;
+import java.util.HashMap;
 
 public class TeleportHandler {
 
@@ -256,6 +255,94 @@ public class TeleportHandler {
     return false;
   }
 
+  public static boolean selection(Stoner stoner, int buttonId) {
+    TeleportationData teleportation = TeleportationData.teleportation.get(buttonId);
+
+    if (teleportation == null) {
+      return false;
+    }
+
+    stoner.setTeleportTo(buttonId);
+    stoner.send(new SendString("Grade: @red@0", 64039));
+    switch (stoner.getInterfaceManager().getMain()) {
+      case 61000:
+        stoner.send(
+            new SendString(
+                "Selected: @red@"
+                    + Utility.formatStonerName(
+                        teleportation.name().replaceAll("_", " ").toLowerCase()),
+                61031));
+        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 61032));
+        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 61033));
+        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 61034));
+        break;
+      case 62000:
+        stoner.send(
+            new SendString(
+                "Selected: @red@"
+                    + Utility.formatStonerName(
+                        teleportation.name().replaceAll("_", " ").toLowerCase()),
+                62031));
+        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 62032));
+        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 62033));
+        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 62034));
+        break;
+      case 63000:
+        stoner.send(
+            new SendString(
+                "Selected: @red@"
+                    + Utility.formatStonerName(
+                        teleportation.name().replaceAll("_", " ").toLowerCase()),
+                63031));
+        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 63032));
+        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 63033));
+        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 63034));
+        break;
+      case 64000:
+        stoner.send(
+            new SendString(
+                "Selected: @red@"
+                    + Utility.formatStonerName(
+                        teleportation.name().replaceAll("_", " ").toLowerCase()),
+                64031));
+        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 64032));
+        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 64033));
+        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 64034));
+        stoner.send(new SendString("Grade: @red@" + teleportation.getGrade(), 64039));
+        break;
+      case 65000:
+        stoner.send(
+            new SendString(
+                "Selected: @red@"
+                    + Utility.formatStonerName(
+                        teleportation.name().replaceAll("_", " ").toLowerCase()),
+                65031));
+        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 65032));
+        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 65033));
+        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 65034));
+        break;
+      case 61500:
+        stoner.send(
+            new SendString(
+                "Selected: @red@"
+                    + Utility.formatStonerName(
+                        teleportation.name().replaceAll("_", " ").toLowerCase()),
+                61531));
+        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 61532));
+        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 61533));
+        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 61534));
+        break;
+    }
+    return true;
+  }
+
+  public static String format(long num) {
+    if (num == 0) {
+      return "Free";
+    }
+    return NumberFormat.getInstance().format(num);
+  }
+
   public enum TeleportationData {
     ROCK_CRABS(238123, 0, "None", "None", 0, new Location(2674, 3710, 0), false, false),
     HILL_GIANTS(238124, 0, "None", "None", 0, new Location(3117, 9856, 0), false, false),
@@ -389,93 +476,5 @@ public class TeleportHandler {
     public boolean getSpecialCase() {
       return specialCase;
     }
-  }
-
-  public static boolean selection(Stoner stoner, int buttonId) {
-    TeleportationData teleportation = TeleportationData.teleportation.get(buttonId);
-
-    if (teleportation == null) {
-      return false;
-    }
-
-    stoner.setTeleportTo(buttonId);
-    stoner.send(new SendString("Grade: @red@0", 64039));
-    switch (stoner.getInterfaceManager().getMain()) {
-      case 61000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                61031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 61032));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 61033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 61034));
-        break;
-      case 62000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                62031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 62032));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 62033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 62034));
-        break;
-      case 63000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                63031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 63032));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 63033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 63034));
-        break;
-      case 64000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                64031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 64032));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 64033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 64034));
-        stoner.send(new SendString("Grade: @red@" + teleportation.getGrade(), 64039));
-        break;
-      case 65000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                65031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 65032));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 65033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 65034));
-        break;
-      case 61500:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                61531));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 61532));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 61533));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 61534));
-        break;
-    }
-    return true;
-  }
-
-  public static String format(long num) {
-    if (num == 0) {
-      return "Free";
-    }
-    return NumberFormat.getInstance().format(num);
   }
 }

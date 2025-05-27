@@ -12,102 +12,104 @@ import java.util.Queue;
 
 public class PestControl {
 
-	private static final List<PestControlGame> games = new LinkedList<PestControlGame>();
+  private static final List<PestControlGame> games = new LinkedList<PestControlGame>();
 
-	private static final Queue<Stoner> waiting = new ArrayDeque<Stoner>();
+  private static final Queue<Stoner> waiting = new ArrayDeque<Stoner>();
 
-	private static short time = 120;
+  private static short time = 120;
 
-	public static boolean clickObject(Stoner stoner, int id) {
-	switch (id) {
-	case 14315:
-		if (!stoner.getController().equals(ControllerManager.PEST_WAITING_ROOM_CONTROLLER)) {
-			stoner.setController(ControllerManager.PEST_WAITING_ROOM_CONTROLLER);
-			stoner.teleport(new Location(2661, 2639));
+  public static boolean clickObject(Stoner stoner, int id) {
+    switch (id) {
+      case 14315:
+        if (!stoner.getController().equals(ControllerManager.PEST_WAITING_ROOM_CONTROLLER)) {
+          stoner.setController(ControllerManager.PEST_WAITING_ROOM_CONTROLLER);
+          stoner.teleport(new Location(2661, 2639));
 
-			if (!waiting.contains(stoner)) {
-				waiting.add(stoner);
-			}
-		}
-		return true;
-	case 14314:
-		if (!stoner.getController().equals(ControllerManager.DEFAULT_CONTROLLER)) {
-			stoner.setController(ControllerManager.DEFAULT_CONTROLLER);
-			stoner.teleport(new Location(2657, 2639));
-			waiting.remove(stoner);
-		}
-		return true;
-	}
+          if (!waiting.contains(stoner)) {
+            waiting.add(stoner);
+          }
+        }
+        return true;
+      case 14314:
+        if (!stoner.getController().equals(ControllerManager.DEFAULT_CONTROLLER)) {
+          stoner.setController(ControllerManager.DEFAULT_CONTROLLER);
+          stoner.teleport(new Location(2657, 2639));
+          waiting.remove(stoner);
+        }
+        return true;
+    }
 
-	return false;
-	}
+    return false;
+  }
 
-	public static int getMinutesTillDepart() {
-	return time;
-	}
+  public static int getMinutesTillDepart() {
+    return time;
+  }
 
-	public static int getStonersReady() {
-	return waiting.size();
-	}
+  public static int getStonersReady() {
+    return waiting.size();
+  }
 
-	public static void onGameEnd(PestControlGame game) {
-	games.remove(game);
-	}
+  public static void onGameEnd(PestControlGame game) {
+    games.remove(game);
+  }
 
-	public static void sendMessageToWaiting(String message) {
-	for (Stoner p : waiting) {
-		p.getClient().queueOutgoingPacket(new SendMessage(message));
-	}
-	}
+  public static void sendMessageToWaiting(String message) {
+    for (Stoner p : waiting) {
+      p.getClient().queueOutgoingPacket(new SendMessage(message));
+    }
+  }
 
-	public static void startGame() {
+  public static void startGame() {
 
-	if (waiting.size() < 2) {
-		sendMessageToWaiting("There are not enough required stoners to start.");
-		return;
-	}
+    if (waiting.size() < 2) {
+      sendMessageToWaiting("There are not enough required stoners to start.");
+      return;
+    }
 
-	if (games.size() == 3) {
-		sendMessageToWaiting("There are too many active pest control games right now, Please wait.");
-		return;
-	}
+    if (games.size() == 3) {
+      sendMessageToWaiting("There are too many active pest control games right now, Please wait.");
+      return;
+    }
 
-	List<Stoner> toPlay = new LinkedList<Stoner>();
+    List<Stoner> toPlay = new LinkedList<Stoner>();
 
-	int playing = 0;
-	Stoner p;
+    int playing = 0;
+    Stoner p;
 
-	while ((playing < 25) && ((p = waiting.poll()) != null)) {
-		toPlay.add(p);
-		playing++;
-	}
+    while ((playing < 25) && ((p = waiting.poll()) != null)) {
+      toPlay.add(p);
+      playing++;
+    }
 
-	if (waiting.size() > 0) {
-		for (Stoner k : waiting) {
-			k.getClient().queueOutgoingPacket(new SendMessage("You couldn't be added to the last game, you've moved up in priority for the next game."));
-		}
-	}
+    if (waiting.size() > 0) {
+      for (Stoner k : waiting) {
+        k.getClient()
+            .queueOutgoingPacket(
+                new SendMessage(
+                    "You couldn't be added to the last game, you've moved up in priority for the next game."));
+      }
+    }
 
-	games.add(new PestControlGame(toPlay, toPlay.get(0).getIndex() << 2));
-	}
+    games.add(new PestControlGame(toPlay, toPlay.get(0).getIndex() << 2));
+  }
 
-	public static void tick() {
-	if (waiting.size() > 0) {
-		time--;
+  public static void tick() {
+    if (waiting.size() > 0) {
+      time--;
 
-		if (time == 0 || waiting.size() == 25) {
-			startGame();
-			time = 120;
-		}
-	} else if (time != 120) {
-		time = 120;
-	}
+      if (time == 0 || waiting.size() == 25) {
+        startGame();
+        time = 120;
+      }
+    } else if (time != 120) {
+      time = 120;
+    }
 
-	if (games.size() > 0) {
-		for (Iterator<PestControlGame> i = games.iterator(); i.hasNext();) {
-			i.next().process();
-		}
-	}
-	}
-
+    if (games.size() > 0) {
+      for (Iterator<PestControlGame> i = games.iterator(); i.hasNext(); ) {
+        i.next().process();
+      }
+    }
+  }
 }

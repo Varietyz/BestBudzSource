@@ -236,6 +236,30 @@ public class Cultivation {
     return stoner.getCultivation().getSpecialPlantTwo().harvestOrCheckHealth(x, y);
   }
 
+  public static void declare() {
+    TaskQueue.queue(
+        new Task(100, true) {
+          @Override
+          public void execute() {
+            for (Stoner stoner : World.getStoners()) {
+              if (stoner == null || stoner.getCultivation() == null || !stoner.isActive()) {
+                continue;
+              }
+
+              stoner.getCultivation().cultivationTimer++;
+              stoner.getCultivation().doCalculations();
+            }
+          }
+
+          @Override
+          public void onStop() {}
+        });
+  }
+
+  public static long getMinutesCounter(Stoner stoner) {
+    return stoner.getCultivation().cultivationTimer;
+  }
+
   public SpecialPlantOne getSpecialPlantOne() {
     return specialPlantOne;
   }
@@ -342,29 +366,5 @@ public class Cultivation {
     flower.doCalculations();
     specialPlantOne.doCalculations();
     specialPlantTwo.doCalculations();
-  }
-
-  public static void declare() {
-    TaskQueue.queue(
-        new Task(100, true) {
-          @Override
-          public void execute() {
-            for (Stoner stoner : World.getStoners()) {
-              if (stoner == null || stoner.getCultivation() == null || !stoner.isActive()) {
-                continue;
-              }
-
-              stoner.getCultivation().cultivationTimer++;
-              stoner.getCultivation().doCalculations();
-            }
-          }
-
-          @Override
-          public void onStop() {}
-        });
-  }
-
-  public static long getMinutesCounter(Stoner stoner) {
-    return stoner.getCultivation().cultivationTimer;
   }
 }

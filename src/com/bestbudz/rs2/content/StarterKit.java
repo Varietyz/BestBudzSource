@@ -1,9 +1,9 @@
 package com.bestbudz.rs2.content;
 
+import com.bestbudz.rs2.content.io.sqlite.SaveCache;
 import java.util.HashMap;
 
 import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.content.io.StonerSaveUtil;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
@@ -132,10 +132,13 @@ public class StarterKit {
       case 202052:
       case 202053:
       case 202051:
-        if (!StonerSaveUtil.hasReceived2Starters(stoner) || stoner.getLastLoginYear() != 0) {
-          stoner.getBox().addItems(data.getItems());
-        }
-        stoner.setRights(0);
+		  if (!Boolean.TRUE.equals(stoner.getAttributes().get("starter_ip_logged"))) {
+			  stoner.getBox().addItems(data.getItems());
+			  stoner.getAttributes().set("starter_ip_logged", true);
+			  SaveCache.markDirty(stoner);
+		  }
+
+		  stoner.setRights(0);
         break;
     }
   }

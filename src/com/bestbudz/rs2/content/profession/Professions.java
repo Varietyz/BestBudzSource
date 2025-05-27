@@ -8,7 +8,7 @@ public class Professions {
 
   public static final int GRADE_99_SONG = 420;
   public static final int[] GRADE_UP_SOUNDS = {112, 107, 104, 10, 21, 24};
-  public static final short PROFESSION_COUNT = 25;
+  public static final short PROFESSION_COUNT = 21;
   public static final Graphic UPGRADE_GRAPHIC = Graphic.highGraphic(199, 0);
   public static final int[] EXPERIENCE_RATES = new int[PROFESSION_COUNT];
   public static final int MAX_EXPERIENCE = 420000000;
@@ -34,10 +34,6 @@ public class Professions {
     "mercenary",
     "cultivation",
     "consumer",
-    "summoning",
-    "hunter",
-    "construction",
-    "dungeoneering"
   };
   public static final int ASSAULT = 0;
   public static final int AEGIS = 1;
@@ -60,10 +56,6 @@ public class Professions {
   public static final int MERCENARY = 18;
   public static final int CULTIVATION = 19;
   public static final int CONSUMER = 20;
-  public static final int SUMMONING = 22;
-  public static final int HUNTER = 21;
-  public static final int CONSTRUCTION = 23;
-  public static final int DUNGEONEERING = 24;
   public static final int[][] CHAT_INTERFACES = {
     {0, 6247},
     {1, 6253},
@@ -86,8 +78,7 @@ public class Professions {
     {18, 12122},
     {19, 4887, 4890, 4891},
     {20, 4267},
-    {21, 4268},
-    {22, 4268}
+    {21, 4268}
   };
   public static final int[][] REFRESH_DATA = {
     {4004, 4005},
@@ -111,10 +102,7 @@ public class Professions {
     {12166, 12167},
     {13926, 13927},
     {4152, 4153},
-    {-1, -1},
     {24134, 24135},
-    {-1, -1},
-    {-1, -1}
   };
   public static final int CURRENT_HEALTH_UPDATE_ID = 4016;
   public static final int MAX_HEALTH_UPDATE_ID = 4017;
@@ -141,11 +129,8 @@ public class Professions {
     EXPERIENCE_RATES[WEEDSMOKING] = 10;
     EXPERIENCE_RATES[ACCOMPLISHER] = 1;
     EXPERIENCE_RATES[MERCENARY] = 10;
-    EXPERIENCE_RATES[HUNTER] = 1;
     EXPERIENCE_RATES[CULTIVATION] = 10;
     EXPERIENCE_RATES[CONSUMER] = 1;
-    EXPERIENCE_RATES[DUNGEONEERING] = 1;
-    EXPERIENCE_RATES[SUMMONING] = 1;
   }
 
   public static final boolean isSuccess(long profession, int gradeRequired) {

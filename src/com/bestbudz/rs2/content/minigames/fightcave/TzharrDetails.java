@@ -7,55 +7,54 @@ import java.util.List;
 
 public final class TzharrDetails {
 
-	private final List<Mob> mobs = new ArrayList<Mob>();
-	private int stage = 0;
-	private int z;
+  private final List<Mob> mobs = new ArrayList<Mob>();
+  private int stage = 0;
+  private int z;
 
-	public void addNpc(Mob mob) {
-	mobs.add(mob);
-	}
+  public void addNpc(Mob mob) {
+    mobs.add(mob);
+  }
 
-	public int getKillAmount() {
-	return mobs.size();
-	}
+  public int getKillAmount() {
+    return mobs.size();
+  }
 
-	public List<Mob> getMobs() {
-	return mobs;
-	}
+  public List<Mob> getMobs() {
+    return mobs;
+  }
 
-	public int getStage() {
-	return stage;
-	}
+  public int getStage() {
+    return stage;
+  }
 
-	public void setStage(int stage) {
-	this.stage = stage;
-	}
+  public void setStage(int stage) {
+    this.stage = stage;
+  }
 
-	public int getZ() {
-	return z;
-	}
+  public int getZ() {
+    return z;
+  }
 
-	public void setZ(Stoner p) {
-	z = (p.getIndex() * 4);
-	}
+  public void setZ(Stoner p) {
+    z = (p.getIndex() * 4);
+  }
 
-	public void increaseStage() {
-	stage += 1;
-	}
+  public void increaseStage() {
+    stage += 1;
+  }
 
-	public boolean removeNpc(Mob mob) {
-	int index = mobs.indexOf(mob);
+  public boolean removeNpc(Mob mob) {
+    int index = mobs.indexOf(mob);
 
-	if (index == -1) {
-		return false;
-	}
+    if (index == -1) {
+      return false;
+    }
 
-	mobs.remove(mob);
-	return true;
-	}
+    mobs.remove(mob);
+    return true;
+  }
 
-	public void reset() {
-	stage = 0;
-	}
-
+  public void reset() {
+    stage = 0;
+  }
 }

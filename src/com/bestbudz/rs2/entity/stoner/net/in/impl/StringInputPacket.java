@@ -8,7 +8,6 @@ import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.StonerTitle;
 import com.bestbudz.rs2.content.clanchat.Clan;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.gambling.Gambling;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
@@ -37,11 +36,6 @@ public class StringInputPacket extends IncomingPacket {
       return;
     }
 
-    if (stoner.getEnterXInterfaceId() == 56000) {
-      Gambling.play(stoner, Integer.parseInt(input));
-      return;
-    }
-
     if (stoner.getEnterXInterfaceId() == 56002) {
       for (int i = 0; i < BestbudzConstants.BAD_STRINGS.length; i++) {
         if (input.equalsIgnoreCase(BestbudzConstants.BAD_STRINGS[i])) {
@@ -60,15 +54,6 @@ public class StringInputPacket extends IncomingPacket {
     }
 
     if (stoner.getEnterXInterfaceId() == 55776) {
-      stoner.setCredits(stoner.getCredits() - 10);
-      stoner.setShopMotto(Utility.capitalize(input));
-      DialogueManager.sendInformationBox(
-          stoner,
-          "Stoner Owned Shops Exchange",
-          "You have successfully changed your shop motto.",
-          "Motto:",
-          "@red@" + Utility.capitalize(input),
-          "");
       return;
     }
 
@@ -78,12 +63,10 @@ public class StringInputPacket extends IncomingPacket {
     }
 
     if (stoner.getEnterXInterfaceId() == 55777) {
-      stoner.getShopping().open(World.getStonerByName(input));
       return;
     }
 
     if (stoner.getEnterXInterfaceId() == 55778) {
-      stoner.getStonerShop().setSearch(input);
       return;
     }
 

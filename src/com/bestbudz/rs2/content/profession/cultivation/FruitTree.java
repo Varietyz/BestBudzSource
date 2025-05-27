@@ -609,6 +609,66 @@ public class FruitTree {
     return true;
   }
 
+  public boolean pruneArea(int objectX, int objectY, int itemId) {
+    if (stoner.getProfession().locked()) {
+      return false;
+    }
+    final FruitTreeFieldsData fruitTreeFieldsData =
+        FruitTreeFieldsData.forIdPosition(objectX, objectY);
+    if (fruitTreeFieldsData == null
+        || (itemId != CultivationConstants.SECATEURS
+            && itemId != CultivationConstants.MAGE_SECATEURS)) {
+      return false;
+    }
+    final FruitTreeData fruitTreeData =
+        FruitTreeData.forId(fruitTreeSaplings[fruitTreeFieldsData.getFruitTreeIndex()]);
+    if (fruitTreeData == null) {
+      return false;
+    }
+    if (fruitTreeState[fruitTreeFieldsData.getFruitTreeIndex()] != 1) {
+      stoner.send(new SendMessage("This area doesn't need to be pruned."));
+      return true;
+    }
+    stoner.getUpdateFlags().sendAnimation(new Animation(CultivationConstants.PRUNING_ANIM));
+    stoner.getProfession().lock(15);
+    fruitTreeState[fruitTreeFieldsData.getFruitTreeIndex()] = 0;
+
+    Controller controller = stoner.getController();
+    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
+    TaskQueue.queue(
+        new Task(
+            stoner, 15, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
+          @Override
+          public void execute() {
+            stoner.send(new SendMessage("You prune the area with your secateurs."));
+            stop();
+          }
+
+          @Override
+          public void onStop() {
+            updateFruitTreeStates();
+            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
+            stoner.setController(controller);
+          }
+        });
+    return true;
+  }
+
+  private void resetFruitTrees(int index) {
+    fruitTreeSaplings[index] = 0;
+    fruitTreeState[index] = 0;
+    diseaseChance[index] = 1;
+    hasFullyGrown[index] = false;
+    fruitTreeWatched[index] = false;
+  }
+
+  public boolean checkIfRaked(int objectX, int objectY) {
+    final FruitTreeFieldsData fruitTreeFieldsData =
+        FruitTreeFieldsData.forIdPosition(objectX, objectY);
+    if (fruitTreeFieldsData == null) return false;
+    return fruitTreeStages[fruitTreeFieldsData.getFruitTreeIndex()] == 3;
+  }
+
   public enum FruitTreeData {
     APPLE(
         5496,
@@ -1035,65 +1095,5 @@ public class FruitTree {
     public String[][] getMessages() {
       return messages;
     }
-  }
-
-  public boolean pruneArea(int objectX, int objectY, int itemId) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
-    final FruitTreeFieldsData fruitTreeFieldsData =
-        FruitTreeFieldsData.forIdPosition(objectX, objectY);
-    if (fruitTreeFieldsData == null
-        || (itemId != CultivationConstants.SECATEURS
-            && itemId != CultivationConstants.MAGE_SECATEURS)) {
-      return false;
-    }
-    final FruitTreeData fruitTreeData =
-        FruitTreeData.forId(fruitTreeSaplings[fruitTreeFieldsData.getFruitTreeIndex()]);
-    if (fruitTreeData == null) {
-      return false;
-    }
-    if (fruitTreeState[fruitTreeFieldsData.getFruitTreeIndex()] != 1) {
-      stoner.send(new SendMessage("This area doesn't need to be pruned."));
-      return true;
-    }
-    stoner.getUpdateFlags().sendAnimation(new Animation(CultivationConstants.PRUNING_ANIM));
-    stoner.getProfession().lock(15);
-    fruitTreeState[fruitTreeFieldsData.getFruitTreeIndex()] = 0;
-
-    Controller controller = stoner.getController();
-    stoner.setController(ControllerManager.FORCE_MOVEMENT_CONTROLLER);
-    TaskQueue.queue(
-        new Task(
-            stoner, 15, false, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CULTIVATION) {
-          @Override
-          public void execute() {
-            stoner.send(new SendMessage("You prune the area with your secateurs."));
-            stop();
-          }
-
-          @Override
-          public void onStop() {
-            updateFruitTreeStates();
-            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
-            stoner.setController(controller);
-          }
-        });
-    return true;
-  }
-
-  private void resetFruitTrees(int index) {
-    fruitTreeSaplings[index] = 0;
-    fruitTreeState[index] = 0;
-    diseaseChance[index] = 1;
-    hasFullyGrown[index] = false;
-    fruitTreeWatched[index] = false;
-  }
-
-  public boolean checkIfRaked(int objectX, int objectY) {
-    final FruitTreeFieldsData fruitTreeFieldsData =
-        FruitTreeFieldsData.forIdPosition(objectX, objectY);
-    if (fruitTreeFieldsData == null) return false;
-    return fruitTreeStages[fruitTreeFieldsData.getFruitTreeIndex()] == 3;
   }
 }

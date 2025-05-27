@@ -70,6 +70,11 @@ public class ClanWarsFFAController extends GenericMinigameController {
   }
 
   @Override
+  public boolean canTrade() {
+    return true;
+  }
+
+  @Override
   public boolean canUseCombatType(Stoner paramStoner, CombatTypes paramCombatTypes) {
     return true;
   }
@@ -110,6 +115,9 @@ public class ClanWarsFFAController extends GenericMinigameController {
   }
 
   @Override
+  public void onTeleport(Stoner p) {}
+
+  @Override
   public void tick(Stoner paramStoner) {
     if (paramStoner.inClanWarsFFA()) {
       paramStoner.getClient().queueOutgoingPacket(new SendStonerOption("Assault", 3));
@@ -132,12 +140,4 @@ public class ClanWarsFFAController extends GenericMinigameController {
   public boolean canDrop(Stoner stoner) {
     return true;
   }
-
-  @Override
-  public boolean canTrade() {
-    return true;
-  }
-
-  @Override
-  public void onTeleport(Stoner p) {}
 }

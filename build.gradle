@@ -28,6 +28,7 @@ dependencies {
     implementation name: 'javacord-3.0.6-shaded'
     implementation name: 'xpp3_min-1.1.4c'
     implementation 'com.thoughtworks.xstream:xstream:1.4.20'
+    implementation 'org.xerial:sqlite-jdbc:3.41.2.1'
 
 }
 

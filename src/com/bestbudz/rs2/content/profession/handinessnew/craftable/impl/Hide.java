@@ -64,6 +64,11 @@ public enum Hide implements Craftable {
   }
 
   @Override
+  public String getName() {
+    return "Hide";
+  }
+
+  @Override
   public int getAnimation() {
     return 1249;
   }
@@ -84,11 +89,6 @@ public enum Hide implements Craftable {
   }
 
   @Override
-  public String getProductionMessage() {
-    return null;
-  }
-
-  @Override
   public Item[] getIngediants(int index) {
     return new Item[] {
       new Item(1734, items[index].getRequiredItem().getAmount()), items[index].getRequiredItem()
@@ -96,7 +96,7 @@ public enum Hide implements Craftable {
   }
 
   @Override
-  public String getName() {
-    return "Hide";
+  public String getProductionMessage() {
+    return null;
   }
 }

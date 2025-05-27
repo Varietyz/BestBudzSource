@@ -16,56 +16,72 @@ public class NetworkThread extends Thread {
   public static NetworkThread singleton;
   public static int cycles = 0;
 
+  public NetworkThread() {
+    singleton = this;
+
+    setName("Network Thread");
+
+    setPriority(Thread.MAX_PRIORITY - 1);
+
+    start();
+  }
+
   public static void createLog(String username, IncomingPacket packet, int opcode) {
     packetLog.add(new PacketLog(username, packet.getClass().getSimpleName() + " : " + opcode));
   }
 
-	private void processObjectQueue() {
-		GameObject obj;
-		while ((obj = ObjectManager.getSend().poll()) != null) {
-			try {
-				ObjectManager.send(obj);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private void processStoners() {
-		for (Stoner s : World.getStoners()) {
-			if (s == null || !s.isActive()) continue;
-
-			try {
-				if (s.getStonerShop().hasSearch()) {
-					s.getStonerShop().doSearch();
-					s.getStonerShop().resetSearch();
-				}
-
-				s.getGroundItems().process();
-				s.getObjects().process();
-				s.getClient().processOutgoingPackets();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private void sleepIfNeeded(long start) {
-		long elapsed = (System.nanoTime() - start) / 1_000_000;
-		if (elapsed < 200) {
-			try {
-				Thread.sleep(200 - elapsed);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt(); // Correct way to restore interrupt flag
-			}
-		} else {
-			System.out.println("Network thread overflow: " + elapsed + "ms");
-		}
-	}
-
-
-	public static NetworkThread getSingleton() {
+  public static NetworkThread getSingleton() {
     return singleton;
+  }
+
+  private void processObjectQueue() {
+    GameObject obj;
+    while ((obj = ObjectManager.getSend().poll()) != null) {
+      try {
+        ObjectManager.send(obj);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private void processStoners() {
+    for (Stoner s : World.getStoners()) {
+      if (s == null || !s.isActive()) continue;
+
+      try {
+        s.getGroundItems().process();
+        s.getObjects().process();
+        s.getClient().processOutgoingPackets();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private void sleepIfNeeded(long start) {
+    long elapsed = (System.nanoTime() - start) / 1_000_000;
+    if (elapsed < 200) {
+      try {
+        Thread.sleep(200 - elapsed);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt(); // Correct way to restore interrupt flag
+      }
+    } else {
+      System.out.println("Network thread overflow: " + elapsed + "ms");
+    }
+  }
+
+  @Override
+  public void run() {
+    while (!Thread.interrupted()) {
+      long start = System.nanoTime();
+
+      processObjectQueue();
+      processStoners();
+
+      sleepIfNeeded(start);
+    }
   }
 
   public static class PacketLog {
@@ -77,27 +93,4 @@ public class NetworkThread extends Thread {
       this.packet = packet;
     }
   }
-
-  public NetworkThread() {
-    singleton = this;
-
-    setName("Network Thread");
-
-    setPriority(Thread.MAX_PRIORITY - 1);
-
-    start();
-  }
-
-	@Override
-	public void run() {
-		while (!Thread.interrupted()) {
-			long start = System.nanoTime();
-
-			processObjectQueue();
-			processStoners();
-
-			sleepIfNeeded(start);
-		}
-	}
-
 }

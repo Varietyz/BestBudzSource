@@ -2,7 +2,9 @@ package com.bestbudz.rs2.entity.pathfinding;
 
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.util.Benchmarker;
+import com.bestbudz.rs2.GameConstants;
 import com.bestbudz.rs2.entity.Location;
+import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.ArrayList;
@@ -62,7 +64,11 @@ public class RS317PathFinder {
         tileQueueY.add(curY - 1);
         via[curX][curY - 1] = 1;
         cost[curX][curY - 1] = thisCost;
-      }
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
+
+	  }
 
       if (curX > 0
           && via[curX - 1][curY] == 0
@@ -71,6 +77,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY);
         via[curX - 1][curY] = 2;
         cost[curX - 1][curY] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curY < 208 - 1
@@ -80,6 +89,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY + 1);
         via[curX][curY + 1] = 4;
         cost[curX][curY + 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX < 208 - 1
@@ -89,6 +101,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY);
         via[curX + 1][curY] = 8;
         cost[curX + 1][curY] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX > 0
@@ -101,6 +116,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY - 1);
         via[curX - 1][curY - 1] = 3;
         cost[curX - 1][curY - 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX > 0
@@ -113,6 +131,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY + 1);
         via[curX - 1][curY + 1] = 6;
         cost[curX - 1][curY + 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX < 208 - 1
@@ -125,6 +146,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY - 1);
         via[curX + 1][curY - 1] = 9;
         cost[curX + 1][curY - 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX < 208 - 1
@@ -137,13 +161,100 @@ public class RS317PathFinder {
         tileQueueY.add(curY + 1);
         via[curX + 1][curY + 1] = 12;
         cost[curX + 1][curY + 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
     }
 
     return false;
   }
 
-  public static void findRoute(
+	public static void findRoute(Mob mob, int destX, int destY, boolean moveNear, int xLength, int yLength) {
+		Location start = mob.getLocation();
+		int curX = start.getLocalX();
+		int curY = start.getLocalY();
+
+		destX -= (start.getRegionX() << 3);
+		destY -= (start.getRegionY() << 3);
+
+		int[][] via = new int[208][208];
+		int[][] cost = new int[208][208];
+		ArrayList<Integer> tileQueueX = new ArrayList<>(9000);
+		ArrayList<Integer> tileQueueY = new ArrayList<>(9000);
+
+		via[curX][curY] = 99;
+		cost[curX][curY] = 1;
+		tileQueueX.add(curX);
+		tileQueueY.add(curY);
+
+		final int regionX = start.getRegionX() << 3;
+		final int regionY = start.getRegionY() << 3;
+
+		boolean foundPath = false;
+
+		int pathLength = 4000;
+		int tail = 0;
+
+		while (tail != tileQueueX.size() && tileQueueX.size() < pathLength) {
+			curX = tileQueueX.get(tail);
+			curY = tileQueueY.get(tail);
+
+			int curAbsX = regionX + curX;
+			int curAbsY = regionY + curY;
+
+			if (curX == destX && curY == destY) {
+				foundPath = true;
+				break;
+			}
+
+			tail = (tail + 1) % pathLength;
+			int thisCost = cost[curX][curY] + 1 + 1;
+
+			for (int[] offset : GameConstants.DIR)
+			{
+				int x = curX + offset[0];
+				int y = curY + offset[1];
+				int absX = curAbsX + offset[0];
+				int absY = curAbsY + offset[1];
+
+				if (x < 0 || y < 0 || x >= 208 || y >= 208 || via[x][y] != 0) continue;
+
+				int clip = getClip(absX, absY, start.getZ());
+				if ((clip & 0x1280100) != 0) continue;
+
+				tileQueueX.add(x);
+				tileQueueY.add(y);
+				via[x][y] = 1;
+				cost[x][y] = thisCost;
+
+				Location tryLoc = new Location(absX, absY, start.getZ());
+				int penalty = mob.isPet() ? mob.getMemoryPenalty(tryLoc) : 0;
+				thisCost += penalty * 5;
+			}
+		}
+
+		if (!foundPath) return;
+
+		mob.getMovementHandler().reset();
+
+		int size = tileQueueX.size() - 1;
+		List<Location> rawPath = new ArrayList<>();
+		for (int i = size; i >= 0; i--) {
+			int x = regionX + tileQueueX.get(i);
+			int y = regionY + tileQueueY.get(i);
+			rawPath.add(new Location(x, y, start.getZ()));
+		}
+
+		List<Location> smooth = smoothPath(rawPath);
+		for (Location step : smooth) {
+			mob.getMovementHandler().addToPath(step);
+		}
+
+		mob.getMovementHandler().finish();
+	}
+
+	public static void findRoute(
       Stoner c, int destX, int destY, boolean moveNear, int xLength, int yLength) {
     Benchmarker.start();
     if (destX == c.getLocation().getLocalX() && destY == c.getLocation().getLocalY() && !moveNear) {
@@ -172,7 +283,7 @@ public class RS317PathFinder {
     final int regionY = c.getLocation().getRegionY() << 3;
 
     boolean foundPath = false;
-    int pathLength = 4000;
+    int pathLength = 8000;
 
     while (tail != tileQueueX.size() && tileQueueX.size() < pathLength) {
 
@@ -198,6 +309,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY - 1);
         via[curX][curY - 1] = 1;
         cost[curX][curY - 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX > 0
@@ -207,6 +321,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY);
         via[curX - 1][curY] = 2;
         cost[curX - 1][curY] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curY < 208 - 1
@@ -216,6 +333,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY + 1);
         via[curX][curY + 1] = 4;
         cost[curX][curY + 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX < 208 - 1
@@ -225,6 +345,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY);
         via[curX + 1][curY] = 8;
         cost[curX + 1][curY] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX > 0
@@ -237,6 +360,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY - 1);
         via[curX - 1][curY - 1] = 3;
         cost[curX - 1][curY - 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX > 0
@@ -249,6 +375,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY + 1);
         via[curX - 1][curY + 1] = 6;
         cost[curX - 1][curY + 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX < 208 - 1
@@ -261,6 +390,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY - 1);
         via[curX + 1][curY - 1] = 9;
         cost[curX + 1][curY - 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
 
       if (curX < 208 - 1
@@ -273,6 +405,9 @@ public class RS317PathFinder {
         tileQueueY.add(curY + 1);
         via[curX + 1][curY + 1] = 12;
         cost[curX + 1][curY + 1] = thisCost;
+		  Location tryLoc = new Location(curAbsX, curAbsY);
+		  int memoryPenalty = Stoner.pathMemory.getOrDefault(tryLoc, 0);
+		  thisCost += memoryPenalty * 5;
       }
     }
 
@@ -346,17 +481,22 @@ public class RS317PathFinder {
     c.getMovementHandler().reset();
 
     int size = tail--;
+	List<Location> rawPath = new ArrayList<>();
     int pathX = (regionX) + tileQueueX.get(tail);
     int pathY = (regionY) + tileQueueY.get(tail);
+	rawPath.add(new Location(pathX, pathY));
 
-    c.getMovementHandler().addToPath(new Location(pathX, pathY));
+	  for (int i = 1; i < size; i++) {
+		  tail--;
+		  pathX = regionX + tileQueueX.get(tail);
+		  pathY = regionY + tileQueueY.get(tail);
+		  rawPath.add(new Location(pathX, pathY));
+	  }
 
-    for (int i = 1; i < size; i++) {
-      tail--;
-      pathX = (regionX) + tileQueueX.get(tail);
-      pathY = (regionY) + tileQueueY.get(tail);
-      c.getMovementHandler().addToPath(new Location(pathX, pathY));
-    }
+	  List<Location> smoothPath = smoothPath(rawPath);
+	  for (Location loc : smoothPath) {
+		  c.getMovementHandler().addToPath(loc);
+	  }
 
     c.getMovementHandler().finish();
 
@@ -375,7 +515,28 @@ public class RS317PathFinder {
     return r.getClip(x, y, z);
   }
 
-  public int localize(int x, int mapRegion) {
+	private static boolean hasLineOfSight(Location from, Location to) {
+		Region r = Region.getRegion(from.getX(), from.getY());
+		return r != null && r.canMoveStraightLine(from.getX(), from.getY(), to.getX(), to.getY(), from.getZ());
+	}
+
+	private static List<Location> smoothPath(List<Location> rawPath) {
+		List<Location> result = new ArrayList<>();
+		if (rawPath.isEmpty()) return result;
+		result.add(rawPath.get(0));
+		int last = 0;
+		for (int i = 2; i < rawPath.size(); i++) {
+			if (!hasLineOfSight(rawPath.get(last), rawPath.get(i))) {
+				result.add(rawPath.get(i - 1));
+				last = i - 1;
+			}
+		}
+		result.add(rawPath.get(rawPath.size() - 1));
+		return result;
+	}
+
+
+	public int localize(int x, int mapRegion) {
     return x - (mapRegion << 3);
   }
 }

@@ -4,14 +4,23 @@ import com.bestbudz.core.LoginThread;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.Client;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelFutureListener;
 
 @ChannelHandler.Sharable
 public class ChannelHandler extends ChannelInboundHandlerAdapter {
 
 	private Client client;
+
+	@Override
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		if (client != null) {
+			client.getStoner().logout(true);
+			client.disconnect();
+			client = null;
+		}
+	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -44,14 +53,5 @@ public class ChannelHandler extends ChannelInboundHandlerAdapter {
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		cause.printStackTrace();
 		ctx.close();
-	}
-
-	@Override
-	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		if (client != null) {
-			client.getStoner().logout(true);
-			client.disconnect();
-			client = null;
-		}
 	}
 }

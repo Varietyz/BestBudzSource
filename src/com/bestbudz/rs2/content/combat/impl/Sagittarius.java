@@ -177,8 +177,16 @@ public class Sagittarius {
     return projectile;
   }
 
+  public void setProjectile(Projectile projectile) {
+    this.projectile = projectile;
+  }
+
   public int getProjectileOffset() {
     return pOffset;
+  }
+
+  public void setProjectileOffset(int pOffset) {
+    this.pOffset = pOffset;
   }
 
   public void setAssault(
@@ -192,14 +200,6 @@ public class Sagittarius {
 
   public void setEnd(Graphic end) {
     this.end = end;
-  }
-
-  public void setProjectile(Projectile projectile) {
-    this.projectile = projectile;
-  }
-
-  public void setProjectileOffset(int pOffset) {
-    this.pOffset = pOffset;
   }
 
   public void setStart(Graphic start) {
