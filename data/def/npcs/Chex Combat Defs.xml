@@ -11,20 +11,20 @@
 			<id>6537</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>75</level>
-			</skill>
-			<skill>
+				<grade>75</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>75</level>
-			</skill>
-			<skill>
+				<grade>75</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -41,74 +41,15 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>6536</id>
 					<delay>0</delay>
 				</animation>
-				<max>12</max>
-			</melee>
-		</melee>
-	</NpcCombatDefinition>
-	<NpcCombatDefinition>
-		<!-- Bandit Lvl 70-->
-		<id>690</id>
-		<combatType>MELEE</combatType>
-		<respawnTime>20</respawnTime>
-		<block>
-			<id>403</id>
-			<delay>0</delay>
-		</block>
-		<death>
-			<id>2304</id>
-			<delay>0</delay>
-		</death>
-		<skills>
-			<skill>
-				<id>0</id>
-				<level>3</level>
-			</skill>
-			<skill>
-				<id>1</id>
-				<level>3</level>
-			</skill>
-			<skill>
-				<id>2</id>
-				<level>3</level>
-			</skill>
-			<skill>
-				<id>3</id>
-				<level>25</level>
-			</skill>
-		</skills>
-		<bonuses>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-			<int>60</int>
-		</bonuses>
-		<melee>
-			<melee>
-				<attack>
-					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
-				<animation>
-					<id>451</id>
-					<delay>0</delay>
-				</animation>
-				<max>7</max>
+				<max>8</max>
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
@@ -125,24 +66,24 @@
 			<id>836</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -159,10 +100,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>422</id>
 					<delay>0</delay>
@@ -184,24 +125,24 @@
 			<id>1553</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -218,10 +159,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>1550</id>
 					<delay>0</delay>
@@ -231,7 +172,7 @@
 		</melee>
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
-		<!-- Spiritual ranger -->
+		<!-- Spiritual sagittarius -->
 		<id>2242</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>30</respawnTime>
@@ -243,24 +184,24 @@
 			<id>4321</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -277,10 +218,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>4320</id>
 					<delay>0</delay>
@@ -302,24 +243,24 @@
 			<id>1580</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -336,10 +277,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>1582</id>
 					<delay>0</delay>
@@ -361,24 +302,24 @@
 			<id>4321</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -395,10 +336,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>4320</id>
 					<delay>0</delay>
@@ -420,24 +361,24 @@
 			<id>1580</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -454,10 +395,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>1582</id>
 					<delay>0</delay>
@@ -479,24 +420,24 @@
 			<id>4321</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -513,10 +454,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>4320</id>
 					<delay>0</delay>
@@ -538,24 +479,24 @@
 			<id>6182</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -572,10 +513,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>6184</id>
 					<delay>0</delay>
@@ -597,24 +538,24 @@
 			<id>4302</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -631,10 +572,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>4300</id>
 					<delay>0</delay>
@@ -656,24 +597,24 @@
 			<id>167</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -690,10 +631,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>164</id>
 					<delay>0</delay>
@@ -715,24 +656,24 @@
 			<id>836</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -749,10 +690,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>401</id>
 					<delay>0</delay>
@@ -762,7 +703,7 @@
 		</melee>
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
-		<!-- Spiritual ranger -->
+		<!-- Spiritual sagittarius -->
 		<id>3160</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>30</respawnTime>
@@ -774,24 +715,24 @@
 			<id>836</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -808,10 +749,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>426</id>
 					<delay>0</delay>
@@ -833,24 +774,24 @@
 			<id>836</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -867,10 +808,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>811</id>
 					<delay>0</delay>
@@ -892,24 +833,24 @@
 			<id>6959</id>
 			<delay>0</delay>
 		</death>
-		<skills>
-			<skill>
+		<professions>
+			<profession>
 				<id>0</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>1</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>2</id>
-				<level>0</level>
-			</skill>
-			<skill>
+				<grade>0</grade>
+			</profession>
+			<profession>
 				<id>3</id>
-				<level>100</level>
-			</skill>
-		</skills>
+				<grade>100</grade>
+			</profession>
+		</professions>
 		<bonuses>
 			<int>50</int>
 			<int>50</int>
@@ -926,10 +867,10 @@
 		</bonuses>
 		<melee>
 			<melee>
-				<attack>
+				<assault>
 					<hitDelay>1</hitDelay>
-					<attackDelay>5</attackDelay>
-				</attack>
+					<assaultDelay>5</assaultDelay>
+				</assault>
 				<animation>
 					<id>6956</id>
 					<delay>0</delay>

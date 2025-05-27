@@ -1,0 +1,32 @@
+package com.bestbudz.rs2.content.combat.special.specials;
+
+import com.bestbudz.rs2.content.combat.special.Special;
+import com.bestbudz.rs2.entity.Animation;
+import com.bestbudz.rs2.entity.Graphic;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+
+/**
+ * Handles the Armadyl godsword special assault
+ * 
+ * @author Jaybane
+ *
+ */
+public class ArmadylGodswordSpecialAssault implements Special {
+
+	@Override
+	public boolean checkRequirements(Stoner stoner) {
+	return true;
+	}
+
+	@Override
+	public int getSpecialAmountRequired() {
+	return 50;
+	}
+
+	@Override
+	public void handleAssault(Stoner stoner) {
+	stoner.getCombat().getMelee().setAnimation(new Animation(7061, 0));
+	stoner.getUpdateFlags().sendGraphic(Graphic.highGraphic(1211, 0));
+	}
+
+}

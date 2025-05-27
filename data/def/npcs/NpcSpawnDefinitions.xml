@@ -1,1360 +1,191 @@
 <list>
 	<!-- start custom spawns - end search "end custom spawns" -->
-	<!-- Real Npc Spawn file -->
-	
-	<NpcSpawnDefinition>
-	<!-->  Vespula Raid Boss 7k health <-->
-		<id>7530</id>
+
+<!-- START OF Profession AREA-->
+
+			<NpcSpawnDefinition>
+	<!-->Banker PROFESSION <-->
+		<id>394</id>
 		<location>
-			<x>2384</x>
-			<y>4721</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->  grace shop area <-->
-		<id>5919</id>
-		<location>
-			<x>1778</x>
-			<y>3684</y>
+			<x>3447</x>
+			<y>2915</y>
 			<z>0</z>
 		</location>
 		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->   sand crab at edge home <-->
-		<id>5935</id>
-		<location>
-			<x>3080</x>
-			<y>3493</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->   sand crab at edge home <-->
-		<id>5935</id>
-		<location>
-			<x>3081</x>
-			<y>3491</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->   sand crab at edge home <-->
-		<id>5935</id>
-		<location>
-			<x>3080</x>
-			<y>3495</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->   hill giant at edge home <-->
-		<id>2098</id>
-		<location>
-			<x>3079</x>
-			<y>3491</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->   hill giant at edge home <-->
-		<id>2098</id>
-		<location>
-			<x>3078</x>
-			<y>3499</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->   rock crab at edge home <-->
-		<id>100</id>
-		<location>
-			<x>3078</x>
-			<y>3490</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->  rock crab edge home area <-->
-		<id>100</id>
-		<location>
-			<x>3079</x>
-			<y>3496</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->Nieve<-->
-		<id>490</id>
-		<location>
-			<x>3091</x>
-			<y>3489</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	
-	
-	<NpcSpawnDefinition>
-	<!--> Membership <-->
-		<id>7042</id>
-		<location>
-			<x>3091</x>
-			<y>3500</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!--> Membership <-->
-		<id>7042</id>
-		<location>
-			<x>3094</x>
-			<y>3500</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	
-				<NpcSpawnDefinition>
-		<!--> Bandit <-->
-		<id>690</id>
-		<location>
-			<x>3235</x>
-			<y>3218</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-
-				<NpcSpawnDefinition>
-		<!--> Bandit <-->
-		<id>690</id>
-		<location>
-			<x>3238</x>
-			<y>3218</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-
-				<NpcSpawnDefinition>
-		<!--> Bandit <-->
-		<id>690</id>
-		<location>
-			<x>3238</x>
-			<y>3221</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-
-				<NpcSpawnDefinition>
-		<!--> Bandit <-->
-		<id>690</id>
-		<location>
-			<x>3234</x>
-			<y>3221</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-
-				<NpcSpawnDefinition>
-		<!--> Bandit <-->
-		<id>690</id>
-		<location>
-			<x>3232</x>
-			<y>3225</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-
-				<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2850</x>
-			<y>3338</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<face>3</face>
 	</NpcSpawnDefinition>
 				<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
+	<!-->Banker PROFESSION <-->
+		<id>394</id>
 		<location>
-			<x>2854</x>
-			<y>3338</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2854</x>
-			<y>3334</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2849</x>
-			<y>3335</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2847</x>
-			<y>3331</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2845</x>
-			<y>3342</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2840</x>
-			<y>3341</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2143</x>
-			<y>4897</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2136</x>
-			<y>3896</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2139</x>
-			<y>4900</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2134</x>
-			<y>4901</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2130</x>
-			<y>4903</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-		<!--> Akthanakos <-->
-		<id>3055</id>
-		<location>
-			<x>2120</x>
-			<y>4904</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> hunting expert <-->
-		<id>5529</id>
-		<location>
-			<x>2526</x>
+			<x>3447</x>
 			<y>2916</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> Corrupt sorceress <-->
-		<id>1578</id>
-		<location>
-			<x>3094</x>
-			<y>9799</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> Crushing hand <-->
-		<id>7388</id>
-		<location>
-			<x>1665</x>
-			<y>9995</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!--> screaming banshee <-->
-		<id>7390</id>
-		<location>
-			<x>1642</x>
-			<y>9996</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!--> screaming banshee <-->
-		<id>7390</id>
-		<location>
-			<x>1637</x>
-			<y>9991</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-					<NpcSpawnDefinition>
-	<!--> screaming banshee <-->
-		<id>7390</id>
-		<location>
-			<x>1625</x>
-			<y>9993</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-					<NpcSpawnDefinition>
-	<!--> screaming banshee <-->
-		<id>7390</id>
-		<location>
-			<x>1620</x>
-			<y>9995</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-					<NpcSpawnDefinition>
-	<!--> screaming banshee <-->
-		<id>7390</id>
-		<location>
-			<x>1609</x>
-			<y>9993</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-					<NpcSpawnDefinition>
-	<!--> screaming banshee <-->
-		<id>7390</id>
-		<location>
-			<x>1609</x>
-			<y>9999</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> cave abomination <-->
-		<id>7401</id>
-		<location>
-			<x>1688</x>
-			<y>10013</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> cave abomination <-->
-		<id>7401</id>
-		<location>
-			<x>1694</x>
-			<y>10018</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> cave abomination <-->
-		<id>7401</id>
-		<location>
-			<x>1688</x>
-			<y>10029</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> cave abomination <-->
-		<id>7401</id>
-		<location>
-			<x>1694</x>
-			<y>10033</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> cave abomination <-->
-		<id>7401</id>
-		<location>
-			<x>1688</x>
-			<y>10045</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> cave abomination <-->
-		<id>7401</id>
-		<location>
-			<x>1686</x>
-			<y>10050</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> night beast <-->
-		<id>7409</id>
-		<location>
-			<x>1701</x>
-			<y>9993</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!--> night beast <-->
-		<id>7409</id>
-		<location>
-			<x>1705</x>
-			<y>9998</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!--> night beast <-->
-		<id>7409</id>
-		<location>
-			<x>1709</x>
-			<y>9994</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!--> night beast <-->
-		<id>7409</id>
-		<location>
-			<x>1708</x>
-			<y>10012</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!--> night beast <-->
-		<id>7409</id>
-		<location>
-			<x>1714</x>
-			<y>10017</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!--> night beast <-->
-		<id>7409</id>
-		<location>
-			<x>1715</x>
-			<y>10032</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!--> Greater abyssal demon <-->
-		<id>7410</id>
-		<location>
-			<x>1715</x>
-			<y>10044</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!--> Greater abyssal demon <-->
-		<id>7410</id>
-		<location>
-			<x>1719</x>
-			<y>10047</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!--> Greater abyssal demon <-->
-		<id>7410</id>
-		<location>
-			<x>1715</x>
-			<y>10051</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!--> Greater abyssal demon <-->
-		<id>7410</id>
-		<location>
-			<x>1720</x>
-			<y>10056</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!--> Greater abyssal demon <-->
-		<id>7410</id>
-		<location>
-			<x>1726</x>
-			<y>10050</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!--> Greater abyssal demon <-->
-		<id>7410</id>
-		<location>
-			<x>1711</x>
-			<y>10048</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> Nechryarch <-->
-		<id>7411</id>
-		<location>
-			<x>1618</x>
-			<y>10013</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> Nechryarch <-->
-		<id>7411</id>
-		<location>
-			<x>1605</x>
-			<y>10032</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> Nechryarch <-->
-		<id>7411</id>
-		<location>
-			<x>1606</x>
-			<y>10053</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> Nechryarch <-->
-		<id>7411</id>
-		<location>
-			<x>1610</x>
-			<y>10055</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Crushing hand <-->
-		<id>7388</id>
-		<location>
-			<x>1671</x>
-			<y>9996</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Crushing hand <-->
-		<id>7388</id>
-		<location>
-			<x>1664</x>
-			<y>10001</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Crushing hand <-->
-		<id>7388</id>
-		<location>
-			<x>1674</x>
-			<y>10001</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Crushing hand <-->
-		<id>7388</id>
-		<location>
-			<x>1688</x>
-			<y>9996</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!--> Crushing hand <-->
-		<id>7388</id>
-		<location>
-			<x>1689</x>
-			<y>10001</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!--> Healing Nurse <-->
-		<id>6875</id>
-		<location>
-			<x>3094</x>
-			<y>3506</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Healing Nurse <-->
-		<id>6875</id>
-		<location>
-			<x>3097</x>
-			<y>3506</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-		<NpcSpawnDefinition>
-	<!-->skeleton mage<-->
-		<id>84</id>
-		<location>
-			<x>2981</x>
-			<y>3754</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->skeleton ranger<-->
-		<id>3358</id>
-		<location>
-			<x>3363</x>
-			<y>3807</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->skeleton melee<-->
-		<id>1540</id>
-		<location>
-			<x>3037</x>
-			<y>3674</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Venenatis <-->
-		<id>6504</id>
-		<location>
-			<x>3340</x>
-			<y>3745</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Agrith-na-na <-->
-		<id>4880</id>
-		<location>
-			<x>1545</x>
-			<y>3594</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Dessourt <-->
-		<id>4883</id>
-		<location>
-			<x>2586</x>
-			<y>9449</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Karamel <-->
-		<id>4882</id>
-		<location>
-			<x>2616</x>
-			<y>9485</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> culumancer <-->
-		<id>4878</id>
-		<location>
-			<x>2793</x>
-			<y>9332</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Flambeed <-->
-		<id>4881</id>
-		<location>
-			<x>1893</x>
-			<y>5342</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3796</x>
-			<y>9452</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3795</x>
-			<y>9446</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3793</x>
-			<y>9439</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3784</x>
-			<y>9443</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>2</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3775</x>
-			<y>9445</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3781</x>
-			<y>9453</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3785</x>
-			<y>9459</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>2</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3775</x>
-			<y>9461</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Cave Horror <-->
-		<id>3213</id>
-		<location>
-			<x>3768</x>
-			<y>9456</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!--> Home Banker shop area<-->
-		<id>394</id>
-		<location>
-			<x>1776</x>
-			<y>3691</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Home Banker s <-->
-		<id>394</id>
-		<location>
-			<x>1749</x>
-			<y>3475</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Home Banker s <-->
-		<id>394</id>
-		<location>
-			<x>2673</x>
-			<y>3710</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Home Banker s <-->
-		<id>394</id>
-		<location>
-			<x>2709</x>
-			<y>9474</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!--> Home Banker s <-->
-		<id>394</id>
-		<location>
-			<x>1640</x>
-			<y>3507</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-		<id>1118</id>
-		<location>
-			<x>2126</x>
-			<y>5679</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Demonic Gorilla<-->
-		<id>1118</id>
-		<location>
-			<x>2128</x>
-			<y>5673</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Demonic Gorilla<-->
-		<id>1118</id>
-		<location>
-			<x>2130</x>
-			<y>5677</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Demonic Gorilla<-->
-		<id>1118</id>
-		<location>
-			<x>2096</x>
-			<y>5677</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Demonic Gorilla<-->
-		<id>1118</id>
-		<location>
-			<x>2100</x>
-			<y>5672</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Demonic Gorilla<-->
-		<id>1118</id>
-		<location>
-			<x>2102</x>
-			<y>5677</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Demonic Gorilla<-->
-		<id>1118</id>
-		<location>
-			<x>2072</x>
-			<y>5679</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Demonic Gorilla<-->
-		<id>1118</id>
-		<location>
-			<x>2075</x>
-			<y>5676</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Demonic Gorilla<-->
-		<id>1118</id>
-		<location>
-			<x>2080</x>
-			<y>5678</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-		<NpcSpawnDefinition>
-	<!-->pvm shop shop area<-->
-		<id>2662</id>
-		<location>
-			<x>1782</x>
-			<y>3684</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!-->boss shop shop area<-->
-		<id>3463</id>
-		<location>
-			<x>1784</x>
-			<y>3684</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!-->trivia shop shop area<-->
-		<id>276</id>
-		<location>
-			<x>1783</x>
-			<y>3684</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->clue scroll shop area<-->
-		<id>6746</id>
-		<location>
-			<x>1776</x>
-			<y>3685</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	
-		<NpcSpawnDefinition>
-	<!-->Player Shop clerk< shop area-->
-		<id>2150</id>
-		<location>
-			<x>1776</x>
-			<y>3690</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-
-	<NpcSpawnDefinition>
-	<!-->Hatius Cosaintus<-->
-		<id>7042</id>
-		<location>
-			<x>3283</x>
-			<y>3496</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->Wise Old Man<-->
-		<id>4306</id>
-		<location>
-			<x>3284</x>
-			<y>3506</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Decantor<-->
-		<id>6524</id>
-		<location>
-			<x>1649</x>
-			<y>3679</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->Genie<-->
-		<id>326</id>
-		<location>
-			<x>1648</x>
-			<y>3683</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Adam<-->
-		<id>311</id>
-		<location>
-			<x>1649</x>
-			<y>3672</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->Captain Donnie<-->
-		<id>3215</id>
-		<location>
-			<x>3168</x>
-			<y>3480</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	
-	<NpcSpawnDefinition>
-	<!-->Twiggy O'Korn<-->
-		<id>5527</id>
-		<location>
-			<x>3161</x>
-			<y>3480</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Judas<-->
-		<id>5885</id>
-		<location>
-			<x>3091</x>
-			<y>3493</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Rug Merchant<-->
-		<id>22</id>
-		<location>
-			<x>3286</x>
-			<y>3510</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Banker<-->
-		<id>394</id>
-		<location>
-			<x>3288</x>
-			<y>3502</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Banker<-->
-		<id>395</id>
-		<location>
-			<x>3288</x>
-			<y>3501</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Banker<-->
-		<id>394</id>
-		<location>
-			<x>3288</x>
-			<y>3500</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Banker<-->
-		<id>394</id>
-		<location>
-			<x>3288</x>
-			<y>3499</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Banker<-->
-		<id>394</id>
-		<location>
-			<x>3288</x>
-			<y>3498</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Banker<-->
-		<id>395</id>
-		<location>
-			<x>3288</x>
-			<y>3497</y>
 			<z>0</z>
 		</location>
 		<walk>false</walk>
 		<face>3</face>
 	</NpcSpawnDefinition>	
-	
+
+
+<!--START OF HOME-->
+		<NpcSpawnDefinition>
+		<!--> Zammy Mage HOME <-->
+		<id>4936</id>
+		<location>
+			<x>3429</x>
+			<y>2902</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>						
+		<NpcSpawnDefinition>
+		<!--> Merchant HOME <-->
+		<id>22</id>
+		<location>
+			<x>3429</x>
+			<y>2925</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+			<NpcSpawnDefinition>
+	<!-->Banker HOME <-->
+		<id>394</id>
+		<location>
+			<x>3425</x>
+			<y>2889</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>4</face>
+	</NpcSpawnDefinition>
+			<NpcSpawnDefinition>
+	<!-->Banker HOME <-->
+		<id>394</id>
+		<location>
+			<x>3425</x>
+			<y>2891</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>4</face>
+	</NpcSpawnDefinition>
+			<NpcSpawnDefinition>
+	<!-->Banker HOME <-->
+		<id>394</id>
+		<location>
+			<x>3425</x>
+			<y>2893</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>4</face>
+	</NpcSpawnDefinition>
+			<NpcSpawnDefinition>
+	<!-->Banker HOME <-->
+		<id>394</id>
+		<location>
+			<x>3425</x>
+			<y>2894</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>4</face>
+	</NpcSpawnDefinition>
+		<NpcSpawnDefinition>
+	<!-->Banker HOME <-->
+		<id>394</id>
+		<location>
+			<x>3431</x>
+			<y>2927</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+		<NpcSpawnDefinition>
+	<!-->Banker HOME <-->
+		<id>394</id>
+		<location>
+			<x>3431</x>
+			<y>2928</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+		<NpcSpawnDefinition>
+	<!-->Banker HOME <-->
+		<id>394</id>
+		<location>
+			<x>3431</x>
+			<y>2929</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+		<NpcSpawnDefinition>
+	<!-->Banker HOME <-->
+		<id>394</id>
+		<location>
+			<x>3431</x>
+			<y>2930</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+		<NpcSpawnDefinition>
+	<!-->Wah Gwaan HOME <-->
+		<id>1558</id>
+		<location>
+			<x>3425</x>
+			<y>2909</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
+		<NpcSpawnDefinition>
+	<!-->BestBudz Title Dealer<-->
+		<id>3951</id>
+		<location>
+			<x>2811</x>
+			<y>3340</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+	<!-->SAILOR HOME<-->
+		<id>3936</id>
+		<location>
+			<x>3434</x>
+			<y>2892</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
+
+	<NpcSpawnDefinition>
+	<!-->Gambler HOME<-->
+		<id>1011</id>
+		<location>
+			<x>3430</x>
+			<y>2889</y>
+			<z>0</z>
+		</location>
+		<walk>false</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+
+
+<!--END OF HOME-->		
 	
 	<NpcSpawnDefinition>
 	<!-->Mithril dragon<-->
@@ -1483,85 +314,6 @@
 		<location>
 			<x>1761</x>
 			<y>5357</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Sailor<-->
-		<id>3936</id>
-		<location>
-			<x>3091</x>
-			<y>3498</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Sailor<-->
-		<id>3936</id>
-		<location>
-			<x>2826</x>
-			<y>3341</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Otto Godblessed<-->
-		<id>2914</id>
-		<location>
-			<x>3091</x>
-			<y>3497</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->Hatius Cosaintus<-->
-		<id>7042</id>
-		<location>
-			<x>2758</x>
-			<y>3504</y>
-			<z>2</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Banker<-->
-		<id>394</id>
-		<location>
-			<x>2762</x>
-			<y>3504</y>
-			<z>2</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Dunce<-->
-		<id>6749</id>
-		<location>
-			<x>2762</x>
-			<y>3511</y>
-			<z>2</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->Dunce<-->
-		<id>6749</id>
-		<location>
-			<x>2829</x>
-			<y>3345</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -1821,76 +573,6 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Da Vinci<-->
-		<id>1103</id>
-		<location>
-			<x>1861</x>
-			<y>5327</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->Captain Donnie<-->
-		<id>3215</id>
-		<location>
-			<x>2811</x>
-			<y>3346</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Twiggy O'Korn<-->
-		<id>5527</id>
-		<location>
-			<x>1645</x>
-			<y>3668</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!-->Wise Old Man<-->
-		<id>4306</id>
-		<location>
-			<x>1649</x>
-			<y>3683</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Decantor<-->
-		<id>6524</id>
-		<location>
-			<x>2807</x>
-			<y>3344</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-		
-	
-	<NpcSpawnDefinition>
-	<!-->Genie<-->
-		<id>326</id>
-		<location>
-			<x>2809</x>
-			<y>3340</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
 	<!-->Dark beast<-->
 		<id>4005</id>
 		<location>
@@ -2089,62 +771,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Adam<-->
-		<id>311</id>
-		<location>
-			<x>2827</x>
-			<y>3336</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Hatius Cosaintus<-->
-		<id>7042</id>
-		<location>
-			<x>2827</x>
-			<y>3348</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Ellis<-->
-		<id>3231</id>
-		<location>
-			<x>2845</x>
-			<y>3338</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Master Crafter<-->
-		<id>5811</id>
-		<location>
-			<x>2846</x>
-			<y>3338</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fred the Farmer<-->
-		<id>732</id>
-		<location>
-			<x>2815</x>
-			<y>3337</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1518</id>
 		<location>
 			<x>2876</x>
@@ -2155,40 +782,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
-		<id>635</id>
-		<location>
-			<x>3184</x>
-			<y>3930</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
-		<id>635</id>
-		<location>
-			<x>2877</x>
-			<y>3342</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fishing spot zeah<-->
-		<id>1518</id>
-		<location>
-			<x>1850</x>
-			<y>3792</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1526</id>
 		<location>
 			<x>2879</x>
@@ -2199,18 +793,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
-		<id>1526</id>
-		<location>
-			<x>1852</x>
-			<y>3790</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1526</id>
 		<location>
 			<x>2879</x>
@@ -2221,7 +804,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1519</id>
 		<location>
 			<x>2879</x>
@@ -2232,7 +815,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1519</id>
 		<location>
 			<x>2879</x>
@@ -2243,7 +826,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1534</id>
 		<location>
 			<x>2877</x>
@@ -2254,18 +837,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
-		<id>1534</id>
-		<location>
-			<x>1852</x>
-			<y>3788</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1520</id>
 		<location>
 			<x>2875</x>
@@ -2274,116 +846,6 @@
 		</location>
 		<walk>false</walk>
 		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
-		<id>1520</id>
-		<location>
-			<x>1852</x>
-			<y>3783</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Captain Braindeath<-->
-		<id>603</id>
-		<location>
-			<x>2822</x>
-			<y>3361</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Wizard Cromperty<-->
-		<id>5314</id>
-		<location>
-			<x>2821</x>
-			<y>3361</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Lowe<-->
-		<id>7240</id>
-		<location>
-			<x>2820</x>
-			<y>3361</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Louie Legs<-->
-		<id>528</id>
-		<location>
-			<x>2819</x>
-			<y>3361</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Weapons<-->
-		<id>527</id>
-		<location>
-			<x>2818</x>
-			<y>3361</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Food/Potion store shop area<-->
-		<id>225</id>
-		<location>
-			<x>1782</x>
-			<y>3694</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Packs Shop<-->
-		<id>3984</id>
-		<location>
-			<x>2817</x>
-			<y>3357</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Bob<-->
-		<id>505</id>
-		<location>
-			<x>2818</x>
-			<y>3357</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fred the Farmer<-->
-		<id>732</id>
-		<location>
-			<x>2819</x>
-			<y>3357</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 	<!-->Scorpia's offspring<-->
@@ -2871,116 +1333,6 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Wizard Cromperty<-->
-		<id>5314</id>
-		<location>
-			<x>2918</x>
-			<y>5470</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Captain Braindeath<-->
-		<id>603</id>
-		<location>
-			<x>2918</x>
-			<y>5471</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>	
-	<NpcSpawnDefinition>
-	<!-->Weapons<-->
-		<id>527</id>
-		<location>
-			<x>2918</x>
-			<y>5467</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Louie Legs<-->
-		<id>528</id>
-		<location>
-			<x>2918</x>
-			<y>5468</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Lowe<-->
-		<id>7240</id>
-		<location>
-			<x>2918</x>
-			<y>5469</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>	
-	<NpcSpawnDefinition>
-	<!-->Doctor Orbon<-->
-		<id>3984</id>
-		<location>
-			<x>2915</x>
-			<y>5465</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fred the Farmer<-->
-		<id>732</id>
-		<location>
-			<x>2916</x>
-			<y>5465</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Bob<-->
-		<id>505</id>
-		<location>
-			<x>2917</x>
-			<y>5465</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Consumables<-->
-		<id>225</id>
-		<location>
-			<x>2918</x>
-			<y>5465</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Iron-Morty shop area<-->
-		<id>311</id>
-		<location>
-			<x>1780</x>
-			<y>3684</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
 	<!-->TzHaar-Mej-Kah<-->
 		<id>2181</id>
 		<location>
@@ -3410,7 +1762,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Spiritual ranger<-->
+	<!-->Spiritual sagittarius<-->
 		<id>2211</id>
 		<location>
 			<x>2898</x>
@@ -3421,7 +1773,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Spiritual ranger<-->
+	<!-->Spiritual sagittarius<-->
 		<id>2211</id>
 		<location>
 			<x>2887</x>
@@ -3630,7 +1982,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Spiritual ranger<-->
+	<!-->Spiritual sagittarius<-->
 		<id>2242</id>
 		<location>
 			<x>2857</x>
@@ -3751,7 +2103,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Spiritual ranger<-->
+	<!-->Spiritual sagittarius<-->
 		<id>3160</id>
 		<location>
 			<x>2931</x>
@@ -3861,7 +2213,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Spiritual ranger<-->
+	<!-->Spiritual sagittarius<-->
 		<id>3167</id>
 		<location>
 			<x>2848</x>
@@ -3927,7 +2279,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Spiritual ranger<-->
+	<!-->Spiritual sagittarius<-->
 		<id>3167</id>
 		<location>
 			<x>2863</x>
@@ -4026,7 +2378,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Spiritual ranger<-->
+	<!-->Spiritual sagittarius<-->
 		<id>2211</id>
 		<location>
 			<x>2923</x>
@@ -4047,7 +2399,17 @@
 		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-	
+	<NpcSpawnDefinition>
+	<!-->William<-->
+		<id>2195</id>
+		<location>
+			<x>3089</x>
+			<y>3513</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>	
 	<NpcSpawnDefinition>
 	<!-->Kolodion<-->
 		<id>1603</id>
@@ -4268,9 +2630,19 @@
 		<walk>false</walk>
 		<face>3</face>
 	</NpcSpawnDefinition>	
-		
+		<NpcSpawnDefinition>
+	<!-->Oziach<-->
+		<id>822</id>
+		<location>
+			<x>3069</x>
+			<y>3517</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
 <NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1536</id>
 		<location>
 			<x>3187</x>
@@ -4281,18 +2653,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
-		<id>1536</id>
-		<location>
-			<x>2875</x>
-			<y>3342</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1536</id>
 		<location>
 			<x>3184</x>
@@ -4303,7 +2664,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1536</id>
 		<location>
 			<x>3181</x>
@@ -4315,7 +2676,7 @@
 	</NpcSpawnDefinition>
 		<NpcSpawnDefinition>
 	<!-->Cap'n Izzy No-Beard<-->
-		<id>5921</id>
+		<id>5787</id>
 		<location>
 			<x>3003</x>
 			<y>3934</y>
@@ -4326,7 +2687,7 @@
 	</NpcSpawnDefinition>	
 	<NpcSpawnDefinition>
 	<!-->Cap'n Izzy No-Beard<-->
-		<id>5921</id>
+		<id>5787</id>
 		<location>
 			<x>2547</x>
 			<y>3553</y>
@@ -4337,7 +2698,7 @@
 	</NpcSpawnDefinition>	
 	<NpcSpawnDefinition>
 	<!-->Cap'n Izzy No-Beard<-->
-		<id>5921</id>
+		<id>5787</id>
 		<location>
 			<x>2480</x>
 			<y>3433</y>
@@ -5370,7 +3731,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demon<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3425</x>
@@ -5381,7 +3742,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demon<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3428</x>
@@ -5392,7 +3753,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demon<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3425</x>
@@ -5403,7 +3764,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demon<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3423</x>
@@ -5414,7 +3775,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demon<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3427</x>
@@ -5425,7 +3786,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demont<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3416</x>
@@ -5436,7 +3797,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demon<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3413</x>
@@ -5447,7 +3808,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demon<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3410</x>
@@ -5458,50 +3819,16 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Abyssal Demon<-->
+	<!-->Banknote Exchange Merchant<-->
 		<id>415</id>
 		<location>
 			<x>3413</x>
 			<y>3574</y>
 			<z>2</z>
 		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Barker<-->
-		<id>6524</id>
-		<location>
-			<x>3079</x>
-			<y>3506</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
+		<walk>true</walk> 
 		<face>0</face>
 	</NpcSpawnDefinition>	
-	<NpcSpawnDefinition>
-	<!--> Security Details <-->
-		<id>3951</id>
-		<location>
-			<x>3091</x>
-			<y>3492</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	
-		<NpcSpawnDefinition>
-	<!--> Achievement shop area <-->
-		<id>5527</id>
-		<location>
-			<x>1787</x>
-			<y>3689</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 	<!--> Rogue's den banker <-->
 		<id>394</id>
@@ -5523,122 +3850,7 @@
 		</location>
 		<walk>false</walk>
 		<face>1</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!--> shops area skill point shop <-->
-		<id>6781</id>
-		<location>
-			<x>1787</x>
-			<y>3685</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>	
-	
-	<NpcSpawnDefinition>
-	<!--> Make-over Mage <-->
-		<id>1306</id>
-		<location>
-			<x>3091</x>
-			<y>3495</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	
-	<NpcSpawnDefinition>
-	<!--> Mage Of Zamorak <-->
-		<id>4936</id>
-		<location>
-			<x>3104</x>
-			<y>3507</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
 	</NpcSpawnDefinition>		
-	
-	<NpcSpawnDefinition>
-	<!--> Take Yo Money <-->
-		<id>7042</id>
-		<location>
-			<x>1626</x>
-			<y>3665</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Take Yo Money <-->
-		<id>7042</id>
-		<location>
-			<x>1776</x>
-			<y>3688</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>			
-	<NpcSpawnDefinition>
-	<!--> Xp Reset <-->
-		<id>326</id>
-		<location>
-			<x>3083</x>
-			<y>3506</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>	
-	<NpcSpawnDefinition>
-	<!--> Merchant <-->
-		<id>22</id>
-		<location>
-			<x>2862</x>
-			<y>3335</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>	
-	<NpcSpawnDefinition>
-	<!--> Merchant <-->
-		<id>22</id>
-		<location>
-			<x>3091</x>
-			<y>3487</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Merchant <-->
-		<id>22</id>
-		<location>
-			<x>2905</x>
-			<y>5466</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>		
-	<NpcSpawnDefinition>
-	<!--> Wise Old Man <-->
-		<id>4306</id>
-		<location>
-			<x>3078</x>
-			<y>3506</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>	
-		
 	<NpcSpawnDefinition>
 	<!--> Shop Keeper <-->
 		<id>518</id>
@@ -5654,169 +3866,13 @@
 	<!--> Shop Keeper Assistant <-->
 		<id>519</id>
 		<location>
-			<x>1776</x>
-			<y>3693</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Armour Store <-->
-		<id>528</id>
-		<location>
-			<x>1787</x>
-			<y>3693</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>	
-	<NpcSpawnDefinition>
-	<!--> outfit Store <-->
-		<id>534</id>
-		<location>
-			<x>1787</x>
-			<y>3687</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>	
-	
-	<NpcSpawnDefinition>
-	<!-->Farming<-->
-		<id>732</id>
-		<location>
-			<x>1779</x>
-			<y>3694</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>		
-	<NpcSpawnDefinition>
-	<!--> Skilling Supply Store shop area <-->
-		<id>505</id>
-		<location>
-			<x>1781</x>
-			<y>3694</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Skilling Store fishing area<-->
-		<id>505</id>
-		<location>
-			<x>1843</x>
-			<y>3784</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Skilling Store mining <-->
-		<id>505</id>
-		<location>
-			<x>3043</x>
-			<y>9779</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!--> Skilling Store <-->
-		<id>505</id>
-		<location>
-			<x>2835</x>
-			<y>3442</y>
+			<x>3078</x>
+			<y>3508</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
 		<face>0</face>
-	</NpcSpawnDefinition>	
-	<NpcSpawnDefinition>
-	<!--> Weapon Store <-->
-		<id>527</id>
-		<location>
-			<x>1787</x>
-			<y>3692</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>		
-	<NpcSpawnDefinition>
-	<!--> Range Store <-->
-		<id>7240</id>
-		<location>
-			<x>1786</x>
-			<y>3694</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>		
-	<NpcSpawnDefinition>
-	<!--> Magic Store <-->
-		<id>5314</id>
-		<location>
-			<x>1785</x>
-			<y>3694</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>				
-	<NpcSpawnDefinition>
-	<!--> Prestige shop area <-->
-		<id>3215</id>
-		<location>
-			<x>1787</x>
-			<y>3685</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
 	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Dunce<-->
-		<id>6749</id>
-		<location>
-			<x>2905</x>
-			<y>5473</y>
-			<z>1</z>
-		</location>
-		<walk>false</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>	
-			
-	<NpcSpawnDefinition>
-	<!--> Vannaka <-->
-		<id>403</id>
-		<location>
-			<x>3091</x>
-			<y>3494</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>		
-		<NpcSpawnDefinition>
-	<!--> Pure Store <-->
-		<id>603</id>
-		<location>
-			<x>1784</x>
-			<y>3694</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>	
 	<NpcSpawnDefinition>
 	<!--> MageBank Banker <-->
 		<id>394</id>
@@ -5887,64 +3943,30 @@
 	<!-->Man<-->
 		<id>3078</id>
 		<location>
-			<x>3105</x>
-			<y>3511</y>
+			<x>3096</x>
+			<y>3508</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
+	<NpcSpawnDefinition>
 	<!-->Man<-->
 		<id>3078</id>
 		<location>
-			<x>3048</x>
-			<y>4968</y>
-			<z>1</z>
+			<x>3098</x>
+			<y>3511</y>
+			<z>0</z>
 		</location>
 		<walk>true</walk>
-		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 	<!-->Man<-->
 		<id>3078</id>
 		<location>
-			<x>3059</x>
-			<y>4968</y>
-			<z>1</z>
-		</location>
-		<walk>true</walk>
-		<face>2</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!-->Man<-->
-		<id>3078</id>
-		<location>
-			<x>3060</x>
-			<y>4980</y>
-			<z>1</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Man<-->
-		<id>3078</id>
-		<location>
-			<x>3050</x>
-			<y>4981</y>
-			<z>1</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Man<-->
-		<id>3078</id>
-		<location>
-			<x>3052</x>
-			<y>4984</y>
-			<z>1</z>
+			<x>3092</x>
+			<y>3512</y>
+			<z>0</z>
 		</location>
 		<walk>true</walk>
 		<face>0</face>
@@ -7803,304 +5825,6 @@
 		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!-->Crystal Dragon<-->
-		<id>7039</id>
-		<location>
-			<x>2983</x>
-			<y>3959</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!-->Crystal Dragon<-->
-		<id>7039</id>
-		<location>
-			<x>2976</x>
-			<y>3956</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>2</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!-->Crystal Dragon<-->
-		<id>7039</id>
-		<location>
-			<x>2982</x>
-			<y>3950</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!-->Crystal Dragon<-->
-		<id>7039</id>
-		<location>
-			<x>2970</x>
-			<y>3945</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!-->Crystal Dragon<-->
-		<id>7039</id>
-		<location>
-			<x>2982</x>
-			<y>3941</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!-->Crystal Dragon<-->
-		<id>7039</id>
-		<location>
-			<x>2957</x>
-			<y>3944</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-
-	<NpcSpawnDefinition>
-	<!-->Crystal Demon<-->
-		<id>7036</id>
-		<location>
-			<x>1930</x>
-			<y>5024</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal Demon<-->
-		<id>7036</id>
-		<location>
-			<x>1930</x>
-			<y>5026</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal Demon<-->
-		<id>7036</id>
-		<location>
-			<x>1930</x>
-			<y>5030</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal Demon<-->
-		<id>7036</id>
-		<location>
-			<x>1930</x>
-			<y>5022</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>1</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal Demon<-->
-		<id>7036</id>
-		<location>
-			<x>1930</x>
-			<y>5028</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal avansie<-->
-		<id>7037</id>
-		<location>
-			<x>3322</x>
-			<y>3834</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal avansie<-->
-		<id>7037</id>
-		<location>
-			<x>3316</x>
-			<y>3826</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal avansie<-->
-		<id>7037</id>
-		<location>
-			<x>3306</x>
-			<y>3826</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal avansie<-->
-		<id>7037</id>
-		<location>
-			<x>3313</x>
-			<y>3813</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Crystal avansie<-->
-		<id>7037</id>
-		<location>
-			<x>3321</x>
-			<y>3817</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-		<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1752</x>
-			<y>3468</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-			<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1745</x>
-			<y>3472</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1752</x>
-			<y>3477</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1757</x>
-			<y>3472</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1762</x>
-			<y>3476</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1763</x>
-			<y>3467</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1767</x>
-			<y>3470</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1770</x>
-			<y>3474</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1773</x>
-			<y>3465</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1776</x>
-			<y>3470</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
-				<NpcSpawnDefinition>
-	<!-->Sand Crab<-->
-		<id>5935</id>
-		<location>
-			<x>1782</x>
-			<y>3474</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>3</face>
-	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 	<!-->Ghost<-->
 		<id>85</id>
@@ -8366,7 +6090,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2958</x>
@@ -8377,7 +6101,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2962</x>
@@ -8388,7 +6112,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2962</x>
@@ -8399,7 +6123,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2967</x>
@@ -8410,7 +6134,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2964</x>
@@ -8421,7 +6145,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2965</x>
@@ -8432,7 +6156,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2960</x>
@@ -8443,7 +6167,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2960</x>
@@ -8454,7 +6178,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2957</x>
@@ -8465,7 +6189,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2954</x>
@@ -8476,7 +6200,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Magic axe<-->
+	<!-->Mage axe<-->
 		<id>2844</id>
 		<location>
 			<x>2954</x>
@@ -9290,7 +7014,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>	
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1518</id>
 		<location>
 			<x>2838</x>
@@ -9301,7 +7025,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1526</id>
 		<location>
 			<x>2845</x>
@@ -9312,7 +7036,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1519</id>
 		<location>
 			<x>2854</x>
@@ -9323,18 +7047,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
-		<id>1519</id>
-		<location>
-			<x>1852</x>
-			<y>3785</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Fishing spot<-->
+		<!-->Fisher spot<-->
 		<id>1520</id>
 		<location>
 			<x>2860</x>
@@ -9345,7 +7058,7 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 		<NpcSpawnDefinition>
-	<!-->Fishing spot<-->
+	<!-->Fisher spot<-->
 		<id>1534</id>
 		<location>
 			<x>2859</x>
@@ -9840,1502 +7553,71 @@
 		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
+	<!--BARROWS-->
 		<NpcSpawnDefinition>
-	<!-->Mac Max Capel<-->
-		<id>6481</id>
+	<!-->Verac<-->
+		<id>1677</id>
 		<location>
-			<x>3091</x>
-			<y>3496</y>
+			<x>3557</x>
+			<y>3298</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
-		<face>4</face>
-	</NpcSpawnDefinition>
-	
-	
-	<!-->Stronghold Slayer Cave Start<-->
-	<!-->Cave Kraken<-->
-	<NpcSpawnDefinition>
-		<id>492</id>
-		<location>
-			<x>2466</x>
-			<y>9809</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>492</id>
-		<location>
-			<x>2476</x>
-			<y>9808</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>492</id>
-		<location>
-			<x>2489</x>
-			<y>9809</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>492</id>
-		<location>
-			<x>2495</x>
-			<y>9805</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>492</id>
-		<location>
-			<x>2466</x>
-			<y>9820</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>492</id>
-		<location>
-			<x>2479</x>
-			<y>9820</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>492</id>
-		<location>
-			<x>2495</x>
-			<y>9821</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>492</id>
-		<location>
-			<x>2503</x>
-			<y>9821</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Cave Kraken End<-->
-
-	<!-->Bloodveld Start<-->
-	<NpcSpawnDefinition>
-		<id>484</id>
-		<location>
-			<x>2436</x>
-			<y>9794</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>484</id>
-		<location>
-			<x>2434</x>
-			<y>9791</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>484</id>
-		<location>
-			<x>2430</x>
-			<y>9789</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>484</id>
-		<location>
-			<x>2419</x>
-			<y>9786</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>484</id>
-		<location>
-			<x>2415</x>
-			<y>9786</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>484</id>
-		<location>
-			<x>2423</x>
-			<y>9778</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>484</id>
-		<location>
-			<x>2425</x>
-			<y>9775</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Bloodveld End<-->
-
-	<!-->Hellhound Start<-->
-	<NpcSpawnDefinition>
-		<id>135</id>
-		<location>
-			<x>2418</x>
-			<y>9773</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>135</id>
-		<location>
-			<x>2412</x>
-			<y>9773</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>135</id>
-		<location>
-			<x>2414</x>
-			<y>9779</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>135</id>
-		<location>
-			<x>2415</x>
-			<y>9775</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>135</id>
-		<location>
-			<x>2409</x>
-			<y>9780</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>135</id>
-		<location>
-			<x>2402</x>
-			<y>9784</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>135</id>
-		<location>
-			<x>2405</x>
-			<y>9782</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>135</id>
-		<location>
-			<x>2407</x>
-			<y>9785</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Hellhound End<-->
-	<!-->Aberrant Spectre Start<-->
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2393</x>
-			<y>9780</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2395</x>
-			<y>9776</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2399</x>
-			<y>9776</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2404</x>
-			<y>9774</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2389</x>
-			<y>9768</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2386</x>
-			<y>9771</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2382</x>
-			<y>9773</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2385</x>
-			<y>9776</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2373</x>
-			<y>9775</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2372</x>
-			<y>9771</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>6</id>
-		<location>
-			<x>2375</x>
-			<y>9770</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Aberrant Spectre End<-->
-	<!-->Ankou Start<-->
-	<NpcSpawnDefinition>
-		<id>2514</id>
-		<location>
-			<x>2376</x>
-			<y>9758</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2514</id>
-		<location>
-			<x>2377</x>
-			<y>9753</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2514</id>
-		<location>
-			<x>2377</x>
-			<y>9750</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2514</id>
-		<location>
-			<x>2374</x>
-			<y>9742</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2514</id>
-		<location>
-			<x>2372</x>
-			<y>9743</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2514</id>
-		<location>
-			<x>2373</x>
-			<y>9745</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Ankou End<-->
-	<!-->Steel Dragon Start<-->
-	<NpcSpawnDefinition>
-		<id>274</id>
-		<location>
-			<x>2312</x>
-			<y>9775</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>274</id>
-		<location>
-			<x>2318</x>
-			<y>9777</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>274</id>
-		<location>
-			<x>2324</x>
-			<y>9769</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>274</id>
-		<location>
-			<x>2323</x>
-			<y>9765</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>274</id>
-		<location>
-			<x>2318</x>
-			<y>9761</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Steel Dragon End<-->
-	<!-->Iron Dragon Start<-->
-	<NpcSpawnDefinition>
-		<id>273</id>
-		<location>
-			<x>2315</x>
-			<y>9753</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>273</id>
-		<location>
-			<x>2317</x>
-			<y>9748</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>273</id>
-		<location>
-			<x>2310</x>
-			<y>9743</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>273</id>
-		<location>
-			<x>2309</x>
-			<y>9735</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>273</id>
-		<location>
-			<x>2318</x>
-			<y>9735</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>273</id>
-		<location>
-			<x>2326</x>
-			<y>9736</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Iron Dragon End<-->
-	<!-->Bronze Dragon Start<-->
-	<NpcSpawnDefinition>
-		<id>270</id>
-		<location>
-			<x>2339</x>
-			<y>9734</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>270</id>
-		<location>
-			<x>2347</x>
-			<y>9733</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>270</id>
-		<location>
-			<x>2349</x>
-			<y>9742</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Bronze Dragon End<-->
-	<!-->Black Dragon Start<-->
-	<NpcSpawnDefinition>
-		<id>252</id>
-		<location>
-			<x>2331</x>
-			<y>9747</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>252</id>
-		<location>
-			<x>2336</x>
-			<y>9750</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>252</id>
-		<location>
-			<x>2335</x>
-			<y>9754</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>252</id>
-		<location>
-			<x>2338</x>
-			<y>9760</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Black Dragon End<-->
-	<!-->Fire Giant Start<-->
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2352</x>
-			<y>9754</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2350</x>
-			<y>9758</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2354</x>
-			<y>9762</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2354</x>
-			<y>9768</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2351</x>
-			<y>9771</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2354</x>
-			<y>9774</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2349</x>
-			<y>9776</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2344</x>
-			<y>9775</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2342</x>
-			<y>9777</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2336</x>
-			<y>9774</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2084</id>
-		<location>
-			<x>2331</x>
-			<y>9776</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Fire Giant End<-->
-	<!-->Greater Demon Start<-->
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2358</x>
-			<y>9735</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2359</x>
-			<y>9741</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2364</x>
-			<y>9744</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2364</x>
-			<y>9750</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2365</x>
-			<y>9754</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2361</x>
-			<y>9755</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2365</x>
-			<y>9763</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2363</x>
-			<y>9770</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2026</id>
-		<location>
-			<x>2362</x>
-			<y>9777</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Greater Demon End<-->
-	<!-->Waterfiend Start<-->
-	<NpcSpawnDefinition>
-		<id>2916</id>
-		<location>
-			<x>2388</x>
-			<y>9760</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2916</id>
-		<location>
-			<x>2385</x>
-			<y>9758</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2916</id>
-		<location>
-			<x>2384</x>
-			<y>9761</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2916</id>
-		<location>
-			<x>2390</x>
-			<y>9751</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2916</id>
-		<location>
-			<x>2390</x>
-			<y>9748</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2916</id>
-		<location>
-			<x>2387</x>
-			<y>9745</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>2916</id>
-		<location>
-			<x>2385</x>
-			<y>9747</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Waterfiend End<-->
-	<!-->Abyssal Demon Start<-->
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2393</x>
-			<y>9741</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2394</x>
-			<y>9739</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2403</x>
-			<y>9740</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2400</x>
-			<y>9742</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2405</x>
-			<y>9748</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2403</x>
-			<y>9750</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2406</x>
-			<y>9751</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2407</x>
-			<y>9753</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2419</x>
-			<y>9747</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2416</x>
-			<y>9748</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>415</id>
-		<location>
-			<x>2416</x>
-			<y>9744</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Abyssal Demon End<-->
-	<!-->Gargoyle Start<-->
-	<NpcSpawnDefinition>
-		<id>1543</id>
-		<location>
-			<x>2419</x>
-			<y>9738</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>1543</id>
-		<location>
-			<x>2421</x>
-			<y>9736</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>1543</id>
-		<location>
-			<x>2424</x>
-			<y>9736</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>1543</id>
-		<location>
-			<x>2427</x>
-			<y>9735</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>1543</id>
-		<location>
-			<x>2427</x>
-			<y>9739</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>1543</id>
-		<location>
-			<x>2428</x>
-			<y>9744</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Gargoyle End<-->
-	<!-->Nechryael Start<-->
-	<NpcSpawnDefinition>
-		<id>11</id>
-		<location>
-			<x>2427</x>
-			<y>9752</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>11</id>
-		<location>
-			<x>2425</x>
-			<y>9753</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>11</id>
-		<location>
-			<x>2424</x>
-			<y>9756</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>11</id>
-		<location>
-			<x>2422</x>
-			<y>9754</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>11</id>
-		<location>
-			<x>2419</x>
-			<y>9756</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>11</id>
-		<location>
-			<x>2409</x>
-			<y>9764</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>11</id>
-		<location>
-			<x>2406</x>
-			<y>9766</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>11</id>
-		<location>
-			<x>2407</x>
-			<y>9763</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Nechryael End<-->
-	<!-->Smoke Devil Start<-->
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3725</x>
-			<y>5811</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3726</x>
-			<y>5804</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3733</x>
-			<y>5804</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3742</x>
-			<y>5806</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3727</x>
-			<y>5799</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3728</x>
-			<y>5790</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3729</x>
-			<y>5778</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3739</x>
-			<y>5795</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3742</x>
-			<y>5787</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3737</x>
-			<y>5783</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3740</x>
-			<y>5776</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3749</x>
-			<y>5782</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>498</id>
-		<location>
-			<x>3750</x>
-			<y>5797</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Smoke Devil End<-->
-	<!-->Kalphite Soldier Start<-->
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3751</x>
-			<y>5869</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3750</x>
-			<y>5873</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3754</x>
-			<y>5875</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3760</x>
-			<y>5876</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3759</x>
-			<y>5881</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3753</x>
-			<y>5882</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3748</x>
-			<y>5880</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3754</x>
-			<y>5833</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3760</x>
-			<y>5835</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3763</x>
-			<y>5830</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3767</x>
-			<y>5830</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3766</x>
-			<y>5838</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>957</id>
-		<location>
-			<x>3759</x>
-			<y>5837</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<!-->Kalphite Soldier End<-->
-	<!-->Kalphite Worker Start<-->
-	<NpcSpawnDefinition>
-		<id>955</id>
-		<location>
-			<x>3760</x>
-			<y>5854</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>955</id>
-		<location>
-			<x>3763</x>
-			<y>5846</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>955</id>
-		<location>
-			<x>3765</x>
-			<y>5861</y>
-			<z>0</z>
-		</location>
-		<walk>false</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>955</id>
+		<NpcSpawnDefinition>
+	<!-->Dharok<-->
+		<id>1673</id>
 		<location>
-			<x>3768</x>
-			<y>5861</y>
+			<x>3575</x>
+			<y>3298</y>
 			<z>0</z>
 		</location>
-		<walk>false</walk>
+		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>955</id>
+		<NpcSpawnDefinition>
+	<!-->Ahrim<-->
+		<id>1672</id>
 		<location>
-			<x>3768</x>
-			<y>5850</y>
+			<x>3565</x>
+			<y>3288</y>
 			<z>0</z>
 		</location>
-		<walk>false</walk>
+		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-	<!-->Kalphite Worker End<-->
-	<!-->Kalphite Gaurd Start<-->
-	<NpcSpawnDefinition>
-		<id>959</id>
+		<NpcSpawnDefinition>
+	<!-->Karil<-->
+		<id>1675</id>
 		<location>
-			<x>3722</x>
-			<y>5846</y>
+			<x>3566</x>
+			<y>3275</y>
 			<z>0</z>
 		</location>
-		<walk>false</walk>
+		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>959</id>
+		<NpcSpawnDefinition>
+	<!-->Torag<-->
+		<id>1676</id>
 		<location>
-			<x>3727</x>
-			<y>5836</y>
+			<x>3554</x>
+			<y>3282</y>
 			<z>0</z>
 		</location>
-		<walk>false</walk>
+		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<id>959</id>
+		<NpcSpawnDefinition>
+	<!-->Guthan<-->
+		<id>1674</id>
 		<location>
-			<x>3719</x>
-			<y>5833</y>
+			<x>3577</x>
+			<y>3282</y>
 			<z>0</z>
 		</location>
-		<walk>false</walk>
+		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
-	<!-->Kalphite Gaurd End<-->
-	<!-->Stronghold Slayer Cave End<-->
-
-	
-
 </list>

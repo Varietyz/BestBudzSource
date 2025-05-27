@@ -1,0 +1,114 @@
+package com.bestbudz.rs2.content;
+
+import java.util.Arrays;
+import java.util.Objects;
+
+import com.bestbudz.rs2.entity.item.Item;
+import com.bestbudz.rs2.entity.item.ItemContainer;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.StonerConstants;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBox;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+
+public class Box extends ItemContainer {
+
+	private final Stoner stoner;
+
+	public Box(Stoner stoner) {
+	super(28, ItemContainer.ContainerTypes.STACK, false, true);
+	this.stoner = stoner;
+	}
+
+	public void addOnLogin(Item item, int slot) {
+	if (item == null) {
+		return;
+	}
+
+	getItems()[slot] = item;
+	onAdd(item);
+	}
+
+	public void addOrCreateGroundItem(Item item) {
+	if (stoner.getBox().hasSpaceFor(item)) {
+		stoner.getBox().insert(item);
+	}
+	update();
+	}
+
+	public void addOrCreateGroundItem(int id, int amount, boolean update) {
+	if (stoner.getBox().hasSpaceFor(new Item(id, amount))) {
+		stoner.getBox().insert(id, amount);
+	}
+
+	if (update)
+		update();
+	}
+
+	@Override
+	public boolean allowZero(int id) {
+	return false;
+	}
+
+	@Override
+	public void onAdd(Item item) {
+	}
+
+	@Override
+	public void onFillContainer() {
+	stoner.getClient().queueOutgoingPacket(new SendMessage("You do not have enough box space to carry that."));
+	}
+
+	@Override
+	public void onMaxStack() {
+	stoner.getClient().queueOutgoingPacket(new SendMessage("You won't be able to carry all that!"));
+	}
+
+	@Override
+	public void onRemove(Item item) {
+	}
+
+	@Override
+	public void setItems(Item[] items) {
+	super.setItems(items);
+	update();
+	}
+
+	@Override
+	public void update() {
+	for (int i = 0; i < getItems().length; i++) {
+		if ((getItems()[i] != null) && (getItems()[i].getAmount() >= 1000000000) && (!StonerConstants.isOwner(stoner))) {
+			stoner.getClient().setLogStoner(true);
+			break;
+		}
+	}
+
+	stoner.getSummoning().onUpdateBox();
+
+	stoner.getClient().queueOutgoingPacket(new SendBox(getItems()));
+	}
+
+	/**
+	 * Performs a check on all items in this container to see if they match the
+	 * argued Object. Rather than using <code>equals</code> to check if the elements
+	 * match, it checks whether the Object is an item and if so compares the ID and
+	 * quantity. This method will throw a {@link NullPointerException} if the argued
+	 * Object has a value of <code>null</code>.
+	 */
+	public boolean contains(Object o) {
+	if (!(o instanceof Item))
+		return false;
+	Item item = (Item) o;
+	return Arrays.stream(items).filter(Objects::nonNull).anyMatch(i -> i.getId() == item.getId() && totalAmount(item.getId()) >= item.getAmount());
+	}
+
+	/**
+	 * Gets the total amount of items with the argued item ID.
+	 * 
+	 * @param itemId
+	 *                   the item ID to get the total amount of.
+	 * @return the total amount of items with the argued item ID.
+	 */
+	public int totalAmount(int itemId) {
+	return Arrays.stream(items).filter(item -> item != null && item.getId() == itemId).mapToInt(item -> item.getAmount()).sum();
+	}
+}

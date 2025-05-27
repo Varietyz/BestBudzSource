@@ -1,0 +1,170 @@
+package com.bestbudz;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.logging.Logger;
+
+import com.bestbudz.core.GameThread;
+import com.bestbudz.core.util.logger.StonerLogger;
+import com.bestbudz.rs2.content.clanchat.ClanManager;
+import com.bestbudz.rs2.content.io.StonerSave;
+import com.bestbudz.rs2.entity.World;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+
+import org.javacord.api.DiscordApiBuilder;
+import org.javacord.api.entity.channel.TextChannel;
+import com.bestbudz.rs2.content.clanchat.Clan;
+
+/**
+ * Initializes the server
+ * 
+ * @author Jaybane
+ * 
+ */
+public class Server {
+
+	/**
+	 * The logger for printing information.
+	 */
+	private static Logger logger = Logger.getLogger(Server.class.getSimpleName());
+
+	/**
+	 * Handles the clan chat.
+	 */
+	public static ClanManager clanManager = new ClanManager();
+
+	/**
+	 * Gets the BestBudz time
+	 */
+	public static String bestbudzTime() {
+	return new SimpleDateFormat("HH:mm aa").format(new Date());
+	}
+
+	/**
+	 * Gets the server date
+	 */
+	public static String bestbudzDate() {
+	return new SimpleDateFormat("EEEE MMM dd yyyy ").format(new Date());
+	}
+
+	/**
+	 * Gets the server uptime
+	 * 
+	 * @return
+	 */
+	public static String getUptime() {
+	RuntimeMXBean mx = ManagementFactory.getRuntimeMXBean();
+	DateFormat df = new SimpleDateFormat("DD 'D', HH 'H', mm 'M'");
+	df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+	return "" + df.format(new Date(mx.getUptime()));
+	}
+
+	/**
+	 * The main method of the server that initializes everything
+	 * 
+	 * @param args
+	 *                 The startup arguments
+	 */
+	public static void main(String[] args) {
+	if (args != null && args.length > 0) {
+		BestbudzConstants.DEV_MODE = Boolean.valueOf(args[0]);
+	}
+
+	logger.info("Development mode: " + (BestbudzConstants.DEV_MODE ? "Online" : "Offline") + ".");
+	logger.info("Staff mode: " + (BestbudzConstants.STAFF_ONLY ? "Online" : "Offline") + ".");
+
+	if (!BestbudzConstants.DEV_MODE) {
+		try {
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		// discord
+		GameDataLoader.discord = new DiscordApiBuilder().setToken("OTQ3NjAyNDU4NTI2NTAyOTYy.Yhvpjw.Q5lHkFkWWPJ2KNkXCnkMUnYRLlc").login().join();
+		TextChannel mainChannel = (TextChannel) GameDataLoader.discord.getChannelById("947600792599289906").get();
+		TextChannel helpChannel = (TextChannel) GameDataLoader.discord.getChannelById("947616122964934686").get();
+		GameDataLoader.discord.addMessageCreateListener(event -> {
+			if (event.isServerMessage() && event.getChannel().equals(mainChannel)) {
+				// yell
+
+				if (!event.getMessageAuthor().isBotUser()) {
+					String text = "[Disc]" + event.getMessageAuthor().getDisplayName() + ": " + event.getMessageContent().toString();
+					String[] strings = text.split("(?<=\\G.{75,}\\s)");
+					if (strings.length > 4) {
+						event.getChannel().sendMessage("Your message was too long and therefore not sent, " + event.getMessageAuthor().asUser().get().getMentionTag());
+					} else {
+
+						Boolean tooLong = false;
+						for (String s : strings) {
+							if (s.length() > 100) {
+								tooLong = true;
+							}
+						}
+
+						if (tooLong) {
+							event.getChannel().sendMessage("Your message was too long and therefore not sent, " + event.getMessageAuthor().asUser().get().getMentionTag());
+						} else {
+							for (String s : strings) {
+								World.sendGlobalMessage("@blu@" + s);
+							}
+						}
+
+					}
+
+				}
+			}
+
+			if (event.isServerMessage() && event.getChannel().equals(helpChannel)) {
+				if (!event.getMessageAuthor().isBotUser()) {
+					Clan helpcc = clanManager.getClan("bestbudz");
+					String text = "</col>[@gre@" + helpcc.getTitle() + "</col>] " + "[Disc]" + event.getMessageAuthor().getDisplayName() + ": @yel@" + event.getMessageContent().toString();
+					String[] strings = text.split("(?<=\\G.{75,}\\s)");
+					if (strings.length > 4) {
+						event.getChannel().sendMessage("Your message was too long and therefore not sent, " + event.getMessageAuthor().asUser().get().getMentionTag());
+					} else {
+
+						Boolean tooLong = false;
+						for (String s : strings) {
+							if (s.length() > 100) {
+								tooLong = true;
+							}
+						}
+
+						if (tooLong) {
+							event.getChannel().sendMessage("Your message was too long and therefore not sent, " + event.getMessageAuthor().asUser().get().getMentionTag());
+						} else {
+							for (String s : strings) {
+
+								if (s.equals(strings[0])) {
+									helpcc.sendMessage(s);
+								} else {
+									helpcc.sendMessage("@dre@" + s);
+								}
+
+							}
+						}
+
+					}
+
+				}
+			}
+		});
+		// end discord
+
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			for (Stoner stoners : World.getStoners()) {
+				if (stoners != null && stoners.isActive()) {
+					StonerSave.save(stoners);
+				}
+			}
+
+			StonerLogger.SHUTDOWN_LOGGER.log("Logs", String.format("Server shutdown with %s online.", World.getActiveStoners()));
+		}));
+	}
+
+	GameThread.init();
+	}
+}

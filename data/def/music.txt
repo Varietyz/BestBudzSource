@@ -21,12 +21,12 @@ ID: 20 Name: Lullaby
 ID: 21 Name: Monarch Waltz
 ID: 22 Name: Gnome King
 ID: 23 Name: Fe Fi Fo Fum
-ID: 24 Name: Attack1
-ID: 25 Name: Attack2
-ID: 26 Name: Attack3
-ID: 27 Name: Attack4
-ID: 28 Name: Attack5
-ID: 29 Name: Attack6
+ID: 24 Name: Assault1
+ID: 25 Name: Assault2
+ID: 26 Name: Assault3
+ID: 27 Name: Assault4
+ID: 28 Name: Assault5
+ID: 29 Name: Assault6
 ID: 30 Name: Voodoo Cult
 ID: 32 Name: Voyage
 ID: 33 Name: Gnome Village
@@ -113,7 +113,7 @@ ID: 115 Name: Jungly2
 ID: 116 Name: Greatness
 ID: 117 Name: Jungly3
 ID: 118 Name: Faerie
-ID: 119 Name: Fishing
+ID: 119 Name: Fisher
 ID: 120 Name: Shining
 ID: 121 Name: Forbidden
 ID: 122 Name: Shine
@@ -172,8 +172,8 @@ ID: 180 Name: Attention
 ID: 181 Name: Crystal Cave
 ID: 182 Name: Dangerous
 ID: 183 Name: Troubled
-ID: 184 Name: Magical Journey
-ID: 185 Name: Magic Dance
+ID: 184 Name: Mageal Journey
+ID: 185 Name: Mage Dance
 ID: 186 Name: Arrival
 ID: 187 Name: Tremble
 ID: 188 Name: In the Manor
@@ -203,7 +203,7 @@ ID: 216 Name: Espionage
 ID: 217 Name: Have an Ice Day
 ID: 220 Name: Island of the Trolls
 ID: 221 Name: Jester Minute
-ID: 222 Name: Major Miner
+ID: 222 Name: Major Quarryr
 ID: 223 Name: Norse Code
 ID: 224 Name: Ogre the Top
 ID: 225 Name: Volcanic Vikings
@@ -212,7 +212,7 @@ ID: 229 Name: Garden of Spring
 ID: 230 Name: Garden of Summer
 ID: 231 Name: Garden of Winter
 ID: 234 Name: Creature Cruelty
-ID: 235 Name: Magic Magic Magic
+ID: 235 Name: Mage Mage Mage
 ID: 236 Name: Mutant Medley
 ID: 237 Name: Work Work Work
 ID: 238 Name: Zombiism
@@ -254,9 +254,9 @@ ID: 273 Name: Easter Jig
 ID: 274 Name: Rising Damp
 ID: 275 Name: Slice of Station
 ID: 276 Name: Ham and Seek
-ID: 277 Name: Haunted Mine
+ID: 277 Name: Haunted Quarry
 ID: 278 Name: Deep Down
-ID: 279 Name: Ham Attack
+ID: 279 Name: Ham Assault
 ID: 281 Name: Slice of Silent Movie
 ID: 282 Name: Chamber
 ID: 283 Name: Everlasting
@@ -315,7 +315,7 @@ ID: 337 Name: Faithless
 ID: 338 Name: Tiptoe
 ID: 339 Name: The Terrible Tower
 ID: 340 Name: Masquerade
-ID: 341 Name: The Slayer
+ID: 341 Name: The Mercenary
 ID: 342 Name: Body Parts
 ID: 343 Name: Monster Melee
 ID: 344 Name: Fenkenstrain's Refrain
@@ -340,7 +340,7 @@ ID: 364 Name: Pathways
 ID: 365 Name: Melzar's Maze
 ID: 366 Name: Eagle Peak
 ID: 367 Name: Barb Wire
-ID: 369 Name: Time to Mine
+ID: 369 Name: Time to Quarry
 ID: 370 Name: In Between
 ID: 371 Name: School's Out
 ID: 372 Name: Far Away
@@ -376,7 +376,7 @@ ID: 402 Name: The Rogues' Den
 ID: 403 Name: The Far Side
 ID: 404 Name: Armadyl Alliance
 ID: 407 Name: The Lost Melody
-ID: 408 Name: Strength of Saradomin
+ID: 408 Name: Vigour of Saradomin
 ID: 409 Name: Frogland
 ID: 411 Name: Evil Bob's Island
 ID: 412 Name: Into the Abyss
@@ -403,9 +403,9 @@ ID: 439 Name: Catacombs and Tombs
 ID: 440 Name: Temple of Tribes
 ID: 441 Name: Tournament!
 ID: 442 Name: Clan Wars
-ID: 443 Name: Bounty Hunter Level 2
-ID: 444 Name: Bounty Hunter Level 1
-ID: 445 Name: Bounty Hunter Level 3
+ID: 443 Name: Bounty Hunter Grade 2
+ID: 444 Name: Bounty Hunter Grade 1
+ID: 445 Name: Bounty Hunter Grade 3
 ID: 447 Name: Over To Nardah
 ID: 448 Name: The Monsters Below
 ID: 449 Name: Wild Isle
@@ -482,7 +482,7 @@ ID: 524 Name: Xenophobe
 ID: 525 Name: Title Fight
 ID: 526 Name: Arma Gonna Get You
 ID: 527 Name: Dillo-gence is Key
-ID: 528 Name: Victory is Mine
+ID: 528 Name: Victory is Quarry
 ID: 529 Name: Woe of the Wyvern
 ID: 530 Name: In the Brine
 ID: 531 Name: TokTz-Ket-Ek-Mack
@@ -525,7 +525,7 @@ ID: 568 Name: Storm Brew
 ID: 569 Name: Undead Army
 ID: 570 Name: The Ruins of Camdozaal
 ID: 571 Name: The Art of Hocus-Pocus
-ID: 572 Name: Magic and Mystery
+ID: 572 Name: Mage and Mystery
 ID: 573 Name: The Mad Mole
 ID: 575 Name: Chickened Out
 ID: 576 Name: Davy Jones's Locker
@@ -555,7 +555,7 @@ ID: 604 Name: Assault and Battery
 ID: 605 Name: Demise of the Dorgeshuun
 ID: 606 Name: The Depths
 ID: 608 Name: But We Can Fight
-ID: 609 Name: Godslayer
+ID: 609 Name: Godmercenary
 ID: 610 Name: Distillery Hilarity
 ID: 611 Name: Trouble Brewing
 ID: 612 Name: Head to Head
@@ -679,7 +679,7 @@ ID: 811 Name: Glacialis IV
 ID: 815 Name: Icy Bones
 ID: 816 Name: Astea Frostweb
 ID: 817 Name: Gluttonous Behemoth
-ID: 818 Name: Luminescent Icefiend
+ID: 818 Name: Luquarryscent Icefiend
 ID: 819 Name: Plane-freezer Lakhrahnaz
 ID: 820 Name: To'Kash the Bloodchiller
 ID: 824 Name: Glacialis V

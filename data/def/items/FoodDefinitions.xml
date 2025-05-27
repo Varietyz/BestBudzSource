@@ -616,12 +616,4 @@
 		<replaceId>-1</replaceId>
 		<message>You eat the Dark crab.</message>
 	</FoodDefinition>
-		<FoodDefinition>
-		<id>13441</id>
-		<name>Angerfish</name>
-		<heal>22</heal>
-		<delay>3</delay>
-		<replaceId>-1</replaceId>
-		<message>You eat the Anglerfish.</message>
-	</FoodDefinition>
 </list>

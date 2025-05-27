@@ -1,0 +1,119 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Server",
+            "request": "launch",
+            "mainClass": "com.bestbudz.Server",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch ObeliskTick",
+            "request": "launch",
+            "mainClass": "com.bestbudz.core.task.impl.ObeliskTick",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch StonerBackupTask",
+            "request": "launch",
+            "mainClass": "com.bestbudz.core.task.impl.StonerBackupTask",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch GameDefinitionLoader",
+            "request": "launch",
+            "mainClass": "com.bestbudz.core.util.GameDefinitionLoader",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch ChanceTester",
+            "request": "launch",
+            "mainClass": "com.bestbudz.core.util.chance.ChanceTester",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch StonerSave",
+            "request": "launch",
+            "mainClass": "com.bestbudz.rs2.content.io.StonerSave",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch MysteryBoxMinigame",
+            "request": "launch",
+            "mainClass": "com.bestbudz.rs2.content.membership.MysteryBoxMinigame",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch Barrows",
+            "request": "launch",
+            "mainClass": "com.bestbudz.rs2.content.minigames.barrows.Barrows",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch exercisement",
+            "request": "launch",
+            "mainClass": "com.bestbudz.rs2.content.profession.exercisement.exercisement",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch Quarrying",
+            "request": "launch",
+            "mainClass": "com.bestbudz.rs2.content.profession.quarrying.Quarrying",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch MobDrops",
+            "request": "launch",
+            "mainClass": "com.bestbudz.rs2.entity.mob.MobDrops",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch StonerUpdating",
+            "request": "launch",
+            "mainClass": "com.bestbudz.rs2.entity.stoner.net.StonerUpdating",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch IkushzDropParser",
+            "request": "launch",
+            "mainClass": "com.bestbudz.tools.IkushzDropParser",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch JayBaneDropParser",
+            "request": "launch",
+            "mainClass": "com.bestbudz.tools.JayBaneDropParser",
+            "projectName": "Best Budz Source"
+        },
+        {
+            "type": "java",
+            "name": "Launch LastModifiedFiles",
+            "request": "launch",
+            "mainClass": "com.bestbudz.tools.LastModifiedFiles",
+            "projectName": "Best Budz Source"
+        }
+    ]
+}
