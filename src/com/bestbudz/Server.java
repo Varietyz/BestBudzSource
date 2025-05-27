@@ -15,9 +15,9 @@ import com.bestbudz.rs2.content.io.StonerSave;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
-import org.javacord.api.DiscordApiBuilder;
-import org.javacord.api.entity.channel.TextChannel;
-import com.bestbudz.rs2.content.clanchat.Clan;
+//import org.javacord.api.DiscordApiBuilder;
+//import org.javacord.api.entity.channel.TextChannel;
+//import com.bestbudz.rs2.content.clanchat.Clan;
 
 /**
  * Initializes the server
@@ -83,7 +83,7 @@ public class Server {
 			ex.printStackTrace();
 		}
 		// discord
-		GameDataLoader.discord = new DiscordApiBuilder().setToken("OTQ3NjAyNDU4NTI2NTAyOTYy.Yhvpjw.Q5lHkFkWWPJ2KNkXCnkMUnYRLlc").login().join();
+	/*	GameDataLoader.discord = new DiscordApiBuilder().setToken("OTQ3NjAyNDU4NTI2NTAyOTYy.Yhvpjw.Q5lHkFkWWPJ2KNkXCnkMUnYRLlc").login().join();
 		TextChannel mainChannel = (TextChannel) GameDataLoader.discord.getChannelById("947600792599289906").get();
 		TextChannel helpChannel = (TextChannel) GameDataLoader.discord.getChannelById("947616122964934686").get();
 		GameDataLoader.discord.addMessageCreateListener(event -> {
@@ -153,7 +153,7 @@ public class Server {
 			}
 		});
 		// end discord
-
+ */
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			for (Stoner stoners : World.getStoners()) {
 				if (stoners != null && stoners.isActive()) {

@@ -21,3 +21,10 @@ gradle-app.setting
 .classpath
 .zip
 .rar
+/data/characters/containers
+/data/characters/cultivation
+/data/characters/details
+/data/characters/farming
+/data/clan
+/data/logs/err
+/data/logs

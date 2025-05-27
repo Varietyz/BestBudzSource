@@ -75,10 +75,8 @@ public class Clan {
 	if (this.founder.equalsIgnoreCase("bestbudz")) {
 		// discord
 		Stoner stoner = paramStoner;
-		TextChannel channel = (TextChannel) GameDataLoader.discord.getChannelById("947616122964934686").get();
 		String ts = "";
 		ts = ts + stoner.getUsername() + " is active.";
-		channel.sendMessage("**" + ts + "**");
 	}
 	}
 
@@ -239,10 +237,8 @@ public class Clan {
 			if (this.founder.equalsIgnoreCase("bestbudz")) {
 				// discord
 				Stoner stoner = paramStoner;
-				TextChannel channel = (TextChannel) GameDataLoader.discord.getChannelById("947616122964934686").get();
 				String ts = "";
 				ts = ts + stoner.getUsername() + " is present.";
-				channel.sendMessage("**" + ts + "**");
 			}
 			paramStoner.clan = null;
 			resetInterface(paramStoner);
@@ -260,10 +256,8 @@ public class Clan {
 				if (this.founder.equalsIgnoreCase("bestbudz")) {
 					// discord
 					Stoner stoner = localStoner;
-					TextChannel channel = (TextChannel) GameDataLoader.discord.getChannelById("947616122964934686").get();
 					String ts = "";
 					ts = ts + stoner.getUsername() + " is absent.";
-					channel.sendMessage("**" + ts + "**");
 				}
 				localStoner.clan = null;
 				resetInterface(localStoner);
@@ -319,10 +313,8 @@ public class Clan {
 	if (this.founder.equalsIgnoreCase("bestbudz")) {
 		// discord
 		Stoner stoner = paramStoner;
-		TextChannel channel = (TextChannel) GameDataLoader.discord.getChannelById("947616122964934686").get();
 		String ts = "";
 		ts = ts + stoner.getUsername() + ": ";
-		channel.sendMessage("**" + ts + "**" + "`" + paramString + "`");
 	}
 	for (int j = 0; j < World.getStoners().length; j++) {
 		if (World.getStoners()[j] != null) {

@@ -59,7 +59,7 @@ import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.object.ObjectConstants;
 import com.bestbudz.rs2.entity.object.ObjectManager;
 import com.bestbudz.rs2.entity.stoner.net.in.PacketHandler;
-import org.javacord.api.DiscordApi;
+//import org.javacord.api.DiscordApi;
 
 /**
  * Loads all of the neccessary game data
@@ -73,7 +73,7 @@ public class GameDataLoader {
 	 * The stage of the game server
 	 */
 	private static int stage = 0;
-	public static DiscordApi discord;
+	// public static DiscordApi discord;
 
 	/**
 	 * Loads all of the game data

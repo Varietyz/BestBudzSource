@@ -64,10 +64,8 @@ public class PublicChatPacket extends IncomingPacket {
 		stoner.setChatUpdateRequired(true);
 		ReportHandler.addText(stoner.getUsername(), text, chatLength);
 		// discord
-		TextChannel channel = (TextChannel) GameDataLoader.discord.getChannelById("947600792599289906").get();
 		String ts = "";
 		ts = ts + stoner.getUsername() + ": ";
-		channel.sendMessage("**" + ts + "**" + "`" + Utility.textUnpack(text, chatLength, false) + "`");
 	}
 	}
 }

@@ -1352,10 +1352,8 @@ public class Stoner extends Entity {
 	send(new SendConfig(1990, getTransparentPanel()));
 	send(new SendConfig(1991, getTransparentChatbox()));
 	send(new SendConfig(1992, getSideStones()));
-	TextChannel channel = (TextChannel) GameDataLoader.discord.getChannelById("947618084708044861").get();
 	String ts = "";
 	ts = ts + "**" + this.getUsername() + " came to get high asf.**";
-	channel.sendMessage(ts);
 	return true;
 	}
 
@@ -1412,10 +1410,8 @@ public class Stoner extends Entity {
 		}
 	}
 
-	TextChannel channel = (TextChannel) GameDataLoader.discord.getChannelById("947618084708044861").get();
 	String ts = "";
 	ts = ts + "**" + this.getUsername() + " is way too stoned.**";
-	channel.sendMessage(ts);
 
 	World.unregister(this);
 	client.setStage(Client.Stages.LOGGED_OUT);

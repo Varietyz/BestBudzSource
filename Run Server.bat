@@ -9,7 +9,7 @@ for /f "tokens=1-4 delims=/ " %%i in ("%date%") do (
      set year=%%k
    )
 SET datestr=%month%_%day%_%year%
-SET path=D:\BestBudzRSPS\
+SET path=C:\Users\Balei\OneDrive\BestBudz\317. Best Budz RSPS\Best Budz Source\
 SET filename=%path%log-%datestr%.txt
 
 echo ==LOG FILE %datestr% == >> %filename%
