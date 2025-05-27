@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content.profession.woodcarving;
 
-import java.util.HashMap;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.Task.BreakType;
 import com.bestbudz.core.task.Task.StackType;
@@ -20,6 +18,7 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendItemOnInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.HashMap;
 
 public enum Woodcarving {
 	SINGLETON;
@@ -100,11 +99,7 @@ public enum Woodcarving {
 		return false;
 	}
 
-	if (start(stoner, fletchable, index, amount)) {
-		return true;
-	}
-
-	return false;
+		return start(stoner, fletchable, index, amount);
 	}
 
 	public void addFletchable(Fletchable fletchable) {
@@ -125,111 +120,77 @@ public enum Woodcarving {
 	Fletchable fletchable = (Fletchable) stoner.getAttributes().get(FLETCHABLE_KEY);
 
 	switch (button) {
-
-	/** Option 1 - Make all */
 	case 6211:
 		start(stoner, fletchable, 0, stoner.getBox().getItemAmount(fletchable.getWith().getId()));
 		return true;
-
-	/** Option 1 - Make 1 */
 	case 34205:
 	case 34185:
 	case 34170:
 	case 10239:
 		start(stoner, fletchable, 0, 1);
 		return true;
-
-	/** Option 1 - Make 5 */
 	case 34204:
 	case 34184:
 	case 34169:
 	case 10238:
 		start(stoner, fletchable, 0, 5);
 		return true;
-
-	/** Option 1 - Make 10 */
 	case 34203:
 	case 34183:
 	case 34168:
 		start(stoner, fletchable, 0, 10);
 		return true;
-
-	/** Option 1 - Make X */
 	case 34202:
 	case 34182:
 	case 34167:
 	case 6212:
 		start(stoner, fletchable, 0, 2500);
 		return true;
-
-	/** Option 2 - Make 1 */
 	case 34209:
 	case 34189:
 	case 34174:
 		start(stoner, fletchable, 1, 1);
 		return true;
-
-	/** Option 2 - Make 5 */
 	case 34208:
 	case 34188:
 	case 34173:
 		start(stoner, fletchable, 1, 5);
 		return true;
-
-	/** Option 2 - Make 10 */
 	case 34207:
 	case 34187:
 	case 34172:
 		start(stoner, fletchable, 1, 10);
 		return true;
-
-	/** Option 2 - Make X */
 	case 34206:
 	case 34186:
 	case 34171:
 		start(stoner, fletchable, 1, 2500);
 		return true;
-
-	/** Option 3 - Make 1 */
 	case 34213:
 	case 34193:
 		start(stoner, fletchable, 2, 1);
 		return true;
-
-	/** Option 3 - Make 5 */
 	case 34212:
 	case 34192:
 		start(stoner, fletchable, 2, 5);
 		return true;
-
-	/** Option 3 - Make 10 */
 	case 34211:
 	case 34191:
 		start(stoner, fletchable, 2, 10);
 		return true;
-
-	/** Option 3 - Make X */
 	case 34210:
 	case 34190:
 		start(stoner, fletchable, 2, 2500);
 		return true;
-
-	/** Option 4 - Make 1 */
 	case 34217:
 		start(stoner, fletchable, 3, 1);
 		return true;
-
-	/** Option 4 - Make 5 */
 	case 34216:
 		start(stoner, fletchable, 3, 5);
 		return true;
-
-	/** Option 4 - Make 10 */
 	case 34215:
 		start(stoner, fletchable, 3, 10);
 		return true;
-
-	/** Option 4 - Make X */
 	case 34214:
 		start(stoner, fletchable, 3, 2500);
 		return true;
@@ -325,7 +286,6 @@ public enum Woodcarving {
 		if (!(stoner.getBox().hasAllItems(fletchable.getIngediants()))) {
 			stop();
 			DialogueManager.sendStatement(stoner, "<col=369>You have run out of materials.");
-			return;
 		}
 		}
 

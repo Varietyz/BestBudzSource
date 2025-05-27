@@ -20,30 +20,30 @@ import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.teleport.GloryDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.teleport.RingOfDuelingDialogue;
 import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
-import com.bestbudz.rs2.content.membership.MembershipBonds;
+import com.bestbudz.rs2.content.membership.AdvancementBonds;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameStore;
 import com.bestbudz.rs2.content.pets.BossPets;
 import com.bestbudz.rs2.content.profession.forging.ForgingTask;
 import com.bestbudz.rs2.content.profession.handiness.AmuletStringing;
 import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
 import com.bestbudz.rs2.content.profession.handinessnew.Handiness;
-import com.bestbudz.rs2.content.profession.thchempistry.CleanWeedTask;
-import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
-import com.bestbudz.rs2.content.profession.thchempistry.THChempistryGrindingTask;
-import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
-import com.bestbudz.rs2.content.profession.weedsmoking.Weedsmoker;
-import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
-import com.bestbudz.rs2.content.profession.thchempistry.SuperCombatPotion;
 import com.bestbudz.rs2.content.profession.hunter.Impling.ImplingRewards;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
+import com.bestbudz.rs2.content.profession.mage.TabCreation;
 import com.bestbudz.rs2.content.profession.mage.spells.BoltEnchanting;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSwamp;
-import com.bestbudz.rs2.content.profession.mage.TabCreation;
 import com.bestbudz.rs2.content.profession.melee.SerpentineHelmet;
 import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
+import com.bestbudz.rs2.content.profession.thchempistry.CleanWeedTask;
+import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
+import com.bestbudz.rs2.content.profession.thchempistry.SuperCombatPotion;
+import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
+import com.bestbudz.rs2.content.profession.thchempistry.THChempistryGrindingTask;
+import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
+import com.bestbudz.rs2.content.profession.weedsmoking.Weedsmoker;
 import com.bestbudz.rs2.content.profession.woodcarving.Woodcarving;
 import com.bestbudz.rs2.content.wilderness.TargetSystem;
 import com.bestbudz.rs2.entity.Animation;
@@ -58,15 +58,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 
-/**
- * Handles the item packet
- * 
- * @author JayBane
- * 
- *         ITEM OPERATE - 75 DROP ITEM - 87 PICKUP ITEM - 236 EQUIP ITEM - 42
- *         USE ITEM ON ITEM - 53 FIRST CLICK ITEM - 122 SECOND CLICK ITEM 16
- *
- */
 public class ItemPackets extends IncomingPacket {
 
 
@@ -122,11 +113,11 @@ public class ItemPackets extends IncomingPacket {
 				BoltEnchanting.handle(stoner, itemId);
 			} else if (stoner.getInterfaceManager().main == 59750) {
 				String aName = Utility.getAOrAn(GameDefinitionLoader.getItemDef(itemId).getName()) + " " + GameDefinitionLoader.getItemDef(itemId).getName();
-				stoner.getUpdateFlags().sendForceMessage(Utility.randomElement(BestbudzConstants.ITEM_IDENTIFICATION_MESSAGES).replaceAll("/s/", "" + aName));
+				stoner.getUpdateFlags().sendForceMessage(Utility.randomElement(BestbudzConstants.ITEM_IDENTIFICATION_MESSAGES).replaceAll("/s/", aName));
 			}
 			break;
 
-		case 1119:// Forging
+		case 1119:
 		case 1120:
 		case 1121:
 		case 1122:
@@ -134,20 +125,20 @@ public class ItemPackets extends IncomingPacket {
 			ForgingTask.start(stoner, itemId, 1, interfaceId, slot);
 			break;
 
-		case 1688:// Unequip item
+		case 1688:
 			if (!stoner.getEquipment().slotHasItem(slot)) {
 				return;
 			}
 			stoner.getEquipment().unequip(slot);
 			break;
 
-		case 4233:// Handiness jewlery
+		case 4233:
 		case 4239:
 		case 4245:
 			JewelryCreationTask.start(stoner, itemId, 1);
 			break;
 
-		case 5064:// Bank & price checker
+		case 5064:
 
 			if (!stoner.getBox().slotContainsItem(slot, itemId)) {
 				return;
@@ -164,11 +155,11 @@ public class ItemPackets extends IncomingPacket {
 			}
 			break;
 
-		case 5382:// Bank
+		case 5382:
 			withdrawBankItem(stoner, slot, itemId, 1);
 			break;
 
-		case 3322:// Trade
+		case 3322:
 			if (stoner.getTrade().trading())
 				handleTradeOffer(stoner, slot, itemId, 1);
 			else if (stoner.getDueling().isStaking()) {
@@ -176,23 +167,23 @@ public class ItemPackets extends IncomingPacket {
 			}
 			break;
 
-		case 3415:// Trade
+		case 3415:
 			if (stoner.getTrade().trading()) {
 				handleTradeRemove(stoner, slot, itemId, 1);
 			}
 			break;
 
-		case 6669:// Dueling
+		case 6669:
 			if (stoner.getDueling().isStaking()) {
 				stoner.getDueling().getContainer().withdraw(slot, 1);
 			}
 			break;
 
-		case 3900: // Shopping
+		case 3900:
 			stoner.getShopping().sendSellPrice(itemId);
 			break;
 
-		case 3823:// Shopping
+		case 3823:
 			stoner.getShopping().sendBuyPrice(itemId);
 		}
 
@@ -259,11 +250,6 @@ public class ItemPackets extends IncomingPacket {
 				stoner.getMage().onOperateDragonFireShield();
 				return;
 			}
-
-			// if (itemId == 10499 || itemId == 10498) {
-			// stoner.getSagittarius().getFromAvasAccumulator();
-			// return;
-			// }
 			break;
 		case 1119:
 		case 1120:
@@ -277,7 +263,7 @@ public class ItemPackets extends IncomingPacket {
 		case 4245:
 			JewelryCreationTask.start(stoner, itemId, 5);
 			break;
-		case 5064:// Bank & Price checker
+		case 5064:
 			if (!stoner.getBox().slotContainsItem(slot, itemId)) {
 				return;
 			}
@@ -292,7 +278,7 @@ public class ItemPackets extends IncomingPacket {
 			}
 			break;
 
-		case 4393:// Price checker
+		case 4393:
 			if (stoner.getInterfaceManager().main == 48500) {
 				stoner.getPriceChecker().withdraw(itemId, slot, 5);
 			} else if (stoner.getInterfaceManager().main == 26700) {
@@ -345,7 +331,7 @@ public class ItemPackets extends IncomingPacket {
 		}
 
 		switch (interfaceId) {
-		case 4393:// Price checker
+		case 4393:
 			stoner.getPriceChecker().withdraw(itemId, slot, 10);
 			break;
 		case 2700:
@@ -427,7 +413,7 @@ public class ItemPackets extends IncomingPacket {
 			return;
 		}
 		switch (interfaceId) {
-		case 4393:// Price checker
+		case 4393:
 			stoner.getPriceChecker().withdraw(itemId, slot, stoner.getPriceChecker().getItemAmount(itemId));
 			break;
 		case 2700:
@@ -502,7 +488,7 @@ public class ItemPackets extends IncomingPacket {
 
 		switch (itemId) {
 
-		case 4079:// YOYO
+		case 4079:
 			stoner.getUpdateFlags().sendAnimation(1458, 0);
 			return;
 
@@ -763,7 +749,7 @@ public class ItemPackets extends IncomingPacket {
 		x = in.readShort(StreamBuffer.ByteOrder.LITTLE);
 		mageId = in.readShort(StreamBuffer.ValueType.A);
 		break;
-	case 253:// second click ground item
+	case 253:
 		x = in.readShort(StreamBuffer.ByteOrder.LITTLE);
 		y = in.readShort(StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
 		itemId = in.readShort(StreamBuffer.ValueType.A);
@@ -808,7 +794,7 @@ public class ItemPackets extends IncomingPacket {
 			return;
 		}
 
-		if (MembershipBonds.handle(stoner, itemId)) {
+		if (AdvancementBonds.handle(stoner, itemId)) {
 			return;
 		}
 
@@ -833,7 +819,7 @@ public class ItemPackets extends IncomingPacket {
 		}
 		switch (itemId) {
 
-		case 6199:// Misery Box
+		case 6199:
 			MysteryBox.open(stoner);
 			break;
 
@@ -850,13 +836,13 @@ public class ItemPackets extends IncomingPacket {
 			}
 			break;
 
-		case 405:// Casket
+		case 405:
 			stoner.getBox().remove(itemId, 1);
 			int random = Utility.random(10000) + Utility.random(2500) + Utility.random(666);
 			stoner.getBox().add(995, random);
 			stoner.send(new SendMessage("You have found " + random + " bestbucks inside the casket"));
 			break;
-		case 12938:// Zulrah teleport
+		case 12938:
 			stoner.getBox().remove(12938, 1);
 			stoner.getMage().teleport(2268, 3070, stoner.getIndex() << 2, TeleportTypes.SPELL_BOOK);
 			TaskQueue.queue(new Task(5) {
@@ -876,13 +862,13 @@ public class ItemPackets extends IncomingPacket {
 				}
 			});
 			break;
-		case 2528:// Lamp
+		case 2528:
 			stoner.send(new SendInterface(2808));
 			break;
-		case 952:// Spade
+		case 952:
 			TaskQueue.queue(new DigTask(stoner));
 			return;
-		case 4155:// Mercenary gem
+		case 4155:
 			if (!stoner.getMercenary().hasTask()) {
 				DialogueManager.sendStatement(stoner, "You currently do not have a task!");
 				return;
@@ -951,10 +937,10 @@ public class ItemPackets extends IncomingPacket {
 
 		switch (itemId) {
 
-		case 11802:// ags
-		case 11804:// bgs
-		case 11806:// sgs
-		case 11808:// zgs
+		case 11802:
+		case 11804:
+		case 11806:
+		case 11808:
 			int[][] items = { { 11802, 11810 }, { 11804, 11812 }, { 11806, 11814 }, { 11808, 11816 } };
 			if (stoner.getBox().getFreeSlots() < 1) {
 				DialogueManager.sendItem1(stoner, "You need at least one free slot to dismantle your godsword.", itemId);
@@ -1030,51 +1016,18 @@ public class ItemPackets extends IncomingPacket {
 	}
 	}
 
-	/**
-	 * Handle add item to trade
-	 * 
-	 * @param stoner
-	 * @param slot
-	 * @param itemId
-	 * @param amount
-	 */
 	public void handleTradeOffer(Stoner stoner, int slot, int itemId, int amount) {
 	stoner.getTrade().getContainer().offer(itemId, amount, slot);
 	}
 
-	/**
-	 * Handle removing item from trade
-	 * 
-	 * @param stoner
-	 * @param slot
-	 * @param itemId
-	 * @param amount
-	 */
 	public void handleTradeRemove(Stoner stoner, int slot, int itemId, int amount) {
 	stoner.getTrade().getContainer().withdraw(slot, amount);
 	}
 
-	/**
-	 * Withdraw bank item
-	 * 
-	 * @param stoner
-	 * @param slot
-	 * @param itemId
-	 * @param amount
-	 */
 	public void withdrawBankItem(Stoner stoner, int slot, int itemId, int amount) {
 	stoner.getBank().withdraw(itemId, amount);
-	// stoner.getBank().itemToTab(slot, 0, true);
 	}
 
-	/**
-	 * Bank item
-	 * 
-	 * @param stoner
-	 * @param slot
-	 * @param itemId
-	 * @param amount
-	 */
 	public void bankItem(Stoner stoner, int slot, int itemId, int amount) {
 	stoner.getBank().deposit(itemId, amount, slot);
 	}

@@ -1,15 +1,14 @@
 package com.bestbudz.rs2.entity.item.impl;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GroundItemHandler {
 
@@ -67,10 +66,6 @@ public class GroundItemHandler {
 	return active;
 	}
 
-	/**
-	 * name = stoner username your searching for specific = if this item is owned by
-	 * this stoner
-	 */
 	public static GroundItem getGroundItem(int id, int x, int y, int z, String name, boolean specific) {
 	long longAsName = name == null ? -1 : Utility.nameToLong(name);
 
@@ -113,63 +108,65 @@ public class GroundItemHandler {
 	}
 
 	public static void process() {
-	synchronized (active) {
-		for (Iterator<GroundItem> i = active.iterator(); i.hasNext();) {
-			GroundItem groundItem = i.next();
-
-			groundItem.countdown();
-
-			if (groundItem.globalize()) {
-				globalize(groundItem);
+		synchronized (active) {
+			// Phase 1: update ground items (timers + visibility)
+			for (var item : active) {
+				item.countdown();
+				if (item.globalize()) {
+					globalize(item);
+				}
 			}
 
-			if (groundItem.remove()) {
-				groundItem.erase();
+			// Phase 2: remove items
+			Iterator<GroundItem> i = active.iterator();
+			while (i.hasNext()) {
+				var item = i.next();
+				if (!item.remove()) continue;
 
-				if (!groundItem.isGlobal()) {
-					Stoner owner = groundItem.getOwner();
+				item.erase();
 
-					if ((owner != null) && (visible(owner, groundItem)))
-						owner.getGroundItems().remove(groundItem);
+				if (!item.isGlobal()) {
+					var owner = item.getOwner();
+					if (owner != null && visible(owner, item)) {
+						owner.getGroundItems().remove(item);
+					}
 				} else {
-					for (int k = 1; k < World.getStoners().length; k++) {
-						Stoner stoner = World.getStoners()[k];
-
-						if (stoner != null) {
-							if (visible(stoner, groundItem)) {
-								stoner.getGroundItems().remove(groundItem);
-							}
+					for (var stoner : World.getStoners()) {
+						if (stoner != null && visible(stoner, item)) {
+							stoner.getGroundItems().remove(item);
 						}
 					}
 				}
+
 				i.remove();
 			}
-		}
-	}
 
-	for (Iterator<GroundItem> i = globalizeQueue.iterator(); i.hasNext();) {
-		GroundItem groundItem = i.next();
+			// Phase 3: globalize items
+			Iterator<GroundItem> gq = globalizeQueue.iterator();
+			while (gq.hasNext()) {
+				var groundItem = gq.next();
 
-		if (!groundItem.exists()) {
-			i.remove();
-		} else {
-			groundItem.setGlobal(true);
+				if (!groundItem.exists()) {
+					gq.remove();
+					continue;
+				}
 
-			Stoner owner = groundItem.getOwner();
+				groundItem.setGlobal(true);
+				var owner = groundItem.getOwner();
 
-			for (int k = 1; k < World.getStoners().length; k++) {
-				Stoner stoner = World.getStoners()[k];
-
-				if ((stoner != null) && ((owner == null) || (!stoner.equals(owner)))) {
-					if (visible(stoner, groundItem)) {
-						stoner.getGroundItems().add(groundItem);
+				for (var stoner : World.getStoners()) {
+					if (stoner != null && !stoner.equals(owner)) {
+						if (visible(stoner, groundItem)) {
+							stoner.getGroundItems().add(groundItem);
+						}
 					}
 				}
+
+				gq.remove();
 			}
-			i.remove();
 		}
 	}
-	}
+
 
 	public static boolean remove(GroundItem groundItem) {
 	if (groundItem.isGlobal) {
@@ -201,10 +198,6 @@ public class GroundItemHandler {
 	public static boolean visible(Stoner stoner, GroundItem groundItem) {
 	Stoner owner = groundItem.getOwner();
 
-	if ((stoner.withinRegion(groundItem.getLocation())) && (stoner.getLocation().getZ() == groundItem.getLocation().getZ()) && ((groundItem.isGlobal()) || ((owner != null) && (stoner.equals(owner))))) {
-		return true;
-	}
-
-	return false;
+		return (stoner.withinRegion(groundItem.getLocation())) && (stoner.getLocation().getZ() == groundItem.getLocation().getZ()) && ((groundItem.isGlobal()) || ((stoner.equals(owner))));
 	}
 }

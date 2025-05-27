@@ -9,56 +9,68 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class RingOfDuelingDialogue extends Dialogue {
 
-	private int itemId;
-	private boolean operate = false;
+  private final int itemId;
+  private boolean operate = false;
 
-	public RingOfDuelingDialogue(Stoner stoner, boolean operate, int itemId) {
-	this.stoner = stoner;
-	this.operate = operate;
-	this.itemId = itemId;
-	}
+  public RingOfDuelingDialogue(Stoner stoner, boolean operate, int itemId) {
+    this.stoner = stoner;
+    this.operate = operate;
+    this.itemId = itemId;
+  }
 
-	@Override
-	public boolean clickButton(int id) {
-	switch (id) {
-	case 9157:
-		getStoner().getMage().teleport(2659, 2661, 0, MageProfession.TeleportTypes.SPELL_BOOK);
-		if (operate == true) {
-			if (itemId + 2 != 2568) {
-				stoner.getEquipment().getItems()[12].setId(1639);
-				stoner.getEquipment().update();
-			}
-		}
-		if (operate == false) {
-			if (itemId + 2 != 2568) {
-				stoner.getBox().remove(itemId);
-				stoner.getBox().add(itemId + 2, 1);
-			}
-		}
-		stoner.getClient().queueOutgoingPacket(new SendMessage("@pur@You use up a charge from your " + Item.getDefinition(itemId).getName() + " and teleport away."));
-		break;
-	case 9158:
-		getStoner().getMage().teleport(3356, 3268, 0, MageProfession.TeleportTypes.SPELL_BOOK);
-		if (operate == true) {
-			if (itemId + 2 != 2568) {
-				stoner.getEquipment().getItems()[12].setId(itemId + 2);
-				stoner.getEquipment().update();
-			}
-		}
-		if (operate == false) {
-			if (itemId + 2 != 2568) {
-				stoner.getBox().remove(itemId);
-				stoner.getBox().add(itemId + 2, 1);
-			}
-		}
-		stoner.getClient().queueOutgoingPacket(new SendMessage("@pur@You use up a charge from your " + Item.getDefinition(itemId).getName() + " and teleport away."));
-		break;
-	}
-	return false;
-	}
+  @Override
+  public boolean clickButton(int id) {
+    switch (id) {
+      case 9157:
+        getStoner().getMage().teleport(2659, 2661, 0, MageProfession.TeleportTypes.SPELL_BOOK);
+        if (operate) {
+          if (itemId + 2 != 2568) {
+            stoner.getEquipment().getItems()[12].setId(1639);
+            stoner.getEquipment().update();
+          }
+        }
+        if (!operate) {
+          if (itemId + 2 != 2568) {
+            stoner.getBox().remove(itemId);
+            stoner.getBox().add(itemId + 2, 1);
+          }
+        }
+        stoner
+            .getClient()
+            .queueOutgoingPacket(
+                new SendMessage(
+                    "@pur@You use up a charge from your "
+                        + Item.getDefinition(itemId).getName()
+                        + " and teleport away."));
+        break;
+      case 9158:
+        getStoner().getMage().teleport(3356, 3268, 0, MageProfession.TeleportTypes.SPELL_BOOK);
+        if (operate) {
+          if (itemId + 2 != 2568) {
+            stoner.getEquipment().getItems()[12].setId(itemId + 2);
+            stoner.getEquipment().update();
+          }
+        }
+        if (!operate) {
+          if (itemId + 2 != 2568) {
+            stoner.getBox().remove(itemId);
+            stoner.getBox().add(itemId + 2, 1);
+          }
+        }
+        stoner
+            .getClient()
+            .queueOutgoingPacket(
+                new SendMessage(
+                    "@pur@You use up a charge from your "
+                        + Item.getDefinition(itemId).getName()
+                        + " and teleport away."));
+        break;
+    }
+    return false;
+  }
 
-	@Override
-	public void execute() {
-	DialogueManager.sendOption(stoner, new String[] { "Pest Control", "Duel Arena" });
-	}
+  @Override
+  public void execute() {
+    DialogueManager.sendOption(stoner, "Pest Control", "Duel Arena");
+  }
 }

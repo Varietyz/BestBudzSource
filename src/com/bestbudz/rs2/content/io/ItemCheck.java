@@ -5,46 +5,45 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class ItemCheck {
 
-	public static class ItemReset {
-		public final int id;
-		public final int year;
-		public final int day;
+  public static final ItemReset[] ITEM_RESETS = {};
 
-		public ItemReset(int id, int year, int day) {
-		this.id = id;
-		this.year = year;
-		this.day = day;
-		}
-	}
+  public static Item check(Stoner stoner, Item item) {
+    try {
+      if (item == null) {
+        return null;
+      }
 
-	public static final ItemReset[] ITEM_RESETS = {
-			// new ItemReset(12643, 2015, 212),
-	};
+      if (item.getId() == 2513) {
+        item.setId(3140);
+        return item;
+      }
 
-	public static Item check(Stoner stoner, Item item) {
-	try {
-		if (item == null) {
-			return null;
-		}
+      if (item.getId() == 4212) {
+        item.setId(4214);
+        return item;
+      }
 
-		if (item.getId() == 2513) {
-			item.setId(3140);
-			return item;
-		}
+      for (ItemReset k : ITEM_RESETS) {
+        if ((stoner.getLastLoginDay() <= k.day)
+            && (stoner.getLastLoginYear() <= k.year)
+            && (item.getId() == k.id)) return null;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
-		if (item.getId() == 4212) {
-			item.setId(4214);
-			return item;
-		}
+    return item;
+  }
 
-		for (ItemReset k : ITEM_RESETS) {
-			if ((stoner.getLastLoginDay() <= k.day) && (stoner.getLastLoginYear() <= k.year) && (item.getId() == k.id))
-				return null;
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
+  public static class ItemReset {
+    public final int id;
+    public final int year;
+    public final int day;
 
-	return item;
-	}
+    public ItemReset(int id, int year, int day) {
+      this.id = id;
+      this.year = year;
+      this.day = day;
+    }
+  }
 }

@@ -9,90 +9,89 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class Skulling {
 
-	public static final short SKULL_TIME = 500;
+  public static final short SKULL_TIME = 500;
+  private final List<Stoner> assaulted = new LinkedList<Stoner>();
+  private int icon = -1;
+  private short left = 0;
 
-	private int icon = -1;
-	private short left = 0;
+  public void checkForSkulling(Stoner stoner, Stoner assault) {
+    if (isSkull(stoner, assault)) skull(stoner, assault);
+  }
 
-	private List<Stoner> assaulted = new LinkedList<Stoner>();
+  public long getLeft() {
+    return left;
+  }
 
-	public void checkForSkulling(Stoner stoner, Stoner assault) {
-	if (isSkull(stoner, assault))
-		skull(stoner, assault);
-	}
+  public void setLeft(long left) {
+    if (left < 0) {
+      return;
+    }
 
-	public long getLeft() {
-	return left;
-	}
+    if (left > Short.MAX_VALUE) {
+      left = SKULL_TIME;
+    }
 
-	public int getSkullIcon() {
-	return icon;
-	}
+    this.left = (short) left;
+  }
 
-	public boolean hasAssaulted(Stoner p) {
-	return assaulted.contains(p);
-	}
+  public int getSkullIcon() {
+    return icon;
+  }
 
-	public boolean isSkull(Stoner stoner, Stoner assaulting) {
-	return (!assaulting.isNpc()) && (stoner.inWilderness()) && (!assaulting.getSkulling().hasAssaulted(stoner));
-	}
+  public boolean hasAssaulted(Stoner p) {
+    return assaulted.contains(p);
+  }
 
-	public boolean isSkulled() {
-	return left > 0;
-	}
+  public boolean isSkull(Stoner stoner, Stoner assaulting) {
+    return (!assaulting.isNpc())
+        && (stoner.inWilderness())
+        && (!assaulting.getSkulling().hasAssaulted(stoner));
+  }
 
-	public void setLeft(long left) {
-	if (left < 0) {
-		return;
-	}
+  public boolean isSkulled() {
+    return left > 0;
+  }
 
-	if (left > Short.MAX_VALUE) {
-		left = SKULL_TIME;
-	}
+  public void setSkullIcon(Stoner stoner, int skullIcon) {
+    this.icon = skullIcon;
+    stoner.setAppearanceUpdateRequired(true);
+  }
 
-	this.left = (short) left;
-	}
+  public void skull(Stoner stoner, Stoner assaulting) {
+    if (assaulting != null) {
+      assaulted.add(assaulting);
+    }
 
-	public void setSkullIcon(Stoner stoner, int skullIcon) {
-	this.icon = skullIcon;
-	stoner.setAppearanceUpdateRequired(true);
-	}
+    if (left <= 0) {
+      left = SKULL_TIME;
+      stoner.setAppearanceUpdateRequired(true);
+      icon = 0;
+    }
+  }
 
-	public void skull(Stoner stoner, Stoner assaulting) {
-	if (assaulting != null) {
-		assaulted.add(assaulting);
-	}
+  public void tick(final Stoner stoner) {
+    TaskQueue.queue(
+        new Task(stoner, 25) {
+          @Override
+          public void execute() {
+            if (!isSkulled()) {
+              return;
+            }
 
-	if (left <= 0) {
-		left = SKULL_TIME;
-		stoner.setAppearanceUpdateRequired(true);
-		icon = 0;
-	}
-	}
+            if ((left -= 25) <= 0) {
+              unskull(stoner);
+            }
+          }
 
-	public void tick(final Stoner stoner) {
-	TaskQueue.queue(new Task(stoner, 25) {
-		@Override
-		public void execute() {
-		if (!isSkulled()) {
-			return;
-		}
+          @Override
+          public void onStop() {}
+        });
+  }
 
-		if ((left -= 25) <= 0) {
-			unskull(stoner);
-		}
-		}
-
-		@Override
-		public void onStop() {
-		}
-	});
-	}
-
-	public void unskull(Stoner stoner) {
-	assaulted.clear();
-	left = 0;
-	icon = -1;
-	stoner.setAppearanceUpdateRequired(true);
-	}
+  public void unskull(Stoner stoner) {
+    assaulted.clear();
+    left = 0;
+    icon = -1;
+    stoner.setAppearanceUpdateRequired(true);
+  }
 }

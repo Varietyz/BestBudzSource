@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.mage.weapons;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import com.bestbudz.core.definitions.ItemDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
@@ -15,6 +12,8 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendChatBoxInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItemsAlt;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class TridentOfTheSwamp {
 
@@ -23,10 +22,6 @@ public class TridentOfTheSwamp {
 	private static final int FULL = 2_500;
 
 	private int tridentCharge;
-
-	public int getCharges() {
-	return tridentCharge;
-	}
 
 	public TridentOfTheSwamp(int tridentCharge) {
 	this.tridentCharge = tridentCharge;
@@ -62,7 +57,7 @@ public class TridentOfTheSwamp {
 				stoner.getBox().remove(554, 5 * min);
 				stoner.getBox().remove(560, min);
 				stoner.getBox().remove(562, min);
-				stoner.getBox().remove(12934, 1 * min);
+				stoner.getBox().remove(12934, min);
 				stoner.getSwampTrident().tridentCharge = min + stoner.getSwampTrident().tridentCharge;
 				stoner.getUpdateFlags().sendAnimation(new Animation(1979));
 				stoner.getUpdateFlags().sendGraphic(new Graphic(1250, 40, false));
@@ -99,7 +94,7 @@ public class TridentOfTheSwamp {
 				stoner.getBox().remove(554, 5 * min);
 				stoner.getBox().remove(560, min);
 				stoner.getBox().remove(562, min);
-				stoner.getBox().remove(12934, 1 * min);
+				stoner.getBox().remove(12934, min);
 				stoner.getSwampTrident().tridentCharge = min + stoner.getSwampTrident().tridentCharge;
 				stoner.getUpdateFlags().sendAnimation(new Animation(1979));
 				stoner.getUpdateFlags().sendGraphic(new Graphic(1250, 40, false));
@@ -172,6 +167,10 @@ public class TridentOfTheSwamp {
 		stoner.send(new SendString(info[i][0], Integer.parseInt(info[i][1])));
 	}
 	stoner.send(new SendChatBoxInterface(14170));
+	}
+
+	public int getCharges() {
+	return tridentCharge;
 	}
 
 }

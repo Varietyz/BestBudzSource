@@ -2,66 +2,59 @@ package com.bestbudz.core.definitions;
 
 public class PotionDefinition {
 
-	public enum PotionTypes {
+  private short id;
+  private String name;
+  private short replaceId;
+  private PotionTypes potionType;
+  private ProfessionData[] professionData;
 
-		NORMAL,
-		RESTORE,
-		ANTIFIRE,
-		SUPER_ANTIFIRE
-	}
+  public int getId() {
+    return id;
+  }
 
-	public class ProfessionData {
+  public String getName() {
+    return name;
+  }
 
-		private byte professionId;
-		private byte add;
-		private double modifier;
+  public PotionTypes getPotionType() {
+    return potionType;
+  }
 
-		public int getAdd() {
-		return add;
-		}
+  public int getReplaceId() {
+    return replaceId;
+  }
 
-		public double getModifier() {
-		return modifier;
-		}
+  public ProfessionData[] getProfessionData() {
+    return professionData;
+  }
 
-		public int getProfessionId() {
-		return professionId;
-		}
-	}
+  public enum PotionTypes {
+    NORMAL,
+    RESTORE,
+    ANTIFIRE,
+    SUPER_ANTIFIRE
+  }
 
-	private short id;
-	private String name;
-	private short replaceId;
+  public class ProfessionData {
 
-	private PotionTypes potionType;
+    private byte professionId;
+    private byte add;
+    private double modifier;
 
-	private ProfessionData[] professionData;
+    public int getAdd() {
+      return add;
+    }
 
-	public int getId() {
-	return id;
-	}
+    public double getModifier() {
+      return modifier;
+    }
 
-	public String getName() {
-	return name;
-	}
+    public int getProfessionId() {
+      return professionId;
+    }
+  }
 
-	public PotionTypes getPotionType() {
-	return potionType;
-	}
-
-	public int getReplaceId() {
-	return replaceId;
-	}
-
-	public ProfessionData[] getProfessionData() {
-	return professionData;
-	}
-
-	/**
-	 * @param name
-	 *                 the name to set
-	 */
-	public void setName(String name) {
-	this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 }

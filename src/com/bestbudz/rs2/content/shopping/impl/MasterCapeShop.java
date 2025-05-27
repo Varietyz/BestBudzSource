@@ -1,9 +1,9 @@
 package com.bestbudz.rs2.content.shopping.impl;
 
+import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.shopping.Shop;
 import com.bestbudz.rs2.content.shopping.ShopConstants;
 import com.bestbudz.rs2.content.shopping.Shopping.ShopType;
-import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -11,43 +11,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 public class MasterCapeShop extends Shop {
 
 	public static final int SHOP_ID = 45;
-
-	static enum Professioncape {
-		ASSAULT(new int[] { 13200, }),
-		AEGIS(new int[] { 13201, }),
-		VIGOUR(new int[] { 13202, }),
-		CONSTITUTION(new int[] { 13203, }),
-		SAGITTARIUS(new int[] { 13204, }),
-		NECROMANCE(new int[] { 13205, }),
-		MAGE(new int[] { 13206, }),
-		FOODIE(new int[] { 13207, }),
-		LUMBERING(new int[] { 13208, }),
-		WOODCARVING(new int[] { 13209, }),
-		FISHER(new int[] { 13210, }),
-		PYROMANIAC(new int[] { 13211, }),
-		HANDINESS(new int[] { 13212, }),
-		FORGING(new int[] { 13213, }),
-		QUARRYING(new int[] { 13214, }),
-		THCHEMPISTRY(new int[] { 13215, }),
-		WEEDSMOKING(new int[] { 13216, }),
-		ACCOMPLISHER(new int[] { 13217, }),
-		MERCENARY(new int[] { 13218, }),
-		CULTIVATION(new int[] { 13219, }),
-		CONSUMER(new int[] { 13220, }),
-		CONSTRUCTION(new int[] { 13221, }),
-		HUNTER(new int[] { 13222, });
-
-		private int[] items;
-
-		private Professioncape(int[] items) {
-		this.items = items;
-		}
-
-		public Item getMasterCape() {
-		return new Item(items[0]);
-
-		}
-	}
 
 	public MasterCapeShop() {
 	super(new Item[Professions.PROFESSION_COUNT], "Mastercape Shop");
@@ -106,6 +69,17 @@ public class MasterCapeShop extends Shop {
 	}
 
 	@Override
+	public int getSellPrice(int id) {
+	return 2_500_000;
+	}
+
+	@Override
+	public boolean sell(Stoner stoner, int id, int amount) {
+	stoner.send(new SendMessage("You cannot sell items to this store."));
+	return false;
+	}
+
+	@Override
 	public void onOpen(Stoner stoner) {
 	clear();
 
@@ -116,9 +90,9 @@ public class MasterCapeShop extends Shop {
 		}
 
 		int advancegrade = stoner.getProfessionAdvances()[index];
-		int grade = stoner.getMaxGrades()[index];
+		long grade = stoner.getMaxGrades()[index];
 
-		if (grade >= 99) {
+		if (grade >= 420) {
 			if (advancegrade >= 5) {
 				if (index == Professions.HUNTER) {
 					add(new Item(Professioncape.HUNTER.getMasterCape()));
@@ -132,14 +106,40 @@ public class MasterCapeShop extends Shop {
 	}
 	}
 
-	@Override
-	public boolean sell(Stoner stoner, int id, int amount) {
-	stoner.send(new SendMessage("You cannot sell items to this store."));
-	return false;
-	}
+	enum Professioncape {
+		ASSAULT(new int[] { 13200, }),
+		AEGIS(new int[] { 13201, }),
+		VIGOUR(new int[] { 13202, }),
+		CONSTITUTION(new int[] { 13203, }),
+		SAGITTARIUS(new int[] { 13204, }),
+		NECROMANCE(new int[] { 13205, }),
+		MAGE(new int[] { 13206, }),
+		FOODIE(new int[] { 13207, }),
+		LUMBERING(new int[] { 13208, }),
+		WOODCARVING(new int[] { 13209, }),
+		FISHER(new int[] { 13210, }),
+		PYROMANIAC(new int[] { 13211, }),
+		HANDINESS(new int[] { 13212, }),
+		FORGING(new int[] { 13213, }),
+		QUARRYING(new int[] { 13214, }),
+		THCHEMPISTRY(new int[] { 13215, }),
+		WEEDSMOKING(new int[] { 13216, }),
+		ACCOMPLISHER(new int[] { 13217, }),
+		MERCENARY(new int[] { 13218, }),
+		CULTIVATION(new int[] { 13219, }),
+		CONSUMER(new int[] { 13220, }),
+		CONSTRUCTION(new int[] { 13221, }),
+		HUNTER(new int[] { 13222, });
 
-	@Override
-	public int getSellPrice(int id) {
-	return 2_500_000;
+		private final int[] items;
+
+		Professioncape(int[] items) {
+		this.items = items;
+		}
+
+		public Item getMasterCape() {
+		return new Item(items[0]);
+
+		}
 	}
 }

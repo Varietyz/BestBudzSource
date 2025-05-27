@@ -10,38 +10,61 @@ import com.bestbudz.rs2.entity.stoner.net.Client;
 
 public class LoginThread extends Thread {
 
-	private static final Queue<Stoner> login = new ConcurrentLinkedQueue<Stoner>();
+	private static final Queue<Stoner> login = new ConcurrentLinkedQueue<>();
+
+	public static void queueLogin(Stoner stoner) {
+		login.add(stoner);
+	}
+
+	public LoginThread() {
+		setName("Login Thread");
+		setPriority(Thread.MAX_PRIORITY - 2);
+		start();
+	}
+
+	@Override
+	public void run() {
+		while (!isInterrupted()) {
+			cycle();
+		}
+	}
 
 	public static void cycle() {
-	long start = System.currentTimeMillis();
+		Stoner stoner;
+		boolean processed = false;
 
-	Stoner stoner = null;
+		while ((stoner = login.poll()) != null) {
+			handleLogin(stoner);
+			processed = true;
+		}
 
-	if ((stoner = login.poll()) != null) {
+		if (!processed) {
+			try {
+				Thread.sleep(50); // Sleep briefly when idle
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+		}
+	}
+
+	private static void handleLogin(Stoner stoner) {
 		System.out.println("Logging in: " + stoner.getUsername());
 
 		boolean starter = false;
 		boolean wasLoaded = false;
+
 		try {
 			starter = !StonerSave.load(stoner);
 			wasLoaded = true;
 		} catch (Exception e) {
-			if (stoner != null) {
-				StreamBuffer.OutBuffer resp = StreamBuffer.newOutBuffer(3);
-				resp.writeByte(11);
-				resp.writeByte(0);
-				resp.writeByte(0);
-				stoner.getClient().send(resp.getBuffer());
-			}
-
+			sendLoginError(stoner, 11);
 			e.printStackTrace();
+			return;
 		}
 
 		if (wasLoaded) {
 			try {
-				boolean login = stoner.login(starter);
-
-				if (login) {
+				if (stoner.login(starter)) {
 					stoner.getClient().setStage(Client.Stages.LOGGED_IN);
 				}
 			} catch (Exception e) {
@@ -49,37 +72,15 @@ public class LoginThread extends Thread {
 				stoner.logout(true);
 			}
 		}
-
 	}
 
-	long elapsed = System.currentTimeMillis() - start;
+	private static void sendLoginError(Stoner stoner, int code) {
+		if (stoner == null || stoner.getClient() == null) return;
 
-	if (elapsed < 700L) {
-		try {
-			Thread.sleep(700L);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	} else {
-		System.out.println("Login thread overflow: " + elapsed);
-	}
-	}
-
-	public static void queueLogin(Stoner stoner) {
-	login.add(stoner);
-	}
-
-	public LoginThread() {
-	setName("Login Thread");
-
-	setPriority(Thread.MAX_PRIORITY - 2);
-
-	start();
-	}
-
-	@Override
-	public void run() {
-	while (!Thread.interrupted())
-		cycle();
+		StreamBuffer.OutBuffer resp = StreamBuffer.newOutBuffer(3);
+		resp.writeByte(code);
+		resp.writeByte(0);
+		resp.writeByte(0);
+		stoner.getClient().send(resp.getBuffer());
 	}
 }

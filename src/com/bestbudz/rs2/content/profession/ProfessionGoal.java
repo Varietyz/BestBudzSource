@@ -1,10 +1,9 @@
 package com.bestbudz.rs2.content.profession;
 
-import java.util.HashMap;
-
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendEnterXInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendProfessionGoal;
+import java.util.HashMap;
 
 public enum ProfessionGoal {
 	ASSAULT(0, 94100, 94099, 33206),
@@ -14,7 +13,6 @@ public enum ProfessionGoal {
 	NECROMANCE(5, 94124, 94123, 33218),
 	MAGE(6, 94130, 94129, 33221),
 	CONSUMER(20, 94136, 94135, 33224),
-	// HUNTER(21, 94142, 94141, 94085),
 	LIFE(3, 94102, 94101, 33207),
 	WEEDSMOKING(16, 94108, 94107, 33210),
 	THCHEMPISTRY(15, 94114, 94113, 33213),
@@ -31,15 +29,6 @@ public enum ProfessionGoal {
 	LUMBERING(8, 94134, 94133, 33223),
 	CULTIVATION(19, 94140, 94139, 54104);
 
-	public final int profession, gradeId, expId, clearId;
-
-	private ProfessionGoal(int profession, int gradeId, int expId, int clearId) {
-	this.profession = profession;
-	this.gradeId = gradeId;
-	this.expId = expId;
-	this.clearId = clearId;
-	}
-
 	public static HashMap<Integer, ProfessionGoal> professions = new HashMap<Integer, ProfessionGoal>();
 
 	static {
@@ -48,6 +37,15 @@ public enum ProfessionGoal {
 			professions.put(profession.expId, profession);
 			professions.put(profession.clearId, profession);
 		}
+	}
+
+	public final int profession, gradeId, expId, clearId;
+
+	ProfessionGoal(int profession, int gradeId, int expId, int clearId) {
+	this.profession = profession;
+	this.gradeId = gradeId;
+	this.expId = expId;
+	this.clearId = clearId;
 	}
 
 	public static boolean handle(Stoner stoner, int buttonId) {

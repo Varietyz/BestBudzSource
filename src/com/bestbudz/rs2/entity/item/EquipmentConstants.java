@@ -11,14 +11,30 @@ import com.bestbudz.rs2.entity.stoner.StonerConstants;
 
 public class EquipmentConstants {
 
-	public static enum WeaponAssaultStyles {
-		ASSAULT_VIGOUR_DEFENSE,
-		ASSAULT_CONTROLLED_AEGIS,
-		ASSAULT_VIGOUR_VIGOUR_DEFENSE,
-		ASSAULT_VIGOUR_CONTROLLED_DEFENSE,
-		CONTROLLED_CONTROLLED_CONTROLLED_DEFENSE,
-		CONTROLLED_VIGOUR_DEFENSE;
-	}
+	public static final int HELM_SLOT = 0;
+	public static final int CAPE_SLOT = 1;
+	public static final int NECKLACE_SLOT = 2;
+	public static final int WEAPON_SLOT = 3;
+	public static final int TORSO_SLOT = 4;
+	public static final int SHIELD_SLOT = 5;
+	public static final int LEGS_SLOT = 7;
+	public static final int GLOVES_SLOT = 9;
+	public static final int BOOTS_SLOT = 10;
+	public static final int RING_SLOT = 12;
+	public static final int AMMO_SLOT = 13;
+	public static final String[] SLOT_NAMES = { "helm", "cape", "amulet", "weapon", "torso", "shield", "none", "legs", "none", "gloves", "boots", "none", "ring", "ammo" };
+	public static final String[] BONUS_NAMES = { "Stab", "Slash", "Crush", "Mage", "Range", "Stab", "Slash", "Crush", "Mage", "Range", "Vigour", "Necromance" };
+	public static final int VIGOUR = 10;
+	public static final int NECROMANCE = 11;
+	public static final int SAGITTARIUS_VIGOUR = 12;
+	private static final byte[] FULL_BODY = new byte[StonerConstants.MAX_ITEM_COUNT];
+	private static final byte[] FULL_HELM = new byte[StonerConstants.MAX_ITEM_COUNT];
+	private static final byte[] FULL_MASK = new byte[StonerConstants.MAX_ITEM_COUNT];
+	private static final byte[] IS_METAL = new byte[StonerConstants.MAX_ITEM_COUNT];
+	private static final int[] FULL_BODY_IDS = { 11828, 5553, 9924, 11854, 11832, 20096, 10370, 10386, 10378, 6129, 7399, 10564, 11720, 10386, 1035, 13624, 13614, 577, 9674, 6107, 1115, 1117, 1119, 1121, 1123, 1125, 1127, 2583, 2584, 2591, 2599, 2607, 2615, 2623, 2653, 2661, 2669, 3481, 4720, 4728, 4728, 4749, 4892, 4894, 4895, 4916, 4917, 4918, 4919, 4964, 4965, 4966, 4967, 6617, 10348, 14479, 10551, 4736, 4940, 4941, 4942, 4943, 11724, 544, 4091, 4101, 4111, 4991, 4990, 4989, 4988, 4758, 4712, 4868, 4869, 4870, 4871, 4757, 8839, 3058, 6654, 6180, 6184, 17259, 5575, 3140, 10748, 14595, 11020, 10338, 10400, 10404, 10408, 10412, 10416, 10420, 13619, 6916, 13887, 13884, 13858, 13870, 13889, 13886, 13860, 13872, 14497, 14601, 15600, 15606, 15612, 15618, 17193, 9944, 14114, 11854, 2513, 12414, 12480, 12500, 12814, 13107, 12393, 12596, 12492, 10330, 10338, 12508, 12893, 12888, 13105, 13106, 13104, 12014, 6186, 12441, 12959, 11899, 11896, 12956, 6139, 3387, 12811, 2896, 2906, 2916, 2926,
+			2936, 638, 636, 640, 644, 646, 12458, 13072 };
+	private static final int[] FULL_HELM_IDS = { 10342, 20100, 10589, 4724, 1153, 1155, 1157, 1159, 1161, 1163, 1165, 2587, 2595, 2605, 2613, 2619, 2627, 2657, 2665, 2673, 3486, 6623, 10350, 11335, 13896, 13898, 4724, 4904, 4905, 4906, 4907, 4716, 4880, 4881, 4882, 4883, 4708, 4856, 4857, 4858, 4859, 4745, 4952, 4953, 4954, 4955, 4732, 4928, 4929, 4930, 4931, 7534, 11718, 6109, 3748, 3749, 3751, 3753, 3755, 11663, 11664, 11665, 4753, 4976, 4977, 4978, 4979, 4709, 4856, 4857, 4858, 4859, 10828, 3057, 7594, 6188, 1149, 10548, 10547, 16711, 5574, 4502, 11021, 10334, 10392, 10398, 13876, 15492, 10589, 1053, 1055, 1057, 17061, 13263, 14116, 1167, 12673, 12675, 12677, 12679, 12681, 2631, 11826, 1167, 1169 };
+	private static final int[] FULL_MASK_IDS = { 12417, 12371, 8464, 8466, 8468, 8470, 8472, 8474, 8476, 8478, 8480, 8482, 8484, 8486, 8488, 8490, 8492, 4745, 4724, 1153, 1155, 1157, 1159, 1161, 1163, 1165, 2587, 2595, 2605, 2613, 2619, 2627, 2657, 2665, 2673, 3486, 6623, 10350, 11335, 4979, 4978, 4977, 4976, 4753, 3057, 7594, 6188, 5574, 15492, 1053, 1055, 1057, 13263, 11850, 11864, 12931, 13140, 4551, 9672, 12283, };
 
 	public static boolean isForceNewHair(int i) {
 	return FULL_HELM[i] == 2;
@@ -36,45 +52,6 @@ public class EquipmentConstants {
 	return FULL_MASK[id] == 1;
 	}
 
-	public static final int HELM_SLOT = 0;
-	public static final int CAPE_SLOT = 1;
-	public static final int NECKLACE_SLOT = 2;
-	public static final int WEAPON_SLOT = 3;
-	public static final int TORSO_SLOT = 4;
-	public static final int SHIELD_SLOT = 5;
-	public static final int LEGS_SLOT = 7;
-	public static final int GLOVES_SLOT = 9;
-	public static final int BOOTS_SLOT = 10;
-	public static final int RING_SLOT = 12;
-
-	public static final int AMMO_SLOT = 13;
-
-	public static final String[] SLOT_NAMES = { "helm", "cape", "amulet", "weapon", "torso", "shield", "none", "legs", "none", "gloves", "boots", "none", "ring", "ammo" };
-
-	public static final String[] BONUS_NAMES = { "Stab", "Slash", "Crush", "Mage", "Range", "Stab", "Slash", "Crush", "Mage", "Range", "Vigour", "Necromance" };
-
-	public static final int VIGOUR = 10;
-	public static final int NECROMANCE = 11;
-	public static final int SAGITTARIUS_VIGOUR = 12;
-	private static final byte[] FULL_BODY = new byte[StonerConstants.MAX_ITEM_COUNT];
-	private static final byte[] FULL_HELM = new byte[StonerConstants.MAX_ITEM_COUNT];
-	private static final byte[] FULL_MASK = new byte[StonerConstants.MAX_ITEM_COUNT];
-	private static final byte[] IS_METAL = new byte[StonerConstants.MAX_ITEM_COUNT];
-
-	private static final int[] FULL_BODY_IDS = { 11828, 5553, 9924, 11854, 11832, 20096, 10370, 10386, 10378, 6129, 7399, 10564, 11720, 10386, 1035, 13624, 13614, 577, 9674, 6107, 1115, 1117, 1119, 1121, 1123, 1125, 1127, 2583, 2584, 2591, 2599, 2607, 2615, 2623, 2653, 2661, 2669, 3481, 4720, 4728, 4728, 4749, 4892, 4894, 4895, 4916, 4917, 4918, 4919, 4964, 4965, 4966, 4967, 6617, 10348, 14479, 10551, 4736, 4940, 4941, 4942, 4943, 11724, 544, 4091, 4101, 4111, 4991, 4990, 4989, 4988, 4758, 4712, 4868, 4869, 4870, 4871, 4757, 8839, 3058, 6654, 6180, 6184, 17259, 5575, 3140, 10748, 14595, 11020, 10338, 10400, 10404, 10408, 10412, 10416, 10420, 13619, 6916, 13887, 13884, 13858, 13870, 13889, 13886, 13860, 13872, 14497, 14601, 15600, 15606, 15612, 15618, 17193, 9944, 14114, 11854, 2513, 12414, 12480, 12500, 12814, 13107, 12393, 12596, 12492, 10330, 10338, 12508, 12893, 12888, 13105, 13106, 13104, 12014, 6186, 12441, 12959, 11899, 11896, 12956, 6139, 3387, 12811, 2896, 2906, 2916, 2926,
-			2936, 638, 636, 640, 644, 646, 12458, 13072 };
-
-	private static final int[] FULL_HELM_IDS = { 10342, 20100, 10589, 4724, 1153, 1155, 1157, 1159, 1161, 1163, 1165, 2587, 2595, 2605, 2613, 2619, 2627, 2657, 2665, 2673, 3486, 6623, 10350, 11335, 13896, 13898, 4724, 4904, 4905, 4906, 4907, 4716, 4880, 4881, 4882, 4883, 4708, 4856, 4857, 4858, 4859, 4745, 4952, 4953, 4954, 4955, 4732, 4928, 4929, 4930, 4931, 7534, 11718, 6109, 3748, 3749, 3751, 3753, 3755, 11663, 11664, 11665, 4753, 4976, 4977, 4978, 4979, 4709, 4856, 4857, 4858, 4859, 10828, 3057, 7594, 6188, 1149, 10548, 10547, 16711, 5574, 4502, 11021, 10334, 10392, 10398, 13876, 15492, 10589, 1053, 1055, 1057, 17061, 13263, 14116, 1167, 12673, 12675, 12677, 12679, 12681, 2631, 11826, 1167, 1169 };
-
-	private static final int[] FULL_MASK_IDS = { 12417, 12371, 8464, 8466, 8468, 8470, 8472, 8474, 8476, 8478, 8480, 8482, 8484, 8486, 8488, 8490, 8492, 4745, 4724, 1153, 1155, 1157, 1159, 1161, 1163, 1165, 2587, 2595, 2605, 2613, 2619, 2627, 2657, 2665, 2673, 3486, 6623, 10350, 11335, 4979, 4978, 4977, 4976, 4753, 3057, 7594, 6188, 5574, 15492, 1053, 1055, 1057, 13263, 11850, 11864, 12931, 13140, 4551, 9672, 12283, };
-
-	/**
-	 * Gets the assault style clicking buttons
-	 * 
-	 * @param stoner
-	 * @param buttonId
-	 * @return
-	 */
 	public static boolean clickAssaultStyleButtons(Stoner stoner, int buttonId) {
 	switch (buttonId) {
 	case 1080:
@@ -182,9 +159,6 @@ public class EquipmentConstants {
 	return false;
 	}
 
-	/**
-	 * Declare equipment sets
-	 */
 	public static final void declare() {
 	for (int i = 0; i < FULL_BODY_IDS.length; i++) {
 		FULL_BODY[FULL_BODY_IDS[i]] = 1;
@@ -219,13 +193,6 @@ public class EquipmentConstants {
 	}
 	}
 
-	/**
-	 * Gets the assault style config
-	 * 
-	 * @param id
-	 * @param assaultStyle
-	 * @return
-	 */
 	public static int getAssaultStyleConfigId(int id, AssaultStyles assaultStyle) {
 	if (id == 0) {
 		switch (assaultStyle) {
@@ -318,12 +285,6 @@ public class EquipmentConstants {
 	return 0;
 	}
 
-	/**
-	 * Combat type for weapon
-	 * 
-	 * @param stoner
-	 * @return
-	 */
 	public static CombatTypes getCombatTypeForWeapon(Stoner stoner) {
 	Item weapon = stoner.getEquipment().getItems()[3];
 	if ((weapon != null) && (weapon.getWeaponDefinition() != null)) {
@@ -333,12 +294,6 @@ public class EquipmentConstants {
 	return CombatTypes.MELEE;
 	}
 
-	/**
-	 * Gets the shield block animation
-	 * 
-	 * @param id
-	 * @return
-	 */
 	public static int getShieldBlockAnimation(int id) {
 	switch (id) {
 	case 6889:
@@ -364,12 +319,6 @@ public class EquipmentConstants {
 	return 1156;
 	}
 
-	/**
-	 * Gets text id for interface
-	 * 
-	 * @param interfaceId
-	 * @return
-	 */
 	public static final int getTextIdForInterface(int interfaceId) {
 	switch (interfaceId) {
 	case 7762:
@@ -400,12 +349,6 @@ public class EquipmentConstants {
 	return 5857;
 	}
 
-	/**
-	 * Gets the weapon assault styles
-	 * 
-	 * @param id
-	 * @return
-	 */
 	public static WeaponAssaultStyles getWeaponAssaultStyle(int id) {
 	int interfaceId = Item.getWeaponDefinition(id) != null ? Item.getWeaponDefinition(id).getSidebarId() : 5855;
 
@@ -436,6 +379,15 @@ public class EquipmentConstants {
 		return WeaponAssaultStyles.CONTROLLED_VIGOUR_DEFENSE;
 	}
 	return WeaponAssaultStyles.ASSAULT_VIGOUR_DEFENSE;
+	}
+
+	public enum WeaponAssaultStyles {
+		ASSAULT_VIGOUR_DEFENSE,
+		ASSAULT_CONTROLLED_AEGIS,
+		ASSAULT_VIGOUR_VIGOUR_DEFENSE,
+		ASSAULT_VIGOUR_CONTROLLED_DEFENSE,
+		CONTROLLED_CONTROLLED_CONTROLLED_DEFENSE,
+		CONTROLLED_VIGOUR_DEFENSE
 	}
 
 }

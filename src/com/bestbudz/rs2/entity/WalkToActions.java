@@ -1,11 +1,5 @@
 package com.bestbudz.rs2.entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
 import com.bestbudz.BestbudzConstants;
 import com.bestbudz.core.cache.map.Door;
 import com.bestbudz.core.cache.map.Doors;
@@ -28,10 +22,10 @@ import com.bestbudz.core.task.impl.WalkThroughDoubleDoorTask;
 import com.bestbudz.core.task.impl.WalkToTask;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
+import com.bestbudz.rs2.content.Advance;
 import com.bestbudz.rs2.content.CrystalChest;
 import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.FountainOfRune;
-import com.bestbudz.rs2.content.Advance;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
@@ -39,7 +33,9 @@ import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.content.dialogue.OneLineDialogue;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.AchievementDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.AdvanceDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.BestBudzDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.ConsumerTeleport;
 import com.bestbudz.rs2.content.dialogue.impl.DecantingDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.DunceDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.EmblemDialogue;
@@ -54,8 +50,6 @@ import com.bestbudz.rs2.content.dialogue.impl.NeiveDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.OttoGodblessed;
 import com.bestbudz.rs2.content.dialogue.impl.OziachDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.PilesDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.AdvanceDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.ConsumerTeleport;
 import com.bestbudz.rs2.content.dialogue.impl.SailorDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.ShopExchangeDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.ShopExchangeDialogue2;
@@ -82,17 +76,17 @@ import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameStore;
 import com.bestbudz.rs2.content.pets.BossPets;
 import com.bestbudz.rs2.content.pets.BossPets.PetData;
-import com.bestbudz.rs2.content.shopping.impl.BountyShop;
-import com.bestbudz.rs2.content.shopping.impl.PestShop;
 import com.bestbudz.rs2.content.profession.Professions;
+import com.bestbudz.rs2.content.profession.accomplisher.HomeStalls;
+import com.bestbudz.rs2.content.profession.accomplisher.WallSafes;
+import com.bestbudz.rs2.content.profession.cultivation.Cultivation;
 import com.bestbudz.rs2.content.profession.foodie.FoodieTask;
 import com.bestbudz.rs2.content.profession.forging.ForgingConstants;
-import com.bestbudz.rs2.content.profession.handiness.HandinessType;
 import com.bestbudz.rs2.content.profession.handiness.Flax;
+import com.bestbudz.rs2.content.profession.handiness.HandinessType;
 import com.bestbudz.rs2.content.profession.handiness.HideTanning;
 import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
 import com.bestbudz.rs2.content.profession.handiness.Spinnable;
-import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
 import com.bestbudz.rs2.content.profession.hunter.Impling.ImplingRewards.Implings;
 import com.bestbudz.rs2.content.profession.lumbering.LumberingTask;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
@@ -100,9 +94,9 @@ import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
 import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.quarrying.Quarrying;
-import com.bestbudz.rs2.content.profession.cultivation.Cultivation;
-import com.bestbudz.rs2.content.profession.accomplisher.HomeStalls;
-import com.bestbudz.rs2.content.profession.accomplisher.WallSafes;
+import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
+import com.bestbudz.rs2.content.shopping.impl.BountyShop;
+import com.bestbudz.rs2.content.shopping.impl.PestShop;
 import com.bestbudz.rs2.content.wilderness.Lockpick;
 import com.bestbudz.rs2.content.wilderness.TargetSystem;
 import com.bestbudz.rs2.entity.item.Item;
@@ -123,31 +117,30 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSound;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItemsAlt;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class WalkToActions {
 
-	/**
-	 * Npcs that open a store
-	 */
-	public static final int[][] NPC_STORE_DATA = { { 519, 0 }, { 518, 0 }, // General//Questtab
-			{ 225, 15 }, // Consumables store//Questtab
-			{ 527, 16 }, // Weapon store//Questtab
-			{ 505, 17 }, // Professioning store//Questtab
-			{ 528, 18 }, // Armour store//Questtab
-			{ 536, 25 }, // Range store//Questtab
-			{ 5314, 26 }, // Mage store//Questtab
-			{ 603, 27 }, // Accessories store//Questtab
-			{ 4306, 20 }, // Professioncape store//Questtab
-			{ 5919, 3 }, // Graceful store//Questtab//DiffCurr
-			{ 22, 29 }, // Merchant store//Questtab
-			{ 1758, 5 }, // Pestcontrol store //DiffCurr //Questtab
-			{ 3984, 31 }, // Packs//Questtab
-			{ 532, 45 }, // MasterCape Store//Questtab
+	public static final int[][] NPC_STORE_DATA = { { 519, 0 }, { 518, 0 },
+			{ 225, 15 },
+			{ 527, 16 },
+			{ 505, 17 },
+			{ 528, 18 },
+			{ 536, 25 },
+			{ 5314, 26 },
+			{ 603, 27 },
+			{ 4306, 20 },
+			{ 5919, 3 },
+			{ 22, 29 },
+			{ 1758, 5 },
+			{ 3984, 31 },
+			{ 532, 45 },
 	};
 
-	/**
-	 * Default dialogues for npcs
-	 */
 	public final static String[] DEFAULT_DIALOGUES = { "You should listen to SoundSystems while playing BestBudz.", "So what you smoking on?!", "Did you know nixon lied to the whole world?!", "High, how doing you are?", "I'm in the mood to spark a bowl!", "Don't let the weedman rip your ass.", "Bong, check! Weed, Check! Lighter, ... FUCK!", "Get yo weed, fool.", "Did u steal my lighter?", "You got a lighter bro?" };
 
 	public static void clickNpc(final Stoner stoner, final int option, int slot) {
@@ -298,7 +291,7 @@ public class WalkToActions {
 	}
 	switch (option) {
 
-	case 1:// NPC FIRST CLICK
+	case 1:
 		if (stoner.getFisher().clickNpc(mob, id, 1)) {
 			return;
 		}
@@ -315,13 +308,13 @@ public class WalkToActions {
 		}
 
 		switch (id) {
-		case 3936:// Sailor
+		case 3936:
 			stoner.start(new SailorDialogue(stoner));
 			break;
-		case 2914:// Otto
+		case 2914:
 			stoner.start(new OttoGodblessed(stoner));
 			break;
-		case 2801:// Sheep
+		case 2801:
 			if (!stoner.getEquipment().isWearingItem(6575)) {
 				DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
 				return;
@@ -342,114 +335,114 @@ public class WalkToActions {
 			AchievementHandler.activateAchievement(stoner, AchievementList.SHEAR_10_SHEEPS, 1);
 			AchievementHandler.activateAchievement(stoner, AchievementList.SHEAR_150_SHEEPS, 1);
 			break;
-		case 1011:// Gambler
+		case 1011:
 			stoner.start(new GamblerDialogue(stoner));
 			break;
-		case 1103:// Weapon Game
+		case 1103:
 			stoner.start(new WeaponGameDialogue(stoner));
 			break;
-		case 534:// Clothing store
+		case 534:
 			stoner.start(new OptionDialogue("Clothing shop 1", p -> {
 				stoner.getShopping().open(28);
 			}, "Clothing shop 2", p -> {
 				stoner.getShopping().open(40);
 			}));
 			break;
-		case 6749:// Dunce
+		case 6749:
 			if (stoner.inMemberZone()) {
 				stoner.start(new DunceDialogue(stoner));
 			} else {
 				stoner.start(new StaffTitleDialogue(stoner));
 			}
 			break;
-		case 2181:// Firecape pet
+		case 2181:
 			stoner.start(new TzhaarMejKahDialogue(stoner));
 			break;
-		case 2195:// William
+		case 2195:
 			DialogueManager.sendNpcChat(stoner, 2195, Emotion.VERY_SAD, "Help me...");
 			break;
-		case 490:// Boss tasks
+		case 490:
 			stoner.start(new NeiveDialogue(stoner));
 			break;
-		case 1603:// Mage Arena
+		case 1603:
 			stoner.start(new KolodionDialogue(stoner));
 			break;
 
-		case 5811:// master crafter
+		case 5811:
 			stoner.getShopping().open(36);
 			break;
-		case 822:// Oziach
+		case 822:
 			stoner.start(new OziachDialogue(stoner));
 			break;
-		case 954:// Barrows
+		case 954:
 			DialogueManager.sendNpcChat(stoner, 954, Emotion.HAPPY, "Oy! Need your items repaired?", "I can fix them for 250,000 bestbucks each.", "Simply use your item on me.");
 			break;
-		case 5787:// exercisement
+		case 5787:
 			stoner.send(new SendString("Exercisement Ticket Exchange", 8383));
 			stoner.send(new SendInterface(8292));
 			break;
-		case 732:// Cultivation Store
+		case 732:
 			stoner.start(new OptionDialogue("Cultivation Store", p -> {
 				stoner.getShopping().open(32);
 			}, "THC-hempistry Store", p -> {
 				stoner.getShopping().open(33);
 			}));
 			break;
-		case 5523:// Swagster
+		case 5523:
 			stoner.start(new MembershipDialogue(stoner));
 			break;
-		case 3231:// Leater tanner
+		case 3231:
 			HideTanning.sendTanningInterface(stoner);
 			break;
-		case 394:// Banker
-		case 395:// Banker
+		case 394:
+		case 395:
 		case 2182:
 			stoner.getBank().openBank();
 			break;
-		case 1558:// Weed title Dealer
+		case 1558:
 			stoner.start(new BestBudzDialogue(stoner));
 			break;
-		case 13:// Piles
+		case 13:
 			stoner.start(new PilesDialogue(stoner));
 			break;
-		case 403:// Mercenary
+		case 403:
 			stoner.start(new VannakaDialogue(stoner));
 			break;
-		case 1306:// Make over mage
+		case 1306:
 			stoner.start(new MakeoverMage(stoner));
 			break;
-		case 315:// Emblem trader
+		case 315:
 			stoner.start(new EmblemDialogue(stoner));
 			break;
-		case 4936:// Mage of zamorak
+		case 4936:
 			stoner.start(new ConsumerTeleport(stoner, mob));
 			break;
-		case 5419:// Exchange agent
+		case 5419:
 			stoner.start(new ShopExchangeDialogue(stoner));
 			break;
-		case 326:// Genie reset
+		case 326:
 			stoner.start(new GenieResetDialogue(stoner));
 			break;
-		case 1325:// Npc guide
+		case 1325:
 			stoner.start(new HariDialogue(stoner));
 			break;
-		case 606:// Advance
+		case 606:
 			stoner.start(new AdvanceDialogue(stoner));
 			break;
-		case 2461:// Kamfree
+		case 2461:
 			stoner.start(new KamfreeDialogue());
 			break;
-		case 1756:// Void knight in game
-			DialogueManager.sendNpcChat(stoner, 1756, Emotion.ANGRY_4, "Don't distract me! Go kill them!");
+		case 1756:
+			DialogueManager.sendNpcChat(stoner, 1756, Emotion.ANGRY_4, "HABALALAAAAAA SHAAAHAAAABBAAALLAAAA!");
 			stoner.send(new SendMessage("Maybe I should focus on defeating the portals..."));
 			break;
-		case 1771:// Novice squire
+		case 1771:
 			DialogueManager.sendNpcChat(stoner, 1771, Emotion.HAPPY, "Welcome to Pest Control " + stoner.getUsername() + "!");
 			break;
-		case 5527:// Achievement
+		case 5527:
 			stoner.start(new AchievementDialogue(stoner));
 			break;
-		case 6524:// Decanting
+		case 6524:
 			stoner.start(new DecantingDialogue(stoner));
 			break;
 
@@ -467,7 +460,7 @@ public class WalkToActions {
 		}
 		break;
 
-	case 2:// NPC SECOND CLICK
+	case 2:
 		for (int i = 0; i < NPC_STORE_DATA.length; i++) {
 			if (NPC_STORE_DATA[i][0] == id) {
 				stoner.getShopping().open(NPC_STORE_DATA[i][1]);
@@ -481,54 +474,54 @@ public class WalkToActions {
 
 
 		switch (id) {
-		case 2195:// William
+		case 2195:
 			stoner.getShopping().open(37);
 			break;
-		case 5527:// Achievement
+		case 5527:
 			stoner.getShopping().open(89);
 			break;
-		case 1603:// Mage Arena
+		case 1603:
 			stoner.getShopping().open(95);
 			break;
-		case 2130:// Snakelings
+		case 2130:
 		case 2131:
-		case 2132:
-			if (stoner.getBossPet() == null || stoner.getBossPet().isDead()) {
-				return;
-			}
-			if (stoner.getBossPet() != mob || mob.getOwner() != stoner) {
-				stoner.getClient().queueOutgoingPacket(new SendMessage("This is not your pet."));
-				return;
-			}
-			List<Object[]> dialogues = new ArrayList<>();
-			if (id != 2130) {
-				dialogues.add(new Object[] { "Green", (Consumer<Stoner>) p -> {
-					stoner.getBossPet().transform(2130);
-					stoner.send(new SendRemoveInterfaces());
-				} });
-			}
-			if (id != 2131) {
-				dialogues.add(new Object[] { "Red", (Consumer<Stoner>) p -> {
-					stoner.getBossPet().transform(2131);
-					stoner.send(new SendRemoveInterfaces());
-				} });
-			}
-			if (id != 2132) {
-				dialogues.add(new Object[] { "Blue", (Consumer<Stoner>) p -> {
-					stoner.getBossPet().transform(2132);
-					stoner.send(new SendRemoveInterfaces());
-				} });
-			}
-			stoner.start(new OptionDialogue((String) dialogues.get(0)[0], (Consumer<Stoner>) (dialogues.get(0)[1]), (String) dialogues.get(1)[0], (Consumer<Stoner>) (dialogues.get(1)[1])));
-			break;
-		case 822:// Oziach
+			case 2132:
+				if (!stoner.getActivePets().contains(mob) || mob.getOwner() != stoner) {
+					stoner.getClient().queueOutgoingPacket(new SendMessage("Please try again, it might just work."));
+					return;
+				}
+
+				List<Object[]> dialogues = new ArrayList<>();
+				if (id != 2130) {
+					dialogues.add(new Object[] { "Green", (Consumer<Stoner>) p -> {
+						mob.transform(2130);
+						p.send(new SendRemoveInterfaces());
+					} });
+				}
+				if (id != 2131) {
+					dialogues.add(new Object[] { "Red", (Consumer<Stoner>) p -> {
+						mob.transform(2131);
+						p.send(new SendRemoveInterfaces());
+					} });
+				}
+				if (id != 2132) {
+					dialogues.add(new Object[] { "Blue", (Consumer<Stoner>) p -> {
+						mob.transform(2132);
+						p.send(new SendRemoveInterfaces());
+					} });
+				}
+				stoner.start(new OptionDialogue((String) dialogues.get(0)[0], (Consumer<Stoner>) dialogues.get(0)[1],
+					(String) dialogues.get(1)[0], (Consumer<Stoner>) dialogues.get(1)[1]));
+				break;
+
+		case 822:
 			stoner.getShopping().open(34);
 			break;
-		case 5787:// exercisement
+		case 5787:
 			stoner.send(new SendString("Exercisement Ticket Exchange", 8383));
 			stoner.send(new SendInterface(8292));
 			break;
-		case 5523:// Swagster
+		case 5523:
 			stoner.start(new OptionDialogue("Credit Shop 1", p -> {
 				stoner.getShopping().open(94);
 			}, "Credit Store 2", p -> {
@@ -538,23 +531,23 @@ public class WalkToActions {
 			}));
 
 			break;
-		case 606:// Advance
+		case 606:
 			stoner.getShopping().open(93);
 			break;
-		case 395:// Banker
+		case 395:
 			stoner.getBank().openBank();
 			break;
-		case 3951:// BestBudz Weed title dealer
+		case 3951:
 			stoner.send(new SendInterface(55000));
 			break;
-		case 403:// Mercenary
-		case 490:// Boss tasks
+		case 403:
+		case 490:
 			stoner.getShopping().open(6);
 			break;
-		case 315:// Emblem trader
+		case 315:
 			stoner.getShopping().open(BountyShop.SHOP_ID);
 			break;
-		case 5419:// Exchange agent
+		case 5419:
 			stoner.start(new OptionDialogue("Edit shop description (100k).", p -> {
 				stoner.setEnterXInterfaceId(55776);
 				stoner.getClient().queueOutgoingPacket(new SendEnterString());
@@ -562,14 +555,14 @@ public class WalkToActions {
 				stoner.getShopping().open(stoner);
 			}));
 			break;
-		case 326:// Genie reset
+		case 326:
 			stoner.send(new SendInterface(59500));
 			break;
-		case 3789:// Pest Store
+		case 3789:
 		case 3788:
 			stoner.getShopping().open(PestShop.SHOP_ID);
 			break;
-		case 494:// Banker
+		case 494:
 		case 902:
 		case 6538:
 		case 2271:
@@ -578,7 +571,7 @@ public class WalkToActions {
 		case 6524:
 			DialogueManager.sendNpcChat(stoner, 6524, Emotion.CALM, "I can decant your potions for 300 gp each.");
 			break;
-		case 4936:// Consumer
+		case 4936:
 			stoner.getShopping().open(30);
 			break;
 
@@ -592,7 +585,7 @@ public class WalkToActions {
 		}
 		break;
 
-	case 3:// NPC THIRD CLICK
+	case 3:
 		for (int i = 0; i < NPC_STORE_DATA.length; i++) {
 			if (NPC_STORE_DATA[i][0] == id) {
 				stoner.getShopping().open(NPC_STORE_DATA[i][1]);
@@ -600,10 +593,10 @@ public class WalkToActions {
 			}
 		}
 		switch (id) {
-		case 1103:// Weapon Game
+		case 1103:
 			WeaponGameStore.open(stoner);
 			break;
-		case 1306:// Make over mage
+		case 1306:
 			if (!stoner.getBox().hasItemAmount(new Item(995, 10000))) {
 				DialogueManager.sendNpcChat(stoner, 1306, Emotion.ANNOYED, "You don't have 10,000 bestbucks!");
 				return;
@@ -611,14 +604,14 @@ public class WalkToActions {
 			stoner.getBox().remove(new Item(995, 10000));
 			stoner.send(new SendInterface(3559));
 			break;
-		case 5523:// Swagster
+		case 5523:
 			if (StonerConstants.isStoner(stoner)) {
 				DialogueManager.sendNpcChat(stoner, 5523, Emotion.DEFAULT, "You need to be a <img=4>@red@member </col>to do this!");
 				return;
 			}
 			TaskQueue.queue(new TeleOtherTask(mob, stoner, StonerConstants.MEMEBER_AREA));
 			break;
-		case 4936:// Mage of zamorak
+		case 4936:
 			stoner.start(new OptionDialogue("Abyss", p -> {
 				stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
 				TaskQueue.queue(new TeleOtherTask(mob, stoner, new Location(3039, 4834)));
@@ -627,14 +620,14 @@ public class WalkToActions {
 				TaskQueue.queue(new TeleOtherTask(mob, stoner, new Location(2923, 4819)));
 			}));
 			break;
-		case 1325:// Npc guide
+		case 1325:
 			DropTable.open(stoner);
 			break;
-		case 606:// Advance
+		case 606:
 			Advance.update(stoner);
 			stoner.send(new SendInterface(51000));
 			break;
-		case 315:// Emblem trader
+		case 315:
 			if (stoner.getSkulling().isSkulled()) {
 				DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You already have a wilderness skull!");
 				return;
@@ -642,10 +635,10 @@ public class WalkToActions {
 			stoner.getSkulling().skull(stoner, stoner);
 			DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You have been skulled.");
 			break;
-		case 6524:// potion decanting
+		case 6524:
 			PotionDecanting.decantAll(stoner);
 			break;
-		case 5419:// Exchange agent
+		case 5419:
 			stoner.getClient().queueOutgoingPacket(new SendInterface(53500));
 			stoner.getClient().queueOutgoingPacket(new SendString("Shops Exchange | @red@0</col> Active Shops", 53505));
 			List<Stoner> available = Arrays.stream(World.getStoners()).filter(p -> p != null && p.isActive() && p.getStonerShop().hasAnyItems()).collect(Collectors.toList());
@@ -672,9 +665,9 @@ public class WalkToActions {
 		}
 		break;
 
-	case 4:// NPC FOURTH CLICK
+	case 4:
 		switch (id) {
-		case 315:// Emblem trader
+		case 315:
 			if (stoner.getSkulling().isSkulled()) {
 				DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You already have a wilderness skull!");
 				return;
@@ -694,7 +687,7 @@ public class WalkToActions {
 	public static final void finishItemOnNpc(Stoner stoner, int item, Mob mob) {
 	switch (mob.getId()) {
 
-	case 2181:// Firecape exchange
+	case 2181:
 		if (!StonerConstants.isOwner(stoner)) {
 			stoner.send(new SendMessage("Coming soon!"));
 			stoner.send(new SendRemoveInterfaces());
@@ -709,7 +702,7 @@ public class WalkToActions {
 			PetData petDrop = PetData.forItem(13178);
 
 			if (petDrop != null) {
-				if (stoner.getBossPet() == null) {
+				if (stoner.getActivePets().size() < 5) {
 					BossPets.spawnPet(stoner, petDrop.getItem(), true);
 					stoner.send(new SendMessage("You feel a pressence following you; " + Utility.formatStonerName(GameDefinitionLoader.getNpcDefinition(petDrop.getNPC()).getName()) + " starts to follow you."));
 				} else {
@@ -725,7 +718,7 @@ public class WalkToActions {
 		stoner.send(new SendRemoveInterfaces());
 		break;
 
-	case 954:// Barrows repair
+	case 954:
 		for (int[] id : Barrows.BROKEN_BARROWS) {
 			if (item == id[1]) {
 				if (stoner.getBox().contains(new Item(995, 250_000))) {
@@ -923,7 +916,7 @@ public class WalkToActions {
 		LumberingTask.attemptLumbering(stoner, id, x, y);
 		switch (id) {
 
-		case 22472:// Tab Creation
+		case 22472:
 			stoner.send(new SendString("Please click on a tab to create it", 26707));
 			stoner.send(new SendString("Click on 'info' to get requirements.", 26708));
 			int[] tabs = { 8007, 8008, 8009, 8010, 8011, 8012, 8013, 8014, 8015 };
@@ -932,12 +925,12 @@ public class WalkToActions {
 			}
 			stoner.send(new SendInterface(26700));
 			break;
-		case 3193:// Bank chest
+		case 3193:
 		case 26707:
 			stoner.getBank().openBank();
 			break;
 
-		case 26762:// Scorpion Pit
+		case 26762:
 			stoner.getUpdateFlags().sendFaceToDirection(x, y);
 			stoner.getUpdateFlags().sendAnimation(new Animation(844));
 			TaskQueue.queue(new Task(stoner, 1, false) {
@@ -959,7 +952,7 @@ public class WalkToActions {
 			});
 			break;
 
-		case 26763:// Scorpion Pit
+		case 26763:
 			stoner.getUpdateFlags().sendFaceToDirection(x, y);
 			stoner.getUpdateFlags().sendAnimation(new Animation(844));
 			TaskQueue.queue(new Task(stoner, 1, false) {
@@ -981,7 +974,7 @@ public class WalkToActions {
 			});
 			break;
 
-		case 2878:// Entering god cape place
+		case 2878:
 			TaskQueue.queue(new Task(stoner, 1) {
 				@Override
 				public void execute() {
@@ -995,7 +988,7 @@ public class WalkToActions {
 				}
 			});
 			break;
-		case 2879:// Leaving god cape place
+		case 2879:
 			TaskQueue.queue(new Task(stoner, 1) {
 				@Override
 				public void execute() {
@@ -1009,7 +1002,7 @@ public class WalkToActions {
 				}
 			});
 			break;
-		case 2873:// Saradomin god cape
+		case 2873:
 			if (ItemCheck.hasGodCape(stoner)) {
 				DialogueManager.sendStatement(stoner, "It appears you already have a god cape!");
 				return;
@@ -1022,7 +1015,7 @@ public class WalkToActions {
 			stoner.getBox().add(new Item(2412));
 			stoner.send(new SendMessage("@dre@You have obtained a Saradomin cape."));
 			break;
-		case 2875:// Guthix god cape
+		case 2875:
 			if (ItemCheck.hasGodCape(stoner)) {
 				DialogueManager.sendStatement(stoner, "It appears you already have a god cape!");
 				return;
@@ -1035,7 +1028,7 @@ public class WalkToActions {
 			stoner.getBox().add(new Item(2413));
 			stoner.send(new SendMessage("@dre@You have obtained a Guthix cape."));
 			break;
-		case 2874:// Zamorak god cape
+		case 2874:
 			if (ItemCheck.hasGodCape(stoner)) {
 				DialogueManager.sendStatement(stoner, "It appears you already have a god cape!");
 				return;
@@ -1048,7 +1041,7 @@ public class WalkToActions {
 			stoner.getBox().add(new Item(2414));
 			stoner.send(new SendMessage("@dre@You have obtained a Zamorak cape."));
 			break;
-		case 13618:// Wyverns teleport
+		case 13618:
 			stoner.start(new OptionDialogue("Teleport to Wyverns", p -> {
 				stoner.teleport(new Location(3056, 9555, 0));
 				stoner.send(new SendMessage("You have been teleported to the Skeletal Wyverns."));
@@ -1056,7 +1049,7 @@ public class WalkToActions {
 				stoner.send(new SendRemoveInterfaces());
 			}));
 			break;
-		case 13619:// Fountain of Rune
+		case 13619:
 			stoner.start(new OptionDialogue("Teleport (30+ Wild)", p -> {
 				stoner.getMage().teleport(3372, 3894, 0, MageProfession.TeleportTypes.FOUNTAIN_OF_RUNE);
 				stoner.send(new SendMessage("You have been teleported to the Fountain of Rune."));
@@ -1065,13 +1058,13 @@ public class WalkToActions {
 			}));
 			break;
 
-		case 10596:// Wyverns teleport
+		case 10596:
 			stoner.teleport(new Location(3056, 9555, 0));
 			break;
-		case 12941:// Membership Fountain
+		case 12941:
 
 			break;
-		case 26760:// Wilderness resource arena
+		case 26760:
 			if (stoner.getLocation().getX() == 3184 && stoner.getLocation().getY() == 3945) {
 				if (stoner.isPouchPayment()) {
 					if (stoner.getMoneyPouch() < 7500) {
@@ -1097,34 +1090,34 @@ public class WalkToActions {
 				TaskQueue.queue(new WalkThroughDoorTask(stoner, x, y, z, new Location(x, y + 1, z)));
 			}
 			break;
-		case 10230:// Dagganoth Kings
+		case 10230:
 			stoner.teleport(new Location(2900, 4449, 0));
 			break;
-		case 9472:// Exchange
+		case 9472:
 		case 9741:
 		case 9371:
 			stoner.start(new ShopExchangeDialogue(stoner));
 			break;
-		case 24306:// Warrior Guild door
+		case 24306:
 		case 24309:
 			CyclopsRoom.handleDoor(stoner, x, y);
 			break;
-		case 16671: // Warrior guild climb up
+		case 16671:
 			stoner.teleport(new Location(2841, 3538, 2));
 			stoner.send(new SendMessage("You climb up the stairs to the next floor."));
 			break;
-		case 24303: // Warrior guild climb down
+		case 24303:
 			stoner.teleport(new Location(2841, 3538, 0));
 			stoner.send(new SendMessage("You climb down the stairs to the previous floor."));
 			break;
-		case 7236: // Wall safes
+		case 7236:
 			WallSafes.crack(stoner);
 			break;
-		case 18987:// KBD ladder
+		case 18987:
 			stoner.send(new SendMessage("You have climbed down the ladder."));
 			stoner.teleport(new Location(2271, 4680));
 			break;
-		case 677:// Corporeal cave
+		case 677:
 			if (stoner.getX() == 2974) {
 				stoner.teleport(new Location(stoner.getX() - 3, stoner.getY(), stoner.getZ()));
 			} else {
@@ -1220,7 +1213,7 @@ public class WalkToActions {
 
 			if (stoner.getLocation().getY() < 3917) {
 				TaskQueue.queue(new WalkThroughDoorTask(stoner, x, y, z, new Location(2998, 3931, z)) {
-					DoubleDoor normalDoor = Region.getDoubleDoor(2998, 3931, 0);
+					final DoubleDoor normalDoor = Region.getDoubleDoor(2998, 3931, 0);
 					boolean stopBalance = false;
 					WalkInteraction balance;
 
@@ -1306,7 +1299,7 @@ public class WalkToActions {
 
 			if (stoner.getLocation().getY() >= 3931) {
 				TaskQueue.queue(new WalkThroughDoubleDoorTask(stoner, x, y, z, new Location(2998, 3931, z)) {
-					Door normalDoor = Region.getDoor(2998, 3917, 0);
+					final Door normalDoor = Region.getDoor(2998, 3917, 0);
 					boolean stopBalance = false;
 					WalkInteraction balance;
 
@@ -1400,10 +1393,10 @@ public class WalkToActions {
 		case 1734:
 			stoner.teleport(new Location(stoner.getLocation().getX(), 3927, 0));
 			break;
-		case 25338:// Ancient Cavern down
+		case 25338:
 			stoner.teleport(new Location(1772, 5366, 0));
 			break;
-		case 25336:// Ancient Cavern Up
+		case 25336:
 			stoner.teleport(new Location(1768, 5366, 1));
 			break;
 		case 21311:
@@ -1471,38 +1464,38 @@ public class WalkToActions {
 			stoner.teleport(new Location(1778, 5343, 1));
 			break;
 
-		case 25340:// from mith drag
+		case 25340:
 			stoner.teleport(new Location(1778, 5346, 0));
 			break;
 
-		case 37928:// from corp
+		case 37928:
 			stoner.teleport(new Location(3404, 3090));
 			break;
 
-		case 10229:// from dag kings to dag cave
+		case 10229:
 			stoner.teleport(new Location(2488, 10151));
 			break;
 
-		case 8929:// to dags
+		case 8929:
 			stoner.teleport(new Location(2442, 10146));
 			break;
 
-		case 8966:// from dags to waterbirth
+		case 8966:
 			stoner.teleport(new Location(2523, 3739));
 			break;
 
-		case 41077:// from tormented demons
+		case 41077:
 			stoner.teleport(new Location(3106, 3955));
 			break;
 
-		case 3832:// kq hive to lair
+		case 3832:
 			stoner.teleport(new Location(3509, 9499, 2));
 			break;
-		case 3829:// kq lair to desert
+		case 3829:
 			stoner.teleport(new Location(3228, 3110));
 			break;
 
-		case 412:// Chaos altar
+		case 412:
 		stoner.start(new OptionDialogue("Focused Mage", p -> {
 			stoner.getMage().setSpellBookType(SpellBookTypes.MODERN);
 			stoner.getMage().setMageBook(1151);
@@ -1520,7 +1513,7 @@ public class WalkToActions {
 		}));
 			break;
 
-		case 6552:// ancient altar
+		case 6552:
 			stoner.getMage().setSpellBookType(stoner.getMage().getSpellBookType() == SpellBookTypes.MODERN ? SpellBookTypes.ANCIENT : SpellBookTypes.MODERN);
 			stoner.getMage().setMageBook(stoner.getMage().getSpellBookType() == SpellBookTypes.MODERN ? 1151 : 12855);
 			stoner.getUpdateFlags().sendAnimation(new Animation(645));
@@ -1528,7 +1521,6 @@ public class WalkToActions {
 		case 409:
 		case 10638:
 		case 19145:
-			// regular altar
 			if (stoner.getProfession().getGrades()[Professions.NECROMANCE] < stoner.getMaxGrades()[Professions.NECROMANCE]) {
 				stoner.getProfession().setGrade(Professions.NECROMANCE, stoner.getMaxGrades()[Professions.NECROMANCE]);
 				stoner.getClient().queueOutgoingPacket(new SendMessage("You recharge your necromance points."));
@@ -1537,45 +1529,45 @@ public class WalkToActions {
 				stoner.getClient().queueOutgoingPacket(new SendMessage("Your necromance is already full."));
 			}
 			break;
-		case 18772:// Misery Box
+		case 18772:
 			MysteryBoxMinigame.open(stoner);
 			break;
 
-		case 2113:// to fally quarry
+		case 2113:
 			stoner.teleport(new Location(3021, 9739));
 			break;
-		case 30941:// from fally quarry
+		case 30941:
 			stoner.teleport(new Location(3019, 3337));
 			break;
 
-		case 7257:// to rogue den
+		case 7257:
 			stoner.teleport(new Location(3061, 4985, 1));
 			break;
-		case 7258:// from rogue den
+		case 7258:
 			stoner.teleport(new Location(2906, 3537));
 			break;
 
-		case 5008:// to rellekka mercenary dungeon
+		case 5008:
 			stoner.teleport(new Location(3206, 9379, 0));
 			break;
-		case 4499:// to rellekka mercenary dungeon alt
+		case 4499:
 			stoner.teleport(new Location(3206, 9379, 0));
 			stoner.getClient().queueOutgoingPacket(new SendMessage("This is an alternative entrance, use the rope to find the shorter cave entrance."));
 			break;
 		case 6439:
 			stoner.teleport(new Location(2730, 3713, 0));
 			break;
-		case 1765:// ladder down
+		case 1765:
 			if (x == 3017 && y == 3849) {
 				stoner.teleport(new Location(3069, 10255));
 			}
 			break;
-		case 1766:// ladder up
+		case 1766:
 			if (x == 3069 && y == 10256) {
 				stoner.teleport(new Location(3017, 3850));
 			}
 			break;
-		case 1817:// lever teleport
+		case 1817:
 			stoner.teleport(new Location(3017, 3848));
 			break;
 		case 36687:
@@ -1600,7 +1592,7 @@ public class WalkToActions {
 		case 9320:
 			stoner.changeZ(0);
 			break;
-		case 11601:// Jewlery Making
+		case 11601:
 			JewelryCreationTask.sendInterface(stoner);
 			break;
 		case 2806:
@@ -1645,10 +1637,10 @@ public class WalkToActions {
 			stoner.send(new SendString("---", 25353));
 			stoner.send(new SendString("---", 25355));
 			break;
-		case 11833:// Fightcaves
+		case 11833:
 			TzharrGame.init(stoner, false);
 			break;
-		case 2114: // Mercenary Tower stairs
+		case 2114:
 			stoner.teleport(new Location(3433, 3537, 1));
 			break;
 		case 2118:
@@ -1791,7 +1783,7 @@ public class WalkToActions {
 		case 5094:
 			stoner.teleport(new Location(2643, 9594, 2));
 			break;
-		case 4309:// Handiness
+		case 4309:
 			for (Item i : stoner.getBox().getItems()) {
 				if (i != null && Spinnable.forId(i.getId()) != null) {
 					Spinnable spinnable = Spinnable.forId(i.getId());
@@ -1830,15 +1822,15 @@ public class WalkToActions {
 		}
 
 		switch (id) {
-		case 8720:// Chill boot
+		case 8720:
 		case 26820:
 		case 26813:
 			stoner.getShopping().open(92);
 			break;
-		case 7134:// Flax
+		case 7134:
 			Flax.pickFlax(stoner, x, y);
 			break;
-		case 9472:// Exchange
+		case 9472:
 		case 9741:
 		case 9371:
 			stoner.start(new ShopExchangeDialogue2(stoner));
@@ -1902,13 +1894,13 @@ public class WalkToActions {
 		break;
 	case 3:
 		switch (id) {
-		case 8720:// Chill booth
+		case 8720:
 		case 26820:
 		case 26813:
 			DialogueManager.sendStatement(stoner, "You have @blu@" + Utility.format(stoner.getChillPoints()) + " </col>chill points.");
 			break;
 		case 9371:
-		case 9472:// Exchange
+		case 9472:
 		case 9741:
 			stoner.getClient().queueOutgoingPacket(new SendInterface(53500));
 			stoner.getClient().queueOutgoingPacket(new SendString("Shops Exchange | @red@0</col> Active Shops", 53505));

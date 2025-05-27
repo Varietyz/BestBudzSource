@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content.minigames.fightcave;
 
-import java.util.ArrayList;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.Task.BreakType;
 import com.bestbudz.core.task.Task.StackType;
@@ -22,6 +20,8 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public final class TzharrGame {
 
@@ -31,7 +31,7 @@ public final class TzharrGame {
 	public static final String FIGHT_CAVE_NPCS_KEY = "fightcavesnpcs";
 	public static final Location[] SPAWN_LOCATIONS = { new Location(2411, 5109), new Location(2413, 5105), new Location(2385, 5106), new Location(2380, 5102), new Location(2380, 5073), new Location(2387, 5071), new Location(2420, 5082), new Location(2416, 5107), new Location(2412, 5111), new Location(2382, 5108), new Location(2378, 5103) };
 
-	public static final void checkForFightCave(Stoner p, Mob mob) {
+	public static void checkForFightCave(Stoner p, Mob mob) {
 	if (p.getController().equals(CONTROLLER)) {
 
 		p.getJadDetails().removeNpc(mob);
@@ -83,13 +83,14 @@ public final class TzharrGame {
 	PetData petDrop = PetData.forItem(4000);
 
 	if (petDrop != null) {
-		if (stoner.getBossPet() == null) {
+		if (stoner.getActivePets().size() < 5) {
 			BossPets.spawnPet(stoner, petDrop.getItem(), true);
-			stoner.send(new SendMessage("You feel a pressence following you; " + Utility.formatStonerName(GameDefinitionLoader.getNpcDefinition(petDrop.getNPC()).getName()) + " starts to follow you."));
+			stoner.send(new SendMessage("You feel a presence following you; " + Utility.formatStonerName(GameDefinitionLoader.getNpcDefinition(petDrop.getNPC()).getName()) + " starts to follow you."));
 		} else {
 			stoner.getBank().depositFromNoting(petDrop.getItem(), 1, 0, false);
-			stoner.send(new SendMessage("You feel a pressence added to your bank."));
+			stoner.send(new SendMessage("You feel a presence added to your bank."));
 		}
+
 	}
 	}
 
@@ -113,7 +114,7 @@ public final class TzharrGame {
 		startNextWave(stoner);
 	}
 
-	public static final void onLeaveGame(Stoner stoner) {
+	public static void onLeaveGame(Stoner stoner) {
 	for (Mob i : stoner.getJadDetails().getMobs()) {
 		if (i != null) {
 			i.remove();
@@ -136,9 +137,7 @@ public final class TzharrGame {
 		public void execute() {
 		final ArrayList<Location> randomizedSpawns = new ArrayList<Location>();
 
-		for (Location i : SPAWN_LOCATIONS) {
-			randomizedSpawns.add(i);
-		}
+			Collections.addAll(randomizedSpawns, SPAWN_LOCATIONS);
 
 		int c;
 		for (short i : TzharrData.values()[p.getJadDetails().getStage()].getNpcs()) {

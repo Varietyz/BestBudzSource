@@ -4,15 +4,15 @@ import com.bestbudz.rs2.entity.item.Item;
 
 public interface Fletchable {
 
-	public int getAnimation();
+  int getAnimation();
 
-	public Item getUse();
+  Item getUse();
 
-	public Item getWith();
+  Item getWith();
 
-	public FletchableItem[] getFletchableItems();
+  FletchableItem[] getFletchableItems();
 
-	public Item[] getIngediants();
+  Item[] getIngediants();
 
-	public String getProductionMessage();
+  String getProductionMessage();
 }

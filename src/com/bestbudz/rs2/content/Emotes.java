@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.core.definitions.ItemDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
@@ -14,79 +11,10 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Emotes {
-
-	public static enum Emote {
-
-		Yes(168, 855, -1),
-		No(169, 856, -1),
-		Bow(164, 858, -1),
-		Angry(167, 864, -1),
-		Think(162, 857, -1),
-		Wave(163, 863, -1),
-		Shrug(52058, 2113, -1),
-		Cheer(171, 862, -1),
-		Beckon(165, 859, -1),
-		Laugh(170, 861, -1),
-		Jump_For_Joy(52054, 2109, -1),
-		Yawn(52056, 2111, -1),
-		Dance(166, 866, -1),
-		Jig(52051, 2106, -1),
-		Twirl(52052, 2107, -1),
-		Headbang(52053, 2108, -1),
-		Cry(161, 860, -1),
-		Blow_Kiss(43092, 1368, 574),
-		Panic(52050, 2105, -1),
-		Rasberry(52055, 2110, -1),
-		Clap(172, 865, -1),
-		Salute(52057, 2112, -1),
-		Goblin_Bow(52071, 2127, -1),
-		Goblin_Salute(52072, 2128, -1),
-		Glass_Box(2155, 1131, -1),
-		Climb_Rope(25103, 1130, -1),
-		Lean(25106, 1129, -1),
-		Glass_Wall(2154, 1128, -1),
-		Idea(88060, 4276, 712),
-		Stomp(88061, 4278, -1),
-		Flap(88062, 4280, -1),
-		Slap_Head(88063, 4275, -1),
-		Zombie_Walk(72032, 3544, -1),
-		Zombie_Dance(72033, 3543, -1),
-		Zombie_Hand(88065, 7272, 1244),
-		Scared(59062, 2836, -1),
-		Bunny_Hop(72254, 6111, -1),
-		Professioncape(154, 1, 1),
-		AIR_GUITAR(88059, 2414, 1537);
-
-		public final int gfxID;
-		public final int animID;
-		public final int buttonID;
-
-		private Emote(int buttonId, int animId, int gfxId) {
-		buttonID = buttonId;
-		animID = animId;
-		gfxID = gfxId;
-		}
-	}
-
-	private static class ProfessionCapeEmote {
-		private final int anim;
-		private final int gfx;
-
-		public ProfessionCapeEmote(int anim, int gfx) {
-		this.anim = anim;
-		this.gfx = gfx;
-		}
-
-		public int getAnim() {
-		return anim;
-		}
-
-		public int getGfx() {
-		return gfx;
-		}
-	}
 
 	private static final Map<Integer, ProfessionCapeEmote> capeEmotes = new HashMap<Integer, ProfessionCapeEmote>();
 
@@ -201,12 +129,82 @@ public class Emotes {
 		AchievementHandler.activateAchievement(stoner, AchievementList.DO_A_PROFESSIONCAPE_EMOTE, 1);
 	} else {
 		stoner.getClient().queueOutgoingPacket(new SendMessage("You must be wearing a professioncape to do this."));
-		return;
 	}
 	}
 
 	public static void onLogin(Stoner p) {
 	for (int i = 744; i <= 760; i++)
 		p.getClient().queueOutgoingPacket(new SendConfig(i, 1));
+	}
+
+	public enum Emote {
+
+		Yes(168, 855, -1),
+		No(169, 856, -1),
+		Bow(164, 858, -1),
+		Angry(167, 864, -1),
+		Think(162, 857, -1),
+		Wave(163, 863, -1),
+		Shrug(52058, 2113, -1),
+		Cheer(171, 862, -1),
+		Beckon(165, 859, -1),
+		Laugh(170, 861, -1),
+		Jump_For_Joy(52054, 2109, -1),
+		Yawn(52056, 2111, -1),
+		Dance(166, 866, -1),
+		Jig(52051, 2106, -1),
+		Twirl(52052, 2107, -1),
+		Headbang(52053, 2108, -1),
+		Cry(161, 860, -1),
+		Blow_Kiss(43092, 1368, 574),
+		Panic(52050, 2105, -1),
+		Rasberry(52055, 2110, -1),
+		Clap(172, 865, -1),
+		Salute(52057, 2112, -1),
+		Goblin_Bow(52071, 2127, -1),
+		Goblin_Salute(52072, 2128, -1),
+		Glass_Box(2155, 1131, -1),
+		Climb_Rope(25103, 1130, -1),
+		Lean(25106, 1129, -1),
+		Glass_Wall(2154, 1128, -1),
+		Idea(88060, 4276, 712),
+		Stomp(88061, 4278, -1),
+		Flap(88062, 4280, -1),
+		Slap_Head(88063, 4275, -1),
+		Zombie_Walk(72032, 3544, -1),
+		Zombie_Dance(72033, 3543, -1),
+		Zombie_Hand(88065, 7272, 1244),
+		Scared(59062, 2836, -1),
+		Bunny_Hop(72254, 6111, -1),
+		Professioncape(154, 1, 1),
+		AIR_GUITAR(88059, 2414, 1537);
+
+		public final int gfxID;
+		public final int animID;
+		public final int buttonID;
+
+		Emote(int buttonId, int animId, int gfxId) {
+		buttonID = buttonId;
+		animID = animId;
+		gfxID = gfxId;
+		}
+	}
+
+	private static class ProfessionCapeEmote {
+		private final int anim;
+		private final int gfx;
+
+		public ProfessionCapeEmote(int anim, int gfx) {
+		this.anim = anim;
+		this.gfx = gfx;
+		}
+
+		public int getAnim() {
+		return anim;
+		}
+
+		public int getGfx() {
+		return gfx;
+		}
 	}
 }

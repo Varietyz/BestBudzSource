@@ -1,16 +1,9 @@
 package com.bestbudz.rs2.content;
 
-import java.util.HashMap;
-
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.util.HashMap;
 
-/**
- * Handles re-charging certain items
- * 
- * @author Jaybane
- *
- */
 public class FountainOfRune {
 
 	private final static int OBJECT_IDENTIFICATION = 26782;

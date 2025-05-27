@@ -1,5 +1,14 @@
 package com.bestbudz.rs2.content.exercisement;
 
+import com.bestbudz.core.cache.map.RSObject;
+import com.bestbudz.rs2.content.exercisement.obstacle.Obstacle;
+import com.bestbudz.rs2.content.exercisement.obstacle.ObstacleType;
+import com.bestbudz.rs2.entity.Location;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,15 +16,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-import com.bestbudz.core.cache.map.RSObject;
-import com.bestbudz.rs2.content.exercisement.obstacle.Obstacle;
-import com.bestbudz.rs2.content.exercisement.obstacle.ObstacleType;
-import com.bestbudz.rs2.entity.Location;
-import com.bestbudz.rs2.entity.stoner.Stoner;
 public enum Exercisement {
 
 	SINGLETON;

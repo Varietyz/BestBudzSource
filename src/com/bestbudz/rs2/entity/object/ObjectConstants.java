@@ -1,9 +1,8 @@
 package com.bestbudz.rs2.entity.object;
 
+import com.bestbudz.core.cache.map.ObjectDef;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.bestbudz.core.cache.map.ObjectDef;
 
 public class ObjectConstants {
 

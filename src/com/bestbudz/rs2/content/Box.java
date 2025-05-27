@@ -1,14 +1,13 @@
 package com.bestbudz.rs2.content;
 
-import java.util.Arrays;
-import java.util.Objects;
-
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemContainer;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBox;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Box extends ItemContainer {
 
@@ -87,13 +86,6 @@ public class Box extends ItemContainer {
 	stoner.getClient().queueOutgoingPacket(new SendBox(getItems()));
 	}
 
-	/**
-	 * Performs a check on all items in this container to see if they match the
-	 * argued Object. Rather than using <code>equals</code> to check if the elements
-	 * match, it checks whether the Object is an item and if so compares the ID and
-	 * quantity. This method will throw a {@link NullPointerException} if the argued
-	 * Object has a value of <code>null</code>.
-	 */
 	public boolean contains(Object o) {
 	if (!(o instanceof Item))
 		return false;
@@ -101,13 +93,6 @@ public class Box extends ItemContainer {
 	return Arrays.stream(items).filter(Objects::nonNull).anyMatch(i -> i.getId() == item.getId() && totalAmount(item.getId()) >= item.getAmount());
 	}
 
-	/**
-	 * Gets the total amount of items with the argued item ID.
-	 * 
-	 * @param itemId
-	 *                   the item ID to get the total amount of.
-	 * @return the total amount of items with the argued item ID.
-	 */
 	public int totalAmount(int itemId) {
 	return Arrays.stream(items).filter(item -> item != null && item.getId() == itemId).mapToInt(item -> item.getAmount()).sum();
 	}

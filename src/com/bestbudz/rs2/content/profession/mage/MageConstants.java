@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.mage;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.core.definitions.CombatSpellDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.entity.Animation;
@@ -10,30 +7,10 @@ import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MageConstants {
-
-	public static enum SpellType {
-		NONE,
-		EARTH,
-		WATER,
-		WIND,
-		FIRE;
-	}
-
-	public static enum Teleports {
-		HOME(new Location(StonerConstants.HOME));
-
-		private final Location location;
-
-		private Teleports(Location location) {
-		this.location = location;
-		}
-
-		public Location getLocation() {
-		return location;
-		}
-	}
 
 	public static final int SET_AUTOCAST_BUTTON_ID = 1093;
 	public static final int HOME_TELEPORT_BUTTON = 4171;
@@ -61,33 +38,18 @@ public class MageConstants {
 	public static final int ICE_BLITZ_FREEZE_TIME = 15;
 	public static final int ICE_BARRAGE_SPELL_ID = 12891;
 	public static final int ICE_BARRAGE_FREEZE_TIME = 20;
-
-	/** Modern teleporting */
 	public static final Animation MODERN_TELEPORT_ANIMATION = new Animation(714, 0);
-
 	public static final Graphic MODERN_TELEPORT_GRAPHIC = Graphic.lowGraphic(308, 0);
-
 	public static final Graphic MODERN_TELEPORT_END_GRAPHIC = Graphic.lowGraphic(308, 0);
-
 	public static final Animation MODERN_TELEPORT_END_ANIMATION = new Animation(715, 0);
-
-	/** Ancient teleporting */
 	public static final Animation ANCIENT_TELEPORT_ANIMATION = new Animation(1979, 0);
-
 	public static final Graphic ANCIENT_TELEPORT_GRAPHIC = Graphic.lowGraphic(392, 0);
-
 	public static final Animation ANCIENT_TELEPORT_END_ANIMATION = new Animation(65535, 0);
-
 	public static final Graphic ANCIENT_TELEPORT_END_GRAPHIC = Graphic.lowGraphic(-1, 0);
-
-	/** Teleporting tab teleporting */
 	public static final Animation TABLET_BREAK_ANIMATION = new Animation(4069, 0);
 	public static final Animation TABLET_TELEPORT_ANIMATION = new Animation(4731, 0);
-
 	public static final Graphic TABLET_TELEPORT_GRAPHIC = Graphic.lowGraphic(678, 0);
-
 	public static final Animation TABLET_TELEPORT_END_ANIMATION = new Animation(65535, 0);
-
 	private static final Map<Integer, SpellType> spellTypes = new HashMap<Integer, SpellType>();
 
 	public static void declare() {
@@ -135,5 +97,27 @@ public class MageConstants {
 		return "Ancient";
 	}
 	return "Modern";
+	}
+
+	public enum SpellType {
+		NONE,
+		EARTH,
+		WATER,
+		WIND,
+		FIRE
+	}
+
+	public enum Teleports {
+		HOME(new Location(StonerConstants.HOME));
+
+		private final Location location;
+
+		Teleports(Location location) {
+		this.location = location;
+		}
+
+		public Location getLocation() {
+		return location;
+		}
 	}
 }

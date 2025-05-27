@@ -1,5 +1,6 @@
 package com.bestbudz.core.util;
 
+import com.bestbudz.rs2.content.gambling.Gambling;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,25 +8,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.logging.Logger;
 
-import com.bestbudz.rs2.content.gambling.Gambling;
-
 public class FileHandler {
 
-	/**
-	 * The logger for printing information.
-	 */
-	private static Logger logger = Logger.getLogger(FileHandler.class.getSimpleName());
+	private static final Logger logger = Logger.getLogger(FileHandler.class.getSimpleName());
 
-	/**
-	 * Loads all the saves
-	 */
 	public static void load() {
 	loadGambling();
 	}
 
-	/**
-	 * Saves the gambling details
-	 */
 	public static void saveGambling() {
 	try {
 		File file = new File("./data/saves/GAMBLING.txt");
@@ -37,9 +27,6 @@ public class FileHandler {
 	}
 	}
 
-	/**
-	 * Loads the gambling details
-	 */
 	public static void loadGambling() {
 	try {
 		File file = new File("./data/saves/GAMBLING.txt");

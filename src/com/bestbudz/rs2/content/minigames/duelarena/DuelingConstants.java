@@ -1,13 +1,12 @@
 package com.bestbudz.rs2.content.minigames.duelarena;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.core.definitions.WeaponDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DuelingConstants {
 	public static final int DUEL_SCREEN_1 = 6575;
@@ -51,10 +50,8 @@ public class DuelingConstants {
 	public static final int[] BEFORE_THE_DUEL_STRING_IDS = { 8250, 8238, 8239, 8240, 8241 };
 
 	public static final int[] DURING_THE_DUEL_STRING_IDS = { 8242, 8243, 8244, 8245, 8246, 8247, 8248, 8249, 8251, 8252, 8253 };
-
-	private static final Map<Integer, Boolean> funWeapons = new HashMap<Integer, Boolean>();
-
 	public static final String[] FUN_WEAPON_NAMES = { "flowers", "rubber chicken", "easter carrot", "mouse toy", "scythe" };
+	private static final Map<Integer, Boolean> funWeapons = new HashMap<Integer, Boolean>();
 
 	public static final boolean clickDuelButton(Stoner p, int id) {
 	switch (id) {
@@ -242,13 +239,9 @@ public class DuelingConstants {
 
 	String s = "";
 
-	boolean altParse = false;
+	boolean altParse = count > 14;
 
-	if (count > 14) {
-		altParse = true;
-	}
-
-	for (int i = 0; i < staked.length; i++) {
+		for (int i = 0; i < staked.length; i++) {
 		if (staked[i] == null) {
 			break;
 		}

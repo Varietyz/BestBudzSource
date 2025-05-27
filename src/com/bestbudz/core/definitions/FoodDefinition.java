@@ -2,34 +2,34 @@ package com.bestbudz.core.definitions;
 
 public class FoodDefinition {
 
-	private short id;
-	private String name;
-	private byte heal;
-	private byte delay;
-	private short replaceId;
-	private String message;
+  private short id;
+  private String name;
+  private byte heal;
+  private byte delay;
+  private short replaceId;
+  private String message;
 
-	public int getDelay() {
-		return delay;
-	}
+  public int getDelay() {
+    return delay;
+  }
 
-	public int getHeal() {
-		return heal;
-	}
+  public int getHeal() {
+    return heal;
+  }
 
-	public int getId() {
-		return id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public String getMessage() {
-		return message;
-	}
+  public String getMessage() {
+    return message;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public int getReplaceId() {
-		return replaceId;
-	}
+  public int getReplaceId() {
+    return replaceId;
+  }
 }

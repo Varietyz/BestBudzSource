@@ -1,81 +1,34 @@
 package com.bestbudz.rs2.entity;
 
-/**
- * Represents a single animation
- * 
- * @author Jaybane 
- * 
- */
 public final class Animation {
 
-	/**
-	 * The id of the animation
-	 */
-	private short id;
+  private short id;
 
-	/**
-	 * The delay to perform the animation
-	 */
-	private byte delay;
+  private byte delay;
 
-	/**
-	 * Constructs a new animation with an id and no delay
-	 * 
-	 * @param id
-	 */
-	public Animation(int id) {
-		this.id = ((short) id);
-		delay = 0;
-	}
+  public Animation(int id) {
+    this.id = ((short) id);
+    delay = 0;
+  }
 
-	/**
-	 * Constructs a new animation with an id and a delay
-	 * 
-	 * @param id
-	 *            The id of the animation
-	 * @param delay
-	 *            The delay of the animation
-	 */
-	public Animation(int id, int delay) {
-		this.id = ((short) id);
-		this.delay = ((byte) delay);
-	}
+  public Animation(int id, int delay) {
+    this.id = ((short) id);
+    this.delay = ((byte) delay);
+  }
 
-	/**
-	 * Gets the delay of the animation
-	 * 
-	 * @return
-	 */
-	public int getDelay() {
-		return delay;
-	}
+  public int getDelay() {
+    return delay;
+  }
 
-	/**
-	 * Gets the id of the animation
-	 * 
-	 * @return
-	 */
-	public int getId() {
-		return id;
-	}
+  public void setDelay(int delay) {
+    this.delay = ((byte) delay);
+  }
 
-	/**
-	 * Sets the delay of the animation
-	 * 
-	 * @param delay
-	 *            The delay of the animation
-	 */
-	public void setDelay(int delay) {
-		this.delay = ((byte) delay);
-	}
+  public int getId() {
+    return id;
+  }
 
-	/**
-	 * Sets the id of the animation
-	 * 
-	 * @param id
-	 *            The id of the animation
-	 */
-	public void setId(int id) {
-		this.id = ((short) id);
-	}
+  public void setId(int id) {
+    this.id = ((short) id);
+  }
 }

@@ -1,9 +1,6 @@
 package com.bestbudz.rs2.entity.item;
 
-import java.math.BigInteger;
-
 import com.bestbudz.core.definitions.WeaponDefinition;
-//import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.EasterRing;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.content.combat.impl.Assault;
@@ -22,28 +19,20 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendEquipment;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSidebarInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.math.BigInteger;
 
 public class Equipment {
 
-	public static enum AssaultStyles {
-		ACCURATE,
-		AGGRESSIVE,
-		CONTROLLED,
-		DEFENSIVE;
+	private final Item[] items = new Item[14];
+	private final Stoner stoner;
+	private AssaultStyles assaultStyle = AssaultStyles.ACCURATE;
+
+	public Equipment(Stoner stoner) {
+	this.stoner = stoner;
 	}
 
 	public static boolean ignoreShieldEmote(int id) {
 	return id == 3842 || id == 3844 || id == 3840 || id == 6889;
-	}
-
-	private final Item[] items = new Item[14];
-
-	private AssaultStyles assaultStyle = AssaultStyles.ACCURATE;
-
-	private final Stoner stoner;
-
-	public Equipment(Stoner stoner) {
-	this.stoner = stoner;
 	}
 
 	public void addOnLogin(Item item, int slot) {
@@ -77,40 +66,7 @@ public class Equipment {
 		return false;
 	}
 
-	// byte[][] requirements = item.getItemRequirements();
-
-	// if (requirements != null) {
-
-	// for (byte[] requirement : requirements) {
-	// if (stoner.getMaxGrades()[requirement[0]] < requirement[1]) {
-	// String name =
-	// com.bestbudz.rs2.content.profession.Professions.PROFESSION_NAMES[requirement[0]];
-	// stoner.getClient().queueOutgoingPacket(new SendMessage("You need " +
-	// Utility.getAOrAn(name) + " " + name + " grade of " + requirement[1] + " to
-	// equip this."));
-	// return false;
-	// }
-	// }
-	// }
-
-	// if (slot == 3) {
-	// boolean twoHanded = item.getWeaponDefinition() != null ?
-	// item.getWeaponDefinition().isTwoHanded() : false;
-
-	// if ((items[5] != null) && (items[3] != null) && (twoHanded) &&
-	// (stoner.getBox().getFreeSlots() < 1)) {
-	// stoner.getClient().queueOutgoingPacket(new SendMessage("You do not have
-	// enough box space to equip that."));
-	// return false;
-	// }
-
-	// }
-
-	if ((item.getId() == 773) && (item.getId() == 774) && (!StonerConstants.isStaff(stoner))) {
-		return false;
-	}
-
-	return true;
+		return (item.getId() != 773) || (item.getId() != 774) || (StonerConstants.isStaff(stoner));
 	}
 
 	public void clear() {
@@ -188,7 +144,7 @@ public class Equipment {
 	}
 
 	if (slot == 3) {
-		boolean twoHanded = item.getWeaponDefinition() != null ? item.getWeaponDefinition().isTwoHanded() : false;
+		boolean twoHanded = item.getWeaponDefinition() != null && item.getWeaponDefinition().isTwoHanded();
 
 		if ((twoHanded) && (items[5] != null)) {
 			stoner.getBox().add(items[5]);
@@ -197,7 +153,7 @@ public class Equipment {
 		}
 	} else if (slot == 5) {
 		if (items[3] != null) {
-			boolean twoHanded = items[3].getWeaponDefinition() != null ? items[3].getWeaponDefinition().isTwoHanded() : false;
+			boolean twoHanded = items[3].getWeaponDefinition() != null && items[3].getWeaponDefinition().isTwoHanded();
 
 			if (twoHanded) {
 				stoner.getBox().add(items[3]);
@@ -242,7 +198,11 @@ public class Equipment {
 	return assaultStyle;
 	}
 
-	public int getEffectedDamage(int hit) {
+	public void setAssaultStyle(AssaultStyles assaultStyle) {
+	this.assaultStyle = assaultStyle;
+	}
+
+	public long getEffectedDamage(long hit) {
 	Item shield = items[5];
 
 	if ((shield != null) && (stoner.getGrades()[5] > 0) && ((shield.getId() == 12825) || (shield.getId() == 13740) || (shield.getId() == 13742))) {
@@ -326,10 +286,6 @@ public class Equipment {
 	for (int i = 0; i < 14; i++) {
 		items[i] = null;
 	}
-	}
-
-	public void setAssaultStyle(AssaultStyles assaultStyle) {
-	this.assaultStyle = assaultStyle;
 	}
 
 	public boolean slotHasItem(int slot) {
@@ -548,7 +504,7 @@ public class Equipment {
 	}
 
 	public void updateSagittariusDataForCombat() {
-	int hitDelay = 3;
+	int hitDelay = 2;
 
 	Projectile proj = SagittariusConstants.getProjectile(stoner);
 	int assaultAnimation;
@@ -561,11 +517,11 @@ public class Equipment {
 			proj.setCurve(0);
 			proj.setStartHeight(40);
 			proj.setEndHeight(40);
-			proj.setDuration(55);
+			proj.setDuration(30);
 		}
 	} else {
 		assaultAnimation = Item.getWeaponDefinition(0).getAssaultAnimations()[assaultStyle.ordinal()];
-		assaultSpeed = 5;
+		assaultSpeed = 2;
 	}
 
 	stoner.getCombat().getSagittarius().setProjectileOffset(0);
@@ -574,9 +530,9 @@ public class Equipment {
 		Entity assaulting = stoner.getCombat().getAssaulting();
 		if (assaulting != null) {
 			if (assaulting.isNpc()) {
-				assaultSpeed = 2;
+				assaultSpeed = 1;
 			} else {
-				assaultSpeed = 4;
+				assaultSpeed = 2;
 			}
 		}
 		stoner.getCombat().getSagittarius().setAssault(new Assault(hitDelay, assaultSpeed), new Animation(assaultAnimation, 0), new Graphic(65535), null, proj);
@@ -600,12 +556,6 @@ public class Equipment {
 	stoner.getClient().queueOutgoingPacket(new SendString((weapon != null) && (weapon.getDefinition() != null) ? weapon.getDefinition().getName() : "Unarmed", textId));
 	}
 
-	/**
-	 * Method for calculating stoner's carried wealth
-	 * 
-	 * @param container
-	 * @return
-	 */
 	public BigInteger getContainerNet() {
 	BigInteger toReturn = BigInteger.ZERO;
 	for (Item item : items) {
@@ -615,6 +565,13 @@ public class Equipment {
 		toReturn = toReturn.add(new BigInteger(String.valueOf(item.getDefinition().getGeneralPrice())).multiply(new BigInteger(String.valueOf(item.getAmount()))));
 	}
 	return toReturn;
+	}
+
+	public enum AssaultStyles {
+		ACCURATE,
+		AGGRESSIVE,
+		CONTROLLED,
+		DEFENSIVE
 	}
 
 }

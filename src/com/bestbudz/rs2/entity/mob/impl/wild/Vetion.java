@@ -15,44 +15,15 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Handles the Vet'ion boss
- * 
- * @author Jaybane
- *
- */
 public class Vetion extends Mob {
 
-	/**
-	 * Vet'ion
-	 */
+	private Mob pet1, pet2;
+	private boolean spawnPets = true;
+	private boolean secondTrans = false;
 	public Vetion() {
 	super(6611, true, new Location(3214, 3793, 0));
 	}
 
-	/**
-	 * Vet'ion's pets
-	 */
-	private Mob pet1, pet2;
-	private boolean spawnPets = true;
-	private boolean secondTrans = false;
-
-	/**
-	 * Handles Vet'ion hitting
-	 */
-	@Override
-	public void onHit(Entity entity, Hit hit) {
-	if (entity != null && !entity.isNpc()) {
-		int random = Utility.random(10);
-		if (random == 1) {
-			earthquake();
-		}
-	}
-	}
-
-	/**
-	 * Handles assaulting entity's hit
-	 */
 	@Override
 	public void hit(Hit hit) {
 	if (isDead()) {
@@ -86,9 +57,24 @@ public class Vetion extends Mob {
 	}
 	}
 
-	/**
-	 * Updates Vet'ion's combat type
-	 */
+	@Override
+	public void onDeath() {
+	transform(6611);
+	spawnPets = true;
+	secondTrans = false;
+	pet1 = pet2 = null;
+	}
+
+	@Override
+	public void onHit(Entity entity, Hit hit) {
+	if (entity != null && !entity.isNpc()) {
+		int random = Utility.random(10);
+		if (random == 1) {
+			earthquake();
+		}
+	}
+	}
+
 	@Override
 	public void updateCombatType() {
 	if (getCombat().getAssaulting() != null) {
@@ -103,9 +89,6 @@ public class Vetion extends Mob {
 	}
 	}
 
-	/**
-	 * Handles Vet'ion's reborn effect
-	 */
 	private void doReborn() {
 	transform(6612);
 	getGrades()[3] = 255;
@@ -115,11 +98,6 @@ public class Vetion extends Mob {
 	pet1 = pet2 = null;
 	}
 
-	/**
-	 * Handles Vet'ion's lighting effects
-	 * 
-	 * @param stoner
-	 */
 	private void castLightning(Stoner stoner) {
 	for (int i = 0; i < 3; i++) {
 		int offsetX = stoner.getX() - getX();
@@ -148,9 +126,6 @@ public class Vetion extends Mob {
 	}
 	}
 
-	/**
-	 * Handles Vet'ion's earthquake effect
-	 */
 	private void earthquake() {
 	getUpdateFlags().sendAnimation(new Animation(5507));
 	for (Stoner stoner : World.getStoners()) {
@@ -165,11 +140,6 @@ public class Vetion extends Mob {
 	}
 	}
 
-	/**
-	 * Handles spawning Vet'ion's pets
-	 * 
-	 * @param npcID
-	 */
 	private void spawnPets(int npcID) {
 	setTakeDamage(false);
 	pet1 = new Mob(null, npcID, true, false, new Location(getX(), getY() - 2, getZ()));
@@ -183,13 +153,5 @@ public class Vetion extends Mob {
 			pet2.getCombat().setAssault(getCombat().getAssaulting() == null ? getCombat().getLastAssaultedBy() : getCombat().getAssaulting());
 		}
 	}
-	}
-
-	@Override
-	public void onDeath() {
-	transform(6611);
-	spawnPets = true;
-	secondTrans = false;
-	pet1 = pet2 = null;
 	}
 }

@@ -1,14 +1,13 @@
 package com.bestbudz.rs2.content.io;
 
+import com.bestbudz.rs2.entity.item.Item;
+import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import com.bestbudz.rs2.entity.item.Item;
-import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class StonerSaveUtil {
 	public static final String IP_MUTE_FILE = "./data/logs/ip mutes.txt";
@@ -85,7 +84,7 @@ public class StonerSaveUtil {
 
 		String line = reader.readLine();
 
-		int amount = Integer.parseInt(line.substring(line.indexOf(":") + 1, line.length()));
+		int amount = Integer.parseInt(line.substring(line.indexOf(":") + 1));
 
 		reader.close();
 

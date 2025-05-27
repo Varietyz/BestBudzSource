@@ -19,28 +19,28 @@
 		<barId2>7561</barId2>
 		<button>29124</button>
 		<amount>5.5</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 	<SpecialAssaultDefinition>
 		<id>12766</id>
 		<barId1>7549</barId1>
 		<barId2>7561</barId2>
 		<button>29124</button>
 		<amount>5.5</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 	<SpecialAssaultDefinition>
 		<id>12767</id>
 		<barId1>7549</barId1>
 		<barId2>7561</barId2>
 		<button>29124</button>
 		<amount>5.5</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 	<SpecialAssaultDefinition>
 		<id>12768</id>
 		<barId1>7549</barId1>
 		<barId2>7561</barId2>
 		<button>29124</button>
 		<amount>5.5</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 	<SpecialAssaultDefinition>
 		<id>20074</id>
 		<barId1>7574</barId1>
@@ -82,7 +82,7 @@
 		<barId2>7586</barId2>
 		<button>29138</button>
 		<amount>5.0</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 	<SpecialAssaultDefinition>
 		<id>11804</id>
 		<barId1>7574</barId1>
@@ -117,7 +117,7 @@
 		<barId2>12335</barId2>
 		<button>48034</button>
 		<amount>5.0</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 	<SpecialAssaultDefinition>
 		<id>4178</id>
 		<barId1>12323</barId1>
@@ -299,21 +299,21 @@
 		<barId2>7561</barId2>
 		<button>29124</button>
 		<amount>5</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 	<SpecialAssaultDefinition>
 		<id>11785</id>
 		<barId1>7549</barId1>
 		<barId2>7561</barId2>
 		<button>29124</button>
 		<amount>4</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 	<SpecialAssaultDefinition>
 		<id>12926</id>
 		<barId1>7549</barId1>
 		<barId2>7561</barId2>
 		<button>29124</button>
 		<amount>5</amount>
-	</SpecialAssaultDefinition>	
+	</SpecialAssaultDefinition>
 		<SpecialAssaultDefinition>
 		<id>6724</id>
 		<barId1>7549</barId1>

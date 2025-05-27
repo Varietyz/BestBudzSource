@@ -6,7 +6,7 @@
 		<heal>3</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Shrimps.</message>
+		<message>Stuffed your mouth with Shrimps.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>1963</id>
@@ -14,7 +14,7 @@
 		<heal>2</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Banana.</message>
+		<message>Stuffed your mouth with Banana.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>6883</id>
@@ -22,15 +22,15 @@
 		<heal>8</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Peach.</message>
-	</FoodDefinition>	
+		<message>Stuffed your mouth with Peach.</message>
+	</FoodDefinition>
 	<FoodDefinition>
 		<id>3144</id>
 		<name>Cooked Karambwan</name>
 		<heal>18</heal>
 		<delay>0</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Cooked Karambwan.</message>
+		<message>Stuffed your mouth with Cooked Karambwan.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>3146</id>
@@ -38,7 +38,7 @@
 		<heal>-5</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Poisoned Karambwan; you feel like shit.</message>
+		<message>Stuffed your mouth with Poisoned Karambwan; you feel like shit.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>712</id>
@@ -54,7 +54,7 @@
 		<heal>1</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Anchovies.</message>
+		<message>Stuffed your mouth with Anchovies.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>325</id>
@@ -62,7 +62,7 @@
 		<heal>4</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Sardine.</message>
+		<message>Stuffed your mouth with Sardine.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>329</id>
@@ -70,7 +70,7 @@
 		<heal>9</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Salmon.</message>
+		<message>Stuffed your mouth with Salmon.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>333</id>
@@ -78,7 +78,7 @@
 		<heal>7</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Trout.</message>
+		<message>Stuffed your mouth with Trout.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>339</id>
@@ -86,7 +86,7 @@
 		<heal>7</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Cod.</message>
+		<message>Stuffed your mouth with Cod.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>347</id>
@@ -94,7 +94,7 @@
 		<heal>5</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Herring.</message>
+		<message>Stuffed your mouth with Herring.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>351</id>
@@ -102,7 +102,7 @@
 		<heal>8</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Pike.</message>
+		<message>Stuffed your mouth with Pike.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>355</id>
@@ -110,7 +110,7 @@
 		<heal>6</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Mackerel.</message>
+		<message>Stuffed your mouth with Mackerel.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>361</id>
@@ -118,7 +118,7 @@
 		<heal>10</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Tuna.</message>
+		<message>Stuffed your mouth with Tuna.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>365</id>
@@ -126,7 +126,7 @@
 		<heal>13</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Bass.</message>
+		<message>Stuffed your mouth with Bass.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>373</id>
@@ -134,7 +134,7 @@
 		<heal>14</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Swordfish.</message>
+		<message>Stuffed your mouth with Swordfish.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>379</id>
@@ -142,7 +142,7 @@
 		<heal>12</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Lobster.</message>
+		<message>Stuffed your mouth with Lobster.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>385</id>
@@ -150,7 +150,7 @@
 		<heal>20</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Shark.</message>
+		<message>Stuffed your mouth with Shark.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>391</id>
@@ -158,7 +158,7 @@
 		<heal>22</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Manta ray.</message>
+		<message>Stuffed your mouth with Manta ray.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>397</id>
@@ -166,7 +166,7 @@
 		<heal>21</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Sea turtle.</message>
+		<message>Stuffed your mouth with Sea turtle.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>1891</id>
@@ -174,7 +174,7 @@
 		<heal>4</heal>
 		<delay>3</delay>
 		<replaceId>1893</replaceId>
-		<message>You eat the Cake.</message>
+		<message>Stuffed your mouth with Cake.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>1893</id>
@@ -182,7 +182,7 @@
 		<heal>4</heal>
 		<delay>3</delay>
 		<replaceId>1895</replaceId>
-		<message>You eat the 2/3 cake.</message>
+		<message>Stuffed your mouth with 2/3 cake.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>1895</id>
@@ -190,7 +190,7 @@
 		<heal>4</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Slice of cake.</message>
+		<message>Stuffed your mouth with Slice of cake.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>1897</id>
@@ -198,7 +198,7 @@
 		<heal>4</heal>
 		<delay>3</delay>
 		<replaceId>1899</replaceId>
-		<message>You eat the Chocolate cake.</message>
+		<message>Stuffed your mouth with Chocolate cake.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>1899</id>
@@ -206,7 +206,7 @@
 		<heal>4</heal>
 		<delay>3</delay>
 		<replaceId>1901</replaceId>
-		<message>You eat the 2/3 chocolate cake.</message>
+		<message>Stuffed your mouth with 2/3 chocolate cake.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>1901</id>
@@ -214,7 +214,7 @@
 		<heal>4</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Chocolate slice.</message>
+		<message>Stuffed your mouth with Chocolate slice.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2140</id>
@@ -222,7 +222,7 @@
 		<heal>3</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Cooked chicken.</message>
+		<message>Stuffed your mouth with Cooked chicken.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2142</id>
@@ -230,7 +230,7 @@
 		<heal>3</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Cooked meat.</message>
+		<message>Stuffed your mouth with Cooked meat.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2289</id>
@@ -238,7 +238,7 @@
 		<heal>7</heal>
 		<delay>3</delay>
 		<replaceId>2291</replaceId>
-		<message>You eat the Plain pizza.</message>
+		<message>Stuffed your mouth with Plain pizza.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2291</id>
@@ -246,7 +246,7 @@
 		<heal>7</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the 1/2 plain pizza.</message>
+		<message>Stuffed your mouth with 1/2 plain pizza.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2293</id>
@@ -254,7 +254,7 @@
 		<heal>8</heal>
 		<delay>3</delay>
 		<replaceId>2295</replaceId>
-		<message>You eat the Meat pizza.</message>
+		<message>Stuffed your mouth with Meat pizza.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2295</id>
@@ -262,7 +262,7 @@
 		<heal>8</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the 1/2 meat pizza.</message>
+		<message>Stuffed your mouth with 1/2 meat pizza.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2297</id>
@@ -270,7 +270,7 @@
 		<heal>9</heal>
 		<delay>3</delay>
 		<replaceId>2299</replaceId>
-		<message>You eat the Anchovy pizza.</message>
+		<message>Stuffed your mouth with Anchovy pizza.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2299</id>
@@ -278,7 +278,7 @@
 		<heal>9</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the 1/2 anchovy pizza.</message>
+		<message>Stuffed your mouth with 1/2 anchovy pizza.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2301</id>
@@ -286,7 +286,7 @@
 		<heal>11</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Pineapple pizza.</message>
+		<message>Stuffed your mouth with Pineapple pizza.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2309</id>
@@ -294,7 +294,7 @@
 		<heal>5</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Bread.</message>
+		<message>Stuffed your mouth with Bread.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2323</id>
@@ -302,7 +302,7 @@
 		<heal>7</heal>
 		<delay>1</delay>
 		<replaceId>2335</replaceId>
-		<message>You eat the Apple pie.</message>
+		<message>Stuffed your mouth with Apple pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2325</id>
@@ -310,7 +310,7 @@
 		<heal>5</heal>
 		<delay>1</delay>
 		<replaceId>2333</replaceId>
-		<message>You eat the Redberry pie.</message>
+		<message>Stuffed your mouth with Redberry pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2327</id>
@@ -318,7 +318,7 @@
 		<heal>6</heal>
 		<delay>1</delay>
 		<replaceId>2331</replaceId>
-		<message>You eat the Meat pie.</message>
+		<message>Stuffed your mouth with Meat pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2331</id>
@@ -326,7 +326,7 @@
 		<heal>6</heal>
 		<delay>1</delay>
 		<replaceId>2313</replaceId>
-		<message>You eat the Half a meat pie.</message>
+		<message>Stuffed your mouth with Half a meat pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2333</id>
@@ -334,7 +334,7 @@
 		<heal>5</heal>
 		<delay>1</delay>
 		<replaceId>2313</replaceId>
-		<message>You eat the Half a redberry pie.</message>
+		<message>Stuffed your mouth with Half a redberry pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>2335</id>
@@ -342,7 +342,7 @@
 		<heal>7</heal>
 		<delay>1</delay>
 		<replaceId>2313</replaceId>
-		<message>You eat the Half an apple pie.</message>
+		<message>Stuffed your mouth with Half an apple pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>4291</id>
@@ -350,7 +350,7 @@
 		<heal>3</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Cooked chicken.</message>
+		<message>Stuffed your mouth with Cooked chicken.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>4293</id>
@@ -358,7 +358,7 @@
 		<heal>3</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Cooked meat.</message>
+		<message>Stuffed your mouth with Cooked meat.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>4561</id>
@@ -374,7 +374,7 @@
 		<heal>4</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Baked potato.</message>
+		<message>Stuffed your mouth with Baked potato.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>6703</id>
@@ -382,7 +382,7 @@
 		<heal>14</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Potato with butter.</message>
+		<message>Stuffed your mouth with Potato with butter.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>6705</id>
@@ -390,7 +390,7 @@
 		<heal>16</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Potato with cheese.</message>
+		<message>Stuffed your mouth with Potato with cheese.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>6969</id>
@@ -398,7 +398,7 @@
 		<heal>20</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Shark.</message>
+		<message>Stuffed your mouth with Shark.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7054</id>
@@ -406,7 +406,7 @@
 		<heal>14</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Chilli potato.</message>
+		<message>Stuffed your mouth with Chilli potato.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7056</id>
@@ -414,7 +414,7 @@
 		<heal>16</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Egg potato.</message>
+		<message>Stuffed your mouth with Egg potato.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7060</id>
@@ -422,7 +422,7 @@
 		<heal>22</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Tuna potato.</message>
+		<message>Stuffed your mouth with Tuna potato.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7062</id>
@@ -430,7 +430,7 @@
 		<heal>5</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Chilli con carne.</message>
+		<message>Stuffed your mouth with Chilli con carne.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7064</id>
@@ -438,7 +438,7 @@
 		<heal>5</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Egg and tomato.</message>
+		<message>Stuffed your mouth with Egg and tomato.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7068</id>
@@ -446,7 +446,7 @@
 		<heal>13</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Tuna and corn.</message>
+		<message>Stuffed your mouth with Tuna and corn.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7072</id>
@@ -454,7 +454,7 @@
 		<heal>2</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Spicy sauce.</message>
+		<message>Stuffed your mouth with Spicy sauce.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7078</id>
@@ -462,7 +462,7 @@
 		<heal>5</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Scrambled egg.</message>
+		<message>Stuffed your mouth with Scrambled egg.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7082</id>
@@ -470,7 +470,7 @@
 		<heal>5</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Fried mushrooms.</message>
+		<message>Stuffed your mouth with Fried mushrooms.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7084</id>
@@ -478,7 +478,7 @@
 		<heal>5</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Fried onions.</message>
+		<message>Stuffed your mouth with Fried onions.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7178</id>
@@ -486,7 +486,7 @@
 		<heal>6</heal>
 		<delay>1</delay>
 		<replaceId>7180</replaceId>
-		<message>You eat the Garden pie.</message>
+		<message>Stuffed your mouth with Garden pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7180</id>
@@ -494,7 +494,7 @@
 		<heal>6</heal>
 		<delay>1</delay>
 		<replaceId>2313</replaceId>
-		<message>You eat the Half a garden pie.</message>
+		<message>Stuffed your mouth with Half a garden pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7188</id>
@@ -502,7 +502,7 @@
 		<heal>6</heal>
 		<delay>1</delay>
 		<replaceId>7190</replaceId>
-		<message>You eat the Fish pie.</message>
+		<message>Stuffed your mouth with Fish pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7190</id>
@@ -510,7 +510,7 @@
 		<heal>6</heal>
 		<delay>1</delay>
 		<replaceId>2313</replaceId>
-		<message>You eat the Half a fish pie.</message>
+		<message>Stuffed your mouth with Half a fish pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7198</id>
@@ -518,7 +518,7 @@
 		<heal>6</heal>
 		<delay>1</delay>
 		<replaceId>7200</replaceId>
-		<message>You eat the Admiral pie.</message>
+		<message>Stuffed your mouth with Admiral pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7200</id>
@@ -526,7 +526,7 @@
 		<heal>6</heal>
 		<delay>1</delay>
 		<replaceId>2313</replaceId>
-		<message>You eat the Half an admiral pie.</message>
+		<message>Stuffed your mouth with Half an admiral pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7208</id>
@@ -534,7 +534,7 @@
 		<heal>11</heal>
 		<delay>1</delay>
 		<replaceId>7210</replaceId>
-		<message>You eat the Wild pie.</message>
+		<message>Stuffed your mouth with Wild pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7210</id>
@@ -542,7 +542,7 @@
 		<heal>11</heal>
 		<delay>1</delay>
 		<replaceId>2313</replaceId>
-		<message>You eat the Half a wild pie.</message>
+		<message>Stuffed your mouth with Half a wild pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7218</id>
@@ -550,7 +550,7 @@
 		<heal>11</heal>
 		<delay>1</delay>
 		<replaceId>7220</replaceId>
-		<message>You eat the Summer pie.</message>
+		<message>Stuffed your mouth with Summer pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7220</id>
@@ -558,7 +558,7 @@
 		<heal>11</heal>
 		<delay>1</delay>
 		<replaceId>2313</replaceId>
-		<message>You eat the Half a summer pie.</message>
+		<message>Stuffed your mouth with Half a summer pie.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>7946</id>
@@ -566,7 +566,7 @@
 		<heal>16</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Monkfish.</message>
+		<message>Stuffed your mouth with Monkfish.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>10476</id>
@@ -582,7 +582,7 @@
 		<heal>2</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Crayfish.</message>
+		<message>Stuffed your mouth with Crayfish.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>14825</id>
@@ -590,7 +590,7 @@
 		<heal>16</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Monkfish.</message>
+		<message>Stuffed your mouth with Monkfish.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>14831</id>
@@ -598,7 +598,7 @@
 		<heal>14</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Swordfish.</message>
+		<message>Stuffed your mouth with Swordfish.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>15266</id>
@@ -606,7 +606,7 @@
 		<heal>20</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Cavefish.</message>
+		<message>Stuffed your mouth with Cavefish.</message>
 	</FoodDefinition>
 	<FoodDefinition>
 		<id>11936</id>
@@ -614,6 +614,6 @@
 		<heal>22</heal>
 		<delay>3</delay>
 		<replaceId>-1</replaceId>
-		<message>You eat the Dark crab.</message>
+		<message>Stuffed your mouth with Dark crab.</message>
 	</FoodDefinition>
 </list>

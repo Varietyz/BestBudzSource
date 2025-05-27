@@ -6,22 +6,22 @@ import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
 
 public class SendStonerProfilerIndex extends OutgoingPacket {
 
-	private final int id;
+  private final int id;
 
-	public SendStonerProfilerIndex(int id) {
-	this.id = id;
-	}
+  public SendStonerProfilerIndex(int id) {
+    this.id = id;
+  }
 
-	@Override
-	public void execute(Client client) {
-	StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(3);
-	out.writeHeader(client.getEncryptor(), 201);
-	out.writeShort(id, StreamBuffer.ByteOrder.BIG);
-	client.send(out.getBuffer());
-	}
+  @Override
+  public void execute(Client client) {
+    StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(3);
+    out.writeHeader(client.getEncryptor(), 201);
+    out.writeShort(id, StreamBuffer.ByteOrder.BIG);
+    client.send(out.getBuffer());
+  }
 
-	@Override
-	public int getOpcode() {
-	return 201;
-	}
+  @Override
+  public int getOpcode() {
+    return 201;
+  }
 }

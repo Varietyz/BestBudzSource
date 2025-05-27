@@ -1,9 +1,5 @@
 package com.bestbudz.rs2.content.minigames.fightpits;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.Location;
@@ -12,6 +8,9 @@ import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendWalkableInterface;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class FightPits {
 	private static final List<Stoner> waiting = new LinkedList<Stoner>();

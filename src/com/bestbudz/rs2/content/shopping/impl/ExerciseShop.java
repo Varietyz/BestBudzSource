@@ -11,15 +11,6 @@ public class ExerciseShop extends Shop {
 
 	public static final int SHOP_ID = 91;
 
-	public static final int getPrice(int id) {
-
-	if (id == 3257) {
-		return 1250;
-	}
-
-	return 500;
-	}
-
 	public ExerciseShop() {
 	super(91, new Item[] {
 
@@ -28,6 +19,15 @@ public class ExerciseShop extends Shop {
 	for (Item i : getItems())
 		if (i != null)
 			i.getDefinition().setUntradable();
+	}
+
+	public static final int getPrice(int id) {
+
+	if (id == 3257) {
+		return 1250;
+	}
+
+	return 500;
 	}
 
 	@Override

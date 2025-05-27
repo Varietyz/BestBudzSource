@@ -2,13 +2,16 @@ package com.bestbudz.core.cache;
 
 public final class ByteStreamExt {
 
-	public void skip(int length) {
-		currentOffset += length;
-	}
+	public byte[] buffer;
+	public int currentOffset;
 
-	public ByteStreamExt(byte abyte0[]) {
+	public ByteStreamExt(byte[] abyte0) {
 		buffer = abyte0;
 		currentOffset = 0;
+	}
+
+	public void skip(int length) {
+		currentOffset += length;
 	}
 
 	public int readUnsignedByte() {
@@ -81,18 +84,14 @@ public final class ByteStreamExt {
 		int i = currentOffset;
 		while (buffer[currentOffset++] != 10)
 			;
-		byte abyte0[] = new byte[currentOffset - i - 1];
-		System.arraycopy(buffer, i, abyte0, i - i, currentOffset - 1 - i);
+		byte[] abyte0 = new byte[currentOffset - i - 1];
+		System.arraycopy(buffer, i, abyte0, 0, currentOffset - 1 - i);
 		return abyte0;
 	}
 
-	public void readBytes(int i, int j, byte abyte0[]) {
+	public void readBytes(int i, int j, byte[] abyte0) {
 		for (int l = j; l < j + i; l++) {
 			abyte0[l] = buffer[currentOffset++];
 		}
 	}
-
-	public byte buffer[];
-	public int currentOffset;
-	// removed useless static initializer
 }

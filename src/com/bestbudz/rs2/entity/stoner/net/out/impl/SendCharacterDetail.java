@@ -5,14 +5,11 @@ import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
 
 public class SendCharacterDetail extends OutgoingPacket {
 
-	@Override
-	public void execute(Client client) {
+  @Override
+  public void execute(Client client) {}
 
-	}
-
-	@Override
-	public int getOpcode() {
-	return 36;
-	}
-
+  @Override
+  public int getOpcode() {
+    return 36;
+  }
 }

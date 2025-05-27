@@ -1,18 +1,17 @@
 package com.bestbudz.rs2.entity.movement;
 
-import java.util.Deque;
-import java.util.concurrent.ConcurrentLinkedDeque;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Location;
+import java.util.Deque;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public abstract class MovementHandler {
+	protected final Entity entity;
 	protected int primaryDirection = -1;
 	protected int secondaryDirection = -1;
 	protected Location lastLocation = new Location(0, 0);
 	protected Deque<Point> waypoints = new ConcurrentLinkedDeque<Point>();
-	protected final Entity entity;
 	protected boolean flag = false;
 	
 	protected Location forceStart;
@@ -121,12 +120,24 @@ public abstract class MovementHandler {
 		return lastLocation;
 	}
 
+	public void setLastLocation(Location lastLocation) {
+		this.lastLocation = lastLocation;
+	}
+
 	public int getPrimaryDirection() {
 		return primaryDirection;
 	}
 
+	public void setPrimaryDirection(int primaryDirection) {
+		this.primaryDirection = primaryDirection;
+	}
+
 	public int getSecondaryDirection() {
 		return secondaryDirection;
+	}
+
+	public void setSecondaryDirection(int secondaryDirection) {
+		this.secondaryDirection = secondaryDirection;
 	}
 
 	public boolean hasDirection() {
@@ -141,8 +152,16 @@ public abstract class MovementHandler {
 		return forced;
 	}
 
+	public void setForced(boolean forced) {
+		this.forced = forced;
+	}
+
 	public boolean isForceMove() {
 		return forceMove;
+	}
+
+	public void setForceMove(boolean forceMove) {
+		this.forceMove = forceMove;
 	}
 
 	public boolean moving() {
@@ -163,28 +182,8 @@ public abstract class MovementHandler {
 		secondaryDirection = -1;
 	}
 
-	public void setForced(boolean forced) {
-		this.forced = forced;
-	}
-
-	public void setForceMove(boolean forceMove) {
-		this.forceMove = forceMove;
-	}
-
-	public void setLastLocation(Location lastLocation) {
-		this.lastLocation = lastLocation;
-	}
-
 	public void setPath(Deque<Point> path) {
 		waypoints = path;
-	}
-
-	public void setPrimaryDirection(int primaryDirection) {
-		this.primaryDirection = primaryDirection;
-	}
-
-	public void setSecondaryDirection(int secondaryDirection) {
-		this.secondaryDirection = secondaryDirection;
 	}
 	
 	public void walkTo(int x, int y) {

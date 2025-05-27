@@ -5,29 +5,16 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Shop for tokkul currency
- * 
- * @author Jaybane
- */
 public class TokkulShop extends Shop {
 
-	/**
-	 * Item id of tokkul
-	 */
 	public static final int TOKKUL = 6529;
 
-	/**
-	 * Id of tokkul store
-	 */
 	public static final int SHOP_ID = 4;
 
-	/**
-	 * Prices of items in store
-	 * 
-	 * @param id
-	 * @return
-	 */
+	public TokkulShop() {
+	super(SHOP_ID, new Item[] { new Item(6571, 1), }, false, "Tokkul Shop");
+	}
+
 	public static final int getPrice(int id) {
 	switch (id) {
 	case 6571:
@@ -40,13 +27,6 @@ public class TokkulShop extends Shop {
 	}
 
 	return 2147483647;
-	}
-
-	/**
-	 * Items in store
-	 */
-	public TokkulShop() {
-	super(SHOP_ID, new Item[] { new Item(6571, 1), }, false, "Tokkul Shop");
 	}
 
 	@Override

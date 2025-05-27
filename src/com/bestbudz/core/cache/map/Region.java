@@ -1,20 +1,18 @@
 package com.bestbudz.core.cache.map;
 
+import com.bestbudz.rs2.entity.Location;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bestbudz.rs2.entity.Location;
-
 public class Region {
 
-	private int id;
+	private static Region[] regions;
 	private final int[][][] clips;
 	private final int[][][] shootable;
 	private final Door[][][] doors;
 	private final DoubleDoor[][][] doubleDoors;
 	private final RSObject[][][] objects;
-	private static Region[] regions;
-
+	private int id;
 	private List<Tile> npcs = new ArrayList<Tile>();
 
 	public Region(int id) {
@@ -37,18 +35,6 @@ public class Region {
 		}
 
 		regions = sorted;
-
-		/*
-		 * for (Region i : regions) { if (i != null) { i.createLadders(); } }
-		 */
-	}
-
-	public void createLadders() {
-		/*
-		 * if (ladders == null) { return; }
-		 * 
-		 * for (Ladder i : ladders) { i.create(); }
-		 */
 	}
 
 	public static boolean isDoor(int x, int y, int z) {
@@ -66,52 +52,6 @@ public class Region {
 		}
 
 		return region.doors[z][x - regionAbsX][y - regionAbsY] != null;
-	}
-
-	public void addDoor(int oId, int x, int y, int z, int type, int face) {
-		int regionAbsX = (id >> 8) << 6;
-		int regionAbsY = (id & 0xff) << 6;
-
-		if (doors[z] == null) {
-			doors[z] = new Door[64][64];
-		}
-
-		doors[z][x - regionAbsX][y - regionAbsY] = new Door(oId, x, y, z, type, face);
-	}
-
-	public void addDoor(Door door) {
-		int regionAbsX = (id >> 8) << 6;
-		int regionAbsY = (id & 0xff) << 6;
-
-		if (doors[door.getZ()] == null) {
-			doors[door.getZ()] = new Door[64][64];
-		}
-
-		doors[door.getZ()][door.getX() - regionAbsX][door.getY() - regionAbsY] = door;
-	}
-
-	public boolean appendDoor(int oId, int x, int y, int z) {
-		int regionAbsX = (id >> 8) << 6;
-		int regionAbsY = (id & 0xff) << 6;
-
-		if (z > 3) {
-			z = z % 4;
-		}
-
-		Door door = doors[z][x - regionAbsX][y - regionAbsY];
-
-		if (door == null) {
-			return false;
-		}
-
-		MapLoading.removeObject(oId, x, y, z, door.getType(), door.getCurrentFace());
-
-		doors[z][x - regionAbsX][y - regionAbsY] = null;
-		door.append();
-
-		MapLoading.addObject(false, door.getCurrentId(), door.getX(), door.getY(), z, door.getType(), door.getCurrentFace());
-		getRegion(door.getX(), door.getY()).addDoor(door);
-		return true;
 	}
 
 	public static Door getDoor(int x, int y, int z) {
@@ -159,6 +99,210 @@ public class Region {
 		}
 
 		return region.doubleDoors[z][x - regionAbsX][y - regionAbsY] != null;
+	}
+
+	public static DoubleDoor getDoubleDoor(int x, int y, int z) {
+		Region region = getRegion(x, y);
+
+		if (z > 3) {
+			z = z % 4;
+		}
+
+		int regionAbsX = (region.id >> 8) << 6;
+		int regionAbsY = (region.id & 0xff) << 6;
+
+		return region.doubleDoors[z][x - regionAbsX][y - regionAbsY];
+	}
+
+	public static DoubleDoor[][][] getDoubleDoors(int x, int y) {
+		Region r = getRegion(x, y);
+
+		return r.doubleDoors;
+	}
+
+	public static boolean objectExists(int objectId, int x, int y, int z) {
+		Region r = getRegion(x, y);
+
+		if (r == null) {
+			return false;
+		}
+
+		int regionAbsX = (r.id >> 8) << 6;
+		int regionAbsY = (r.id & 0xff) << 6;
+
+		if (z > 3) {
+			z = z % 4;
+		}
+
+		if (r.objects[z] == null) {
+			return false;
+		}
+
+		return r.objects[z][x - regionAbsX][y - regionAbsY] != null && r.objects[z][x - regionAbsX][y - regionAbsY].getId() == objectId;
+	}
+
+	public static RSObject getObject(int x, int y, int z) {
+		Region region = getRegion(x, y);
+
+		if (region == null) {
+			return null;
+		}
+
+		int regionAbsX = (region.id >> 8) << 6;
+		int regionAbsY = (region.id & 0xff) << 6;
+
+		if (z > 3) {
+			z = z % 4;
+		}
+
+		if (region.objects[z] == null) {
+			return null;
+		}
+
+		return region.objects[z][x - regionAbsX][y - regionAbsY];
+	}
+
+	public static int getStaticClip(Location p) {
+		return getStaticClip(p.getX(), p.getY(), p.getZ());
+	}
+
+	public static int getStaticClip(int x, int y, int z) {
+		Region region = getRegion(x, y);
+
+		int regionAbsX = (region.id >> 8) << 6;
+		int regionAbsY = (region.id & 0xff) << 6;
+
+		if (z > 3) {
+			z = z % 4;
+		}
+
+		if (x - regionAbsX < 0 || y - regionAbsY < 0 || x - regionAbsX > 63 || y - regionAbsY > 63) {
+			return getRegion(x, y).getClip(x, y, z);
+		}
+		try {
+			if (region.clips[z] == null) {
+				return 0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+		return region.clips[z][x - regionAbsX][y - regionAbsY];
+	}
+
+	public static Region getRegion(Location l) {
+		return getRegion(l.getX(), l.getY());
+	}
+
+	public static Region getRegion(int x, int y) {
+		int regionX = x >> 3;
+		int regionY = y >> 3;
+		int regionId = ((regionX / 8) << 8) + (regionY / 8);
+
+		if (regionId > regions.length - 1) {
+			return null;
+		}
+
+		if (regionId < 0) {
+			System.out.println("FATAL CLIPPING ERROR: regionId < 0");
+			System.exit(0);
+		}
+
+		if (regions[regionId] == null) {
+			return null;
+		}
+
+		return regions[regionId];
+	}
+
+	public static Region getUnsortedRegion(int x, int y) {
+		int regionX = x >> 3;
+		int regionY = y >> 3;
+		int regionId = ((regionX / 8) << 8) + (regionY / 8);
+
+		for (Region region : regions) {
+			if (region == null) {
+				continue;
+			}
+
+			if (region.id() == regionId) {
+				return region;
+			}
+		}
+
+		return null;
+	}
+
+	public static Region getRegionById(int id) {
+		for (Region region : regions) {
+			if (region == null) {
+				continue;
+			}
+
+			if (region.id() == id) {
+				return region;
+			}
+		}
+
+		return null;
+	}
+
+	public static Region[] getRegions() {
+		return regions;
+	}
+
+	public static void setRegions(Region[] set) {
+		regions = set;
+	}
+
+	public void createLadders() {
+	}
+
+	public void addDoor(int oId, int x, int y, int z, int type, int face) {
+		int regionAbsX = (id >> 8) << 6;
+		int regionAbsY = (id & 0xff) << 6;
+
+		if (doors[z] == null) {
+			doors[z] = new Door[64][64];
+		}
+
+		doors[z][x - regionAbsX][y - regionAbsY] = new Door(oId, x, y, z, type, face);
+	}
+
+	public void addDoor(Door door) {
+		int regionAbsX = (id >> 8) << 6;
+		int regionAbsY = (id & 0xff) << 6;
+
+		if (doors[door.getZ()] == null) {
+			doors[door.getZ()] = new Door[64][64];
+		}
+
+		doors[door.getZ()][door.getX() - regionAbsX][door.getY() - regionAbsY] = door;
+	}
+
+	public boolean appendDoor(int oId, int x, int y, int z) {
+		int regionAbsX = (id >> 8) << 6;
+		int regionAbsY = (id & 0xff) << 6;
+
+		if (z > 3) {
+			z = z % 4;
+		}
+
+		Door door = doors[z][x - regionAbsX][y - regionAbsY];
+
+		if (door == null) {
+			return false;
+		}
+
+		MapLoading.removeObject(oId, x, y, z, door.getType(), door.getCurrentFace());
+
+		doors[z][x - regionAbsX][y - regionAbsY] = null;
+		door.append();
+
+		MapLoading.addObject(false, door.getCurrentId(), door.getX(), door.getY(), z, door.getType(), door.getCurrentFace());
+		getRegion(door.getX(), door.getY()).addDoor(door);
+		return true;
 	}
 
 	public void addDoubleDoor(DoubleDoor door) {
@@ -212,25 +356,6 @@ public class Region {
 		getRegion(door.getX2(), door.getY2()).addDoubleDoor(door);
 	}
 
-	public static DoubleDoor getDoubleDoor(int x, int y, int z) {
-		Region region = getRegion(x, y);
-
-		if (z > 3) {
-			z = z % 4;
-		}
-
-		int regionAbsX = (region.id >> 8) << 6;
-		int regionAbsY = (region.id & 0xff) << 6;
-
-		return region.doubleDoors[z][x - regionAbsX][y - regionAbsY];
-	}
-
-	public static DoubleDoor[][][] getDoubleDoors(int x, int y) {
-		Region r = getRegion(x, y);
-
-		return r.doubleDoors;
-	}
-
 	public boolean isNpcOnTile(int x, int y, int z) {
 		if (z > 3) {
 			z = z % 4;
@@ -263,12 +388,6 @@ public class Region {
 		}
 	}
 
-	/**
-	 * Adds an object to this region.
-	 * 
-	 * @param object
-	 *            the object.
-	 */
 	public void addObject(RSObject object) {
 		int regionAbsX = (id >> 8) << 6;
 		int regionAbsY = (id & 0xff) << 6;
@@ -314,65 +433,10 @@ public class Region {
 		shootable[z][x - regionAbsX][y - regionAbsY] |= flag;
 	}
 
-	public static boolean objectExists(int objectId, int x, int y, int z) {
-		Region r = getRegion(x, y);
-
-		if (r == null) {
-			return false;
-		}
-
-		int regionAbsX = (r.id >> 8) << 6;
-		int regionAbsY = (r.id & 0xff) << 6;
-
-		if (z > 3) {
-			z = z % 4;
-		}
-
-		if (r.objects[z] == null) {
-			return false;
-		}
-
-		return r.objects[z][x - regionAbsX][y - regionAbsY] != null && r.objects[z][x - regionAbsX][y - regionAbsY].getId() == objectId;
-	}
-
-	public static RSObject getObject(int x, int y, int z) {
-		Region region = getRegion(x, y);
-
-		if (region == null) {
-			return null;
-		}
-
-		int regionAbsX = (region.id >> 8) << 6;
-		int regionAbsY = (region.id & 0xff) << 6;
-
-		if (z > 3) {
-			z = z % 4;
-		}
-
-		if (region.objects[z] == null) {
-			return null;
-		}
-
-		return region.objects[z][x - regionAbsX][y - regionAbsY];
-	}
-
 	public boolean canMove(Location l, int dir) {
 		return canMove(l.getX(), l.getY(), l.getZ(), dir);
 	}
 
-	/**
-	 * Tells you if this direction is walkable.
-	 * 
-	 * @param x
-	 *            the x coordinate.
-	 * @param y
-	 *            the y coordinate.
-	 * @param z
-	 *            the z coordinate.
-	 * @param direction
-	 *            the direction.
-	 * @return if the direction is walkable.
-	 */
 	public boolean canMove(int x, int y, int z, int direction) {
 		if (direction == 0) {
 			return !blockedNorthWest(x, y, z) && !blockedNorth(x, y, z) && !blockedWest(x, y, z);
@@ -426,19 +490,6 @@ public class Region {
 		return (getClip(x - 1, y - 1, z) & 0x128010e) != 0 || getClip(x - 1, y - 1, z) == -1;
 	}
 
-	/**
-	 * Tells you if this direction is shootable.
-	 * 
-	 * @param x
-	 *            the x coordinate.
-	 * @param y
-	 *            the y coordinate.
-	 * @param z
-	 *            the z coordinate.
-	 * @param direction
-	 *            the direction.
-	 * @return if the direction is walkable.
-	 */
 	public boolean canShoot(int x, int y, int z, int direction) {
 		if (direction == 0) {
 			return !shotBlockedWest(x, y, z) && !shotBlockedNorth(x, y, z) && !shotBlockedWest(x, y, z);
@@ -487,7 +538,7 @@ public class Region {
 	public boolean shotBlockedSouthEast(int x, int y, int z) {
 		return (getShootable(x + 1, y - 1, z) & 0x1280183) != 0;
 	}
-
+	
 	public boolean shotBlockedSouthWest(int x, int y, int z) {
 		return (getShootable(x - 1, y - 1, z) & 0x128010e) != 0;
 	}
@@ -499,10 +550,6 @@ public class Region {
 		if (z > 3) {
 			z = z % 4;
 		}
-		
-//		if (z == 2 && y == 5332 && x == 2925) {
-//			System.out.println(z + " " + x + " " + y + " " + (((clips[z][x - regionAbsX][y - regionAbsY] & 0x1280102) != 0) + " || " + (clips[z][x - regionAbsX][y - regionAbsY] == -1)));
-//		}
 
 		if (x - regionAbsX < 0 || y - regionAbsY < 0 || x - regionAbsX > 63 || y - regionAbsY > 63) {
 			if (id < regions.length && regions[id] != null && regions[id].id == id) {
@@ -546,35 +593,6 @@ public class Region {
 		return shootable[z][x - regionAbsX][y - regionAbsY];
 	}
 
-	public static int getStaticClip(Location p) {
-		return getStaticClip(p.getX(), p.getY(), p.getZ());
-	}
-
-	public static int getStaticClip(int x, int y, int z) {
-		Region region = getRegion(x, y);
-
-		int regionAbsX = (region.id >> 8) << 6;
-		int regionAbsY = (region.id & 0xff) << 6;
-
-		if (z > 3) {
-			z = z % 4;
-		}
-
-		if (x - regionAbsX < 0 || y - regionAbsY < 0 || x - regionAbsX > 63 || y - regionAbsY > 63) {
-			return getRegion(x, y).getClip(x, y, z);
-		}
-		try {
-			if (region.clips[z] == null) {
-				return 0;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-
-		return region.clips[z][x - regionAbsX][y - regionAbsY];
-	}
-
 	public int getClip(Location location) {
 		int x = location.getX();
 		int y = location.getY();
@@ -616,12 +634,7 @@ public class Region {
 		if (clips[height][x - regionAbsX][y - regionAbsY] == -1) {
 			clips[height][x - regionAbsX][y - regionAbsY] = 0;
 		}
-
-		/* if (shift <= 0) { */
 		clips[height][x - regionAbsX][y - regionAbsY] += shift;
-		/*
-		 * } else { clips[height][x - regionAbsX][y - regionAbsY] |= shift; }
-		 */
 	}
 
 	public void setClipToZero(int x, int y, int z) {
@@ -629,7 +642,7 @@ public class Region {
 		int regionAbsY = (id & 0xff) << 6;
 		clips[z][x - regionAbsX][y - regionAbsY] = 0;
 	}
-	
+
 	public void setProjecileClipToInfinity(int x, int y, int z) {
 		int regionAbsX = (id >> 8) << 6;
 		int regionAbsY = (id & 0xff) << 6;
@@ -640,67 +653,6 @@ public class Region {
 		int regionAbsX = x - ((id >> 8) << 6);
 		int regionAbsY = y - ((id & 0xff) << 6);
 		return !(regionAbsX < 0 || regionAbsY < 0 || regionAbsX > 63 || regionAbsY > 63);
-	}
-
-	public static Region getRegion(Location l) {
-		return getRegion(l.getX(), l.getY());
-	}
-
-	/**
-	 * Fetches a region after they are sorted by id.
-	 * 
-	 * @param x
-	 *            the x coordinate.
-	 * @param y
-	 *            the y coordinate.
-	 * @return the region.
-	 */
-	public static Region getRegion(int x, int y) {
-		int regionX = x >> 3;
-		int regionY = y >> 3;
-		int regionId = ((regionX / 8) << 8) + (regionY / 8);
-
-		if (regionId > regions.length - 1) {
-			return null;
-		}
-
-		if (regionId < 0) {
-			System.out.println("FATAL CLIPPING ERROR: regionId < 0");
-			System.exit(0);
-		}
-
-		if (regions[regionId] == null) {
-			return null;
-		}
-
-		return regions[regionId];
-	}
-
-	/**
-	 * Used to fetch a region before they are sorted by id.
-	 * 
-	 * @param x
-	 *            the x coordinate.
-	 * @param y
-	 *            the y coordinate.
-	 * @return the region.
-	 */
-	public static Region getUnsortedRegion(int x, int y) {
-		int regionX = x >> 3;
-		int regionY = y >> 3;
-		int regionId = ((regionX / 8) << 8) + (regionY / 8);
-
-		for (Region region : regions) {
-			if (region == null) {
-				continue;
-			}
-
-			if (region.id() == regionId) {
-				return region;
-			}
-		}
-
-		return null;
 	}
 
 	public void setClip(int x, int y, int z, int clip) {
@@ -720,23 +672,6 @@ public class Region {
 		clips[z][x - regionAbsX][y - regionAbsY] = clip;
 	}
 
-	public static Region getRegionById(int id) {
-		for (Region region : regions) {
-			if (region == null) {
-				continue;
-			}
-
-			if (region.id() == id) {
-				return region;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * @return the region id.
-	 */
 	public int id() {
 		return id;
 	}
@@ -747,14 +682,6 @@ public class Region {
 
 	public int[][][] getShootable() {
 		return shootable;
-	}
-
-	public static Region[] getRegions() {
-		return regions;
-	}
-
-	public static void setRegions(Region[] set) {
-		regions = set;
 	}
 
 	public int getId() {

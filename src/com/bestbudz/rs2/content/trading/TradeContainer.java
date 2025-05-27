@@ -12,138 +12,181 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
 
 public class TradeContainer extends ItemContainer {
 
-	private final Trade trade;
+  private final Trade trade;
 
-	public TradeContainer(Trade trade) {
-	super(28, ItemContainer.ContainerTypes.STACK, true, true);
-	this.trade = trade;
-	}
+  public TradeContainer(Trade trade) {
+    super(28, ItemContainer.ContainerTypes.STACK, true, true);
+    this.trade = trade;
+  }
 
-	@Override
-	public boolean allowZero(int id) {
-	return false;
-	}
+  @Override
+  public boolean allowZero(int id) {
+    return false;
+  }
 
-	public void offer(int id, int amount, int slot) {
-	if (!Item.getDefinition(id).isTradable() || Item.getDefinition(id).getName().contains("Clue scroll")) {
-		trade.stoner.getClient().queueOutgoingPacket(new SendMessage("You cannot trade this item."));
-		return;
-	}
+  @Override
+  public void onAdd(Item item) {}
 
-	if (!trade.canAppendTrade()) {
-		return;
-	}
+  @Override
+  public void onFillContainer() {}
 
-	if (!trade.stoner.getBox().slotContainsItem(slot, id)) {
-		return;
-	}
+  @Override
+  public void onMaxStack() {}
 
-	if ((trade.getStage() == Trade.TradeStages.STAGE_2) || (trade.getStage() == Trade.TradeStages.STAGE_2_ACCEPTED)) {
-		return;
-	}
+  @Override
+  public void onRemove(Item item) {}
 
-	int invAmount = trade.stoner.getBox().getItemAmount(id);
+  @Override
+  public void update() {
+    if ((trade.stage == Trade.TradeStages.STAGE_2)
+        || (trade.stage == Trade.TradeStages.STAGE_2_ACCEPTED)) {
+      trade.stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3322, null));
+      trade
+          .tradingWith
+          .getStoner()
+          .getClient()
+          .queueOutgoingPacket(new SendUpdateItems(3322, null));
+    } else {
+      trade
+          .stoner
+          .getClient()
+          .queueOutgoingPacket(new SendUpdateItems(3322, trade.stoner.getBox().getItems()));
+      trade
+          .tradingWith
+          .getStoner()
+          .getClient()
+          .queueOutgoingPacket(
+              new SendUpdateItems(3322, trade.tradingWith.getStoner().getBox().getItems()));
+    }
 
-	if (invAmount < amount) {
-		amount = invAmount;
-	}
+    trade.stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3415, trade.getTradedItems()));
+    trade
+        .stoner
+        .getClient()
+        .queueOutgoingPacket(new SendUpdateItems(3416, trade.tradingWith.getTradedItems()));
 
-	int added = add(id, amount, true);
+    trade
+        .tradingWith
+        .getStoner()
+        .getClient()
+        .queueOutgoingPacket(new SendUpdateItems(3415, trade.tradingWith.getTradedItems()));
+    trade
+        .tradingWith
+        .getStoner()
+        .getClient()
+        .queueOutgoingPacket(new SendUpdateItems(3416, trade.getTradedItems()));
 
-	if (added > 0) {
-		trade.getStoner().getBox().remove(id, added);
-	}
+    BigInteger toReturn = BigInteger.ZERO;
+    for (Item item : trade.stoner.getTrade().getTradedItems()) {
+      if (item == null || item.getDefinition() == null) {
+        continue;
+      }
 
-	trade.setStage(Trade.TradeStages.STAGE_1);
-	trade.tradingWith.setStage(Trade.TradeStages.STAGE_1);
+      toReturn =
+          toReturn.add(
+              new BigInteger(String.valueOf(item.getDefinition().getGeneralPrice()))
+                  .multiply(new BigInteger(String.valueOf(item.getAmount()))));
+    }
+    trade
+        .tradingWith
+        .getStoner()
+        .getClient()
+        .queueOutgoingPacket(
+            new SendString(
+                NumberFormat.getNumberInstance(Locale.US).format(toReturn) + "gp", 24210));
+    for (Item item : trade.tradingWith.getTradedItems()) {
+      if (item == null || item.getDefinition() == null) {
+        continue;
+      }
 
-	trade.stoner.getClient().queueOutgoingPacket(new SendString("", 3431));
-	trade.tradingWith.stoner.getClient().queueOutgoingPacket(new SendString("", 3431));
-	}
+      toReturn =
+          toReturn.add(
+              new BigInteger(String.valueOf(item.getDefinition().getGeneralPrice()))
+                  .multiply(new BigInteger(String.valueOf(item.getAmount()))));
+    }
+    trade
+        .stoner
+        .getClient()
+        .queueOutgoingPacket(
+            new SendString(
+                NumberFormat.getNumberInstance(Locale.US).format(toReturn) + "gp", 24209));
+  }
 
-	@Override
-	public void onAdd(Item item) {
-	}
+  public void offer(int id, int amount, int slot) {
+    if (!Item.getDefinition(id).isTradable()
+        || Item.getDefinition(id).getName().contains("Clue scroll")) {
+      trade
+          .stoner
+          .getClient()
+          .queueOutgoingPacket(new SendMessage("hmmmm, try again.. it might work"));
+      return;
+    }
 
-	@Override
-	public void onFillContainer() {
-	}
+    if (!trade.canAppendTrade()) {
+      return;
+    }
 
-	@Override
-	public void onMaxStack() {
-	}
+    if (!trade.stoner.getBox().slotContainsItem(slot, id)) {
+      return;
+    }
 
-	@Override
-	public void onRemove(Item item) {
-	}
+    if ((trade.getStage() == Trade.TradeStages.STAGE_2)
+        || (trade.getStage() == Trade.TradeStages.STAGE_2_ACCEPTED)) {
+      return;
+    }
 
-	@Override
-	public void update() {
-	if ((trade.stage == Trade.TradeStages.STAGE_2) || (trade.stage == Trade.TradeStages.STAGE_2_ACCEPTED)) {
-		trade.stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3322, null));
-		trade.tradingWith.getStoner().getClient().queueOutgoingPacket(new SendUpdateItems(3322, null));
-	} else {
-		trade.stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3322, trade.stoner.getBox().getItems()));
-		trade.tradingWith.getStoner().getClient().queueOutgoingPacket(new SendUpdateItems(3322, trade.tradingWith.getStoner().getBox().getItems()));
-	}
+    int invAmount = trade.stoner.getBox().getItemAmount(id);
 
-	trade.stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3415, trade.getTradedItems()));
-	trade.stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3416, trade.tradingWith.getTradedItems()));
+    if (invAmount < amount) {
+      amount = invAmount;
+    }
 
-	trade.tradingWith.getStoner().getClient().queueOutgoingPacket(new SendUpdateItems(3415, trade.tradingWith.getTradedItems()));
-	trade.tradingWith.getStoner().getClient().queueOutgoingPacket(new SendUpdateItems(3416, trade.getTradedItems()));
+    int added = add(id, amount, true);
 
-	BigInteger toReturn = BigInteger.ZERO;
-	for (Item item : trade.stoner.getTrade().getTradedItems()) {
-		if (item == null || item.getDefinition() == null) {
-			continue;
-		}
+    if (added > 0) {
+      trade.getStoner().getBox().remove(id, added);
+    }
 
-		toReturn = toReturn.add(new BigInteger(String.valueOf(item.getDefinition().getGeneralPrice())).multiply(new BigInteger(String.valueOf(item.getAmount()))));
-	}
-	trade.tradingWith.getStoner().getClient().queueOutgoingPacket(new SendString(NumberFormat.getNumberInstance(Locale.US).format(toReturn) + "gp", 24210));
-	for (Item item : trade.tradingWith.getTradedItems()) {
-		if (item == null || item.getDefinition() == null) {
-			continue;
-		}
+    trade.setStage(Trade.TradeStages.STAGE_1);
+    trade.tradingWith.setStage(Trade.TradeStages.STAGE_1);
 
-		toReturn = toReturn.add(new BigInteger(String.valueOf(item.getDefinition().getGeneralPrice())).multiply(new BigInteger(String.valueOf(item.getAmount()))));
-	}
-	trade.stoner.getClient().queueOutgoingPacket(new SendString(NumberFormat.getNumberInstance(Locale.US).format(toReturn) + "gp", 24209));
-	}
+    trade.stoner.getClient().queueOutgoingPacket(new SendString("", 3431));
+    trade.tradingWith.stoner.getClient().queueOutgoingPacket(new SendString("", 3431));
+  }
 
-	public void withdraw(int slot, int amount) {
-	if (!trade.canAppendTrade()) {
-		return;
-	}
+  public void withdraw(int slot, int amount) {
+    if (!trade.canAppendTrade()) {
+      return;
+    }
 
-	if ((trade.getStage() == Trade.TradeStages.STAGE_2) || (trade.getStage() == Trade.TradeStages.STAGE_2_ACCEPTED)) {
-		return;
-	}
+    if ((trade.getStage() == Trade.TradeStages.STAGE_2)
+        || (trade.getStage() == Trade.TradeStages.STAGE_2_ACCEPTED)) {
+      return;
+    }
 
-	if (!slotHasItem(slot)) {
-		return;
-	}
+    if (!slotHasItem(slot)) {
+      return;
+    }
 
-	int id = getSlotId(slot);
-	int tradeAmount = getItemAmount(id);
+    int id = getSlotId(slot);
+    int tradeAmount = getItemAmount(id);
 
-	if (tradeAmount < amount) {
-		amount = tradeAmount;
-	}
+    if (tradeAmount < amount) {
+      amount = tradeAmount;
+    }
 
-	int removed = remove(id, amount);
+    int removed = remove(id, amount);
 
-	if (removed > 0) {
-		trade.stoner.getBox().add(id, removed);
-	}
+    if (removed > 0) {
+      trade.stoner.getBox().add(id, removed);
+    }
 
-	trade.setStage(Trade.TradeStages.STAGE_1);
-	trade.tradingWith.setStage(Trade.TradeStages.STAGE_1);
+    trade.setStage(Trade.TradeStages.STAGE_1);
+    trade.tradingWith.setStage(Trade.TradeStages.STAGE_1);
 
-	trade.stoner.getClient().queueOutgoingPacket(new SendString("", 3431));
-	trade.tradingWith.stoner.getClient().queueOutgoingPacket(new SendString("", 3431));
-	trade.tradingWith.stoner.getClient().queueOutgoingPacket(new SendMessage("@red@The trade has been modified!"));
-	trade.tradingWith.stoner.tradeDelay = System.currentTimeMillis();
-	}
+    trade.stoner.getClient().queueOutgoingPacket(new SendString("", 3431));
+    trade.tradingWith.stoner.getClient().queueOutgoingPacket(new SendString("", 3431));
+    trade.tradingWith.stoner.getClient().queueOutgoingPacket(new SendMessage("@red@Shit changed!"));
+    trade.tradingWith.stoner.tradeDelay = System.currentTimeMillis();
+  }
 }

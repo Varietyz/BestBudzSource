@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content.profession.mage.spells;
 
-import java.util.ArrayList;
-
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.combat.Hit;
@@ -10,76 +8,12 @@ import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.mage.Spell;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Graphic;
-//import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendOpenTab;
+import java.util.ArrayList;
 
-/**
- * Handles super heating items
- * 
- * @author Jaybane
- *
- */
 public class SuperHeat extends Spell {
-
-	/**
-	 * Super Heat data
-	 * 
-	 * @author Jaybane
-	 *
-	 */
-	public enum HeatData {
-		BRONZE_BAR(2349, new int[][] { { 438, 1 }, { 436, 1 } }, 1, 16),
-		BLURITE_BAR(9467, new int[][] { { 688, 1 } }, 8, 8),
-		IRON_BAR(2351, new int[][] { { 440, 1 } }, 15, 12.5),
-		SILVER_BAR(2355, new int[][] { { 442, 1 } }, 20, 13.75),
-		STEEL_BAR(2353, new int[][] { { 440, 1 }, { 453, 2 } }, 30, 17.5),
-		GOLD_BAR(2357, new int[][] { { 444, 1 } }, 40, 22.5),
-		MITHRIL_BAR(2359, new int[][] { { 447, 1 }, { 453, 4 } }, 50, 30),
-		ADAMANT_BAR(2361, new int[][] { { 449, 1 }, { 453, 6 } }, 70, 37.5),
-		RUNITE_BAR(2363, new int[][] { { 451, 1 }, { 453, 8 } }, 85, 50);
-
-		private final int productId;
-		private final int[][] requiredItems;
-		private final int gradeRequired;
-		private final double experience;
-
-		private HeatData(int productId, int[][] requiredItems, int gradeRequired, double experience) {
-		this.productId = productId;
-		this.requiredItems = requiredItems;
-		this.gradeRequired = gradeRequired;
-		this.experience = experience;
-		}
-
-		public int getProduct() {
-		return productId;
-		}
-
-		public int[][] getRequired() {
-		return requiredItems;
-		}
-
-		public int getGrade() {
-		return gradeRequired;
-		}
-
-		public double getExperience() {
-		return experience;
-		}
-
-		public static HeatData getItem(Stoner stoner, int item) {
-		for (HeatData data : HeatData.values()) {
-			for (int i = 0; i < data.getRequired().length; i++) {
-				if (item == data.getRequired()[i][0])
-					return data;
-			}
-		}
-		stoner.send(new SendMessage("You can't superheat this item!"));
-		return null;
-		}
-
-	}
 
 	@Override
 	public boolean execute(Stoner stoner) {
@@ -158,9 +92,56 @@ public class SuperHeat extends Spell {
 	return "Super Heat";
 	}
 
-	// @Override
-	// public Item[] getRunes() {
-	// return new Item[] { new Item(561, 1), new Item(554, 4) };
-	// }
+	public enum HeatData {
+		BRONZE_BAR(2349, new int[][] { { 438, 1 }, { 436, 1 } }, 1, 16),
+		BLURITE_BAR(9467, new int[][] { { 688, 1 } }, 8, 8),
+		IRON_BAR(2351, new int[][] { { 440, 1 } }, 15, 12.5),
+		SILVER_BAR(2355, new int[][] { { 442, 1 } }, 20, 13.75),
+		STEEL_BAR(2353, new int[][] { { 440, 1 }, { 453, 2 } }, 30, 17.5),
+		GOLD_BAR(2357, new int[][] { { 444, 1 } }, 40, 22.5),
+		MITHRIL_BAR(2359, new int[][] { { 447, 1 }, { 453, 4 } }, 50, 30),
+		ADAMANT_BAR(2361, new int[][] { { 449, 1 }, { 453, 6 } }, 70, 37.5),
+		RUNITE_BAR(2363, new int[][] { { 451, 1 }, { 453, 8 } }, 85, 50);
+
+		private final int productId;
+		private final int[][] requiredItems;
+		private final int gradeRequired;
+		private final double experience;
+
+		HeatData(int productId, int[][] requiredItems, int gradeRequired, double experience) {
+		this.productId = productId;
+		this.requiredItems = requiredItems;
+		this.gradeRequired = gradeRequired;
+		this.experience = experience;
+		}
+
+		public static HeatData getItem(Stoner stoner, int item) {
+		for (HeatData data : HeatData.values()) {
+			for (int i = 0; i < data.getRequired().length; i++) {
+				if (item == data.getRequired()[i][0])
+					return data;
+			}
+		}
+		stoner.send(new SendMessage("You can't superheat this item!"));
+		return null;
+		}
+
+		public int getProduct() {
+		return productId;
+		}
+
+		public int[][] getRequired() {
+		return requiredItems;
+		}
+
+		public int getGrade() {
+		return gradeRequired;
+		}
+
+		public double getExperience() {
+		return experience;
+		}
+
+	}
 
 }

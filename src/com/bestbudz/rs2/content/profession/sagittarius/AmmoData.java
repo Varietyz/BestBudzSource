@@ -1,14 +1,13 @@
 package com.bestbudz.rs2.content.profession.sagittarius;
 
+import com.bestbudz.rs2.entity.Graphic;
+import com.bestbudz.rs2.entity.Projectile;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bestbudz.rs2.entity.Graphic;
-import com.bestbudz.rs2.entity.Projectile;
-
 public class AmmoData {
 
-	public static enum Ammo {
+	public enum Ammo {
 
 		BRONZE_ARROW(new int[] { 882, 883, 5616, 5622 }, Graphic.highGraphic(19, 0), Graphic.highGraphic(1104, 0), new Projectile(10)),
 		IRON_ARROW(new int[] { 884, 885, 5617, 5623 }, Graphic.highGraphic(18, 0), Graphic.highGraphic(1105, 0), new Projectile(9)),
@@ -18,6 +17,21 @@ public class AmmoData {
 		RUNE_ARROW(new int[] { 892, 893, 5621, 5627 }, Graphic.highGraphic(24, 0), Graphic.highGraphic(1109, 0), new Projectile(15)),
 		DRAGON_ARROW(new int[] { 11212, 11227, 0, 11228 }, Graphic.highGraphic(11229, 0), Graphic.highGraphic(1111, 0), new Projectile(17)),
 		BOLTS(new int[] { 9144, 9245, 9242, 9241, 9243, 9244 }, Graphic.highGraphic(28, 0), null, new Projectile(27));
+
+		private static final Map<Integer, Ammo> ammoData = new HashMap<Integer, Ammo>();
+		private int[] ids = null;
+		private Graphic drawback1 = null;
+
+		private Graphic drawback2 = null;
+
+		private Projectile projectile = null;
+
+		Ammo(int[] ids, Graphic drawback1, Graphic drawback2, Projectile projectile) {
+		this.ids = ids;
+		this.drawback1 = drawback1;
+		this.drawback2 = drawback2;
+		this.projectile = projectile;
+		}
 
 		public static final void declare() {
 		for (Ammo ammo : values()) {
@@ -31,24 +45,8 @@ public class AmmoData {
 		}
 		}
 
-		private int[] ids = null;
-		private Graphic drawback1 = null;
-
-		private Graphic drawback2 = null;
-
-		private Projectile projectile = null;
-
-		private static Map<Integer, Ammo> ammoData = new HashMap<Integer, Ammo>();
-
 		public static Ammo forId(int id) {
 		return ammoData.get(Integer.valueOf(id));
-		}
-
-		private Ammo(int[] ids, Graphic drawback1, Graphic drawback2, Projectile projectile) {
-		this.ids = ids;
-		this.drawback1 = drawback1;
-		this.drawback2 = drawback2;
-		this.projectile = projectile;
 		}
 
 		public Graphic getDrawback1() {

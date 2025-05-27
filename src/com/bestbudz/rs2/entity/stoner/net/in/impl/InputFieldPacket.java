@@ -11,40 +11,35 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class InputFieldPacket extends IncomingPacket {
 
-	@Override
-	public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
-	int id = in.readShort();
-	String text = in.readString();
+  @Override
+  public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
+    int id = in.readShort();
+    String text = in.readString();
 
-	if (id < 0 || text == null || text.length() <= 0) {
-		return;
-	}
+    if (id < 0 || text == null || text.length() <= 0) {
+      return;
+    }
 
-	if (StonerConstants.isOwner(stoner) && BestbudzConstants.DEV_MODE) {
-		stoner.send(new SendMessage("ID: " + id + " | Text: " + text));
-	}
+    if (StonerConstants.isOwner(stoner) && BestbudzConstants.DEV_MODE) {
+      stoner.send(new SendMessage("ID: " + id + " | Text: " + text));
+    }
 
-	if (StaffTab.inputField(stoner, id, text)) {
-		return;
-	}
+    if (StaffTab.inputField(stoner, id, text)) {
+      return;
+    }
 
-	switch (id) {
+    switch (id) {
+      case 59814:
+        DropTable.searchItem(stoner, text);
+        break;
+      case 59815:
+        DropTable.searchNpc(stoner, text);
+        break;
+    }
+  }
 
-	/* Drop Table Search Item */
-	case 59814:
-		DropTable.searchItem(stoner, text);
-		break;
-
-	/* Drop Table Search NPC */
-	case 59815:
-		DropTable.searchNpc(stoner, text);
-		break;
-
-	}
-	}
-
-	@Override
-	public int getMaxDuplicates() {
-	return 1;
-	}
+  @Override
+  public int getMaxDuplicates() {
+    return 1;
+  }
 }

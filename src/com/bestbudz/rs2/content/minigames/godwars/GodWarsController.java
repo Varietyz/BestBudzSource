@@ -7,12 +7,12 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendWalkableInterface;
 
 public class GodWarsController extends DefaultController {
 
-	@Override
-	public void onControllerInit(Stoner stoner) {
-	stoner.send(new SendWalkableInterface(16210));
+  @Override
+  public void onControllerInit(Stoner stoner) {
+    stoner.send(new SendWalkableInterface(16210));
 
-	for (Allegiance allegiance : Allegiance.values()) {
-		stoner.getMinigames().updateGWKC(allegiance);
-	}
-	}
+    for (Allegiance allegiance : Allegiance.values()) {
+      stoner.getMinigames().updateGWKC(allegiance);
+    }
+  }
 }

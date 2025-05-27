@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.mage.weapons;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import com.bestbudz.core.definitions.ItemDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
@@ -15,6 +12,8 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendChatBoxInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItemsAlt;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class TridentOfTheSeas {
 
@@ -23,16 +22,6 @@ public class TridentOfTheSeas {
 	private static final int FULL = 2_500;
 
 	private int tridentCharge;
-
-	public int getCharges() {
-	return tridentCharge;
-	}
-
-	/*
-	 * 1251 - trident stoner gfx 1252 - trident projectile
-	 * 
-	 * 1040 - swamp projectile 1042 - swamp spell contact 665 - stoner spell gfx
-	 */
 
 	public TridentOfTheSeas(int tridentCharge) {
 	this.tridentCharge = tridentCharge;
@@ -167,5 +156,9 @@ public class TridentOfTheSeas {
 		stoner.send(new SendMessage("The trident needs to be charged with 500 bestbucks, 1 death, 1 chaos, and 5 fire runes."));
 		stoner.getEquipment().getItems()[EquipmentConstants.WEAPON_SLOT].setId(11908);
 	}
+	}
+
+	public int getCharges() {
+	return tridentCharge;
 	}
 }

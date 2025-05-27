@@ -1,8 +1,5 @@
 package com.bestbudz.core.task.impl;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.Utility;
@@ -12,20 +9,48 @@ import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.object.GameObject;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.awt.Point;
+import java.awt.Rectangle;
 
-/**
- * Managment of the Wilderness Teleportation Obelisk
- */
 public class ObeliskTick extends Task {
 
 	private static final int TICKS = 6;
 	private static final int ACTIVE = 14825;
 
-	private Obelisk obelisk;
+	private final Obelisk obelisk;
 
 	public ObeliskTick(Obelisk obelisk) {
 	super(TICKS, true);
 	this.obelisk = obelisk;
+	}
+
+	private static Location[] getObeliskLocations(Obelisk obelisk) {
+	Location location = obelisk.Location;
+	int i = 0;
+	Location[] locations = new Location[4];
+	for (int xMod = 0; xMod <= 4; xMod += 4) {
+		for (int yMod = 0; yMod <= 4; yMod += 4) {
+			locations[i++] = new Location(location.getX() + xMod, location.getY() + yMod, location.getZ());
+		}
+	}
+	return locations;
+	}
+
+	public static void main(String[] args) {
+	getObeliskLocations(Obelisk.A);
+	}
+
+	public static boolean clickObelisk(int objectId) {
+	for (Obelisk obelisk : Obelisk.values()) {
+		if (obelisk.pillarId == objectId) {
+			if (obelisk.active)
+				return true;
+			Task task = new ObeliskTick(obelisk);
+			TaskQueue.queue(task);
+			return true;
+		}
+	}
+	return false;
 	}
 
 	@Override
@@ -58,6 +83,11 @@ public class ObeliskTick extends Task {
 	}
 	}
 
+	@Override
+	public void onStop() {
+	obelisk.active = false;
+	}
+
 	private void teleport(Stoner stoner, Obelisk to) {
 	int deltaX = stoner.getLocation().getX() - obelisk.Location.getX();
 	int deltaY = stoner.getLocation().getY() - obelisk.Location.getY();
@@ -68,35 +98,6 @@ public class ObeliskTick extends Task {
 	for (Location pillar : obelisk.pillars) {
 		new GameObject(ACTIVE, pillar.getX(), pillar.getY(), pillar.getZ(), 0, 10);
 	}
-	}
-
-	private static Location[] getObeliskLocations(Obelisk obelisk) {
-	Location location = obelisk.Location;
-	int i = 0;
-	Location[] locations = new Location[4];
-	for (int xMod = 0; xMod <= 4; xMod += 4) {
-		for (int yMod = 0; yMod <= 4; yMod += 4) {
-			locations[i++] = new Location(location.getX() + xMod, location.getY() + yMod, location.getZ());
-		}
-	}
-	return locations;
-	}
-
-	public static void main(String[] args) {
-	getObeliskLocations(Obelisk.A);
-	}
-
-	public static boolean clickObelisk(int objectId) {
-	for (Obelisk obelisk : Obelisk.values()) {
-		if (obelisk.pillarId == objectId) {
-			if (obelisk.active)
-				return true;
-			Task task = new ObeliskTick(obelisk);
-			TaskQueue.queue(task);
-			return true;
-		}
-	}
-	return false;
 	}
 
 	public enum Obelisk {
@@ -131,11 +132,6 @@ public class ObeliskTick extends Task {
 		public Area getGfxArea() {
 		return gfxArea;
 		}
-	}
-
-	@Override
-	public void onStop() {
-	obelisk.active = false;
 	}
 
 }

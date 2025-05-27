@@ -13,25 +13,17 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
 
 public class ForgingConstants {
-	private static Item[][][] FORGING_ITEMS = { { { new Item(1205), new Item(1277), new Item(1321), new Item(1291), new Item(1307) }, { new Item(1351), new Item(1422), new Item(1337), new Item(1375), new Item(3095) }, { new Item(1103), new Item(1075), new Item(1087), new Item(1117) }, { new Item(1139), new Item(1155), new Item(1173), new Item(1189), new Item(4819, 15) }, { new Item(819, 15), new Item(39, 15), new Item(864, 15) } }, { { new Item(1203), new Item(1279), new Item(1323), new Item(1293), new Item(1309) }, { new Item(1349), new Item(1420), new Item(1335), new Item(1363), new Item(3096) }, { new Item(1101), new Item(1067), new Item(1081), new Item(1115) }, { new Item(1137), new Item(1153), new Item(1175), new Item(1191), new Item(4820, 15) }, { new Item(820, 15), new Item(40, 15), new Item(863, 15) } },
+	public static final int[] BARS = { 2349, 2351, 2353, 2359, 2361, 2363 };
+	public static final int[][] ITEM_REQUIREMENTS = { { 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 16, 1, 18 },
+			{ 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 1, 31, 1, 33 },
+			{ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 1, 46, 1, 48 },
+			{ 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 1, 66, 1, 68 },
+			{ 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 1, 86, 1, 88 },
+			{ 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 1, 99, 1, 99 },
+	};
+	private static final Item[][][] FORGING_ITEMS = { { { new Item(1205), new Item(1277), new Item(1321), new Item(1291), new Item(1307) }, { new Item(1351), new Item(1422), new Item(1337), new Item(1375), new Item(3095) }, { new Item(1103), new Item(1075), new Item(1087), new Item(1117) }, { new Item(1139), new Item(1155), new Item(1173), new Item(1189), new Item(4819, 15) }, { new Item(819, 15), new Item(39, 15), new Item(864, 15) } }, { { new Item(1203), new Item(1279), new Item(1323), new Item(1293), new Item(1309) }, { new Item(1349), new Item(1420), new Item(1335), new Item(1363), new Item(3096) }, { new Item(1101), new Item(1067), new Item(1081), new Item(1115) }, { new Item(1137), new Item(1153), new Item(1175), new Item(1191), new Item(4820, 15) }, { new Item(820, 15), new Item(40, 15), new Item(863, 15) } },
 			{ { new Item(1207), new Item(1281), new Item(1325), new Item(1295), new Item(1311) }, { new Item(1353), new Item(1424), new Item(1339), new Item(1365), new Item(3097) }, { new Item(1105), new Item(1069), new Item(1083), new Item(1119) }, { new Item(1141), new Item(1157), new Item(1177), new Item(1193), new Item(1539, 15) }, { new Item(821, 15), new Item(41, 15), new Item(865, 15) } }, { { new Item(1209), new Item(1285), new Item(1329), new Item(1299), new Item(1315) }, { new Item(1355), new Item(1428), new Item(1343), new Item(1369), new Item(3099) }, { new Item(1109), new Item(1071), new Item(1085), new Item(1121) }, { new Item(1143), new Item(1159), new Item(1181), new Item(1197), new Item(4822, 15) }, { new Item(822, 15), new Item(42, 15), new Item(866, 15) } },
 			{ { new Item(1211), new Item(1287), new Item(1331), new Item(1301), new Item(1317) }, { new Item(1357), new Item(1430), new Item(1345), new Item(1371), new Item(3100) }, { new Item(1111), new Item(1073), new Item(1091), new Item(1123) }, { new Item(1145), new Item(1161), new Item(1183), new Item(1199), new Item(4823, 15) }, { new Item(823, 15), new Item(43, 15), new Item(867, 15) } }, { { new Item(1213), new Item(1289), new Item(1333), new Item(1303), new Item(1319) }, { new Item(1359), new Item(1432), new Item(1347), new Item(1373), new Item(3101) }, { new Item(1113), new Item(1079), new Item(1093), new Item(1127) }, { new Item(1147), new Item(1163), new Item(1185), new Item(1201), new Item(4824, 15) }, { new Item(824, 15), new Item(44, 15), new Item(868, 15) } } };
-
-	public static final int[] BARS = { 2349, 2351, 2353, 2359, 2361, 2363 };
-
-	/*
-	 * 1. dagger 2. axe 3. mace 4. med helm 5. dart tips, sword, nails 6. arrowtips,
-	 * scim, 7. long sword, studs, other 8. full helm, throwing knives 9. sq shield
-	 * 10. warhammer 11. battle axe 12. chain body 13. kite shield 14. claws 15. 2h
-	 * sword 16. 1 17. plate legs, skirt 18. 1 19. plate body
-	 */
-	public static final int[][] ITEM_REQUIREMENTS = { { 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 16, 1, 18 }, // 1 bronze
-			{ 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 1, 31, 1, 33 }, // 2 iron
-			{ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 1, 46, 1, 48 }, // 3 steel
-			{ 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 1, 66, 1, 68 }, // 4 mirthil
-			{ 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 1, 86, 1, 88 }, // 5 addy
-			{ 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 1, 99, 1, 99 }, // 6 rune
-	};
 
 	public static boolean clickAnvil(Stoner p, int id) {
 	if (id == 4306 || id == 2783) {

@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.mage;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.rs2.content.combat.impl.CombatEffect;
 import com.bestbudz.rs2.content.profession.mage.effects.BindEffect;
 import com.bestbudz.rs2.content.profession.mage.effects.BloodBarrageEffect;
@@ -29,6 +26,8 @@ import com.bestbudz.rs2.content.profession.mage.effects.SnareEffect;
 import com.bestbudz.rs2.content.profession.mage.effects.TeleBlockEffect;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MageEffects {
 	private static final Map<Integer, CombatEffect> effects = new HashMap<Integer, CombatEffect>();

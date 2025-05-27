@@ -9,13 +9,8 @@ import java.util.logging.Logger;
 
 public class LineCounter {
 
-	/** The logger for printing information. */
-	private static Logger logger = Logger.getLogger(LineCounter.class.getSimpleName());
+	private static final Logger logger = Logger.getLogger(LineCounter.class.getSimpleName());
 	
-	public interface Filter<T> {
-		public boolean accept(T t);
-	}
-
 	public static int lineCount(File file) {
 		int count = 0;
 		try {
@@ -61,5 +56,9 @@ public class LineCounter {
 		}
 
 		logger.info("Lines of code: " + lineCount + " in " + files.size() + " files");
+	}
+
+	public interface Filter<T> {
+		boolean accept(T t);
 	}
 }

@@ -1,16 +1,15 @@
 package com.bestbudz.rs2.entity;
 
+import com.bestbudz.core.util.Utility;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-
-import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 
 public class ReportHandler {
 
@@ -42,49 +41,6 @@ public class ReportHandler {
     return false;
     }
 
-    public enum ReportData {
-        RULE_1(163034, "Offensive language"),
-        RULE_2(163035, "Item scamming"),
-        RULE_3(163036, "Password scamming"),
-        RULE_4(163037, "Bug abuse"),
-        RULE_5(163038, "BestBudz staff impersonation"),
-        RULE_6(163039, "Account sharing/trading"),
-        RULE_7(163040, "Macroing"),
-        RULE_8(163041, "Multiple loggin in"),
-        RULE_9(163042, "Advertising"),
-        RULE_10(163043, "Real world trading"),
-        RULE_11(163044, "Misuse of customer support"),
-        RULE_12(163045, "Encouraging others to break rules");
-
-        private final int buttonID;
-        private final String rule;
-
-        private ReportData(int buttonID, String rule) {
-        this.buttonID = buttonID;
-        this.rule = rule;
-        }
-
-        public int getButton() {
-        return buttonID;
-        }
-
-        public String getRule() {
-        return rule;
-        }
-
-        private static final HashMap<Integer, ReportData> reports = new HashMap<Integer, ReportData>();
-
-        static {
-            for (final ReportData report : ReportData.values()) {
-                ReportData.reports.put(report.buttonID, report);
-            }
-        }
-
-        public static ReportData get(int id) {
-        return reports.get(id);
-        }
-    }
-
     public static void handleReport(Stoner stoner) {
 
     if (stoner.getInterfaceManager().main != 41750) {
@@ -93,29 +49,29 @@ public class ReportHandler {
     }
 
     if (stoner.reportName == "") {
-        stoner.send(new SendMessage("Please enter a name."));
+        stoner.send(new SendMessage("Enter a name, but we wont review it."));
         return;
     }
 
     Stoner offending = World.getStonerByName(stoner.reportName);
 
     if (offending == null) {
-        stoner.send(new SendMessage("It appears " + stoner.reportName + " is either offline or does not exist!"));
+        stoner.send(new SendMessage(stoner.reportName + " couldnt be reported, your too stoned and a shitty source"));
         return;
     }
 
     if (offending == stoner) {
-        stoner.send(new SendMessage("You can not report yourself!"));
+        stoner.send(new SendMessage("Unfortunatly, you need to get someone else to report your ass!"));
         return;
     }
 
     if (stoner.lastReported.equalsIgnoreCase(stoner.reportName) && (System.currentTimeMillis() - stoner.lastReport) < 60000) {
-        stoner.send(new SendMessage("You can only report a stoner once every 60 seconds."));
+        stoner.send(new SendMessage("Our system is slow asf, wait 60s, you fucking Karen."));
         return;
     }
 
     if (stoner.reportClicked == 0) {
-        stoner.send(new SendMessage("Please select the offense " + offending.getUsername() + " has broken."));
+        stoner.send(new SendMessage("Your not the brightest of the bunch, are ya?"));
         return;
     }
 
@@ -138,15 +94,13 @@ public class ReportHandler {
         sendText = sendText.replaceAll("'", " ");
         String month = getMonth(new SimpleDateFormat("MM").format(new Date()));
         String day = new SimpleDateFormat("dd").format(new Date());
-        writeReport(offending.getUsername() + " was reported by " + stoner.getUsername() + ", " + data.getRule() + ", " + month + ", " + day + "", sendText + ".", offending.getUsername());
-        stoner.send(new SendMessage("Thank you, your report has been received and will be reviewed."));
+        writeReport(offending.getUsername() + " was karen'd by " + stoner.getUsername() + ", " + data.getRule() + ", " + month + ", " + day, sendText + ".", offending.getUsername());
+        stoner.send(new SendMessage("Thank you, we wont review this, your a Karen, now die in hole."));
         stoner.lastReported = offending.getUsername();
         stoner.lastReport = System.currentTimeMillis();
-        return;
-    } else {
-        stoner.send(new SendMessage("You can only report someone who has spoken in the last 60 seconds."));
-        return;
-    }
+	} else {
+        stoner.send(new SendMessage("Reporting mime's, thats ridicolous xD."));
+	}
 
     }
 
@@ -201,6 +155,49 @@ public class ReportHandler {
                 System.out.println("Error writing system log.");
             }
     }
+    }
+
+    public enum ReportData {
+        RULE_1(163034, "Showed weener"),
+        RULE_2(163035, "Didnt bring weed"),
+        RULE_3(163036, "Doesnt like bankstanding"),
+        RULE_4(163037, "Plays RS3"),
+        RULE_5(163038, "Is xp wasting"),
+        RULE_6(163039, "Doesnt login enough"),
+        RULE_7(163040, "Is a noob"),
+        RULE_8(163041, "Did something wrong"),
+        RULE_9(163042, "Threw crap at the zookeeper"),
+        RULE_10(163043, "Gave me monkey nuts"),
+        RULE_11(163044, "The reporter is a Karen"),
+        RULE_12(163045, "Broke a none-existent rule");
+
+        private static final HashMap<Integer, ReportData> reports = new HashMap<Integer, ReportData>();
+
+        static {
+            for (final ReportData report : ReportData.values()) {
+                ReportData.reports.put(report.buttonID, report);
+            }
+        }
+
+        private final int buttonID;
+        private final String rule;
+
+        ReportData(int buttonID, String rule) {
+        this.buttonID = buttonID;
+        this.rule = rule;
+        }
+
+        public static ReportData get(int id) {
+        return reports.get(id);
+        }
+
+        public int getButton() {
+        return buttonID;
+        }
+
+        public String getRule() {
+        return rule;
+        }
     }
 
 }

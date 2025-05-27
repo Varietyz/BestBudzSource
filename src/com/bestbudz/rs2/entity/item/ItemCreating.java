@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.entity.item;
 
-import java.util.ArrayList;
-
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.Advance;
@@ -9,16 +7,9 @@ import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.ArrayList;
 
-/**
- * Handles creating items
- * 
- * @author Jaybane
- *
- */
 public enum ItemCreating {
-
-	// ITEM("", new int[] { }, new int[] { }, new int[][] { }),
 
 	CAP_AND_GOGGLES("Cap and goggles", new int[] { 9946 }, new int[] { 9945, 9472 }, new int[][] {}),
 	TOXIC_STAFF_OF_THE_DEAD("Toxic staff of the dead", new int[] { 12904 }, new int[] { 11791, 12932 }, new int[][] { { Professions.HANDINESS, 59 } }),
@@ -56,36 +47,13 @@ public enum ItemCreating {
 	private final int[] items;
 	private final int[][] professions;
 
-	private ItemCreating(String name, int[] product, int[] items, int[][] professions) {
+	ItemCreating(String name, int[] product, int[] items, int[][] professions) {
 	this.name = name;
 	this.product = product;
 	this.items = items;
 	this.professions = professions;
 	}
 
-	public String getName() {
-	return name;
-	}
-
-	public int[] getProduct() {
-	return product;
-	}
-
-	public int[] getItems() {
-	return items;
-	}
-
-	public int[][] getProfessions() {
-	return professions;
-	}
-
-	/**
-	 * Gets the items
-	 * 
-	 * @param item1
-	 * @param item2
-	 * @return
-	 */
 	public static ItemCreating getDataForItems(int item1, int item2) {
 	for (ItemCreating data : ItemCreating.values()) {
 		int found = 0;
@@ -101,14 +69,6 @@ public enum ItemCreating {
 	return null;
 	}
 
-	/**
-	 * Handles creating the items
-	 * 
-	 * @param stoner
-	 * @param item1
-	 * @param item2
-	 * @return
-	 */
 	public static boolean handle(Stoner stoner, int item1, int item2) {
 	if (item1 == item2) {
 		return false;
@@ -161,6 +121,22 @@ public enum ItemCreating {
 
 	DialogueManager.sendItem1(stoner, "@dre@You have created " + Utility.getAOrAn(data.getName()) + " " + data.getName() + ".", data.getProduct()[0]);
 	return true;
+	}
+
+	public String getName() {
+	return name;
+	}
+
+	public int[] getProduct() {
+	return product;
+	}
+
+	public int[] getItems() {
+	return items;
+	}
+
+	public int[][] getProfessions() {
+	return professions;
 	}
 
 }

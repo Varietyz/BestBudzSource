@@ -2,7 +2,11 @@
   {
     "scrollId": 2722,
     "difficulty": "HARD",
-    "endLocation": { "x": 2587, "y": 3420, "z": 0 },
+    "endLocation": {
+      "x": 2587,
+      "y": 3420,
+      "z": 0
+    },
     "endLocationDiameter": 2,
     "data": [
       2110,
@@ -45,7 +49,11 @@
   {
     "scrollId": 2723,
     "difficulty": "HARD",
-    "endLocation": { "x": 2920, "y": 3163, "z": 0 },
+    "endLocation": {
+      "x": 2920,
+      "y": 3163,
+      "z": 0
+    },
     "endLocationDiameter": 10,
     "data": [
       2112,
@@ -85,7 +93,11 @@
   {
     "scrollId": 2801,
     "difficulty": "MEDIUM",
-    "endLocation": { "x": 3370, "y": 3428, "z": 0 },
+    "endLocation": {
+      "x": 3370,
+      "y": 3428,
+      "z": 0
+    },
     "endLocationDiameter": 1,
     "data": [
       859,
@@ -128,7 +140,11 @@
   {
     "scrollId": 2809,
     "difficulty": "MEDIUM",
-    "endLocation": { "x": 2722, "y": 3339, "z": 0 },
+    "endLocation": {
+      "x": 2722,
+      "y": 3339,
+      "z": 0
+    },
     "data": [
       17634
     ]
@@ -136,7 +152,11 @@
   {
     "scrollId": 2677,
     "difficulty": "EASY",
-    "endLocation": { "x": 2598, "y": 3280, "z": 0 },
+    "endLocation": {
+      "x": 2598,
+      "y": 3280,
+      "z": 0
+    },
     "endLocationDiameter": 1,
     "data": [
       2110,
@@ -176,7 +196,11 @@
   {
     "scrollId": 2678,
     "difficulty": "EASY",
-    "endLocation": { "x": 2977, "y": 3240, "z": 0 },
+    "endLocation": {
+      "x": 2977,
+      "y": 3240,
+      "z": 0
+    },
     "endLocationDiameter": 11,
     "data": [
       2113,
@@ -218,7 +242,11 @@
   {
     "scrollId": 2679,
     "difficulty": "EASY",
-    "endLocation": { "x": 2728, "y": 3348, "z": 0 },
+    "endLocation": {
+      "x": 2728,
+      "y": 3348,
+      "z": 0
+    },
     "endLocationDiameter": 1,
     "data": [
       858,
@@ -260,7 +288,11 @@
   {
     "scrollId": 2680,
     "difficulty": "EASY",
-    "endLocation": { "x": 2926, "y": 3484, "z": 0 },
+    "endLocation": {
+      "x": 2926,
+      "y": 3484,
+      "z": 0
+    },
     "endLocationDiameter": 5,
     "data": [
       862,
@@ -303,7 +335,11 @@
   {
     "scrollId": 3513,
     "difficulty": "EASY",
-    "endLocation": { "x": 2598, "y": 3280, "z": 0 },
+    "endLocation": {
+      "x": 2598,
+      "y": 3280,
+      "z": 0
+    },
     "endLocationDiameter": 1,
     "data": [
       2110,
@@ -343,7 +379,11 @@
   {
     "scrollId": 2681,
     "difficulty": "EASY",
-    "endLocation": { "x": 2611, "y": 3393, "z": 0 },
+    "endLocation": {
+      "x": 2611,
+      "y": 3393,
+      "z": 0
+    },
     "endLocationDiameter": 2,
     "data": [
       2106,
@@ -386,7 +426,11 @@
   {
     "scrollId": 2682,
     "difficulty": "EASY",
-    "endLocation": { "x": 3290, "y": 3372, "z": 0 },
+    "endLocation": {
+      "x": 3290,
+      "y": 3372,
+      "z": 0
+    },
     "data": [
       7045
     ]
@@ -394,7 +438,11 @@
   {
     "scrollId": 2683,
     "difficulty": "EASY",
-    "endLocation": { "x": 3092, "y": 3226, "z": 0 },
+    "endLocation": {
+      "x": 3092,
+      "y": 3226,
+      "z": 0
+    },
     "data": [
       7113
     ]
@@ -402,7 +450,11 @@
   {
     "scrollId": 2684,
     "difficulty": "EASY",
-    "endLocation": { "x": 2702, "y": 3428, "z": 0 },
+    "endLocation": {
+      "x": 2702,
+      "y": 3428,
+      "z": 0
+    },
     "data": [
       7162
     ]
@@ -410,7 +462,11 @@
   {
     "scrollId": 2685,
     "difficulty": "EASY",
-    "endLocation": { "x": 2970, "y": 3414, "z": 0 },
+    "endLocation": {
+      "x": 2970,
+      "y": 3414,
+      "z": 0
+    },
     "data": [
       17537
     ]

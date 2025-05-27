@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.entity.item;
 
-import java.util.Objects;
-
 import com.bestbudz.core.definitions.EquipmentDefinition;
 import com.bestbudz.core.definitions.FoodDefinition;
 import com.bestbudz.core.definitions.ItemBonusDefinition;
@@ -12,8 +10,30 @@ import com.bestbudz.core.definitions.SagittariusWeaponDefinition;
 import com.bestbudz.core.definitions.SpecialAssaultDefinition;
 import com.bestbudz.core.definitions.WeaponDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
+import java.util.Objects;
 
 public class Item {
+
+	private short id;
+	private int amount;
+
+	public Item() {
+	}
+
+	public Item(int id) {
+	this.id = ((short) id);
+	amount = 1;
+	}
+
+	public Item(int id, int amount) {
+	this.id = ((short) id);
+	this.amount = amount;
+	}
+
+	public Item(Item item) {
+	id = ((short) item.getId());
+	amount = item.getAmount();
+	}
 
 	public static ItemDefinition getDefinition(int id) {
 	return GameDefinitionLoader.getItemDef(id);
@@ -68,30 +88,13 @@ public class Item {
 	return GameDefinitionLoader.getWeaponDefinition(id);
 	}
 
-	private short id;
-
-	private int amount;
-
-	public Item() {
-	}
-
-	public Item(int id) {
-	this.id = ((short) id);
-	amount = 1;
-	}
-
-	public Item(int id, int amount) {
-	this.id = ((short) id);
-	this.amount = amount;
-	}
-
-	public Item(Item item) {
-	id = ((short) item.getId());
-	amount = item.getAmount();
-	}
-
 	public void add(int amount) {
 	this.amount += amount;
+	}
+
+	@Override
+	public int hashCode() {
+	return Objects.hash(id, amount);
 	}
 
 	@Override
@@ -104,12 +107,16 @@ public class Item {
 	}
 
 	@Override
-	public int hashCode() {
-	return Objects.hash(id, amount);
+	public String toString() {
+	return "Item [id=" + id + ", amount=" + amount + "]";
 	}
 
 	public int getAmount() {
 	return amount;
+	}
+
+	public void setAmount(int amount) {
+	this.amount = amount;
 	}
 
 	public ItemDefinition getDefinition() {
@@ -126,6 +133,10 @@ public class Item {
 
 	public int getId() {
 	return id;
+	}
+
+	public void setId(int id) {
+	this.id = ((short) id);
 	}
 
 	public short[] getItemBonuses() {
@@ -175,21 +186,8 @@ public class Item {
 	this.amount -= amount;
 	}
 
-	public void setAmount(int amount) {
-	this.amount = amount;
-	}
-
-	public void setId(int id) {
-	this.id = ((short) id);
-	}
-
 	public Item getSingle() {
 	return new Item(id, 1);
-	}
-
-	@Override
-	public String toString() {
-	return "Item [id=" + id + ", amount=" + amount + "]";
 	}
 
 	public void unNote() {

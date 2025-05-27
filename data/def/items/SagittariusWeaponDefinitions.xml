@@ -3759,7 +3759,7 @@
 			<amount>1</amount>
 			</item>
 		</arrows>
-	</SagittariusWeaponDefinition>	
+	</SagittariusWeaponDefinition>
 		<SagittariusWeaponDefinition>
 		<id>12767</id>
 		<type>SHOT</type>
@@ -3995,7 +3995,7 @@
 			<amount>1</amount>
 			</item>
 		</arrows>
-	</SagittariusWeaponDefinition>	
+	</SagittariusWeaponDefinition>
 	<SagittariusWeaponDefinition>
 		<id>11236</id>
 		<type>SHOT</type>
@@ -6164,5 +6164,5 @@
 			<amount>1</amount>
 			</item>
 		</arrows>
-	</SagittariusWeaponDefinition>	
+	</SagittariusWeaponDefinition>
 </list>

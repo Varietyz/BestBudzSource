@@ -8,46 +8,14 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * <p>
- * A producing action is an action where on item is transformed into another,
- * typically this is in professions such as forging and handiness.
- * </p>
- * 
- * <p>
- * This class implements code related to all production-type professions, such
- * as dealing with the action itself, replacing the items and checking grades.
- * </p>
- * 
- * <p>
- * The individual handiness, forging, and other professions implement
- * functionality specific to them such as random events.
- * </p>
- * 
- * @author Graham Edgecombe
- * @author Jaybane <Scu11>
- */
 public abstract class ProductionTask extends Task {
 
-	/**
-	 * Stoner instance because this is for a stoner
-	 */
 	protected Stoner stoner;
 
-	/**
-	 * This starts the actions animation and requirement checks, but prevents the
-	 * production from immediately executing.
-	 */
 	protected boolean started = false;
 
-	/**
-	 * The cycle count.
-	 */
 	protected int cycleCount = 0;
 
-	/**
-	 * The amount of items to produce.
-	 */
 	private int productionCount = 0;
 
 	public ProductionTask(Stoner stoner, int delay) {
@@ -59,10 +27,6 @@ public abstract class ProductionTask extends Task {
 	this.stoner = stoner;
 	}
 
-	/**
-	 * Performs extra checks that a specific production event independently uses,
-	 * e.g. checking for ingredients in thc-hempistry.
-	 */
 	public abstract boolean canProduce();
 
 	@Override
@@ -141,107 +105,43 @@ public abstract class ProductionTask extends Task {
 	}
 	}
 
-	/**
-	 * Gets the animation played whilst producing the item.
-	 * 
-	 * @return The animation played whilst producing the item.
-	 */
 	public abstract Animation getAnimation();
 
-	/**
-	 * Gets the consumed item in the production of this item.
-	 * 
-	 * @return The consumed item in the production of this item.
-	 */
 	public abstract Item[] getConsumedItems();
 
-	/**
-	 * Gets the amount of cycles before the item is produced.
-	 * 
-	 * @return The amount of cycles before the item is produced.
-	 */
 	public abstract int getCycleCount();
 
-	/**
-	 * Gets the experience granted for each item that is successfully produced.
-	 * 
-	 * @return The experience granted for each item that is successfully produced.
-	 */
+	public void setCycleCount(int cycleCount) {
+	this.cycleCount = cycleCount;
+	}
+
 	public abstract double getExperience();
 
-	/**
-	 * Gets the graphic played whilst producing the item.
-	 * 
-	 * @return The graphic played whilst producing the item.
-	 */
 	public abstract Graphic getGraphic();
 
-	/**
-	 * Gets the message sent when the Entity's grade is too low to produce this
-	 * item.
-	 * 
-	 * @return The message sent when the Entity's grade is too low to produce this
-	 *         item.
-	 */
 	public abstract String getInsufficentGradeMessage();
 
-	/**
-	 * Gets the amount of times an item is produced.
-	 * 
-	 * @return The amount of times an item is produced.
-	 */
 	public abstract int getProductionCount();
 
-	/**
-	 * Gets the required grade to produce this item.
-	 * 
-	 * @return The required grade to produce this item.
-	 */
+	public void setProductionCount(int productionCount) {
+	this.productionCount = productionCount;
+	}
+
 	public abstract int getRequiredGrade();
 
-	/**
-	 * Gets the rewarded items from production.
-	 * 
-	 * @return The rewarded items from production.
-	 */
 	public abstract Item[] getRewards();
 
-	/**
-	 * Gets the profession we are using to produce.
-	 * 
-	 * @return The profession we are using to produce.
-	 */
 	public abstract int getProfession();
 
-	/**
-	 * Gets the message sent when the Entity successfully produces an item.
-	 * 
-	 * @return The message sent when the Entity successfully produce an item.
-	 */
 	public abstract String getSuccessfulProductionMessage();
 
 	public boolean isStarted() {
 	return started;
 	}
 
-	/**
-	 * Creates the production action for the specified mob.
-	 * 
-	 * @param mob
-	 *                The mob to create the action for.
-	 */
-
-	public abstract String noIngredients(Item item);
-
-	public void setCycleCount(int cycleCount) {
-	this.cycleCount = cycleCount;
-	}
-
-	public void setProductionCount(int productionCount) {
-	this.productionCount = productionCount;
-	}
-
 	public void setStarted(boolean started) {
 	this.started = started;
 	}
+
+	public abstract String noIngredients(Item item);
 }

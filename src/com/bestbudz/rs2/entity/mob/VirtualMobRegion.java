@@ -1,9 +1,8 @@
 package com.bestbudz.rs2.entity.mob;
 
+import com.bestbudz.core.cache.map.Tile;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.bestbudz.core.cache.map.Tile;
 
 public class VirtualMobRegion {
 	private final List<Tile> occ = new ArrayList<Tile>();

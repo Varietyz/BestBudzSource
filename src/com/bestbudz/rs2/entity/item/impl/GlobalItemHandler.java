@@ -1,44 +1,24 @@
 package com.bestbudz.rs2.entity.item.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.item.Item;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
-/**
- * Handles the global ground items
- * 
- * @author Arithium
- * 
- */
 public class GlobalItemHandler {
 
-	private static Logger logger = Logger.getLogger(GlobalItemHandler.class.getName());
+	private static final Logger logger = Logger.getLogger(GlobalItemHandler.class.getName());
 
-	/**
-	 * A list containing all of the ground items
-	 */
 	private static final List<GroundItem> groundItems = new ArrayList<GroundItem>();
 
-	/**
-	 * Adds a global ground item to the list
-	 * 
-	 * @param item
-	 */
 	private static void add(GroundItem item) {
 		groundItems.add(item);
 	}
 
-	/**
-	 * Creates a respawn task for the ground item
-	 * 
-	 * @param groundItem
-	 */
 	public static void createRespawnTask(final GroundItem groundItem) {
 		final GroundItem tempItem = new GroundItem(groundItem.getItem(), groundItem.getLocation(), groundItem.getRespawnTimer());
 		TaskQueue.queue(new Task(tempItem.getRespawnTimer()) {
@@ -56,9 +36,6 @@ public class GlobalItemHandler {
 		});
 	}
 
-	/**
-	 * Spawns global ground items
-	 */
 	public static void spawnGroundItems() {
 		add(new GroundItem(new Item(952, 1), new Location(3563, 3305), 50));
 

@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.entity.stoner;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.logger.StonerLogger;
 import com.bestbudz.rs2.content.dialogue.impl.ConfirmDialogue;
@@ -17,49 +14,22 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSound;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Stoner owned shop exchange
- * 
- * @author JayBane
- *
- */
 public class StonerOwnedShops extends Shop {
 
-	/**
-	 * Stoner owned shops
-	 * 
-	 * @param owner
-	 */
+	public static final String ADDING_ITEM_KEY = "addingitemkey";
+	public static int TAX = 3;
+	public static boolean disabled = false;
+	private final Stoner owner;
+	private int[] prices = new int[36];
+	private String search = null;
+
 	public StonerOwnedShops(Stoner owner) {
 	super(new Item[40], owner.getUsername());
 	this.owner = owner;
 	}
-
-	/**
-	 * Stoner
-	 */
-	private final Stoner owner;
-
-	/**
-	 * The shop tax
-	 */
-	public static int TAX = 3;
-
-	/**
-	 * If system should be disabled
-	 */
-	public static boolean disabled = false;
-
-	/**
-	 * Key
-	 */
-	public static final String ADDING_ITEM_KEY = "addingitemkey";
-
-	/**
-	 * Item prices
-	 */
-	private int[] prices = new int[36];
 
 	public int[] getPrices() {
 	return prices;
@@ -68,11 +38,6 @@ public class StonerOwnedShops extends Shop {
 	public void setPrices(int[] prices) {
 	this.prices = prices;
 	}
-
-	/**
-	 * Searching
-	 */
-	private String search = null;
 
 	public void setSearch(String search) {
 	this.search = search;
@@ -86,14 +51,6 @@ public class StonerOwnedShops extends Shop {
 	search = null;
 	}
 
-	/**
-	 * Buys item from stoner's shop
-	 * 
-	 * @param stoner
-	 * @param slot
-	 * @param id
-	 * @param amount
-	 */
 	@Override
 	public void buy(Stoner stoner, final int slot, final int id, int amount) {
 	if (stoner.getTrade().trading() || stoner.getDueling().isDueling() || stoner.getCombat().inCombat() || stoner.inWGGame()) {
@@ -183,6 +140,75 @@ public class StonerOwnedShops extends Shop {
 	}
 
 	@Override
+	public int getSellPrice(int id) {
+	int slot = getItemSlot(id);
+
+	if (slot == -1) {
+		return 0;
+	}
+
+	return prices[slot];
+	}
+
+	@Override
+	public boolean isDefaultItem(int id) {
+	return false;
+	}
+
+	@Override
+	public void refreshContainers() {
+	}
+
+	@Override
+	public boolean sell(Stoner stoner, int id, int amount) {
+	if (disabled) {
+		stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] Stoner owned shopping is disabled at the moment."));
+		return false;
+	}
+	if (!stoner.equals(owner)) {
+		return false;
+	}
+	if ((!Item.getDefinition(id).isTradable()) || (id == 995)) {
+		owner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] You cannot sell this item."));
+		return false;
+	}
+	if (((getItemCount() == 16)) || ((getItemCount() == 32))) {
+		stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] You cannot put anymore items into your shop."));
+		return false;
+	}
+	int invAmount = stoner.getBox().getItemAmount(id);
+	if (invAmount == 0)
+		return false;
+	if (amount > invAmount) {
+		amount = invAmount;
+	}
+	stoner.getAttributes().set("addingitemkey", new Item(id, amount));
+	stoner.getClient().queueOutgoingPacket(new SendEnterXInterface(15460, 0));
+	return true;
+	}
+
+	@Override
+	public void shift() {
+	List<ShopItem> all = new ArrayList<ShopItem>();
+
+	for (int i = 0; i < getSize(); i++) {
+		if (items[i] != null) {
+			all.add(new ShopItem(items[i], prices[i]));
+		}
+	}
+
+	items = new Item[getSize()];
+	prices = new int[getSize()];
+
+	int index = 0;
+	for (ShopItem i : all) {
+		items[index] = i.getItem();
+		prices[index] = i.getPrice();
+		index++;
+	}
+	}
+
+	@Override
 	public void shift(int slot) {
 	if ((slot > getSize()) || (slot < 0)) {
 		return;
@@ -220,48 +246,6 @@ public class StonerOwnedShops extends Shop {
 	}
 	}
 
-	@Override
-	public void shift() {
-	List<ShopItem> all = new ArrayList<ShopItem>();
-
-	for (int i = 0; i < getSize(); i++) {
-		if (items[i] != null) {
-			all.add(new ShopItem(items[i], prices[i]));
-		}
-	}
-
-	items = new Item[getSize()];
-	prices = new int[getSize()];
-
-	int index = 0;
-	for (ShopItem i : all) {
-		items[index] = i.getItem();
-		prices[index] = i.getPrice();
-		index++;
-	}
-	}
-
-	static class ShopItem {
-		private final Item item;
-		private final int price;
-
-		public ShopItem(Item item, int price) {
-		this.item = item;
-		this.price = price;
-		}
-
-		public Item getItem() {
-		return item;
-		}
-
-		public int getPrice() {
-		return price;
-		}
-	}
-
-	/**
-	 * Search all available shops
-	 */
 	public void doSearch() {
 	int c = 0;
 	for (int i = 53516; i < 53716; i++) {
@@ -297,12 +281,6 @@ public class StonerOwnedShops extends Shop {
 	owner.getClient().queueOutgoingPacket(new SendInterface(53500));
 	}
 
-	/**
-	 * Set price
-	 * 
-	 * @param stoner
-	 * @param price
-	 */
 	public void onSetPrice(Stoner stoner, int price) {
 	if (disabled) {
 		stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] Stoner owned shopping is disabled at the moment."));
@@ -343,57 +321,6 @@ public class StonerOwnedShops extends Shop {
 	stoner.getShopping().open(stoner);
 	}
 
-	/**
-	 * Sells item
-	 */
-	@Override
-	public boolean sell(Stoner stoner, int id, int amount) {
-	if (disabled) {
-		stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] Stoner owned shopping is disabled at the moment."));
-		return false;
-	}
-	if (!stoner.equals(owner)) {
-		return false;
-	}
-	if ((!Item.getDefinition(id).isTradable()) || (id == 995)) {
-		owner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] You cannot sell this item."));
-		return false;
-	}
-	if (((getItemCount() == 16)) || ((getItemCount() == 32))) {
-		stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] You cannot put anymore items into your shop."));
-		return false;
-	}
-	int invAmount = stoner.getBox().getItemAmount(id);
-	if (invAmount == 0)
-		return false;
-	if (amount > invAmount) {
-		amount = invAmount;
-	}
-	stoner.getAttributes().set("addingitemkey", new Item(id, amount));
-	stoner.getClient().queueOutgoingPacket(new SendEnterXInterface(15460, 0));
-	return true;
-	}
-
-	/**
-	 * Refresh the containers
-	 */
-	@Override
-	public void refreshContainers() {
-	}
-
-	/**
-	 * Checks if is default item
-	 */
-	@Override
-	public boolean isDefaultItem(int id) {
-	return false;
-	}
-
-	/**
-	 * Gets item count
-	 * 
-	 * @return
-	 */
 	public int getItemCount() {
 	int c = 0;
 	for (Item i : getItems()) {
@@ -404,25 +331,6 @@ public class StonerOwnedShops extends Shop {
 	return c;
 	}
 
-	/**
-	 * Gets shop selling price
-	 */
-	@Override
-	public int getSellPrice(int id) {
-	int slot = getItemSlot(id);
-
-	if (slot == -1) {
-		return 0;
-	}
-
-	return prices[slot];
-	}
-
-	/**
-	 * Checks if has item
-	 * 
-	 * @return
-	 */
 	public boolean hasAnyItems() {
 	for (Item i : getItems()) {
 		if (i != null) {
@@ -433,12 +341,6 @@ public class StonerOwnedShops extends Shop {
 	return false;
 	}
 
-	/**
-	 * Checks if has item with text
-	 * 
-	 * @param text
-	 * @return
-	 */
 	public boolean hasItemWithText(String text) {
 	for (Item i : getItems()) {
 		if ((i != null) && (i.getDefinition().getName().toLowerCase().contains(text.toLowerCase()))) {
@@ -447,6 +349,24 @@ public class StonerOwnedShops extends Shop {
 	}
 
 	return false;
+	}
+
+	static class ShopItem {
+		private final Item item;
+		private final int price;
+
+		public ShopItem(Item item, int price) {
+		this.item = item;
+		this.price = price;
+		}
+
+		public Item getItem() {
+		return item;
+		}
+
+		public int getPrice() {
+		return price;
+		}
 	}
 
 }

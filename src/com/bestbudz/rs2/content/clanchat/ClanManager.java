@@ -1,13 +1,12 @@
 package com.bestbudz.rs2.content.clanchat;
 
+import com.bestbudz.rs2.entity.World;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.LinkedList;
-
-import com.bestbudz.rs2.entity.World;
-import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class ClanManager {

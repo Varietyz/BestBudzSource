@@ -1,24 +1,16 @@
 package com.bestbudz.rs2.content.membership;
 
-import java.util.HashMap;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.CreditTab;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
-// import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.HashMap;
 
-/**
- * Handles the credit system
- * 
- * @author Jaybane
- *
- */
 public enum CreditHandler {
 	CREDIT_SHOPS(205051, 1, new Handle() {
 		@Override
@@ -27,15 +19,15 @@ public enum CreditHandler {
 			return;
 		}
 		stoner.start(new OptionDialogue("Credit Shop 1", p -> {
-			stoner.setCredits(stoner.getCredits() + 0);
+			stoner.setCredits(stoner.getCredits());
 			stoner.getShopping().open(94);
 			spent(stoner, 1);
 		}, "Credit Shop 2", p -> {
-			stoner.setCredits(stoner.getCredits() + 0);
+			stoner.setCredits(stoner.getCredits());
 			stoner.getShopping().open(90);
 			spent(stoner, 1);
 		}, "Credit Shop 3", p -> {
-			stoner.setCredits(stoner.getCredits() + 0);
+			stoner.setCredits(stoner.getCredits());
 			stoner.getShopping().open(87);
 			spent(stoner, 1);
 		}));
@@ -124,33 +116,10 @@ public enum CreditHandler {
 		if (!allowed(stoner, null, 1)) {
 			return;
 		}
-		stoner.setCredits(stoner.getCredits() - 0);
-		// spent(stoner, 30);
+		stoner.setCredits(stoner.getCredits());
 		stoner.send(new SendMessage("@blu@COMING SOON, HOLD UR HORSES!"));
 		}
 	}),;
-
-	private int button;
-	private int creditCost;
-	private Handle handle;
-
-	private CreditHandler(int button, int creditCost, Handle handle) {
-	this.button = button;
-	this.creditCost = creditCost;
-	this.handle = handle;
-	}
-
-	public int getButton() {
-	return button;
-	}
-
-	public int getCost() {
-	return creditCost;
-	}
-
-	public Handle getHandle() {
-	return handle;
-	}
 
 	public static HashMap<Integer, CreditHandler> cannacredits = new HashMap<Integer, CreditHandler>();
 
@@ -160,13 +129,16 @@ public enum CreditHandler {
 		}
 	}
 
-	/**
-	 * Checks if stoner is allowed to access feature
-	 * 
-	 * @param stoner
-	 * @param amount
-	 * @return
-	 */
+	private final int button;
+	private final int creditCost;
+	private final Handle handle;
+
+	CreditHandler(int button, int creditCost, Handle handle) {
+	this.button = button;
+	this.creditCost = creditCost;
+	this.handle = handle;
+	}
+
 	public static boolean allowed(Stoner stoner, CreditPurchase credit, int amount) {
 	if (stoner.isCreditUnlocked(credit)) {
 		DialogueManager.sendStatement(stoner, "@red@You have this unlocked.");
@@ -187,27 +159,12 @@ public enum CreditHandler {
 	return true;
 	}
 
-	/**
-	 * Handles what happens when stoner has spent cannacredits
-	 * 
-	 * @param stoner
-	 * @param amount
-	 */
 	public static void spent(Stoner stoner, int amount) {
-	// stoner.send(new SendMessage("@blu@You have spent " + amount + " cannacredits;
-	// Remaining: " + stoner.getCredits() + "."));
 	stoner.getClient().queueOutgoingPacket(new SendString("</col>CannaCredits: @gre@" + Utility.format(stoner.getCredits()), 52504));
 	InterfaceHandler.writeText(new CreditTab(stoner));
 	InterfaceHandler.writeText(new QuestTab(stoner));
 	}
 
-	/**
-	 * Handles clicking buttons
-	 * 
-	 * @param stoner
-	 * @param buttonId
-	 * @return
-	 */
 	public static boolean handleClicking(Stoner stoner, int buttonId) {
 	CreditHandler cannacredits = CreditHandler.cannacredits.get(buttonId);
 
@@ -217,6 +174,18 @@ public enum CreditHandler {
 
 	cannacredits.getHandle().handle(stoner);
 	return false;
+	}
+
+	public int getButton() {
+	return button;
+	}
+
+	public int getCost() {
+	return creditCost;
+	}
+
+	public Handle getHandle() {
+	return handle;
 	}
 
 }

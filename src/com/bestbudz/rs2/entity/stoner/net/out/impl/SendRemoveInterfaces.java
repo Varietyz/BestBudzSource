@@ -6,18 +6,17 @@ import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
 
 public class SendRemoveInterfaces extends OutgoingPacket {
 
-	@Override
-	public void execute(Client client) {
-	StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(1);
-	out.writeHeader(client.getEncryptor(), 219);
-	client.send(out.getBuffer());
-	client.getStoner().getInterfaceManager().reset();
-	new SendCharacterDetail().execute(client);
-	}
+  @Override
+  public void execute(Client client) {
+    StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(1);
+    out.writeHeader(client.getEncryptor(), 219);
+    client.send(out.getBuffer());
+    client.getStoner().getInterfaceManager().reset();
+    new SendCharacterDetail().execute(client);
+  }
 
-	@Override
-	public int getOpcode() {
-	return 219;
-	}
-
+  @Override
+  public int getOpcode() {
+    return 219;
+  }
 }

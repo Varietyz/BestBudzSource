@@ -7,16 +7,15 @@ import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
 
 public class SendEnterString extends OutgoingPacket {
 
-	@Override
-	public void execute(Client client) {
-	OutBuffer outBuffer = StreamBuffer.newOutBuffer(5);
-	outBuffer.writeHeader(client.getEncryptor(), getOpcode());
-	client.send(outBuffer.getBuffer());
-	}
+  @Override
+  public void execute(Client client) {
+    OutBuffer outBuffer = StreamBuffer.newOutBuffer(5);
+    outBuffer.writeHeader(client.getEncryptor(), getOpcode());
+    client.send(outBuffer.getBuffer());
+  }
 
-	@Override
-	public int getOpcode() {
-	return 187;
-	}
-
+  @Override
+  public int getOpcode() {
+    return 187;
+  }
 }

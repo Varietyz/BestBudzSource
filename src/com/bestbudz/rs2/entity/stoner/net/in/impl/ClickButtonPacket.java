@@ -1,35 +1,33 @@
 package com.bestbudz.rs2.entity.stoner.net.in.impl;
 
-import java.math.BigInteger;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.PriorityQueue;
-import java.util.Queue;
-
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.core.util.Utility;
+import com.bestbudz.rs2.content.Advance;
 import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.EasterRing;
 import com.bestbudz.rs2.content.Emotes;
 import com.bestbudz.rs2.content.GenieLamp;
 import com.bestbudz.rs2.content.GenieReset;
 import com.bestbudz.rs2.content.LoyaltyShop;
-import com.bestbudz.rs2.content.StonersOnline;
-import com.bestbudz.rs2.content.Advance;
 import com.bestbudz.rs2.content.ProfessionsChat;
 import com.bestbudz.rs2.content.StarterKit;
+import com.bestbudz.rs2.content.StonersOnline;
 import com.bestbudz.rs2.content.TeleportHandler;
 import com.bestbudz.rs2.content.achievements.AchievementButtons;
 import com.bestbudz.rs2.content.combat.formula.MageFormulas;
 import com.bestbudz.rs2.content.combat.formula.MeleeFormulas;
 import com.bestbudz.rs2.content.combat.formula.RangeFormulas;
-// import com.bestbudz.rs2.content.combat.impl.StonerDrops;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.AchievementDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.DunceDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.GenieResetDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.NeiveDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.OziachDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.SailorDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.ShopExchangeDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.StaffTitleDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.Tutorial;
 import com.bestbudz.rs2.content.dialogue.impl.VannakaDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
@@ -38,15 +36,13 @@ import com.bestbudz.rs2.content.interfaces.impl.BossInterface;
 import com.bestbudz.rs2.content.interfaces.impl.MinigameInterface;
 import com.bestbudz.rs2.content.interfaces.impl.OtherInterface;
 import com.bestbudz.rs2.content.interfaces.impl.PointsInterface;
+import com.bestbudz.rs2.content.interfaces.impl.ProfessioningInterface;
 import com.bestbudz.rs2.content.interfaces.impl.PvPInterface;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
-import com.bestbudz.rs2.content.interfaces.impl.ProfessioningInterface;
 import com.bestbudz.rs2.content.interfaces.impl.TrainingInterface;
 import com.bestbudz.rs2.content.membership.CreditHandler;
 import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelingConstants;
-import com.bestbudz.rs2.content.profiles.StonerProfiler;
-import com.bestbudz.rs2.content.profiles.ProfileLeaderboard;
 import com.bestbudz.rs2.content.profession.ProfessionGoal;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.foodie.FoodieTask;
@@ -54,19 +50,23 @@ import com.bestbudz.rs2.content.profession.forging.ForgingConstants;
 import com.bestbudz.rs2.content.profession.handiness.Handiness;
 import com.bestbudz.rs2.content.profession.handiness.HideTanning;
 import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
-import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
-import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
-import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
 import com.bestbudz.rs2.content.profession.mage.Autocast;
+import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
 import com.bestbudz.rs2.content.profession.mage.spells.BoltEnchanting;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
 import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
 import com.bestbudz.rs2.content.profession.summoning.SummoningCreation;
+import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
+import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
+import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
 import com.bestbudz.rs2.content.profession.woodcarving.Woodcarving;
+import com.bestbudz.rs2.content.profiles.ProfileLeaderboard;
+import com.bestbudz.rs2.content.profiles.StonerProfiler;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Graphic;
+import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.ReportHandler;
 import com.bestbudz.rs2.entity.ReportHandler.ReportData;
 import com.bestbudz.rs2.entity.World;
@@ -86,16 +86,14 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSidebarInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
-import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
-import com.bestbudz.rs2.content.dialogue.impl.AchievementDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.DunceDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.GenieResetDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.NeiveDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.OziachDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.SailorDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.ShopExchangeDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.StaffTitleDialogue;
-import com.bestbudz.rs2.entity.Location;
+import java.math.BigInteger;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class ClickButtonPacket extends IncomingPacket {
 
@@ -194,8 +192,6 @@ public class ClickButtonPacket extends IncomingPacket {
 	}
 
 	switch (buttonId) {
-
-	/** Staff Tab */
 	case 114229:
 		if (StonerConstants.isStaff(stoner)) {
 			String accessibility = "";
@@ -220,21 +216,12 @@ public class ClickButtonPacket extends IncomingPacket {
 			stoner.send(new SendOpenTab(2));
 		}
 		break;
-
-	/** Misery Box */
 	case 66108:
 		MysteryBoxMinigame.play(stoner);
 		break;
-	// case 66115:
-	// stoner.send(new SendString("http://www.BestBudz.com/store/", 12000));
-	// break;
-
-	/** Drop Table */
 	case 233110:
 		DropTable.displayNpc(stoner, stoner.monsterSelected);
 		break;
-
-	/** Mage Spells teleport */
 	case 50235:
 	case 4140:
 		InterfaceHandler.writeText(new TrainingInterface(stoner));
@@ -265,8 +252,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		InterfaceHandler.writeText(new OtherInterface(stoner));
 		stoner.send(new SendInterface(61500));
 		break;
-
-	/** Report abuse */
 	case 163046:
 		ReportHandler.handleReport(stoner);
 		break;
@@ -276,13 +261,9 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.reportName = "";
 		stoner.send(new SendInterface(41750));
 		break;
-
-	/* Bolt enchanting */
 	case 75007:
 		BoltEnchanting.open(stoner);
 		break;
-
-	/** Home teleport */
 	case 117048:
 	case 75010:
 	case 84237:
@@ -292,15 +273,9 @@ public class ClickButtonPacket extends IncomingPacket {
 		if (stoner.inJailed()) {
 			return;
 		}
-		if (stoner.inWilderness() && stoner.getWildernessGrade() > 20) {
-			stoner.send(new SendMessage("You can't teleport over Lv20 wilderness!"));
-			return;
-		}
 		stoner.getMage().teleport(StonerConstants.HOME.getX(), StonerConstants.HOME.getY(), StonerConstants.HOME.getZ(), TeleportTypes.SPELL_BOOK);
 		stoner.send(new SendMessage("Home weed home. " + stoner.deterquarryIcon(stoner)));
 		break;
-
-	/** Blow Pipe */
 	case 55095:
 		if (stoner.getAttributes().getInt("ASK_KEY") == 0) {
 			ToxicBlowpipe.unload(stoner);
@@ -311,8 +286,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		}
 		stoner.send(new SendRemoveInterfaces());
 		return;
-
-	/** Debit Card */
 	case 2202:
 	stoner.send(new SendMessage("You have <col=255>" + Utility.format(stoner.getMoneyPouch()) + " </col>BestBucks on your Debit Card."));
 		break;
@@ -327,24 +300,18 @@ public class ClickButtonPacket extends IncomingPacket {
 			stoner.send(new SendMessage("You will now be paying with your Debit Card."));
 		}));
 		break;
-
-	/** Close buttons */
 	case 15062:
 	case 55096:
 	case 190116:
 	case 184163:
 		stoner.send(new SendRemoveInterfaces());
 		break;
-
-	/** Equipment screen */
 	case 59097:
 		stoner.send(new SendString("</col>Melee Max Hit: @gre@" + MeleeFormulas.calculateBaseDamage(stoner), 15116));
 		stoner.send(new SendString("</col>Range Max Hit: @gre@" + RangeFormulas.getSagittariusMaxHit(stoner) + ".0", 15117));
 		stoner.send(new SendString("</col>Mage Max Hit: @gre@" + MageFormulas.mageMaxHit(stoner) + ".0", 15118));
 		stoner.send(new SendInterface(15106));
 		break;
-
-	/** Settings */
 	case 140186:
 		stoner.send(new SendMessage(":updateSettings:"));
 		stoner.send(new SendSidebarInterface(11, 28400));
@@ -394,8 +361,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		}
 		stoner.getDelay().reset();
 		break;
-
-	/** Stoner Profiler */
 	case 201051:
 	case 201053:
 		stoner.send(new SendConfig(1032, 1));
@@ -424,8 +389,6 @@ public class ClickButtonPacket extends IncomingPacket {
 	case 185055:
 		ProfileLeaderboard.open(stoner, "What kind of man");
 		break;
-
-	/** Pricer checker */
 	case 59103:
 		stoner.getPriceChecker().open();
 		break;
@@ -438,8 +401,6 @@ public class ClickButtonPacket extends IncomingPacket {
 	case 189124:
 		stoner.send(new SendMessage("Dont even ask.."));
 		break;
-
-	/** Experience lock */
 	case 59206:
 		stoner.start(new OptionDialogue("Lock experience", p -> {
 			stoner.getProfession().setExpLock(true);
@@ -451,16 +412,12 @@ public class ClickButtonPacket extends IncomingPacket {
 			stoner.send(new SendRemoveInterfaces());
 		}));
 		break;
-
-	/** Bank */
-	case 195087: // option
+	case 195087:
 		stoner.send(new SendInterface(32500));
 		break;
 	case 127000:
 		stoner.send(new SendInterface(5292));
 		break;
-
-	/** Shop exchange */
 	case 209002:
 		stoner.start(new OptionDialogue("Search name", p -> {
 			stoner.setEnterXInterfaceId(55777);
@@ -470,10 +427,6 @@ public class ClickButtonPacket extends IncomingPacket {
 			stoner.getClient().queueOutgoingPacket(new SendEnterString());
 		}));
 		break;
-
-
-
-	/** Achievement & Quest Tab */
 	case 114220:
 		InterfaceHandler.writeText(new AchievementTab(stoner));
 		stoner.send(new SendSidebarInterface(2, 31000));
@@ -488,15 +441,13 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendMessage("@gre@You have refreshed the BestBudz Tab."));
 		InterfaceHandler.writeText(new QuestTab(stoner));
 		break;
-		
-	///player info
-	case 115070: // Points
+	case 115070:
 		stoner.send(new SendString("@gre@" + stoner.getUsername() + "'s tracked points.", 8144));
 		InterfaceHandler.writeText(new PointsInterface(stoner));
 		stoner.send(new SendInterface(8134));
 		break;
 
-	case 115071: //Kills
+	case 115071:
 		int linePosition = 8145;
 		HashMap<String, Integer> map = stoner.getProperties().getPropertyValues("MOB");
 
@@ -506,7 +457,7 @@ public class ClickButtonPacket extends IncomingPacket {
 
 		for (String key : alphabetical) {
 			String line = Utility.formatStonerName(key.toLowerCase().replaceAll("_", " ")) + ": @gre@" + map.get(key);
-			stoner.send(new SendString("@gre@PvM Tracker | " + alphabetical.size() + "", 8144));
+			stoner.send(new SendString("@gre@PvM Tracker | " + alphabetical.size(), 8144));
 			stoner.send(new SendString("</col>" + line, linePosition++));
 		}
 
@@ -522,13 +473,7 @@ public class ClickButtonPacket extends IncomingPacket {
 
 		stoner.send(new SendInterface(8134));
 		break;
-
-
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-	///frequent use
-	case 115075: // Change spells
+	case 115075:
 		stoner.start(new OptionDialogue("Focused Mage", p -> {
 			stoner.getMage().setSpellBookType(SpellBookTypes.MODERN);
 			stoner.getMage().setMageBook(1151);
@@ -546,70 +491,65 @@ public class ClickButtonPacket extends IncomingPacket {
 		}));
 		break;
 
-	case 115076: // Drop table
+	case 115076:
 		DropTable.open(stoner);
 		break;
 
-	case 115077: // Profession advancing
+	case 115077:
 		Advance.update(stoner);
 		stoner.send(new SendInterface(51000));
 		break;
 
-	case 115078: // Stoner shops
+	case 115078:
 		stoner.start(new ShopExchangeDialogue(stoner));
 		break;
-
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-	///shops
-	case 115082: // General
+	case 115082:
 		stoner.send(new SendMessage("@gre@You have opened General shop."));
 		stoner.getShopping().open(0);
 		break;
 
-	case 115083: // Packs
+	case 115083:
 		stoner.send(new SendMessage("@gre@You have opened Packs shop."));
 		stoner.getShopping().open(31);
 		break;
 
-	case 115084: // Professioning
+	case 115084:
 		stoner.send(new SendMessage("@gre@You have opened Professioning shop."));
 		stoner.getShopping().open(17);
 		break;
 
-	case 115085: // Cultivation
+	case 115085:
 		stoner.send(new SendMessage("@gre@You have opened Cultivation shop."));
 		stoner.getShopping().open(32);
 		break;
 
-	case 115086: // THC-Hempistry
+	case 115086:
 		stoner.send(new SendMessage("@gre@You have opened THC-hempistry shop."));
 		stoner.getShopping().open(33);
 		break;
 
 
-	case 115087: // Close combat
+	case 115087:
 		stoner.send(new SendMessage("@gre@You have opened Close combat shop."));
 		stoner.getShopping().open(15);
 		break;
 
-	case 115088: // Sagittarius
+	case 115088:
 		stoner.send(new SendMessage("@gre@You have opened Sagittarius's shop."));
 		stoner.getShopping().open(16);
 		break;
 
-	case 115089: // Mages
+	case 115089:
 		stoner.send(new SendMessage("@gre@You have opened Mages shop."));
 		stoner.getShopping().open(26);
 		break;
 
-	case 115090: // Pure
+	case 115090:
 		stoner.send(new SendMessage("@gre@You have opened Pure shop."));
 		stoner.getShopping().open(27);
 		break;
 
-	case 115091: // Fashion
+	case 115091:
 		stoner.start(new OptionDialogue("Fashionscape", p -> {
 			stoner.getShopping().open(28);
 		}, "Fashionscaper.", p -> {
@@ -617,84 +557,65 @@ public class ClickButtonPacket extends IncomingPacket {
 		}));
 		break;
 
-	case 115092: // Prof. capes
+	case 115092:
 		stoner.send(new SendMessage("@gre@You have opened Profession cape shop."));
 		stoner.getShopping().open(20);
 		break;
 
-	case 115093: // Adv. capes
+	case 115093:
 		stoner.send(new SendMessage("@gre@You have opened Advance cape shop."));
 		stoner.getShopping().open(45);
 		break;
-
-
-
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-	///shops2
-	case 115097: // chill points
+	case 115097:
 		stoner.send(new SendMessage("@gre@You have opened Chill Point shop."));
 		stoner.getShopping().open(92);
 		break;
 
-	case 115098: // Weed protect points
+	case 115098:
 		stoner.send(new SendMessage("@gre@You have opened Weed protect point shop."));
 		stoner.getShopping().open(5);
 		break;
 
-	case 115099: // graceful marks
+	case 115099:
 		stoner.send(new SendMessage("@gre@You have opened Graceful shop."));
 		stoner.getShopping().open(3);
 		break;
 
-	case 115100: // achievement points
+	case 115100:
 		stoner.send(new SendMessage("@gre@You have opened Achievement shop."));
 		stoner.getShopping().open(89);
 		break;
 
-	case 115101: // advance points
+	case 115101:
 		stoner.send(new SendMessage("@gre@You have opened Advance shop."));
 		stoner.getShopping().open(93);
 		break;
 
-	case 115102: // merc points
+	case 115102:
 		stoner.send(new SendMessage("@gre@You have opened Mercenary shop."));
 		stoner.getShopping().open(6);
 		break;
 
-	case 115103: // bounty points
+	case 115103:
 		stoner.send(new SendMessage("@gre@You have opened Bounty shop."));
 		stoner.getShopping().open(7);
 		break;
-
-
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-	///crafter
-	case 115107: // Make Dragon Fireshield
+	case 115107:
 		stoner.start(new OziachDialogue(stoner));
 		break;
 
-	case 115108:// Jewlery Making
+	case 115108:
 		JewelryCreationTask.sendInterface(stoner);
 		break;
 
-	case 115109:// Tan Hides
+	case 115109:
 		HideTanning.sendTanningInterface(stoner);
 		break;
 
-	case 115110:// potion decanting
+	case 115110:
 		PotionDecanting.decantAll(stoner);
 		break;
-
-
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-	/// manage
-	case 115114: // Deluxe title
+	case 115114:
 		if (stoner.inMemberZone()) {
 			stoner.start(new DunceDialogue(stoner));
 		} else {
@@ -702,15 +623,15 @@ public class ClickButtonPacket extends IncomingPacket {
 		}
 		break;
 
-	case 115115: // Reset stat
+	case 115115:
 		stoner.start(new GenieResetDialogue(stoner));
 		break;
 
-	case 115116: // Surgeon
+	case 115116:
 		stoner.send(new SendInterface(3559));
 		break;
 
-	case 115117: // Recharge
+	case 115117:
 		if (stoner.getProfession().getGrades()[Professions.NECROMANCE] < stoner.getMaxGrades()[Professions.NECROMANCE]) {
 			stoner.getProfession().setGrade(Professions.NECROMANCE, stoner.getMaxGrades()[Professions.NECROMANCE]);
 			stoner.getClient().queueOutgoingPacket(new SendMessage("You recharge your necromance points."));
@@ -720,7 +641,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		}
 		break;
 
-	case 115118: // Skull
+	case 115118:
 		if (stoner.getSkulling().isSkulled()) {
 			DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You already have a wilderness skull!");
 			return;
@@ -731,105 +652,73 @@ public class ClickButtonPacket extends IncomingPacket {
 			stoner.getUpdateFlags().sendGraphic(new Graphic(1061));
 		}
 		break;
-
-
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-	/// tasks
-	case 115122: // Merc
+	case 115122:
 		stoner.start(new VannakaDialogue(stoner));
 		break;
 
-	case 115123: // Boss merc
+	case 115123:
 		stoner.start(new NeiveDialogue(stoner));
 		break;
-
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-	/// extras
-	case 115127: // Travel
+	case 115127:
 		stoner.start(new SailorDialogue(stoner));
 		break;
 
-	case 115128: // Misery box
+	case 115128:
 		MysteryBoxMinigame.open(stoner);
 		break;
 
-	case 115129: // Achievement cape
+	case 115129:
 		stoner.start(new AchievementDialogue(stoner));
 		break;
-
-////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-	// altars
-	case 115133: // Air/
+	case 115133:
 		stoner.teleport(new Location(2843, 4832));
 		break;
 
-	case 115134: // Mind/
+	case 115134:
 		stoner.teleport(new Location(2787, 4839));
 		break;
 
-	case 115135:// Water/
+	case 115135:
 		stoner.teleport(new Location(2718, 4837));
 		break;
 
-	case 115136: // Earth/
+	case 115136:
 		stoner.teleport(new Location(2660, 4840));
 		break;
 
-	case 115137: // Fire/
+	case 115137:
 		stoner.teleport(new Location(2583, 4839));
 		break;
 
-	case 115138: // Body/
+	case 115138:
 		stoner.teleport(new Location(2524, 4842));
 		break;
 
-	case 115139: // Cosmic/
+	case 115139:
 		stoner.teleport(new Location(2144, 4833));
 		break;
 
-	case 115140: // Chaos/
+	case 115140:
 		stoner.teleport(new Location(2273, 4842));
 		break;
 
-	case 115141: // Nature/
+	case 115141:
 		stoner.teleport(new Location(2400, 4839));
 		break;
 
-	case 115142: // Law/
+	case 115142:
 		stoner.teleport(new Location(2464, 4830));
 		break;
 
-	case 115143: // Death/
+	case 115143:
 		stoner.teleport(new Location(2205, 4834));
 		break;
-
-	/// END
-
-	/** Stoners online && Quest tab */
 	case 115065:
 	case 154052:
 		StonersOnline.showStoners(stoner, p -> {
 			return true;
 		});
 		break;
-	// case 115070:
-	/*
-	 * stoner.send(new SendString("@dre@BestBudz's Latest Updates (</col> " +
-	 * GameSettings.LATEST_UPDATE.length + " @dre@)", 8144)); for (int i = 0; i <
-	 * 30; i++) { stoner.send(new SendString("", 8145 + i)); } for (int i = 0; i <
-	 * GameSettings.LATEST_UPDATE.length; i++) { stoner.send(new SendString("</col>"
-	 * + (i + 1) + ") @dre@" + GameSettings.LATEST_UPDATE[i], 8145 + i)); }
-	 * stoner.send(new SendInterface(8134));
-	 */
-	// break;
-
-	/** Special assault button */
 	case 29124:
 	case 29049:
 	case 29199:
@@ -969,8 +858,6 @@ public class ClickButtonPacket extends IncomingPacket {
 	case 94051:
 		stoner.setRetaliate(!stoner.isRetaliate());
 		break;
-
-	/** Items kept on death */
 	case 59100:
 		int kept = 3;
 
@@ -1100,9 +987,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendUpdateItems(10600, toDrop));
 		stoner.send(new SendInterface(17100));
 		break;
-
-	/** Teleport */
-	/** Teleports */
 	case 238107:
 	case 242083:
 	case 246059:
@@ -1113,7 +997,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		break;
 
 	case 5227:
-	case 238077:// Training
+	case 238077:
 	case 242053:
 	case 246029:
 	case 253237:
@@ -1126,7 +1010,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendString("Requirement: @red@None", 61033));
 		stoner.send(new SendString("Other: @red@None", 61034));
 		break;
-	case 238080:// Professioning
+	case 238080:
 	case 242056:
 	case 246032:
 	case 253240:
@@ -1139,7 +1023,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendString("Requirement: @red@None", 62033));
 		stoner.send(new SendString("Other: @red@None", 62034));
 		break;
-	case 238083:// PvP
+	case 238083:
 	case 242059:
 	case 246035:
 	case 253243:
@@ -1152,7 +1036,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendString("Requirement: @red@None", 63033));
 		stoner.send(new SendString("Other: @red@None", 63034));
 		break;
-	case 238086:// Boss
+	case 238086:
 	case 246038:
 	case 253246:
 	case 240074:
@@ -1165,7 +1049,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendString("Requirement: @red@None", 64033));
 		stoner.send(new SendString("Other: @red@None", 64034));
 		break;
-	case 238089:// Minigame
+	case 238089:
 	case 253249:
 	case 246041:
 	case 240077:
@@ -1179,7 +1063,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendString("Requirement: @red@None", 65033));
 		stoner.send(new SendString("Other: @red@None", 65034));
 		break;
-	case 238092:// Other
+	case 238092:
 	case 253252:
 	case 240080:
 	case 250020:

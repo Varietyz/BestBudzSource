@@ -7,145 +7,131 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class GroundItem {
-	private Item item;
-	private Location location;
-	private short time;
-	private boolean global = false;
-	private String owner;
-	private final long longOwnerName;
-	private boolean exists = true;
-	private String include = null;
+  private final Item item;
+  private final Location location;
+  private final long longOwnerName;
+  public boolean isGlobal;
+  private short time;
+  private boolean global = false;
+  private String owner;
+  private boolean exists = true;
+  private String include = null;
+  private int respawnTimer;
 
-	/**
-	 * If the item is a global item
-	 */
-	public boolean isGlobal;
+  public GroundItem(Item item, Location location) {
+    this(item, location, 0, null);
+  }
 
-	/**
-	 * The time it takes to respawn the item
-	 */
-	private int respawnTimer;
+  public GroundItem(Item item, Location location, int respawnTimer) {
+    this(item, location, 0, null);
+    this.respawnTimer = respawnTimer;
+    this.global = true;
+    this.isGlobal = true;
+  }
 
-	public GroundItem(Item item, Location location) {
-	this(item, location, 0, null);
-	}
+  public GroundItem(Item item, Location location, int time, String owner) {
+    this.item = item;
+    this.location = location;
+    this.time = ((short) time);
+    this.owner = owner;
+    if (owner != null) longOwnerName = Utility.nameToLong(owner);
+    else longOwnerName = 0L;
+  }
 
-	/**
-	 * Creates a new global ground item
-	 * 
-	 * @param item
-	 * @param location
-	 * @param respawnTimer
-	 */
-	public GroundItem(Item item, Location location, int respawnTimer) {
-	this(item, location, 0, null);
-	this.respawnTimer = respawnTimer;
-	this.global = true;
-	this.isGlobal = true;
-	}
+  public GroundItem(Item item, Location location, String owner) {
+    this(item, location, 0, owner);
+  }
 
-	public GroundItem(Item item, Location location, int time, String owner) {
-	this.item = item;
-	this.location = location;
-	this.time = ((short) time);
-	this.owner = owner;
-	if (owner != null)
-		longOwnerName = Utility.nameToLong(owner);
-	else
-		longOwnerName = 0L;
-	}
+  public void countdown() {
+    if (!isGlobal) {
+      time = ((short) (time + 1));
+    }
+  }
 
-	public GroundItem(Item item, Location location, String owner) {
-	this(item, location, 0, owner);
-	}
+  @Override
+  public boolean equals(Object o) {
+    if ((o instanceof GroundItem)) {
+      GroundItem other = (GroundItem) o;
 
-	public void countdown() {
-	if (!isGlobal) {
-		time = ((short) (time + 1));
-	}
-	}
+      return (item.equals(other.getItem()))
+          && (location.equals(other.getLocation()))
+          && (longOwnerName == other.getLongOwnerName())
+          && (global == other.isGlobal());
+    }
 
-	@Override
-	public boolean equals(Object o) {
-	if ((o instanceof GroundItem)) {
-		GroundItem other = (GroundItem) o;
+    return false;
+  }
 
-		return (item.equals(other.getItem())) && (location.equals(other.getLocation())) && (longOwnerName == other.getLongOwnerName()) && (global == other.isGlobal());
-	}
+  @Override
+  public String toString() {
+    return "GroundItem [item=" + item + ", owner=" + owner + "] Global: " + global;
+  }
 
-	return false;
-	}
+  public void erase() {
+    exists = false;
+  }
 
-	public void erase() {
-	exists = false;
-	}
+  public boolean exists() {
+    return exists;
+  }
 
-	public boolean exists() {
-	return exists;
-	}
+  public Item getItem() {
+    return item;
+  }
 
-	public Item getItem() {
-	return item;
-	}
+  public Location getLocation() {
+    return location;
+  }
 
-	public Location getLocation() {
-	return location;
-	}
+  public long getLongOwnerName() {
+    return longOwnerName;
+  }
 
-	public long getLongOwnerName() {
-	return longOwnerName;
-	}
+  public Stoner getOwner() {
+    return World.getStonerByName(owner);
+  }
 
-	public Stoner getOwner() {
-	return World.getStonerByName(owner);
-	}
+  public void setOwner(String owner) {
+    this.owner = owner;
+  }
 
-	public String getOwnerName() {
-	return owner;
-	}
+  public String getOwnerName() {
+    return owner;
+  }
 
-	public int getRespawnTimer() {
-	return respawnTimer;
-	}
+  public int getRespawnTimer() {
+    return respawnTimer;
+  }
 
-	public boolean globalize() {
-	return (time == 100) && (item.getDefinition().isTradable());
-	}
+  public boolean globalize() {
+    return (time == 100) && (item.getDefinition().isTradable());
+  }
 
-	public boolean isGlobal() {
-	return global;
-	}
+  public boolean isGlobal() {
+    return global;
+  }
 
-	public boolean remove() {
-	return (time >= 350) || (time < 0);
-	}
+  public void setGlobal(boolean global) {
+    this.global = global;
+  }
 
-	public void resetTime() {
-	time = 0;
-	}
+  public boolean remove() {
+    return (time >= 350) || (time < 0);
+  }
 
-	public void include(String include) {
-	this.include = include;
-	}
+  public void resetTime() {
+    time = 0;
+  }
 
-	public String include() {
-	return include;
-	}
+  public void include(String include) {
+    this.include = include;
+  }
 
-	public void setGlobal(boolean global) {
-	this.global = global;
-	}
+  public String include() {
+    return include;
+  }
 
-	public void setOwner(String owner) {
-	this.owner = owner;
-	}
-
-	public void setTime(int time) {
-	this.time = ((short) time);
-	}
-
-	@Override
-	public String toString() {
-	return "GroundItem [item=" + item + ", owner=" + owner + "] Global: " + global + "";
-	}
+  public void setTime(int time) {
+    this.time = ((short) time);
+  }
 }

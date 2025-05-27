@@ -7,24 +7,16 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Mercenary store
- * 
- * @author Jaybane
- */
 public class MercenaryShop extends Shop {
 
-	/**
-	 * Id of mercenary shop
-	 */
 	public static final int SHOP_ID = 6;
 
-	/**
-	 * Price of items in mercenary store
-	 * 
-	 * @param id
-	 * @return
-	 */
+	public MercenaryShop() {
+	super(SHOP_ID, new Item[] { new Item(4155), new Item(2528), new Item(11866), new Item(11864), new Item(4212), new Item(4224), new Item(10548), new Item(10551), new Item(10555), new Item(6720), new Item(4166), new Item(4164), new Item(1844), new Item(1845), new Item(1846), new Item(4081), new Item(4170), new Item(6708), new Item(7454), new Item(7455), new Item(7456), new Item(7457), new Item(7458), new Item(7459), new Item(7460), new Item(7461), new Item(7462),
+
+	}, false, "Mercenary Store");
+	}
+
 	public static final int getPrice(int id) {
 	switch (id) {
 	case 4155:
@@ -82,15 +74,6 @@ public class MercenaryShop extends Shop {
 		return 50;
 	}
 	return 2147483647;
-	}
-
-	/**
-	 * All items in mercenary store
-	 */
-	public MercenaryShop() {
-	super(SHOP_ID, new Item[] { new Item(4155), new Item(2528), new Item(11866), new Item(11864), new Item(4212), new Item(4224), new Item(10548), new Item(10551), new Item(10555), new Item(6720), new Item(4166), new Item(4164), new Item(1844), new Item(1845), new Item(1846), new Item(4081), new Item(4170), new Item(6708), new Item(7454), new Item(7455), new Item(7456), new Item(7457), new Item(7458), new Item(7459), new Item(7460), new Item(7461), new Item(7462),
-
-	}, false, "Mercenary Store");
 	}
 
 	@Override

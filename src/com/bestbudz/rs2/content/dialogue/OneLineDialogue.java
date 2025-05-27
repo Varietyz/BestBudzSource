@@ -1,8 +1,7 @@
 package com.bestbudz.rs2.content.dialogue;
 
-import java.util.HashMap;
-
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.util.HashMap;
 
 public class OneLineDialogue {
 

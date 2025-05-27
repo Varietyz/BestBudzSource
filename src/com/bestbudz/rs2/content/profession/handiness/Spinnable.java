@@ -1,9 +1,8 @@
 package com.bestbudz.rs2.content.profession.handiness;
 
+import com.bestbudz.rs2.entity.item.Item;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.bestbudz.rs2.entity.item.Item;
 
 public enum Spinnable {
 	BOWSTRING(new Item(1779), new Item(1777), 15.0D, 10),
@@ -13,27 +12,26 @@ public enum Spinnable {
 	YEW_STRING(new Item(6049), new Item(9438), 15.0D, 10),
 	SINEW_STRING(new Item(9436), new Item(9438), 15.0D, 10);
 
+	public static Map<Integer, Spinnable> spins = new HashMap<Integer, Spinnable>();
+	private final Item item;
+	private final Item outcome;
+	private final double experience;
+	private final int requiredGrade;
+
+	Spinnable(Item item, Item outcome, double experience, int requiredGrade) {
+	this.item = item;
+	this.outcome = outcome;
+	this.experience = experience;
+	this.requiredGrade = requiredGrade;
+	}
+
 	public static final void declare() {
 	for (Spinnable spinnable : values())
 		spins.put(Integer.valueOf(spinnable.getItem().getId()), spinnable);
 	}
 
-	private Item item;
-	private Item outcome;
-	private double experience;
-	private int requiredGrade;
-
-	public static Map<Integer, Spinnable> spins = new HashMap<Integer, Spinnable>();
-
 	public static Spinnable forId(int id) {
 	return spins.get(Integer.valueOf(id));
-	}
-
-	private Spinnable(Item item, Item outcome, double experience, int requiredGrade) {
-	this.item = item;
-	this.outcome = outcome;
-	this.experience = experience;
-	this.requiredGrade = requiredGrade;
 	}
 
 	public double getExperience() {

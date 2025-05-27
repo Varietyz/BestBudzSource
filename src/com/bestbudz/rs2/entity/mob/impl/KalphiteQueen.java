@@ -9,51 +9,51 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class KalphiteQueen extends Mob {
 
-	private Entity lastKilledBy = null;
+  private Entity lastKilledBy = null;
 
-	public KalphiteQueen() {
-	super(1158, true, new Location(3480, 9495));
-	}
+  public KalphiteQueen() {
+    super(1158, true, new Location(3480, 9495));
+  }
 
-	@Override
-	public int getAffectedDamage(Hit hit) {
-	switch (hit.getType()) {
-	case SAGITTARIUS:
-	case MAGE:
-		if (getId() == 1158) {
-			return 0;
-		}
-		break;
-	case MELEE:
-		if (getId() == 1160) {
-			if ((hit.getAssaulter() != null) && (!hit.getAssaulter().isNpc())) {
-				Stoner stoner = World.getStoners()[hit.getAssaulter().getIndex()];
+  @Override
+  public long getAffectedDamage(Hit hit) {
+    switch (hit.getType()) {
+      case SAGITTARIUS:
+      case MAGE:
+        if (getId() == 1158) {
+          return 0;
+        }
+        break;
+      case MELEE:
+        if (getId() == 1160) {
+          if ((hit.getAssaulter() != null) && (!hit.getAssaulter().isNpc())) {
+            Stoner stoner = World.getStoners()[hit.getAssaulter().getIndex()];
 
-				if ((stoner != null) && (stoner.getMelee().isVeracEffectActive())) {
-					return hit.getDamage();
-				}
-			}
+            if ((stoner != null) && (stoner.getMelee().isVeracEffectActive())) {
+              return hit.getDamage();
+            }
+          }
 
-			return 0;
-		}
-		break;
-	default:
-		return hit.getDamage();
-	}
+          return 0;
+        }
+        break;
+      default:
+        return hit.getDamage();
+    }
 
-	return hit.getDamage();
-	}
+    return hit.getDamage();
+  }
 
-	@Override
-	public void onDeath() {
-	lastKilledBy = getCombat().getLastAssaultedBy();
-	}
+  @Override
+  public void onDeath() {
+    lastKilledBy = getCombat().getLastAssaultedBy();
+  }
 
-	public void transform() {
-	transform(getId() == 1160 ? 1158 : 1160);
+  public void transform() {
+    transform(getId() == 1160 ? 1158 : 1160);
 
-	if (lastKilledBy != null) {
-		getCombat().setAssault(lastKilledBy);
-	}
-	}
+    if (lastKilledBy != null) {
+      getCombat().setAssault(lastKilledBy);
+    }
+  }
 }

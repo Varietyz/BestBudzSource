@@ -6,113 +6,113 @@ import com.bestbudz.rs2.content.profession.woodcarving.fletchable.FletchableItem
 import com.bestbudz.rs2.entity.item.Item;
 
 public enum Stringable implements Fletchable {
-	SHORTBOWS(new Item(1777), new Item(50), new FletchableItem(new Item(842), 1, 5.0)),
-	LONGBOWS(new Item(1777), new Item(48), new FletchableItem(new Item(840), 1, 5.0)),
+  SHORTBOWS(new Item(1777), new Item(50), new FletchableItem(new Item(842), 1, 5.0)),
+  LONGBOWS(new Item(1777), new Item(48), new FletchableItem(new Item(840), 1, 5.0)),
 
-	OAK_SHORTBOWS(new Item(1777), new Item(54), new FletchableItem(new Item(844), 1, 16.5)),
-	OAK_LONGBOWBOWS(new Item(1777), new Item(56), new FletchableItem(new Item(846), 1, 25.0)),
+  OAK_SHORTBOWS(new Item(1777), new Item(54), new FletchableItem(new Item(844), 1, 16.5)),
+  OAK_LONGBOWBOWS(new Item(1777), new Item(56), new FletchableItem(new Item(846), 1, 25.0)),
 
-	WILLOW_SHORTBOWS(new Item(1777), new Item(60), new FletchableItem(new Item(850), 1, 32.25)),
-	WILLOW_LONGBOWBOWS(new Item(1777), new Item(58), new FletchableItem(new Item(848), 1, 41.5)),
+  WILLOW_SHORTBOWS(new Item(1777), new Item(60), new FletchableItem(new Item(850), 1, 32.25)),
+  WILLOW_LONGBOWBOWS(new Item(1777), new Item(58), new FletchableItem(new Item(848), 1, 41.5)),
 
-	MAPLE_SHORTBOWS(new Item(1777), new Item(64), new FletchableItem(new Item(854), 1, 50.0)),
-	MAPLE_LONGBOWBOWS(new Item(1777), new Item(62), new FletchableItem(new Item(852), 1, 58.2)),
+  MAPLE_SHORTBOWS(new Item(1777), new Item(64), new FletchableItem(new Item(854), 1, 50.0)),
+  MAPLE_LONGBOWBOWS(new Item(1777), new Item(62), new FletchableItem(new Item(852), 1, 58.2)),
 
-	YEW_SHORTBOWS(new Item(1777), new Item(68), new FletchableItem(new Item(858), 1, 67.5)),
-	YEW_LONGBOWBOWS(new Item(1777), new Item(66), new FletchableItem(new Item(856), 1, 75.0)),
+  YEW_SHORTBOWS(new Item(1777), new Item(68), new FletchableItem(new Item(858), 1, 67.5)),
+  YEW_LONGBOWBOWS(new Item(1777), new Item(66), new FletchableItem(new Item(856), 1, 75.0)),
 
-	MAGE_SHORTBOWS(new Item(1777), new Item(72), new FletchableItem(new Item(862), 1, 83.2)),
-	MAGE_LONGBOWBOWS(new Item(1777), new Item(70), new FletchableItem(new Item(860), 1, 91.5)),
+  MAGE_SHORTBOWS(new Item(1777), new Item(72), new FletchableItem(new Item(862), 1, 83.2)),
+  MAGE_LONGBOWBOWS(new Item(1777), new Item(70), new FletchableItem(new Item(860), 1, 91.5)),
 
-	BRONZE_CROSSBOWS(new Item(1777), new Item(9454), new FletchableItem(new Item(9175), 1, 6.0)),
-	IRON_CROSSBOWS(new Item(1777), new Item(9457), new FletchableItem(new Item(9178), 1, 22.0)),
-	STEEL_CROSSBOWS(new Item(1777), new Item(9459), new FletchableItem(new Item(9180), 1, 27.0)),
-	MITHRIL_CROSSBOWS(new Item(1777), new Item(9461), new FletchableItem(new Item(9182), 1, 32.0)),
-	ADAMANT_CROSSBOWS(new Item(1777), new Item(9463), new FletchableItem(new Item(9184), 1, 41.0)),
-	RUNITE_CROSSBOWS(new Item(1777), new Item(9465), new FletchableItem(new Item(9186), 1, 41.0));
+  BRONZE_CROSSBOWS(new Item(1777), new Item(9454), new FletchableItem(new Item(9175), 1, 6.0)),
+  IRON_CROSSBOWS(new Item(1777), new Item(9457), new FletchableItem(new Item(9178), 1, 22.0)),
+  STEEL_CROSSBOWS(new Item(1777), new Item(9459), new FletchableItem(new Item(9180), 1, 27.0)),
+  MITHRIL_CROSSBOWS(new Item(1777), new Item(9461), new FletchableItem(new Item(9182), 1, 32.0)),
+  ADAMANT_CROSSBOWS(new Item(1777), new Item(9463), new FletchableItem(new Item(9184), 1, 41.0)),
+  RUNITE_CROSSBOWS(new Item(1777), new Item(9465), new FletchableItem(new Item(9186), 1, 41.0));
 
-	private final Item use;
-	private final Item with;
-	private final FletchableItem[] items;
+  private final Item use;
+  private final Item with;
+  private final FletchableItem[] items;
 
-	private Stringable(Item use, Item with, FletchableItem... items) {
-	this.use = use;
-	this.with = with;
-	this.items = items;
-	}
+  Stringable(Item use, Item with, FletchableItem... items) {
+    this.use = use;
+    this.with = with;
+    this.items = items;
+  }
 
-	public static void declare() {
-	for (Stringable featherable : values()) {
-		Woodcarving.SINGLETON.addFletchable(featherable);
-	}
-	}
+  public static void declare() {
+    for (Stringable featherable : values()) {
+      Woodcarving.SINGLETON.addFletchable(featherable);
+    }
+  }
 
-	@Override
-	public int getAnimation() {
-	switch (this) {
-	case SHORTBOWS:
-		return 6678;
-	case LONGBOWS:
-		return 6684;
-	case OAK_SHORTBOWS:
-		return 6679;
-	case OAK_LONGBOWBOWS:
-		return 6685;
-	case WILLOW_SHORTBOWS:
-		return 6680;
-	case WILLOW_LONGBOWBOWS:
-		return 6686;
-	case MAPLE_SHORTBOWS:
-		return 6681;
-	case MAPLE_LONGBOWBOWS:
-		return 6687;
-	case YEW_SHORTBOWS:
-		return 6682;
-	case YEW_LONGBOWBOWS:
-		return 6688;
-	case MAGE_SHORTBOWS:
-		return 6683;
-	case MAGE_LONGBOWBOWS:
-		return 6689;
-	case BRONZE_CROSSBOWS:
-		return 9454;
-	case STEEL_CROSSBOWS:
-		return 9457;
-	case IRON_CROSSBOWS:
-		return 9459;
-	case MITHRIL_CROSSBOWS:
-		return 9461;
-	case ADAMANT_CROSSBOWS:
-		return 9463;
-	case RUNITE_CROSSBOWS:
-		return 9465;
-	default:
-		return 6678;
-	}
-	}
+  @Override
+  public int getAnimation() {
+    switch (this) {
+      case SHORTBOWS:
+        return 6678;
+      case LONGBOWS:
+        return 6684;
+      case OAK_SHORTBOWS:
+        return 6679;
+      case OAK_LONGBOWBOWS:
+        return 6685;
+      case WILLOW_SHORTBOWS:
+        return 6680;
+      case WILLOW_LONGBOWBOWS:
+        return 6686;
+      case MAPLE_SHORTBOWS:
+        return 6681;
+      case MAPLE_LONGBOWBOWS:
+        return 6687;
+      case YEW_SHORTBOWS:
+        return 6682;
+      case YEW_LONGBOWBOWS:
+        return 6688;
+      case MAGE_SHORTBOWS:
+        return 6683;
+      case MAGE_LONGBOWBOWS:
+        return 6689;
+      case BRONZE_CROSSBOWS:
+        return 9454;
+      case STEEL_CROSSBOWS:
+        return 9457;
+      case IRON_CROSSBOWS:
+        return 9459;
+      case MITHRIL_CROSSBOWS:
+        return 9461;
+      case ADAMANT_CROSSBOWS:
+        return 9463;
+      case RUNITE_CROSSBOWS:
+        return 9465;
+      default:
+        return 6678;
+    }
+  }
 
-	@Override
-	public Item getUse() {
-	return use;
-	}
+  @Override
+  public Item getUse() {
+    return use;
+  }
 
-	@Override
-	public Item getWith() {
-	return with;
-	}
+  @Override
+  public Item getWith() {
+    return with;
+  }
 
-	@Override
-	public FletchableItem[] getFletchableItems() {
-	return items;
-	}
+  @Override
+  public FletchableItem[] getFletchableItems() {
+    return items;
+  }
 
-	@Override
-	public String getProductionMessage() {
-	return null;
-	}
+  @Override
+  public String getProductionMessage() {
+    return null;
+  }
 
-	@Override
-	public Item[] getIngediants() {
-	return new Item[] { use, with };
-	}
+  @Override
+  public Item[] getIngediants() {
+    return new Item[] {use, with};
+  }
 }

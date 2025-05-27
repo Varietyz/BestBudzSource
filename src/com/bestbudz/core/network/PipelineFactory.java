@@ -1,41 +1,18 @@
-/*
- * This file is part of RuneSource.
- *
- * RuneSource is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * RuneSource is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with RuneSource.  If not, see <http://www.gnu.org/licenses/>.
- */
 package com.bestbudz.core.network;
 
-/**
- *
- * @author Stuart Murphy
- *
- */
-import org.jboss.netty.channel.ChannelPipeline;
-import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.DefaultChannelPipeline;
-
+import com.bestbudz.core.network.ChannelHandler;
 import com.bestbudz.core.network.login.Encoder;
 import com.bestbudz.core.network.login.LoginDecoder;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.socket.SocketChannel;
 
-public class PipelineFactory implements ChannelPipelineFactory {
-
+public class PipelineFactory extends ChannelInitializer<SocketChannel> {
 	@Override
-	public ChannelPipeline getPipeline() throws Exception {
-		ChannelPipeline pipeline = new DefaultChannelPipeline();
-		pipeline.addLast("encoder", new Encoder());
-		pipeline.addLast("decoder", new LoginDecoder());
-		pipeline.addLast("handler", new ChannelHandler());
-		return pipeline;
+	protected void initChannel(SocketChannel ch) {
+		ChannelPipeline pipeline = ch.pipeline();
+		pipeline.addLast("encoder", new Encoder());       // your custom encoder
+		pipeline.addLast("decoder", new LoginDecoder());  // your login decoder
+		pipeline.addLast("handler", new ChannelHandler()); // your game logic handler
 	}
 }

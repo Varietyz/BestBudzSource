@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.dwarfcannon;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.bestbudz.core.cache.map.RSObject;
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.task.TaskQueue;
@@ -22,68 +19,27 @@ import com.bestbudz.rs2.entity.pathfinding.StraightPathFinder;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendAnimateObject;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-/**
- * Handles the Dwarf Cannon
- * 
- * @author Jaybane
- *
- */
 public class DwarfCannon extends RSObject {
 
-	/**
-	 * The rotation directions of the Dwarf Cannon
-	 */
-	public static int[] ROTATION_DIRECTIONS = { 515, 516, 517, 518, 519, 520, 521, 514 };
-
-	/**
-	 * The directions
-	 */
 	public static final int[] DIRECIONS = { 1, 2, 4, 7, 6, 5, 3, 0 };
-
-	/**
-	 * The owner of the Dwarf Cannon
-	 */
+	public static int[] ROTATION_DIRECTIONS = { 515, 516, 517, 518, 519, 520, 521, 514 };
 	private final Stoner cannonOwner;
 
-	/**
-	 * The Dwarf Cannon location
-	 */
 	private final Location cannonLocation;
 
-	/**
-	 * The location of the Dwarf Cannon owner
-	 */
 	private final Location ownerLocation;
 
-	/**
-	 * The amount of balls in Dwarf Cannon
-	 */
 	private int ammunition = 0;
 
-	/**
-	 * The current stage of Dwarf Cannon
-	 */
 	private byte stage = 1;
 
-	/**
-	 * Check to notify Dwarf Cannon owner that ammunition has been depleted
-	 */
 	private boolean notify = true;
 
-	/**
-	 * The direction
-	 */
 	private int dir = 7;
 
-	/**
-	 * Dwarf Cannon
-	 * 
-	 * @param owner
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
 	public DwarfCannon(Stoner owner, int x, int y, int z) {
 	super(x - 1, y - 1, z, 7, 10, 0);
 	this.cannonOwner = owner;
@@ -118,12 +74,6 @@ public class DwarfCannon extends RSObject {
 	return p;
 	}
 
-	/**
-	 * Handles constructing the Dwarf Cannon
-	 * 
-	 * @param id
-	 * @return
-	 */
 	public boolean construct(int id) {
 	if (stage == 1 && id == 8) {
 		cannonOwner.getBox().remove(8);
@@ -160,11 +110,6 @@ public class DwarfCannon extends RSObject {
 	return false;
 	}
 
-	/**
-	 * Gets the items for Dwarf Cannon stages
-	 * 
-	 * @return
-	 */
 	public Item[] getItemsForStage() {
 	switch (stage) {
 	case 1:
@@ -179,11 +124,6 @@ public class DwarfCannon extends RSObject {
 	return null;
 	}
 
-	/**
-	 * Gets all the Mobs in Dwarf Cannon path
-	 * 
-	 * @return
-	 */
 	public Mob[] getMobsInPath() {
 	ArrayList<Mob> assault = new ArrayList<Mob>();
 	for (Iterator<Mob> mobs = cannonOwner.getClient().getNpcs().iterator(); mobs.hasNext();) {
@@ -204,14 +144,6 @@ public class DwarfCannon extends RSObject {
 	return mob;
 	}
 
-	/**
-	 * Handles loading the Dwarf Cannon with ammunition
-	 * 
-	 * @param stoner
-	 * @param item
-	 * @param obj
-	 * @return
-	 */
 	public boolean load(Stoner stoner, int item, int obj) {
 	if (!isOwner(stoner)) {
 		stoner.send(new SendMessage("This is not your cannon!"));
@@ -242,9 +174,6 @@ public class DwarfCannon extends RSObject {
 	return true;
 	}
 
-	/**
-	 * Handles logging out with Dwarf Cannon
-	 */
 	public void onLogout() {
 	if (!pickup(cannonOwner, getX(), getY())) {
 		for (Item i : getItemsForStage()) {
@@ -262,14 +191,6 @@ public class DwarfCannon extends RSObject {
 	}
 	}
 
-	/**
-	 * Handles picking up the Dwarf Cannon
-	 * 
-	 * @param stoner
-	 * @param x
-	 * @param y
-	 * @return
-	 */
 	public boolean pickup(Stoner stoner, int x, int y) {
 	if (!isOwner(stoner)) {
 		stoner.send(new SendMessage("This is not your cannon!"));
@@ -298,20 +219,12 @@ public class DwarfCannon extends RSObject {
 	return true;
 	}
 
-	/**
-	 * Rotates the Dwarf Cannon
-	 * 
-	 * @param stoner
-	 */
 	public void rotate(Stoner stoner) {
 	if (ammunition != 0) {
 		stoner.send(new SendAnimateObject(this, ROTATION_DIRECTIONS[dir]));
 	}
 	}
 
-	/**
-	 * Tick of Dwarf Cannon
-	 */
 	public void tick() {
 	if (stage != 4) {
 		return;

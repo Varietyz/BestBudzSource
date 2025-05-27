@@ -43,17 +43,6 @@ public interface ObstacleInteraction {
 		private Obstacle nextObstacle = next;
 
 		@Override
-		public void onStart() {
-		stoner.getProfession().lock(4);
-		stoner.getRunEnergy().setRunning(false);
-		if (getPreMessage() != null) {
-			stoner.send(new SendMessage(getPreMessage()));
-		}
-		start(stoner);
-
-		}
-
-		@Override
 		public void execute() {
 		if (nextObstacle != null && stoner.getLocation().equals(nextObstacle.getEnd())) {
 			Location delta = Utility.delta(nextObstacle == null ? start : nextObstacle.getStart(), nextObstacle == null ? end : nextObstacle.getEnd());
@@ -63,7 +52,7 @@ public interface ObstacleInteraction {
 				nextObstacle.getType().getInteraction().onExecution(stoner, nextObstacle.getStart(), nextObstacle.getEnd());
 				if (nextObstacle.getType().getInteraction().getPreMessage() != null) {
 					stoner.send(new SendMessage(nextObstacle.getType().getInteraction().getPreMessage()));
-	
+
 			}
 			if (nextObstacle.getNext() != null) {
 				nextObstacle.getType().getInteraction().onCancellation(stoner);
@@ -81,7 +70,7 @@ public interface ObstacleInteraction {
 					nextObstacle.getType().getInteraction().onExecution(stoner, nextObstacle.getStart(), nextObstacle.getEnd());
 					if (nextObstacle.getType().getInteraction().getPreMessage() != null) {
 						stoner.send(new SendMessage(nextObstacle.getType().getInteraction().getPreMessage()));
-					
+
 				}
 				if (nextObstacle.getNext() != null) {
 					nextObstacle.getType().getInteraction().onCancellation(stoner);
@@ -140,16 +129,22 @@ public interface ObstacleInteraction {
 		stoner.getCombat().reset();
 		onCancellation(stoner);
 		}
+
+		@Override
+		public void onStart() {
+		stoner.getProfession().lock(4);
+		stoner.getRunEnergy().setRunning(false);
+		if (getPreMessage() != null) {
+			stoner.send(new SendMessage(getPreMessage()));
+		}
+		start(stoner);
+
+		}
 	});
 	}
 
 	default boolean canExecute(Stoner stoner) {
-	if (stoner.getProfession().locked()) {
-		return false;
-	}
-
-
-	return true;
+		return !stoner.getProfession().locked();
 	}
 
 	default boolean courseRewards(Stoner stoner, String course, int ordinal, int flags) {

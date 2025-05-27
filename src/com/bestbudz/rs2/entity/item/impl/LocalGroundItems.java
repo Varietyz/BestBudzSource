@@ -1,9 +1,5 @@
 package com.bestbudz.rs2.entity.item.impl;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Iterator;
-
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.WalkToTask;
 import com.bestbudz.core.util.GameDefinitionLoader;
@@ -16,12 +12,15 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendGroundItem;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveGroundItem;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Iterator;
 
 public class LocalGroundItems {
 	private final Stoner stoner;
-	private Deque<GroundItem> loaded = new ArrayDeque<GroundItem>();
-	private Deque<GroundItem> adding = new ArrayDeque<GroundItem>();
-	private Deque<GroundItem> removing = new ArrayDeque<GroundItem>();
+	private final Deque<GroundItem> loaded = new ArrayDeque<GroundItem>();
+	private final Deque<GroundItem> adding = new ArrayDeque<GroundItem>();
+	private final Deque<GroundItem> removing = new ArrayDeque<GroundItem>();
 	private boolean hasLoaded = true;
 
 	public LocalGroundItems(Stoner stoner) {

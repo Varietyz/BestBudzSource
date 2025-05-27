@@ -12,13 +12,13 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSpecialBar;
 
 public class SpecialAssault {
 
+	public static final int FULL_SPECIAL = 100;
+	public static final int SPECIAL_TIMER_MAX = 50;
 	private final Stoner stoner;
 	private boolean initialized = false;
 	private int barId1 = 0;
 	private int barId2 = 0;
 	private int amount = 100;
-	public static final int FULL_SPECIAL = 100;
-	public static final int SPECIAL_TIMER_MAX = 50;
 
 	public SpecialAssault(Stoner stoner) {
 	this.stoner = stoner;
@@ -51,15 +51,15 @@ public class SpecialAssault {
 	return initialized;
 	}
 
+	public void setInitialized(boolean initialized) {
+	this.initialized = initialized;
+	}
+
 	public void onEquip() {
 	Item weapon = stoner.getEquipment().getItems()[3];
 	updateSpecialBar(weapon == null ? 0 : weapon.getId());
 	if (initialized)
 		toggleSpecial();
-	}
-
-	public void setInitialized(boolean initialized) {
-	this.initialized = initialized;
 	}
 
 	public void setSpecialAmount(int amount) {

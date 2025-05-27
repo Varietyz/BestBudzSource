@@ -11,11 +11,11 @@ import com.bestbudz.rs2.content.dialogue.impl.ChangePasswordDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.CommandInterface;
 import com.bestbudz.rs2.content.interfaces.impl.TrainingInterface;
-import com.bestbudz.rs2.content.profiles.StonerProfiler;
 import com.bestbudz.rs2.content.profession.Profession;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
-//import com.bestbudz.rs2.content.combat.Hit;
-//import com.bestbudz.rs2.content.combat.Hit.HitTypes;
+import com.bestbudz.rs2.content.profiles.StonerProfiler;
+import com.bestbudz.rs2.entity.Animation;
+import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.command.Command;
@@ -24,248 +24,227 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
-import com.bestbudz.rs2.entity.Animation;
-import com.bestbudz.rs2.entity.Graphic;
 
-/**
- * A list of commands accessible to all stoners disregarding rank.
- * 
- * @author Jaybane
- */
 public class StonerCommand implements Command {
 
-	@Override
-	public boolean handleCommand(Stoner stoner, CommandParser parser) throws Exception {
-	switch (parser.getCommand()) {
+  @Override
+  public boolean handleCommand(Stoner stoner, CommandParser parser) throws Exception {
+    switch (parser.getCommand()) {
+      case "command":
+      case "commands":
+      case "commandlist":
+      case "commandslist":
+      case "bevel":
+        stoner.send(new SendString("BestBudz Command List", 8144));
+        InterfaceHandler.writeText(new CommandInterface(stoner));
+        stoner.send(new SendInterface(8134));
+        return true;
+      case "teleport":
+      case "teleports":
+      case "teleporting":
+      case "teleportings":
+      case "tp":
+        InterfaceHandler.writeText(new TrainingInterface(stoner));
+        stoner.send(new SendInterface(61000));
+        stoner.send(new SendString("Selected: @red@None", 61031));
+        stoner.send(new SendString("Cost: @red@Free", 61032));
+        stoner.send(new SendString("Requirement: @red@None", 61033));
+        stoner.send(new SendString("Other: @red@None", 61034));
+        return true;
+      case "stoners":
+        stoner.send(
+            new SendMessage(
+                "There are currently @red@"
+                    + Utility.format(World.getActiveStoners())
+                    + "</col> stoners online."));
+        StonersOnline.showStoners(
+            stoner,
+            p -> {
+              return true;
+            });
+        return true;
+      case "discord":
+        stoner.send(
+            new SendMessage("Please press 'BestBudz' in the top left corner and select discord!"));
+        return true;
+      case "find":
+        if (parser.hasNext()) {
+          String name = parser.nextString();
 
-	/*
-	 * Opens the command list
-	 */
-	case "command":
-	case "commands":
-	case "commandlist":
-	case "commandslist":
-	case "bevel":
-		stoner.send(new SendString("BestBudz Command List", 8144));
-		InterfaceHandler.writeText(new CommandInterface(stoner));
-		stoner.send(new SendInterface(8134));
-		return true;
+          while (parser.hasNext()) {
+            name += " " + parser.nextString();
+          }
 
-	/*
-	 * Opens the teleporting interface
-	 */
-	case "teleport":
-	case "teleports":
-	case "teleporting":
-	case "teleportings":
-	case "tp":
-		InterfaceHandler.writeText(new TrainingInterface(stoner));
-		stoner.send(new SendInterface(61000));
-		stoner.send(new SendString("Selected: @red@None", 61031));
-		stoner.send(new SendString("Cost: @red@Free", 61032));
-		stoner.send(new SendString("Requirement: @red@None", 61033));
-		stoner.send(new SendString("Other: @red@None", 61034));
-		return true;
+          name = name.trim();
 
-	/*
-	 * Gets amount of online stoners
-	 */
-	case "stoners":
-		stoner.send(new SendMessage("There are currently @red@" + Utility.format(World.getActiveStoners()) + "</col> stoners online."));
-		StonersOnline.showStoners(stoner, p -> {
-			return true;
-		});
-		return true;
+          StonerProfiler.search(stoner, name);
+        }
+        return true;
+      case "smokeweed":
+        stoner.getUpdateFlags().sendGraphic(new Graphic(354, true));
+        stoner.getUpdateFlags().sendAnimation(new Animation(884));
+        return true;
+      case "withdrawmp":
+        if (parser.hasNext()) {
+          try {
+            int amount = 1;
 
-	/*
-	 * Opens website page
-	 */
-	case "discord":
-		stoner.send(new SendMessage("Please press 'BestBudz' in the top left corner and select discord!"));
-		return true;
+            if (parser.hasNext()) {
+              long temp =
+                  Long.parseLong(
+                      parser
+                          .nextString()
+                          .toLowerCase()
+                          .replaceAll("k", "000")
+                          .replaceAll("m", "000000")
+                          .replaceAll("b", "000000000"));
 
-	/*
-	 * Finds stoner to view profile
-	 */
-	case "find":
-		if (parser.hasNext()) {
-			String name = parser.nextString();
+              if (temp > Integer.MAX_VALUE) {
+                amount = Integer.MAX_VALUE;
+              } else {
+                amount = (int) temp;
+              }
+            }
 
-			while (parser.hasNext()) {
-				name += " " + parser.nextString();
-			}
+            stoner.getPouch().withdrawPouch(amount);
 
-			name = name.trim();
+          } catch (Exception e) {
+            stoner.send(new SendMessage("Something went wrong!"));
+            e.printStackTrace();
+          }
+        }
+        return true;
+      case "changepassword":
+      case "changepass":
+        if (parser.hasNext()) {
+          try {
+            String password = parser.nextString();
+            if ((password.length() > 4) && (password.length() < 15))
+              stoner.start(new ChangePasswordDialogue(stoner, password));
+            else
+              DialogueManager.sendStatement(
+                  stoner, "Your password must be between 4 and 15 characters.");
+          } catch (Exception e) {
+            stoner
+                .getClient()
+                .queueOutgoingPacket(
+                    new SendMessage("Invalid password format, syntax: ::changepass password here"));
+          }
+        }
+        return true;
+      case "yelltitle":
+        if (parser.hasNext()) {
+          try {
+            String message = parser.nextString();
+            while (parser.hasNext()) {
+              message += " " + parser.nextString();
+            }
 
-			StonerProfiler.search(stoner, name);
-		}
-		return true;
+            for (int i = 0; i < BestbudzConstants.BAD_STRINGS.length; i++) {
+              if (message.contains(BestbudzConstants.BAD_STRINGS[i])) {
+                stoner.send(new SendMessage("Choose something else."));
+                return true;
+              }
+            }
 
-	/* SmokeWeed - JayBane */
-	case "smokeweed":
-		stoner.getUpdateFlags().sendGraphic(new Graphic(354, true));
-		stoner.getUpdateFlags().sendAnimation(new Animation(884));
-		return true;
+            for (int i = 0; i < BestbudzConstants.BAD_TITLES.length; i++) {
+              if (message.contains(BestbudzConstants.BAD_TITLES[i])) {
+                stoner.send(new SendMessage("Choose something else."));
+                return true;
+              }
+            }
 
-	/**
-	 * Withdraw from pouch
-	 */
-	case "withdrawmp":
-		if (parser.hasNext()) {
-			try {
-				int amount = 1;
+            stoner.setYellTitle(message);
+            DialogueManager.sendTimedStatement(stoner, "Your yell title is now @gre@" + message);
+          } catch (Exception e) {
+            stoner
+                .getClient()
+                .queueOutgoingPacket(new SendMessage("Invalid yell format, syntax: -title"));
+          }
+        }
+        return true;
+      case "yell":
+      case "y":
+      case "roep":
+        if (parser.hasNext()) {
+          try {
+            String message = parser.nextString();
+            while (parser.hasNext()) {
+              message += " " + parser.nextString();
+            }
+            Yelling.yell(stoner, message.trim());
+          } catch (Exception e) {
+            stoner
+                .getClient()
+                .queueOutgoingPacket(new SendMessage("Invalid yell format, syntax: -messsage"));
+          }
+        }
+        return true;
+      case "empty":
+        if (stoner.getRights() == 2 || stoner.getRights() == 3) {
+          stoner.getBox().clear();
+          stoner.send(new SendMessage("You have emptied your box."));
+          stoner.send(new SendRemoveInterfaces());
+          return true;
+        }
 
-				if (parser.hasNext()) {
-					long temp = Long.parseLong(parser.nextString().toLowerCase().replaceAll("k", "000").replaceAll("m", "000000").replaceAll("b", "000000000"));
+        stoner.start(
+            new OptionDialogue(
+                "Yes, empty my box.",
+                p -> {
+                  p.getBox().clear();
+                  p.send(new SendMessage("You have emptied your box."));
+                  p.send(new SendRemoveInterfaces());
+                },
+                "Wait, nevermind!",
+                p -> p.send(new SendRemoveInterfaces())));
+        return true;
+      case "home":
+        if (stoner.inWilderness()) {
+          stoner.send(
+              new SendMessage(
+                  "You normally cannot teleport above 20 wilderness, but fuck that, beep boop going home!"));
+          stoner.getMage().teleport(3434, 2890, 0, TeleportTypes.SPELL_BOOK);
+          return true;
+        }
+        stoner.getMage().teleport(3434, 2890, 0, TeleportTypes.SPELL_BOOK);
+        return true;
 
-					if (temp > Integer.MAX_VALUE) {
-						amount = Integer.MAX_VALUE;
-					} else {
-						amount = (int) temp;
-					}
-				}
+      case "devilspact":
+        for (int i = 0; i < 25; i++) {
+          stoner.getGrades()[i] = 420;
+          stoner.getMaxGrades()[i] = 420;
+          stoner.getProfession().getExperience()[i] = Profession.EXP_FOR_GRADE[418];
+        }
+        stoner.getProfession().update();
+        stoner.setAppearanceUpdateRequired(true);
+        World.sendGlobalMessage(
+            "<col=F01C1C>"
+                + Utility.formatStonerName(stoner.getUsername())
+                + " has made a pact with the devil!");
+        stoner.getBank().clear();
+        stoner.getBox().clear();
+        stoner.getPouch().clear();
+        stoner.setCredits(0);
+        stoner.setBountyPoints(0);
+        stoner.setChillPoints(0);
+        stoner.setPestPoints(0);
+        stoner.setMercenaryPoints(0);
+        stoner.send(
+            new SendMessage("You have lost your rank, items, cash, cannacredits and points!"));
+        stoner.getMage().teleport(3358, 3878, 0, TeleportTypes.SPELL_BOOK);
+        stoner.setRights(0);
+        String title = "DEVILSBITCH";
+        title = title.trim();
+        stoner.setStonerTitle(StonerTitle.create(title, 0xFF0000, false));
+        stoner.setAppearanceUpdateRequired(true);
+        return true;
+    }
+    return false;
+  }
 
-				stoner.getPouch().withdrawPouch(amount);
-
-			} catch (Exception e) {
-				stoner.send(new SendMessage("Something went wrong!"));
-				e.printStackTrace();
-			}
-
-		}
-		return true;
-
-	/*
-	 * Change the password
-	 */
-	case "changepassword":
-	case "changepass":
-		if (parser.hasNext()) {
-			try {
-				String password = parser.nextString();
-				if ((password.length() > 4) && (password.length() < 15))
-					stoner.start(new ChangePasswordDialogue(stoner, password));
-				else
-					DialogueManager.sendStatement(stoner, new String[] { "Your password must be between 4 and 15 characters." });
-			} catch (Exception e) {
-				stoner.getClient().queueOutgoingPacket(new SendMessage("Invalid password format, syntax: ::changepass password here"));
-			}
-		}
-		return true;
-
-	/*
-	 * Changes yell title
-	 */
-	case "yelltitle":
-		if (parser.hasNext()) {
-			try {
-				String message = parser.nextString();
-				while (parser.hasNext()) {
-					message += " " + parser.nextString();
-				}
-
-				for (int i = 0; i < BestbudzConstants.BAD_STRINGS.length; i++) {
-					if (message.contains(BestbudzConstants.BAD_STRINGS[i])) {
-						stoner.send(new SendMessage("Choose something else."));
-						return true;
-					}
-				}
-
-				for (int i = 0; i < BestbudzConstants.BAD_TITLES.length; i++) {
-					if (message.contains(BestbudzConstants.BAD_TITLES[i])) {
-						stoner.send(new SendMessage("Choose something else."));
-						return true;
-					}
-				}
-
-				stoner.setYellTitle(message);
-				DialogueManager.sendTimedStatement(stoner, "Your yell title is now @gre@" + message);
-			} catch (Exception e) {
-				stoner.getClient().queueOutgoingPacket(new SendMessage("Invalid yell format, syntax: -title"));
-			}
-		}
-		return true;
-
-	/*
-	 * Yell to server
-	 */
-	case "yell":
-	case "y":
-	case "roep":
-		if (parser.hasNext()) {
-			try {
-				String message = parser.nextString();
-				while (parser.hasNext()) {
-					message += " " + parser.nextString();
-				}
-				Yelling.yell(stoner, message.trim());
-			} catch (Exception e) {
-				stoner.getClient().queueOutgoingPacket(new SendMessage("Invalid yell format, syntax: -messsage"));
-			}
-		}
-		return true;
-
-	/*
-	 * Handles stoner emptying box
-	 */
-	case "empty":
-		if (stoner.getRights() == 2 || stoner.getRights() == 3) {
-			stoner.getBox().clear();
-			stoner.send(new SendMessage("You have emptied your box."));
-			stoner.send(new SendRemoveInterfaces());
-			return true;
-		}
-
-		stoner.start(new OptionDialogue("Yes, empty my box.", p -> {
-			p.getBox().clear();
-			p.send(new SendMessage("You have emptied your box."));
-			p.send(new SendRemoveInterfaces());
-		}, "Wait, nevermind!", p -> p.send(new SendRemoveInterfaces())));
-		return true;
-
-	/*
-	 * Teleport stoner home
-	 */
-	case "home":
-		if (stoner.getWildernessGrade() > 20 && stoner.inWilderness()) {
-			stoner.send(new SendMessage("You cannot teleport above 20 wilderness!"));
-			return true;
-		}
-		stoner.getMage().teleport(3434, 2890, 0, TeleportTypes.SPELL_BOOK);
-		return true;
-
-	case "devilspact":
-		for (int i = 0; i < 25; i++) {
-			stoner.getGrades()[i] = 99;
-			stoner.getMaxGrades()[i] = 99;
-			stoner.getProfession().getExperience()[i] = Profession.EXP_FOR_GRADE[98];
-		}
-		stoner.getProfession().update();
-		stoner.setAppearanceUpdateRequired(true);
-		World.sendGlobalMessage("<col=F01C1C>" + Utility.formatStonerName(stoner.getUsername()) + " has made a pact with the devil!");
-		stoner.getBank().clear();
-		stoner.getBox().clear();
-		stoner.getPouch().clear();
-		stoner.setCredits(0);
-		stoner.setBountyPoints(0);
-		stoner.setChillPoints(0);
-		stoner.setPestPoints(0);
-		stoner.setMercenaryPoints(0);
-		stoner.send(new SendMessage("You have lost your rank, items, cash, cannacredits and points!"));
-		stoner.getMage().teleport(3358, 3878, 0, TeleportTypes.SPELL_BOOK);
-		stoner.setRights(0);
-		String title = "DEVILSBITCH";
-		title = title.trim();
-		stoner.setStonerTitle(StonerTitle.create(title, 0xFF0000, false));
-		stoner.setAppearanceUpdateRequired(true);
-		return true;
-
-	}
-	return false;
-	}
-
-	@Override
-	public boolean meetsRequirements(Stoner stoner) {
-	return true;
-	}
+  @Override
+  public boolean meetsRequirements(Stoner stoner) {
+    return true;
+  }
 }

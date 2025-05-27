@@ -1,13 +1,11 @@
 package com.bestbudz.rs2.content.profession.handiness;
 
+import com.bestbudz.rs2.entity.item.Item;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bestbudz.rs2.entity.item.Item;
-
 public enum Jewelry {
 
-	/* Rings */
 	GOLD_RING(1636, 1, 15, 1592, 2357),
 	SAPPHIRE_RING(1638, 1, 40, 1592, 2357, 1607),
 	EMERALD_RING(1640, 1, 55, 1592, 2357, 1605),
@@ -16,7 +14,6 @@ public enum Jewelry {
 	DRAGONSTONE_RING(1646, 1, 100, 1592, 2357, 1615),
 	ONYX_RING(6576, 1, 85, 1592, 2357, 6573),
 
-	/* Necklace */
 	GOLD_NECKLACE(1655, 6, 1, 1597, 2357),
 	SAPPHIRE_NECKLACE(1657, 1, 55, 1597, 2357, 1607),
 	EMERALD_NECKLACE(1659, 1, 60, 1597, 2357, 1605),
@@ -25,7 +22,6 @@ public enum Jewelry {
 	DRAGONSTONE_NECKLACE(1665, 1, 105, 1597, 2357, 1615),
 	ONYX_NECKLACE(6578, 1, 120, 1597, 2357, 6573),
 
-	/* Amulet */
 	GOLD_AMULET(1674, 8, 1, 1595, 2357),
 	SAPPHIRE_AMULET(1676, 1, 65, 1595, 2357, 1607),
 	EMERALD_AMULET(1678, 1, 61, 1595, 2357, 1605),
@@ -34,28 +30,27 @@ public enum Jewelry {
 	DRAGONSTONE_AMULET(1684, 1, 125, 1595, 2357, 1615),
 	ONYX_AMULET(6580, 1, 150, 1595, 2357, 6573);
 
+	private static final Map<Integer, Jewelry> jewelry = new HashMap<Integer, Jewelry>();
+	private final Item reward;
+	private final short gradeRequired;
+	private final double experienceGain;
+	private final int[] materialsRequired;
+
+	Jewelry(int rewardId, int gradeRequired, double experienceGain, int... materialsRequired) {
+	this.reward = new Item(rewardId);
+	this.gradeRequired = ((short) gradeRequired);
+	this.experienceGain = experienceGain;
+	this.materialsRequired = materialsRequired;
+	}
+
 	public static final void declare() {
 	for (Jewelry jewel : values()) {
 		jewelry.put(Integer.valueOf(jewel.getReward().getId()), jewel);
 	}
 	}
 
-	private Item reward;
-	private short gradeRequired;
-	private double experienceGain;
-	private int[] materialsRequired;
-
-	private static Map<Integer, Jewelry> jewelry = new HashMap<Integer, Jewelry>();
-
 	public static Jewelry forReward(int id) {
 	return jewelry.get(Integer.valueOf(id));
-	}
-
-	private Jewelry(int rewardId, int gradeRequired, double experienceGain, int... materialsRequired) {
-	this.reward = new Item(rewardId);
-	this.gradeRequired = ((short) gradeRequired);
-	this.experienceGain = experienceGain;
-	this.materialsRequired = materialsRequired;
 	}
 
 	public double getExperience() {

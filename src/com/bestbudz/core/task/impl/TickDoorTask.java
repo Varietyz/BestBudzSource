@@ -5,22 +5,19 @@ import com.bestbudz.core.task.Task;
 
 public class TickDoorTask extends Task {
 
-	public TickDoorTask(Door door) {
-		super(null, 1);
-		if (door.original()) {
-			stop();
-			return;
-		}
-	}
+  public TickDoorTask(Door door) {
+    super(null, 1);
+    if (door.original()) {
+      stop();
+    }
+  }
 
-	@Override
-	public void execute() {
+  @Override
+  public void execute() {
 
-		stop();
-	}
+    stop();
+  }
 
-	@Override
-	public void onStop() {
-	}
-
+  @Override
+  public void onStop() {}
 }

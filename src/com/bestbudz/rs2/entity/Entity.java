@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.entity;
 
-import java.util.LinkedList;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.RegenerateProfessionTask;
@@ -14,151 +12,47 @@ import com.bestbudz.rs2.entity.following.Following;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.movement.MovementHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.util.LinkedList;
 
-/**
- * Represents a single combatable entity
- * 
- * @author Jaybane
- * 
- */
 public abstract class Entity implements CombatInterface {
 
-	/**
-	 * The stoner index mod
-	 */
 	public static final int STONER_INDEX_MOD = 32768;
-
-	public static boolean inWilderness(int x, int y) {
-	return (x > 2941 && x < 3392 && y > 3521 && y < 3966) || (x > 2941 && x < 3392 && y > 9918 && y < 10366);
-	}
-
-	/**
-	 * The index of the entity
-	 */
+	private final long[] maxGrades = new long[Professions.PROFESSION_COUNT];
+	private final long[] grades = new long[Professions.PROFESSION_COUNT];
+	private final short[] bonuses = new short[13];
+	private final LinkedList<Task> tasks = new LinkedList<Task>();
+	private final Location location = new Location(0, 0, 0);
+	private final UpdateFlags updateFlags = new UpdateFlags();
+	private final Combat combat = new Combat(this);
+	private final Attributes attributes = new Attributes();
 	private short index = -1;
-
-	/**
-	 * The size of the entity
-	 */
 	private byte size = 1;
-
-	/**
-	 * The last damage dealt by the entity
-	 */
 	private byte lastDamageDealt = 0;
-
-	/**
-	 * The entities max grades
-	 */
-	private short[] maxGrades = new short[Professions.PROFESSION_COUNT];
-
-	/**
-	 * The entities current grades
-	 */
-	private short[] grades = new short[Professions.PROFESSION_COUNT];
-
-	/**
-	 * The entities current bonuses
-	 */
-	private short[] bonuses = new short[13];
-
-	/**
-	 * the last assaulted entity
-	 */
 	private Entity lastAssaulted;
 	private int consecutiveAssaults;
 	private double sagittariusWeaknessMod;
 	private double mageWeaknessMod;
-
 	private double meleeWeaknessMod;
-
-	/**
-	 * A list of tasks
-	 */
-	private final LinkedList<Task> tasks = new LinkedList<Task>();
-
-	/**
-	 * The entity is an npc
-	 */
 	private boolean npc = true;
-
-	/**
-	 * The entity is active
-	 */
 	private boolean active = false;
-
-	/**
-	 * The entity is dead
-	 */
 	private boolean dead = false;
-
-	/**
-	 * The entity can take damage
-	 */
 	private boolean takeDamage = true;
-
-	/**
-	 * The entity can retaliate
-	 */
 	private boolean retaliate = true;
-
-	/**
-	 * The last hit success
-	 */
 	private boolean lastHitSuccess = false;
-
-	/**
-	 * The entity is poisoned
-	 */
 	private boolean poisoned = false;
-
-	/**
-	 * The current poison damage
-	 */
 	private int poisonDamage = 0;
-
-	/**
-	 * The teleblock time
-	 */
 	private int teleblockTime;
-
-	/**
-	 * The freeze delay
-	 */
 	private long freeze;
-
-	/**
-	 * The spear delay
-	 */
 	private long stun;
-
-	/**
-	 * The immunity from being frozen
-	 */
 	private long iceImmunity;
-
-	/**
-	 * The immunity from being poisoned again
-	 */
 	private long poisonImmunity;
-
-	/**
-	 * The immunity from being hit
-	 */
 	private long hitImmunity = 0L;
-
-	/**
-	 * The immunity from fire
-	 */
 	private long fireImmunity = 0;
-
-	public static enum AssaultType {
-		STAB,
-		SLASH,
-		CRUSH
-	}
-
 	private AssaultType assaultType = AssaultType.CRUSH;
+
+	public static boolean inWilderness(int x, int y) {
+	return (x > 2941 && x < 3392 && y > 3521 && y < 3966) || (x > 2941 && x < 3392 && y > 9918 && y < 10366);
+	}
 
 	public AssaultType getAssaultType() {
 	return assaultType;
@@ -168,54 +62,16 @@ public abstract class Entity implements CombatInterface {
 	this.assaultType = assaultType;
 	}
 
-	/**
-	 * the location of the entity
-	 */
-	private final Location location = new Location(0, 0, 0);
-
-	/**
-	 * Constructs an update flags instance
-	 */
-	private final UpdateFlags updateFlags = new UpdateFlags();
-
-	/**
-	 * Constructs a new combat instance
-	 */
-	private final Combat combat = new Combat(this);
-
-	/**
-	 * Constructs a new attributes instance
-	 */
-	private final Attributes attributes = new Attributes();
-
-	/**
-	 * Adds a bonus to the bonuses
-	 * 
-	 * @param id
-	 *                The bonus id
-	 * @param add
-	 *                The amount to add to the bonus
-	 */
 	public void addBonus(int id, int add) {
 	int tmp5_4 = id;
 	short[] tmp5_1 = bonuses;
 	tmp5_1[tmp5_4] = ((short) (tmp5_1[tmp5_4] + add));
 	}
 
-	/**
-	 * Gets if the entity can take damage
-	 * 
-	 * @return
-	 */
 	public boolean canTakeDamage() {
 	return takeDamage;
 	}
 
-	/**
-	 * Cures poison
-	 * 
-	 * @param immunity
-	 */
 	public void curePoison(int immunity) {
 	poisoned = false;
 	poisonDamage = 0;
@@ -223,11 +79,6 @@ public abstract class Entity implements CombatInterface {
 		poisonImmunity = (World.getCycles() + immunity);
 	}
 
-	/**
-	 * Performs a consecutive assault
-	 * 
-	 * @param assaulting
-	 */
 	public void doConsecutiveAssaults(Entity assaulting) {
 	if (lastAssaulted == null) {
 		consecutiveAssaults = 1;
@@ -243,14 +94,8 @@ public abstract class Entity implements CombatInterface {
 	}
 	}
 
-	/**
-	 * Provides fire immunity for a set amount of seconds
-	 * 
-	 * @param delayInSeconds
-	 *                           The delay of the immunity
-	 */
 	public void doFireImmunity(int delayInSeconds) {
-	fireImmunity = System.currentTimeMillis() + (delayInSeconds * 1000);
+	fireImmunity = System.currentTimeMillis() + (delayInSeconds * 1000L);
 	}
 
 	@Override
@@ -263,11 +108,6 @@ public abstract class Entity implements CombatInterface {
 	return false;
 	}
 
-	/**
-	 * Forces an entity to face a direction
-	 * 
-	 * @param entity
-	 */
 	public void face(Entity entity) {
 	if (entity == null) {
 		return;
@@ -279,14 +119,6 @@ public abstract class Entity implements CombatInterface {
 		updateFlags.faceEntity(entity.getIndex());
 	}
 
-	/**
-	 * Freezes an entity for a certain time
-	 * 
-	 * @param time
-	 *                     The time to freeze the entity
-	 * @param immunity
-	 *                     The time the entity is immune to being frozen again
-	 */
 	public void freeze(double time, int immunity) {
 	if ((isFrozen()) || (isImmuneToIce())) {
 		return;
@@ -296,12 +128,6 @@ public abstract class Entity implements CombatInterface {
 	iceImmunity = (freeze + 5000);
 	}
 
-	/**
-	 * Stuns an entity for a certain time
-	 * 
-	 * @param time
-	 *                 The time to stun the entity
-	 */
 	public void stun(double time) {
 	if (isStunned()) {
 		return;
@@ -313,72 +139,50 @@ public abstract class Entity implements CombatInterface {
 	return stun > System.currentTimeMillis();
 	}
 
-	/**
-	 * Gets the entities attributes
-	 * 
-	 * @return
-	 */
 	public Attributes getAttributes() {
 	return attributes;
 	}
 
-	/**
-	 * Gets the bonuses for the entity
-	 * 
-	 * @return
-	 */
 	public short[] getBonuses() {
 	return bonuses;
 	}
 
-	/**
-	 * Gets the combat instance
-	 * 
-	 * @return
-	 */
+	public void setBonuses(int[] bonuses) {
+	for (int i = 0; i < bonuses.length; i++)
+		this.bonuses[i] = ((short) bonuses[i]);
+	}
+
 	public Combat getCombat() {
 	return combat;
 	}
 
-	/**
-	 * Gets the current following instance
-	 * 
-	 * @return
-	 */
 	public abstract Following getFollowing();
 
-	/**
-	 * Gets the entities index
-	 * 
-	 * @return
-	 */
 	public int getIndex() {
 	return index;
 	}
 
-	/**
-	 * Gets the last damage dealt
-	 * 
-	 * @return
-	 */
+	public void setIndex(int index) {
+	this.index = ((short) index);
+	}
+
 	public int getLastDamageDealt() {
 	return lastDamageDealt;
 	}
 
-	/**
-	 * Gets the entities grades
-	 * 
-	 * @return
-	 */
-	public short[] getGrades() {
+	public void setLastDamageDealt(long lastDamageDealt) {
+	this.lastDamageDealt = ((byte) lastDamageDealt);
+	}
+
+	public long[] getGrades() {
 	return grades;
 	}
 
-	/**
-	 * Gets the entities location
-	 * 
-	 * @return
-	 */
+	public void setGrades(long[] grades) {
+	for (int i = 0; i < grades.length; i++)
+		this.grades[i] = (grades[i]);
+	}
+
 	public Location getLocation() {
 	return location;
 	}
@@ -387,88 +191,76 @@ public abstract class Entity implements CombatInterface {
 	return mageWeaknessMod;
 	}
 
-	/**
-	 * Gets the entities max grades
-	 * 
-	 * @return
-	 */
-	public short[] getMaxGrades() {
+	public void setMageWeaknessMod(double mageWeaknessMod) {
+	this.mageWeaknessMod = mageWeaknessMod;
+	}
+
+	public long[] getMaxGrades() {
 	return maxGrades;
+	}
+
+	public void setMaxGrades(long[] maxGrades) {
+		System.arraycopy(maxGrades, 0, this.maxGrades, 0, maxGrades.length);
 	}
 
 	public double getMeleeWeaknessMod() {
 	return meleeWeaknessMod;
 	}
 
+	public void setMeleeWeaknessMod(double meleeWeaknessMod) {
+	this.meleeWeaknessMod = meleeWeaknessMod;
+	}
+
 	public Mob getMob() {
 	return !npc ? null : World.getNpcs()[index];
 	}
 
-	/**
-	 * Get the current movement handler instance
-	 * 
-	 * @return
-	 */
 	public abstract MovementHandler getMovementHandler();
 
 	public Stoner getStoner() {
 	return npc ? null : World.getStoners()[index];
 	}
 
-	/**
-	 * Gets the poison damage
-	 * 
-	 * @return
-	 */
 	public int getPoisonDamage() {
 	return poisonDamage;
+	}
+
+	public void setPoisonDamage(int poisonDamage) {
+	this.poisonDamage = poisonDamage;
 	}
 
 	public double getSagittariusWeaknessMod() {
 	return sagittariusWeaknessMod;
 	}
 
-	/**
-	 * Gets the size of the entity
-	 * 
-	 * @return
-	 */
+	public void setSagittariusWeaknessMod(double sagittariusWeaknessMod) {
+	this.sagittariusWeaknessMod = sagittariusWeaknessMod;
+	}
+
 	public int getSize() {
 	return size;
 	}
 
-	/**
-	 * Gets a list of tasks
-	 * 
-	 * @return
-	 */
+	public void setSize(int size) {
+	this.size = ((byte) size);
+	}
+
 	public LinkedList<Task> getTasks() {
 	return tasks;
 	}
 
-	/**
-	 * Gets the current teleblock time
-	 * 
-	 * @return
-	 */
 	public int getTeleblockTime() {
 	return teleblockTime;
 	}
 
-	/**
-	 * Gets the entities update flags
-	 * 
-	 * @return
-	 */
+	public void setTeleblockTime(int teleblockTime) {
+	this.teleblockTime = teleblockTime;
+	}
+
 	public UpdateFlags getUpdateFlags() {
 	return updateFlags;
 	}
 
-	/**
-	 * Gets the wilderness grade the entity is in
-	 * 
-	 * @return
-	 */
 	public int getWildernessGrade() {
 	int y = location.getY();
 	int grade = -1;
@@ -477,102 +269,44 @@ public abstract class Entity implements CombatInterface {
 	return grade;
 	}
 
-	/**
-	 * Gets the entities x coordinate
-	 * 
-	 * @return
-	 */
 	public int getX() {
 	return location.getX();
 	}
 
-	/**
-	 * Gets the entities y coordinate
-	 * 
-	 * @return
-	 */
 	public int getY() {
 	return location.getY();
 	}
 
-	/**
-	 * Gets the entities z coordinate
-	 * 
-	 * @return
-	 */
 	public int getZ() {
 	return location.getZ();
 	}
 
-	/**
-	 * The entity has assaulted consecutively
-	 * 
-	 * @param check
-	 * @param req
-	 * @return
-	 */
 	public boolean hasAssaultedConsecutively(Entity check, int req) {
 	return (lastAssaulted != null) && (lastAssaulted.equals(check)) && (consecutiveAssaults >= req);
 	}
 
-	/**
-	 * The entity has fire immunity
-	 * 
-	 * @return
-	 */
 	public boolean hasFireImmunity() {
 	return fireImmunity > System.currentTimeMillis() || (getAttributes().get("fire_resist") != null && (Boolean) getAttributes().get("fire_resist")) || (getAttributes().get("super_fire_resist") != null && (Boolean) getAttributes().get("super_fire_resist"));
 	}
 
-	/**
-	 * The entity has super fire immunity
-	 * 
-	 * @return
-	 */
 	public boolean hasSuperFireImmunity() {
 	return (getAttributes().get("super_fire_resist") != null && (Boolean) getAttributes().get("super_fire_resist"));
 	}
 
-	/**
-	 * Gets if an entity is in an area
-	 * 
-	 * @param bottomLeft
-	 *                          The bottom left corner
-	 * @param topRight
-	 *                          The top right corner
-	 * @param heightSupport
-	 *                          Should the height be checked
-	 * @return
-	 */
 	public boolean inArea(Location bottomLeft, Location topRight, boolean heightSupport) {
 	if ((heightSupport) && (location.getZ() != bottomLeft.getZ()))
 		return false;
 	return (location.getX() >= bottomLeft.getX()) && (location.getX() <= topRight.getX()) && (location.getY() >= bottomLeft.getY()) && (location.getY() <= topRight.getY());
 	}
 
-	/**
-	 * The entity is in duel arena
-	 * 
-	 * @return
-	 */
 	public boolean inDuelArena() {
 	return (location.getX() >= 3325) && (location.getX() <= 3396) && (location.getY() >= 3199) && (location.getY() <= 3289);
 	}
 
-	/**
-	 * The entity is in godwars
-	 * 
-	 * @return
-	 */
 	public boolean inGodwars() {
 	return inArea(new Location(2816, 5243, 2), new Location(2960, 5400, 2), false);
 	}
 
-	/**
-	 * The entity is in a multi area
-	 * 
-	 * @return
-	 */
 	public boolean inMultiArea() {
 	if (attributes.get(PestControlGame.PEST_GAME_KEY) != null) {
 		return true;
@@ -660,40 +394,28 @@ public abstract class Entity implements CombatInterface {
 	return (x >= 2847 && x <= 2876 && y >= 3534 && y <= 3556 && z == 2 || x >= 2838 && x <= 2847 && y >= 3543 && y <= 3556 && z == 2);
 	}
 
-	/**
-	 * The entity is in the wilderness
-	 * 
-	 * @return
-	 */
 	public boolean inWilderness() {
 	int x = location.getX();
 	int y = location.getY();
 	return (x > 2941 && x < 3392 && y > 3521 && y < 3966) || (x > 2941 && x < 3392 && y > 9918 && y < 10366) || (x > 2583 && x < 2729 && y > 3255 && y < 3343);
 	}
 
-	/**
-	 * Gets if the entity is active
-	 * 
-	 * @return
-	 */
 	public boolean isActive() {
 	return active;
 	}
 
-	/**
-	 * Gets if the entity is dead
-	 * 
-	 * @return
-	 */
+	public void setActive(boolean active) {
+	this.active = active;
+	}
+
 	public boolean isDead() {
 	return dead;
 	}
 
-	/**
-	 * The entity is immune
-	 * 
-	 * @return
-	 */
+	public void setDead(boolean dead) {
+	this.dead = dead;
+	}
+
 	public boolean isFrozen() {
 	return freeze > System.currentTimeMillis();
 	}
@@ -702,65 +424,38 @@ public abstract class Entity implements CombatInterface {
 	return (int) (freeze = value);
 	}
 
-	/**
-	 * Gets if the entity is immune to a hit
-	 * 
-	 * @return
-	 */
 	public boolean isImmuneToHit() {
 	return System.currentTimeMillis() < hitImmunity;
 	}
 
-	/**
-	 * Gets if the entity is immune to ice
-	 * 
-	 * @return
-	 */
 	public boolean isImmuneToIce() {
 	return iceImmunity > System.currentTimeMillis();
 	}
 
-	/**
-	 * Gets if the entity is an npc
-	 * 
-	 * @return
-	 */
 	public boolean isNpc() {
 	return npc;
 	}
 
-	/**
-	 * The entity is poisoned
-	 * 
-	 * @return
-	 */
+	public void setNpc(boolean npc) {
+	this.npc = npc;
+	}
+
 	public boolean isPoisoned() {
 	return poisoned;
 	}
 
-	/**
-	 * Gets if the entity can retaliate
-	 * 
-	 * @return
-	 */
 	public boolean isRetaliate() {
 	return retaliate;
 	}
 
-	/**
-	 * The entity is teleblocked
-	 * 
-	 * @return
-	 */
+	public void setRetaliate(boolean retaliate) {
+	this.retaliate = retaliate;
+	}
+
 	public boolean isTeleblocked() {
 	return teleblockTime > 0;
 	}
 
-	/**
-	 * poisons an entity
-	 * 
-	 * @param start
-	 */
 	public void poison(int start) {
 	if ((poisoned) || (World.getCycles() < poisonImmunity)) {
 		return;
@@ -799,21 +494,10 @@ public abstract class Entity implements CombatInterface {
 	});
 	}
 
-	/**
-	 * The entities individual process
-	 * 
-	 * @throws Exception
-	 */
 	public abstract void process() throws Exception;
 
-	/**
-	 * Resets the entitys updates
-	 */
 	public abstract void reset();
 
-	/**
-	 * Resets the entities combat stats
-	 */
 	public void resetCombatStats() {
 	Stoner p = null;
 	if (!npc) {
@@ -827,13 +511,8 @@ public abstract class Entity implements CombatInterface {
 	}
 	}
 
-	/**
-	 * Resets the entities grades
-	 */
 	public void resetGrades() {
-	for (int i = 0; i < 25; i++) {
-		grades[i] = maxGrades[i];
-	}
+		System.arraycopy(maxGrades, 0, grades, 0, 25);
 
 	if (!npc) {
 		Stoner p = World.getStoners()[index];
@@ -846,172 +525,22 @@ public abstract class Entity implements CombatInterface {
 
 	public abstract void retaliate(Entity assaulted);
 
-	/**
-	 * Sets if the entity is active
-	 * 
-	 * @param active
-	 */
-	public void setActive(boolean active) {
-	this.active = active;
-	}
-
-	/**
-	 * Sets the bonuses for the entity
-	 * 
-	 * @param bonuses
-	 */
-	public void setBonuses(int[] bonuses) {
-	for (int i = 0; i < bonuses.length; i++)
-		this.bonuses[i] = ((short) bonuses[i]);
-	}
-
-	/**
-	 * Sets the entity dead
-	 * 
-	 * @param dead
-	 */
-	public void setDead(boolean dead) {
-	this.dead = dead;
-	}
-
-	/**
-	 * Sets the hit immunity in seconds
-	 * 
-	 * @param delay
-	 *                  The seconds the entity is immune to hits
-	 */
 	public void setHitImmunityDelay(int delay) {
-	hitImmunity = (System.currentTimeMillis() + delay * 1000);
+	hitImmunity = (System.currentTimeMillis() + delay * 1000L);
 	}
 
-	/**
-	 * Sets the entities index
-	 * 
-	 * @param index
-	 *                  The index to place the npc
-	 */
-	public void setIndex(int index) {
-	this.index = ((short) index);
-	}
-
-	/**
-	 * Sets the last damage dealt
-	 * 
-	 * @param lastDamageDealt
-	 */
-	public void setLastDamageDealt(int lastDamageDealt) {
-	this.lastDamageDealt = ((byte) lastDamageDealt);
-	}
-
-	/**
-	 * Sets the last hit successful
-	 * 
-	 * @param lastHitSuccess
-	 */
 	public void setLastHitSuccess(boolean lastHitSuccess) {
 	this.lastHitSuccess = lastHitSuccess;
 	}
 
-	/**
-	 * Sets the entities grades
-	 * 
-	 * @param grades
-	 */
-	public void setGrades(int[] grades) {
-	for (int i = 0; i < grades.length; i++)
-		this.grades[i] = ((short) grades[i]);
-	}
-
-	public void setMageWeaknessMod(double mageWeaknessMod) {
-	this.mageWeaknessMod = mageWeaknessMod;
-	}
-
-	/**
-	 * Sets the entities max grades
-	 * 
-	 * @param maxGrades
-	 */
-	public void setMaxGrades(int[] maxGrades) {
-	for (int i = 0; i < maxGrades.length; i++)
-		this.maxGrades[i] = ((short) maxGrades[i]);
-	}
-
-	public void setMeleeWeaknessMod(double meleeWeaknessMod) {
-	this.meleeWeaknessMod = meleeWeaknessMod;
-	}
-
-	/**
-	 * Sets if the entity is an npc
-	 * 
-	 * @param npc
-	 */
-	public void setNpc(boolean npc) {
-	this.npc = npc;
-	}
-
-	/**
-	 * Sets the poison damage
-	 * 
-	 * @param poisonDamage
-	 */
-	public void setPoisonDamage(int poisonDamage) {
-	this.poisonDamage = poisonDamage;
-	}
-
-	public void setSagittariusWeaknessMod(double sagittariusWeaknessMod) {
-	this.sagittariusWeaknessMod = sagittariusWeaknessMod;
-	}
-
-	/**
-	 * Sets if the entity can retalite
-	 * 
-	 * @param retaliate
-	 */
-	public void setRetaliate(boolean retaliate) {
-	this.retaliate = retaliate;
-	}
-
-	/**
-	 * Sets the size of the entity
-	 * 
-	 * @param size
-	 */
-	public void setSize(int size) {
-	this.size = ((byte) size);
-	}
-
-	/**
-	 * Sets if the entity can take damage
-	 * 
-	 * @param takeDamage
-	 */
 	public void setTakeDamage(boolean takeDamage) {
 	this.takeDamage = takeDamage;
 	}
 
-	/**
-	 * Sets the teleblock time
-	 * 
-	 * @param teleblockTime
-	 *                          The time to teleblock the entity
-	 */
-	public void setTeleblockTime(int teleblockTime) {
-	this.teleblockTime = teleblockTime;
-	}
-
-	/**
-	 * Starts a regeneration task
-	 */
 	public void startRegeneration() {
 	TaskQueue.queue(new RegenerateProfessionTask(this, 75));
 	}
 
-	/**
-	 * Teleblocks an entity for a certain amount of time
-	 * 
-	 * @param time
-	 *                 The time to teleblock the entity
-	 */
 	public void teleblock(int time) {
 	if (isTeleblocked()) {
 		return;
@@ -1022,9 +551,6 @@ public abstract class Entity implements CombatInterface {
 	tickTeleblock();
 	}
 
-	/**
-	 * Ticks the teleblock
-	 */
 	public void tickTeleblock() {
 	TaskQueue.queue(new Task(this, 1) {
 
@@ -1043,20 +569,18 @@ public abstract class Entity implements CombatInterface {
 	});
 	}
 
-	/**
-	 * Unfreezes an entity
-	 */
 	public void unfreeze() {
 	freeze = 0L;
 	}
 
-	/**
-	 * Gets if the last hit was successful
-	 * 
-	 * @return
-	 */
 	public boolean wasLastHitSuccess() {
 	return lastHitSuccess;
+	}
+
+	public enum AssaultType {
+		STAB,
+		SLASH,
+		CRUSH
 	}
 
 }

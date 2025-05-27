@@ -6,20 +6,20 @@ import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class DragonDaggerSpecialAssault implements Special {
-	@Override
-	public boolean checkRequirements(Stoner stoner) {
-	return true;
-	}
+  @Override
+  public boolean checkRequirements(Stoner stoner) {
+    return true;
+  }
 
-	@Override
-	public int getSpecialAmountRequired() {
-	return 25;
-	}
+  @Override
+  public int getSpecialAmountRequired() {
+    return 25;
+  }
 
-	@Override
-	public void handleAssault(Stoner stoner) {
-	stoner.getCombat().getMelee().setAnimation(new Animation(1062, 0));
-	stoner.getUpdateFlags().sendGraphic(Graphic.highGraphic(252, 0));
-	stoner.getCombat().getMelee().execute(stoner.getCombat().getAssaulting());
-	}
+  @Override
+  public void handleAssault(Stoner stoner) {
+    stoner.getCombat().getMelee().setAnimation(new Animation(1062, 0));
+    stoner.getUpdateFlags().sendGraphic(Graphic.highGraphic(252, 0));
+    stoner.getCombat().getMelee().execute(stoner.getCombat().getAssaulting());
+  }
 }

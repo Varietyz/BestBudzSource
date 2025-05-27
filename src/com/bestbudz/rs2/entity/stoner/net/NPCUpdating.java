@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.entity.stoner.net;
 
-import java.util.Iterator;
-
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.GameConstants;
@@ -11,12 +9,8 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobUpdateFlags;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerUpdateFlags;
+import java.util.Iterator;
 
-/**
- * Provides static utility methods for updating NPCs.
- * 
- * @author blakeman8192
- */
 public class NPCUpdating {
 
 	public static void addNewNpc(StreamBuffer.OutBuffer out, Stoner stoner, Mob mob) {
@@ -108,7 +102,7 @@ public class NPCUpdating {
 	}
 	}
 
-	public static int getCurrentHP(int hp, int maxHp, int totalHp) {
+	public static int getCurrentHP(long hp, long maxHp, int totalHp) {
 	double x = hp / (double) maxHp;
 	return (int) Math.round(x * totalHp);
 	}
@@ -117,12 +111,8 @@ public class NPCUpdating {
 
 	StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(4096);
 	StreamBuffer.OutBuffer block = StreamBuffer.newOutBuffer(2048);
-
-	// Initialize the update packet.
 	out.writeVariableShortPacketHeader(client.getEncryptor(), 65);
 	out.setAccessType(StreamBuffer.AccessType.BIT_ACCESS);
-
-	// Update the NPCs in the local list.
 	out.writeBits(8, client.getNpcs().size());
 	for (Iterator<Mob> i = client.getNpcs().iterator(); i.hasNext();) {
 		Mob mob = i.next();
@@ -132,17 +122,14 @@ public class NPCUpdating {
 			updateNpcMovement(out, flags);
 			appendState(block, flags, -1);
 		} else {
-			// Remove the NPC from the local list.
 			out.writeBit(true);
 			out.writeBits(2, 3);
 			i.remove();
-			// World.getMobUpdateList().decr(mob);
 		}
 	}
 
 	int added = 0;
 	int size = client.getNpcs().size();
-	// Update the local NPC list itself.
 	for (int i = 0; i < World.getNpcs().length; i++) {
 		if (size >= 255) {
 			break;
@@ -166,8 +153,6 @@ public class NPCUpdating {
 			}
 		}
 	}
-
-	// Append the update block to the packet if need be.
 	if (block.getBuffer().writerIndex() > 0) {
 		out.writeBits(14, 16383);
 		out.setAccessType(StreamBuffer.AccessType.BYTE_ACCESS);
@@ -175,8 +160,6 @@ public class NPCUpdating {
 	} else {
 		out.setAccessType(StreamBuffer.AccessType.BYTE_ACCESS);
 	}
-
-	// Ship the packet out to the client.
 	out.finishVariableShortPacketHeader();
 	client.send(out.getBuffer());
 	}

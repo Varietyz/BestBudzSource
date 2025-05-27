@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.entity.stoner.net.in;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.core.network.ReceivedPacket;
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -22,20 +19,18 @@ import com.bestbudz.rs2.entity.stoner.net.in.impl.ItemPackets;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.MovementPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.NPCPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ObjectPacket;
-import com.bestbudz.rs2.entity.stoner.net.in.impl.StonerOptionPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.PrivateMessagingPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.PublicChatPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ReceiveString;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ResetCounter;
+import com.bestbudz.rs2.entity.stoner.net.in.impl.StonerOptionPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.StringInputPacket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PacketHandler {
 
 	private static final IncomingPacket[] packets = new IncomingPacket[350];
-	private final Client client;
-	private final Stoner stoner;
-	private final Map<IncomingPacket, Integer> packetMap = new HashMap<IncomingPacket, Integer>();
-
 	private static final IncomingPacket buttonPacket = new ClickButtonPacket();
 	private static final IncomingPacket publicChatPacket = new PublicChatPacket();
 	private static final IncomingPacket commandPacket = new CommandPacket();
@@ -50,6 +45,14 @@ public class PacketHandler {
 	private static final IncomingPacket stonerOptionPacket = new StonerOptionPacket();
 	private static final IncomingPacket p13 = new PrivateMessagingPacket();
 	private static final IncomingPacket p14 = new ChangeRegionPacket();
+	private final Client client;
+	private final Stoner stoner;
+	private final Map<IncomingPacket, Integer> packetMap = new HashMap<IncomingPacket, Integer>();
+
+	public PacketHandler(Client client) {
+	this.client = client;
+	stoner = client.getStoner();
+	}
 
 	public static void declare() {
 	packets[150] = new InputFieldPacket();
@@ -122,11 +125,6 @@ public class PacketHandler {
 	packets[60] = new StringInputPacket();
 	packets[127] = new ReceiveString();
 	packets[213] = new InterfaceAction();
-	}
-
-	public PacketHandler(Client client) {
-	this.client = client;
-	stoner = client.getStoner();
 	}
 
 	public void handlePacket(ReceivedPacket packet) {

@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content.bank;
 
-import java.util.Arrays;
-
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemContainer;
@@ -9,38 +7,27 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.Client;
 import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBox;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBoxInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendEnterString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBox;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBoxInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
+import java.util.Arrays;
 
 public class Bank extends ItemContainer {
 
-	public static enum RearrangeTypes {
-		SWAP,
-		INSERT;
-	}
-
-	public static enum WithdrawTypes {
-		ITEM,
-		NOTE;
-	}
-
 	public static final int SIZE = 350;
 	private final Stoner stoner;
+	public RearrangeTypes rearrangeType = RearrangeTypes.SWAP;
+	public WithdrawTypes withdrawType = WithdrawTypes.ITEM;
 	private boolean searching = false;
 
 	private int bankTab = 0;
 
 	private int[] tabAmounts = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-	public RearrangeTypes rearrangeType = RearrangeTypes.SWAP;
-
-	public WithdrawTypes withdrawType = WithdrawTypes.ITEM;
 
 	public Bank(Stoner stoner) {
 	super(SIZE, ItemContainer.ContainerTypes.ALWAYS_STACK, true, false);
@@ -50,6 +37,71 @@ public class Bank extends ItemContainer {
 	@Override
 	public boolean allowZero(int id) {
 	return false;
+	}
+
+	@Override
+	public void clear() {
+	Arrays.fill(tabAmounts, 0);
+	bankTab = 0;
+	setSearching(false);
+	super.clear();
+	}
+
+	@Override
+	public void onAdd(Item item) {
+	}
+
+	@Override
+	public void onFillContainer() {
+	stoner.getClient().queueOutgoingPacket(new SendMessage("Your bank is now full."));
+	}
+
+	@Override
+	public void onMaxStack() {
+	stoner.getClient().queueOutgoingPacket(new SendMessage("Your bank won't be able to hold all that!"));
+	}
+
+	@Override
+	public void onRemove(Item item) {
+	}
+
+	@Override
+	public void swap(int to, int from) {
+	if (from == to) {
+		return;
+	}
+
+	if (rearrangeType == RearrangeTypes.SWAP) {
+		Item item = getItems()[to];
+		getItems()[to] = getItems()[from];
+		getItems()[from] = item;
+	} else if (rearrangeType == RearrangeTypes.INSERT) {
+		int index = from;
+
+		if (from > to) {
+			while (index != to) {
+				Item item = getItems()[index - 1];
+				getItems()[index - 1] = getItems()[index];
+				getItems()[index] = item;
+				index--;
+			}
+		} else if (from < to) {
+			while (index != to) {
+				Item item = getItems()[index + 1];
+				getItems()[index + 1] = getItems()[index];
+				getItems()[index] = item;
+				index++;
+			}
+		}
+	}
+	}
+
+	@Override
+	public void update() {
+	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(5064, stoner.getBox().getItems()));
+	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(5382, stoner.getBank().getItems(), stoner.getBank().getTabAmounts()));
+	stoner.getClient().queueOutgoingPacket(new SendBox(stoner.getBox().getItems()));
+	stoner.send(new SendString("" + stoner.getBank().getTakenSlots(), 22033));
 	}
 
 	public boolean clickButton(int buttonId) {
@@ -66,10 +118,10 @@ public class Bank extends ItemContainer {
 		return true;
 	}
 	switch (buttonId) {
-	case 195084: // search
+	case 195084:
 		setSearching(!isSearching());
 		break;
-	case 195087: // option
+	case 195087:
 		setSearching(false);
 		if (stoner.getInterfaceManager().main == 32500) {
 			stoner.send(new SendInterface(5292));
@@ -225,24 +277,6 @@ public class Bank extends ItemContainer {
 	return added;
 	}
 
-	@Override
-	public void onAdd(Item item) {
-	}
-
-	@Override
-	public void onFillContainer() {
-	stoner.getClient().queueOutgoingPacket(new SendMessage("Your bank is now full."));
-	}
-
-	@Override
-	public void onMaxStack() {
-	stoner.getClient().queueOutgoingPacket(new SendMessage("Your bank won't be able to hold all that!"));
-	}
-
-	@Override
-	public void onRemove(Item item) {
-	}
-
 	public void openBank() {
 	if (stoner.inWGGame()) {
 		return;
@@ -252,7 +286,7 @@ public class Bank extends ItemContainer {
 		return;
 	}
 
-	if (stoner.getPin() == null || stoner.enteredPin == true) {
+	if (stoner.getPin() == null || stoner.enteredPin) {
 		shift();
 		update();
 		stoner.getClient().queueOutgoingPacket(new SendBoxInterface(5292, 5063));
@@ -260,53 +294,6 @@ public class Bank extends ItemContainer {
 		stoner.send(new SendInterface(48750));
 	}
 
-	}
-
-	@Override
-	public void swap(int to, int from) {
-	if (from == to) {
-		return;
-	}
-
-	if (rearrangeType == RearrangeTypes.SWAP) {
-		Item item = getItems()[to];
-		getItems()[to] = getItems()[from];
-		getItems()[from] = item;
-	} else if (rearrangeType == RearrangeTypes.INSERT) {
-		int index = from;
-
-		if (from > to) {
-			while (index != to) {
-				Item item = getItems()[index - 1];
-				getItems()[index - 1] = getItems()[index];
-				getItems()[index] = item;
-				index--;
-			}
-		} else if (from < to) {
-			while (index != to) {
-				Item item = getItems()[index + 1];
-				getItems()[index + 1] = getItems()[index];
-				getItems()[index] = item;
-				index++;
-			}
-		}
-	}
-	}
-
-	@Override
-	public void update() {
-	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(5064, stoner.getBox().getItems()));
-	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(5382, stoner.getBank().getItems(), stoner.getBank().getTabAmounts()));
-	stoner.getClient().queueOutgoingPacket(new SendBox(stoner.getBox().getItems()));
-	stoner.send(new SendString("" + stoner.getBank().getTakenSlots(), 22033));
-	}
-
-	@Override
-	public void clear() {
-	Arrays.fill(tabAmounts, 0);
-	bankTab = 0;
-	setSearching(false);
-	super.clear();
 	}
 
 	public void withdraw(int item, int amount) {
@@ -449,5 +436,15 @@ public class Bank extends ItemContainer {
 		return 187;
 		}
 	});
+	}
+
+	public enum RearrangeTypes {
+		SWAP,
+		INSERT
+	}
+
+	public enum WithdrawTypes {
+		ITEM,
+		NOTE
 	}
 }

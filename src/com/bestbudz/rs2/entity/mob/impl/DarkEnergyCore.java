@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.entity.mob.impl;
 
-import java.util.List;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.Utility;
@@ -12,12 +10,21 @@ import com.bestbudz.rs2.entity.Projectile;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import java.util.List;
 
 public class DarkEnergyCore extends Mob {
 
 	public static final int CORPOREAL_BEAST_INDEX = 1;
 
 	public static final int DARK_ENERGY_CORE_ID = 8127;
+	private final Stoner bind;
+	public boolean moving = false;
+	private byte pause = -1;
+
+	public DarkEnergyCore(Location location, Stoner bind) {
+	super(8127, false, location, null, false, false, null);
+	this.bind = bind;
+	}
 
 	public static final Mob getCorp() {
 	return World.getNpcs()[1];
@@ -41,17 +48,6 @@ public class DarkEnergyCore extends Mob {
 	return cores;
 	}
 
-	public boolean moving = false;
-
-	private final Stoner bind;
-
-	private byte pause = -1;
-
-	public DarkEnergyCore(Location location, Stoner bind) {
-	super(8127, false, location, null, false, false, null);
-	this.bind = bind;
-	}
-
 	public Hit getHit() {
 	return new Hit(this, Utility.randomNumber(10), Hit.HitTypes.NONE);
 	}
@@ -60,7 +56,7 @@ public class DarkEnergyCore extends Mob {
 	public void onHit(Entity e, Hit hit) {
 	Mob corp = getCorp();
 	int tmp9_8 = 3;
-	short[] tmp9_5 = corp.getGrades();
+	long[] tmp9_5 = corp.getGrades();
 	tmp9_5[tmp9_8] = ((short) (tmp9_5[tmp9_8] + hit.getDamage() / 4));
 
 	if (corp.getGrades()[3] > corp.getMaxGrades()[3])

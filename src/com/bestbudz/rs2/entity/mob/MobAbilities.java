@@ -1,14 +1,13 @@
 package com.bestbudz.rs2.entity.mob;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.rs2.content.combat.CombatEffect;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.mob.abilities.BarrelchestAbility;
 import com.bestbudz.rs2.entity.mob.abilities.BorkAbility;
 import com.bestbudz.rs2.entity.mob.abilities.CorporealBeastAbility;
 import com.bestbudz.rs2.entity.mob.abilities.JadAbility;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MobAbilities {
 
@@ -19,21 +18,6 @@ public class MobAbilities {
 	abilities.put(Integer.valueOf(319), new CorporealBeastAbility());
 	abilities.put(Integer.valueOf(2745), new JadAbility());
 	abilities.put(Integer.valueOf(7133), new BorkAbility());
-
-	// Zulrah zulrah = new Zulrah();
-	// abilities.put(Integer.valueOf(2042), zulrah);
-	// abilities.put(Integer.valueOf(2043), zulrah);
-	// abilities.put(Integer.valueOf(2044), zulrah);
-
-	// abilities.put(Integer.valueOf(10057), new IcyBonesAbility());
-	// abilities.put(Integer.valueOf(10072), new HobgoblinGeomancerAbility());
-
-	// for (int i = 0; i < 6538; i++) {
-	// NpcDefinition def = GameDefinitionLoader.getNpcDefinition(i);
-	// if (def != null) {
-	// //String check = def.getName().toLowerCase();
-	// }
-	// }
 	}
 
 	public static final void executeAbility(int id, Mob mob, Entity a) {

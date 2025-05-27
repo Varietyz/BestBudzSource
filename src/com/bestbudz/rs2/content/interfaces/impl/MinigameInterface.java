@@ -3,30 +3,29 @@ package com.bestbudz.rs2.content.interfaces.impl;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
-/**
- * Handles the minigame teleport interface
- * 
- * @author Jaybane
- *
- */
 public class MinigameInterface extends InterfaceHandler {
 
-	public MinigameInterface(Stoner stoner) {
-	super(stoner);
-	}
+  private final String[] text = {
+    "Old school Barrows",
+    "Warriors Guild",
+    "Duel Arena",
+    "Pest Control",
+    "Fight Caves",
+    "Weapon Game",
+    "Cult Wars",
+  };
 
-	private final String[] text = { "Old school Barrows", "Warriors Guild", "Duel Arena", "Pest Control", "Fight Caves", "Weapon Game", "Cult Wars",
+  public MinigameInterface(Stoner stoner) {
+    super(stoner);
+  }
 
-	};
+  @Override
+  protected String[] text() {
+    return text;
+  }
 
-	@Override
-	protected String[] text() {
-	return text;
-	}
-
-	@Override
-	protected int startingLine() {
-	return 65051;
-	}
-
+  @Override
+  protected int startingLine() {
+    return 65051;
+  }
 }

@@ -1,23 +1,31 @@
 package com.bestbudz.rs2.content;
 
+import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.util.HashMap;
 
-import com.bestbudz.rs2.entity.stoner.Stoner;
-
-/**
- * Handles pressing a profession in professiontab
- * 
- * @author Jaybane
- *
- */
 public class ProfessionsChat {
 
-	/**
-	 * Chat data
-	 * 
-	 * @author Jaybane
-	 *
-	 */
+	public static String[] professionName = { "Assault", "Aegis", "Vigour", "Life", "Sagittarius", "Necromance", "Mage", "Foodie", "Lumbering", "Woodcarving", "Fisher", "Pyromaniac", "Handiness", "Forging", "Quarrying", "THC-hempistry", "Weedsmoking", "Accomplisher", "Mercenary", "Cultivation", "Consumer" };
+
+	public static String getProfessionName(int i) {
+	return professionName[i];
+	}
+
+	public static boolean handle(Stoner stoner, int buttonId) {
+	ChatData chat = ChatData.chat.get(buttonId);
+	if (chat == null) {
+		return false;
+	}
+
+	if (chat.getButton() == 94144) {
+		stoner.getUpdateFlags().sendForceMessage("Grades total is " + (stoner.getProfession().getTotalGrade() - 3) + ", Profession advances " + stoner.getTotalAdvances() + ".");
+		return false;
+	}
+
+	stoner.getUpdateFlags().sendForceMessage(getProfessionName(chat.profession) + " grade is " + stoner.getMaxGrades()[chat.profession] + ", advanced " + stoner.getProfessionAdvances()[chat.profession] + " times.");
+	return true;
+	}
+
 	public enum ChatData {
 		ASSAULT(94147, 0),
 		VIGOUR(94150, 2),
@@ -40,14 +48,28 @@ public class ProfessionsChat {
 		PYROMANIAC(94161, 11),
 		LUMBERING(94164, 8),
 		WOODCARVING(94163, 9),
-		// HUNTER(94168, 21),
 		TOTAL_GRADE(94144, 69);
+
+		public static HashMap<Integer, ChatData> chat = new HashMap<Integer, ChatData>();
+
+		static {
+			for (final ChatData chat : ChatData.values()) {
+				ChatData.chat.put(chat.button, chat);
+			}
+		}
 
 		public int profession, button;
 
-		private ChatData(int button, int profession) {
+		ChatData(int button, int profession) {
 		this.profession = profession;
 		this.button = button;
+		}
+
+		public static ChatData forprofession(int id) {
+		for (ChatData data : ChatData.values())
+			if (data.button == id)
+				return data;
+		return null;
 		}
 
 		public int getProfession() {
@@ -58,58 +80,6 @@ public class ProfessionsChat {
 		return button;
 		}
 
-		public static ChatData forprofession(int id) {
-		for (ChatData data : ChatData.values())
-			if (data.button == id)
-				return data;
-		return null;
-		}
-
-		public static HashMap<Integer, ChatData> chat = new HashMap<Integer, ChatData>();
-
-		static {
-			for (final ChatData chat : ChatData.values()) {
-				ChatData.chat.put(chat.button, chat);
-			}
-		}
-
-	}
-
-	/**
-	 * Profession names
-	 */
-	public static String[] professionName = { "Assault", "Aegis", "Vigour", "Life", "Sagittarius", "Necromance", "Mage", "Foodie", "Lumbering", "Woodcarving", "Fisher", "Pyromaniac", "Handiness", "Forging", "Quarrying", "THC-hempistry", "Weedsmoking", "Accomplisher", "Mercenary", "Cultivation", "Consumer"/* , "Hunter" */ };
-
-	/**
-	 * Gets the profession name
-	 * 
-	 * @param i
-	 * @return
-	 */
-	public static String getProfessionName(int i) {
-	return professionName[i];
-	}
-
-	/**
-	 * Handles the quick chat
-	 * 
-	 * @param stoner
-	 * @param buttonId
-	 * @return
-	 */
-	public static boolean handle(Stoner stoner, int buttonId) {
-	ChatData chat = ChatData.chat.get(buttonId);
-	if (chat == null) {
-		return false;
-	}
-
-	if (chat.getButton() == 94144) {
-		stoner.getUpdateFlags().sendForceMessage("Grades total is " + (stoner.getProfession().getTotalGrade() - 1) + ", Profession advances " + stoner.getTotalAdvances() + ".");
-		return false;
-	}
-
-	stoner.getUpdateFlags().sendForceMessage("" + getProfessionName(chat.profession) + " grade is " + stoner.getMaxGrades()[chat.profession] + ", advanced " + stoner.getProfessionAdvances()[chat.profession] + " times.");
-	return true;
 	}
 
 }

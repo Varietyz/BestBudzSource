@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.combat.special;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.rs2.content.combat.impl.CombatEffect;
 import com.bestbudz.rs2.content.combat.special.effects.AbyssalTentacleEffect;
 import com.bestbudz.rs2.content.combat.special.effects.AbyssalWhipEffect;
@@ -44,12 +41,14 @@ import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateSpecialBar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SpecialAssaultHandler {
 
-	private static Map<Integer, Special> specials = new HashMap<Integer, Special>();
+	private static final Map<Integer, Special> specials = new HashMap<Integer, Special>();
 
-	private static Map<Integer, CombatEffect> effects = new HashMap<Integer, CombatEffect>();
+	private static final Map<Integer, CombatEffect> effects = new HashMap<Integer, CombatEffect>();
 
 	private static void add(int weaponId, CombatEffect effect) {
 	effects.put(Integer.valueOf(weaponId), effect);
@@ -60,90 +59,44 @@ public class SpecialAssaultHandler {
 	}
 
 	public static void declare() {
-	// add(20074, new StaffOfDeadSpecialAssault());
-	// add(20076, new StaffOfDeadSpecialAssault());
-
-	/* Mage Shortbow */
 	add(12788, new MageShortbowInfusedSpecialAssault());
-
-	/* Zamorakian Hasta */
 	add(11889, new ZamorakianHastaSpecialAssault());
 	add(11889, new ZamorakianHastaEffect());
-
-	/* Zamorakian Spear */
 	add(11824, new ZamorakianSpearSpecialAssault());
 	add(11824, new ZamorakianSpearEffect());
-
-	/* Armadyl Crossbow */
 	add(11785, new ArmadylCrossbowSpecialAssault());
-
-	/* Blowpipe */
 	add(12926, new ToxicBlowpipeSpecialAssault());
 	add(12926, new ToxicBlowpipeEffect());
-
-	/* Saradomin Sword */
 	add(11838, new SaradominSwordSpecialAssault());
 	add(12809, new SaradominSwordSpecialAssault());
-
-	/* Armadyl Godsword */
 	add(11802, new ArmadylGodswordSpecialAssault());
-
-	/* Bandos Godsword */
 	add(11804, new BandosGodswordSpecialAssault());
 	add(11804, new BandosGodswordEffect());
-
-	/* Saradomin Godsword */
 	add(11806, new SaradominGodswordSpecialAssault());
 	add(11806, new SaradominGodswordEffect());
-
-	/* Zamorak Godsword */
 	add(11808, new ZamorakGodswordSpecialAssault());
-
-	/* Dark Bow */
 	add(11235, new DarkBowSpecialAssault());
 	add(12765, new DarkBowSpecialAssault());
 	add(12766, new DarkBowSpecialAssault());
 	add(12767, new DarkBowSpecialAssault());
 	add(12768, new DarkBowSpecialAssault());
-
-	/* Barrelchest Anchor */
 	add(10887, new BarrelchestAnchorEffect());
 	add(10887, new AnchorSpecialAssault());
-
-	/* Dragon Claws */
 	add(13188, new DragonClawsSpecialAssault());
-
-	/* Dragon Spear */
 	add(1249, new DragonSpearSpecialAssault());
 	add(1249, new DragonSpearEffect());
-
-	/* Dragon Dagger */
 	add(1215, new DragonDaggerSpecialAssault());
 	add(1231, new DragonDaggerSpecialAssault());
 	add(5680, new DragonDaggerSpecialAssault());
 	add(5698, new DragonDaggerSpecialAssault());
-
-	/* Dragon Scimitar */
 	add(4587, new DragonScimitarSpecialAssault());
 	add(4587, new DragonScimitarEffect());
-
-	/* Dragon Longsword */
 	add(1305, new DragonLongswordSpecialAssault());
-
-	/* Dragon Mace */
 	add(1434, new DragonMaceSpecialAssault());
-
-	/* Dragon Halbard */
 	add(3204, new DragonHalberdSpecialAssault());
-
-	/* Mage Shortbow */
 	add(861, new MageShortbowSpecialAssault());
 	add(859, new MageShortbowSpecialAssault());
-
-	/* Granite Maul */
 	add(4153, new GraniteMaulSpecialAssault());
-
-	/* Abyssal Whip */
 	add(4151, new AbyssalWhipSpecialAssault());
 	add(4151, new AbyssalWhipEffect());
 	add(4178, new AbyssalWhipSpecialAssault());
@@ -152,8 +105,6 @@ public class SpecialAssaultHandler {
 	add(12773, new AbyssalWhipEffect());
 	add(12774, new AbyssalWhipSpecialAssault());
 	add(12774, new AbyssalWhipEffect());
-
-	/* Tentacle Whip */
 	add(12006, new AbyssalTentacleSpecialAssault());
 	add(12006, new AbyssalTentacleEffect());
 	}

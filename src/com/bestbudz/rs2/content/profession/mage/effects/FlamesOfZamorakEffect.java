@@ -7,21 +7,21 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class FlamesOfZamorakEffect implements CombatEffect {
 
-	@Override
-	public void execute(Stoner p, Entity e) {
-	if ((Utility.randomNumber(4) == 0) && (p.getLastDamageDealt() > 0) && (!e.isNpc())) {
-		Stoner other = com.bestbudz.rs2.entity.World.getStoners()[e.getIndex()];
+  @Override
+  public void execute(Stoner p, Entity e) {
+    if ((Utility.randomNumber(4) == 0) && (p.getLastDamageDealt() > 0) && (!e.isNpc())) {
+      Stoner other = com.bestbudz.rs2.entity.World.getStoners()[e.getIndex()];
 
-		if (other != null) {
-			short[] tmp40_35 = other.getGrades();
-			tmp40_35[6] = ((short) (int) (tmp40_35[6] - other.getGrades()[6] * 0.05D));
+      if (other != null) {
+        long[] tmp40_35 = other.getGrades();
+        tmp40_35[6] = ((short) (int) (tmp40_35[6] - other.getGrades()[6] * 0.05D));
 
-			if (other.getGrades()[6] < 0) {
-				other.getGrades()[6] = 0;
-			}
+        if (other.getGrades()[6] < 0) {
+          other.getGrades()[6] = 0;
+        }
 
-			other.getProfession().update(6);
-		}
-	}
-	}
+        other.getProfession().update(6);
+      }
+    }
+  }
 }

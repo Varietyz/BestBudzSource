@@ -10,11 +10,11 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 
 public class SailorDialogue extends Dialogue {
 
+	private final int COST = 2_500;
+
 	public SailorDialogue(Stoner stoner) {
 	this.stoner = stoner;
 	}
-
-	private final int COST = 2_500;
 
 	public boolean can() {
 	if (stoner.isPouchPayment()) {

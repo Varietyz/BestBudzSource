@@ -69,3 +69,17 @@
 12646:10//Mole pet
 11816:15//Zammy hilt
 12653:10//KBD Pet
+9952:10 // Imp
+9953:10 // Kebbit
+9970:10 // Butterfly
+9974:10 // Giant Eagle
+11959:10 // Black Chinchompa
+3257:10 // Gnome
+5609:10 // Chicken
+8137:10 // Hellhound
+8134:10 // Baby Dragon
+8138:10 // Demon
+8305:10 // Rocnar
+8304:10 // Flambeed
+8303:10 // Tentacle
+5567:10 // Death

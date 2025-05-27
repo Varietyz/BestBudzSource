@@ -3,18 +3,18 @@ package com.bestbudz.rs2.entity.movement;
 import com.bestbudz.rs2.entity.Location;
 
 public class Point extends Location {
-	private int direction;
+  private int direction;
 
-	public Point(int x, int y, int direction) {
-		super(x, y);
-		setDirection(direction);
-	}
+  public Point(int x, int y, int direction) {
+    super(x, y);
+    setDirection(direction);
+  }
 
-	public int getDirection() {
-		return direction;
-	}
+  public int getDirection() {
+    return direction;
+  }
 
-	public void setDirection(int direction) {
-		this.direction = direction;
-	}
+  public void setDirection(int direction) {
+    this.direction = direction;
+  }
 }

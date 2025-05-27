@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content.minigames.pestcontrol;
 
-import java.util.List;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.Emotion;
@@ -14,66 +12,21 @@ import com.bestbudz.rs2.entity.mob.VirtualMobRegion;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.List;
 
-/**
- * Handles the Pest Control game
- * 
- * @author Jaybane
- *
- */
 public class PestControlGame {
 
-	/**
-	 * List of stoners
-	 */
-	private final List<Stoner> stoners;
-
-	/**
-	 * Void knight
-	 */
-	private Mob voidKnight;
-
-	/**
-	 * Height
-	 */
-	private final int z;
-
-	/**
-	 * Region
-	 */
-	private final VirtualMobRegion region;
-
-	/**
-	 * Array of Portals
-	 */
-	private final Portal[] portals;
-
-	/**
-	 * Pest damage key
-	 */
 	public static final String PEST_DAMAGE_KEY = "pestdamagekey";
-
-	/**
-	 * Pest game key
-	 */
 	public static final String PEST_GAME_KEY = "pestgamekey";
-
-	/**
-	 * Game time
-	 */
+	private final List<Stoner> stoners;
+	private final int z;
+	private final VirtualMobRegion region;
+	private final Portal[] portals;
+	public String[] VOID_KNIGHT_MESSAGES = { "They're stealing our weed!", "Take down the portals, hurry noobs!", "Get em, LEEEEEEEEEROYYY JENKISSSSS STYLE!", "Yall da best, buddies!", "We are saving our weed!" };
+	private Mob voidKnight;
 	private int time = 300;
-
-	/**
-	 * Check if game has ended
-	 */
 	private boolean ended = false;
 
-	/**
-	 * Pest Control game
-	 * 
-	 * @param stoners
-	 * @param count
-	 */
 	public PestControlGame(List<Stoner> stoners, int count) {
 	this.stoners = stoners;
 	z = (count << 2);
@@ -84,11 +37,6 @@ public class PestControlGame {
 	init();
 	}
 
-	/**
-	 * Ends the game
-	 * 
-	 * @param success
-	 */
 	public void end(boolean success) {
 	ended = true;
 
@@ -138,12 +86,6 @@ public class PestControlGame {
 	PestControl.onGameEnd(this);
 	}
 
-	/**
-	 * Gets the assaulters
-	 * 
-	 * @param p
-	 * @return
-	 */
 	public int getAssaulters(Stoner p) {
 	int i = 0;
 
@@ -158,62 +100,32 @@ public class PestControlGame {
 	return i;
 	}
 
-	/**
-	 * Gets the stoners
-	 * 
-	 * @return
-	 */
 	public List<Stoner> getStoners() {
 	return stoners;
 	}
 
-	/**
-	 * Gets the region
-	 * 
-	 * @return
-	 */
 	public VirtualMobRegion getVirtualRegion() {
 	return region;
 	}
 
-	/**
-	 * Gets the void knight
-	 * 
-	 * @return
-	 */
 	public Mob getVoidKnight() {
 	return voidKnight;
 	}
 
-	/**
-	 * Gets the height
-	 * 
-	 * @return
-	 */
 	public int getZ() {
 	return z;
 	}
 
-	/**
-	 * Gets if ended
-	 * 
-	 * @return
-	 */
 	public boolean hasEnded() {
 	return ended;
 	}
 
-	/**
-	 * Initialize
-	 */
 	public void init() {
 	for (Stoner p : stoners) {
 		p.teleport(new Location(2656 + Utility.randomNumber(4), 2609 + Utility.randomNumber(6), z));
 		p.getAttributes().set(PEST_DAMAGE_KEY, 0);
 		p.getAttributes().set(PEST_GAME_KEY, this);
 		p.setController(ControllerManager.PEST_CONTROLLER);
-
-	//	p.getSpecialAssault().setSpecialAmount(100);
 
 		DialogueManager.sendNpcChat(p, 1756, Emotion.CALM, "SAVE THE WEED!", "Get these portals down!", "Get! Get! Get!");
 	}
@@ -231,14 +143,6 @@ public class PestControlGame {
 	voidKnight.getAttributes().set(PEST_GAME_KEY, this);
 	}
 
-	/**
-	 * Void knight messages
-	 */
-	public String[] VOID_KNIGHT_MESSAGES = { "They're stealing our weed!", "Take down the portals, hurry noobs!", "Get em, LEEEEEEEEEROYYY JENKISSSSS STYLE!", "Yall da best, buddies!", "We are saving our weed!" };
-
-	/**
-	 * Game process
-	 */
 	public void process() {
 	time--;
 
@@ -262,7 +166,7 @@ public class PestControlGame {
 	}
 
 	for (Stoner p : stoners) {
-		p.getClient().queueOutgoingPacket(new SendString(Utility.getFormattedTime(time) + "", 21117));
+		p.getClient().queueOutgoingPacket(new SendString(Utility.getFormattedTime(time), 21117));
 		p.getClient().queueOutgoingPacket(new SendString("" + voidKnight.getGrades()[Professions.LIFE], 21115));
 
 		for (int i = 0; i < 4; i++) {
@@ -277,11 +181,6 @@ public class PestControlGame {
 	}
 	}
 
-	/**
-	 * Removes stoner from game
-	 * 
-	 * @param p
-	 */
 	public void remove(Stoner p) {
 	stoners.remove(p);
 

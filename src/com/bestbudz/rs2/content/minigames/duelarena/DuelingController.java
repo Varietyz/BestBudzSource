@@ -209,6 +209,10 @@ public class DuelingController extends Controller {
 	}
 
 	@Override
+	public void onKill(Stoner stoner, Entity killed) {
+	}
+
+	@Override
 	public void onDisconnect(Stoner p) {
 	}
 
@@ -228,9 +232,5 @@ public class DuelingController extends Controller {
 	@Override
 	public boolean transitionOnWalk(Stoner p) {
 	return false;
-	}
-
-	@Override
-	public void onKill(Stoner stoner, Entity killed) {
 	}
 }

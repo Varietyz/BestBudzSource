@@ -4,24 +4,24 @@ import com.bestbudz.rs2.entity.item.Item;
 
 public class SagittariusWeaponDefinition {
 
-	public enum SagittariusTypes {
-		THROWN,
-		SHOT
-	}
+  private short id;
+  private SagittariusTypes type;
+  private Item[] arrows;
 
-	private short id;
-	private SagittariusTypes type;
-	private Item[] arrows;
+  public Item[] getArrows() {
+    return arrows;
+  }
 
-	public Item[] getArrows() {
-	return arrows;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public int getId() {
-	return id;
-	}
+  public SagittariusTypes getType() {
+    return type;
+  }
 
-	public SagittariusTypes getType() {
-	return type;
-	}
+  public enum SagittariusTypes {
+    THROWN,
+    SHOT
+  }
 }

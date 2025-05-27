@@ -1,14 +1,13 @@
 package com.bestbudz.rs2.content.minigames;
 
-import java.util.Arrays;
-
 import com.bestbudz.rs2.content.minigames.godwars.GodWarsData.Allegiance;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.Arrays;
 
 public class StonerMinigames {
 
-	private Stoner stoner;
+	private final Stoner stoner;
 	private short[] kc = new short[Allegiance.values().length];
 
 	public StonerMinigames(Stoner stoner) {

@@ -7,24 +7,14 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Shop for pest control minigame
- * 
- * @author Jaybane
- */
 public class PestShop extends Shop {
 
-	/**
-	 * Id of shop
-	 */
 	public static final int SHOP_ID = 5;
 
-	/**
-	 * Prices of item in shop
-	 * 
-	 * @param id
-	 * @return
-	 */
+	public PestShop() {
+	super(SHOP_ID, new Item[] { new Item(8841), new Item(11663), new Item(11664), new Item(11665), new Item(8839), new Item(8840), new Item(8842), new Item(13072), new Item(13073), }, false, "Pest Control Store");
+	}
+
 	public static final int getPrice(int id) {
 	switch (id) {
 	case 8841:
@@ -47,13 +37,6 @@ public class PestShop extends Shop {
 	}
 
 	return 2147483647;
-	}
-
-	/**
-	 * Items in shop
-	 */
-	public PestShop() {
-	super(SHOP_ID, new Item[] { new Item(8841), new Item(11663), new Item(11664), new Item(11665), new Item(8839), new Item(8840), new Item(8842), new Item(13072), new Item(13073), }, false, "Pest Control Store");
 	}
 
 	@Override

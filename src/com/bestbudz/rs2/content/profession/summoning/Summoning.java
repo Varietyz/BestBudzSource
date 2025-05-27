@@ -196,6 +196,10 @@ public class Summoning {
 	return time;
 	}
 
+	public void setTime(int time) {
+	this.time = time;
+	}
+
 	public boolean hasFamiliar() {
 	return familiar != null;
 	}
@@ -222,12 +226,16 @@ public class Summoning {
 	return assault;
 	}
 
+	public void setAssault(boolean assault) {
+	this.assault = assault;
+	}
+
 	public boolean isFamilarBOB() {
 	return (familiar != null) && (container != null);
 	}
 
 	public boolean isFamiliar(Entity e) {
-	return (familiar != null) && (e.equals(familiar));
+	return (e.equals(familiar));
 	}
 
 	public void onFamiliarDeath() {
@@ -360,16 +368,8 @@ public class Summoning {
 	}
 	}
 
-	public void setAssault(boolean assault) {
-	this.assault = assault;
-	}
-
 	public void setSpecial(int special) {
 	this.special = special;
-	}
-
-	public void setTime(int time) {
-	this.time = time;
 	}
 
 	public boolean summon(int id) {
@@ -386,11 +386,6 @@ public class Summoning {
 			return true;
 		}
 
-		if ((familiar != null) || (p.getBossPet() != null)) {
-			p.getClient().queueOutgoingPacket(new SendMessage("You already have a familiar."));
-			return true;
-		}
-
 		if (p.getGrades()[21] < f.pointsForSummon) {
 			p.getClient().queueOutgoingPacket(new SendMessage("You must recharge your Summoning points to do this!"));
 			return true;
@@ -402,7 +397,7 @@ public class Summoning {
 			p.getClient().queueOutgoingPacket(new SendMessage("You must make room for your familiar!"));
 			return true;
 		}
-		short[] tmp243_238 = p.getGrades();
+		long[] tmp243_238 = p.getGrades();
 		tmp243_238[21] = ((short) (tmp243_238[21] - f.pointsForSummon));
 		p.getProfession().update(21);
 

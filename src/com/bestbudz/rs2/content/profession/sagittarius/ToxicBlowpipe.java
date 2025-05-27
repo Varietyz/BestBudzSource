@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.sagittarius;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 import com.bestbudz.core.definitions.ItemDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.entity.item.EquipmentConstants;
@@ -12,6 +9,8 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendChatBoxInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItemsAlt;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class ToxicBlowpipe {
 
@@ -26,14 +25,6 @@ public class ToxicBlowpipe {
 	this.blowpipeAmmo = blowpipeAmmo;
 	this.blowpipeCharge = blowpipeCharge;
 	FORMATTER.setRoundingMode(RoundingMode.FLOOR);
-	}
-
-	public Item getBlowpipeAmmo() {
-	return blowpipeAmmo;
-	}
-
-	public int getBlowpipeCharge() {
-	return blowpipeCharge;
 	}
 
 	public static boolean itemOnItem(Stoner stoner, Item itemUsed, Item usedWith) {
@@ -220,5 +211,13 @@ public class ToxicBlowpipe {
 	if (blowpipe.blowpipeCharge == 0 && blowpipe.blowpipeAmmo == null) {
 		stoner.getEquipment().getItems()[EquipmentConstants.WEAPON_SLOT].setId(12924);
 	}
+	}
+
+	public Item getBlowpipeAmmo() {
+	return blowpipeAmmo;
+	}
+
+	public int getBlowpipeCharge() {
+	return blowpipeCharge;
 	}
 }

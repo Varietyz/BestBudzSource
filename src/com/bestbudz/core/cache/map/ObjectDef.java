@@ -1,22 +1,49 @@
 package com.bestbudz.core.cache.map;
 
-import java.util.logging.Logger;
-
 import com.bestbudz.core.cache.ByteStreamExt;
 import com.bestbudz.core.util.Utility;
+import java.util.logging.Logger;
 
 public final class ObjectDef {
 
-	/**
-	 * The logger for the class
-	 */
-	private static Logger logger = Logger.getLogger(ObjectDef.class.getSimpleName());
-
-	private static ByteStreamExt stream;
+	private static final Logger logger = Logger.getLogger(ObjectDef.class.getSimpleName());
 	public static int[] streamIndices;
 	public static ObjectDef class46;
-
+	public static boolean lowMem;
+	private static ByteStreamExt stream;
 	private static int objects = 0;
+	private static int cacheIndex;
+	private static ObjectDef[] cache;
+	public boolean aBoolean736;
+	public String name;
+	public int objectSizeX;
+	public int anInt746;
+	public int anInt749;
+	public int type;
+	public boolean aBoolean757;
+	public int anInt758;
+	public int[] childrenIDs;
+	public int objectSizeY;
+	public boolean aBoolean762;
+	public boolean aBoolean764;
+	public boolean aBoolean767;
+	public int anInt768;
+	public int anInt774;
+	public int anInt775;
+	public byte[] description;
+	public boolean hasActions;
+	public boolean aBoolean779;
+	public int anInt781;
+	public String[] actions;
+	int[] originalModelColors;
+	int[] anIntArray773;
+	int[] anIntArray776;
+	int[] modifiedModelColors;
+	private int anInt760;
+	private boolean aBoolean766;
+	private ObjectDef() {
+	type = -1;
+	}
 
 	public static int getObjects() {
 	return objects;
@@ -150,7 +177,6 @@ public final class ObjectDef {
 	}
 
 	switch (i) {
-	// hardcode objects that don't have any actions.
 	case 26621:
 	case 26620:
 	case 26619:
@@ -234,7 +260,7 @@ public final class ObjectDef {
 		class46.hasActions = true;
 		break;
 
-	case 9472:// Shop Exchange
+	case 9472:
 	case 9371:
 		class46.name = "Stoner Market";
 		class46.actions = new String[5];
@@ -243,17 +269,16 @@ public final class ObjectDef {
 		class46.actions[2] = "Explore Shops";
 		break;
 
-	case 22472:// Tab Creation
+	case 22472:
 		class46.name = "Tablet";
 		class46.actions = new String[5];
 		class46.actions[0] = "Create";
 		break;
 
-	case 5249:// Fires
+	case 5249:
 		class46.name = "Fyah";
 		class46.description = "Bun dem!".getBytes();
 		break;
-	// ORES QUARRYING
 
 	case 13712:
 		class46.name = "Tin";
@@ -340,35 +365,6 @@ public final class ObjectDef {
 	return class46;
 	}
 
-	private void setDefaults() {
-	anIntArray773 = null;
-	anIntArray776 = null;
-	name = null;
-	description = null;
-	modifiedModelColors = null;
-	originalModelColors = null;
-	objectSizeX = 1;
-	objectSizeY = 1;
-	aBoolean767 = true;
-	aBoolean757 = true;
-	hasActions = false;
-	aBoolean762 = false;
-	aBoolean764 = false;
-	anInt781 = -1;
-	anInt775 = 16;
-	actions = null;
-	anInt746 = -1;
-	anInt758 = -1;
-	aBoolean779 = true;
-	anInt768 = 0;
-	aBoolean736 = false;
-	aBoolean766 = false;
-	anInt760 = -1;
-	anInt774 = -1;
-	anInt749 = -1;
-	childrenIDs = null;
-	}
-
 	public static void loadConfig() {
 	stream = new ByteStreamExt(getBuffer("loc.dat"));
 	ByteStreamExt stream = new ByteStreamExt(getBuffer("loc.idx"));
@@ -400,6 +396,35 @@ public final class ObjectDef {
 	} catch (Exception e) {
 	}
 	return null;
+	}
+
+	private void setDefaults() {
+	anIntArray773 = null;
+	anIntArray776 = null;
+	name = null;
+	description = null;
+	modifiedModelColors = null;
+	originalModelColors = null;
+	objectSizeX = 1;
+	objectSizeY = 1;
+	aBoolean767 = true;
+	aBoolean757 = true;
+	hasActions = false;
+	aBoolean762 = false;
+	aBoolean764 = false;
+	anInt781 = -1;
+	anInt775 = 16;
+	actions = null;
+	anInt746 = -1;
+	anInt758 = -1;
+	aBoolean779 = true;
+	anInt768 = 0;
+	aBoolean736 = false;
+	aBoolean766 = false;
+	anInt760 = -1;
+	anInt774 = -1;
+	anInt749 = -1;
+	childrenIDs = null;
 	}
 
 	private void readValues(ByteStreamExt stream) {
@@ -534,10 +559,6 @@ public final class ObjectDef {
 		anInt760 = aBoolean767 ? 1 : 0;
 	}
 
-	private ObjectDef() {
-	type = -1;
-	}
-
 	public boolean hasActions() {
 	return hasActions || actions != null;
 	}
@@ -553,39 +574,4 @@ public final class ObjectDef {
 	public int yLength() {
 	return objectSizeY;
 	}
-
-	/*
-	 * public boolean clipped() { return unwalkable; }
-	 */
-
-	public boolean aBoolean736;
-	public String name;
-	public int objectSizeX;
-	public int anInt746;
-	int[] originalModelColors;
-	public int anInt749;
-	public static boolean lowMem;
-	public int type;
-	public boolean aBoolean757;
-	public int anInt758;
-	public int childrenIDs[];
-	private int anInt760;
-	public int objectSizeY;
-	public boolean aBoolean762;
-	public boolean aBoolean764;
-	private boolean aBoolean766;
-	public boolean aBoolean767;
-	public int anInt768;
-	private static int cacheIndex;
-	int[] anIntArray773;
-	public int anInt774;
-	public int anInt775;
-	int[] anIntArray776;
-	public byte description[];
-	public boolean hasActions;
-	public boolean aBoolean779;
-	public int anInt781;
-	private static ObjectDef[] cache;
-	int[] modifiedModelColors;
-	public String actions[];
 }

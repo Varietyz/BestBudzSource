@@ -12,11 +12,14 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class Mercenary {
 
-	public static enum MercenaryDifficulty {
-		LOW,
-		MEDIUM,
-		HIGH,
-		BOSS;
+	private final Stoner p;
+	private String task = null;
+	private byte amount = 0;
+	private MercenaryDifficulty current = null;
+	private Stoner partner = null;
+
+	public Mercenary(Stoner p) {
+	this.p = p;
 	}
 
 	public static boolean isMercenaryTask(Stoner p, Mob mob) {
@@ -25,19 +28,6 @@ public class Mercenary {
 
 	public static boolean isMercenaryTask(Stoner p, String other) {
 	return (p.getMercenary().getTask() != null) && (other.toLowerCase().contains(p.getMercenary().getTask().toLowerCase()));
-	}
-
-	private final Stoner p;
-	private String task = null;
-
-	private byte amount = 0;
-
-	private MercenaryDifficulty current = null;
-
-	private Stoner partner = null;
-
-	public Mercenary(Stoner p) {
-	this.p = p;
 	}
 
 	public void addMercenaryExperience(double am) {
@@ -134,7 +124,7 @@ public class Mercenary {
 			AchievementHandler.activateAchievement(p, AchievementList.COMPLETE_10_MERCENARY_TASKS, 1);
 			AchievementHandler.activateAchievement(p, AchievementList.COMPLETE_100_MERCENARY_TASKS, 1);
 			if (current != null) {
-				p.addMercenaryPoints(current == MercenaryDifficulty.BOSS ? 20 + 0 : current == MercenaryDifficulty.LOW ? 5 + 0 : current == MercenaryDifficulty.MEDIUM ? 8 + 0 : current == MercenaryDifficulty.HIGH ? 10 + 0 : 0);
+				p.addMercenaryPoints(current == MercenaryDifficulty.BOSS ? 20 : current == MercenaryDifficulty.LOW ? 5 : current == MercenaryDifficulty.MEDIUM ? 8 : current == MercenaryDifficulty.HIGH ? 10 : 0);
 			}
 
 		} else {
@@ -163,8 +153,16 @@ public class Mercenary {
 	return amount;
 	}
 
+	public void setAmount(byte amount) {
+	this.amount = amount;
+	}
+
 	public MercenaryDifficulty getCurrent() {
 	return current;
+	}
+
+	public void setCurrent(MercenaryDifficulty current) {
+	this.current = current;
 	}
 
 	public Stoner getPartner() {
@@ -179,6 +177,10 @@ public class Mercenary {
 	return task;
 	}
 
+	public void setTask(String task) {
+	this.task = task;
+	}
+
 	public boolean hasMercenaryPartner() {
 	return partner != null;
 	}
@@ -191,14 +193,6 @@ public class Mercenary {
 	task = null;
 	amount = 0;
 	current = null;
-	}
-
-	public void setAmount(byte amount) {
-	this.amount = amount;
-	}
-
-	public void setCurrent(MercenaryDifficulty current) {
-	this.current = current;
 	}
 
 	public void setSocialMercenaryPartner(String name) {
@@ -224,7 +218,10 @@ public class Mercenary {
 	DialogueManager.sendStatement(other, "You have been set as " + p.getUsername() + "'s mercenary partner.");
 	}
 
-	public void setTask(String task) {
-	this.task = task;
+	public enum MercenaryDifficulty {
+		LOW,
+		MEDIUM,
+		HIGH,
+		BOSS
 	}
 }

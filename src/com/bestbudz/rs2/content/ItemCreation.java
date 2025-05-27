@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content;
 
-import java.util.HashMap;
-
 import com.bestbudz.core.definitions.ItemDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
@@ -12,16 +10,10 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
+import java.util.HashMap;
 
-/**
- * Handles item interactions
- * 
- * @author Jaybane
- *
- */
 public enum ItemCreation {
 
-	/* Abyssal Tentacle */
 	ABYSSAL_TENTACLE(new int[] { 12004, 4151 }, 12006, new CreationHandle() {
 		@Override
 		public void handle(Stoner stoner, ItemCreation data) {
@@ -41,7 +33,6 @@ public enum ItemCreation {
 		}
 		}
 	}),
-	/* Blowpipe */
 	BLOWPIPE(new int[] { 12922, 1755 }, 12924, new CreationHandle() {
 		@Override
 		public void handle(Stoner stoner, ItemCreation data) {
@@ -63,7 +54,6 @@ public enum ItemCreation {
 		}
 		}
 	}),
-	/* Saradomin Blessed Sword */
 	SARADOMIN_BLESSED_SWORD(new int[] { 12804, 11838 }, 12809, new CreationHandle() {
 		@Override
 		public void handle(Stoner stoner, ItemCreation data) {
@@ -83,7 +73,6 @@ public enum ItemCreation {
 		}
 		}
 	}),
-	/* Dragon fire shield */
 	DRAGONFIRE_SHIELD(new int[] { 1540, 11286 }, 11283, new CreationHandle() {
 		@Override
 		public void handle(Stoner stoner, ItemCreation data) {
@@ -107,28 +96,6 @@ public enum ItemCreation {
 		}
 	}),;
 
-	private int[] itemID;
-	int newItem;
-	private CreationHandle handle;
-
-	private ItemCreation(int[] itemId, int newItem, CreationHandle handle) {
-	this.itemID = itemId;
-	this.handle = handle;
-	this.newItem = newItem;
-	}
-
-	public int[] getItem() {
-	return itemID;
-	}
-
-	public int getNewItem() {
-	return newItem;
-	}
-
-	public CreationHandle getHandle() {
-	return handle;
-	}
-
 	public static HashMap<Integer, ItemCreation> creation = new HashMap<>();
 
 	static {
@@ -143,14 +110,16 @@ public enum ItemCreation {
 		}
 	}
 
-	/**
-	 * Check if stoner needs a required profession grade
-	 * 
-	 * @param stoner
-	 * @param profession
-	 * @param grade
-	 * @return
-	 */
+	private final int[] itemID;
+	private final CreationHandle handle;
+	int newItem;
+
+	ItemCreation(int[] itemId, int newItem, CreationHandle handle) {
+	this.itemID = itemId;
+	this.handle = handle;
+	this.newItem = newItem;
+	}
+
 	public static boolean professionRequired(Stoner stoner, int profession, int grade) {
 	if (stoner.getProfession().getGrades()[profession] < grade) {
 		stoner.send(new SendRemoveInterfaces());
@@ -160,13 +129,6 @@ public enum ItemCreation {
 	return true;
 	}
 
-	/**
-	 * Checks if stoner meets requirements
-	 * 
-	 * @param stoner
-	 * @param data
-	 * @return
-	 */
 	public static boolean meetsRequirements(Stoner stoner, ItemCreation data) {
 	for (int item : data.getItem()) {
 		if (!stoner.getBox().hasItemId(item)) {
@@ -177,36 +139,17 @@ public enum ItemCreation {
 	return true;
 	}
 
-	/**
-	 * Handles
-	 * 
-	 * @param stoner
-	 * @param item1
-	 * @param item2
-	 * @return
-	 */
 	public static boolean handle(Stoner stoner, int item1, int item2) {
-	ItemCreation data = ItemCreation.creation.get((Integer) (item1 << 16 | item2));
+	ItemCreation data = ItemCreation.creation.get(item1 << 16 | item2);
 
 	if (data == null) {
-		if (handleGodsword(stoner, item1, item2)) {
-			return true;
-		}
-		return false;
+		return handleGodsword(stoner, item1, item2);
 	}
 
 	data.getHandle().handle(stoner, data);
 	return true;
 	}
 
-	/**
-	 * Handles Godsword creations
-	 * 
-	 * @param stoner
-	 * @param use
-	 * @param with
-	 * @return
-	 */
 	public static boolean handleGodsword(Stoner stoner, int use, int with) {
 	Item product = null;
 	boolean forging = false;
@@ -250,17 +193,20 @@ public enum ItemCreation {
 	return product != null;
 	}
 
-	/**
-	 * Items used with
-	 * 
-	 * @param use
-	 * @param with
-	 * @param item1
-	 * @param item2
-	 * @return
-	 */
 	private static final boolean isUsedWith(int use, int with, int item1, int item2) {
 	return (use == item1 && with == item2) || (use == item2 && with == item1);
+	}
+
+	public int[] getItem() {
+	return itemID;
+	}
+
+	public int getNewItem() {
+	return newItem;
+	}
+
+	public CreationHandle getHandle() {
+	return handle;
 	}
 
 }

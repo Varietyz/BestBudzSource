@@ -5,7 +5,8 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public abstract class IncomingPacket {
 
-	public abstract int getMaxDuplicates();
+  public abstract int getMaxDuplicates();
 
-	public abstract void handle(Stoner paramStoner, StreamBuffer.InBuffer paramInBuffer, int paramInt1, int paramInt2);
+  public abstract void handle(
+      Stoner paramStoner, StreamBuffer.InBuffer paramInBuffer, int paramInt1, int paramInt2);
 }

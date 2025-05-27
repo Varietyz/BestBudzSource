@@ -8,29 +8,28 @@ import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
 
 public class SendAltCoordinates extends OutgoingPacket {
 
-	private final Location p;
-	private final Location base;
+  private final Location p;
+  private final Location base;
 
-	public SendAltCoordinates(Location p, Stoner stoner) {
-	super();
-	this.p = p;
-	base = stoner.getCurrentRegion();
-	}
+  public SendAltCoordinates(Location p, Stoner stoner) {
+    super();
+    this.p = p;
+    base = stoner.getCurrentRegion();
+  }
 
-	@Override
-	public void execute(Client client) {
-	StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(3);
-	out.writeHeader(client.getEncryptor(), 85);
-	int y = p.getY() - base.getRegionY() * 8 - 2;
-	int x = p.getX() - base.getRegionX() * 8 - 3;
-	out.writeByte(y, StreamBuffer.ValueType.C);
-	out.writeByte(x, StreamBuffer.ValueType.C);
-	client.send(out.getBuffer());
-	}
+  @Override
+  public void execute(Client client) {
+    StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(3);
+    out.writeHeader(client.getEncryptor(), 85);
+    int y = p.getY() - base.getRegionY() * 8 - 2;
+    int x = p.getX() - base.getRegionX() * 8 - 3;
+    out.writeByte(y, StreamBuffer.ValueType.C);
+    out.writeByte(x, StreamBuffer.ValueType.C);
+    client.send(out.getBuffer());
+  }
 
-	@Override
-	public int getOpcode() {
-	return 85;
-	}
-
+  @Override
+  public int getOpcode() {
+    return 85;
+  }
 }

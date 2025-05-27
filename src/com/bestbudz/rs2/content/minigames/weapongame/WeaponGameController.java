@@ -47,12 +47,32 @@ public class WeaponGameController extends GenericMinigameController {
 	}
 
 	@Override
-	public boolean canUnequip(Stoner stoner) {
+	public boolean canLogOut() {
+	return false;
+	}
+
+	@Override
+	public boolean canMove(Stoner p) {
 	return true;
 	}
 
 	@Override
-	public boolean canDrop(Stoner stoner) {
+	public boolean canSave() {
+	return true;
+	}
+
+	@Override
+	public boolean canTalk() {
+	return true;
+	}
+
+	@Override
+	public boolean canTeleport() {
+	return false;
+	}
+
+	@Override
+	public boolean canTrade() {
 	return false;
 	}
 
@@ -109,15 +129,19 @@ public class WeaponGameController extends GenericMinigameController {
 	}
 
 	@Override
+	public void onTeleport(Stoner p) {
+	}
+
+	@Override
 	public void tick(Stoner paramStoner) {
-	paramStoner.send(new SendString("" + Utility.getFormattedTime(WeaponGameConstants.GAME_TIME), 41274));
+	paramStoner.send(new SendString(Utility.getFormattedTime(WeaponGameConstants.GAME_TIME), 41274));
 	paramStoner.send(new SendString("" + WeaponGame.gameCount(), 41276));
 	if (WeaponGame.leader != null) {
-		paramStoner.send(new SendString("" + WeaponGame.leader.getUsername(), 41278));
+		paramStoner.send(new SendString(WeaponGame.leader.getUsername(), 41278));
 	} else {
 		paramStoner.send(new SendString("None", 41278));
 	}
-	paramStoner.send(new SendString("" + Utility.getFormattedTime(WeaponGameConstants.CRATE_TIME), 41280));
+	paramStoner.send(new SendString(Utility.getFormattedTime(WeaponGameConstants.CRATE_TIME), 41280));
 
 	paramStoner.send(new SendString("" + paramStoner.getWeaponKills(), 41282));
 	if (paramStoner.getWeaponKills() == 0) {
@@ -138,37 +162,13 @@ public class WeaponGameController extends GenericMinigameController {
 	}
 
 	@Override
-	public boolean canLogOut() {
-	return false;
-	}
-
-	@Override
-	public boolean canMove(Stoner p) {
+	public boolean canUnequip(Stoner stoner) {
 	return true;
 	}
 
 	@Override
-	public boolean canSave() {
-	return true;
-	}
-
-	@Override
-	public boolean canTalk() {
-	return true;
-	}
-
-	@Override
-	public boolean canTeleport() {
+	public boolean canDrop(Stoner stoner) {
 	return false;
-	}
-
-	@Override
-	public boolean canTrade() {
-	return false;
-	}
-
-	@Override
-	public void onTeleport(Stoner p) {
 	}
 
 }

@@ -1,23 +1,12 @@
 package com.bestbudz.rs2.entity.stoner;
 
-import java.util.BitSet;
-
 import com.bestbudz.rs2.content.StonerTitle;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.UpdateFlags;
 import com.bestbudz.rs2.entity.item.Item;
+import java.util.BitSet;
 
 public final class StonerUpdateFlags {
-
-	public static byte getTeam(Stoner p) {
-	Item cape = p.getEquipment().getItems()[1];
-
-	if ((cape != null) && (cape.getId() >= 4315) && (cape.getId() <= 4413)) {
-		return (byte) (cape.getId() - 4315 + 1);
-	}
-
-	return 0;
-	}
 
 	private final BitSet set = new BitSet(30);
 	private final byte rights;
@@ -30,8 +19,8 @@ public final class StonerUpdateFlags {
 	private final short npcAppearanceId;
 	private final byte primaryDirection;
 	private final byte secondaryDirection;
-	private final byte hp;
-	private final byte maxHP;
+	private final long hp;
+	private final long maxHP;
 	private final Location forceStart;
 	private final Location forceEnd;
 	private final short forceSpeed1;
@@ -53,7 +42,7 @@ public final class StonerUpdateFlags {
 	private final short turn90CCWEmote;
 	private final short runEmote;
 	private final String username;
-	private final byte combatGrade;
+	private final int combatGrade;
 	private final byte skullIcon;
 	private final String forceChatMessage;
 	private final short animationId;
@@ -61,19 +50,18 @@ public final class StonerUpdateFlags {
 	private final int entityFaceIndex;
 	private final short faceX;
 	private final short faceY;
-	private final byte damage;
-	private final byte damage2;
-	private final byte hitType;
-	private final byte hitType2;
+	private final long damage;
+	private final long damage2;
+	private final long hitType;
+	private final long hitType2;
 	private final short graphicId;
 	private final byte graphicHeight;
 	private final byte graphicDelay;
 	private final byte team;
 	private final long usernameToLong;
-	private final byte hitUpdateCombatType;
-	private final byte hitUpdateCombatType2;
-
-	private StonerTitle stonerTitle;
+	private final long hitUpdateCombatType;
+	private final long hitUpdateCombatType2;
+	private final StonerTitle stonerTitle;
 
 	public StonerUpdateFlags(Stoner stoner) {
 	UpdateFlags u = stoner.getUpdateFlags();
@@ -136,14 +124,14 @@ public final class StonerUpdateFlags {
 		}
 
 		if ((set.get(7)) || (set.get(8))) {
-			hp = ((byte) stoner.getGrades()[3]);
-			maxHP = ((byte) stoner.getMaxGrades()[3]);
-			damage = ((byte) u.getDamage());
-			damage2 = ((byte) u.getDamage2());
-			hitType = ((byte) u.getHitType());
-			hitType2 = ((byte) u.getHitType2());
-			hitUpdateCombatType = (byte) u.getHitUpdateCombatType();
-			hitUpdateCombatType2 = (byte) u.getHitUpdateCombatType2();
+			hp = (stoner.getGrades()[3]);
+			maxHP = (stoner.getMaxGrades()[3]);
+			damage = (u.getDamage());
+			damage2 = (u.getDamage2());
+			hitType = (u.getHitType());
+			hitType2 = (u.getHitType2());
+			hitUpdateCombatType = u.getHitUpdateCombatType();
+			hitUpdateCombatType2 = u.getHitUpdateCombatType2();
 		} else {
 			hp = 0;
 			maxHP = 0;
@@ -176,9 +164,9 @@ public final class StonerUpdateFlags {
 		if (set.get(13)) {
 			forceStart = stoner.getMovementHandler().getForceStart();
 			forceEnd = stoner.getMovementHandler().getForceEnd();
-			forceSpeed1 = (short) stoner.getMovementHandler().getForceSpeed1();
-			forceSpeed2 = (short) stoner.getMovementHandler().getForceSpeed2();
-			forceDirection = (byte) stoner.getMovementHandler().getForceDirection();
+			forceSpeed1 = stoner.getMovementHandler().getForceSpeed1();
+			forceSpeed2 = stoner.getMovementHandler().getForceSpeed2();
+			forceDirection = stoner.getMovementHandler().getForceDirection();
 		} else {
 			forceStart = null;
 			forceEnd = null;
@@ -227,8 +215,8 @@ public final class StonerUpdateFlags {
 	npcAppearanceId = ((short) stoner.getNpcAppearanceId());
 
 	rights = ((byte) stoner.getRights());
-	combatGrade = ((byte) stoner.getProfession().calcCombatGrade());
-	headicon = ((byte) stoner.getNecromance().getHeadicon());
+	combatGrade = (stoner.getProfession().calcCombatGrade());
+	headicon = stoner.getNecromance().getHeadicon();
 
 	standEmote = ((short) stoner.getAnimations().getStandEmote());
 	runEmote = ((short) stoner.getAnimations().getRunEmote());
@@ -245,6 +233,16 @@ public final class StonerUpdateFlags {
 
 	colors = (stoner.getColors().clone());
 	appearance = (stoner.getAppearance().clone());
+	}
+
+	public static byte getTeam(Stoner p) {
+	Item cape = p.getEquipment().getItems()[1];
+
+	if ((cape != null) && (cape.getId() >= 4315) && (cape.getId() <= 4413)) {
+		return (byte) (cape.getId() - 4315 + 1);
+	}
+
+	return 0;
 	}
 
 	public byte getAnimationDelay() {
@@ -279,11 +277,11 @@ public final class StonerUpdateFlags {
 	return combatGrade;
 	}
 
-	public byte getDamage() {
+	public long getDamage() {
 	return damage;
 	}
 
-	public byte getDamage2() {
+	public long getDamage2() {
 	return damage2;
 	}
 
@@ -327,23 +325,23 @@ public final class StonerUpdateFlags {
 	return headicon;
 	}
 
-	public byte getHitType() {
+	public long getHitType() {
 	return hitType;
 	}
 
-	public byte getHitUpdateType() {
+	public long getHitUpdateType() {
 	return hitUpdateCombatType;
 	}
 
-	public byte getHitUpdateType2() {
+	public long getHitUpdateType2() {
 	return hitUpdateCombatType2;
 	}
 
-	public byte getHitType2() {
+	public long getHitType2() {
 	return hitType2;
 	}
 
-	public byte getHp() {
+	public long getHp() {
 	return hp;
 	}
 
@@ -351,7 +349,7 @@ public final class StonerUpdateFlags {
 	return new Location(x, y, z);
 	}
 
-	public byte getMaxHP() {
+	public long getMaxHP() {
 	return maxHP;
 	}
 

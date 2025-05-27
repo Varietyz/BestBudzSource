@@ -18,13 +18,13 @@
 		<name>Jah Powa (2)</name>
 		<replaceId>12701</replaceId>
 		<potionType>NORMAL</potionType>
-	</PotionDefinition>	
+	</PotionDefinition>
 	<PotionDefinition>
 		<id>12701</id>
 		<name>Jah Powa (1)</name>
 		<replaceId>-1</replaceId>
 		<potionType>NORMAL</potionType>
-	</PotionDefinition>		
+	</PotionDefinition>
 
 	<!-- antifire -->
 	<PotionDefinition>
@@ -44,10 +44,10 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>2458</id>
-				<replaceId>-1</replaceId>
+		<replaceId>-1</replaceId>
 		<potionType>ANTIFIRE</potionType>
 	</PotionDefinition>
-	
+
 
 	<PotionDefinition>
 		<id>113</id>
@@ -358,7 +358,7 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>151</id>
-		<name>Fish oil extract  (3)</name>
+		<name>Fish oil extract (3)</name>
 		<replaceId>153</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>
@@ -371,7 +371,7 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>153</id>
-		<name>Fish oil extract  (2)</name>
+		<name>Fish oil extract (2)</name>
 		<replaceId>155</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>
@@ -384,7 +384,7 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>155</id>
-		<name>Fish oil extract  (1)</name>
+		<name>Fish oil extract (1)</name>
 		<replaceId>-1</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>
@@ -659,7 +659,7 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>2438</id>
-		<name>Fish oil extract  (4)</name>
+		<name>Fish oil extract (4)</name>
 		<replaceId>151</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>
@@ -1467,28 +1467,28 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>2446</id>
-		<name>Cannabidiol Concentrate  (4)</name>
+		<name>Cannabidiol Concentrate (4)</name>
 		<replaceId>175</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>null</professionData>
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>175</id>
-		<name>Cannabidiol Concentrate  (3)</name>
+		<name>Cannabidiol Concentrate (3)</name>
 		<replaceId>177</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>null</professionData>
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>177</id>
-		<name>Cannabidiol Concentrate  (2)</name>
+		<name>Cannabidiol Concentrate (2)</name>
 		<replaceId>179</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>null</professionData>
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>179</id>
-		<name>Cannabidiol Concentrate  (1)</name>
+		<name>Cannabidiol Concentrate (1)</name>
 		<replaceId>-1</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>null</professionData>
@@ -1499,7 +1499,7 @@
 		<replaceId>163</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>
-		<professionData>
+			<professionData>
 				<professionId>1</professionId>
 				<add>5</add>
 				<modifier>0.15</modifier>
@@ -1512,7 +1512,7 @@
 		<replaceId>165</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>
-		<professionData>
+			<professionData>
 				<professionId>1</professionId>
 				<add>5</add>
 				<modifier>0.15</modifier>
@@ -1525,7 +1525,7 @@
 		<replaceId>167</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>
-		<professionData>
+			<professionData>
 				<professionId>1</professionId>
 				<add>5</add>
 				<modifier>0.15</modifier>
@@ -1538,7 +1538,7 @@
 		<replaceId>-1</replaceId>
 		<potionType>NORMAL</potionType>
 		<professionData>
-		<professionData>
+			<professionData>
 				<professionId>1</professionId>
 				<add>5</add>
 				<modifier>0.15</modifier>

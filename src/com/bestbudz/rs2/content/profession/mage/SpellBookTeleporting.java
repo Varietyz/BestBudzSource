@@ -7,16 +7,8 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * SpellBookTeleportation
- * 
- * @author Reece - http://www.rune-server.org/members/Valiant
- * @since April 28th, 2015
- * 
- */
 public final class SpellBookTeleporting {
 
-	/* Teleportation Rune Constants */
 	private final static int LAW_RUNE = 563;
 	private final static int AIR_RUNE = 556;
 	private final static int FIRE_RUNE = 554;
@@ -25,9 +17,36 @@ public final class SpellBookTeleporting {
 	private final static int SOUL_RUNE = 566;
 	private final static int BLOOD_RUNE = 565;
 
-	/**
-	 * Teleportation Enumeration
-	 */
+	public static void teleport(final Stoner stoner, final int button) {
+	final TeleportationData data = TeleportationData.forId(button);
+	if (data == null) {
+		return;
+	}
+	if (button == 75010 || button == 84237 || button == 117048) {
+		stoner.getMage().teleport(data.getX(), data.getY(), 0, TeleportTypes.SPELL_BOOK);
+		return;
+	}
+	if (StonerConstants.isOwner(stoner)) {
+		stoner.getMage().teleport(data.getX(), data.getY(), 0, TeleportTypes.SPELL_BOOK);
+		return;
+	}
+	if (stoner.getBox().hasItemId(new Item(data.getRunes()[0], data.getRunes()[1])) && stoner.getBox().hasItemId(new Item(data.getRunes()[2], data.getRunes()[3])) && stoner.getBox().hasItemId(new Item(data.getRunes()[4], data.getRunes()[5]))) {
+		if (stoner.getProfession().getGrades()[Professions.MAGE] >= data.getReq()) {
+			stoner.getMage().teleport(data.getX(), data.getY(), 0, TeleportTypes.SPELL_BOOK);
+			stoner.getBox().remove(new Item(data.getRunes()[0], data.getRunes()[1]));
+			stoner.getBox().remove(new Item(data.getRunes()[2], data.getRunes()[3]));
+			if (data.getRunes()[2] == data.getRunes()[4] && data.getRunes()[3] == data.getRunes()[5]) {
+			} else {
+				stoner.getBox().remove(new Item(data.getRunes()[4], data.getRunes()[5]));
+			}
+		} else {
+			stoner.getClient().queueOutgoingPacket(new SendMessage("You don't have a high enough mage grade to cast this spell."));
+		}
+	} else {
+		stoner.getClient().queueOutgoingPacket(new SendMessage("You don't have the required runes to cast this spell."));
+	}
+	}
+
 	enum TeleportationData {
 
 		HOME_TELEPORT(3434, 2890, 75010, 1, new int[] { AIR_RUNE, 3, FIRE_RUNE, 1, LAW_RUNE, 1 }),
@@ -54,16 +73,12 @@ public final class SpellBookTeleporting {
 
 		KHARYLL(3492, 3471, 50253, 66, new int[] { LAW_RUNE, 2, BLOOD_RUNE, 1, BLOOD_RUNE, 1 });
 
-		// The teleport location
 		private final int x, y, req;
 
-		// the runes required to teleport
 		private final int[] runes;
 
-		// the spellbook button
 		private final int button;
 
-		// Enum Constructment
 		TeleportationData(final int x, final int y, final int button, final int req, final int[] runes) {
 		this.x = x;
 		this.y = y;
@@ -72,32 +87,6 @@ public final class SpellBookTeleporting {
 		this.runes = runes;
 		}
 
-		// gets the required runes to teleport
-		private int[] getRunes() {
-		return runes;
-		}
-
-		// gets the X axis teleport location
-		private int getX() {
-		return x;
-		}
-
-		// gets the Y axis teleport location
-		private int getY() {
-		return y;
-		}
-
-		// gets the mage requirement to teleport
-		private int getReq() {
-		return req;
-		}
-
-		// gets the button clicked on for teleport
-		private int getButton() {
-		return button;
-		}
-
-		/** Returns the data for the clicking button id recieved */
 		private static final TeleportationData forId(int button) {
 		for (TeleportationData data : TeleportationData.values()) {
 			if (button == data.getButton()) {
@@ -106,47 +95,25 @@ public final class SpellBookTeleporting {
 		}
 		return null;
 		}
-	}
 
-	/**
-	 * Manages the actual teleport action for the stoner
-	 * 
-	 * @param stoner
-	 *                   the stoner teleporting
-	 * @param button
-	 *                   the button recieved
-	 */
-	public static final void teleport(final Stoner stoner, final int button) {
-	final TeleportationData data = TeleportationData.forId(button);
-	if (data == null) {
-		return;
-	}
-	if (button == 75010 || button == 84237 || button == 117048) {
-		stoner.getMage().teleport(data.getX(), data.getY(), 0, TeleportTypes.SPELL_BOOK);
-		return;
-	}
-	if (StonerConstants.isOwner(stoner)) {
-		stoner.getMage().teleport(data.getX(), data.getY(), 0, TeleportTypes.SPELL_BOOK);
-		return;
-	}
-	if (stoner.getBox().hasItemId(new Item(data.getRunes()[0], data.getRunes()[1])) && stoner.getBox().hasItemId(new Item(data.getRunes()[2], data.getRunes()[3])) && stoner.getBox().hasItemId(new Item(data.getRunes()[4], data.getRunes()[5]))) {
-		if (stoner.getProfession().getGrades()[Professions.MAGE] >= data.getReq()) {
-			stoner.getMage().teleport(data.getX(), data.getY(), 0, TeleportTypes.SPELL_BOOK);
-			stoner.getBox().remove(new Item(data.getRunes()[0], data.getRunes()[1]));
-			stoner.getBox().remove(new Item(data.getRunes()[2], data.getRunes()[3]));
-			if (data.getRunes()[2] == data.getRunes()[4] && data.getRunes()[3] == data.getRunes()[5]) {
-				return;
-			} else {
-				stoner.getBox().remove(new Item(data.getRunes()[4], data.getRunes()[5]));
-			}
-			return;
-		} else {
-			stoner.getClient().queueOutgoingPacket(new SendMessage("You don't have a high enough mage grade to cast this spell."));
-			return;
+		private int[] getRunes() {
+		return runes;
 		}
-	} else {
-		stoner.getClient().queueOutgoingPacket(new SendMessage("You don't have the required runes to cast this spell."));
-		return;
-	}
+
+		private int getX() {
+		return x;
+		}
+
+		private int getY() {
+		return y;
+		}
+
+		private int getReq() {
+		return req;
+		}
+
+		private int getButton() {
+		return button;
+		}
 	}
 }

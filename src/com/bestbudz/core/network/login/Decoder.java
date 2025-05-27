@@ -1,39 +1,16 @@
 package com.bestbudz.core.network.login;
 
-/*
- * This file is part of RuneSource.
- *
- * RuneSource is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * RuneSource is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with RuneSource.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.handler.codec.frame.FrameDecoder;
-
 import com.bestbudz.core.network.ISAACCipher;
 import com.bestbudz.core.network.ReceivedPacket;
 import com.bestbudz.core.util.Utility;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
 
-/**
- * 
- * @author Graham Edgecombe
- * @author Stuart Murphy
- * 
- */
-public class Decoder extends FrameDecoder {
+import java.util.List;
+
+public class Decoder extends ByteToMessageDecoder {
 
 	private final ISAACCipher cipher;
 	private int opcode = -1;
@@ -44,37 +21,34 @@ public class Decoder extends FrameDecoder {
 	}
 
 	@Override
-	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
+	protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
 		if (opcode == -1) {
-			if (buffer.readableBytes() >= 1) {
-				opcode = buffer.readByte() & 0xFF;
-				opcode = (opcode - cipher.getNextValue()) & 0xFF;
-				size = Utility.packetLengths[opcode];
-			} else {
-				return null;
+			if (buffer.readableBytes() < 1) {
+				return;
 			}
+			opcode = buffer.readByte() & 0xFF;
+			opcode = (opcode - cipher.getNextValue()) & 0xFF;
+			size = Utility.packetLengths[opcode];
 		}
+
 		if (size == -1) {
-			if (buffer.readableBytes() >= 1) {
-				size = buffer.readByte() & 0xFF;
-			} else {
-				return null;
+			if (buffer.readableBytes() < 1) {
+				return;
 			}
+			size = buffer.readByte() & 0xFF;
 		}
-		if (buffer.readableBytes() >= size) {
-			byte[] data = new byte[size];
-			buffer.readBytes(data);
 
-			ChannelBuffer payload = ChannelBuffers.buffer(size);
-			payload.writeBytes(data);
-
-			try {
-				return new ReceivedPacket(opcode, size, payload);
-			} finally {
-				opcode = -1;
-				size = -1;
-			}
+		if (buffer.readableBytes() < size) {
+			return;
 		}
-		return null;
+
+		byte[] data = new byte[size];
+		buffer.readBytes(data);
+
+		ByteBuf payload = Unpooled.wrappedBuffer(data);
+		out.add(new ReceivedPacket(opcode, size, payload));
+
+		opcode = -1;
+		size = -1;
 	}
 }

@@ -1,41 +1,22 @@
 package com.bestbudz.core.util;
 
+import com.bestbudz.rs2.entity.mob.Mob;
 import java.util.List;
 import java.util.Queue;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.bestbudz.rs2.entity.mob.Mob;
-
-/**
- * A linked list of (@UpdateableMob)s that contains no duplicates
- * 
- * @author Jaybane 
- * 
- */
 public class MobUpdateList {
 
-	/**
-	 * The list
-	 */
 	private final List<UpdateableMob> list = new Vector<UpdateableMob>();
 
-	/**
-	 * The queues to dictate modification
-	 */
 	private final Queue<UpdateableMob> incr = new ConcurrentLinkedQueue<UpdateableMob>();
 	private final Queue<UpdateableMob> decr = new ConcurrentLinkedQueue<UpdateableMob>();
 	private final Queue<UpdateableMob> remove = new ConcurrentLinkedQueue<UpdateableMob>();
 
-	/**
-	 * Creates a new (@MobUpdateList)
-	 */
 	public MobUpdateList() {
 	}
 
-	/**
-	 * Adds a mob, or increments the view count
-	 */
 	private void add(UpdateableMob u) {
 		int i = list.indexOf(u);
 
@@ -50,16 +31,10 @@ public class MobUpdateList {
 		decr.add(new UpdateableMob(mob));
 	}
 
-	/**
-	 * Removes the mob
-	 */
 	private void definiteRemove(UpdateableMob u) {
 		list.remove(u);
 	}
 
-	/**
-	 * Gets the list of mobs
-	 */
 	public List<UpdateableMob> getList() {
 		return list;
 	}
@@ -68,9 +43,6 @@ public class MobUpdateList {
 		incr.add(new UpdateableMob(mob));
 	}
 
-	/**
-	 * Processes modifications to list
-	 */
 	public final void process() {
 		UpdateableMob a = null;
 
@@ -87,9 +59,6 @@ public class MobUpdateList {
 		}
 	}
 
-	/**
-	 * Removes a mob or decrements the view count
-	 */
 	private void remove(UpdateableMob u) {
 		int i = list.indexOf(u);
 

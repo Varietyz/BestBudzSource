@@ -15,9 +15,9 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.in.command.Command;
 import com.bestbudz.rs2.entity.stoner.net.in.command.CommandParser;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBox;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBoxInterface;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendOpenTab;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSidebarInterface;
@@ -25,20 +25,11 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSystemBan;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
 
-/**
- * A list of commands accessible to all stoners with the moderator's rank.
- * 
- * @author Jaybane
- */
 public class ModeratorCommand implements Command {
 
 	@Override
 	public boolean handleCommand(Stoner stoner, CommandParser parser) throws Exception {
 	switch (parser.getCommand()) {
-
-	/**
-	 * Turns on staff stab
-	 */
 	case "stafftab":
 	case "tabon":
 		stoner.send(new SendString("</col>Rank: " + stoner.deterquarryIcon(stoner) + " " + stoner.deterquarryRank(stoner), 49705));
@@ -51,19 +42,11 @@ public class ModeratorCommand implements Command {
 		stoner.send(new SendOpenTab(2));
 		stoner.send(new SendMessage("Staff tab has been turned on."));
 		return true;
-
-	/**
-	 * Turns off staff tab
-	 */
 	case "taboff":
 		stoner.send(new SendSidebarInterface(2, 29400));
 		stoner.send(new SendOpenTab(2));
 		stoner.send(new SendMessage("Staff tab has been turned off."));
 		return true;
-
-	/*
-	 * Search the economy
-	 */
 	case "ecosearch":
 		if (parser.hasNext()) {
 			try {
@@ -84,10 +67,6 @@ public class ModeratorCommand implements Command {
 
 	case "staffzone":
 	case "staffarea":
-		if (stoner.inWilderness()) {
-			stoner.send(new SendMessage("You cannot teleport out of the wilderness."));
-			return true;
-		}
 		stoner.teleport(StonerConstants.STAFF_AREA);
 		return true;
 
@@ -122,20 +101,12 @@ public class ModeratorCommand implements Command {
 			stoner.send(new SendBoxInterface(5292, 5063));
 		}
 		return true;
-
-	/*
-	 * List of Moderator commands
-	 */
 	case "modcommands":
 	case "modcommand":
 		stoner.send(new SendString("BestBudz Mod Command List", 8144));
 		InterfaceHandler.writeText(new ModCommandsInterface(stoner));
 		stoner.send(new SendInterface(8134));
 		return true;
-
-	/*
-	 * IP Ban a stoner
-	 */
 	case "ipban":
 		if (parser.hasNext()) {
 			try {
@@ -159,10 +130,6 @@ public class ModeratorCommand implements Command {
 			}
 		}
 		return true;
-
-	/*
-	 * IP Mute a stoner
-	 */
 	case "ipmute":
 		if (parser.hasNext()) {
 			try {
@@ -185,10 +152,6 @@ public class ModeratorCommand implements Command {
 			}
 		}
 		return true;
-
-	/*
-	 * IP Mute a stoner
-	 */
 	case "mute":
 		if (parser.hasNext()) {
 			try {
@@ -226,7 +189,7 @@ public class ModeratorCommand implements Command {
 				if (hours == -1) {
 					target.setMuteLength(-1);
 				} else {
-					target.setMuteLength(System.currentTimeMillis() + hours * 3_600_000);
+					target.setMuteLength(System.currentTimeMillis() + hours * 3_600_000L);
 				}
 				if (save) {
 					StonerSave.save(target);
@@ -239,10 +202,6 @@ public class ModeratorCommand implements Command {
 			}
 		}
 		return true;
-
-	/*
-	 * IP Mute a stoner
-	 */
 	case "ban":
 		if (parser.hasNext()) {
 			try {
@@ -282,7 +241,7 @@ public class ModeratorCommand implements Command {
 				if (hours == -1) {
 					target.setBanLength(-1);
 				} else {
-					target.setBanLength(System.currentTimeMillis() + hours * 3_600_000);
+					target.setBanLength(System.currentTimeMillis() + hours * 3_600_000L);
 				}
 				if (save) {
 					StonerSave.save(target);
@@ -335,7 +294,7 @@ public class ModeratorCommand implements Command {
 				if (hours == -1) {
 					target.setJailLength(-1);
 				} else {
-					target.setJailLength(System.currentTimeMillis() + hours * 3_600_000);
+					target.setJailLength(System.currentTimeMillis() + hours * 3_600_000L);
 				}
 				if (save) {
 					StonerSave.save(target);
@@ -383,10 +342,6 @@ public class ModeratorCommand implements Command {
 			}
 		}
 		return true;
-
-	/*
-	 * Unmute a stoner
-	 */
 	case "unmute":
 		if (parser.hasNext()) {
 			try {
@@ -422,10 +377,6 @@ public class ModeratorCommand implements Command {
 			}
 		}
 		return true;
-
-	/*
-	 * IP Mute a stoner
-	 */
 	case "unban":
 		if (parser.hasNext()) {
 			try {
@@ -460,10 +411,6 @@ public class ModeratorCommand implements Command {
 			}
 		}
 		return true;
-
-	/*
-	 * Teleport to stoner or teleport stoner to me
-	 */
 	case "t2":
 	case "teleto":
 		if (parser.hasNext()) {
@@ -478,12 +425,12 @@ public class ModeratorCommand implements Command {
 			Stoner target = World.getStonerByName(name);
 
 			if (target == null) {
-				stoner.send(new SendMessage("The stoner \'" + name + "\' could not be found."));
+				stoner.send(new SendMessage("The stoner '" + name + "' could not be found."));
 				return true;
 			}
 
 			stoner.teleport(target.getLocation());
-			stoner.send(new SendMessage("You have teleported to \'" + name + "\''s position."));
+			stoner.send(new SendMessage("You have teleported to '" + name + "''s position."));
 		}
 		return true;
 
@@ -501,19 +448,15 @@ public class ModeratorCommand implements Command {
 			Stoner target = World.getStonerByName(name);
 
 			if (target == null) {
-				stoner.send(new SendMessage("The stoner \'" + name + "\' could not be found."));
+				stoner.send(new SendMessage("The stoner '" + name + "' could not be found."));
 				return true;
 			}
 
 			target.teleport(stoner.getLocation());
-			stoner.send(new SendMessage("You have teleported the stoner \'" + name + "\' to your position."));
+			stoner.send(new SendMessage("You have teleported the stoner '" + name + "' to your position."));
 
 		}
 		return true;
-
-	/*
-	 * Log a specific stoner out
-	 */
 	case "kick":
 		if (parser.hasNext()) {
 			try {
@@ -540,10 +483,6 @@ public class ModeratorCommand implements Command {
 			}
 		}
 		return true;
-
-	/*
-	 * Log packets for specific stoner
-	 */
 	case "logpackets":
 		if (parser.hasNext()) {
 			try {
@@ -560,10 +499,6 @@ public class ModeratorCommand implements Command {
 			}
 		}
 		return true;
-
-	/*
-	 * Unlog packets for specific stoner
-	 */
 	case "unlogpackets":
 		if (parser.hasNext()) {
 			try {

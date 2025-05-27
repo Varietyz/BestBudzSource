@@ -190,7 +190,6 @@
 	</NpcCombatDefinition>
 
 
-
 	<NpcCombatDefinition>
 		<!-- Skeletal Wyvern -->
 		<id>467</id>
@@ -373,10 +372,10 @@
 					<startHeight>80</startHeight>
 					<endHeight>31</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>41</max>
 			</sagittarius>
-		</sagittarius>	
+		</sagittarius>
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Zulrah (MELEE) -->
@@ -444,10 +443,10 @@
 				<animation>
 					<id>5069</id>
 					<delay>0</delay>
-				</animation>			
+				</animation>
 				<max>41</max>
-			</melee>			
-		</melee>	
+			</melee>
+		</melee>
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Zulrah (MAGE) -->
@@ -524,13 +523,13 @@
 					<startHeight>80</startHeight>
 					<endHeight>31</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>41</max>
 			</mage>
-		</mage>	
-	</NpcCombatDefinition>	
-	
-		<NpcCombatDefinition>
+		</mage>
+	</NpcCombatDefinition>
+
+	<NpcCombatDefinition>
 		<!-- Snakeline -->
 		<id>2045</id>
 		<combatType>MELEE</combatType>
@@ -599,7 +598,7 @@
 				</animation>
 				<max>16</max>
 			</melee>
-		</melee>	
+		</melee>
 	</NpcCombatDefinition>
 	<!-- water fiend -->
 	<!-- mouse 5994 -->
@@ -752,7 +751,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Forgotten sagittarius -->
 		<id>10363</id>
@@ -938,8 +937,8 @@
 				<max>12</max>
 			</melee>
 		</melee>
-	</NpcCombatDefinition>	
-		<NpcCombatDefinition>
+	</NpcCombatDefinition>
+	<NpcCombatDefinition>
 		<!-- Saradomin Wizard -->
 		<id>2955</id>
 		<combatType>MELEE</combatType>
@@ -1018,7 +1017,7 @@
 					<delay>0</delay>
 				</animation>
 				<max>10</max>
-			</melee>			
+			</melee>
 		</melee>
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
@@ -1110,10 +1109,9 @@
 				<max>9</max>
 			</mage>
 		</mage>
-	</NpcCombatDefinition>	
-	
-	
-	
+	</NpcCombatDefinition>
+
+
 	<NpcCombatDefinition>
 		<!-- Yak -->
 		<id>5816</id>
@@ -1282,7 +1280,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Avatar of Destruction -->
 		<id>8596</id>
@@ -1354,13 +1352,13 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Water-fiend -->
 		<id>5361</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>65</respawnTime>
-		<block>	
+		<block>
 			<id>301</id>
 			<delay>0</delay>
 		</block>
@@ -1431,7 +1429,7 @@
 		<id>5417</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>65</respawnTime>
-		<block>	
+		<block>
 			<id>-1</id>
 			<delay>0</delay>
 		</block>
@@ -1502,7 +1500,7 @@
 		<id>1608</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>65</respawnTime>
-		<block>	
+		<block>
 			<id>9441</id>
 			<delay>0</delay>
 		</block>
@@ -1573,7 +1571,7 @@
 		<id>7459</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>65</respawnTime>
-		<block>	
+		<block>
 			<id>8571</id>
 			<delay>0</delay>
 		</block>
@@ -1644,7 +1642,7 @@
 		<id>9172</id>
 		<combatType>ALL</combatType>
 		<respawnTime>65</respawnTime>
-		<block>	
+		<block>
 			<id>12040</id>
 			<delay>0</delay>
 		</block>
@@ -1741,7 +1739,7 @@
 		<id>6648</id>
 		<combatType>ALL</combatType>
 		<respawnTime>0</respawnTime>
-		<block>	
+		<block>
 			<id>7413</id>
 			<delay>0</delay>
 		</block>
@@ -1833,13 +1831,13 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Rev Dragon -->
 		<id>6998</id>
 		<combatType>ALL</combatType>
 		<respawnTime>0</respawnTime>
-		<block>	
+		<block>
 			<id>8592</id>
 			<delay>0</delay>
 		</block>
@@ -1949,13 +1947,13 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Rev Dark beast -->
 		<id>6649</id>
 		<combatType>ALL</combatType>
 		<respawnTime>0</respawnTime>
-		<block>	
+		<block>
 			<id>7469</id>
 			<delay>0</delay>
 		</block>
@@ -2047,13 +2045,13 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Rev demon -->
 		<id>6647</id>
 		<combatType>ALL</combatType>
 		<respawnTime>75</respawnTime>
-		<block>	
+		<block>
 			<id>7476</id>
 			<delay>0</delay>
 		</block>
@@ -2145,7 +2143,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Desert strykewyrm -->
 		<id>9465</id>
@@ -2243,7 +2241,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Dagganoth prime -->
 		<id>2266</id>
@@ -3288,12 +3286,12 @@
 			<int>200</int>
 			<int>200</int>
 			<int>200</int>
-			<int>200</int>		
+			<int>200</int>
 			<int>150</int>
 			<int>150</int>
 			<int>150</int>
 			<int>150</int>
-			<int>450</int>		
+			<int>450</int>
 			<int>200</int>
 			<int>200</int>
 		</bonuses>
@@ -4536,7 +4534,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Deadly red spider -->
 		<id>63</id>
@@ -5352,7 +5350,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Wingman skree -->
 		<id>3163</id>
@@ -5446,7 +5444,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Flight kilisa -->
 		<id>3165</id>
@@ -5537,10 +5535,10 @@
 					<curve>16</curve>
 				</projectile>
 				<max>25</max>
-			</sagittarius>	
+			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Flockleeder geerin -->
 		<id>3164</id>
@@ -5634,7 +5632,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- K'ril Tsutsaroth -->
 		<id>3129</id>
@@ -5711,7 +5709,7 @@
 			</mage>
 		</mage>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Growler -->
 		<id>2207</id>
@@ -5783,7 +5781,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Bree -->
 		<id>2208</id>
@@ -5864,7 +5862,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Spiritual warrior saradomin -->
 		<id>6255</id>
@@ -6008,7 +6006,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Spiritual warrior -->
 		<id>6229</id>
@@ -6080,9 +6078,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-	
-	
+
+
 	<NpcCombatDefinition>
 		<!-- Spiritual mage -->
 		<id>6231</id>
@@ -6167,7 +6164,7 @@
 			</mage>
 		</mage>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Spiritual mage -->
 		<id>6257</id>
@@ -6258,7 +6255,7 @@
 			</mage>
 		</mage>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Spiritual Sagittarius -->
 		<id>6276</id>
@@ -6330,7 +6327,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Cyclops -->
 		<id>2463</id>
@@ -6546,7 +6543,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Spiritual sagittarius zammy -->
 		<id>6220</id>
@@ -6632,7 +6629,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Spiritual warrior zammy -->
 		<id>6219</id>
@@ -6704,7 +6701,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Spiritual mage -->
 		<id>6221</id>
@@ -7097,9 +7094,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-	
-	
+
+
 	<NpcCombatDefinition>
 		<!-- Dark Energy Core -->
 		<id>8127</id>
@@ -7812,7 +7808,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Man -->
 		<id>3</id>
@@ -7864,8 +7860,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
+
+	<NpcCombatDefinition>
 		<!-- Woman -->
 		<id>4</id>
 		<combatType>MELEE</combatType>
@@ -7916,8 +7912,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
+
+	<NpcCombatDefinition>
 		<!-- Imp -->
 		<id>708</id>
 		<combatType>MELEE</combatType>
@@ -7968,7 +7964,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Farmer -->
 		<id>1757</id>
@@ -8024,7 +8020,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Chicken -->
 		<id>2692</id>
@@ -8080,7 +8076,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Cow -->
 		<id>2805</id>
@@ -8136,7 +8132,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Goblin -->
 		<id>1282</id>
@@ -8188,7 +8184,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Giant rat -->
 		<id>86</id>
@@ -8244,7 +8240,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Goblin -->
 		<id>1770</id>
@@ -8296,7 +8292,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Goblin -->
 		<id>1772</id>
@@ -8348,8 +8344,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
+
+	<NpcCombatDefinition>
 		<!-- Goblin -->
 		<id>1774</id>
 		<combatType>MELEE</combatType>
@@ -8400,7 +8396,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Goblin -->
 		<id>1775</id>
@@ -8452,8 +8448,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
+
+	<NpcCombatDefinition>
 		<!-- Monk -->
 		<id>222</id>
 		<combatType>MELEE</combatType>
@@ -8701,7 +8697,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>0</grade>		
+				<grade>0</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -9254,7 +9250,7 @@
 				<max>85</max>
 			</sagittarius>
 		</sagittarius>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Skeleton -->
 		<id>459</id>
@@ -9667,7 +9663,7 @@
 				<max>5</max>
 			</melee>
 		</melee>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Scorpia's offspring -->
 		<id>6616</id>
@@ -9740,7 +9736,7 @@
 				<max>20</max>
 			</sagittarius>
 		</sagittarius>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Scorpia's guardian -->
 		<id>6617</id>
@@ -9813,7 +9809,7 @@
 				<max>20</max>
 			</sagittarius>
 		</sagittarius>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Greater demon -->
 		<id>83</id>
@@ -9874,7 +9870,7 @@
 		<id>241</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>30</respawnTime>
-<block>
+		<block>
 			<id>26</id>
 			<delay>0</delay>
 		</block>
@@ -10351,7 +10347,7 @@
 				<max>45</max>
 			</mage>
 		</mage>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Black dragon -->
 		<id>252</id>
@@ -10716,7 +10712,7 @@
 			</mage>
 		</mage>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Mithril dragon -->
 		<id>2919</id>
@@ -10806,7 +10802,7 @@
 			</mage>
 		</mage>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Red dragon -->
 		<id>247</id>
@@ -13188,7 +13184,7 @@
 					<delay>0</delay>
 				</animation>
 				<max>60</max>
-			</melee>			
+			</melee>
 		</melee>
 		<sagittarius>
 			<sagittarius>
@@ -14033,7 +14029,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Jail Guard -->
 		<id>449</id>
@@ -14089,7 +14085,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Highway man -->
 		<id>180</id>
@@ -14145,7 +14141,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Ice Warrior -->
 		<id>125</id>
@@ -14166,7 +14162,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>120</grade>		
+				<grade>120</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -14201,7 +14197,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- hobgoblin -->
 		<id>2687</id>
@@ -14257,7 +14253,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- pirate -->
 		<id>182</id>
@@ -14313,7 +14309,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- pirate -->
 		<id>183</id>
@@ -14369,7 +14365,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- pirate -->
 		<id>184</id>
@@ -14425,7 +14421,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Jail Guard -->
 		<id>4276</id>
@@ -14481,7 +14477,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Jail Guard -->
 		<id>447</id>
@@ -14537,7 +14533,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Market Guard -->
 		<id>2236</id>
@@ -14829,7 +14825,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-		<NpcCombatDefinition>
+	<NpcCombatDefinition>
 		<!-- Bronze Animated Armour -->
 		<id>2450</id>
 		<combatType>MELEE</combatType>
@@ -14884,9 +14880,9 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
-	<!-- Daggonoth rex -->
+		<!-- Daggonoth rex -->
 		<id>2267</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>75</respawnTime>
@@ -14940,9 +14936,9 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
-	<!-- Daggonoth Supreme -->
+
+	<NpcCombatDefinition>
+		<!-- Daggonoth Supreme -->
 		<id>2265</id>
 		<combatType>SAGITTARIUS</combatType>
 		<respawnTime>75</respawnTime>
@@ -15005,9 +15001,9 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
-	<!-- Daggonoth Prime -->
+
+	<NpcCombatDefinition>
+		<!-- Daggonoth Prime -->
 		<id>2266</id>
 		<combatType>MAGE</combatType>
 		<respawnTime>75</respawnTime>
@@ -15069,15 +15065,15 @@
 				<end>
 					<id>477</id>
 					<delay>3</delay>
-					<height>50</height>			
+					<height>50</height>
 				</end>
 				<max>32</max>
 			</mage>
 		</mage>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
-	<!-- Giant Mole -->
+
+	<NpcCombatDefinition>
+		<!-- Giant Mole -->
 		<id>3340</id>
 		<combatType>MELEE</combatType>
 		<respawnTime>140</respawnTime>
@@ -15131,7 +15127,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Commander Zilyana -->
 		<id>2205</id>
@@ -15212,7 +15208,7 @@
 			</mage>
 		</mage>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Starlight -->
 		<id>2206</id>
@@ -15340,8 +15336,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
+
+	<NpcCombatDefinition>
 		<!-- Cyclops -->
 		<id>6269</id>
 		<combatType>MELEE</combatType>
@@ -15361,7 +15357,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>120</grade>		
+				<grade>120</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -15396,7 +15392,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Hobgoblin -->
 		<id>6275</id>
@@ -15417,7 +15413,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>120</grade>		
+				<grade>120</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -15452,8 +15448,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
+
+	<NpcCombatDefinition>
 		<!-- Spiritual Sagittarius -->
 		<id>6230</id>
 		<combatType>SAGITTARIUS</combatType>
@@ -15473,7 +15469,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>110</grade>		
+				<grade>110</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -15514,11 +15510,11 @@
 					<curve>16</curve>
 				</projectile>
 				<max>12</max>
-			</sagittarius>	
+			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
+
+	<NpcCombatDefinition>
 		<!-- Spiritual Sagittarius throwing axe -->
 		<id>6229</id>
 		<combatType>MELEE</combatType>
@@ -15538,7 +15534,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>110</grade>		
+				<grade>110</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -15573,10 +15569,10 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<!-- End godwars lobby npcs -->
-	
-<NpcCombatDefinition>
+
+	<!-- End godwars lobby npcs -->
+
+	<NpcCombatDefinition>
 		<!-- Monkey Guard -->
 		<id>1459</id>
 		<combatType>MELEE</combatType>
@@ -15596,7 +15592,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>200</grade>		
+				<grade>200</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -15631,9 +15627,9 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-<NpcCombatDefinition>
-	<!-- Range monkey guard -->
+
+	<NpcCombatDefinition>
+		<!-- Range monkey guard -->
 		<id>1457</id>
 		<combatType>SAGITTARIUS</combatType>
 		<respawnTime>120</respawnTime>
@@ -15696,7 +15692,7 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-	
+
 	<!-- Tzhaar mobs -->
 	<NpcCombatDefinition>
 		<!-- TzHaar Xil -->
@@ -15718,7 +15714,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>175</grade>		
+				<grade>175</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -15754,7 +15750,7 @@
 		</melee>
 	</NpcCombatDefinition>
 
-	
+
 	<NpcCombatDefinition>
 		<!-- Barrelchest -->
 		<id>6342</id>
@@ -15775,7 +15771,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>300</grade>		
+				<grade>300</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -15821,7 +15817,7 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
+
 	<NpcCombatDefinition>
 		<!-- Sea Troll Queen -->
 		<id>4315</id>
@@ -15846,7 +15842,7 @@
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>250</grade>		
+				<grade>250</grade>
 			</profession>
 			<profession>
 				<id>3</id>
@@ -16260,7 +16256,7 @@
 			<id>1580</id>
 			<delay>0</delay>
 		</death>
-		
+
 		<professions>
 			<profession>
 				<id>0</id>
@@ -16362,7 +16358,7 @@
 					<startHeight>25</startHeight>
 					<endHeight>31</endHeight>
 					<curve>15</curve>
-				</projectile>				
+				</projectile>
 				<max>20</max>
 			</mage>
 		</mage>
@@ -16654,7 +16650,8 @@
 		<death>
 			<id>836</id>
 			<delay>0</delay>
-		</death><professions>
+		</death>
+		<professions>
 			<profession>
 				<id>6</id>
 				<grade>90</grade>
@@ -16700,7 +16697,7 @@
 					<startHeight>35</startHeight>
 					<endHeight>31</endHeight>
 					<curve>10</curve>
-				</projectile>				
+				</projectile>
 				<max>20</max>
 			</mage>
 		</mage>
@@ -16879,7 +16876,7 @@
 					<startHeight>80</startHeight>
 					<endHeight>31</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>16</max>
 			</mage>
 		</mage>
@@ -16887,7 +16884,7 @@
 	<NpcCombatDefinition>
 		<!-- Saradomin priest -->
 		<id>2209</id>
-			<combatType>MAGE</combatType>
+		<combatType>MAGE</combatType>
 		<respawnTime>25</respawnTime>
 		<block>
 			<id>424</id>
@@ -16943,7 +16940,7 @@
 					<startHeight>40</startHeight>
 					<endHeight>25</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>14</max>
 			</mage>
 		</mage>
@@ -17710,8 +17707,8 @@
 			</melee>
 		</melee>
 	</NpcCombatDefinition>
-	
-	
+
+
 	<NpcCombatDefinition>
 		<!-- Whirlpool small -->
 		<id>493</id>
@@ -17770,8 +17767,8 @@
 				<max>12</max>
 			</melee>
 		</melee>
-	</NpcCombatDefinition>	
-	
+	</NpcCombatDefinition>
+
 	<NpcCombatDefinition>
 		<!-- Whirlpool big -->
 		<id>496</id>
@@ -17830,11 +17827,11 @@
 				<max>12</max>
 			</melee>
 		</melee>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Kraken -->
 		<id>494</id>
-			<combatType>MAGE</combatType>
+		<combatType>MAGE</combatType>
 		<respawnTime>25</respawnTime>
 		<block>
 			<id>3990</id>
@@ -17890,15 +17887,15 @@
 					<startHeight>40</startHeight>
 					<endHeight>25</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>28</max>
 			</mage>
 		</mage>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Tentacle -->
 		<id>5535</id>
-			<combatType>MAGE</combatType>
+		<combatType>MAGE</combatType>
 		<respawnTime>25</respawnTime>
 		<block>
 			<id>3619</id>
@@ -17954,11 +17951,11 @@
 					<startHeight>40</startHeight>
 					<endHeight>25</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>2</max>
 			</mage>
 		</mage>
-	</NpcCombatDefinition>		
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Giant Mole -->
 		<id>5779</id>
@@ -18026,9 +18023,9 @@
 					<delay>0</delay>
 				</animation>
 				<max>22</max>
-			</melee>			
+			</melee>
 		</melee>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 
 	<NpcCombatDefinition>
 		<!-- Callisto -->
@@ -18071,7 +18068,7 @@
 			<profession>
 				<id>6</id>
 				<grade>290</grade>
-			</profession>			
+			</profession>
 		</professions>
 		<bonuses>
 			<int>135</int>
@@ -18118,11 +18115,11 @@
 					<startHeight>40</startHeight>
 					<endHeight>25</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>60</max>
 			</mage>
-		</mage>		
-	</NpcCombatDefinition>	
+		</mage>
+	</NpcCombatDefinition>
 
 	<NpcCombatDefinition>
 		<!-- Scorpia -->
@@ -18188,11 +18185,11 @@
 					<delay>0</delay>
 				</animation>
 				<max>16</max>
-			</melee>			
+			</melee>
 		</melee>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 
-		<NpcCombatDefinition>
+	<NpcCombatDefinition>
 		<!-- Skeleton Hellhound -->
 		<id>6613</id>
 		<combatType>MELEE</combatType>
@@ -18252,9 +18249,9 @@
 					<delay>0</delay>
 				</animation>
 				<max>22</max>
-			</melee>		
+			</melee>
 		</melee>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 
 	<NpcCombatDefinition>
 		<!-- Greater Skeleton Hellhound -->
@@ -18316,9 +18313,9 @@
 					<delay>0</delay>
 				</animation>
 				<max>22</max>
-			</melee>		
+			</melee>
 		</melee>
-	</NpcCombatDefinition>	
+	</NpcCombatDefinition>
 
 	<NpcCombatDefinition>
 		<!-- Vet'ion -->
@@ -18361,7 +18358,7 @@
 			<profession>
 				<id>6</id>
 				<grade>150</grade>
-			</profession>			
+			</profession>
 		</professions>
 		<bonuses>
 			<int>145</int>
@@ -18408,10 +18405,10 @@
 					<startHeight>40</startHeight>
 					<endHeight>25</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>60</max>
 			</mage>
-		</mage>		
+		</mage>
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Vet'ion Reborn -->
@@ -18454,7 +18451,7 @@
 			<profession>
 				<id>6</id>
 				<grade>165</grade>
-			</profession>			
+			</profession>
 		</professions>
 		<bonuses>
 			<int>145</int>
@@ -18501,10 +18498,10 @@
 					<startHeight>40</startHeight>
 					<endHeight>25</endHeight>
 					<curve>0</curve>
-				</projectile>				
+				</projectile>
 				<max>60</max>
 			</mage>
-		</mage>		
+		</mage>
 	</NpcCombatDefinition>
 
 	<NpcCombatDefinition>
@@ -18519,7 +18516,8 @@
 		<death>
 			<id>836</id>
 			<delay>0</delay>
-		</death><professions>
+		</death>
+		<professions>
 			<profession>
 				<id>6</id>
 				<grade>90</grade>
@@ -18569,12 +18567,12 @@
 					<startHeight>35</startHeight>
 					<endHeight>31</endHeight>
 					<curve>10</curve>
-				</projectile>				
+				</projectile>
 				<max>20</max>
 			</mage>
 		</mage>
-	</NpcCombatDefinition>	
-	
+	</NpcCombatDefinition>
+
 	<NpcCombatDefinition>
 		<!-- Chaos Fanatic -->
 		<id>6618</id>
@@ -18587,7 +18585,8 @@
 		<death>
 			<id>836</id>
 			<delay>0</delay>
-		</death><professions>
+		</death>
+		<professions>
 			<profession>
 				<id>6</id>
 				<grade>90</grade>
@@ -18641,7 +18640,7 @@
 					<startHeight>35</startHeight>
 					<endHeight>31</endHeight>
 					<curve>10</curve>
-				</projectile>				
+				</projectile>
 				<max>15</max>
 			</mage>
 		</mage>
@@ -18666,8 +18665,8 @@
 				</projectile>
 				<max>15</max>
 			</sagittarius>
-		</sagittarius>		
-	</NpcCombatDefinition>	
-	
-	
+		</sagittarius>
+	</NpcCombatDefinition>
+
+
 </list>

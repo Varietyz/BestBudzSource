@@ -8,23 +8,22 @@ import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
 
 public class SendNPCUpdate extends OutgoingPacket {
 
-	private final MobUpdateFlags[] nFlags;
-	private final StonerUpdateFlags pFlags;
+  private final MobUpdateFlags[] nFlags;
+  private final StonerUpdateFlags pFlags;
 
-	public SendNPCUpdate(MobUpdateFlags[] nFlags, StonerUpdateFlags pFlags) {
-	super();
-	this.nFlags = nFlags;
-	this.pFlags = pFlags;
-	}
+  public SendNPCUpdate(MobUpdateFlags[] nFlags, StonerUpdateFlags pFlags) {
+    super();
+    this.nFlags = nFlags;
+    this.pFlags = pFlags;
+  }
 
-	@Override
-	public void execute(Client client) {
-	NPCUpdating.update(client, pFlags, nFlags);
-	}
+  @Override
+  public void execute(Client client) {
+    NPCUpdating.update(client, pFlags, nFlags);
+  }
 
-	@Override
-	public int getOpcode() {
-	return 65;
-	}
-
+  @Override
+  public int getOpcode() {
+    return 65;
+  }
 }

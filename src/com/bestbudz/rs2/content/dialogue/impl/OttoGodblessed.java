@@ -8,43 +8,19 @@ import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 
-/**
- * Otto Godblessed dialogue (creates & reverts Zamorakian hasta)
- * 
- * @author Jaybane
- *
- */
 public class OttoGodblessed extends Dialogue {
 
-	/**
-	 * Otto Godblessed
-	 * 
-	 * @param stoner
-	 */
+	private final int ZAMORAKIAN_SPEAR = 11824;
+	private final int ZAMORAKIAN_HASTA = 11889;
+	private final int CREATION_COST = 3_000_000;
+
 	public OttoGodblessed(Stoner stoner) {
 	this.stoner = stoner;
 	}
 
-	/**
-	 * Zamorakian spear identification
-	 */
-	private final int ZAMORAKIAN_SPEAR = 11824;
-
-	/**
-	 * Zamorakian hasta identification
-	 */
-	private final int ZAMORAKIAN_HASTA = 11889;
-
-	/**
-	 * The cost of creating Zamorakian hasta
-	 */
-	private final int CREATION_COST = 3_000_000;
-
 	@Override
 	public boolean clickButton(int id) {
 	switch (id) {
-
-	// Creates hasta
 	case DialogueConstants.OPTIONS_3_1:
 		if (stoner.getBox().hasItemId(ZAMORAKIAN_SPEAR)) {
 			if (stoner.getBox().hasItemAmount(995, CREATION_COST)) {
@@ -62,8 +38,6 @@ public class OttoGodblessed extends Dialogue {
 			setNext(-1);
 		}
 		break;
-
-	// Reverts hasta
 	case DialogueConstants.OPTIONS_3_2:
 		if (stoner.getBox().hasItemId(ZAMORAKIAN_HASTA)) {
 			stoner.getBox().remove(ZAMORAKIAN_HASTA, 1);
@@ -76,8 +50,6 @@ public class OttoGodblessed extends Dialogue {
 			setNext(-1);
 		}
 		break;
-
-	// Nothing
 	case DialogueConstants.OPTIONS_3_3:
 		stoner.send(new SendRemoveInterfaces());
 		break;

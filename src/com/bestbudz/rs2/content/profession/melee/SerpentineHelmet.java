@@ -6,60 +6,20 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Handles Serpentine Helment
- * 
- * @author Jaybane
- *
- */
 public class SerpentineHelmet {
 
-	/**
-	 * Limit of charges
-	 */
 	private static final int FULL = 11_000;
 
-	/**
-	 * Current charges
-	 */
 	private int charges;
 
-	/**
-	 * SerpentineHelmet
-	 * 
-	 * @param charges
-	 */
 	public SerpentineHelmet(int charges) {
 	this.charges = charges;
 	}
 
-	/**
-	 * Grabs the charges
-	 * 
-	 * @return
-	 */
-	public int getCharges() {
-	return charges;
-	}
-
-	/**
-	 * Checks if stoner has helmet equipped
-	 * 
-	 * @param stoner
-	 * @return
-	 */
 	public static boolean hasHelmet(Stoner stoner) {
 	return stoner.getEquipment().isWearingItem(12931, EquipmentConstants.HELM_SLOT);
 	}
 
-	/**
-	 * Handles creating helmet & chraging
-	 * 
-	 * @param stoner
-	 * @param itemUsed
-	 * @param usedWith
-	 * @return
-	 */
 	public static boolean itemOnItem(Stoner stoner, Item itemUsed, Item usedWith) {
 	if ((itemUsed.getId() == 12929 && usedWith.getId() == 12934) || (usedWith.getId() == 12929 && itemUsed.getId() == 12934)) {
 		int amount = stoner.getBox().getItemAmount(12934);
@@ -95,14 +55,6 @@ public class SerpentineHelmet {
 	return false;
 	}
 
-	/**
-	 * Handles helmet options
-	 * 
-	 * @param stoner
-	 * @param i
-	 * @param itemId
-	 * @return
-	 */
 	public static boolean itemOption(Stoner stoner, int i, int itemId) {
 	if (itemId != 12931) {
 		return false;
@@ -122,22 +74,12 @@ public class SerpentineHelmet {
 	return true;
 	}
 
-	/**
-	 * Checks the current charges
-	 * 
-	 * @param stoner
-	 */
 	public static void check(Stoner stoner) {
 	int percent = stoner.getSerpentineHelment().getCharges() * 100 / FULL;
 	stoner.send(new SendMessage("Please not the helment effect has not been added yet!"));
 	stoner.send(new SendMessage("Charges: <col=007F00>" + Utility.format(stoner.getSerpentineHelment().getCharges()) + " </col>(<col=007F00>" + percent + "%</col>)"));
 	}
 
-	/**
-	 * Uncharges the helmet
-	 * 
-	 * @param stoner
-	 */
 	public static void uncharge(Stoner stoner) {
 	if (stoner.getSerpentineHelment().getCharges() == 0) {
 		stoner.send(new SendMessage("You do not have any charges!"));
@@ -150,6 +92,10 @@ public class SerpentineHelmet {
 	stoner.getBox().addOrCreateGroundItem(12934, amount, true);
 	stoner.getBox().addOrCreateGroundItem(12929, 1, true);
 
+	}
+
+	public int getCharges() {
+	return charges;
 	}
 
 }

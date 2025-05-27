@@ -8,17 +8,17 @@ import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
 
 public class BankModifiableX extends IncomingPacket {
 
-	@Override
-	public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
-	in.readShort(ValueType.A, ByteOrder.BIG);
-	in.readShort();
-	int item = in.readShort(ValueType.A, ByteOrder.BIG);
-	int amount = in.readInt();
-	stoner.getBank().withdraw(item, amount);
-	}
+  @Override
+  public int getMaxDuplicates() {
+    return 1;
+  }
 
-	@Override
-	public int getMaxDuplicates() {
-	return 1;
-	}
+  @Override
+  public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
+    in.readShort(ValueType.A, ByteOrder.BIG);
+    in.readShort();
+    int item = in.readShort(ValueType.A, ByteOrder.BIG);
+    int amount = in.readInt();
+    stoner.getBank().withdraw(item, amount);
+  }
 }

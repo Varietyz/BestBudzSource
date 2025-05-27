@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content.wilderness;
 
-import java.math.BigInteger;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.rs2.entity.World;
@@ -10,29 +8,16 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStonerHint;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.math.BigInteger;
 
 public class TargetSystem {
 
-	/**
-	 * The class instance.
-	 */
 	private static final TargetSystem instance = new TargetSystem();
 
-	/**
-	 * Returns a visible encapsulation of the class instance.
-	 * 
-	 * @return The returned encapsulated instance.
-	 */
 	public final static TargetSystem getInstance() {
 	return instance;
 	}
 
-	/**
-	 * Manages Assigning the Target to the user if they meet the requirements to
-	 * receive one.
-	 * 
-	 * @param stoner
-	 */
 	public void assignTarget(Stoner stoner) {
 	for (Stoner stoners : World.getStoners()) {
 		if (stoners != null && stoners.isActive()) {
@@ -60,27 +45,10 @@ public class TargetSystem {
 	}
 	}
 
-	/**
-	 * Deterquarrys if the chosen user is applicable combat grade for the other user
-	 * to be assigned a target to.
-	 * 
-	 * @param stoner
-	 * @param target
-	 * @return
-	 */
 	public boolean inCombatRange(Stoner stoner, Stoner target) {
-	if (Math.abs(stoner.getProfession().getCombatGrade() - target.getProfession().getCombatGrade()) > 10) {
-		return false;
-	}
-	return true;
+		return Math.abs(stoner.getProfession().getCombatGrade() - target.getProfession().getCombatGrade()) <= 10;
 	}
 
-	/**
-	 * Deterquarrys if the users target is null.
-	 * 
-	 * @param targetName
-	 * @return
-	 */
 	public boolean isNull(String targetName) {
 	for (Stoner p : World.getStoners())
 		if (p != null && p.getUsername().equalsIgnoreCase(targetName))
@@ -88,23 +56,10 @@ public class TargetSystem {
 	return true;
 	}
 
-	/**
-	 * Returns whether or not the user has a target.
-	 * 
-	 * @param stoner
-	 * @return
-	 */
 	public boolean stonerHasTarget(Stoner stoner) {
 	return stoner.targetIndex != 0 && (stoner.targetName != "None" || stoner.targetName != null);
 	}
 
-	/**
-	 * Manages resetting the users target for whatever reason may be called for.
-	 * 
-	 * Ex: Logging out, Dying etc.
-	 * 
-	 * @param stoner
-	 */
 	public void resetTarget(Stoner stoner, boolean logout) {
 	Stoner target = World.getStoners()[stoner.targetIndex];
 	if (target == null || stoner == null) {
@@ -129,13 +84,6 @@ public class TargetSystem {
 	stoner.getClient().queueOutgoingPacket(new SendStonerHint(true, -1));
 	}
 
-	/**
-	 * Manages setting the target to the stoner.
-	 * 
-	 * @param stoner
-	 * @param targetStonerId
-	 * @param targetName
-	 */
 	public void setTarget(Stoner stoner, int targetStonerId, String targetName) {
 	stoner.targetIndex = targetStonerId;
 	stoner.targetName = targetName;
@@ -145,11 +93,6 @@ public class TargetSystem {
 	}
 	}
 
-	/**
-	 * Updates the interfaces
-	 * 
-	 * @param stoner
-	 */
 	public void update(Stoner stoner) {
 	if (!stoner.inWilderness()) {
 		return;

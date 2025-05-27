@@ -6,45 +6,41 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 
 public enum RandomEvent {
-	SINGLETON;
+  SINGLETON;
 
-	public boolean testRandom(Stoner stoner) {
-	if (Utility.random(100) == 0) {
-		if (canStart(stoner)) {
-			start(stoner);
-		}
-		return true;
-	}
+  public boolean testRandom(Stoner stoner) {
+    if (Utility.random(100) == 0) {
+      if (canStart(stoner)) {
+        start(stoner);
+      }
+      return true;
+    }
 
-	return false;
-	}
+    return false;
+  }
 
-	private boolean canStart(Stoner stoner) {
-	if (stoner.getCombat().inCombat() || stoner.getCombat().getAssaulting() != null) {
-		return false;
-	}
+  private boolean canStart(Stoner stoner) {
+    if (stoner.getCombat().inCombat() || stoner.getCombat().getAssaulting() != null) {
+      return false;
+    }
 
-	if (stoner.inWilderness()) {
-		return false;
-	}
+    if (stoner.inWilderness()) {
+      return false;
+    }
 
-	if (stoner.getDueling().isDueling()) {
-		return false;
-	}
+    if (stoner.getDueling().isDueling()) {
+      return false;
+    }
 
-	if (stoner.getTrade().trading()) {
-		return false;
-	}
+    return !stoner.getTrade().trading();
+  }
 
-	return true;
-	}
+  private void start(Stoner stoner) {
+    stoner.send(new SendInterface(16135));
+    stoner.send(new SendString("", 16144));
+  }
 
-	private void start(Stoner stoner) {
-	stoner.send(new SendInterface(16135));
-	stoner.send(new SendString("", 16144));
-	}
-
-	public boolean clickButton(Stoner stoner, int button) {
-	return false;
-	}
+  public boolean clickButton(Stoner stoner, int button) {
+    return false;
+  }
 }

@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.fisher;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
@@ -14,247 +11,434 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSound;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Fisher {
 
-	public static enum FisherSpots {
+  private static final FishableData.Fishable[] COMMON_DROPS = {
+    FishableData.Fishable.SHRIMP, FishableData.Fishable.ANCHOVIES,
+    FishableData.Fishable.MACKEREL, FishableData.Fishable.COD,
+    FishableData.Fishable.BASS, FishableData.Fishable.TROUT,
+    FishableData.Fishable.SALMON, FishableData.Fishable.PIKE,
+    FishableData.Fishable.SARDINE, FishableData.Fishable.HERRING,
+    FishableData.Fishable.MONK_FISH, FishableData.Fishable.LOBSTER,
+    FishableData.Fishable.TUNA, FishableData.Fishable.SWORD_FISH,
+    FishableData.Fishable.SHARK, FishableData.Fishable.DARK_CRAB,
+    FishableData.Fishable.MANTA_RAY, FishableData.Fishable.CAVE_EEL,
+    FishableData.Fishable.SLIMY_EEL, FishableData.Fishable.KARAMBWAN,
+    FishableData.Fishable.KARAMBWANJI, FishableData.Fishable.LAVA_EEL
+  };
 
-		SMALL_NET_OR_BAIT(1518, new FishableData.Fishable[] { FishableData.Fishable.FLAX, FishableData.Fishable.FISH_BONES, FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.SHRIMP, FishableData.Fishable.ANCHOVIES, FishableData.Fishable.DARK_CRAB, FishableData.Fishable.MANTA_RAY, FishableData.Fishable.TUNA, FishableData.Fishable.SWORD_FISH, FishableData.Fishable.MONK_FISH, FishableData.Fishable.MACKEREL, FishableData.Fishable.COD, FishableData.Fishable.BASS, FishableData.Fishable.SHARK, FishableData.Fishable.LOBSTER, FishableData.Fishable.SARDINE, FishableData.Fishable.HERRING, FishableData.Fishable.PIKE, FishableData.Fishable.TROUT, FishableData.Fishable.SALMON }),
+  private static final FishableData.Fishable[] PROFESSION_DROPS = {
+    FishableData.Fishable.FLAX, FishableData.Fishable.FISH_BONES,
+    FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.EXPLOSIVE
+  };
 
-		LURE_OR_BAIT(1526, new FishableData.Fishable[] { FishableData.Fishable.FLAX, FishableData.Fishable.FISH_BONES, FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.SHRIMP, FishableData.Fishable.ANCHOVIES, FishableData.Fishable.DARK_CRAB, FishableData.Fishable.MANTA_RAY, FishableData.Fishable.TUNA, FishableData.Fishable.SWORD_FISH, FishableData.Fishable.MONK_FISH, FishableData.Fishable.MACKEREL, FishableData.Fishable.COD, FishableData.Fishable.BASS, FishableData.Fishable.SHARK, FishableData.Fishable.LOBSTER, FishableData.Fishable.SARDINE, FishableData.Fishable.HERRING, FishableData.Fishable.PIKE, FishableData.Fishable.TROUT, FishableData.Fishable.SALMON }),
+  private static final FishableData.Fishable[] RARE_DROPS = {
+    FishableData.Fishable.RARE_ARMADYL_GODSWORD,
+    FishableData.Fishable.RARE_BANDOS_GODSWORD,
+    FishableData.Fishable.RARE_SARADOMIN_GODSWORD,
+    FishableData.Fishable.RARE_ZAMORAK_GODSWORD,
+    FishableData.Fishable.RARE_GODSWORD_BLADE,
+    FishableData.Fishable.RARE_GODSWORD_SHARD_1,
+    FishableData.Fishable.RARE_GODSWORD_SHARD_2,
+    FishableData.Fishable.RARE_ARMADYL_HILT,
+    FishableData.Fishable.RARE_ARMADYL_PLATEBODY,
+    FishableData.Fishable.RARE_ARMADYL_PLATELEGS,
+    FishableData.Fishable.RARE_ARMADYL_PLATESKIRT,
+    FishableData.Fishable.RARE_ARMADYL_FULL_HELM,
+    FishableData.Fishable.RARE_ARMADYL_KITESHIELD,
+    FishableData.Fishable.RARE_ARMADYL_BRACERS,
+    FishableData.Fishable.RARE_ARMADYL_DHIDE,
+    FishableData.Fishable.RARE_ARMADYL_CHAPS,
+    FishableData.Fishable.RARE_ARMADYL_COIF,
+    FishableData.Fishable.RARE_ARMADYL_ROBE_LEGS,
+    FishableData.Fishable.RARE_ARMADYL_STOLE,
+    FishableData.Fishable.RARE_ARMADYL_MITRE,
+    FishableData.Fishable.RARE_ARMADYL_CLOAK,
+    FishableData.Fishable.RARE_BANDOS_PLATEBODY,
+    FishableData.Fishable.RARE_BANDOS_PLATELEGS,
+    FishableData.Fishable.RARE_BANDOS_PLATESKIRT,
+    FishableData.Fishable.RARE_BANDOS_FULL_HELM,
+    FishableData.Fishable.RARE_BANDOS_DHIDE,
+    FishableData.Fishable.RARE_BANDOS_CHAPS,
+    FishableData.Fishable.RARE_BANDOS_COIF,
+    FishableData.Fishable.RARE_BANDOS_ROBE_LEGS,
+    FishableData.Fishable.RARE_BANDOS_STOLE,
+    FishableData.Fishable.RARE_BANDOS_MITRE,
+    FishableData.Fishable.RARE_BANDOS_CLOAK,
+    FishableData.Fishable.RARE_KALPHITE_PRINCESS_FLY,
+    FishableData.Fishable.RARE_KALPHITE_PRINCESS_BUG,
+    FishableData.Fishable.RARE_SMOKE_DEVIL,
+    FishableData.Fishable.RARE_DARK_CORE,
+    FishableData.Fishable.RARE_PRINCE_BLACK_DRAGON,
+    FishableData.Fishable.RARE_GREEN_SNAKELING,
+    FishableData.Fishable.RARE_RED_SNAKELING,
+    FishableData.Fishable.RARE_BLUE_SNAKELING,
+    FishableData.Fishable.RARE_CHAOS_ELEMENT,
+    FishableData.Fishable.RARE_KREE_ARRA,
+    FishableData.Fishable.RARE_CALLISTO,
+    FishableData.Fishable.RARE_SCORPIAS_OFFSPRING,
+    FishableData.Fishable.RARE_VENENATIS,
+    FishableData.Fishable.RARE_VETION_PURPLE,
+    FishableData.Fishable.RARE_VETION_ORANGE,
+    FishableData.Fishable.RARE_BABY_MOLE,
+    FishableData.Fishable.RARE_KRAKEN,
+    FishableData.Fishable.RARE_DAGANNOTH_SUPREME,
+    FishableData.Fishable.RARE_DAGANNOTH_PRIME,
+    FishableData.Fishable.RARE_DAGANNOTH_REX,
+    FishableData.Fishable.RARE_GENERAL_GRAARDOR,
+    FishableData.Fishable.RARE_COMMANDER_ZILYANA,
+    FishableData.Fishable.RARE_KRIL_TSUTSAROTH,
+    FishableData.Fishable.RARE_BANDOS_HILT,
+    FishableData.Fishable.RARE_ZAMORAK_HILT,
+    FishableData.Fishable.RARE_SARADOMIN_HILT,
+    FishableData.Fishable.RARE_DRACONIC_VISAGE,
+    FishableData.Fishable.RARE_IMP,
+    FishableData.Fishable.RARE_KEBBIT,
+    FishableData.Fishable.RARE_BUTTERFLY,
+    FishableData.Fishable.RARE_GIANT_EAGLE,
+    FishableData.Fishable.RARE_BLACK_CHINCHOMPA,
+    FishableData.Fishable.RARE_GNOME,
+    FishableData.Fishable.RARE_CHICKEN,
+    FishableData.Fishable.RARE_HELLHOUND,
+    FishableData.Fishable.RARE_BABY_DRAGON,
+    FishableData.Fishable.RARE_DEMON,
+    FishableData.Fishable.RARE_ROCNAR,
+    FishableData.Fishable.RARE_FLAMBEED,
+    FishableData.Fishable.RARE_TENTACLE,
+    FishableData.Fishable.RARE_DEATH,
+  };
+  private final Stoner stoner;
+  private FishableData.Fishable[] fisher = null;
+  private ToolData.Tools tool = null;
 
-		CAGE_OR_HARPOON(1519, new FishableData.Fishable[] { FishableData.Fishable.FLAX, FishableData.Fishable.FISH_BONES, FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.SHRIMP, FishableData.Fishable.ANCHOVIES, FishableData.Fishable.DARK_CRAB, FishableData.Fishable.MANTA_RAY, FishableData.Fishable.TUNA, FishableData.Fishable.SWORD_FISH, FishableData.Fishable.MONK_FISH, FishableData.Fishable.MACKEREL, FishableData.Fishable.COD, FishableData.Fishable.BASS, FishableData.Fishable.SHARK, FishableData.Fishable.LOBSTER, FishableData.Fishable.SARDINE, FishableData.Fishable.HERRING, FishableData.Fishable.PIKE, FishableData.Fishable.TROUT, FishableData.Fishable.SALMON }),
+  public Fisher(Stoner stoner) {
+    this.stoner = stoner;
+  }
 
-		LARGE_NET_OR_HARPOON(1520, new FishableData.Fishable[] { FishableData.Fishable.FLAX, FishableData.Fishable.FISH_BONES, FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.SHRIMP, FishableData.Fishable.ANCHOVIES, FishableData.Fishable.DARK_CRAB, FishableData.Fishable.MANTA_RAY, FishableData.Fishable.TUNA, FishableData.Fishable.SWORD_FISH, FishableData.Fishable.MONK_FISH, FishableData.Fishable.MACKEREL, FishableData.Fishable.COD, FishableData.Fishable.BASS, FishableData.Fishable.SHARK, FishableData.Fishable.LOBSTER, FishableData.Fishable.SARDINE, FishableData.Fishable.HERRING, FishableData.Fishable.PIKE, FishableData.Fishable.TROUT, FishableData.Fishable.SALMON }),
+  private static FishableData.Fishable[] combined() {
+    return combine(COMMON_DROPS, PROFESSION_DROPS, RARE_DROPS);
+  }
 
-		HARPOON_OR_SMALL_NET(1534, new FishableData.Fishable[] { FishableData.Fishable.FLAX, FishableData.Fishable.FISH_BONES, FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.SHRIMP, FishableData.Fishable.ANCHOVIES, FishableData.Fishable.DARK_CRAB, FishableData.Fishable.MANTA_RAY, FishableData.Fishable.TUNA, FishableData.Fishable.SWORD_FISH, FishableData.Fishable.MONK_FISH, FishableData.Fishable.MACKEREL, FishableData.Fishable.COD, FishableData.Fishable.BASS, FishableData.Fishable.SHARK, FishableData.Fishable.LOBSTER, FishableData.Fishable.SARDINE, FishableData.Fishable.HERRING, FishableData.Fishable.PIKE, FishableData.Fishable.TROUT, FishableData.Fishable.SALMON }),
+  private static FishableData.Fishable[] combine(FishableData.Fishable[]... arrays) {
+    int total = 0;
+    for (FishableData.Fishable[] arr : arrays) total += arr.length;
 
-		MANTA_RAY(3019, new FishableData.Fishable[] { FishableData.Fishable.FLAX, FishableData.Fishable.FISH_BONES, FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.SHRIMP, FishableData.Fishable.ANCHOVIES, FishableData.Fishable.DARK_CRAB, FishableData.Fishable.MANTA_RAY, FishableData.Fishable.TUNA, FishableData.Fishable.SWORD_FISH, FishableData.Fishable.MONK_FISH, FishableData.Fishable.MACKEREL, FishableData.Fishable.COD, FishableData.Fishable.BASS, FishableData.Fishable.SHARK, FishableData.Fishable.LOBSTER, FishableData.Fishable.SARDINE, FishableData.Fishable.HERRING, FishableData.Fishable.PIKE, FishableData.Fishable.TROUT, FishableData.Fishable.SALMON }),
+    FishableData.Fishable[] result = new FishableData.Fishable[total];
+    int index = 0;
+    for (FishableData.Fishable[] arr : arrays) {
+      System.arraycopy(arr, 0, result, index, arr.length);
+      index += arr.length;
+    }
+    return result;
+  }
 
-		DARK_CRAB(1536, new FishableData.Fishable[] { FishableData.Fishable.FLAX, FishableData.Fishable.FISH_BONES, FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.SHRIMP, FishableData.Fishable.ANCHOVIES, FishableData.Fishable.DARK_CRAB, FishableData.Fishable.MANTA_RAY, FishableData.Fishable.TUNA, FishableData.Fishable.SWORD_FISH, FishableData.Fishable.MONK_FISH, FishableData.Fishable.MACKEREL, FishableData.Fishable.COD, FishableData.Fishable.BASS, FishableData.Fishable.SHARK, FishableData.Fishable.LOBSTER, FishableData.Fishable.SARDINE, FishableData.Fishable.HERRING, FishableData.Fishable.PIKE, FishableData.Fishable.TROUT, FishableData.Fishable.SALMON });
+  public static boolean canFish(Stoner p, FishableData.Fishable fish, boolean message) {
 
-		/*
-		 * FishableData.Fishable.FLAX, FishableData.Fishable.BABY_DRAGON_BONES,
-		 * FishableData.Fishable.DRAGON_ARROWS, FishableData.Fishable.SHRIMP,
-		 * FishableData.Fishable.ANCHOVIES, FishableData.Fishable.DARK_CRAB,
-		 * FishableData.Fishable.MANTA_RAY, FishableData.Fishable.TUNA,
-		 * FishableData.Fishable.SWORD_FISH, FishableData.Fishable.MONK_FISH,
-		 * FishableData.Fishable.MACKEREL, FishableData.Fishable.COD,
-		 * FishableData.Fishable.BASS, FishableData.Fishable.SHARK,
-		 * FishableData.Fishable.LOBSTER, FishableData.Fishable.SARDINE,
-		 * FishableData.Fishable.HERRING, FishableData.Fishable.PIKE,
-		 * FishableData.Fishable.TROUT, FishableData.Fishable.SALMON
-		 */
+    return true;
+  }
 
-		private int id;
-		private FishableData.Fishable[] option_1;
-		private static Map<Integer, FisherSpots> fisherSpots = new HashMap<Integer, FisherSpots>();
+  public static boolean hasFisherItems(Stoner stoner, FishableData.Fishable fish, boolean message) {
+    int tool = fish.getToolId();
+    int bait = fish.getBaitRequired();
 
-		public static final void declare() {
-		for (FisherSpots spots : values())
-			fisherSpots.put(Integer.valueOf(spots.getId()), spots);
-		}
+    if (tool == 6577) {
+      if (!stoner.getBox().hasItemAmount(new Item(tool, 1))) {
 
-		public static FisherSpots forId(int id) {
-		return fisherSpots.get(Integer.valueOf(id));
-		}
+        Item necklace = stoner.getEquipment().getItems()[2];
+        if ((necklace != null) && (necklace.getId() == 6577)) {
+          return true;
+        }
+      }
+      if (message) {
+        DialogueManager.sendItem1(
+            stoner, "You must be wearing a fisher necklace to splash at the fishes!", 6577);
+      }
+      return false;
 
-		private FisherSpots(int id, FishableData.Fishable[] option_1) {
-		this.id = id;
-		this.option_1 = option_1;
-		}
+    } else if ((!stoner.getBox().hasItemAmount(new Item(tool, 1))) && (message)) {
+      String name = Item.getDefinition(tool).getName();
+      stoner
+          .getClient()
+          .queueOutgoingPacket(
+              new SendMessage(
+                  "BUG WHILE CHECKING FOR TOOL "
+                      + Utility.getAOrAn(name)
+                      + " "
+                      + name
+                      + ", PLEASE SHARE SCREENSHOT."));
+      return false;
+    }
 
-		public int getId() {
-		return id;
-		}
+    if ((bait > -1) && (!stoner.getBox().hasItemAmount(new Item(bait, 1)))) {
+      String name = Item.getDefinition(bait).getName();
+      if (message) {
+        stoner
+            .getClient()
+            .queueOutgoingPacket(
+                new SendMessage(
+                    "BUG WHILE CHECKING FOR BAIT "
+                        + Utility.getAOrAn(name)
+                        + " "
+                        + name
+                        + ", PLEASE SHARE SCREENSHOT."));
+      }
+      return false;
+    }
 
-		public FishableData.Fishable[] getOption_1() {
-		return option_1;
-		}
+    return true;
+  }
 
-	}
+  public boolean clickNpc(Mob mob, int id, int option) {
+    if (FisherSpots.forId(id) == null) {
+      return false;
+    }
 
-	public static boolean canFish(Stoner p, FishableData.Fishable fish, boolean message) {
+    FisherSpots spot = FisherSpots.forId(id);
 
-	return true;
-	}
+    FishableData.Fishable[] fish = spot.option_1;
+    FishableData.Fishable[] valid = new FishableData.Fishable[fish.length];
+    int amount = 0;
 
-	public static boolean hasFisherItems(Stoner stoner, FishableData.Fishable fish, boolean message) {
-	int tool = fish.getToolId();
-	int bait = fish.getBaitRequired();
+    switch (option) {
+      case 1:
+        for (int i = 0; i < fish.length; i++) {
+          if (canFish(stoner, fish[i], i == 0)) {
+            valid[amount] = fish[i];
+            amount++;
+          }
+        }
+        break;
+      default:
+        return false;
+    }
 
-	if (tool == 6577) {
-		if (!stoner.getBox().hasItemAmount(new Item(tool, 1))) {
+    if (amount == 0) {
+      return true;
+    }
 
-			Item necklace = stoner.getEquipment().getItems()[2];
-			if ((necklace != null) && (necklace.getId() == 6577)) {
-				return true;
-			}
-		}
-		if (message) {
-			DialogueManager.sendItem1(stoner, "You must be wearing a fisher necklace to splash at the fishes!", 6577);
-		}
-		return false;
+    FishableData.Fishable[] fisher = new FishableData.Fishable[amount];
+    System.arraycopy(valid, 0, fisher, 0, amount);
 
-	} else if ((!stoner.getBox().hasItemAmount(new Item(tool, 1))) && (message)) {
-		String name = Item.getDefinition(tool).getName();
-		stoner.getClient().queueOutgoingPacket(new SendMessage("BUG WHILE CHECKING FOR TOOL " + Utility.getAOrAn(name) + " " + name + ", PLEASE SHARE SCREENSHOT."));
-		return false;
-	}
+    start(mob, fisher, 0);
+    return true;
+  }
 
-	if ((bait > -1) && (!stoner.getBox().hasItemAmount(new Item(bait, 1)))) {
-		String name = Item.getDefinition(bait).getName();
-		if (message) {
-			stoner.getClient().queueOutgoingPacket(new SendMessage("BUG WHILE CHECKING FOR BAIT " + Utility.getAOrAn(name) + " " + name + ", PLEASE SHARE SCREENSHOT."));
-		}
-		return false;
-	}
+  public boolean fish() {
+    if (fisher == null) {
+      return false;
+    }
 
-	return true;
-	}
+    FishableData.Fishable[] valid = new FishableData.Fishable[fisher.length];
+    int count = 0;
 
-	private final Stoner stoner;
+    for (int i = 0; i < fisher.length; i++) {
+      if (canFish(stoner, fisher[i], false)) {
+        valid[count] = fisher[i];
+        count++;
+      }
+    }
 
-	private FishableData.Fishable[] fisher = null;
+    if (count == 0) {
+      return false;
+    }
 
-	private ToolData.Tools tool = null;
+    FishableData.Fishable[] fish = new FishableData.Fishable[count];
+    System.arraycopy(valid, 0, fish, 0, count);
 
-	public Fisher(Stoner stoner) {
-	this.stoner = stoner;
-	}
+    FishableData.Fishable f = fish[Utility.randomNumber(count)];
 
-	public boolean clickNpc(Mob mob, int id, int option) {
-	if (FisherSpots.forId(id) == null) {
-		return false;
-	}
+    if (stoner.getBox().getFreeSlots() == 0) {
+      DialogueManager.sendStatement(
+          stoner, "U can start a fisher stall with all these fish, now get.");
+      return false;
+    }
 
-	FisherSpots spot = FisherSpots.forId(id);
+    double roll = Math.random();
+    if (success(f) && roll <= f.getDropRate()) {
+      if (f.getBaitRequired() != -1) {
+        stoner.getBox().remove(new Item(f.getBaitRequired(), 0));
+      }
 
-	FishableData.Fishable[] f = new FishableData.Fishable[20];
-	int amount = 0;
-	FishableData.Fishable[] fish;
-	switch (option) {
-	case 1:
-		fish = spot.option_1;
-		for (int i = 0; i < fish.length; i++) {
-			if (canFish(stoner, fish[i], i == 0)) {
-				f[i] = fish[i];
-				amount++;
-			}
-		}
-		break;
+      stoner.getClient().queueOutgoingPacket(new SendSound(378, 0, 0));
 
-	}
+      int id = f.getRawFishId();
+      String name = Item.getDefinition(id).getName();
 
-	if (amount == 0) {
-		return true;
-	}
+      int amount = determineRollAmount();
+      stoner.getBox().add(new Item(id, amount));
 
-	FishableData.Fishable[] fisher = new FishableData.Fishable[amount];
+      stoner.getProfession().addExperience(10, (amount * f.getExperience()));
+      double rarestDropRate = 1.0D;
+      for (FishableData.Fishable candidate : fisher) {
+        if (candidate.getDropRate() < rarestDropRate) {
+          rarestDropRate = candidate.getDropRate();
+        }
+      }
 
-	for (int i = 0; i < amount; i++) {
-		fisher[i] = f[i];
-	}
+      System.out.println("Rolled: " + roll + " (Need ≤ " + f.getDropRate() + ")");
+      String percentRoll = String.format("%.4f", roll * 100.0D);
 
-	start(mob, fisher, 0);
+      stoner.getClient().queueOutgoingPacket(new SendMessage("Rolled " + percentRoll + "%"));
 
-	return true;
-	}
+      if (amount > 1000) {
+        stoner
+            .getClient()
+            .queueOutgoingPacket(
+                new SendMessage(
+                    "HOLY FUCK BALLS, You hit 0.000001 droprate! x" + amount + " " + name + "."));
+      } else if (amount > 100) {
+        stoner
+            .getClient()
+            .queueOutgoingPacket(
+                new SendMessage("You are insanely lucky! x" + amount + " " + name + "."));
+      } else if (amount > 20) {
+        stoner
+            .getClient()
+            .queueOutgoingPacket(
+                new SendMessage(
+                    "You just rolled the pet drop table! but got x"
+                        + amount
+                        + " "
+                        + name
+                        + " instead."));
+      } else if (amount > 1) {
+        stoner
+            .getClient()
+            .queueOutgoingPacket(
+                new SendMessage(getFishStringMod(name) + "lucky! x" + amount + " " + name + "."));
+      } else {
+        stoner
+            .getClient()
+            .queueOutgoingPacket(new SendMessage(getFishStringMod(name) + name + "."));
+      }
+    }
 
-	public boolean fish() {
-	if (fisher == null) {
-		return false;
-	}
+    stoner.getProfession().lock(4);
+    return true;
+  }
 
-	FishableData.Fishable[] fish = new FishableData.Fishable[20];
+  public String getFishStringMod(String name) {
+    return "You splashed the water and got ";
+  }
 
-	byte c = 0;
+  private int determineRollAmount() {
+    double roll = Math.random();
 
-	for (int i = 0; i < fisher.length; i++) {
-		if (canFish(stoner, fisher[i], false)) {
-			fish[c] = fisher[i];
-			c = (byte) (c + 1);
-		}
-	}
-	if (c == 0) {
-		return false;
-	}
+    // 0.0001% chance (1 in 1,000,000)
+    if (roll <= 0.000001) return 1000;
 
-	FishableData.Fishable f = fish[Utility.randomNumber(c)];
+    // 0.005% chance (1 in 20,000)
+    if (roll <= 0.00005) return 100;
 
-	if (stoner.getBox().getFreeSlots() == 0) {
-		DialogueManager.sendStatement(stoner, "U can start a fisher stall with all these fish, now get.");
-		return false;
-	}
+    // 0.01% chance (1 in 10,000)
+    if (roll <= 0.0001) return 20;
 
-	if (success(f)) {
-		if (f.getBaitRequired() != -1) {
-			stoner.getBox().remove(new Item(f.getBaitRequired(), 0));
+    // 0.05% chance (1 in 2,000)
+    if (roll <= 0.0005) return 10;
 
-		}
+    // 0.1% chance (1 in 1,000)
+    if (roll <= 0.001) return 5;
 
-		stoner.getClient().queueOutgoingPacket(new SendSound(378, 0, 0));
+    // 0.5% chance (1 in 200)
+    if (roll <= 0.005) return 4;
 
-		int id = f.getRawFishId();
-		String name = Item.getDefinition(id).getName();
-		stoner.getBox().add(new Item(id, 1));
-		stoner.getProfession().addExperience(10, f.getExperience());
-		stoner.getClient().queueOutgoingPacket(new SendMessage("" + getFishStringMod(name) + name + "."));
+    // 1% chance (1 in 100)
+    if (roll <= 0.01) return 3;
 
-	}
+    // 5% chance (1 in 20)
+    if (roll <= 0.05) return 2;
 
-	stoner.getProfession().lock(4);
+    // 95% fallback
+    return 1;
+  }
 
-	return true;
-	}
+  public enum FisherSpots {
+    SMALL_NET_OR_BAIT(1518, combined()),
+    LURE_OR_BAIT(1526, combined()),
+    CAGE_OR_HARPOON(1519, combined()),
+    LARGE_NET_OR_HARPOON(1520, combined()),
+    HARPOON_OR_SMALL_NET(1534, combined()),
+    MANTA_RAY(3019, combined()),
+    DARK_CRAB(1536, combined());
 
-	public String getFishStringMod(String name) {
-	return name.substring(name.length() - 2, name.length() - 1).equals("s") ? "You splashed the water and got " : "You splashed the water and got ";
-	}
+    private static final Map<Integer, FisherSpots> fisherSpots =
+        new HashMap<Integer, FisherSpots>();
+    private final int id;
+    private final FishableData.Fishable[] option_1;
 
-	public void reset() {
-	fisher = null;
-	tool = null;
-	}
+    FisherSpots(int id, FishableData.Fishable[] option_1) {
+      this.id = id;
+      this.option_1 = option_1;
+    }
 
-	public void start(final Mob mob, FishableData.Fishable[] fisher, int option) {
-	if ((fisher == null) || (fisher[option] == null) || (fisher[option].getToolId() == -1)) {
-		return;
-	}
+    public static final void declare() {
+      for (FisherSpots spots : values()) fisherSpots.put(Integer.valueOf(spots.getId()), spots);
+    }
 
-	this.fisher = fisher;
+    public static FisherSpots forId(int id) {
+      return fisherSpots.get(Integer.valueOf(id));
+    }
 
-	tool = ToolData.Tools.forId(fisher[option].getToolId());
+    public int getId() {
+      return id;
+    }
 
-	if (!hasFisherItems(stoner, fisher[option], true)) {
-		return;
-	}
+    public FishableData.Fishable[] getOption_1() {
+      return option_1;
+    }
+  }
 
-	stoner.getClient().queueOutgoingPacket(new SendSound(289, 0, 0));
+  public void reset() {
+    fisher = null;
+    tool = null;
+  }
 
-	stoner.getUpdateFlags().sendAnimation(tool.getAnimationId(), 0);
+  public void start(final Mob mob, FishableData.Fishable[] fisher, int option) {
+    if ((fisher == null) || (fisher[option] == null) || (fisher[option].getToolId() == -1)) {
+      return;
+    }
 
-	Task profession = new Task(stoner, 4, false, Task.StackType.NEVER_STACK, Task.BreakType.ON_MOVE, TaskIdentifier.FISHER) {
-		@Override
-		public void execute() {
-		stoner.face(mob);
-		stoner.getUpdateFlags().sendAnimation(tool.getAnimationId(), 0);
+    this.fisher = fisher;
 
-		if (!fish()) {
-			stop();
-			reset();
-			return;
-		}
-		}
+    tool = ToolData.Tools.forId(fisher[option].getToolId());
 
-		@Override
-		public void onStop() {
-		}
-	};
-	TaskQueue.queue(profession);
-	}
+    if (!hasFisherItems(stoner, fisher[option], true)) {
+      return;
+    }
 
-	public boolean success(FishableData.Fishable fish) {
-	return Professions.isSuccess(stoner, 10, fish.getRequiredGrade());
-	}
+    stoner.getClient().queueOutgoingPacket(new SendSound(289, 0, 0));
+
+    stoner.getUpdateFlags().sendAnimation(tool.getAnimationId(), 0);
+
+    Task profession =
+        new Task(
+            stoner,
+            4,
+            false,
+            Task.StackType.NEVER_STACK,
+            Task.BreakType.ON_MOVE,
+            TaskIdentifier.FISHER) {
+          @Override
+          public void execute() {
+            stoner.face(mob);
+            stoner.getUpdateFlags().sendAnimation(tool.getAnimationId(), 0);
+
+            if (!fish()) {
+              stop();
+              reset();
+            }
+          }
+
+          @Override
+          public void onStop() {}
+        };
+    TaskQueue.queue(profession);
+  }
+
+  public boolean success(FishableData.Fishable fish) {
+    return Professions.isSuccess(stoner, 10, fish.getRequiredGrade());
+  }
 }

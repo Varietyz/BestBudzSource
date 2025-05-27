@@ -1,5 +1,6 @@
 package com.bestbudz.rs2.content.combat.impl;
 
+import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.HitTask;
 import com.bestbudz.rs2.content.combat.Combat;
@@ -9,11 +10,13 @@ import com.bestbudz.rs2.content.combat.formula.FormulaData;
 import com.bestbudz.rs2.content.combat.formula.MeleeFormulas;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class Melee {
 
 	private final Entity entity;
-	private Assault assault = new Assault(1, 5);
+	private Assault assault = new Assault(1, 2);
 	private Animation animation = new Animation(422, 0);
 
 	private int nextDamage = -1;
@@ -32,14 +35,11 @@ public class Melee {
 	double aegis = MeleeFormulas.getAegisRoll(entity, entity.getCombat().getAssaulting());
 	double chance = FormulaData.getChance(accuracy, aegis);
 	boolean accurate = FormulaData.isAccurateHit(chance);
+		entity.getCombat().setHitChance(chance);
 
 	boolean success;
 
-	if (accurate) {
-		success = true;
-	} else {
-		success = false;
-	}
+		success = accurate;
 
 	int damage = (int) (entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.MELEE) + 1)) * damageBoost);
 
@@ -49,9 +49,11 @@ public class Melee {
 	}
 
 	Hit hit = new Hit(entity, (success) || (entity.isIgnoreHitSuccess()) ? damage : 0, Hit.HitTypes.MELEE);
-	entity.setLastDamageDealt(!success ? 0 : hit.getDamage());
+		long dealt = !success ? 0 : hit.getDamage();
+		entity.getCombat().updateHitChain(dealt);
 
-	entity.setLastHitSuccess((success) || (entity.isIgnoreHitSuccess()));
+
+		entity.setLastHitSuccess((success) || (entity.isIgnoreHitSuccess()));
 
 	entity.onAssault(assaulting, hit.getDamage(), CombatTypes.MELEE, success);
 
@@ -68,18 +70,46 @@ public class Melee {
 	public void finish(Entity assaulting, Hit hit) {
 	assaulting.getCombat().setInCombat(entity);
 	TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
+		if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage())) {
+			long secondHitDamage = hit.getDamage() / 2;
+
+			if (secondHitDamage > 0) {
+				Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
+
+				// Copy of 'assaulting' must be made effectively final for the inner class
+				final Entity target = assaulting;
+
+				TaskQueue.queue(new Task(1) { // 1 tick = 300ms
+					@Override
+					public void execute() {
+						Combat.applyHit(target, secondHit);
+						if (entity instanceof Stoner) {
+							((Stoner) entity).getClient().queueOutgoingPacket(
+								new SendMessage("@gre@Double strike landed! Bonus: " + secondHitDamage)
+							);
+						}
+						entity.getCombat().resetHitChain();
+						stop();
+					}
+
+					@Override
+					public void onStop() {}
+				});
+			}
+		}
+
 	}
 
 	public Animation getAnimation() {
 	return animation;
 	}
 
-	public Assault getAssault() {
-	return assault;
-	}
-
 	public void setAnimation(Animation animation) {
 	this.animation = animation;
+	}
+
+	public Assault getAssault() {
+	return assault;
 	}
 
 	public void setAssault(Assault assault, Animation animation) {

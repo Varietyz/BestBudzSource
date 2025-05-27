@@ -6,9 +6,8 @@ import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class SmokeRushEffect implements CombatEffect {
-	@Override
-	public void execute(Stoner p, Entity e) {
-	if ((p.getLastDamageDealt() >= 0) && (Utility.randomNumber(2) == 0))
-		e.poison(2);
-	}
+  @Override
+  public void execute(Stoner p, Entity e) {
+    if ((p.getLastDamageDealt() >= 0) && (Utility.randomNumber(2) == 0)) e.poison(2);
+  }
 }

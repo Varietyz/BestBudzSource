@@ -1,15 +1,14 @@
 package com.bestbudz.rs2.content.minigames.fightcave;
 
+import com.bestbudz.rs2.entity.mob.Mob;
+import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bestbudz.rs2.entity.mob.Mob;
-import com.bestbudz.rs2.entity.stoner.Stoner;
-
 public final class TzharrDetails {
 
+	private final List<Mob> mobs = new ArrayList<Mob>();
 	private int stage = 0;
-	private List<Mob> mobs = new ArrayList<Mob>();
 	private int z;
 
 	public void addNpc(Mob mob) {
@@ -28,8 +27,16 @@ public final class TzharrDetails {
 	return stage;
 	}
 
+	public void setStage(int stage) {
+	this.stage = stage;
+	}
+
 	public int getZ() {
 	return z;
+	}
+
+	public void setZ(Stoner p) {
+	z = (p.getIndex() * 4);
 	}
 
 	public void increaseStage() {
@@ -49,14 +56,6 @@ public final class TzharrDetails {
 
 	public void reset() {
 	stage = 0;
-	}
-
-	public void setStage(int stage) {
-	this.stage = stage;
-	}
-
-	public void setZ(Stoner p) {
-	z = (p.getIndex() * 4);
 	}
 
 }

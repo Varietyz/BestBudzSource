@@ -1,17 +1,16 @@
 package com.bestbudz.rs2.content.dialogue;
 
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
-
 public class OptionDialogue extends Dialogue {
 
-	private String[] lines;
+	private final String[] lines;
 
-	private List<Consumer<Stoner>> consumers = new ArrayList<>();
+	private final List<Consumer<Stoner>> consumers = new ArrayList<>();
 
 	public OptionDialogue(String option1, Consumer<Stoner> consumer1, String option2, Consumer<Stoner> consumer2) {
 	lines = new String[] { option1, option2 };
@@ -41,20 +40,6 @@ public class OptionDialogue extends Dialogue {
 	consumers.add(consumer3);
 	consumers.add(consumer4);
 	consumers.add(consumer5);
-	}
-
-	@Override
-	public void execute() {
-	switch (getNext()) {
-	case 0:
-		getStoner().send(new SendRemoveInterfaces());
-		DialogueManager.sendOption(getStoner(), lines);
-		break;
-	default:
-		consumers.get(getNext() - 1).accept(getStoner());
-		setNext(-1);
-		break;
-	}
 	}
 
 	@Override
@@ -95,5 +80,19 @@ public class OptionDialogue extends Dialogue {
 		return false;
 	}
 	return true;
+	}
+
+	@Override
+	public void execute() {
+	switch (getNext()) {
+	case 0:
+		getStoner().send(new SendRemoveInterfaces());
+		DialogueManager.sendOption(getStoner(), lines);
+		break;
+	default:
+		consumers.get(getNext() - 1).accept(getStoner());
+		setNext(-1);
+		break;
+	}
 	}
 }

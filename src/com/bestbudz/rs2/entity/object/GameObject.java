@@ -4,11 +4,11 @@ import com.bestbudz.rs2.entity.Location;
 
 public class GameObject {
 
-	private int id;
 	private final Location p;
 	private final byte type;
 	private final byte face;
 	private final boolean overrideZ;
+	private int id;
 
 	public GameObject(int x, int y, int z) {
 	this(0, x, y, z, 0, 0);
@@ -55,6 +55,11 @@ public class GameObject {
 	return id;
 	}
 
+	public void setId(int id) {
+	this.id = id;
+	ObjectManager.send(this);
+	}
+
 	public Location getLocation() {
 	return p;
 	}
@@ -67,8 +72,5 @@ public class GameObject {
 	return overrideZ;
 	}
 
-	public void setId(int id) {
-	this.id = id;
-	ObjectManager.send(this);
-	}
+
 }

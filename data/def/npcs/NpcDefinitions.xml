@@ -48141,7 +48141,7 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>4010</id>
 		<name>Tzrek-jad</name>
@@ -53052,7 +53052,7 @@
 	</NpcDefinition>
 	<NpcDefinition>
 		<id>4419</id>
-		<name> Sneaky undead fowl</name>
+		<name>Sneaky undead fowl</name>
 		<walkAnimation>5385</walkAnimation>
 		<standAnimation>5386</standAnimation>
 		<turn180Animation>65535</turn180Animation>
@@ -78489,7 +78489,7 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-		</NpcDefinition>
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6593</id>
 		<name>Lava dragon</name>
@@ -78513,7 +78513,7 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6600</id>
 		<name>Runite Golem</name>
@@ -78525,7 +78525,7 @@
 		<grade>178</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6609</id>
 		<name>Callisto</name>
@@ -78549,7 +78549,7 @@
 		<grade>464</grade>
 		<size>3</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6611</id>
 		<name>Vet'ion</name>
@@ -78561,7 +78561,7 @@
 		<grade>454</grade>
 		<size>3</size>
 		<assaultable>true</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6612</id>
 		<name>Vet'ion Reborn</name>
@@ -78573,7 +78573,7 @@
 		<grade>454</grade>
 		<size>3</size>
 		<assaultable>true</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6613</id>
 		<name>Skeleton Hellhound</name>
@@ -78585,7 +78585,7 @@
 		<grade>214</grade>
 		<size>2</size>
 		<assaultable>true</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6614</id>
 		<name>Greater Skeleton Hellhound</name>
@@ -78597,7 +78597,7 @@
 		<grade>281</grade>
 		<size>2</size>
 		<assaultable>true</assaultable>
-	</NpcDefinition>		
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6615</id>
 		<name>Scorpia</name>
@@ -78609,7 +78609,7 @@
 		<grade>225</grade>
 		<size>5</size>
 		<assaultable>true</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6616</id>
 		<name>Scorpia's offspring</name>
@@ -78621,7 +78621,7 @@
 		<grade>15</grade>
 		<size>1</size>
 		<assaultable>true</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6617</id>
 		<name>Scorpia's guardian</name>
@@ -78657,7 +78657,7 @@
 		<grade>202</grade>
 		<size>1</size>
 		<assaultable>true</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6620</id>
 		<name>Miniature chaotic clouds</name>
@@ -78669,7 +78669,7 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>		
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6635</id>
 		<name>Baby Mole</name>
@@ -78693,7 +78693,7 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6638</id>
 		<name>Kalphite Princess</name>
@@ -78705,7 +78705,7 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>		
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6640</id>
 		<name>Kraken</name>
@@ -78717,7 +78717,7 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6655</id>
 		<name>Smoke Devil</name>
@@ -78729,7 +78729,7 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>		
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6730</id>
 		<name>Rock Golem</name>
@@ -78741,7 +78741,7 @@
 		<grade>159</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 	<NpcDefinition>
 		<id>6749</id>
 		<name>Dunce</name>
@@ -78753,5 +78753,5 @@
 		<grade>0</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
-	</NpcDefinition>	
+	</NpcDefinition>
 </list>

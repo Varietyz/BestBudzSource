@@ -5,7 +5,7 @@
     "end": { "x": 2729, "y": 3490, "z": 1 },
     "grade": 60,
     "experience": 0,
-    "ordinal": -1
+    "ordinal": -1,
     "next": {
       "type": "ROOFTOP_CLIMB_2",
       "start": { "x": 2729, "y": 3489, "z": 0 },

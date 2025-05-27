@@ -4,201 +4,188 @@ import com.bestbudz.core.util.GameDefinitionLoader;
 
 public class Door {
 
-	private int id;
+  private final int id;
+  private final byte z;
+  private final byte type;
+  private final byte face;
+  private int id2;
+  private int currentId;
+  private short x;
+  private short y;
+  private byte xMod = 0;
+  private byte yMod = 0;
+  private byte currentFace;
+  private byte face2;
 
-	private int id2;
+  private byte append = 0;
 
-	private int currentId;
+  public Door(int id, int x, int y, int z, int type, int face) {
+    this.currentId = id;
+    this.id = currentId;
+    this.x = (short) x;
+    this.y = (short) y;
+    this.z = (byte) z;
+    this.currentFace = (byte) face;
+    this.type = (byte) type;
+    this.face = (byte) face;
 
-	private short x;
+    boolean flag = !MapConstants.isOpen(id);
+    this.id2 = GameDefinitionLoader.getAlternate(id);
 
-	private short y;
+    if (id2 <= 0) {
+      id2 = id;
+    }
 
-	private byte xMod = 0;
+    if (type == 9) {
+      if (!flag) {
+        switch (face) {
+          case 0:
+            face2 = 1;
+            xMod = 1;
+            break;
+          case 1:
+            face2 = 0;
+            yMod = -1;
+            break;
+          case 2:
+            face2 = 1;
+            xMod = -1;
+            break;
+        }
+      } else {
+        switch (face) {
+          case 0:
+            face2 = 3;
+            xMod = 1;
+            break;
+          case 1:
+            face2 = 0;
+            yMod = -1;
+            break;
+          case 2:
+            face2 = 3;
+            yMod = -1;
+            break;
+          case 3:
+            face2 = 0;
+            xMod = -1;
+            break;
+        }
+      }
 
-	private byte yMod = 0;
+      return;
+    }
 
-	private byte z;
+    if (!flag) {
+      switch (face) {
+        case 0:
+          face2 = 3;
+          yMod = 1;
+          break;
+        case 1:
+          face2 = 0;
+          xMod = 1;
+          break;
+        case 2:
+          face2 = 1;
+          yMod = -1;
+          break;
+        case 3:
+          face2 = 2;
+          xMod = -1;
+          break;
+      }
+    } else {
+      switch (face) {
+        case 0:
+          face2 = 1;
+          xMod = -1;
+          break;
+        case 1:
+          face2 = 2;
+          yMod = 1;
+          break;
+        case 2:
+          face2 = -1;
+          xMod = 1;
+          break;
+        case 3:
+          face2 = 0;
+          yMod = -1;
+          break;
+      }
+    }
+  }
 
-	private byte currentFace;
+  public boolean equals(Door door) {
+    return door.id == id && door.x == x && door.y == y && door.z == z;
+  }
 
-	private byte type;
+  public void append() {
+    if (currentId == id) {
+      currentId = id2;
+    } else if (currentId == id2) {
+      currentId = id;
+    }
 
-	private byte face;
+    if (currentFace == face) {
+      currentFace = face2;
+      x += xMod;
+      y += yMod;
+      append = (byte) 1;
+    } else if (currentFace == face2) {
+      currentFace = face;
+      x -= xMod;
+      y -= yMod;
+      append = (byte) 0;
+    }
+  }
 
-	private byte face2;
+  public int getFace() {
+    return face;
+  }
 
-	private byte append = 0;
+  public int getFace2() {
+    return face2;
+  }
 
-	public Door(int id, int x, int y, int z, int type, int face) {
-		this.currentId = id;
-		this.id = currentId;
-		this.x = (short) x;
-		this.y = (short) y;
-		this.z = (byte) z;
-		this.currentFace = (byte) face;
-		this.type = (byte) type;
-		this.face = (byte) face;
+  public int getCurrentFace() {
+    return currentFace;
+  }
 
-		boolean flag = !MapConstants.isOpen(id);
-		this.id2 = GameDefinitionLoader.getAlternate(id);
+  public void setCurrentFace(int currentFace) {
+    this.currentFace = (byte) currentFace;
+  }
 
-		if (id2 <= 0) {
-			id2 = id;
-		}
+  public int getType() {
+    return type;
+  }
 
-		if (type == 9) {// diagonal doors
-			if (!flag) {// open
-				switch (face) {
-				case 0:
-					face2 = 1;
-					xMod = 1;
-					break;
-				case 1:
-					face2 = 0;
-					yMod = -1;
-					break;
-				case 2:
-					face2 = 1;
-					xMod = -1;
-					break;
-				}
-			} else {// closed
-				switch (face) {
-				case 0:
-					face2 = 3;
-					xMod = 1;
-					break;
-				case 1:
-					face2 = 0;
-					yMod = -1;
-					break;
-				case 2:
-					face2 = 3;
-					yMod = -1;
-					break;
-				case 3:
-					face2 = 0;
-					xMod = -1;
-					break;
-				}
-			}
+  public int getId() {
+    return id;
+  }
 
-			return;
-		}
+  public int getId2() {
+    return id2;
+  }
 
-		if (!flag) {// open
-			switch (face) {
-			case 0:
-				face2 = 3;
-				yMod = 1;
-				break;
-			case 1:
-				face2 = 0;
-				xMod = 1;
-				break;
-			case 2:
-				face2 = 1;
-				yMod = -1;
-				break;
-			case 3:
-				face2 = 2;
-				xMod = -1;
-				break;
-			}
-		} else {// closed
-			switch (face) {
-			case 0:
-				face2 = 1;
-				xMod = -1;
-				break;
-			case 1:
-				face2 = 2;
-				yMod = 1;
-				break;
-			case 2:
-				face2 = -1;
-				xMod = 1;
-				break;
-			case 3:
-				face2 = 0;
-				yMod = -1;
-				break;
-			}
-		}
-	}
+  public int getCurrentId() {
+    return currentId;
+  }
 
-	public boolean equals(Door door) {
-		return door.id == id && door.x == x && door.y == y && door.z == z;
-	}
+  public int getX() {
+    return x;
+  }
 
-	public void append() {
-		if (currentId == id) {
-			currentId = id2;
-		} else if (currentId == id2) {
-			currentId = id;
-		}
+  public int getY() {
+    return y;
+  }
 
-		if (currentFace == face) {
-			currentFace = face2;
-			x += xMod;
-			y += yMod;
-			append = (byte) 1;
-		} else if (currentFace == face2) {
-			currentFace = face;
-			x -= xMod;
-			y -= yMod;
-			append = (byte) 0;
-		}
+  public int getZ() {
+    return z;
+  }
 
-		// System.out.println("to: " + x + " " + y);
-	}
-
-	public int getFace() {
-		return face;
-	}
-
-	public int getFace2() {
-		return face2;
-	}
-
-	public int getCurrentFace() {
-		return currentFace;
-	}
-
-	public void setCurrentFace(int currentFace) {
-		this.currentFace = (byte) currentFace;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public int getId2() {
-		return id2;
-	}
-
-	public int getCurrentId() {
-		return currentId;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public int getZ() {
-		return z;
-	}
-
-	public boolean original() {
-		return append == (byte) 0;
-	}
+  public boolean original() {
+    return append == (byte) 0;
+  }
 }

@@ -1,10 +1,5 @@
 package com.bestbudz.rs2.content;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import com.bestbudz.core.util.NameUtil;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -12,11 +7,15 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendFriendUpdate;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendPMServer;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendPrivateMessage;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PrivateMessaging {
 	private final Stoner stoner;
-	private List<String> friends = new LinkedList<String>();
-	private List<String> ignores = new LinkedList<String>();
+	private final List<String> friends = new LinkedList<String>();
+	private final List<String> ignores = new LinkedList<String>();
 	private int messagesReceived = 0;
 
 	public PrivateMessaging(Stoner stoner) {

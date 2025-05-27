@@ -1,10 +1,8 @@
 package com.bestbudz.rs2.content.trading;
 
-import java.util.HashMap;
-
 import com.bestbudz.core.util.GameDefinitionLoader;
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.NameUtil;
+import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.logger.StonerLogger;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -12,18 +10,20 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBoxInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.HashMap;
 
 public class Trade {
 
-	public static enum TradeStages {
-		NONE,
-		STAGE_1,
-		STAGE_1_ACCEPTED,
-		STAGE_2,
-		STAGE_2_ACCEPTED;
-	}
-
 	public static final int TRADE_CONTAINER_SIZE = 28;
+	protected final Stoner stoner;
+	protected TradeStages stage = TradeStages.NONE;
+	protected Trade tradingWith = null;
+	protected TradeContainer container = new TradeContainer(this);
+	protected String lastRequest = null;
+
+	public Trade(Stoner stoner) {
+	this.stoner = stoner;
+	}
 
 	public static String getTotalAmount(int amount) {
 	if ((amount >= 10000) && (amount < 10000000))
@@ -96,20 +96,6 @@ public class Trade {
 		trade.append("Nada, Nothing!");
 	}
 	stoner.getClient().queueOutgoingPacket(new SendString(trade.toString(), 3558));
-	}
-
-	protected final Stoner stoner;
-
-	protected TradeStages stage = TradeStages.NONE;
-
-	protected Trade tradingWith = null;
-
-	protected TradeContainer container = new TradeContainer(this);
-
-	protected String lastRequest = null;
-
-	public Trade(Stoner stoner) {
-	this.stoner = stoner;
 	}
 
 	@SuppressWarnings("incomplete-switch")
@@ -305,6 +291,10 @@ public class Trade {
 	return stage;
 	}
 
+	public void setStage(TradeStages stage) {
+	this.stage = stage;
+	}
+
 	public String getStatus() {
 	return "Dealing";
 	}
@@ -315,6 +305,10 @@ public class Trade {
 
 	public Trade getTradingWith() {
 	return tradingWith;
+	}
+
+	public void setTradingWith(Trade tradingWith) {
+	this.tradingWith = tradingWith;
 	}
 
 	public void request(Stoner requested) {
@@ -357,15 +351,15 @@ public class Trade {
 	lastRequest = null;
 	}
 
-	public void setStage(TradeStages stage) {
-	this.stage = stage;
-	}
-
-	public void setTradingWith(Trade tradingWith) {
-	this.tradingWith = tradingWith;
-	}
-
 	public boolean trading() {
 	return stage != TradeStages.NONE;
+	}
+
+	public enum TradeStages {
+		NONE,
+		STAGE_1,
+		STAGE_1_ACCEPTED,
+		STAGE_2,
+		STAGE_2_ACCEPTED
 	}
 }

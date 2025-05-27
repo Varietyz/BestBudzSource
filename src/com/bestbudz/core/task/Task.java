@@ -5,208 +5,162 @@ import com.bestbudz.rs2.entity.Entity;
 
 public abstract class Task {
 
-	/**
-	 * The break type, applies to (@Task)
-	 */
-	public enum BreakType {
-		/**
-		 * Never stop this task
-		 */
-		NEVER,
-		/**
-		 * Stop this task on movement
-		 */
-		ON_MOVE
-	}
+  private final TaskIdentifier taskId;
+  private final boolean immediate;
+  private final Entity entity;
+  private final StackType stackType;
+  private final BreakType breakType;
+  private short delay;
+  private short position = 0;
+  private boolean stopped = false;
 
-	/**
-	 * The stacking type, applies to (@Entity)
-	 */
-	public enum StackType {
-		/**
-		 * Always duplicates
-		 */
-		STACK,
-		/**
-		 * Never allow duplicates
-		 */
-		NEVER_STACK
-	}
+  public Task(Entity entity, int delay) {
+    this.entity = entity;
+    this.delay = (short) delay;
+    this.immediate = false;
+    breakType = BreakType.NEVER;
+    stackType = StackType.STACK;
+    taskId = TaskIdentifier.CURRENT_ACTION;
+  }
 
-	/**
-	 * The delay between executions.
-	 */
-	private short delay;
-	/**
-	 * The ticks until an execution
-	 */
-	private short position = 0;
-	/**
-	 * The id that will differentiate this task from others
-	 */
-	private final TaskIdentifier taskId;
-	/**
-	 * Execute immediately
-	 */
-	private boolean immediate;
-	/**
-	 * Has the task been stopped
-	 */
-	private boolean stopped = false;
-	/**
-	 * The (@Entity) associated with this task
-	 */
-	private final Entity entity;
+  public Task(Entity entity, int delay, boolean immediate) {
+    this.entity = entity;
+    this.delay = (short) delay;
+    this.immediate = immediate;
+    breakType = BreakType.NEVER;
+    stackType = StackType.STACK;
+    taskId = TaskIdentifier.CURRENT_ACTION;
+  }
 
-	/**
-	 * The (@StackType)
-	 */
-	private final StackType stackType;
+  public Task(
+      Entity entity,
+      int delay,
+      boolean immediate,
+      StackType stackType,
+      BreakType breakType,
+      TaskIdentifier taskId) {
+    this.delay = (short) delay;
+    this.immediate = immediate;
+    this.entity = entity;
+    this.breakType = breakType;
+    this.stackType = stackType;
+    this.taskId = taskId;
+  }
 
-	/**
-	 * The (@BreakType)
-	 */
-	private final BreakType breakType;
+  public Task(int delay) {
+    entity = null;
+    this.delay = (short) delay;
+    this.immediate = false;
+    breakType = BreakType.NEVER;
+    stackType = StackType.STACK;
+    taskId = TaskIdentifier.CURRENT_ACTION;
+  }
 
-	public Task(Entity entity, int delay) {
-		this.entity = entity;
-		this.delay = (short) delay;
-		this.immediate = false;
-		breakType = BreakType.NEVER;
-		stackType = StackType.STACK;
-		taskId = TaskIdentifier.CURRENT_ACTION;
-	}
+  public Task(int delay, boolean immediate) {
+    entity = null;
+    this.delay = (short) delay;
+    this.immediate = immediate;
+    breakType = BreakType.NEVER;
+    stackType = StackType.STACK;
+    taskId = TaskIdentifier.CURRENT_ACTION;
+  }
 
-	public Task(Entity entity, int delay, boolean immediate) {
-		this.entity = entity;
-		this.delay = (short) delay;
-		this.immediate = immediate;
-		breakType = BreakType.NEVER;
-		stackType = StackType.STACK;
-		taskId = TaskIdentifier.CURRENT_ACTION;
-	}
+  public Task(
+      int delay,
+      boolean immediate,
+      StackType stackType,
+      BreakType breakType,
+      TaskIdentifier taskId) {
+    entity = null;
+    this.delay = (short) delay;
+    this.immediate = immediate;
+    this.breakType = breakType;
+    this.stackType = stackType;
+    this.taskId = taskId;
+  }
 
-	public Task(Entity entity, int delay, boolean immediate, StackType stackType, BreakType breakType, TaskIdentifier taskId) {
-		this.delay = (short) delay;
-		this.immediate = immediate;
-		this.entity = entity;
-		this.breakType = breakType;
-		this.stackType = stackType;
-		this.taskId = taskId;
-	}
+  public abstract void execute();
 
-	public Task(int delay) {
-		entity = null;
-		this.delay = (short) delay;
-		this.immediate = false;
-		breakType = BreakType.NEVER;
-		stackType = StackType.STACK;
-		taskId = TaskIdentifier.CURRENT_ACTION;
-	}
+  public BreakType getBreakType() {
+    return breakType;
+  }
 
-	public Task(int delay, boolean immediate) {
-		entity = null;
-		this.delay = (short) delay;
-		this.immediate = immediate;
-		breakType = BreakType.NEVER;
-		stackType = StackType.STACK;
-		taskId = TaskIdentifier.CURRENT_ACTION;
-	}
+  public Entity getEntity() {
+    return entity;
+  }
 
-	public Task(int delay, boolean immediate, StackType stackType, BreakType breakType, TaskIdentifier taskId) {
-		entity = null;
-		this.delay = (short) delay;
-		this.immediate = immediate;
-		this.breakType = breakType;
-		this.stackType = stackType;
-		this.taskId = taskId;
-	}
+  public int getPosition() {
+    return position;
+  }
 
-	/**
-	 * Execute this task
-	 */
-	public abstract void execute();
+  public StackType getStackType() {
+    return stackType;
+  }
 
-	public BreakType getBreakType() {
-		return breakType;
-	}
+  public TaskIdentifier getTaskId() {
+    return taskId;
+  }
 
-	public Entity getEntity() {
-		return entity;
-	}
-
-	public int getPosition() {
-		return position;
-	}
-
-	public StackType getStackType() {
-		return stackType;
-	}
-
-	public TaskIdentifier getTaskId() {
-		return taskId;
-	}
-
-	/**
-	 * @return if the task is immediate
-	 */
-	public boolean immediate() {
-		return immediate;
-	}
+  public boolean immediate() {
+    return immediate;
+  }
 
 	public boolean isAssociateActive() {
-		return entity.isActive();
+		return entity != null && entity.isActive();
 	}
+
 
 	public boolean isAssociated() {
-		return entity != null;
-	}
+    return entity != null;
+  }
 
-	/**
-	 * Actions on stopping this task
-	 */
-	public abstract void onStop();
+  public abstract void onStop();
 
-	/**
-	 * Resets the location of this (@Task)
-	 */
-	public void reset() {
-		position = 0;
-	}
+  public void reset() {
+    position = 0;
+  }
 
-	/**
-	 * Ticks the task
-	 */
-	public void run() {
-		position++;
-		if (position >= delay) {
-			execute();
-			reset();
-		}
-	}
+  public void run() {
+    position++;
+    if (position >= delay) {
+      execute();
+      reset();
+    }
+  }
 
-	public void setTaskDelay(int ticks) {
-		if (ticks < 0) {
-			throw new IllegalArgumentException("Tick amount must be positive.");
-		}
+  public void setTaskDelay(int ticks) {
+    if (ticks < 0) {
+      throw new IllegalArgumentException("Tick amount must be positive.");
+    }
 
-		this.delay = (short) ticks;
-	}
+    this.delay = (short) ticks;
+  }
 
-	/**
-	 * Stops the (@Task)
-	 */
-	public void stop() {
-		stopped = true;
-	}
+  public void stop() {
+    stopped = true;
+  }
 
-	/**
-	 * @return if this task has been stopped
-	 */
+  public enum BreakType {
+    NEVER,
+    ON_MOVE
+  }
+
+  public enum StackType {
+    STACK,
+    NEVER_STACK
+  }
+
 	public boolean stopped() {
-		return stopped || entity != null && !entity.isActive() || breakType == BreakType.ON_MOVE && entity.getMovementHandler().isFlagged() && !entity.getMovementHandler().isForced();
+		if (stopped) return true;
+		if (entity == null) return false;
+		if (!entity.isActive()) return true;
+		if (breakType == BreakType.ON_MOVE) {
+			var move = entity.getMovementHandler();
+			return move.isFlagged() && !move.isForced();
+		}
+		return false;
 	}
 
-	public void onStart() {
-	}
+
+  public void onStart() {}
 }

@@ -9,25 +9,12 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
 
-/**
- * Shopping
- * 
- * @author Jaybane
- * @author Jaybane
- */
 public class Shopping {
-
-	public static enum ShopType {
-		DEFAULT,
-		STONER,
-		INSTANCE;
-	}
 
 	public static final int SHOP_INTERFACE_ID = 3900;
 	public static final int BOX_INTERFACE_ID = 3823;
 	private final Stoner stoner;
 	private long shopId = -1L;
-
 	private ShopType shopType = ShopType.DEFAULT;
 
 	public Shopping(Stoner stoner) {
@@ -44,7 +31,7 @@ public class Shopping {
 		Stoner p = World.getStonerByName(shopId);
 
 		if (p == null) {
-			DialogueManager.sendStatement(p, new String[] { "The shop owner is no longer online." });
+			DialogueManager.sendStatement(p, "The shop owner is no longer online.");
 			return;
 		}
 
@@ -226,7 +213,7 @@ public class Shopping {
 		Stoner p = World.getStonerByName(shopId);
 
 		if (p == null) {
-			DialogueManager.sendStatement(p, new String[] { "The shop owner is no longer online." });
+			DialogueManager.sendStatement(p, "The shop owner is no longer online.");
 			return;
 		}
 
@@ -267,7 +254,7 @@ public class Shopping {
 	int value = Shop.getShops()[((int) shopId)].getBuyPrice(id);
 	String itemName = Item.getDefinition(id).getName();
 	String price = "" + value;
-	String bestbucks = value == 1 ? "bestbucks" : "bestbucks";
+	String bestbucks = "bestbucks";
 
 	if ((value > 1000) && (value < 1000000))
 		price = value / 1000 + "k (" + value + ")";
@@ -277,7 +264,7 @@ public class Shopping {
 		price = "one";
 	}
 
-	stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] " + ShopConstants.COLOUR + "" + itemName + "</col>: shop will buy for " + ShopConstants.COLOUR + "" + price + "</col> " + bestbucks + "."));
+	stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] " + ShopConstants.COLOUR + itemName + "</col>: shop will buy for " + ShopConstants.COLOUR + price + "</col> " + bestbucks + "."));
 	}
 
 	public void sendSellPrice(int id) {
@@ -288,7 +275,7 @@ public class Shopping {
 		Stoner p = World.getStonerByName(shopId);
 
 		if (p == null) {
-			DialogueManager.sendStatement(p, new String[] { "The shop owner is no longer online." });
+			DialogueManager.sendStatement(p, "The shop owner is no longer online.");
 			return;
 		}
 
@@ -302,7 +289,7 @@ public class Shopping {
 	if (shopType != ShopType.STONER || shopType == ShopType.INSTANCE) {
 		if (Shop.getShops()[((int) shopId)].getCurrencyName() == null) {
 			String price = "" + value;
-			String bestbucks = value == 1 ? "bestbucks" : "bestbucks";
+			String bestbucks = "bestbucks";
 
 			if ((value > 1000) && (value < 1000000))
 				price = value / 1000 + "k (" + value + ")";
@@ -312,13 +299,13 @@ public class Shopping {
 				price = "one";
 			}
 
-			stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] " + ShopConstants.COLOUR + "" + itemName + "</col>: currently costs " + ShopConstants.COLOUR + "" + price + "</col> " + bestbucks + "."));
+			stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] " + ShopConstants.COLOUR + itemName + "</col>: currently costs " + ShopConstants.COLOUR + price + "</col> " + bestbucks + "."));
 		} else {
-			stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] " + ShopConstants.COLOUR + "" + itemName + "</col>: currentky costs " + ShopConstants.COLOUR + "" + value + "</col> " + Shop.getShops()[((int) shopId)].getCurrencyName() + "."));
+			stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] " + ShopConstants.COLOUR + itemName + "</col>: currentky costs " + ShopConstants.COLOUR + value + "</col> " + Shop.getShops()[((int) shopId)].getCurrencyName() + "."));
 		}
 	} else {
 		String price = "" + value;
-		String bestbucks = value == 1 ? "bestbucks" : "bestbucks";
+		String bestbucks = "bestbucks";
 
 		if ((value > 1000) && (value < 1000000))
 			price = value / 1000 + "k (" + value + ")";
@@ -328,7 +315,7 @@ public class Shopping {
 			price = "one";
 		}
 
-		stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] " + ShopConstants.COLOUR + "" + itemName + "</col>: currently costs " + ShopConstants.COLOUR + "" + price + "</col> " + bestbucks + "."));
+		stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] " + ShopConstants.COLOUR + itemName + "</col>: currently costs " + ShopConstants.COLOUR + price + "</col> " + bestbucks + "."));
 	}
 	}
 
@@ -346,7 +333,7 @@ public class Shopping {
 		Stoner p = World.getStonerByName(shopId);
 
 		if (p == null) {
-			DialogueManager.sendStatement(stoner, new String[] { "This stoner is no longer online." });
+			DialogueManager.sendStatement(stoner, "This stoner is no longer online.");
 			shopId = -1L;
 			return;
 		}
@@ -358,5 +345,11 @@ public class Shopping {
 		stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3900, shop.getItems()));
 		doShopPriceUpdate();
 	}
+	}
+
+	public enum ShopType {
+		DEFAULT,
+		STONER,
+		INSTANCE
 	}
 }

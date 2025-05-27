@@ -1,5 +1,7 @@
 package com.bestbudz.core.cache.map;
 
+import com.bestbudz.core.cache.ByteStream;
+import com.bestbudz.core.util.Utility;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -10,15 +12,9 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
-import com.bestbudz.core.cache.ByteStream;
-import com.bestbudz.core.util.Utility;
-
 public class MapLoading {
 
-	/**
-	 * The logger for the class
-	 */
-	private static Logger logger = Logger.getLogger(MapLoading.class.getSimpleName());
+	private static final Logger logger = Logger.getLogger(MapLoading.class.getSimpleName());
 
 	private static List<QueuedDoor> doorQueue = new LinkedList<QueuedDoor>();
 
@@ -55,7 +51,6 @@ public class MapLoading {
 			try {
 				loadMaps(regionIds[i], new ByteStream(file1), new ByteStream(file2));
 			} catch (Exception e) {
-				// e.printStackTrace();
 				System.out.println("Error loading map region: " + regionIds[i] + ", ids: " + mapObjectsFileIds[i] + " and " + mapGroundFileIds[i]);
 			}
 		}
@@ -77,7 +72,7 @@ public class MapLoading {
 
 		RSObject o = MapConstants.getDoubleDoor(i.getId(), i.getX(), i.getY(), i.getZ(), i.getFace());
 
-		if (o != null) {// it's a double door
+		if (o != null) {
 			if (MapConstants.isOpen(o.getId())) {
 				continue;
 			}
@@ -103,13 +98,6 @@ public class MapLoading {
 		return;
 	}
 
-	/*
-	 * if (def.name != null && def.name.contains("Flax")) { def.unwalkable = false;
-	 * }
-	 * 
-	 * if (objectId == 9369 || objectId == 9368) { def.unwalkable = true; }
-	 */
-
 	int xLength;
 	int yLength;
 	if (direction != 1 && direction != 3) {
@@ -119,21 +107,6 @@ public class MapLoading {
 		xLength = def.yLength();
 		yLength = def.xLength();
 	}
-
-	/*
-	 * if (type == 22) { if (def.hasActions() && def.clipped()) {
-	 * addClipping(beforeLoad, x, y, height, 0x200000);
-	 * 
-	 * if (def.unshootable) { addProjectileClipping(beforeLoad, x, y, height,
-	 * 0x200000); } } } else if (type >= 9) { if (def.clipped()) {
-	 * addClippingForSolidObject(beforeLoad, x, y, height, xLength, yLength,
-	 * def.unshootable); } } else if (type >= 0 && type <= 3) { if (def.clipped() ||
-	 * def.hasActions) { addClippingForVariableObject(beforeLoad, x, y, height,
-	 * type, direction, def.unshootable); }
-	 * 
-	 * if (def.unshootable) { addProjectileClippingForVariableObject(beforeLoad, x,
-	 * y, height, type, direction, true); } }
-	 */
 
 	if (type == 22) {
 		if (def.hasActions() && def.aBoolean779) {
@@ -145,9 +118,7 @@ public class MapLoading {
 		}
 	} else if (type >= 0 && type <= 3) {
 		if (def.aBoolean779) {
-			addClippingForVariableObject(beforeLoad, x, y, height, type, direction, /*
-																					 * def . isSolid ( )
-																					 */def.aBoolean757);
+			addClippingForVariableObject(beforeLoad, x, y, height, type, direction,def.aBoolean757);
 		}
 	}
 
@@ -252,9 +223,7 @@ public class MapLoading {
 		}
 	} else if (type >= 0 && type <= 3) {
 		if (def.aBoolean779) {
-			removeClippingForVariableObject(x, y, height, type, direction, /*
-																			 * def . isSolid ( )
-																			 */
+			removeClippingForVariableObject(x, y, height, type, direction,
 					def.aBoolean757);
 		}
 	}
@@ -267,98 +236,52 @@ public class MapLoading {
 	public static void removeClippingForVariableObject(int x, int y, int height, int type, int direction, boolean flag) {
 	boolean before = false;
 	if (type == 0) {
-		// Normal walls
 		if (direction == 0) {
-			// Wall tile-west?
 			addClipping(before, x, y, height, -128);
 			addClipping(before, x - 1, y, height, -8);
 		} else if (direction == 1) {
-			// Wall tile-north?
 			addClipping(before, x, y, height, -2);
 			addClipping(before, x, y + 1, height, -32);
 		} else if (direction == 2) {
-			// Wall tile-east?
 			addClipping(before, x, y, height, -8);
 			addClipping(before, x + 1, y, height, -128);
 		} else if (direction == 3) {
-			// Wall tile-south?
 			addClipping(before, x, y, height, -32);
 			addClipping(before, x, y - 1, height, -2);
 		}
-		// Diagonal walls
 	} else if (type == 1 || type == 3) {
 		if (direction == 0) {
-			// Wall north-west???
 			addClipping(before, x, y, height, -1);
 			addClipping(before, x - 1, y, height, -16);
 		} else if (direction == 1) {
-			// Wall north-east
 			addClipping(before, x, y, height, -4);
 			addClipping(before, x + 1, y + 1, height, -64);
 		} else if (direction == 2) {
-			// Wall south-east
 			addClipping(before, x, y, height, -16);
 			addClipping(before, x + 1, y - 1, height, -1);
 		} else if (direction == 3) {
-			// Wall south-west
 			addClipping(before, x, y, height, -64);
 			addClipping(before, x - 1, y - 1, height, -4);
 		}
 	} else if (type == 2) {
 		if (direction == 0) {
-			// Blocked north and west
 			addClipping(before, x, y, height, -130);
 			addClipping(before, x - 1, y, height, -8);
 			addClipping(before, x, y + 1, height, -32);
 		} else if (direction == 1) {
-			// Blocked north and east
 			addClipping(before, x, y, height, -10);
 			addClipping(before, x, y + 1, height, -32);
 			addClipping(before, x + 1, y, height, -128);
 		} else if (direction == 2) {
-			// Blocked south and east
 			addClipping(before, x, y, height, -40);
 			addClipping(before, x + 1, y, height, -128);
 			addClipping(before, x, y - 1, height, -2);
 		} else if (direction == 3) {
-			// Blocked south and west
 			addClipping(before, x, y, height, -160);
 			addClipping(before, x, y - 1, height, -2);
 			addClipping(before, x - 1, y, height, -8);
 		}
 	}
-
-	/*
-	 * if (flag) { if (type == 0) { if (direction == 0) {
-	 * addProjectileClipping(before, x, y, height, -128);
-	 * addProjectileClipping(before, x - 1, y, height, -8); } if (direction == 1) {
-	 * addProjectileClipping(before, x, y, height, -2);
-	 * addProjectileClipping(before, x, y + 1, height, -32); } if (direction == 2) {
-	 * addProjectileClipping(before, x, y, height, -8);
-	 * addProjectileClipping(before, x + 1, y, height, -128); } if (direction == 3)
-	 * { addProjectileClipping(before, x, y, height, -32);
-	 * addProjectileClipping(before, x, y - 1, height, -2); } } if (type == 1 ||
-	 * type == 3) { if (direction == 0) { addProjectileClipping(before, x, y,
-	 * height, -1); addProjectileClipping(before, x - 1, y + 1, height, -16); } if
-	 * (direction == 1) { addProjectileClipping(before, x, y, height, -4);
-	 * addProjectileClipping(before, x + 1, y + 1, height, -64); } if (direction ==
-	 * 2) { addProjectileClipping(before, x, y, height, -16);
-	 * addProjectileClipping(before, x + 1, y - 1, height, -1); } if (direction ==
-	 * 3) { addProjectileClipping(before, x, y, height, -64);
-	 * addProjectileClipping(before, x - 1, y - 1, height, -4); } } if (type == 2) {
-	 * if (direction == 0) { addProjectileClipping(before, x, y, height, -130);
-	 * addProjectileClipping(before, x - 1, y, height, -8);
-	 * addProjectileClipping(before, x, y + 1, height, -32); } if (direction == 1) {
-	 * addProjectileClipping(before, x, y, height, -10);
-	 * addProjectileClipping(before, x, y + 1, height, -32);
-	 * addProjectileClipping(before, x + 1, y, height, -128); } if (direction == 2)
-	 * { addProjectileClipping(before, x, y, height, -40);
-	 * addProjectileClipping(before, x + 1, y, height, -128);
-	 * addProjectileClipping(before, x, y - 1, height, -2); } if (direction == 3) {
-	 * addProjectileClipping(before, x, y, height, -160);
-	 * addProjectileClipping(before, x, y - 1, height, -2);
-	 * addProjectileClipping(before, x - 1, y, height, -8); } } }
-	 */
 	}
 
 	private static void removeClippingForSolidObject(int x, int y, int height, int xLength, int yLength, boolean flag) {
@@ -435,66 +358,6 @@ public class MapLoading {
 			addClippingAlternate(before, 8, x - 1, y, height);
 		}
 	}
-	/*
-	 * if (flag) { if (type == 0) { if (direction == 0) {
-	 * addClippingAlternate(before, 0x10000, x, y, height);
-	 * addClippingAlternate(before, 4096, x - 1, y, height); } if (direction == 1) {
-	 * addClippingAlternate(before, 1024, x, y, height);
-	 * addClippingAlternate(before, 16384, x, y + 1, height); } if (direction == 2)
-	 * { addClippingAlternate(before, 4096, x, y, height);
-	 * addClippingAlternate(before, 0x10000, x + 1, y, height); } if (direction ==
-	 * 3) { addClippingAlternate(before, 16384, x, y, height);
-	 * addClippingAlternate(before, 1024, x, y - 1, height); } } if (type == 1 ||
-	 * type == 3) { if (direction == 0) { addClippingAlternate(before, 512, x, y,
-	 * height); addClippingAlternate(before, 8192, x - 1, y + 1, height); } if
-	 * (direction == 1) { addClippingAlternate(before, 2048, x, y, height);
-	 * addClippingAlternate(before, 32768, x + 1, y + 1, height); } if (direction ==
-	 * 2) { addClippingAlternate(before, 8192, x, y, height);
-	 * addClippingAlternate(before, 512, x + 1, y - 1, height); } if (direction ==
-	 * 3) { addClippingAlternate(before, 32768, x, y, height);
-	 * addClippingAlternate(before, 2048, x - 1, y - 1, height); } } if (type == 2)
-	 * { if (direction == 0) { addClippingAlternate(before, 0x10400, x, y, height);
-	 * addClippingAlternate(before, 4096, x - 1, y, height);
-	 * addClippingAlternate(before, 16384, x, y + 1, height); } if (direction == 1)
-	 * { addClippingAlternate(before, 5120, x, y, height);
-	 * addClippingAlternate(before, 16384, x, y + 1, height);
-	 * addClippingAlternate(before, 0x10000, x + 1, y, height); } if (direction ==
-	 * 2) { addClippingAlternate(before, 20480, x, y, height);
-	 * addClippingAlternate(before, 0x10000, x + 1, y, height);
-	 * addClippingAlternate(before, 1024, x, y - 1, height); } if (direction == 3) {
-	 * addClippingAlternate(before, 0x14000, x, y, height);
-	 * addClippingAlternate(before, 1024, x, y - 1, height);
-	 * addClippingAlternate(before, 4096, x - 1, y, height); } } }
-	 */
-
-	/*
-	 * if (type == 0) { // Normal walls if (direction == 0) { // Wall tile-west?
-	 * addClipping(before, x, y, height, 128); addClipping(before, x - 1, y, height,
-	 * 8); } else if (direction == 1) { // Wall tile-north? addClipping(before, x,
-	 * y, height, 2); addClipping(before, x, y + 1, height, 32); } else if
-	 * (direction == 2) { // Wall tile-east? addClipping(before, x, y, height, 8);
-	 * addClipping(before, x + 1, y, height, 128); } else if (direction == 3) { //
-	 * Wall tile-south? addClipping(before, x, y, height, 32); addClipping(before,
-	 * x, y - 1, height, 2); } // Diagonal walls } else if (type == 1 || type == 3)
-	 * { if (direction == 0) { // Wall north-west??? addClipping(before, x, y,
-	 * height, 1); addClipping(before, x - 1, y, height, 16); } else if (direction
-	 * == 1) { // Wall north-east addClipping(before, x, y, height, 4);
-	 * addClipping(before, x + 1, y + 1, height, 64); } else if (direction == 2) {
-	 * // Wall south-east addClipping(before, x, y, height, 16); addClipping(before,
-	 * x + 1, y - 1, height, 1); } else if (direction == 3) { // Wall south-west
-	 * addClipping(before, x, y, height, 64); addClipping(before, x - 1, y - 1,
-	 * height, 4); } } else if (type == 2) { if (direction == 0) { // Blocked north
-	 * and west addClipping(before, x, y, height, 130); addClipping(before, x - 1,
-	 * y, height, 8); addClipping(before, x, y + 1, height, 32); } else if
-	 * (direction == 1) { // Blocked north and east addClipping(before, x, y,
-	 * height, 10); addClipping(before, x, y + 1, height, 32); addClipping(before, x
-	 * + 1, y, height, 128); } else if (direction == 2) { // Blocked south and east
-	 * addClipping(before, x, y, height, 40); addClipping(before, x + 1, y, height,
-	 * 128); addClipping(before, x, y - 1, height, 2); } else if (direction == 3) {
-	 * // Blocked south and west addClipping(before, x, y, height, 160);
-	 * addClipping(before, x, y - 1, height, 2); addClipping(before, x - 1, y,
-	 * height, 8); } }
-	 */
 	}
 
 	public static void addProjectileClippingForVariableObject(boolean before, int x, int y, int height, int type, int direction, boolean flag) {

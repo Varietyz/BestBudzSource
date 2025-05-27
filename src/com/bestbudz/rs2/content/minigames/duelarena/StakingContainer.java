@@ -7,95 +7,93 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
 
 public class StakingContainer extends ItemContainer {
-	private final Stoner stoner;
+  private final Stoner stoner;
 
-	public StakingContainer(Stoner p) {
-	super(28, ItemContainer.ContainerTypes.STACK, true, true);
-	stoner = p;
-	}
+  public StakingContainer(Stoner p) {
+    super(28, ItemContainer.ContainerTypes.STACK, true, true);
+    stoner = p;
+  }
 
-	@Override
-	public boolean allowZero(int id) {
-	return false;
-	}
+  @Override
+  public boolean allowZero(int id) {
+    return false;
+  }
 
-	public void offer(int id, int amount, int slot) {
+  @Override
+  public void onAdd(Item item) {}
 
-	if (!stoner.getDueling().canAppendStake()) {
-		return;
-	}
+  @Override
+  public void onFillContainer() {}
 
-	if (!Item.getDefinition(id).isTradable()) {
-		stoner.getClient().queueOutgoingPacket(new SendMessage("You cannot stake that item."));
-		return;
-	}
+  @Override
+  public void onMaxStack() {}
 
-	int invAmount = stoner.getBox().getItemAmount(id);
+  @Override
+  public void onRemove(Item item) {}
 
-	if (invAmount == 0)
-		return;
-	if (invAmount < amount) {
-		amount = invAmount;
-	}
+  @Override
+  public void update() {
+    stoner.getClient().queueOutgoingPacket(new SendUpdateItems(6669, getItems()));
+    stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3322, stoner.getBox().getItems()));
+    if (stoner.getDueling().getInteracting() != null)
+      stoner
+          .getDueling()
+          .getInteracting()
+          .getClient()
+          .queueOutgoingPacket(new SendUpdateItems(6670, getItems()));
+  }
 
-	int removed = stoner.getBox().remove(new Item(id, amount));
+  public void offer(int id, int amount, int slot) {
 
-	if (removed > 0) {
-		add(id, removed);
+    if (!stoner.getDueling().canAppendStake()) {
+      return;
+    }
 
-		withdraw(getItemSlot(995), -(amount));
-	} else {
-		return;
-	}
+    if (!Item.getDefinition(id).isTradable()) {
+      stoner.getClient().queueOutgoingPacket(new SendMessage("You cannot stake that item."));
+      return;
+    }
 
-	stoner.getDueling().onStake();
-	stoner.getDueling().getInteracting().getDueling().onStake();
+    int invAmount = stoner.getBox().getItemAmount(id);
 
-	update();
-	}
+    if (invAmount == 0) return;
+    if (invAmount < amount) {
+      amount = invAmount;
+    }
 
-	@Override
-	public void onAdd(Item item) {
-	}
+    int removed = stoner.getBox().remove(new Item(id, amount));
 
-	@Override
-	public void onFillContainer() {
-	}
+    if (removed > 0) {
+      add(id, removed);
 
-	@Override
-	public void onMaxStack() {
-	}
+      withdraw(getItemSlot(995), -(amount));
+    } else {
+      return;
+    }
 
-	@Override
-	public void onRemove(Item item) {
-	}
+    stoner.getDueling().onStake();
+    stoner.getDueling().getInteracting().getDueling().onStake();
 
-	@Override
-	public void update() {
-	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(6669, getItems()));
-	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(3322, stoner.getBox().getItems()));
-	if (stoner.getDueling().getInteracting() != null)
-		stoner.getDueling().getInteracting().getClient().queueOutgoingPacket(new SendUpdateItems(6670, getItems()));
-	}
+    update();
+  }
 
-	public void withdraw(int slot, int amount) {
-	if ((get(slot) == null) || (!stoner.getDueling().canAppendStake())) {
-		return;
-	}
+  public void withdraw(int slot, int amount) {
+    if ((get(slot) == null) || (!stoner.getDueling().canAppendStake())) {
+      return;
+    }
 
-	int id = get(slot).getId();
+    int id = get(slot).getId();
 
-	int removed = remove(id, amount);
+    int removed = remove(id, amount);
 
-	if (removed > 0)
-		stoner.getBox().add(new Item(id, removed));
-	else {
-		return;
-	}
+    if (removed > 0) stoner.getBox().add(new Item(id, removed));
+    else {
+      return;
+    }
 
-	stoner.getDueling().onStake();
-	stoner.getDueling().getInteracting().getDueling().onStake();
+    stoner.getDueling().onStake();
+    stoner.getDueling().getInteracting().getDueling().onStake();
 
-	update();
-	}
+    update();
+  }
 }

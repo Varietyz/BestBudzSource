@@ -1,15 +1,14 @@
 package com.bestbudz.rs2.entity.object;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendObject;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class LocalObjects {
 
 	private final Stoner stoner;
-	private Deque<GameObject> adding = new LinkedList<GameObject>();
+	private final Deque<GameObject> adding = new LinkedList<GameObject>();
 	private boolean load = false;
 
 	public LocalObjects(Stoner stoner) {

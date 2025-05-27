@@ -9,12 +9,6 @@ import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.controllers.Controller;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 
-/**
- * Handles the Pest Control waiting room controller
- * 
- * @author Jaybane
- *
- */
 public class PestWaitingRoomController extends Controller {
 
 	@Override
@@ -43,16 +37,6 @@ public class PestWaitingRoomController extends Controller {
 	}
 
 	@Override
-	public boolean canUnequip(Stoner stoner) {
-	return true;
-	}
-
-	@Override
-	public boolean canDrop(Stoner stoner) {
-	return true;
-	}
-
-	@Override
 	public boolean canDrink(Stoner p) {
 	return true;
 	}
@@ -64,6 +48,16 @@ public class PestWaitingRoomController extends Controller {
 
 	@Override
 	public boolean canEquip(Stoner p, int id, int slot) {
+	return true;
+	}
+
+	@Override
+	public boolean canUnequip(Stoner stoner) {
+	return true;
+	}
+
+	@Override
+	public boolean canDrop(Stoner stoner) {
 	return true;
 	}
 
@@ -132,6 +126,11 @@ public class PestWaitingRoomController extends Controller {
 	}
 
 	@Override
+	public void onKill(Stoner stoner, Entity killed) {
+
+	}
+
+	@Override
 	public void onDisconnect(Stoner p) {
 	}
 
@@ -141,7 +140,7 @@ public class PestWaitingRoomController extends Controller {
 
 	@Override
 	public void tick(Stoner p) {
-	p.getClient().queueOutgoingPacket(new SendString("Next Departure: " + Utility.getFormattedTime(PestControl.getMinutesTillDepart()) + "", 21120));
+	p.getClient().queueOutgoingPacket(new SendString("Next Departure: " + Utility.getFormattedTime(PestControl.getMinutesTillDepart()), 21120));
 	p.getClient().queueOutgoingPacket(new SendString("Stoners Ready: " + PestControl.getStonersReady(), 21121));
 	p.getClient().queueOutgoingPacket(new SendString("(Need 2 to 25 stoners)", 21122));
 	p.getClient().queueOutgoingPacket(new SendString("Points: " + Utility.format(p.getPestPoints()), 21123));
@@ -155,10 +154,5 @@ public class PestWaitingRoomController extends Controller {
 	@Override
 	public boolean transitionOnWalk(Stoner p) {
 	return false;
-	}
-
-	@Override
-	public void onKill(Stoner stoner, Entity killed) {
-
 	}
 }

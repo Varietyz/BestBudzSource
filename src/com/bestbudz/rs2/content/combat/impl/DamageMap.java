@@ -1,21 +1,20 @@
 package com.bestbudz.rs2.content.combat.impl;
 
+import com.bestbudz.rs2.entity.Entity;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.bestbudz.rs2.entity.Entity;
-
 public class DamageMap {
 
-	private Map<Entity, Integer> dmg = new HashMap<Entity, Integer>();
+	private final Map<Entity, Integer> dmg = new HashMap<Entity, Integer>();
 
 	private long lastDamage = 0L;
 
 	public DamageMap(Entity e) {
 	}
 
-	public void addDamage(Entity assaulter, int damage) {
+	public void addDamage(Entity assaulter, long damage) {
 	lastDamage = System.currentTimeMillis() + 60000;
 
 	if (damage == 0) {
@@ -23,11 +22,11 @@ public class DamageMap {
 	}
 
 	if (dmg.get(assaulter) == null) {
-		dmg.put(assaulter, Integer.valueOf(damage));
+		dmg.put(assaulter, Integer.valueOf((int) damage));
 	} else {
 		int total = dmg.get(assaulter).intValue();
 		dmg.remove(assaulter);
-		dmg.put(assaulter, Integer.valueOf(total + damage));
+		dmg.put(assaulter, Integer.valueOf((int) (total + damage)));
 	}
 	}
 

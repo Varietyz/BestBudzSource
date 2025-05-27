@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.bestbudz'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    // for your jars in lib/
+    flatDir { dirs 'lib' }
+}
+
+dependencies {
+    implementation platform('io.netty:netty-bom:4.2.1.Final')
+    implementation 'io.netty:netty-transport:4.2.1.Final'
+    implementation 'io.netty:netty-common:4.2.1.Final'
+    implementation 'io.netty:netty-buffer:4.2.1.Final'
+    implementation 'io.netty:netty-codec:4.2.1.Final'
+    implementation 'io.netty:netty-handler:4.2.1.Final'
+    implementation 'io.netty:netty-resolver:4.2.1.Final'
+    implementation 'io.netty:netty-transport-classes-epoll:4.2.1.Final'
+    implementation 'io.netty:netty-transport-classes-kqueue:4.2.1.Final'
+    implementation name: 'gson-2.2.2'
+    implementation name: 'json-lib-2.4-jdk15'
+    implementation name: 'json-simple-1.1.1'
+    implementation name: 'javacord-3.0.6-shaded'
+    implementation name: 'xpp3_min-1.1.4c'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.20'
+
+}
+
+
+application {
+    mainClassName = 'com.bestbudz.Server'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+        resources {
+            srcDirs = ['data']
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+    }
+
+}

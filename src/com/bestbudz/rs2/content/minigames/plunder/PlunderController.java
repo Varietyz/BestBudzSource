@@ -44,17 +44,17 @@ public class PlunderController extends Controller {
 	}
 
 	@Override
+	public boolean canEquip(Stoner paramStoner, int paramInt1, int paramInt2) {
+	return true;
+	}
+
+	@Override
 	public boolean canUnequip(Stoner stoner) {
 	return true;
 	}
 
 	@Override
 	public boolean canDrop(Stoner stoner) {
-	return true;
-	}
-
-	@Override
-	public boolean canEquip(Stoner paramStoner, int paramInt1, int paramInt2) {
 	return true;
 	}
 
@@ -122,6 +122,11 @@ public class PlunderController extends Controller {
 	}
 
 	@Override
+	public void onKill(Stoner stoner, Entity killed) {
+
+	}
+
+	@Override
 	public void onDisconnect(Stoner paramStoner) {
 	paramStoner.teleport(new Location(3434, 2890, 0));
 	}
@@ -142,10 +147,5 @@ public class PlunderController extends Controller {
 	@Override
 	public boolean transitionOnWalk(Stoner paramStoner) {
 	return false;
-	}
-
-	@Override
-	public void onKill(Stoner stoner, Entity killed) {
-
 	}
 }

@@ -1,5 +1,6 @@
 package com.bestbudz.rs2.content.clanchat;
 
+import com.bestbudz.GameDataLoader;
 import com.bestbudz.Server;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.World;
@@ -9,35 +10,20 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
+import org.javacord.api.entity.channel.TextChannel;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class Clan {
 
-	public static class Rank {
-
-		public static final int ANYONE = -1;
-		public static final int FRIEND = 0;
-		public static final int RECRUIT = 1;
-		public static final int CORPORAL = 2;
-		public static final int SERGEANT = 3;
-		public static final int LIEUTENANT = 4;
-		public static final int CAPTAIN = 5;
-		public static final int GENERAL = 6;
-		public static final int OWNER = 7;
-	}
-
 	public String title;
-
 	public String founder;
 	public LinkedList<String> activeMembers = new LinkedList();
 	public LinkedList<String> bannedMembers = new LinkedList();
 	public LinkedList<String> rankedMembers = new LinkedList();
-
 	public LinkedList<Integer> ranks = new LinkedList();
 	public int whoCanJoin = -1;
 	public int whoCanTalk = -1;
 	public int whoCanKick = 6;
-
 	public int whoCanBan = 7;
 
 	public Clan(Stoner paramStoner) {
@@ -70,7 +56,6 @@ public class Clan {
 	paramStoner.getClient().queueOutgoingPacket(new SendMessage("Joined Cult <col=FFFF64><shad=0>" + getTitle() + "</shad></col>."));
 	updateMembers();
 	if (this.founder.equalsIgnoreCase("bestbudz")) {
-		// discord
 		Stoner stoner = paramStoner;
 		String ts = "";
 		ts = ts + stoner.getUsername() + " is active.";
@@ -102,20 +87,14 @@ public class Clan {
 	if (isFounder(paramString)) {
 		return true;
 	}
-	if (getRank(paramString) >= this.whoCanBan) {
-		return true;
-	}
-	return false;
+		return getRank(paramString) >= this.whoCanBan;
 	}
 
 	public boolean canKick(String paramString) {
 	if (isFounder(paramString)) {
 		return true;
 	}
-	if (getRank(paramString) >= this.whoCanKick) {
-		return true;
-	}
-	return false;
+		return getRank(paramString) >= this.whoCanKick;
 	}
 
 	public void delete() {
@@ -139,6 +118,10 @@ public class Clan {
 
 	public String getFounder() {
 	return this.founder;
+	}
+
+	public void setFounder(String paramString) {
+	this.founder = paramString;
 	}
 
 	public int getRank(String paramString) {
@@ -183,34 +166,26 @@ public class Clan {
 	return this.title;
 	}
 
-	public boolean isAdmin(String paramString) {
-	if (paramString.equalsIgnoreCase("jaybane") || paramString.equalsIgnoreCase("ikushz") || paramString.equalsIgnoreCase("bestbudz") || paramString.equalsIgnoreCase("")) {
-		return true;
+	public void setTitle(String paramString) {
+	this.title = paramString;
 	}
-	return false;
+
+	public boolean isAdmin(String paramString) {
+		return paramString.equalsIgnoreCase("jaybane") || paramString.equalsIgnoreCase("ikushz") || paramString.equalsIgnoreCase("bestbudz") || paramString.equalsIgnoreCase("");
 	}
 
 	public boolean isBanned(String paramString) {
 	paramString = Utility.formatStonerName(paramString);
-	if (this.bannedMembers.contains(paramString)) {
-		return true;
-	}
-	return false;
+		return this.bannedMembers.contains(paramString);
 	}
 
 	public boolean isFounder(String paramString) {
-	if (getFounder().equalsIgnoreCase(paramString)) {
-		return true;
-	}
-	return false;
+		return getFounder().equalsIgnoreCase(paramString);
 	}
 
 	public boolean isRanked(String paramString) {
 	paramString = Utility.formatStonerName(paramString);
-	if (this.rankedMembers.contains(paramString)) {
-		return true;
-	}
-	return false;
+		return this.rankedMembers.contains(paramString);
 	}
 
 	public void kickMember(String paramString) {
@@ -232,10 +207,11 @@ public class Clan {
 	for (int i = 0; i < this.activeMembers.size(); i++) {
 		if (this.activeMembers.get(i).equalsIgnoreCase(paramStoner.getUsername())) {
 			if (this.founder.equalsIgnoreCase("bestbudz")) {
-				// discord
 				Stoner stoner = paramStoner;
+				TextChannel channel = (TextChannel) GameDataLoader.discord.getChannelById("947616122964934686").get();
 				String ts = "";
 				ts = ts + stoner.getUsername() + " is present.";
+				channel.sendMessage("**" + ts + "**");
 			}
 			paramStoner.clan = null;
 			resetInterface(paramStoner);
@@ -251,7 +227,6 @@ public class Clan {
 			Stoner localStoner = World.getStonerByName(paramString);
 			if (localStoner != null) {
 				if (this.founder.equalsIgnoreCase("bestbudz")) {
-					// discord
 					Stoner stoner = localStoner;
 					String ts = "";
 					ts = ts + stoner.getUsername() + " is absent.";
@@ -308,7 +283,6 @@ public class Clan {
 		}
 	}
 	if (this.founder.equalsIgnoreCase("bestbudz")) {
-		// discord
 		Stoner stoner = paramStoner;
 		String ts = "";
 		ts = ts + stoner.getUsername() + ": ";
@@ -317,9 +291,9 @@ public class Clan {
 		if (World.getStoners()[j] != null) {
 			Stoner c = World.getStoners()[j];
 			if ((c != null) && (this.activeMembers.contains(c.getUsername()) && paramStoner.getRights() == 2)) {
-				c.getClient().queueOutgoingPacket(new SendMessage("</col>[@blu@" + getTitle() + "</col>] " + "<cult=" + getRank(paramStoner.getUsername()) + ">" + paramStoner.getUsername() + ":@dre@ " + Utility.capitalizeFirstLetter(paramString) + ""));
+				c.getClient().queueOutgoingPacket(new SendMessage("</col>[@blu@" + getTitle() + "</col>] " + "<cult=" + getRank(paramStoner.getUsername()) + ">" + paramStoner.getUsername() + ":@dre@ " + Utility.capitalizeFirstLetter(paramString)));
 			} else if ((c != null) && (this.activeMembers.contains(c.getUsername()))) {
-				c.getClient().queueOutgoingPacket(new SendMessage("</col>[@blu@" + getTitle() + "</col>] <cult=" + getRank(paramStoner.getUsername()) + ">" + paramStoner.getUsername() + ":@dre@ " + Utility.capitalizeFirstLetter(paramString) + ""));
+				c.getClient().queueOutgoingPacket(new SendMessage("</col>[@blu@" + getTitle() + "</col>] <cult=" + getRank(paramStoner.getUsername()) + ">" + paramStoner.getUsername() + ":@dre@ " + Utility.capitalizeFirstLetter(paramString)));
 			}
 		}
 	}
@@ -333,10 +307,6 @@ public class Clan {
 				c.getClient().queueOutgoingPacket(new SendMessage(paramString));
 		}
 	}
-	}
-
-	public void setFounder(String paramString) {
-	this.founder = paramString;
 	}
 
 	public void setRank(String paramString, int paramInt) {
@@ -363,10 +333,6 @@ public class Clan {
 
 	public void setRankCanTalk(int paramInt) {
 	this.whoCanTalk = paramInt;
-	}
-
-	public void setTitle(String paramString) {
-	this.title = paramString;
 	}
 
 	public void unbanMember(String paramString) {
@@ -398,5 +364,18 @@ public class Clan {
 				updateInterface(stoner);
 		}
 	}
+	}
+
+	public static class Rank {
+
+		public static final int ANYONE = -1;
+		public static final int FRIEND = 0;
+		public static final int RECRUIT = 1;
+		public static final int CORPORAL = 2;
+		public static final int SERGEANT = 3;
+		public static final int LIEUTENANT = 4;
+		public static final int CAPTAIN = 5;
+		public static final int GENERAL = 6;
+		public static final int OWNER = 7;
 	}
 }

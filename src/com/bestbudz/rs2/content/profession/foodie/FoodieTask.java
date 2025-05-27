@@ -23,13 +23,28 @@ public class FoodieTask extends Task {
 	public static final String FOODIE_OBJECT_KEY = "foodieobject";
 	public static final String FOODIE_ITEM_KEY = "foodieitem";
 	public static final int FOODIE_GAUNTLETS = 775;
+	private static final int[][] BUTTON_IDS = { { 53152, 1 }, { 53151, 5 }, { 53149, 28 }, { 53150, 100 } };
+	private final FoodieData foodieData;
+	private final Stoner stoner;
+	private final int used;
+	private final int usedOn;
+	private int amountToCook;
+
+	public FoodieTask(Stoner stoner, FoodieData data, int used, int usedOn, int amount) {
+	super(stoner, 3, false, Task.StackType.NEVER_STACK, Task.BreakType.ON_MOVE, TaskIdentifier.CURRENT_ACTION);
+	this.stoner = stoner;
+	foodieData = data;
+	this.used = used;
+	this.usedOn = usedOn;
+	amountToCook = amount;
+	}
 
 	public static void attemptFoodie(Stoner stoner, int cook, int object, int amount) {
 	FoodieData data = FoodieData.forId(cook);
 	if (data == null) {
 		return;
 	}
-	
+
 	if (!meetsRequirements(stoner, data, cook, object)) {
 		return;
 	}
@@ -75,7 +90,7 @@ public class FoodieTask extends Task {
 	}
 
 	private static boolean meetsRequirements(Stoner stoner, FoodieData data, int used, int usedOn) {
-	int foodieGrade = stoner.getProfession().getGrades()[7];
+	long foodieGrade = stoner.getProfession().getGrades()[7];
 	if (foodieGrade < data.getGradeRequired()) {
 		stoner.getClient().queueOutgoingPacket(new SendMessage("You need a foodie grade of " + data.getGradeRequired() + " to cook " + Item.getDefinition(used).getName() + "."));
 		stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
@@ -103,27 +118,6 @@ return false;
 
 	stoner.getAttributes().set("foodieobject", Integer.valueOf(usedOn.getId()));
 	stoner.getAttributes().set("foodieitem", Integer.valueOf(used.getId()));
-	}
-
-	private FoodieData foodieData;
-
-	private Stoner stoner;
-
-	private int used;
-
-	private int usedOn;
-
-	private int amountToCook;
-
-	private static final int[][] BUTTON_IDS = { { 53152, 1 }, { 53151, 5 }, { 53149, 28 }, { 53150, 100 } };
-
-	public FoodieTask(Stoner stoner, FoodieData data, int used, int usedOn, int amount) {
-	super(stoner, 3, false, Task.StackType.NEVER_STACK, Task.BreakType.ON_MOVE, TaskIdentifier.CURRENT_ACTION);
-	this.stoner = stoner;
-	foodieData = data;
-	this.used = used;
-	this.usedOn = usedOn;
-	amountToCook = amount;
 	}
 
 	private void burnFood() {
@@ -160,6 +154,10 @@ return false;
 		stop();
 	}
 
+	@Override
+	public void onStop() {
+	}
+
 	private int getFoodieGradeBoost() {
 	Item gloves = stoner.getEquipment().getItems()[9];
 
@@ -168,10 +166,6 @@ return false;
 	}
 
 	return 0;
-	}
-
-	@Override
-	public void onStop() {
 	}
 
 	private boolean successfulAttempt() {

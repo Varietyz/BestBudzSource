@@ -8,214 +8,189 @@ import com.bestbudz.rs2.entity.item.Item;
 
 public class ItemDropDefinition {
 
-	public static class ItemDrop {
-		private short id;
+  private short id;
+  private ItemDropTable constant;
+  private ItemDropTable common;
+  private ItemDropTable uncommon;
+  private ItemDropTable rare;
+  private ItemDropTable always;
+  private boolean useRareTable;
 
-		private int min;
+  public ItemDropDefinition() {}
 
-		public int max;
+  public ItemDropTable getCommon() {
+    return common;
+  }
 
-		public ItemDrop() {
+  public ItemDropTable getConstant() {
+    return constant;
+  }
 
-		}
+  public int getId() {
+    return id;
+  }
 
-		public int getId() {
-			return id;
-		}
+  public ItemDropTable getAlways() {
+    return always;
+  }
 
-		public int getMax() {
-			return max;
-		}
+  public ItemDropTable getRare() {
+    return rare;
+  }
 
-		public int getMin() {
-			return min;
-		}
+  public ItemDropTable getUncommon() {
+    return uncommon;
+  }
 
-		public void setId(int id) {
-			this.id = (short) id;
-		}
+  public boolean isRareTable() {
+    return useRareTable;
+  }
 
-		/**
-		 * @param id
-		 *            the id to set
-		 */
-		public void setId(short id) {
-			this.id = id;
-		}
+  public Item[] getMostExpensiveDrops(int amount) {
 
-		/**
-		 * @param max
-		 *            the max to set
-		 */
-		public void setMax(short max) {
-			this.max = max;
-		}
+    List<Item> drops = new ArrayList<>();
 
-		/**
-		 * @param min
-		 *            the min to set
-		 */
-		public void setMin(short min) {
-			this.min = min;
-		}
+    if (constant != null && constant.getDrops() != null) {
+      for (ItemDrop item : constant.getDrops()) {
+        if (item == null) {
+          continue;
+        }
+        Item itemDrop = new Item(item.getId());
+        if (itemDrop.getDefinition() == null) {
+          continue;
+        }
+        drops.add(itemDrop);
+      }
+    }
 
-	}
+    if (common != null && common.getDrops() != null) {
+      for (ItemDrop item : common.getDrops()) {
+        if (item == null) {
+          continue;
+        }
+        Item itemDrop = new Item(item.getId());
+        if (itemDrop.getDefinition() == null) {
+          continue;
+        }
+        drops.add(itemDrop);
+      }
+    }
 
-	public static class ItemDropTable {
+    if (uncommon != null && uncommon.getDrops() != null) {
+      for (ItemDrop item : uncommon.getDrops()) {
+        if (item == null) {
+          continue;
+        }
+        Item itemDrop = new Item(item.getId());
+        if (itemDrop.getDefinition() == null) {
+          continue;
+        }
+        drops.add(itemDrop);
+      }
+    }
 
-		public enum ScrollTypes {
-			EASY,
-			MEDIUM,
-			HARD,
-			ELITE
-		}
+    if (rare != null && rare.getDrops() != null) {
+      for (ItemDrop item : rare.getDrops()) {
+        if (item == null) {
+          continue;
+        }
+        Item itemDrop = new Item(item.getId());
+        if (itemDrop.getDefinition() == null) {
+          continue;
+        }
+        drops.add(itemDrop);
+      }
+    }
 
-		public enum TableTypes {
-			COMMON,
-			UNCOMMON,
-			ALWAYS
-		}
+    Item[] items = new Item[amount];
 
-		private TableTypes type;
+    Collections.sort(
+        drops,
+        (first, second) ->
+            second.getDefinition().getGeneralPrice() - first.getDefinition().getGeneralPrice());
 
-		private ScrollTypes[] scrolls;
+    for (int i = 0; i < items.length; i++) {
+      if (drops.size() <= i) {
+        break;
+      }
+      items[i] = drops.get(i);
+    }
 
-		private ItemDrop[] charms;
+    return items;
+  }
 
-		private ItemDrop[] drops;
+  public static class ItemDrop {
+    public int max;
+    private short id;
+    private int min;
 
-		public ItemDropTable() {
-		}
+    public ItemDrop() {}
 
-		public ItemDrop[] getCharms() {
-			return charms;
-		}
+    public int getId() {
+      return id;
+    }
 
-		public ItemDrop[] getDrops() {
-			return drops;
-		}
+    public void setId(int id) {
+      this.id = (short) id;
+    }
 
-		public ScrollTypes[] getScrolls() {
-			return scrolls;
-		}
+    public void setId(short id) {
+      this.id = id;
+    }
 
-		public TableTypes getType() {
-			return type;
-		}
-	}
+    public int getMax() {
+      return max;
+    }
 
-	private short id;
+    public void setMax(short max) {
+      this.max = max;
+    }
 
-	private ItemDropTable constant;
+    public int getMin() {
+      return min;
+    }
 
-	private ItemDropTable common;
+    public void setMin(short min) {
+      this.min = min;
+    }
+  }
 
-	private ItemDropTable uncommon;
+  public static class ItemDropTable {
 
-	private ItemDropTable rare;
-	
-	private ItemDropTable always;
+    private TableTypes type;
+    private ScrollTypes[] scrolls;
+    private ItemDrop[] charms;
+    private ItemDrop[] drops;
 
-	private boolean useRareTable;
+    public ItemDropTable() {}
 
-	public ItemDropDefinition() {
-	}
+    public ItemDrop[] getCharms() {
+      return charms;
+    }
 
-	public ItemDropTable getCommon() {
-		return common;
-	}
+    public ItemDrop[] getDrops() {
+      return drops;
+    }
 
-	public ItemDropTable getConstant() {
-		return constant;
-	}
+    public ScrollTypes[] getScrolls() {
+      return scrolls;
+    }
 
-	public int getId() {
-		return id;
-	}
-	
-	public ItemDropTable getAlways() {
-		return always;
-	}
+    public TableTypes getType() {
+      return type;
+    }
 
-	public ItemDropTable getRare() {
-		return rare;
-	}
+    public enum ScrollTypes {
+      EASY,
+      MEDIUM,
+      HARD,
+      ELITE
+    }
 
-	public ItemDropTable getUncommon() {
-		return uncommon;
-	}
-
-	public boolean isRareTable() {
-		return useRareTable;
-	}
-
-	public Item[] getMostExpensiveDrops(int amount) {
-
-		List<Item> drops = new ArrayList<>();
-
-		if (constant != null && constant.getDrops() != null) {
-			for (ItemDrop item : constant.getDrops()) {
-				if (item == null) {
-					continue;
-				}
-				Item itemDrop = new Item(item.getId());
-				if (itemDrop.getDefinition() == null) {
-					continue;
-				}
-				drops.add(itemDrop);
-			}
-		}
-		
-		if (common != null && common.getDrops() != null) {
-			for (ItemDrop item : common.getDrops()) {
-				if (item == null) {
-					continue;
-				}
-				Item itemDrop = new Item(item.getId());
-				if (itemDrop.getDefinition() == null) {
-					continue;
-				}
-				drops.add(itemDrop);
-			}
-		}
-		
-		if (uncommon != null && uncommon.getDrops() != null) {
-			for (ItemDrop item : uncommon.getDrops()) {
-				if (item == null) {
-					continue;
-				}
-				Item itemDrop = new Item(item.getId());
-				if (itemDrop.getDefinition() == null) {
-					continue;
-				}
-				drops.add(itemDrop);
-			}
-		}
-		
-		if (rare != null && rare.getDrops() != null) {
-			for (ItemDrop item : rare.getDrops()) {
-				if (item == null) {
-					continue;
-				}
-				Item itemDrop = new Item(item.getId());
-				if (itemDrop.getDefinition() == null) {
-					continue;
-				}
-				drops.add(itemDrop);
-			}
-		}
-
-		Item[] items = new Item[amount];
-		
-		Collections.sort(drops, (first, second) -> second.getDefinition().getGeneralPrice() - first.getDefinition().getGeneralPrice());
-		
-		for (int i = 0; i < items.length; i++) {
-			if (drops.size() <= i) {
-				break;
-			}
-			items[i] = drops.get(i);
-		}
-
-		return items;
-	}
+    public enum TableTypes {
+      COMMON,
+      UNCOMMON,
+      ALWAYS
+    }
+  }
 }

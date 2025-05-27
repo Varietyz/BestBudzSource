@@ -1,23 +1,17 @@
 package com.bestbudz.rs2.entity.stoner.net.in.impl;
 
 import com.bestbudz.core.network.StreamBuffer;
-import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.foodie.FoodieTask;
-import com.bestbudz.rs2.content.profession.handiness.ArmourCreation;
-import com.bestbudz.rs2.content.profession.handiness.Craftable;
-import com.bestbudz.rs2.content.profession.handiness.HandinessType;
-import com.bestbudz.rs2.content.profession.handinessnew.craftable.impl.Gem;
+import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
-import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendEnterXInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMoveComponent;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendProfessionGoal;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 
 @SuppressWarnings("all")
 public class ChatInterfacePacket extends IncomingPacket {
@@ -81,21 +75,21 @@ public class ChatInterfacePacket extends IncomingPacket {
 			}
 		} else {
 			if (type == 1) {
-				if (amount > 99) {
-					amount = 99;
+				if (amount > 420) {
+					amount = 420;
 				}
 
-				if (stoner.getProfession().getGradeForExperience(professionId, stoner.getProfession().getExperience()[professionId]) >= 99) {
+				if (stoner.getProfession().getGradeForExperience(professionId, stoner.getProfession().getExperience()[professionId]) >= 420) {
 					return;
 				}
 
 				init = stoner.getProfession().getGradeForExperience(professionId, stoner.getProfession().getExperience()[professionId]);
 			} else if (type == 2) {
-				if (amount > 420_000_000) {
-					amount = 420_000_000;
+				if (amount > 1_000_000_000) {
+					amount = 1_000_000_000;
 				}
 
-				if (stoner.getProfession().getExperience()[professionId] >= 420_000_000) {
+				if (stoner.getProfession().getExperience()[professionId] >= 1_000_000_000) {
 					return;
 				}
 

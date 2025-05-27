@@ -2,17 +2,17 @@ package com.bestbudz.rs2.content.profession.summoning;
 
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
-public abstract interface FamiliarSpecial {
-	public static enum SpecialType {
-		COMBAT,
-		NONE;
-	}
+public interface FamiliarSpecial {
+  boolean execute(Stoner paramStoner, FamiliarMob paramFamiliarMob);
 
-	public abstract boolean execute(Stoner paramStoner, FamiliarMob paramFamiliarMob);
+  int getAmount();
 
-	public abstract int getAmount();
+  double getExperience();
 
-	public abstract double getExperience();
+  SpecialType getSpecialType();
 
-	public abstract SpecialType getSpecialType();
+  enum SpecialType {
+    COMBAT,
+    NONE
+  }
 }

@@ -11,6 +11,9 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 
 public class Autocast {
 
+	public final static int[] ANCIENT_STAFFS = { 4675, 4710, 11791, 12904, 6914 };
+	public final static int[] NO_AUTOCAST = { 12899, 11907, 11908 };
+
 	public static boolean clickButton(Stoner stoner, int id) {
 	switch (id) {
 	case 1093:
@@ -145,10 +148,6 @@ public class Autocast {
 		stoner.getClient().queueOutgoingPacket(new SendConfig(108, 1));
 	}
 	}
-
-	public final static int[] ANCIENT_STAFFS = { 4675, 4710, 11791, 12904, 6914 };
-
-	public final static int[] NO_AUTOCAST = { 12899, 11907, 11908 };
 
 	public static void sendSelectionInterface(Stoner stoner, int weaponId) {
 	for (int i = 0; i < NO_AUTOCAST.length; i++) {

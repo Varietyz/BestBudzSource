@@ -1,10 +1,5 @@
 package com.bestbudz.rs2.entity.mob;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Logger;
-
 import com.bestbudz.core.definitions.NpcCombatDefinition;
 import com.bestbudz.core.definitions.NpcCombatDefinition.Mage;
 import com.bestbudz.core.definitions.NpcCombatDefinition.Melee;
@@ -49,129 +44,43 @@ import com.bestbudz.rs2.entity.movement.MobMovementHandler;
 import com.bestbudz.rs2.entity.movement.MovementHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Logger;
 
-/**
- * Represents a single Mob in the in-game world
- * 
- * @author Jaybane
- * 
- */
 public class Mob extends Entity {
 
-	private static Logger logger = Logger.getLogger(Mob.class.getSimpleName());
-
-	public static NpcDefinition getDefinition(int id) {
-	return GameDefinitionLoader.getNpcDefinition(id);
-	}
-
-	/**
-	 * Spawns the boss mobs
-	 */
-	public static void spawnBosses() {
-	new CorporealBeast();
-	new SeaTrollQueen();
-	new Kreearra();
-	new KalphiteQueen();
-	new GiantMole();
-	new ChaosElemental();
-	new Callisto();
-	new Scorpia();
-	new Vetion();
-	new ChaosFanatic();
-	new CrazyArchaeologist();
-	logger.info("All MOB bosses have been spawned.");
-	}
-
-	/**
-	 * Constructs a new MovementHandler instance
-	 */
-	private MovementHandler movementHandler = new MobMovementHandler(this);
-
-	/**
-	 * Constructs a new MobFollowing instance
-	 */
-	private MobFollowing following = new MobFollowing(this);
-
-	/**
-	 * The spawn location of the MOB
-	 */
+	private static final Logger logger = Logger.getLogger(Mob.class.getSimpleName());
+	private final MovementHandler movementHandler = new MobMovementHandler(this);
+	private final MobFollowing following = new MobFollowing(this);
 	private final Location spawnLocation;
-
-	/**
-	 * The mob walks around
-	 */
 	private final boolean walks;
-
-	/**
-	 * The id of the mob
-	 */
-	private short npcId;
-
-	/**
-	 * The original id for transforming mobs
-	 */
 	private final short originalNpcId;
-
-	/**
-	 * The id of the mob to transform into
-	 */
-	private short transformId = -1;
-
-	/**
-	 * If the mob is visible or not
-	 */
-	private boolean visible = true;
-
-	/**
-	 * A transform update required
-	 */
-	private boolean transformUpdate = false;
-
-	/**
-	 * A force walk update required
-	 */
-	private boolean forceWalking = false;
-	/**
-	 * The mob needs placement
-	 */
-	private boolean placement = false;
-	private byte combatIndex = 0;
 	private final boolean assaultable;
-	private boolean shouldRespawn = true;
 	private final boolean face;
 	private final boolean noFollow;
-	private byte faceDir;
 	private final boolean lockFollow;
 	private final Stoner owner;
+	private boolean pet;
+	private short npcId;
+	private short transformId = -1;
+	private boolean visible = true;
+	private boolean transformUpdate = false;
+	private boolean forceWalking = false;
+	private boolean placement = false;
+	private byte combatIndex = 0;
+	private boolean shouldRespawn = true;
+	private byte faceDir;
 	private VirtualMobRegion virtualRegion = null;
 	private List<Stoner> combatants;
-
 	private boolean assaulted = false;
-
 	private boolean movedLastCycle = false;
-
+	private boolean canAssault = true;
 	public Mob(int npcId, boolean walks, Location location) {
 	this(npcId, walks, location, null, true, false, null);
 	}
 
-	/**
-	 * Constructs a new Mob
-	 * 
-	 * @param npcId
-	 *                          The id of the mob
-	 * @param walks
-	 *                          The mob can walk or not
-	 * @param location
-	 *                          The location of the mob
-	 * @param owner
-	 *                          The owner of the mob
-	 * @param shouldRespawn
-	 *                          The mob should respawn after dying
-	 * @param lockFollow
-	 *                          Themob should follow
-	 * @param virtualRegion
-	 *                          The virtual region the mob is in
-	 */
 	public Mob(int npcId, boolean walks, Location location, Stoner owner, boolean shouldRespawn, boolean lockFollow, VirtualMobRegion virtualRegion) {
 	originalNpcId = ((short) npcId);
 	this.npcId = ((short) npcId);
@@ -208,7 +117,7 @@ public class Mob extends Entity {
 			setBonuses(getCombatDefinition().getBonuses().clone());
 			NpcCombatDefinition.Profession[] professions = getCombatDefinition().getProfessions();
 			if (professions != null) {
-				int[] profession = new int[22];
+				long[] profession = new long[22];
 
 				for (int i = 0; i < professions.length; i++) {
 					profession[professions[i].getId()] = professions[i].getGrade();
@@ -262,12 +171,37 @@ public class Mob extends Entity {
 	this(npcId, walks, location, null, shouldRespawn, false, virtualRegion);
 	}
 
-	/**
-	 * Adds a new combatant to the mobs list
-	 * 
-	 * @param p
-	 *              The stoner to add
-	 */
+	public static NpcDefinition getDefinition(int id) {
+	return GameDefinitionLoader.getNpcDefinition(id);
+	}
+
+	public static void spawnBosses() {
+	new CorporealBeast();
+	new SeaTrollQueen();
+	new Kreearra();
+	new KalphiteQueen();
+	new GiantMole();
+	new ChaosElemental();
+	new Callisto();
+	new Scorpia();
+	new Vetion();
+	new ChaosFanatic();
+	new CrazyArchaeologist();
+	logger.info("All MOB bosses have been spawned.");
+	}
+
+	public boolean isPet() {
+		return pet;
+	}
+
+	public void setPet(boolean pet) {
+		this.pet = pet;
+		if (pet) {
+			this.getGrades()[3] = 420000;
+			this.getMaxGrades()[3] = 420000;
+		}
+	}
+
 	public void addCombatant(Stoner p) {
 	if (combatants == null) {
 		combatants = new ArrayList<Stoner>();
@@ -286,11 +220,10 @@ public class Mob extends Entity {
 	}
 	}
 
-	private boolean canAssault = true;
-
 	@Override
 	public boolean canAssault() {
 	Entity assaulting = getCombat().getAssaulting();
+	if (isPet()) return false;
 
 	if (!isCanAssault()) {
 		return false;
@@ -309,9 +242,7 @@ public class Mob extends Entity {
 	if (!assaulting.isNpc()) {
 		Stoner p = World.getStoners()[assaulting.getIndex()];
 
-		if ((p != null) && (!p.getController().canAssaultNPC())) {
-			return false;
-		}
+		return (p == null) || (p.getController().canAssaultNPC());
 
 	}
 
@@ -320,98 +251,22 @@ public class Mob extends Entity {
 
 	@Override
 	public void checkForDeath() {
-	if (getGrades()[3] <= 0) {
-		TaskQueue.queue(new MobDeathTask(this));
+		if (getGrades()[3] <= 0) {
+			if (isPet()) {
+				getGrades()[3] = 1; // 💡 Keep them alive
+				return;
+			}
+			TaskQueue.queue(new MobDeathTask(this));
 
-		if (combatants != null)
+
+			if (combatants != null)
 			combatants.clear();
 	}
-	}
-
-	/**
-	 * Processes custom npcs while they are alive
-	 */
-	public void doAliveMobProcessing() {
-
-	}
-
-	public void doPostHitProcessing(Hit hit) {
-	}
-
-	@Override
-	public boolean equals(Object o) {
-	return super.equals(o);
-	}
-
-	public boolean face() {
-	return face;
-	}
-
-	/**
-	 * Gets the affected hit damage
-	 * 
-	 * @param hit
-	 *                The hit dealt to the mob
-	 * @return
-	 */
-	public int getAffectedDamage(Hit hit) {
-	return hit.getDamage();
-	}
-
-	public List<Stoner> getCombatants() {
-	if (combatants == null) {
-		combatants = new ArrayList<Stoner>();
-	}
-
-	return combatants;
-	}
-
-	public NpcCombatDefinition getCombatDefinition() {
-	return GameDefinitionLoader.getNpcCombatDefinition(npcId);
-	}
-
-	public NpcCombatDefinition getCombatDefinition(int id) {
-	return GameDefinitionLoader.getNpcCombatDefinition(id);
-	}
-
-	public int getCombatIndex() {
-	return combatIndex;
 	}
 
 	@Override
 	public int getCorrectedDamage(int damage) {
 	return damage;
-	}
-
-	/**
-	 * Gets the mobs death animation
-	 * 
-	 * @return
-	 */
-	public Animation getDeathAnimation() {
-	return getCombatDefinition() != null ? getCombatDefinition().getDeath() : new Animation(0, 0);
-	}
-
-	public NpcDefinition getDefinition() {
-	return GameDefinitionLoader.getNpcDefinition(npcId);
-	}
-
-	public int getFaceDirection() {
-	return faceDir;
-	}
-
-	@Override
-	public Following getFollowing() {
-	return following;
-	}
-
-	/**
-	 * Gets the mobs id
-	 * 
-	 * @return The mobs id
-	 */
-	public int getId() {
-	return npcId;
 	}
 
 	@Override
@@ -420,68 +275,43 @@ public class Mob extends Entity {
 		return 1;
 	}
 
-	switch (type) {
-	case NONE:
-		break;
-	case MAGE:
-		if (getCombatDefinition().getMage() != null) {
-			return getCombatDefinition().getMage()[combatIndex].getMax();
+		switch (type) {
+			case NONE:
+				break;
+
+			case MAGE:
+				if (getCombatDefinition().getMage() != null) {
+					int base = getCombatDefinition().getMage()[combatIndex].getMax();
+					int bonus = (int) (base * getCombat().getHitChainBonus() / 100);
+
+					return base + bonus;
+				}
+				break;
+
+			case MELEE:
+				if (getCombatDefinition().getMelee() != null) {
+					int base = getCombatDefinition().getMelee()[combatIndex].getMax();
+
+					if (npcId == 1673) {
+						base = (int)(base * (1.0D + (2.0D - getGrades()[3] / getMaxGrades()[3])));
+					}
+
+					int bonus = (int) (base * getCombat().getHitChainBonus() / 100);
+					return base + bonus;
+				}
+				break;
+
+			case SAGITTARIUS:
+				if (getCombatDefinition().getSagittarius() != null) {
+					int base = getCombatDefinition().getSagittarius()[combatIndex].getMax();
+					int bonus = (int) (base * getCombat().getHitChainBonus() / 100);
+					return base + bonus;
+				}
+				break;
 		}
-		break;
-	case MELEE:
-		if (getCombatDefinition().getMelee() != null) {
-			int max = getCombatDefinition().getMelee()[combatIndex].getMax();
-			if (npcId == 1673) {
-				return (int) (max * (1.0D + (2.0D - getGrades()[3] / getMaxGrades()[3])));
-			}
-			return max;
-		}
 
-		break;
-	case SAGITTARIUS:
-		if (getCombatDefinition().getSagittarius() != null) {
-			return getCombatDefinition().getSagittarius()[combatIndex].getMax();
-		}
-		break;
-	}
-	return 1;
-	}
+		return 1;
 
-	@Override
-	public MovementHandler getMovementHandler() {
-	return movementHandler;
-	}
-
-	public Location getNextSpawnLocation() {
-	return spawnLocation;
-	}
-
-	public Stoner getOwner() {
-	return owner;
-	}
-
-	public int getRespawnTime() {
-	if (getCombatDefinition() != null) {
-		return getCombatDefinition().getRespawnTime();
-	}
-	return 50;
-	}
-
-	public Location getSpawnLocation() {
-	return spawnLocation;
-	}
-
-	/**
-	 * Gets the mobs transform id
-	 * 
-	 * @return
-	 */
-	public int getTransformId() {
-	return transformId;
-	}
-
-	public VirtualMobRegion getVirtualRegion() {
-	return virtualRegion;
 	}
 
 	@Override
@@ -530,9 +360,11 @@ public class Mob extends Entity {
 		hit.setDamage(hit.getDamage() / 10);
 	}
 
-	if (hit.getDamage() > getGrades()[3])
-		hit.setDamage(getGrades()[3]);
-	getGrades()[3] = ((short) (getGrades()[3] - hit.getDamage()));
+		if (isPet() && getGrades()[3] - hit.getDamage() < 1) {
+			hit.setDamage(getGrades()[3] - 1);
+		}
+
+		getGrades()[3] = ((short) (getGrades()[3] - hit.getDamage()));
 
 	if (!getUpdateFlags().isHitUpdate())
 		getUpdateFlags().sendHit(hit.getDamage(), hit.getHitType(), hit.getCombatHitType());
@@ -579,75 +411,13 @@ public class Mob extends Entity {
 		hit.getAssaulter().onHit(this, hit);
 	}
 
-	public boolean inVirtualRegion() {
-	return virtualRegion != null;
-	}
-
 	@Override
 	public boolean isIgnoreHitSuccess() {
 	return false;
 	}
 
-	public boolean isLockFollow() {
-	return (owner != null) && (lockFollow);
-	}
-
-	public boolean isMovedLastCycle() {
-	return movedLastCycle;
-	}
-
-	public boolean isNoFollow() {
-	return noFollow;
-	}
-
-	public boolean isPlacement() {
-	return placement;
-	}
-
-	/**
-	 * Gets if the mob is requesting a transform update
-	 * 
-	 * @return the mob is transforming
-	 */
-	public boolean isTransformUpdate() {
-	return transformUpdate;
-	}
-
-	/**
-	 * Gets if the mob is visible or not
-	 * 
-	 * @return
-	 */
-	public boolean isVisible() {
-	return visible;
-	}
-
-	/**
-	 * The mob should walk to home
-	 * 
-	 * @return If the mob can walk to home or not
-	 */
-	public boolean isWalkToHome() {
-	if (GodWarsData.forId(npcId) != null && GodWarsData.bossNpc(GodWarsData.forId(npcId))) {
-		return false;
-	}
-
-	if (inWilderness()) {
-		return Math.abs(getLocation().getX() - spawnLocation.getX()) + Math.abs(getLocation().getY() - spawnLocation.getY()) > getSize() * 1 + 2;
-	}
-
-	if ((getFollowing().isIgnoreDistance()) || (owner != null)) {
-		return false;
-	}
-
-	if (assaultable) {
-		return Math.abs(getLocation().getX() - spawnLocation.getX()) + Math.abs(getLocation().getY() - spawnLocation.getY()) > getSize() * 2 + 6;
-	}
-	return Utility.getManhattanDistance(spawnLocation, getLocation()) > 2;
-	}
-
 	@Override
-	public void onAssault(Entity assault, int hit, CombatTypes type, boolean success) {
+	public void onAssault(Entity assault, long hit, CombatTypes type, boolean success) {
 	}
 
 	@Override
@@ -673,12 +443,6 @@ public class Mob extends Entity {
 	}
 	}
 
-	/**
-	 * Actions taken on death for custom npcs
-	 */
-	public void onDeath() {
-	}
-
 	@Override
 	public void onHit(Entity e, Hit hit) {
 	if ((e.isDead()) && (inMultiArea()) && (!e.isNpc())) {
@@ -688,293 +452,6 @@ public class Mob extends Entity {
 
 		combatants.remove(World.getStoners()[e.getIndex()]);
 	}
-	}
-
-	@Override
-	public void process() throws Exception {
-	if ((owner != null) && (!owner.isActive() || !owner.withinRegion(getLocation()))) {
-		if (!owner.inZulrah() && !isDead()) {
-			remove();
-			if (getId() == 1778) {
-				owner.getAttributes().set("KILL_AGENT", Boolean.FALSE);
-			}
-			return;
-		}
-	}
-
-	if ((assaultable) || ((this instanceof FamiliarMob))) {
-		if (forceWalking)
-			return;
-		if (isDead()) {
-			getCombat().reset();
-			return;
-		}
-
-		if (inMultiArea()) {
-			if (combatants == null) {
-				combatants = new ArrayList<Stoner>();
-			}
-
-			if (combatants.size() > 0) {
-				if (getCombat().getAssaulting() == null)
-					combatants.clear();
-				else {
-					for (Iterator<Stoner> i = combatants.iterator(); i.hasNext();) {
-						Stoner p = i.next();
-						if ((!p.getLocation().isViewableFrom(getLocation())) || (!p.getCombat().inCombat()) || (p.isDead())) {
-							i.remove();
-						}
-					}
-				}
-			}
-		}
-
-		doAliveMobProcessing();
-
-		if ((getCombat().getAssaultTimer() <= 1) && (getCombat().getAssaulting() != null)) {
-			updateCombatType();
-		}
-
-		if (isWalkToHome()) {
-			getCombat().reset();
-			getFollowing().reset();
-			TaskQueue.queue(new MobWalkTask(this, spawnLocation, true));
-		} else if ((!isDead()) && (getCombat().getAssaulting() == null) && (!getFollowing().isFollowing()) && (walks) && (!forceWalking)) {
-			RandomMobChatting.handleRandomMobChatting(this);
-			Walking.randomWalk(this);
-
-			GodWarsNpc npc = GodWarsData.forId(getId());
-
-			if (npc != null && !getCombat().inCombat()) {
-
-				for (Mob i : World.getNpcs()) {
-
-					if (i == null) {
-						continue;
-					}
-
-					GodWarsNpc other = GodWarsData.forId(i.getId());
-
-					if (npc == null || other == null) {
-						continue;
-					}
-
-					if ((i.getCombat().getAssaulting() == null) && (i.getCombatDefinition() != null)) {
-
-						if (npc.getAllegiance() != other.getAllegiance() && !i.getCombat().inCombat()) {
-
-							if (Math.abs(getX() - i.getX()) + Math.abs(getY() - i.getY()) <= 4 + CombatConstants.getDistanceForCombatType(i.getCombat().getCombatType())) {
-								i.getCombat().setAssault(this);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	if ((!forceWalking) && (!isDead())) {
-		following.process();
-		getCombat().process();
-	} else if ((!isDead()) && (!assaultable) && (walks) && (!following.isFollowing()) && (!forceWalking)) {
-		Walking.randomWalk(this);
-	} else if (!forceWalking) {
-		following.process();
-	}
-	}
-
-	/**
-	 * processes the movement of custom npcs
-	 */
-	public void processMovement() {
-	}
-
-	/**
-	 * Removes the mob from the in-game world
-	 */
-	public void remove() {
-	if ((Brother.isBarrowsBrother(this)) && (owner != null)) {
-		owner.getCombat().resetCombatTimer();
-	}
-
-	if ((ArmourAnimator.isAnimatedArmour(npcId)) && (owner != null)) {
-		owner.getAttributes().remove("warriorGuildAnimator");
-	}
-
-	visible = false;
-	setActive(false);
-	World.unregister(this);
-	Walking.setNpcOnTile(this, false);
-
-	if (virtualRegion != null) {
-		virtualRegion = null;
-	}
-
-	MobConstants.GODWARS_BOSSES.remove(this);
-	}
-
-	@Override
-	public void reset() {
-	movedLastCycle = (getMovementHandler().getPrimaryDirection() != -1);
-	getMovementHandler().resetMoveDirections();
-	getFollowing().updateWaypoint();
-	getUpdateFlags().reset();
-	placement = false;
-	}
-
-	/**
-	 * Resets the mobs grades
-	 */
-	@Override
-	public void resetGrades() {
-	if (getCombatDefinition() != null) {
-		setBonuses(getCombatDefinition().getBonuses().clone());
-		NpcCombatDefinition.Profession[] professions = getCombatDefinition().getProfessions();
-		if (professions != null) {
-			int[] profession = new int[25];
-
-			for (int i = 0; i < professions.length; i++) {
-				profession[professions[i].getId()] = professions[i].getGrade();
-			}
-
-			setGrades(profession.clone());
-			setMaxGrades(profession.clone());
-		}
-
-	}
-	}
-
-	@Override
-	public void retaliate(Entity assaulted) {
-	if (!getCombat().inCombat()) {
-		getCombat().setAssault(assaulted);
-	}
-	}
-
-	/**
-	 * The mob retreats from combat
-	 */
-	public void retreat() {
-	if (getCombat().getAssaulting() != null) {
-		forceWalking = true;
-		getCombat().reset();
-		TaskQueue.queue(new MobWalkTask(this, new Location(getX() + 5, getY() + 5), false));
-	}
-	}
-
-	public void setFaceDir(int face) {
-	faceDir = ((byte) face);
-	}
-
-	public void setForceWalking(boolean walkingHome) {
-	forceWalking = walkingHome;
-	}
-
-	public void setPlacement(boolean placement) {
-	this.placement = placement;
-	}
-
-	/**
-	 * Sets if the mob should respawn after death
-	 * 
-	 * @param state
-	 *                  The mob should respawn or not
-	 */
-	public void setRespawnable(boolean state) {
-	shouldRespawn = state;
-	}
-
-	public void setTransformId(int transformId) {
-	this.transformId = ((short) transformId);
-	}
-
-	/**
-	 * Sets the mobs transform status
-	 * 
-	 * @param transformUpdate
-	 */
-	public void setTransformUpdate(boolean transformUpdate) {
-	this.transformUpdate = transformUpdate;
-	}
-
-	/**
-	 * Sets the mob's visibility status
-	 * 
-	 * @param isVisible
-	 *                      The mob is visible or not
-	 */
-	public void setVisible(boolean isVisible) {
-	visible = isVisible;
-	}
-
-	/**
-	 * Should the mob respawn after death
-	 * 
-	 * @return The mob should respawn
-	 */
-	public boolean shouldRespawn() {
-	return shouldRespawn;
-	}
-
-	/**
-	 * Teleports the mob to a new location
-	 * 
-	 * @param p
-	 *              The location to teleport the mob too
-	 */
-	public void teleport(Location p) {
-	Walking.setNpcOnTile(this, false);
-	getMovementHandler().getLastLocation().setAs(new Location(p.getX(), p.getY() + 1));
-	getLocation().setAs(p);
-	Walking.setNpcOnTile(this, true);
-	placement = true;
-	getMovementHandler().resetMoveDirections();
-	}
-
-	/**
-	 * Transforms the mob
-	 * 
-	 * @param id
-	 *               The id to transform the mob too
-	 */
-	public void transform(int id) {
-	transformUpdate = true;
-	transformId = ((short) id);
-	npcId = ((short) id);
-	updateCombatType();
-	getUpdateFlags().setUpdateRequired(true);
-	if (assaultable) {
-		if (getCombatDefinition() != null) {
-			setBonuses(getCombatDefinition().getBonuses().clone());
-			NpcCombatDefinition.Profession[] professions = getCombatDefinition().getProfessions();
-			if (professions != null) {
-				int[] profession = new int[Professions.PROFESSION_COUNT];
-				int[] professionMax = new int[Professions.PROFESSION_COUNT];
-
-				for (int i = 0; i < professions.length; i++) {
-					if (i == 3) {
-						profession[3] = getGrades()[3];
-						professionMax[3] = getMaxGrades()[3];
-						continue;
-					}
-					profession[professions[i].getId()] = professions[i].getGrade();
-					professionMax[professions[i].getId()] = professions[i].getGrade();
-				}
-
-				setGrades(profession.clone());
-				setMaxGrades(professionMax.clone());
-			}
-
-		}
-	}
-	}
-
-	/**
-	 * Un-transforms a mob
-	 */
-	public void unTransform() {
-	if (originalNpcId != npcId)
-		transform(npcId);
 	}
 
 	@Override
@@ -1081,13 +558,387 @@ public class Mob extends Entity {
 	}
 	}
 
-	/**
-	 * If the entity is within the mobs walking distance
-	 * 
-	 * @param e
-	 *              The entity the mob is following
-	 * @return
-	 */
+	public void doAliveMobProcessing() {
+
+	}
+
+	public void doPostHitProcessing(Hit hit) {
+	}
+
+	@Override
+	public boolean equals(Object o) {
+	return super.equals(o);
+	}
+
+	@Override
+	public Following getFollowing() {
+	return following;
+	}
+
+	@Override
+	public MovementHandler getMovementHandler() {
+	return movementHandler;
+	}
+
+	@Override
+	public void process() throws Exception {
+	if ((owner != null) && (!owner.isActive() || !owner.withinRegion(getLocation()))) {
+		if (!owner.inZulrah() && !isDead()) {
+			remove();
+			if (getId() == 1778) {
+				owner.getAttributes().set("KILL_AGENT", Boolean.FALSE);
+			}
+			return;
+		}
+	}
+
+	if ((assaultable) || ((this instanceof FamiliarMob))) {
+		if (forceWalking)
+			return;
+		if (isDead()) {
+			getCombat().reset();
+			return;
+		}
+
+		if (inMultiArea()) {
+			if (combatants == null) {
+				combatants = new ArrayList<Stoner>();
+			}
+
+			if (combatants.size() > 0) {
+				if (getCombat().getAssaulting() == null)
+					combatants.clear();
+				else {
+					for (Iterator<Stoner> i = combatants.iterator(); i.hasNext();) {
+						Stoner p = i.next();
+						if ((!p.getLocation().isViewableFrom(getLocation())) || (!p.getCombat().inCombat()) || (p.isDead())) {
+							i.remove();
+						}
+					}
+				}
+			}
+		}
+
+		doAliveMobProcessing();
+
+		if ((getCombat().getAssaultTimer() <= 1) && (getCombat().getAssaulting() != null)) {
+			updateCombatType();
+		}
+
+		if (isWalkToHome()) {
+			getCombat().reset();
+			getFollowing().reset();
+			TaskQueue.queue(new MobWalkTask(this, spawnLocation, true));
+		} else if ((!isDead()) && (getCombat().getAssaulting() == null) && (!getFollowing().isFollowing()) && (walks) && (!forceWalking)) {
+			RandomMobChatting.handleRandomMobChatting(this);
+			Walking.randomWalk(this);
+
+			GodWarsNpc npc = GodWarsData.forId(getId());
+
+			if (npc != null && !getCombat().inCombat()) {
+
+				for (Mob i : World.getNpcs()) {
+
+					if (i == null) {
+						continue;
+					}
+
+					GodWarsNpc other = GodWarsData.forId(i.getId());
+
+					if (npc == null || other == null) {
+						continue;
+					}
+
+					if ((i.getCombat().getAssaulting() == null) && (i.getCombatDefinition() != null)) {
+
+						if (npc.getAllegiance() != other.getAllegiance() && !i.getCombat().inCombat()) {
+
+							if (Math.abs(getX() - i.getX()) + Math.abs(getY() - i.getY()) <= 4 + CombatConstants.getDistanceForCombatType(i.getCombat().getCombatType())) {
+								i.getCombat().setAssault(this);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if ((!forceWalking) && (!isDead())) {
+		following.process();
+		getCombat().process();
+	} else if ((!isDead()) && (!assaultable) && (walks) && (!following.isFollowing()) && (!forceWalking)) {
+		Walking.randomWalk(this);
+	} else if (!forceWalking) {
+		following.process();
+	}
+	}
+
+	@Override
+	public void reset() {
+	movedLastCycle = (getMovementHandler().getPrimaryDirection() != -1);
+	getMovementHandler().resetMoveDirections();
+	getFollowing().updateWaypoint();
+	getUpdateFlags().reset();
+	placement = false;
+	}
+
+	@Override
+	public void resetGrades() {
+	if (getCombatDefinition() != null) {
+		setBonuses(getCombatDefinition().getBonuses().clone());
+		NpcCombatDefinition.Profession[] professions = getCombatDefinition().getProfessions();
+		if (professions != null) {
+			long[] profession = new long[25];
+
+			for (int i = 0; i < professions.length; i++) {
+				profession[professions[i].getId()] = professions[i].getGrade();
+			}
+
+			setGrades(profession.clone());
+			setMaxGrades(profession.clone());
+		}
+
+	}
+	}
+
+	@Override
+	public void retaliate(Entity assaulted) {
+	if (!getCombat().inCombat()) {
+		getCombat().setAssault(assaulted);
+	}
+	}
+
+	public boolean face() {
+	return face;
+	}
+
+	public long getAffectedDamage(Hit hit) {
+	return hit.getDamage();
+	}
+
+	public List<Stoner> getCombatants() {
+	if (combatants == null) {
+		combatants = new ArrayList<Stoner>();
+	}
+
+	return combatants;
+	}
+
+	public NpcCombatDefinition getCombatDefinition() {
+	return GameDefinitionLoader.getNpcCombatDefinition(npcId);
+	}
+
+	public NpcCombatDefinition getCombatDefinition(int id) {
+	return GameDefinitionLoader.getNpcCombatDefinition(id);
+	}
+
+	public int getCombatIndex() {
+	return combatIndex;
+	}
+
+	public Animation getDeathAnimation() {
+	return getCombatDefinition() != null ? getCombatDefinition().getDeath() : new Animation(0, 0);
+	}
+
+	public NpcDefinition getDefinition() {
+	return GameDefinitionLoader.getNpcDefinition(npcId);
+	}
+
+	public int getFaceDirection() {
+	return faceDir;
+	}
+
+	public int getId() {
+	return npcId;
+	}
+
+	public Location getNextSpawnLocation() {
+	return spawnLocation;
+	}
+
+	public Stoner getOwner() {
+	return owner;
+	}
+
+	public int getRespawnTime() {
+	if (getCombatDefinition() != null) {
+		return getCombatDefinition().getRespawnTime();
+	}
+	return 50;
+	}
+
+	public Location getSpawnLocation() {
+	return spawnLocation;
+	}
+
+	public int getTransformId() {
+	return transformId;
+	}
+
+	public void setTransformId(int transformId) {
+	this.transformId = ((short) transformId);
+	}
+
+	public VirtualMobRegion getVirtualRegion() {
+	return virtualRegion;
+	}
+
+	public boolean inVirtualRegion() {
+	return virtualRegion != null;
+	}
+
+	public boolean isLockFollow() {
+	return (owner != null) && (lockFollow);
+	}
+
+	public boolean isMovedLastCycle() {
+	return movedLastCycle;
+	}
+
+	public boolean isNoFollow() {
+	return noFollow;
+	}
+
+	public boolean isPlacement() {
+	return placement;
+	}
+
+	public void setPlacement(boolean placement) {
+	this.placement = placement;
+	}
+
+	public boolean isTransformUpdate() {
+	return transformUpdate;
+	}
+
+	public void setTransformUpdate(boolean transformUpdate) {
+	this.transformUpdate = transformUpdate;
+	}
+
+	public boolean isVisible() {
+	return visible;
+	}
+
+	public void setVisible(boolean isVisible) {
+	visible = isVisible;
+	}
+
+	public boolean isWalkToHome() {
+	if (GodWarsData.forId(npcId) != null && GodWarsData.bossNpc(GodWarsData.forId(npcId))) {
+		return false;
+	}
+
+	if (inWilderness()) {
+		return Math.abs(getLocation().getX() - spawnLocation.getX()) + Math.abs(getLocation().getY() - spawnLocation.getY()) > getSize() + 2;
+	}
+
+	if ((getFollowing().isIgnoreDistance()) || (owner != null)) {
+		return false;
+	}
+
+	if (assaultable) {
+		return Math.abs(getLocation().getX() - spawnLocation.getX()) + Math.abs(getLocation().getY() - spawnLocation.getY()) > getSize() * 2 + 6;
+	}
+	return Utility.getManhattanDistance(spawnLocation, getLocation()) > 2;
+	}
+
+	public void onDeath() {
+	}
+
+	public void processMovement() {
+	}
+
+	public void remove() {
+	if ((Brother.isBarrowsBrother(this)) && (owner != null)) {
+		owner.getCombat().resetCombatTimer();
+	}
+
+	if ((ArmourAnimator.isAnimatedArmour(npcId)) && (owner != null)) {
+		owner.getAttributes().remove("warriorGuildAnimator");
+	}
+
+	visible = false;
+	setActive(false);
+	World.unregister(this);
+	Walking.setNpcOnTile(this, false);
+
+	if (virtualRegion != null) {
+		virtualRegion = null;
+	}
+
+	MobConstants.GODWARS_BOSSES.remove(this);
+	}
+
+	public void retreat() {
+	if (getCombat().getAssaulting() != null) {
+		forceWalking = true;
+		getCombat().reset();
+		TaskQueue.queue(new MobWalkTask(this, new Location(getX() + 5, getY() + 5), false));
+	}
+	}
+
+	public void setFaceDir(int face) {
+	faceDir = ((byte) face);
+	}
+
+	public void setForceWalking(boolean walkingHome) {
+	forceWalking = walkingHome;
+	}
+
+	public void setRespawnable(boolean state) {
+	shouldRespawn = state;
+	}
+
+	public boolean shouldRespawn() {
+	return shouldRespawn;
+	}
+
+	public void teleport(Location p) {
+	Walking.setNpcOnTile(this, false);
+	getMovementHandler().getLastLocation().setAs(new Location(p.getX(), p.getY() + 1));
+	getLocation().setAs(p);
+	Walking.setNpcOnTile(this, true);
+	placement = true;
+	getMovementHandler().resetMoveDirections();
+	}
+
+	public void transform(int id) {
+	transformUpdate = true;
+	transformId = ((short) id);
+	npcId = ((short) id);
+	updateCombatType();
+	getUpdateFlags().setUpdateRequired(true);
+	if (assaultable) {
+		if (getCombatDefinition() != null) {
+			setBonuses(getCombatDefinition().getBonuses().clone());
+			NpcCombatDefinition.Profession[] professions = getCombatDefinition().getProfessions();
+			if (professions != null) {
+				long[] profession = new long[Professions.PROFESSION_COUNT];
+				long[] professionMax = new long[Professions.PROFESSION_COUNT];
+
+				for (int i = 0; i < professions.length; i++) {
+					if (i == 3) {
+						profession[3] = getGrades()[3];
+						professionMax[3] = getMaxGrades()[3];
+						continue;
+					}
+					profession[professions[i].getId()] = professions[i].getGrade();
+					professionMax[professions[i].getId()] = professions[i].getGrade();
+				}
+
+				setGrades(profession.clone());
+				setMaxGrades(professionMax.clone());
+			}
+
+		}
+	}
+	}
+
+	public void unTransform() {
+	if (originalNpcId != npcId)
+		transform(npcId);
+	}
+
 	public boolean withinMobWalkDistance(Entity e) {
 	if ((following.isIgnoreDistance()) || (owner != null)) {
 		return true;

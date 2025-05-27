@@ -20,6 +20,17 @@ public class THChempistryFinishedPotionTask extends Task {
 
 	public static final String THCHEMPISTRY_ITEM_1_KEY = "thchempistryitem1";
 	public static final String THCHEMPISTRY_ITEM_2_KEY = "thchempistryitem2";
+	private static final int[][] BUTTON_IDS = { { 10239, 1 }, { 10238, 5 }, { 6211, 28 }, { 6212, 100 } };
+	private final Stoner stoner;
+	private final FinishedPotionData data;
+	private int amountToMake;
+
+	public THChempistryFinishedPotionTask(Stoner stoner, FinishedPotionData data, int amount) {
+	super(stoner, 2, false, Task.StackType.NEVER_STACK, Task.BreakType.ON_MOVE, TaskIdentifier.CURRENT_ACTION);
+	this.stoner = stoner;
+	this.data = data;
+	amountToMake = amount;
+	}
 
 	public static void attemptPotionMaking(Stoner stoner, int amount) {
 	FinishedPotionData data = FinishedPotionData.forIds(((Item) stoner.getAttributes().get("thchempistryitem1")).getId(), ((Item) stoner.getAttributes().get("thchempistryitem2")).getId());
@@ -110,21 +121,6 @@ public class THChempistryFinishedPotionTask extends Task {
 		return false;
 	}
 	return true;
-	}
-
-	private final Stoner stoner;
-
-	private final FinishedPotionData data;
-
-	private int amountToMake;
-
-	private static final int[][] BUTTON_IDS = { { 10239, 1 }, { 10238, 5 }, { 6211, 28 }, { 6212, 100 } };
-
-	public THChempistryFinishedPotionTask(Stoner stoner, FinishedPotionData data, int amount) {
-	super(stoner, 2, false, Task.StackType.NEVER_STACK, Task.BreakType.ON_MOVE, TaskIdentifier.CURRENT_ACTION);
-	this.stoner = stoner;
-	this.data = data;
-	amountToMake = amount;
 	}
 
 	@Override

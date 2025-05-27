@@ -1,9 +1,9 @@
 package com.bestbudz.rs2.content.shopping.impl;
 
+import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.shopping.Shop;
 import com.bestbudz.rs2.content.shopping.ShopConstants;
 import com.bestbudz.rs2.content.shopping.Shopping.ShopType;
-import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -11,55 +11,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 public class ProfessioncapeShop extends Shop {
 
 	public static final int SHOP_ID = 20;
-
-	static enum Professioncape {
-		ASSAULT(new int[] { 9747, 9748, 9749, }),
-		AEGIS(new int[] { 9753, 9754, 9755, }),
-		VIGOUR(new int[] { 9750, 9751, 9752, }),
-		CONSTITUTION(new int[] { 9768, 9769, 9770, }),
-		SAGITTARIUS(new int[] { 9756, 9757, 9758, }),
-		NECROMANCE(new int[] { 9759, 9760, 9761, }),
-		MAGE(new int[] { 9762, 9763, 9764, }),
-		FOODIE(new int[] { 9801, 9802, 9803, }),
-		LUMBERING(new int[] { 9807, 9808, 9809, }),
-		WOODCARVING(new int[] { 9783, 9784, 9785, }),
-		FISHER(new int[] { 9798, 9799, 9800, }),
-		PYROMANIAC(new int[] { 9804, 9805, 9806, }),
-		HANDINESS(new int[] { 9780, 9781, 9782, }),
-		FORGING(new int[] { 9795, 9796, 9797, }),
-		QUARRYING(new int[] { 9792, 9793, 9794, }),
-		THCHEMPISTRY(new int[] { 9774, 9775, 9776, }),
-		WEEDSMOKING(new int[] { 9771, 9772, 9773, }),
-		ACCOMPLISHER(new int[] { 9777, 9778, 9779, }),
-		MERCENARY(new int[] { 9786, 9787, 9788, }),
-		CULTIVATION(new int[] { 9810, 9811, 9812, }),
-		CONSUMER(new int[] { 9765, 9766, 9767, }),
-		CONSTRUCTION(new int[] { 9789, 9790, 9791, }),
-		HUNTER(new int[] { 9948, 9949, 9950, });
-
-		private int[] items;
-
-		private Professioncape(int[] items) {
-		this.items = items;
-		}
-
-		public Item getCape() {
-		return new Item(items[0]);
-		}
-
-		public Item getTrimmedCape() {
-		return new Item(items[1]);
-		}
-
-		public static Item forCape(int cape) {
-		for (Professioncape sc : values()) {
-			if (sc.getCape().getId() == cape || sc.getTrimmedCape().getId() == cape) {
-				return new Item(sc.items[2]);
-			}
-		}
-		return null;
-		}
-	}
 
 	public ProfessioncapeShop() {
 	super(new Item[Professions.PROFESSION_COUNT], "Professioncape Shop");
@@ -123,6 +74,17 @@ public class ProfessioncapeShop extends Shop {
 	}
 
 	@Override
+	public int getSellPrice(int id) {
+	return 99_000;
+	}
+
+	@Override
+	public boolean sell(Stoner stoner, int id, int amount) {
+	stoner.send(new SendMessage("You cannot sell items to this store."));
+	return false;
+	}
+
+	@Override
 	public void onOpen(Stoner stoner) {
 	clear();
 
@@ -134,9 +96,9 @@ public class ProfessioncapeShop extends Shop {
 			continue;
 		}
 
-		int grade = stoner.getMaxGrades()[index];
+		long grade = stoner.getMaxGrades()[index];
 
-		if (grade >= 99) {
+		if (grade >= 420) {
 			if (index == Professions.HUNTER) {
 				add(new Item(trimmed ? Professioncape.HUNTER.getTrimmedCape() : Professioncape.HUNTER.getCape()), false);
 			} else if (index == Professions.CONSTRUCTION) {
@@ -148,14 +110,52 @@ public class ProfessioncapeShop extends Shop {
 	}
 	}
 
-	@Override
-	public boolean sell(Stoner stoner, int id, int amount) {
-	stoner.send(new SendMessage("You cannot sell items to this store."));
-	return false;
-	}
+	enum Professioncape {
+		ASSAULT(new int[] { 9747, 9748, 9749, }),
+		AEGIS(new int[] { 9753, 9754, 9755, }),
+		VIGOUR(new int[] { 9750, 9751, 9752, }),
+		CONSTITUTION(new int[] { 9768, 9769, 9770, }),
+		SAGITTARIUS(new int[] { 9756, 9757, 9758, }),
+		NECROMANCE(new int[] { 9759, 9760, 9761, }),
+		MAGE(new int[] { 9762, 9763, 9764, }),
+		FOODIE(new int[] { 9801, 9802, 9803, }),
+		LUMBERING(new int[] { 9807, 9808, 9809, }),
+		WOODCARVING(new int[] { 9783, 9784, 9785, }),
+		FISHER(new int[] { 9798, 9799, 9800, }),
+		PYROMANIAC(new int[] { 9804, 9805, 9806, }),
+		HANDINESS(new int[] { 9780, 9781, 9782, }),
+		FORGING(new int[] { 9795, 9796, 9797, }),
+		QUARRYING(new int[] { 9792, 9793, 9794, }),
+		THCHEMPISTRY(new int[] { 9774, 9775, 9776, }),
+		WEEDSMOKING(new int[] { 9771, 9772, 9773, }),
+		ACCOMPLISHER(new int[] { 9777, 9778, 9779, }),
+		MERCENARY(new int[] { 9786, 9787, 9788, }),
+		CULTIVATION(new int[] { 9810, 9811, 9812, }),
+		CONSUMER(new int[] { 9765, 9766, 9767, }),
+		CONSTRUCTION(new int[] { 9789, 9790, 9791, }),
+		HUNTER(new int[] { 9948, 9949, 9950, });
 
-	@Override
-	public int getSellPrice(int id) {
-	return 99_000;
+		private final int[] items;
+
+		Professioncape(int[] items) {
+		this.items = items;
+		}
+
+		public static Item forCape(int cape) {
+		for (Professioncape sc : values()) {
+			if (sc.getCape().getId() == cape || sc.getTrimmedCape().getId() == cape) {
+				return new Item(sc.items[2]);
+			}
+		}
+		return null;
+		}
+
+		public Item getCape() {
+		return new Item(items[0]);
+		}
+
+		public Item getTrimmedCape() {
+		return new Item(items[1]);
+		}
 	}
 }

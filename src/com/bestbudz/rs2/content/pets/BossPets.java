@@ -11,200 +11,200 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.ArrayList;
 
-/**
- * Handles boss pets
- * 
- * @author Jaybane
- */
 public class BossPets {
 
-	/**
-	 * Boss Pet data
-	 * 
-	 * @author Jaybane
-	 *
-	 */
-	public enum PetData {
+  public static boolean spawnPet(Stoner stoner, int itemID, boolean loot) {
+    PetData data = PetData.forItem(itemID);
 
-		KALPHITE_PRINCESS_FLY(12654, 6637),
-		KALPHITE_PRINCESS_BUG(12647, 6638),
-		SMOKE_DEVIL(12648, 6655),
-		DARK_CORE(12816, 318),
-		PRINCE_BLACK_DRAGON(12653, 4000),
-		GREEN_SNAKELING(12921, 2130),
-		RED_SNAKELING(12939, 2131),
-		BLUE_SNAKELING(12940, 2132),
-		CHAOS_ELEMENT(11995, 5907),
-		KREE_ARRA(12649, 4003),
-		CALLISTO(13178, 497),
-		SCORPIAS_OFFSPRING(13181, 5547),
-		VENENATIS(13177, 495),
-		VETION_PURPLE(13179, 5559),
-		VETION_ORANGE(13180, 5560),
-		BABY_MOLE(12646, 6635),
-		KRAKEN(12655, 6640),
-		DAGANNOTH_SUPRIME(12643, 4006),
-		DAGANNOTH_RIME(12644, 4007),
-		DAGANNOTH_REX(12645, 4008),
-		GENERAL_GRAARDOR(12650, 4001),
-		COMMANDER_ZILYANA(12651, 4009),
-		KRIL_TSUTSAROTH(12652, 4004);
+    if (data == null) {
+      return false;
+    }
 
-		private final int itemID;
-		private final int npcID;
+    if (stoner.getActivePets().size() == 5) {
+      stoner.send(new SendMessage("Lets not make everyone jealous!"));
+      return true;
+    }
 
-		private PetData(int itemID, int npcID) {
-		this.itemID = itemID;
-		this.npcID = npcID;
-		}
+    stoner.getBox().remove(new Item(itemID, 1));
 
-		public int getItem() {
-		return itemID;
-		}
+    final Mob mob = new Mob(stoner, data.npcID, false, false, true, stoner.getLocation());
+    mob.getFollowing().setIgnoreDistance(true);
+    mob.getFollowing().setFollow(stoner);
+    mob.setCanAssault(false);
+    mob.setPet(true);
+    mob.getGrades()[3] = 420000;
+    mob.getMaxGrades()[3] = 420000;
 
-		public int getNPC() {
-		return npcID;
-		}
+    stoner.addPet(mob);
 
-		public static PetData forItem(int id) {
-		for (PetData data : PetData.values())
-			if (data.itemID == id)
-				return data;
-		return null;
-		}
+    stoner.setBossID(data.npcID);
+    stoner.getUpdateFlags().sendAnimation(new Animation(827));
+    stoner.face(mob);
 
-		public static PetData forNPC(int id) {
-		for (PetData data : PetData.values())
-			if (data.npcID == id)
-				return data;
-		return null;
-		}
-	}
+    if (loot) {
+      AchievementHandler.activateAchievement(stoner, AchievementList.OBTAIN_1_BOSS_PET, 1);
+      AchievementHandler.activateAchievement(stoner, AchievementList.OBTAIN_10_BOSS_PET, 1);
+    } else {
+      stoner.send(
+          new SendMessage("You took out " + mob.getDefinition().getName() + " for a walk."));
+    }
+    return true;
+  }
 
-	/**
-	 * Handles spawning the pet
-	 * 
-	 * @param stoner
-	 * @param itemID
-	 */
-	public static boolean spawnPet(Stoner stoner, int itemID, boolean loot) {
-	PetData data = PetData.forItem(itemID);
+  public static boolean pickupPet(Stoner stoner, Mob mob) {
+    if (mob == null || World.getNpcs()[mob.getIndex()] == null) {
+      return false;
+    }
+    PetData data = PetData.forNPC(mob.getId());
 
-	if (data == null) {
-		return false;
-	}
+    if (data == null) {
+      return false;
+    }
 
-	if (stoner.getBossPet() != null) {
-		stoner.send(new SendMessage("I know u love animals, but they dont like eachother!"));
-		return true;
-	}
+    if (stoner.getActivePets().isEmpty()) {
+      return false;
+    }
 
-	stoner.getBox().remove(new Item(itemID, 1));
+    if (!stoner.getActivePets().contains(mob) || mob.getOwner() != stoner) {
+      DialogueManager.sendStatement(stoner, mob.getDefinition().getName() + " is not your pet!");
+      return true;
+    }
 
-	final Mob mob = new Mob(stoner, data.npcID, false, false, true, stoner.getLocation());
-	mob.getFollowing().setIgnoreDistance(true);
-	mob.getFollowing().setFollow(stoner);
+    if (stoner.getBox().hasSpaceFor(new Item(data.getItem()))) {
+      stoner.getBox().add(new Item(data.getItem()));
+    } else if (stoner.getBank().hasSpaceFor((new Item(data.getItem())))) {
+      stoner.getBank().add((new Item(data.getItem())));
+      stoner
+          .getClient()
+          .queueOutgoingPacket(
+              new SendMessage(mob.getDefinition().getName() + " has been added to your bank."));
+    } else {
+      stoner
+          .getClient()
+          .queueOutgoingPacket(
+              new SendMessage(
+                  "You must free some box space to pick up your " + mob.getDefinition().getName()));
+      return false;
+    }
 
-	stoner.setBossPet(mob);
-	stoner.setBossID(data.npcID);
-	stoner.getUpdateFlags().sendAnimation(new Animation(827));
-	stoner.face(stoner.getBossPet());
+    stoner.getUpdateFlags().sendAnimation(new Animation(827));
+    stoner.face(mob);
 
-	if (loot) {
-		AchievementHandler.activateAchievement(stoner, AchievementList.OBTAIN_1_BOSS_PET, 1);
-		AchievementHandler.activateAchievement(stoner, AchievementList.OBTAIN_10_BOSS_PET, 1);
-	} else {
-		stoner.send(new SendMessage("You took out " + mob.getDefinition().getName() + " for a walk."));
-	}
-	return true;
-	}
+    TaskQueue.queue(
+        new Task(stoner, 1, true) {
+          @Override
+          public void execute() {
+            mob.remove();
+            stoner.removePet(mob);
 
-	/**
-	 * Handles picking up the pet
-	 * 
-	 * @param stoner
-	 * @param npcID
-	 * @return
-	 */
-	public static boolean pickupPet(Stoner stoner, Mob mob) {
-	if (mob == null || World.getNpcs()[mob.getIndex()] == null) {
-		return false;
-	}
-	PetData data = PetData.forNPC(mob.getId());
+            stop();
+          }
 
-	if (data == null) {
-		return false;
-	}
+          @Override
+          public void onStop() {
+            stoner.send(
+                new SendMessage("You have picked up your " + mob.getDefinition().getName()));
+          }
+        });
 
-	if (stoner.getBossPet() == null || stoner.getBossPet().isDead()) {
-		return false;
-	}
+    return true;
+  }
 
-	if (stoner.getBossPet() != mob || mob.getOwner() != stoner) {
-		DialogueManager.sendStatement(stoner, "This is not your pet!");
-		return true;
-	}
+  public static void onLogout(Stoner stoner) {
+    for (Mob pet : new ArrayList<>(stoner.getActivePets())) {
+      PetData data = PetData.forNPC(pet.getId());
+      if (data == null) continue;
 
-	if (stoner.getBox().hasSpaceFor(new Item(data.getItem()))) {
-		stoner.getBox().add(new Item(data.getItem()));
-	} else if (stoner.getBank().hasSpaceFor((new Item(data.getItem())))) {
-		stoner.getBank().add((new Item(data.getItem())));
-		stoner.getClient().queueOutgoingPacket(new SendMessage("Your pet has been added to your bank."));
-	} else {
-		stoner.getClient().queueOutgoingPacket(new SendMessage("You must free some box space to pick up your pet."));
-		return false;
-	}
+      Item petItem = new Item(data.getItem());
 
-	stoner.getUpdateFlags().sendAnimation(new Animation(827));
-	stoner.face(stoner.getBossPet());
+      if (stoner.getBox().hasSpaceFor(petItem)) {
+        stoner.getBox().add(petItem);
+      } else if (stoner.getBank().hasSpaceFor(petItem)) {
+        stoner.getBank().add(petItem);
+        stoner.send(
+            new SendMessage("Your " + pet.getDefinition().getName() + " was added to your bank."));
+      } else {
+        stoner.send(new SendMessage("You have no space to save your pet. It was dismissed."));
+      }
 
-	TaskQueue.queue(new Task(stoner, 1, true) {
-		@Override
-		public void execute() {
-		stoner.getBossPet().remove();
-		stoner.setBossPet(null);
-		stop();
-		}
+      pet.remove();
+      stoner.removePet(pet);
+    }
+  }
 
-		@Override
-		public void onStop() {
-		stoner.send(new SendMessage("You have picked up your pet."));
-		}
-	});
+  public static void onDeath(Stoner stoner) {
+    for (Mob pet : new ArrayList<>(stoner.getActivePets())) {
+      pet.remove();
+      stoner.removePet(pet);
+      stoner.send(new SendMessage("You got yourself and your pet killed, irresponsible douch!"));
+    }
+  }
 
-	return true;
-	}
+  public enum PetData {
+    KALPHITE_PRINCESS_FLY(12654, 6637),
+    KALPHITE_PRINCESS_BUG(12647, 6638),
+    SMOKE_DEVIL(12648, 6655),
+    DARK_CORE(12816, 318),
+    PRINCE_BLACK_DRAGON(12653, 4000),
+    GREEN_SNAKELING(12921, 2130),
+    RED_SNAKELING(12939, 2131),
+    BLUE_SNAKELING(12940, 2132),
+    CHAOS_ELEMENT(11995, 5907),
+    KREE_ARRA(12649, 4003),
+    CALLISTO(13178, 497),
+    SCORPIAS_OFFSPRING(13181, 5547),
+    VENENATIS(13177, 495),
+    VETION_PURPLE(13179, 5559),
+    VETION_ORANGE(13180, 5560),
+    BABY_MOLE(12646, 6635),
+    KRAKEN(12655, 6640),
+    DAGANNOTH_SUPRIME(12643, 4006),
+    DAGANNOTH_RIME(12644, 4007),
+    DAGANNOTH_REX(12645, 4008),
+    GENERAL_GRAARDOR(12650, 4001),
+    COMMANDER_ZILYANA(12651, 4009),
+    KRIL_TSUTSAROTH(12652, 4004),
+    IMP(9952, 5008),
+    KEBBIT(9953, 1347),
+    BUTTERFLY(9970, 1854),
+    GIANT_EAGLE(9974, 5317),
+    BLACK_CHINCHOMPA(11959, 2912),
+    GNOME(3257, 4233),
+    CHICKEN(5609, 6367),
+    HELLHOUND(8137, 3133),
+    BABY_DRAGON(8134, 137),
+    DEMON(8138, 142),
+    ROCNAR(8305, 143),
+    FLAMBEED(8304, 4881),
+    TENTACLE(8303, 5535),
+    DEATH(5567, 12840);
 
-	/**
-	 * Handles pets on logout
-	 * 
-	 * @param stoner
-	 * @return
-	 */
-	public static void onLogout(Stoner stoner) {
-	if (stoner.getBossPet() != null) {
+    private final int itemID;
+    private final int npcID;
 
-		PetData data = PetData.forNPC(stoner.getBossPet().getId());
+    PetData(int itemID, int npcID) {
+      this.itemID = itemID;
+      this.npcID = npcID;
+    }
 
-		if (stoner.getBox().hasSpaceFor(new Item(data.getItem()))) {
-			stoner.getBox().add(new Item(data.getItem()));
-		} else if (stoner.getBank().hasSpaceFor((new Item(data.getItem())))) {
-			stoner.getBank().add((new Item(data.getItem())));
-		}
-	}
-	}
+    public static PetData forItem(int id) {
+      for (PetData data : PetData.values()) if (data.itemID == id) return data;
+      return null;
+    }
 
-	/**
-	 * Handles what happens on death
-	 * 
-	 * @param stoner
-	 */
-	public static void onDeath(Stoner stoner) {
-	if (stoner.getBossPet() != null) {
-		stoner.getBossPet().remove();
-		stoner.setBossPet(null);
-		stoner.send(new SendMessage("You got yourself and your pet killed, irresponsible douch!"));
-	}
-	}
+    public static PetData forNPC(int id) {
+      for (PetData data : PetData.values()) if (data.npcID == id) return data;
+      return null;
+    }
+
+    public int getItem() {
+      return itemID;
+    }
+
+    public int getNPC() {
+      return npcID;
+    }
+  }
 }

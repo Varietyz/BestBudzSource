@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.gambling;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.FileHandler;
@@ -18,51 +15,13 @@ import com.bestbudz.rs2.entity.object.ObjectManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlowerGame {
 
+	private static final List<Mob> gamblers = new ArrayList<>();
 	private static boolean busy = false;
-	private static List<Mob> gamblers = new ArrayList<>();
-
-	public enum Flower {
-		RED(2462, 2981, FlowerType.HOT),
-		YELLOW(2466, 2983, FlowerType.HOT),
-		ORANGE(2470, 2985, FlowerType.HOT),
-		WHITE(2474, 2987, FlowerType.HOT),
-		BLUE(2464, 2982, FlowerType.COLD),
-		PURPLE(2468, 2984, FlowerType.COLD),
-		ASSORTED(2460, 2980, FlowerType.COLD),
-		BLACK(2476, 2988, FlowerType.COLD),
-		RAINBOW(2472, 2986, FlowerType.NEITHER);
-
-		private int item;
-		private int object;
-		private FlowerType type;
-
-		private Flower(int item, int object, FlowerType type) {
-		this.item = item;
-		this.object = object;
-		this.type = type;
-		}
-
-		public int getItem() {
-		return item;
-		}
-
-		public int getObject() {
-		return object;
-		}
-
-		public FlowerType getType() {
-		return type;
-		}
-	}
-
-	public enum FlowerType {
-		HOT,
-		COLD,
-		NEITHER
-	}
 
 	public static void setGambler(Mob gambler) {
 	FlowerGame.gamblers.add(gambler);
@@ -81,11 +40,6 @@ public class FlowerGame {
 	}
 
 	public static boolean canPlay(Stoner stoner, int amount) {
-	// if (StonerConstants.isStaff(stoner)) {
-	// DialogueManager.sendNpcChat(stoner, 1011, Emotion.DEFAULT, "Sorry, but
-	// Jaybane has forbidden you from gambling.");
-	// return false;
-	// } else
 
 	if (busy) {
 		DialogueManager.sendNpcChat(stoner, 1011, Emotion.DEFAULT, "I'm busy with another bet at the moment.");
@@ -117,17 +71,9 @@ public class FlowerGame {
 
 	stoner.start(new OptionDialogue("Bet on hot", p -> {
 		plant(mob, flower);
-		if (flower.getType() == FlowerType.HOT) {
-			results(stoner, amount, true);
-		} else {
-			results(stoner, amount, false);
-		}
+		results(stoner, amount, flower.getType() == FlowerType.HOT);
 	}, "Bet on cold", p -> {
-		if (flower.getType() == FlowerType.COLD) {
-			results(stoner, amount, true);
-		} else {
-			results(stoner, amount, false);
-		}
+		results(stoner, amount, flower.getType() == FlowerType.COLD);
 	}));
 	}
 
@@ -143,7 +89,7 @@ public class FlowerGame {
 			gambler.getUpdateFlags().sendAnimation(new Animation(827));
 		case 1:
 			TaskQueue.queue(new Task(gambler, 6) {
-				GameObject obj = new GameObject(flower.getObject(), gambler.getLocation(), 10, 0);
+				final GameObject obj = new GameObject(flower.getObject(), gambler.getLocation(), 10, 0);
 
 				@Override
 				public void execute() {
@@ -203,6 +149,46 @@ public class FlowerGame {
 	public static void save(long amount) {
 	Gambling.MONEY_TRACKER += amount;
 	FileHandler.saveGambling();
+	}
+
+	public enum Flower {
+		RED(2462, 2981, FlowerType.HOT),
+		YELLOW(2466, 2983, FlowerType.HOT),
+		ORANGE(2470, 2985, FlowerType.HOT),
+		WHITE(2474, 2987, FlowerType.HOT),
+		BLUE(2464, 2982, FlowerType.COLD),
+		PURPLE(2468, 2984, FlowerType.COLD),
+		ASSORTED(2460, 2980, FlowerType.COLD),
+		BLACK(2476, 2988, FlowerType.COLD),
+		RAINBOW(2472, 2986, FlowerType.NEITHER);
+
+		private final int item;
+		private final int object;
+		private final FlowerType type;
+
+		Flower(int item, int object, FlowerType type) {
+		this.item = item;
+		this.object = object;
+		this.type = type;
+		}
+
+		public int getItem() {
+		return item;
+		}
+
+		public int getObject() {
+		return object;
+		}
+
+		public FlowerType getType() {
+		return type;
+		}
+	}
+
+	public enum FlowerType {
+		HOT,
+		COLD,
+		NEITHER
 	}
 
 }

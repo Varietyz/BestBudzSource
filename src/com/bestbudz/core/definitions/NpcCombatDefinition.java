@@ -8,185 +8,175 @@ import com.bestbudz.rs2.entity.Projectile;
 
 public class NpcCombatDefinition {
 
-	public enum CombatTypes {
-		MELEE,
-		SAGITTARIUS,
-		MAGE,
-		MELEE_AND_SAGITTARIUS,
-		MELEE_AND_MAGE,
-		SAGITTARIUS_AND_MAGE,
-		ALL
-	}
+  private short id;
+  private CombatTypes combatType;
+  private short respawnTime;
+  private Animation block;
+  private Animation death;
+  private Profession[] professions;
+  private int[] bonuses;
+  private Melee[] melee;
+  private Mage[] mage;
+  private Sagittarius[] sagittarius;
 
-	/**
-	 * Holds the values for mage based assaults for npcs
-	 * 
-	 * @author Jaybane
-	 * 
-	 */
-	public class Mage {
+  public Animation getBlock() {
+    return block;
+  }
 
-		private Assault assault;
-		private Animation animation;
-		private Graphic start;
-		private Projectile projectile;
-		private Graphic end;
-		private byte max;
+  public int[] getBonuses() {
+    return bonuses;
+  }
 
-		public Animation getAnimation() {
-		return animation;
-		}
+  public CombatTypes getCombatType() {
+    return combatType;
+  }
 
-		public Assault getAssault() {
-		return assault;
-		}
+  public Animation getDeath() {
+    return death;
+  }
 
-		public Graphic getEnd() {
-		return end;
-		}
+  public int getId() {
+    return id;
+  }
 
-		public int getMax() {
-		return max;
-		}
+  public Mage[] getMage() {
+    return mage;
+  }
 
-		public Projectile getProjectile() {
-		return projectile;
-		}
+  public enum CombatTypes {
+    MELEE,
+    SAGITTARIUS,
+    MAGE,
+    MELEE_AND_SAGITTARIUS,
+    MELEE_AND_MAGE,
+    SAGITTARIUS_AND_MAGE,
+    ALL
+  }
 
-		public Graphic getStart() {
-		return start;
-		}
-	}
+  public class Mage {
 
-	public class Melee {
+    private Assault assault;
+    private Animation animation;
+    private Graphic start;
+    private Projectile projectile;
+    private Graphic end;
+    private byte max;
 
-		private Assault assault;
-		private AssaultType assaultType;
-		private Animation animation;
-		private byte max;
+    public Animation getAnimation() {
+      return animation;
+    }
 
-		public Animation getAnimation() {
-		return animation;
-		}
+    public Assault getAssault() {
+      return assault;
+    }
 
-		public Assault getAssault() {
-		return assault;
-		}
+    public Graphic getEnd() {
+      return end;
+    }
 
-		public int getMax() {
-		return max;
-		}
+    public int getMax() {
+      return max;
+    }
 
-		public AssaultType getAssaultType() {
-		return assaultType;
-		}
-	}
+    public Projectile getProjectile() {
+      return projectile;
+    }
 
-	public class Sagittarius {
+    public Graphic getStart() {
+      return start;
+    }
+  }
 
-		private Assault assault;
-		private Animation animation;
-		private Graphic start;
-		private Projectile projectile;
-		private Graphic end;
-		private byte max;
+  public class Melee {
 
-		public Animation getAnimation() {
-		return animation;
-		}
+    private Assault assault;
+    private AssaultType assaultType;
+    private Animation animation;
+    private byte max;
 
-		public Assault getAssault() {
-		return assault;
-		}
+    public Animation getAnimation() {
+      return animation;
+    }
 
-		public Graphic getEnd() {
-		return end;
-		}
+    public Assault getAssault() {
+      return assault;
+    }
 
-		public int getMax() {
-		return max;
-		}
+    public int getMax() {
+      return max;
+    }
 
-		public Projectile getProjectile() {
-		return projectile;
-		}
+    public AssaultType getAssaultType() {
+      return assaultType;
+    }
+  }
 
-		public Graphic getStart() {
-		return start;
-		}
-	}
+  public class Sagittarius {
 
-	public class Profession {
+    private Assault assault;
+    private Animation animation;
+    private Graphic start;
+    private Projectile projectile;
+    private Graphic end;
+    private byte max;
 
-		private int id;
-		private int grade;
+    public Animation getAnimation() {
+      return animation;
+    }
 
-		public int getId() {
-		return id;
-		}
+    public Assault getAssault() {
+      return assault;
+    }
 
-		public int getGrade() {
-		return grade;
-		}
+    public Graphic getEnd() {
+      return end;
+    }
 
-		@Override
-		public String toString() {
-		return "[" + id + ", " + grade + "]";
-		}
-	}
+    public int getMax() {
+      return max;
+    }
 
-	private short id;
-	private CombatTypes combatType;
-	private short respawnTime;
-	private Animation block;
-	private Animation death;
-	private Profession[] professions;
+    public Projectile getProjectile() {
+      return projectile;
+    }
 
-	private int[] bonuses;
+    public Graphic getStart() {
+      return start;
+    }
+  }
 
-	private Melee[] melee;
+  public class Profession {
 
-	private Mage[] mage;
+    private int id;
+    private int grade;
 
-	private Sagittarius[] sagittarius;
+    public int getId() {
+      return id;
+    }
 
-	public Animation getBlock() {
-	return block;
-	}
+    public int getGrade() {
+      return grade;
+    }
 
-	public int[] getBonuses() {
-	return bonuses;
-	}
+    @Override
+    public String toString() {
+      return "[" + id + ", " + grade + "]";
+    }
+  }
 
-	public CombatTypes getCombatType() {
-	return combatType;
-	}
+  public Melee[] getMelee() {
+    return melee;
+  }
 
-	public Animation getDeath() {
-	return death;
-	}
+  public Sagittarius[] getSagittarius() {
+    return sagittarius;
+  }
 
-	public int getId() {
-	return id;
-	}
+  public short getRespawnTime() {
+    return respawnTime;
+  }
 
-	public Mage[] getMage() {
-	return mage;
-	}
-
-	public Melee[] getMelee() {
-	return melee;
-	}
-
-	public Sagittarius[] getSagittarius() {
-	return sagittarius;
-	}
-
-	public short getRespawnTime() {
-	return respawnTime;
-	}
-
-	public Profession[] getProfessions() {
-	return professions;
-	}
+  public Profession[] getProfessions() {
+    return professions;
+  }
 }

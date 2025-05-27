@@ -1,12 +1,5 @@
 package com.bestbudz.rs2.content.minigames.duelarena;
 
-import java.math.BigInteger;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.Utility;
@@ -19,29 +12,37 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemCheck;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBoxInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendDuelEquipment;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendBoxInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStonerHint;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStonerHint;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
+import java.math.BigInteger;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 public class Dueling {
 
-	public static enum DuelingStatuses {
-		WAITING,
+	private final Stoner p;
+	private final StakingContainer container;
+	private Stoner lastRequest = null;
+	private Stoner interacting = null;
+	private int rules;
+	private boolean[] ruleToggle = null;
+	private boolean[] toRemove = null;
+	private DuelingStatuses s = DuelingStatuses.WAITING;
+	private int arenaId = -1;
+	private boolean assault = false;
 
-		SCREEN_1,
-
-		SCREEN_1_ACCEPTED,
-
-		SCREEN_2,
-
-		SCREEN_2_ACCEPTED,
-
-		DUELING;
+	public Dueling(Stoner p) {
+	this.p = p;
+	container = new StakingContainer(p);
 	}
 
 	public static void beginDuel(final Stoner p1, final Stoner p2) {
@@ -262,31 +263,6 @@ public class Dueling {
 	p2.getClient().queueOutgoingPacket(new SendBoxInterface(6412, 3321));
 	}
 
-	private final Stoner p;
-
-	private Stoner lastRequest = null;
-
-	private Stoner interacting = null;
-
-	private int rules;
-
-	private boolean[] ruleToggle = null;
-
-	private boolean[] toRemove = null;
-
-	private StakingContainer container;
-
-	private DuelingStatuses s = DuelingStatuses.WAITING;
-
-	private int arenaId = -1;
-
-	private boolean assault = false;
-
-	public Dueling(Stoner p) {
-	this.p = p;
-	container = new StakingContainer(p);
-	}
-
 	public void accept() {
 	switch (s) {
 	case SCREEN_1:
@@ -327,10 +303,11 @@ public class Dueling {
 		return false;
 	}
 
-	if (p.getSummoning().hasFamiliar() || p.getBossPet() != null) {
-		p.getClient().queueOutgoingPacket(new SendMessage("You must dismiss your familiar to duel."));
-		return false;
-	}
+		if (p.getSummoning().hasFamiliar() || !p.getActivePets().isEmpty()) {
+			p.getClient().queueOutgoingPacket(new SendMessage("You must dismiss your familiar to duel."));
+			return false;
+		}
+
 
 	if ((ruleToggle[3]) && (ruleToggle[2]) && (ruleToggle[4])) {
 		p.getClient().queueOutgoingPacket(new SendMessage("You must enable one combat type to duel!"));
@@ -669,7 +646,7 @@ public class Dueling {
 	}
 
 	public void toggle(int id) {
-	ruleToggle[id] = (ruleToggle[id] ? false : true);
+	ruleToggle[id] = (!ruleToggle[id]);
 	rules += (ruleToggle[id] ? DuelingConstants.DUEL_RULE_IDS[id] : -DuelingConstants.DUEL_RULE_IDS[id]);
 
 	if (id >= 11 && id <= 21) {
@@ -717,5 +694,19 @@ public class Dueling {
 
 	p.getClient().queueOutgoingPacket(new SendString("", 6684));
 	interacting.getClient().queueOutgoingPacket(new SendString("", 6684));
+	}
+
+	public enum DuelingStatuses {
+		WAITING,
+
+		SCREEN_1,
+
+		SCREEN_1_ACCEPTED,
+
+		SCREEN_2,
+
+		SCREEN_2_ACCEPTED,
+
+		DUELING
 	}
 }

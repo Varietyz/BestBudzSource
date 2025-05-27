@@ -1,11 +1,5 @@
 package com.bestbudz.rs2.content;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.bestbudz.core.definitions.ItemDefinition;
 import com.bestbudz.core.definitions.ItemDropDefinition;
 import com.bestbudz.core.definitions.ItemDropDefinition.ItemDrop;
@@ -20,6 +14,11 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItemsAlt;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DropTable {
 

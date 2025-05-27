@@ -1,53 +1,52 @@
 package com.bestbudz.rs2.content.profession.forging;
 
+import com.bestbudz.rs2.entity.item.Item;
 import java.util.HashMap;
 
-import com.bestbudz.rs2.entity.item.Item;
-
 public enum SmeltingData {
-	BRONZE_BAR(new Item[] { new Item(436), new Item(438) }, new Item(2349), 1, 6.2D),
-	BLURITE_BAR(new Item[] { new Item(668) }, new Item(9467), 1, 8.0D),
-	IRON_BAR(new Item[] { new Item(440) }, new Item(2351), 1, 12.5D),
-	SILVER_BAR(new Item[] { new Item(442) }, new Item(2355), 1, 13.699999999999999D),
-	STEEL_BAR(new Item[] { new Item(440), new Item(453) }, new Item(2353), 1, 17.5D),
-	GOLD_BAR(new Item[] { new Item(444) }, new Item(2357), 1, 22.5D),
-	PERFECT_GOLD_BAR(new Item[] { new Item(446) }, new Item(2365), 1, 122.5D),
-	MITHRIL_BAR(new Item[] { new Item(447), new Item(453) }, new Item(2359), 1, 30.0D),
-	ADAMANITE_BAR(new Item[] { new Item(449), new Item(453) }, new Item(2361), 1, 37.5D),
-	RUNITE_BAR(new Item[] { new Item(451), new Item(453, 2) }, new Item(2363), 1, 150.0D);
+  BRONZE_BAR(new Item[] {new Item(436), new Item(438)}, new Item(2349), 1, 6.2D),
+  BLURITE_BAR(new Item[] {new Item(668)}, new Item(9467), 1, 8.0D),
+  IRON_BAR(new Item[] {new Item(440)}, new Item(2351), 1, 12.5D),
+  SILVER_BAR(new Item[] {new Item(442)}, new Item(2355), 1, 13.699999999999999D),
+  STEEL_BAR(new Item[] {new Item(440), new Item(453)}, new Item(2353), 1, 17.5D),
+  GOLD_BAR(new Item[] {new Item(444)}, new Item(2357), 1, 22.5D),
+  PERFECT_GOLD_BAR(new Item[] {new Item(446)}, new Item(2365), 1, 122.5D),
+  MITHRIL_BAR(new Item[] {new Item(447), new Item(453)}, new Item(2359), 1, 30.0D),
+  ADAMANITE_BAR(new Item[] {new Item(449), new Item(453)}, new Item(2361), 1, 37.5D),
+  RUNITE_BAR(new Item[] {new Item(451), new Item(453, 2)}, new Item(2363), 1, 150.0D);
 
-	public static final void declare() {
-	for (SmeltingData ores : values())
-		smelting.put(Integer.valueOf(ores.getResult().getId()), ores);
-	}
+  private static final HashMap<Integer, SmeltingData> smelting =
+      new HashMap<Integer, SmeltingData>();
+  final Item[] requiredOres;
+  final Item result;
+  final int gradeRequired;
+  final double exp;
 
-	final Item[] requiredOres;
-	final Item result;
-	final int gradeRequired;
-	final double exp;
+  SmeltingData(Item[] requiredOres, Item result, int gradeRequired, double exp) {
+    this.requiredOres = requiredOres;
+    this.result = result;
+    this.gradeRequired = gradeRequired;
+    this.exp = exp;
+  }
 
-	private static HashMap<Integer, SmeltingData> smelting = new HashMap<Integer, SmeltingData>();
+  public static final void declare() {
+    for (SmeltingData ores : values())
+      smelting.put(Integer.valueOf(ores.getResult().getId()), ores);
+  }
 
-	private SmeltingData(Item[] requiredOres, Item result, int gradeRequired, double exp) {
-	this.requiredOres = requiredOres;
-	this.result = result;
-	this.gradeRequired = gradeRequired;
-	this.exp = exp;
-	}
+  public double getExp() {
+    return exp;
+  }
 
-	public double getExp() {
-	return exp;
-	}
+  public int getGradeRequired() {
+    return gradeRequired;
+  }
 
-	public int getGradeRequired() {
-	return gradeRequired;
-	}
+  public Item[] getRequiredOres() {
+    return requiredOres;
+  }
 
-	public Item[] getRequiredOres() {
-	return requiredOres;
-	}
-
-	public Item getResult() {
-	return result;
-	}
+  public Item getResult() {
+    return result;
+  }
 }

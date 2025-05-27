@@ -1,27 +1,14 @@
 package com.bestbudz.rs2.content;
 
-import java.util.function.Predicate;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.function.Predicate;
 
-/**
- * Handles all stoners online
- * 
- * @author Jaybane
- *
- */
 public class StonersOnline {
 
-	/**
-	 * Gets the rank of stoner
-	 * 
-	 * @param stoner
-	 * @return
-	 */
 	public static String rank(Stoner stoner) {
 	switch (stoner.getRights()) {
 	case 0:
@@ -56,12 +43,6 @@ public class StonersOnline {
 	return "";
 	}
 
-	/**
-	 * Shows stoner online
-	 * 
-	 * @param stoner
-	 * @param stonerType
-	 */
 	public static void showStoners(Stoner stoner, Predicate<Stoner> stonerType) {
 	for (int index = 0; index < 50; index++) {
 		stoner.send(new SendString("", 8145 + index));

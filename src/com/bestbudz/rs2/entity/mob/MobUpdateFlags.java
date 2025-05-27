@@ -1,16 +1,15 @@
 package com.bestbudz.rs2.entity.mob;
 
-import java.util.BitSet;
-
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.UpdateFlags;
+import java.util.BitSet;
 
 public final class MobUpdateFlags {
 	private final BitSet set = new BitSet(12);
 	private final short transformId;
 	private final byte primaryDirection;
-	private final short hp;
-	private final short maxHP;
+	private final long hp;
+	private final long maxHP;
 	private final short x;
 	private final short y;
 	private final short z;
@@ -22,15 +21,15 @@ public final class MobUpdateFlags {
 	private final int entityFaceIndex;
 	private final short faceX;
 	private final short faceY;
-	private final byte damage;
-	private final byte damage2;
-	private final byte hitType;
-	private final byte hitType2;
+	private final long damage;
+	private final long damage2;
+	private final long hitType;
+	private final long hitType2;
 	private final short graphicId;
 	private final byte graphicHeight;
 	private final byte graphicDelay;
-	private final byte hitUpdateCombatType;
-	private final byte hitUpdateCombatType2;
+	private final long hitUpdateCombatType;
+	private final long hitUpdateCombatType2;
 
 	public MobUpdateFlags(Mob mob) {
 	UpdateFlags u = mob.getUpdateFlags();
@@ -82,12 +81,12 @@ public final class MobUpdateFlags {
 	if ((set.get(7)) || (set.get(8))) {
 		hp = mob.getGrades()[3];
 		maxHP = mob.getMaxGrades()[3];
-		damage = ((byte) u.getDamage());
-		damage2 = ((byte) u.getDamage2());
-		hitType = ((byte) u.getHitType());
-		hitType2 = ((byte) u.getHitType2());
-		hitUpdateCombatType = (byte) u.getHitUpdateCombatType();
-		hitUpdateCombatType2 = (byte) u.getHitUpdateCombatType2();
+		damage = (u.getDamage());
+		damage2 = (u.getDamage2());
+		hitType = (u.getHitType());
+		hitType2 = (u.getHitType2());
+		hitUpdateCombatType = u.getHitUpdateCombatType();
+		hitUpdateCombatType2 = u.getHitUpdateCombatType2();
 	} else {
 		hp = 0;
 		maxHP = 0;
@@ -122,11 +121,11 @@ public final class MobUpdateFlags {
 	return animationId;
 	}
 
-	public byte getDamage() {
+	public long getDamage() {
 	return damage;
 	}
 
-	public byte getDamage2() {
+	public long getDamage2() {
 	return damage2;
 	}
 
@@ -166,15 +165,15 @@ public final class MobUpdateFlags {
 	return graphicId;
 	}
 
-	public byte getHitType() {
+	public long getHitType() {
 	return hitType;
 	}
 
-	public byte getHitType2() {
+	public long getHitType2() {
 	return hitType2;
 	}
 
-	public short getHp() {
+	public long getHp() {
 	return hp;
 	}
 
@@ -186,7 +185,7 @@ public final class MobUpdateFlags {
 	return new Location(x, y, z);
 	}
 
-	public short getMaxHP() {
+	public long getMaxHP() {
 	return maxHP;
 	}
 
@@ -210,11 +209,11 @@ public final class MobUpdateFlags {
 	return z;
 	}
 
-	public byte getHitUpdateType() {
+	public long getHitUpdateType() {
 	return hitUpdateCombatType;
 	}
 
-	public byte getHitUpdateType2() {
+	public long getHitUpdateType2() {
 	return hitUpdateCombatType2;
 	}
 

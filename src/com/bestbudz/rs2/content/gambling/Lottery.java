@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.gambling;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.io.StonerSaveUtil;
@@ -11,45 +8,21 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Handles the Lottery
- * 
- * @author Jaybane
- *
- */
 public class Lottery {
 
-	/**
-	 * Stoners entered in the lottery
-	 */
 	private static final List<Stoner> entries = new ArrayList<Stoner>();
 
-	/**
-	 * The lottery limit
-	 */
 	private static final int LOTTERY_LIMIT = 100_000_000;
 
-	/**
-	 * The entry price of lottery
-	 */
 	private static final int ENTRY_PRICE = 1_000_000;
 
-	/**
-	 * Current threshold of lottery
-	 */
 	private static int CURRENT_POT = 0;
 
-	/**
-	 * The winner of lottery
-	 */
 	private static Stoner winner = null;
 
-	/**
-	 * Handles stoner entering the lottery
-	 * 
-	 * @param stoner
-	 */
 	public static void enterLotter(Stoner stoner) {
 
 	if (hasEntered(stoner)) {
@@ -79,9 +52,6 @@ public class Lottery {
 
 	}
 
-	/**
-	 * Draws the lottery
-	 */
 	public static void draw() {
 	if (entries.isEmpty()) {
 		return;
@@ -101,60 +71,30 @@ public class Lottery {
 	reset();
 	}
 
-	/**
-	 * Resets the lottery
-	 */
 	public static void reset() {
 	winner = null;
 	CURRENT_POT = 0;
 	entries.clear();
 	}
 
-	/**
-	 * Does an announcement for lottery
-	 */
 	public static void announce() {
 	World.sendGlobalMessage("[ <col=C46423>Lottery </col>] The current pot is at <col=C46423>" + Utility.format(CURRENT_POT) + " </col>/ <col=C46423>" + Utility.format(LOTTERY_LIMIT) + "</col>.");
 	}
 
-	/**
-	 * Gets the current lottery pot
-	 * 
-	 * @return
-	 */
 	public static int getPot() {
 	return CURRENT_POT;
 	}
 
-	/**
-	 * Gets the current lottery limit
-	 * 
-	 * @return
-	 */
 	public static int getLimit() {
 	return LOTTERY_LIMIT;
 	}
 
-	/**
-	 * Gets the amount of stoners involved in lottery
-	 * 
-	 * @return
-	 */
 	public static int getStoners() {
 	return entries.size();
 	}
 
-	/**
-	 * Checks if stoner has entered the lotter
-	 * 
-	 * @param stoner
-	 * @return
-	 */
 	public static boolean hasEntered(Stoner stoner) {
-	if (entries.contains(stoner)) {
-		return true;
-	}
-	return false;
+		return entries.contains(stoner);
 	}
 
 }

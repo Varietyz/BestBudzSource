@@ -9,65 +9,74 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class CleanWeedTask extends Task {
-	public static void attemptWeedCleaning(Stoner stoner, int amount) {
-	if (stoner.getBox().get(amount) == null) {
-		return;
-	}
+  private final Stoner stoner;
+  private final UntrimmedWeedData data;
 
-	UntrimmedWeedData data = UntrimmedWeedData.forId(stoner.getBox().get(amount).getId());
+  public CleanWeedTask(Stoner stoner, int amount, UntrimmedWeedData data) {
+    super(
+        stoner,
+        0,
+        true,
+        Task.StackType.STACK,
+        Task.BreakType.ON_MOVE,
+        TaskIdentifier.CURRENT_ACTION);
+    this.stoner = stoner;
+    this.data = data;
+  }
 
-	if (data == null) {
-		return;
-	}
-	if (!meetsRequirements(stoner, data)) {
-		return;
-	}
+  public static void attemptWeedCleaning(Stoner stoner, int amount) {
+    if (stoner.getBox().get(amount) == null) {
+      return;
+    }
 
-	TaskQueue.queue(new CleanWeedTask(stoner, amount, data));
-	}
+    UntrimmedWeedData data = UntrimmedWeedData.forId(stoner.getBox().get(amount).getId());
 
-	private static boolean meetsRequirements(Stoner stoner, UntrimmedWeedData data) {
-	if (stoner.getProfession().getGrades()[15] < data.getGradeReq()) {
-		stoner.getClient().queueOutgoingPacket(new SendMessage("You need an THC-hempistry grade of " + data.getGradeReq() + " to trim this weed."));
-		return false;
-	}
-	if (!stoner.getEquipment().isWearingItem(6575)) {
-				DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-		return false;
-	}
-	return true;
-	}
+    if (data == null) {
+      return;
+    }
+    if (!meetsRequirements(stoner, data)) {
+      return;
+    }
 
-	private final Stoner stoner;
+    TaskQueue.queue(new CleanWeedTask(stoner, amount, data));
+  }
 
-	// private int amount;
+  private static boolean meetsRequirements(Stoner stoner, UntrimmedWeedData data) {
+    if (stoner.getProfession().getGrades()[15] < data.getGradeReq()) {
+      stoner
+          .getClient()
+          .queueOutgoingPacket(
+              new SendMessage(
+                  "You need an THC-hempistry grade of "
+                      + data.getGradeReq()
+                      + " to trim this weed."));
+      return false;
+    }
+    if (!stoner.getEquipment().isWearingItem(6575)) {
+      DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
+      return false;
+    }
+    return true;
+  }
 
-	private UntrimmedWeedData data;
+  private void cleanWeed() {
 
-	public CleanWeedTask(Stoner stoner, int amount, UntrimmedWeedData data) {
-	super(stoner, 0, true, Task.StackType.STACK, Task.BreakType.ON_MOVE, TaskIdentifier.CURRENT_ACTION);
-	this.stoner = stoner;
-	// this.amount = amount;
-	this.data = data;
-	}
+    stoner.getBox().remove(data.getUntrimmedWeed(), 1);
+    stoner.getBox().add(new Item(data.getCleanWeed(), 1));
+    stoner.getBox().update();
+    stoner.getProfession().addExperience(15, data.getExp());
+    stoner
+        .getClient()
+        .queueOutgoingPacket(
+            new SendMessage("You carefully trimmed the weed, leaving u with some nice buds."));
+  }
 
-	private void cleanWeed() {
-	// stoner.getBox().getItems()[amount] = null;
+  @Override
+  public void execute() {
+    cleanWeed();
+    stop();
+  }
 
-	stoner.getBox().remove(data.getUntrimmedWeed(), 1);
-	stoner.getBox().add(new Item(data.getCleanWeed(), 1));
-	stoner.getBox().update();
-	stoner.getProfession().addExperience(15, data.getExp());
-	stoner.getClient().queueOutgoingPacket(new SendMessage("You carefully trimmed the weed, leaving u with some nice buds."));
-	}
-
-	@Override
-	public void execute() {
-	cleanWeed();
-	stop();
-	}
-
-	@Override
-	public void onStop() {
-	}
+  @Override
+  public void onStop() {}
 }

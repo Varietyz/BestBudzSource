@@ -1,12 +1,5 @@
 package com.bestbudz.rs2.entity.mob;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import com.bestbudz.core.definitions.ItemDropDefinition;
 import com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable;
 import com.bestbudz.core.definitions.NpcDefinition;
@@ -39,31 +32,19 @@ import com.bestbudz.rs2.entity.mob.impl.Zulrah;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-/**
- * Handles Mop drops
- * 
- * @author Jaybane
- *
- */
 public class MobDrops {
 
-	/**
-	 * Random
-	 */
 	private static final SecureRandom random = new SecureRandom();
 
-	/**
-	 * Rare check
-	 */
 	private static boolean rares = true;
 
-	/**
-	 * Calculates amount
-	 * 
-	 * @param drop
-	 * @return
-	 */
 	public static int calculateAmount(ItemDropDefinition.ItemDrop drop) {
 	if (drop.getMax() <= drop.getMin()) {
 		return drop.getMin();
@@ -74,14 +55,6 @@ public class MobDrops {
 	return drop.getMin() + random.nextInt(drop.getMax() - drop.getMin());
 	}
 
-	/**
-	 * Drops the item
-	 * 
-	 * @param entity
-	 * @param mob
-	 * @param table
-	 * @param dropLocation
-	 */
 	public static void drop(Entity entity, Mob mob, ItemDropDefinition.ItemDropTable table, Location dropLocation) {
 	if ((table != null) && (table.getDrops() != null)) {
 		ItemDropDefinition.ItemDrop drop = table.getDrops()[random.nextInt(table.getDrops().length)];
@@ -329,8 +302,6 @@ public class MobDrops {
 		dropLocation = new Location(stoner.getX(), stoner.getY(), stoner.getZ());
 	}
 
-	// int grade = mob.getDefinition().getGrade();
-
 	ItemDropDefinition drops = GameDefinitionLoader.getItemDropDefinition(mob.getId());
 
 	int ucRoll = 10;
@@ -397,11 +368,6 @@ public class MobDrops {
 			if (random == 100) {
 				GroundItemHandler.add(new Item(987, 1), dropLocation, p, p.getStoner() != null ? p : null);
 			}
-			/*
-			 * if (random.nextInt(100) <= 5) { int seed = Plants.values()[Misc
-			 * .randomNumber(Plants.values().length)].seed; GroundItemHandler.add(new
-			 * Item(seed, Misc.randomNumber(3)), dropLocation, p); }
-			 */
 
 		}
 	} else if (ArmourAnimator.isAnimatedArmour(mob.getId())) {
@@ -549,8 +515,6 @@ public class MobDrops {
 
 	ItemDropTable table = GameDefinitionLoader.getItemDropDefinition(npcId).getRare();
 
-	// estimates rare percentage
-
 	HashMap<Item, Integer> averages = new HashMap<>();
 
 	int mod = 10 * 10;
@@ -615,7 +579,7 @@ public class MobDrops {
 				PetData petDrop = PetData.forItem(drop.getId());
 
 				if (petDrop != null) {
-					if (e.getStoner().getBossPet() == null) {
+					if (e.getStoner().getActivePets().size() < 5) {
 						BossPets.spawnPet(e.getStoner(), petDrop.getItem(), true);
 						e.getStoner().send(new SendMessage("You feel a pressence following you; " + Utility.formatStonerName(GameDefinitionLoader.getNpcDefinition(petDrop.getNPC()).getName()) + " starts to follow you."));
 					} else {

@@ -1,78 +1,21 @@
 package com.bestbudz.rs2.content.cluescroll;
 
-import java.util.Objects;
-
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
+import java.util.Objects;
 
-/**
- * Handles the clue the stoner reads after clicking a clue scroll.
- * 
- * @author Jaybane
- *
- */
 public final class Clue {
 
-	/**
-	 * A representation of the type of clue a scroll is.
-	 * 
-	 * @author Jaybane
-	 *
-	 */
-	public static enum ClueType {
-
-		/**
-		 * A map clue.
-		 */
-		MAP,
-
-		/**
-		 * A cryptic clue.
-		 */
-		CRYPTIC,
-
-		/**
-		 * An emote clue.
-		 */
-		EMOTE,
-
-		/**
-		 * A coordinate clue.
-		 */
-		COORDINATE
-	}
-
-	/**
-	 * The clue type for this clue.
-	 */
 	private final ClueType clueType;
-
-	/**
-	 * The data required to display the clue.
-	 */
 	private final Object[] data;
 
-	/**
-	 * Constructs a new Clue.
-	 * 
-	 * @param clueType
-	 *                     - The type of clue.
-	 * @param data
-	 *                     - The data required to display the clue.
-	 */
 	public Clue(ClueType clueType, Object... data) {
 	this.clueType = clueType;
 	this.data = Objects.requireNonNull(data);
 	}
 
-	/**
-	 * Displays the clue for a stoner.
-	 * 
-	 * @param stoner
-	 *                   - The stoner to display the clue for.
-	 */
 	public void display(Stoner stoner) {
 	switch (clueType) {
 
@@ -104,6 +47,17 @@ public final class Clue {
 
 	public ClueType getClueType() {
 	return clueType;
+	}
+
+	public enum ClueType {
+
+		MAP,
+
+		CRYPTIC,
+
+		EMOTE,
+
+		COORDINATE
 	}
 
 }

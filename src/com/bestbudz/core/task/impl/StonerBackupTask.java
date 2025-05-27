@@ -1,5 +1,6 @@
 package com.bestbudz.core.task.impl;
 
+import com.bestbudz.core.task.Task;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,108 +10,121 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import com.bestbudz.core.task.Task;
-
-/**
- * Digging with a spade
- */
 public class StonerBackupTask extends Task {
 
-	public StonerBackupTask() {
-	super(650, true, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CHARACTER_BACKUP);
-	}
+  public StonerBackupTask() {
+    super(650, true, StackType.NEVER_STACK, BreakType.NEVER, TaskIdentifier.CHARACTER_BACKUP);
+  }
 
-	@Override
-	public void execute() {
-	Thread t = new Thread(new Runnable() {
-		@Override
-		public void run() {
-		backup();
-		System.out.println("Starting up Anti-Rollback Task...");
-		}
-	});
-	t.start();
-	try {
-		t.join();
-	} catch (InterruptedException e) {
-		e.printStackTrace();
-	}
-	}
+  public static void main(String[] args) {
+    Thread t =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                backup();
+                System.out.println("done.");
+              }
+            });
+    try {
+      t.start();
+      t.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Override
-	public void onStop() {
-	}
+  public static void backup() {
+    String charDir = "." + File.separator + "data" + File.separator + "characters" + File.separator;
+    String backupFolder =
+        System.getProperty("user.home")
+            + File.separator
+            + "BestBudz-backups"
+            + File.separator
+            + new SimpleDateFormat("[EE MMM d][h.mma]").format(new Date())
+            + File.separator
+            + "characters"
+            + File.separator;
 
-	public static void main(String[] args) {
-	Thread t = new Thread(new Runnable() {
-		@Override
-		public void run() {
-		backup();
-		System.out.println("done.");
-		}
-	});
-	try {
-		t.start();
-		t.join();
-	} catch (InterruptedException e) {
-		e.printStackTrace();
-	}
-	}
+    File folder = new File(backupFolder + "containers");
+    folder.mkdirs();
 
-	public static void backup() {
-	String charDir = "." + File.separator + "data" + File.separator + "characters" + File.separator;
-	String backupFolder = System.getProperty("user.home") + File.separator + "BestBudz-backups" + File.separator + new SimpleDateFormat("[EE MMM d][h.mma]").format(new Date()) + File.separator + "characters" + File.separator;
+    folder = new File(backupFolder + "details");
+    folder.mkdirs();
 
-	File folder = new File(backupFolder + "containers");
-	folder.mkdirs();
+    folder = new File(backupFolder + "cultivation");
+    folder.mkdirs();
 
-	folder = new File(backupFolder + "details");
-	folder.mkdirs();
+    for (File file : new File(charDir + "containers" + File.separator).listFiles()) {
+      try {
+        copyFile(file, new File(backupFolder + "containers" + File.separator + file.getName()));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
 
-	folder = new File(backupFolder + "cultivation");
-	folder.mkdirs();
+    for (File file : new File(charDir + "details" + File.separator).listFiles()) {
+      try {
+        copyFile(file, new File(backupFolder + "details" + File.separator + file.getName()));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
 
-	for (File file : new File(charDir + "containers" + File.separator).listFiles()) {
-		try {
-			copyFile(file, new File(backupFolder + "containers" + File.separator + file.getName()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    for (File file : new File(charDir + "cultivation" + File.separator).listFiles()) {
+      try {
+        copyFile(file, new File(backupFolder + "cultivation" + File.separator + file.getName()));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
 
-	for (File file : new File(charDir + "details" + File.separator).listFiles()) {
-		try {
-			copyFile(file, new File(backupFolder + "details" + File.separator + file.getName()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    for (File file :
+        new File(System.getProperty("user.home") + File.separator + "BestBudz-backups")
+            .listFiles()) {
+      if (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - file.lastModified()) >= 14) {
+        String[] entries = file.list();
 
-	for (File file : new File(charDir + "cultivation" + File.separator).listFiles()) {
-		try {
-			copyFile(file, new File(backupFolder + "cultivation" + File.separator + file.getName()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        for (String entry : entries) {
+          File currentFile = new File(file.getPath(), entry);
+          currentFile.delete();
+        }
 
-	for (File file : new File(System.getProperty("user.home") + File.separator + "BestBudz-backups").listFiles()) {
-		if (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - file.lastModified()) >= 14) {
-			String[] entries = file.list();
+        file.delete();
+      }
+    }
 
-			for (String entry : entries) {
-				File currentFile = new File(file.getPath(), entry);
-				currentFile.delete();
-			}
+    System.out.println(
+        "Character file backup generated. Time - "
+            + new SimpleDateFormat("[EE MMM d][h.mma]").format(new Date()));
+  }
 
-			file.delete();
-		}
-	}
+  public static void copyFile(File sourceFile, File destFile) throws IOException {
+    Files.copy(
+        Paths.get(sourceFile.getPath()),
+        Paths.get(destFile.getPath()),
+        StandardCopyOption.COPY_ATTRIBUTES);
+  }
 
-	System.out.println("Character file backup generated. Time - " + new SimpleDateFormat("[EE MMM d][h.mma]").format(new Date()));
-	}
+  @Override
+  public void execute() {
+    Thread t =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                backup();
+                System.out.println("Starting up Anti-Rollback Task...");
+              }
+            });
+    t.start();
+    try {
+      t.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 
-	public static void copyFile(File sourceFile, File destFile) throws IOException {
-	Files.copy(Paths.get(sourceFile.getPath()), Paths.get(destFile.getPath()), StandardCopyOption.COPY_ATTRIBUTES);
-	}
+  @Override
+  public void onStop() {}
 }

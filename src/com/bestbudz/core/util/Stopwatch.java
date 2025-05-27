@@ -2,76 +2,35 @@ package com.bestbudz.core.util;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * A simple timing utility used to throttle or time actions. This class has been
- * altered to use <code>NANOSECONDS</code> for extremely accurate timing.
- * 
- * @author lare96
- */
 public class Stopwatch {
 
-	/** The internal cached time for this stopwatch. */
-	private long time = Stopwatch.currentTime();
+  private long time = Stopwatch.currentTime();
 
-	/**
-	 * Resets the internal cached time, but instead of resetting it to <tt>0</tt> it
-	 * resets it to start at <code>start</code>.
-	 * 
-	 * @param start
-	 *                  the time to start this stopwatch at.
-	 * @return the stopwatch instance.
-	 */
-	public Stopwatch reset(long start) {
-	time = Stopwatch.currentTime() - start;
-	return this;
-	}
+  public static long currentTime() {
+    return TimeUnit.MILLISECONDS.convert(System.nanoTime(), TimeUnit.NANOSECONDS);
+  }
 
-	/**
-	 * Resets the internal cached time to <tt>0</tt>.
-	 * 
-	 * @return the stopwatch instance.
-	 */
-	public Stopwatch reset() {
-	time = Stopwatch.currentTime();
-	return this;
-	}
+  public Stopwatch reset(long start) {
+    time = Stopwatch.currentTime() - start;
+    return this;
+  }
 
-	/**
-	 * Returns the amount of time elapsed since this object was initialized, or
-	 * since the last call to the <code>reset()</code> method.
-	 * 
-	 * @return the elapsed time in <code>MILLISECONDS</code>.
-	 */
-	public long elapsed() {
-	return Stopwatch.currentTime() - time;
-	}
+  public Stopwatch reset() {
+    time = Stopwatch.currentTime();
+    return this;
+  }
 
-	/**
-	 * Returns the amount of time elapsed since this object was initialized, or
-	 * since the last call to the <code>reset()</code> method in <code>unit</code>.
-	 * 
-	 * @param unit
-	 *                 the time unit to convert the elapsed time into.
-	 * 
-	 * @return the elapsed time in <code>unit</code>.
-	 */
-	public long elapsed(TimeUnit unit) {
-	if (unit == TimeUnit.MILLISECONDS)
-		throw new IllegalArgumentException("Time is already in milliseconds!");
-	return unit.convert(elapsed(), TimeUnit.MILLISECONDS);
-	}
+  public long elapsed() {
+    return Stopwatch.currentTime() - time;
+  }
 
-	/**
-	 * Gets the current time using <code>System.nanoTime()</code> and converts it to
-	 * <code>MILLISECONDS</code>.
-	 * 
-	 * @return the current time, in milliseconds.
-	 */
-	public static long currentTime() {
-	return TimeUnit.MILLISECONDS.convert(System.nanoTime(), TimeUnit.NANOSECONDS);
-	}
+  public long elapsed(TimeUnit unit) {
+    if (unit == TimeUnit.MILLISECONDS)
+      throw new IllegalArgumentException("Time is already in milliseconds!");
+    return unit.convert(elapsed(), TimeUnit.MILLISECONDS);
+  }
 
-	public boolean elapsed(int time2) {
-	return false;
-	}
+  public boolean elapsed(int time2) {
+    return false;
+  }
 }

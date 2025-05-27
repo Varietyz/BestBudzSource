@@ -7,24 +7,16 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Shop for pest CannaCredits
- * 
- * @author Jaybane
- */
 public class CannaCreditsShop extends Shop {
 
-	/**
-	 * Id of shop
-	 */
 	public static final int SHOP_ID = 94;
 
-	/**
-	 * Prices of item in shop
-	 * 
-	 * @param id
-	 * @return
-	 */
+	public CannaCreditsShop() {
+	super(SHOP_ID, new Item[] { new Item(2528),
+
+	}, false, "Being reworked");
+	}
+
 	public static final int getPrice(int id) {
 	switch (id) {
 	case 2528:
@@ -77,15 +69,6 @@ public class CannaCreditsShop extends Shop {
 	}
 
 	return 150;
-	}
-
-	/**
-	 * Items in shop
-	 */
-	public CannaCreditsShop() {
-	super(SHOP_ID, new Item[] { new Item(2528),
-
-	}, false, "Being reworked");
 	}
 
 	@Override

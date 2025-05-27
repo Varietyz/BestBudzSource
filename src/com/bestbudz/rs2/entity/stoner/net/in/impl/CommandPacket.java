@@ -15,49 +15,58 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class CommandPacket extends IncomingPacket {
 
-	private static final Command[] COMMANDS = new Command[] { new StonerCommand(), new ModeratorCommand(), new AdministratorCommand(), new DeveloperCommand(), new OwnerCommand() };
+  private static final Command[] COMMANDS =
+      new Command[] {
+        new StonerCommand(),
+        new ModeratorCommand(),
+        new AdministratorCommand(),
+        new DeveloperCommand(),
+        new OwnerCommand()
+      };
 
-	@Override
-	public int getMaxDuplicates() {
-	return 1;
-	}
+  @Override
+  public int getMaxDuplicates() {
+    return 1;
+  }
 
-	@Override
-	public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
-	CommandParser parser = CommandParser.create(in.readString().toLowerCase().trim());
+  @Override
+  public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
+    CommandParser parser = CommandParser.create(in.readString().toLowerCase().trim());
 
-	if (parser.getCommand().startsWith("/")) {
-		if (stoner.clan != null) {
-			parser = CommandParser.create(" " + parser.toString().substring(1));
-			if (parser.hasNext()) {
-				String message = "";
-				while (parser.hasNext()) {
-					message += parser.nextString() + " ";
-				}
-				if (message.contains("<img") || message.contains("<col")) {
-					stoner.send(new SendMessage("Those symbols have been disabled."));
-					return;
-				}
-				stoner.clan.sendChat(stoner, message);
-			}
-			return;
-		} else if (stoner.clan == null) {
-			stoner.getClient().queueOutgoingPacket(new SendMessage("You can only do this while in a clan chat."));
-			return;
-		}
-	}
+    if (parser.getCommand().startsWith("/")) {
+      if (stoner.clan != null) {
+        parser = CommandParser.create(" " + parser.toString().substring(1));
+        if (parser.hasNext()) {
+          String message = "";
+          while (parser.hasNext()) {
+            message += parser.nextString() + " ";
+          }
+          if (message.contains("<img") || message.contains("<col")) {
+            stoner.send(new SendMessage("Those symbols have been disabled."));
+            return;
+          }
+          stoner.clan.sendChat(stoner, message);
+        }
+        return;
+      } else if (stoner.clan == null) {
+        stoner
+            .getClient()
+            .queueOutgoingPacket(new SendMessage("You can only do this while in a clan chat."));
+        return;
+      }
+    }
 
-	try {
-		for (Command command : COMMANDS) {
-			if (StonerConstants.isOwner(stoner) || command.meetsRequirements(stoner)) {
-				if (command.handleCommand(stoner, parser)) {
-					return;
-				}
-			}
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
-		stoner.getClient().queueOutgoingPacket(new SendMessage("Invalid command format."));
-	}
-	}
+    try {
+      for (Command command : COMMANDS) {
+        if (StonerConstants.isOwner(stoner) || command.meetsRequirements(stoner)) {
+          if (command.handleCommand(stoner, parser)) {
+            return;
+          }
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      stoner.getClient().queueOutgoingPacket(new SendMessage("Invalid command format."));
+    }
+  }
 }

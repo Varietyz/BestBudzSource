@@ -38,6 +38,13 @@ public class BOBContainer extends ItemContainer {
 	public void onRemove(Item item) {
 	}
 
+	@Override
+	public void update() {
+	stoner.getBox().update();
+	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(5064, stoner.getBox().getItems()));
+	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(2702, getItems()));
+	}
+
 	public void open() {
 	stoner.getClient().queueOutgoingPacket(new SendBoxInterface(2700, 5063));
 	update();
@@ -87,13 +94,6 @@ public class BOBContainer extends ItemContainer {
 			stoner.getBox().removeFromSlot(slot, id, added);
 		else
 			stoner.getBox().remove(id, added, false);
-	}
-
-	@Override
-	public void update() {
-	stoner.getBox().update();
-	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(5064, stoner.getBox().getItems()));
-	stoner.getClient().queueOutgoingPacket(new SendUpdateItems(2702, getItems()));
 	}
 
 	public void withdraw(int slot, int amount) {

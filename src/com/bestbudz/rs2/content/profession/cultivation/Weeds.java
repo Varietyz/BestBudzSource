@@ -1,9 +1,5 @@
 package com.bestbudz.rs2.content.profession.cultivation;
 
-import java.awt.Point;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.Task.BreakType;
 import com.bestbudz.core.task.Task.StackType;
@@ -19,25 +15,20 @@ import com.bestbudz.rs2.entity.stoner.controllers.Controller;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Weeds {
 
-	private Stoner stoner;
-
-	// set of global constants for Cultivation
-
+	public static final int GROWING = 0x00;
+	public static final int MAIN_WEED_LOCATION_CONFIG = 515;
 	private static final int START_HARVEST_AMOUNT = 3;
 	private static final int END_HARVEST_AMOUNT = 18;
-
 	private static final double COMPOST_CHANCE = 0.9;
 	private static final double SUPERCOMPOST_CHANCE = 0.7;
 	private static final double CLEARING_EXPERIENCE = 4;
-
-	public Weeds(Stoner stoner) {
-	this.stoner = stoner;
-	}
-
-	// Cultivation data
+	private final Stoner stoner;
 	public int[] weedStages = new int[4];
 	public int[] weedSeeds = new int[4];
 	public int[] weedHarvest = new int[4];
@@ -45,192 +36,11 @@ public class Weeds {
 	public long[] weedTimer = new long[4];
 	public double[] diseaseChance = { 1, 1, 1, 1, 1 };
 
-	/* set of the constants for the patch */
-
-	// states - 2 bits plant - 6 bits
-	public static final int GROWING = 0x00;
-
-	public static final int MAIN_WEED_LOCATION_CONFIG = 515;
-
-	/* This is the enum holding the seeds info */
-
-	public enum WeedData {
-		KUSH(5291, 199, 1, 60, 0.25, 11, 12.5, 0x04, 0x08),//1
-		HAZE(5292, 201, 1, 60, 0.25, 13.5, 15, 0x0b, 0x0f),//2
-		OG_KUSH(5293, 203, 1, 60, 0.25, 16, 18, 0x12, 0x16),//3
-		POWERPLANT(5294, 205, 1, 60, 0.25, 21.5, 24, 0x19, 0x1d),//4
-		GOUT_TUBER(6311, 3261, 1, 60, 0.25, 105, 45, 0xc0, 0xc4),//5
-		CHEESE_HAZE(5295, 207, 1, 60, 0.20, 27, 30.5, 0x20, 0x24),//6
-		BUBBA_KUSH(5296, 3049, 1, 60, 0.20, 34, 38.5, 0x27, 0x2b),//7
-		CHOCOLOPE(5297, 209, 1, 60, 0.20, 43, 48.5, 0x2e, 0x32),//8
-		GORILLA_GLUE(5298, 211, 1, 60, 0.20, 54.5, 61.5, 0x35, 0x39),//9
-		JACK_HERER(5299, 213, 1, 60, 0.20, 69, 78, 0x44, 0x48),//10
-		DURBAN_POISON(5300, 3051, 1, 60, 0.15, 87.5, 98.5, 0x4b, 0x4f),//11
-		AMNESIA(5301, 215, 1, 60, 0.15, 106.5, 120, 0x52, 0x56),//12
-		SUPER_SILVER_HAZE(5302, 2485, 1, 60, 0.15, 134.5, 151.5, 0x59, 0x5d),//13
-		GIRL_SCOUT_COOKIES(5303, 217, 1, 60, 0.15, 170.5, 192, 0x60, 0x64),//14
-		KHALIFA_KUSH(5304, 219, 1, 60, 0.15, 199.5, 224.5, 0x67, 0x6b);//15
-
-		private int seedId;
-		private int harvestId;
-		private int gradeRequired;
-		private int growthTime;
-		private double diseaseChance;
-		private double plantingXp;
-		private double harvestXp;
-		private int startingState;
-		private int endingState;
-
-		private static Map<Integer, WeedData> seeds = new HashMap<Integer, WeedData>();
-
-		static {
-			for (WeedData data : WeedData.values()) {
-				seeds.put(data.seedId, data);
-			}
-		}
-
-		WeedData(int seedId, int harvestId, int gradeRequired, int growthTime, double diseaseChance, double plantingXp, double harvestXp, int startingState, int endingState) {
-		this.seedId = seedId;
-		this.harvestId = harvestId;
-		this.gradeRequired = gradeRequired;
-		this.growthTime = 10;
-		this.diseaseChance = diseaseChance;
-		this.plantingXp = plantingXp;
-		this.harvestXp = harvestXp;
-		this.startingState = startingState;
-		this.endingState = endingState;
-		}
-
-		public static WeedData forId(int seedId) {
-		return seeds.get(seedId);
-		}
-
-		public int getSeedId() {
-		return seedId;
-		}
-
-		public int getHarvestId() {
-		return harvestId;
-		}
-
-		public int getGradeRequired() {
-		return gradeRequired;
-		}
-
-		public int getGrowthTime() {
-		return growthTime;
-		}
-
-		public double getDiseaseChance() {
-		return diseaseChance;
-		}
-
-		public double getPlantingXp() {
-		return plantingXp;
-		}
-
-		public double getHarvestXp() {
-		return harvestXp;
-		}
-
-		public int getStartingState() {
-		return startingState;
-		}
-
-		public int getEndingState() {
-		return endingState;
-		}
+	public Weeds(Stoner stoner) {
+	this.stoner = stoner;
 	}
-
-	/* This is the enum data about the different patches */
-
-	public enum WeedFieldsData {
-		ARDOUGNE(0, new Point[] { new Point(2670, 3374), new Point(2671, 3375) }),
-		PHASMATYS(1, new Point[] { new Point(3605, 3529), new Point(3606, 3530) }),
-		FALADOR(2, new Point[] { new Point(3058, 3311), new Point(3059, 3312) }),
-		CATWEEDY(3, new Point[] { new Point(2813, 3463), new Point(2814, 3464) });
-
-		private int weedIndex;
-		private Point[] weedPosition;
-
-		WeedFieldsData(int weedIndex, Point[] weedPosition) {
-		this.weedIndex = weedIndex;
-		this.weedPosition = weedPosition;
-		}
-
-		public static WeedFieldsData forIdPosition(int x, int y) {
-		for (WeedFieldsData weedFieldsData : WeedFieldsData.values()) {
-			if (CultivationConstants.inRangeArea(weedFieldsData.getWeedPosition()[0], weedFieldsData.getWeedPosition()[1], x, y)) {
-				return weedFieldsData;
-			}
-		}
-		return null;
-		}
-
-		public int getWeedIndex() {
-		return weedIndex;
-		}
-
-		public Point[] getWeedPosition() {
-		return weedPosition;
-		}
-	}
-
-	/* This is the enum that hold the different data for inspecting the plant */
-
-	public enum InspectData {
-
-		KUSH(5291, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		HAZE(5292, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		OG_KUSH(5293, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		POWERPLANT(5294, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		GOUT_TUBER(6311, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		CHEESE_HAZE(5295, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		BUBBA_KUSH(5296, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		CHOCOLOPE(5297, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		GORILLA_GLUE(5298, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		KUARM(5299, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		DURBAN_POISON(5300, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		AMNESIA(5301, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		SUPER_SILVER_HAZE(5302, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		DWARF(5303, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
-		KHALIFA_KUSH(5304, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } })
-
-		;
-
-		private int seedId;
-		private String[][] messages;
-
-		private static Map<Integer, InspectData> seeds = new HashMap<Integer, InspectData>();
-
-		static {
-			for (InspectData data : InspectData.values()) {
-				seeds.put(data.seedId, data);
-			}
-		}
-
-		InspectData(int seedId, String[][] messages) {
-		this.seedId = seedId;
-		this.messages = messages;
-		}
-
-		public static InspectData forId(int seedId) {
-		return seeds.get(seedId);
-		}
-
-		public int getSeedId() {
-		return seedId;
-		}
-
-		public String[][] getMessages() {
-		return messages;
-		}
-	}
-
-	/* update all the patch states */
 
 	public void updateWeedsStates() {
-	// falador catweedy ardougne phasmatys
 	int[] configValues = new int[weedStages.length];
 
 	int configValue;
@@ -243,19 +53,17 @@ public class Weeds {
 
 	}
 
-	/* getting the different config values */
-
 	public int getConfigValue(int weedStage, int seedId, int plantState, int index) {
 	WeedData weedData = WeedData.forId(seedId);
 	switch (weedStage) {
-	case 0:// weed
-		return (GROWING << 6) + 0x00;
-	case 1:// weed cleared
-		return (GROWING << 6) + 0x01;
+	case 0:
+		return 0;
+	case 1:
+		return 0x01;
 	case 2:
-		return (GROWING << 6) + 0x02;
+		return 0x02;
 	case 3:
-		return (GROWING << 6) + 0x03;
+		return 0x03;
 	}
 	if (weedData == null) {
 		return -1;
@@ -270,8 +78,6 @@ public class Weeds {
 	return (plantState == 2 ? weedStages[index] + 0x9e : plantState == 1 ? weedStages[index] + 0x9a : getPlantState(plantState) << 6) + weedData.getStartingState() + weedStage - 4;
 	}
 
-	/* getting the plant states */
-
 	public int getPlantState(int plantState) {
 	switch (plantState) {
 	case 0:
@@ -279,8 +85,6 @@ public class Weeds {
 	}
 	return -1;
 	}
-
-	/* calculating the disease chance and making the plant grow */
 
 	public void doCalculations() {
 	displayAll();
@@ -310,8 +114,6 @@ public class Weeds {
 	}
 	}
 
-	/* calculations about the diseasing chance */
-
 	public void doStateCalculation(int index) {
 	if (weedState[index] == 2) {
 		return;
@@ -336,8 +138,6 @@ public class Weeds {
 		}
 	}
 	}
-
-	/* clearing the patch with a rake of a spade */
 
 	public boolean clearPatch(int objectX, int objectY, int itemId) {
 	if (stoner.getProfession().locked()) {
@@ -391,7 +191,6 @@ public class Weeds {
 		updateWeedsStates();
 		if (weedStages[weedFieldsData.getWeedIndex()] == 3) {
 			stop();
-			return;
 		}
 		}
 
@@ -407,7 +206,6 @@ public class Weeds {
 
 	}
 
-	/* planting the seeds */
 	public boolean plantSeed(int objectX, int objectY, final int seedId) {
 	if (stoner.getProfession().locked()) {
 		return false;
@@ -473,8 +271,6 @@ public class Weeds {
 	}
 	}
 
-	/* harvesting the plant resulted */
-
 	public boolean harvest(int objectX, int objectY) {
 	if (stoner.getProfession().locked()) {
 		return false;
@@ -501,7 +297,7 @@ public class Weeds {
 		@Override
 		public void execute() {
 		if (weedHarvest[weedFieldsData.getWeedIndex()] == 0) {
-			weedHarvest[weedFieldsData.getWeedIndex()] = (int) (1 + (START_HARVEST_AMOUNT + Utility.random((END_HARVEST_AMOUNT + (stoner.getEquipment().isWearingItem(7409) ? 5 : 0)) - START_HARVEST_AMOUNT)) * (1));
+			weedHarvest[weedFieldsData.getWeedIndex()] = 1 + (START_HARVEST_AMOUNT + Utility.random((END_HARVEST_AMOUNT + (stoner.getEquipment().isWearingItem(7409) ? 5 : 0)) - START_HARVEST_AMOUNT));
 		}
 
 		if (weedHarvest[weedFieldsData.getWeedIndex()] == 1) {
@@ -531,8 +327,6 @@ public class Weeds {
 	});
 	return true;
 	}
-
-	/* putting compost onto the plant */
 
 	public boolean putCompost(int objectX, int objectY, final int itemId) {
 	if (stoner.getProfession().locked()) {
@@ -576,8 +370,6 @@ public class Weeds {
 	});
 	return true;
 	}
-
-	/* inspecting a plant */
 
 	public boolean inspect(int objectX, int objectY) {
 	if (stoner.getProfession().locked()) {
@@ -633,8 +425,6 @@ public class Weeds {
 	return true;
 	}
 
-	/* Curing the plant */
-
 	public boolean curePlant(int objectX, int objectY, int itemId) {
 	if (stoner.getProfession().locked()) {
 		return false;
@@ -687,8 +477,6 @@ public class Weeds {
 	}
 	}
 
-	/* reseting the patches */
-
 	private void resetWeeds(int index) {
 	weedSeeds[index] = 0;
 	weedState[index] = 0;
@@ -696,14 +484,179 @@ public class Weeds {
 	weedHarvest[index] = 0;
 	}
 
-	/* checking if the patch is raked */
-
 	public boolean checkIfRaked(int objectX, int objectY) {
 	final WeedFieldsData weedFieldsData = WeedFieldsData.forIdPosition(objectX, objectY);
 	if (weedFieldsData == null)
 		return false;
-	if (weedStages[weedFieldsData.getWeedIndex()] == 3)
-		return true;
-	return false;
+		return weedStages[weedFieldsData.getWeedIndex()] == 3;
+	}
+
+	public enum WeedData {
+		KUSH(5291, 199, 1, 60, 0.25, 11, 12.5, 0x04, 0x08),
+		HAZE(5292, 201, 1, 60, 0.25, 13.5, 15, 0x0b, 0x0f),
+		OG_KUSH(5293, 203, 1, 60, 0.25, 16, 18, 0x12, 0x16),
+		POWERPLANT(5294, 205, 1, 60, 0.25, 21.5, 24, 0x19, 0x1d),
+		GOUT_TUBER(6311, 3261, 1, 60, 0.25, 105, 45, 0xc0, 0xc4),
+		CHEESE_HAZE(5295, 207, 1, 60, 0.20, 27, 30.5, 0x20, 0x24),
+		BUBBA_KUSH(5296, 3049, 1, 60, 0.20, 34, 38.5, 0x27, 0x2b),
+		CHOCOLOPE(5297, 209, 1, 60, 0.20, 43, 48.5, 0x2e, 0x32),
+		GORILLA_GLUE(5298, 211, 1, 60, 0.20, 54.5, 61.5, 0x35, 0x39),
+		JACK_HERER(5299, 213, 1, 60, 0.20, 69, 78, 0x44, 0x48),
+		DURBAN_POISON(5300, 3051, 1, 60, 0.15, 87.5, 98.5, 0x4b, 0x4f),
+		AMNESIA(5301, 215, 1, 60, 0.15, 106.5, 120, 0x52, 0x56),
+		SUPER_SILVER_HAZE(5302, 2485, 1, 60, 0.15, 134.5, 151.5, 0x59, 0x5d),
+		GIRL_SCOUT_COOKIES(5303, 217, 1, 60, 0.15, 170.5, 192, 0x60, 0x64),
+		KHALIFA_KUSH(5304, 219, 1, 60, 0.15, 199.5, 224.5, 0x67, 0x6b);
+
+		private static final Map<Integer, WeedData> seeds = new HashMap<Integer, WeedData>();
+
+		static {
+			for (WeedData data : WeedData.values()) {
+				seeds.put(data.seedId, data);
+			}
+		}
+
+		private final int seedId;
+		private final int harvestId;
+		private final int gradeRequired;
+		private final int growthTime;
+		private final double diseaseChance;
+		private final double plantingXp;
+		private final double harvestXp;
+		private final int startingState;
+		private final int endingState;
+
+		WeedData(int seedId, int harvestId, int gradeRequired, int growthTime, double diseaseChance, double plantingXp, double harvestXp, int startingState, int endingState) {
+		this.seedId = seedId;
+		this.harvestId = harvestId;
+		this.gradeRequired = gradeRequired;
+		this.growthTime = 10;
+		this.diseaseChance = diseaseChance;
+		this.plantingXp = plantingXp;
+		this.harvestXp = harvestXp;
+		this.startingState = startingState;
+		this.endingState = endingState;
+		}
+
+		public static WeedData forId(int seedId) {
+		return seeds.get(seedId);
+		}
+
+		public int getSeedId() {
+		return seedId;
+		}
+
+		public int getHarvestId() {
+		return harvestId;
+		}
+
+		public int getGradeRequired() {
+		return gradeRequired;
+		}
+
+		public int getGrowthTime() {
+		return growthTime;
+		}
+
+		public double getDiseaseChance() {
+		return diseaseChance;
+		}
+
+		public double getPlantingXp() {
+		return plantingXp;
+		}
+
+		public double getHarvestXp() {
+		return harvestXp;
+		}
+
+		public int getStartingState() {
+		return startingState;
+		}
+
+		public int getEndingState() {
+		return endingState;
+		}
+	}
+
+	public enum WeedFieldsData {
+		ARDOUGNE(0, new Point[] { new Point(2670, 3374), new Point(2671, 3375) }),
+		PHASMATYS(1, new Point[] { new Point(3605, 3529), new Point(3606, 3530) }),
+		FALADOR(2, new Point[] { new Point(3058, 3311), new Point(3059, 3312) }),
+		CATWEEDY(3, new Point[] { new Point(2813, 3463), new Point(2814, 3464) });
+
+		private final int weedIndex;
+		private final Point[] weedPosition;
+
+		WeedFieldsData(int weedIndex, Point[] weedPosition) {
+		this.weedIndex = weedIndex;
+		this.weedPosition = weedPosition;
+		}
+
+		public static WeedFieldsData forIdPosition(int x, int y) {
+		for (WeedFieldsData weedFieldsData : WeedFieldsData.values()) {
+			if (CultivationConstants.inRangeArea(weedFieldsData.getWeedPosition()[0], weedFieldsData.getWeedPosition()[1], x, y)) {
+				return weedFieldsData;
+			}
+		}
+		return null;
+		}
+
+		public int getWeedIndex() {
+		return weedIndex;
+		}
+
+		public Point[] getWeedPosition() {
+		return weedPosition;
+		}
+	}
+
+	public enum InspectData {
+
+		KUSH(5291, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		HAZE(5292, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		OG_KUSH(5293, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		POWERPLANT(5294, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		GOUT_TUBER(6311, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		CHEESE_HAZE(5295, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		BUBBA_KUSH(5296, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		CHOCOLOPE(5297, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		GORILLA_GLUE(5298, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		KUARM(5299, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		DURBAN_POISON(5300, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		AMNESIA(5301, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		SUPER_SILVER_HAZE(5302, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		DWARF(5303, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } }),
+		KHALIFA_KUSH(5304, new String[][] { { "The seed has only just been planted." }, { "The weed is now ankle height." }, { "The weed is now knee height." }, { "The weed is now mid-thigh height." }, { "The weed is fully grown and ready to harvest." } })
+
+		;
+
+		private static final Map<Integer, InspectData> seeds = new HashMap<Integer, InspectData>();
+
+		static {
+			for (InspectData data : InspectData.values()) {
+				seeds.put(data.seedId, data);
+			}
+		}
+
+		private final int seedId;
+		private final String[][] messages;
+
+		InspectData(int seedId, String[][] messages) {
+		this.seedId = seedId;
+		this.messages = messages;
+		}
+
+		public static InspectData forId(int seedId) {
+		return seeds.get(seedId);
+		}
+
+		public int getSeedId() {
+		return seedId;
+		}
+
+		public String[][] getMessages() {
+		return messages;
+		}
 	}
 }

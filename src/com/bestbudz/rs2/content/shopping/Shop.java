@@ -3,85 +3,83 @@ package com.bestbudz.rs2.content.shopping;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.GameDefinitionLoader;
+import com.bestbudz.rs2.content.profession.summoning.Pouch;
 import com.bestbudz.rs2.content.shopping.Shopping.ShopType;
 import com.bestbudz.rs2.content.shopping.impl.AchievementShop;
-import com.bestbudz.rs2.content.shopping.impl.ExerciseShop;
+import com.bestbudz.rs2.content.shopping.impl.AdvanceShop;
 import com.bestbudz.rs2.content.shopping.impl.BountyShop;
 import com.bestbudz.rs2.content.shopping.impl.CannaCreditsShop;
 import com.bestbudz.rs2.content.shopping.impl.CannaCreditsShop2;
 import com.bestbudz.rs2.content.shopping.impl.CannaCreditsShop3;
+import com.bestbudz.rs2.content.shopping.impl.ChillShop;
+import com.bestbudz.rs2.content.shopping.impl.ExerciseShop;
 import com.bestbudz.rs2.content.shopping.impl.GracefulShop;
 import com.bestbudz.rs2.content.shopping.impl.MageArenaShop;
 import com.bestbudz.rs2.content.shopping.impl.MasterCapeShop;
-import com.bestbudz.rs2.content.shopping.impl.PestShop;
-import com.bestbudz.rs2.content.shopping.impl.AdvanceShop;
-import com.bestbudz.rs2.content.shopping.impl.ProfessioncapeShop;
 import com.bestbudz.rs2.content.shopping.impl.MercenaryShop;
+import com.bestbudz.rs2.content.shopping.impl.PestShop;
+import com.bestbudz.rs2.content.shopping.impl.ProfessioncapeShop;
 import com.bestbudz.rs2.content.shopping.impl.TokkulShop;
-import com.bestbudz.rs2.content.shopping.impl.ChillShop;
-import com.bestbudz.rs2.content.profession.summoning.Pouch;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemContainer;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 
-/**
- * Shops
- * 
- * @author Jaybane
- * @author Jaybane
- */
 public class Shop extends ItemContainer {
 
-	/**
-	 * Amount of shops available
-	 */
-	private static Shop[] shops = new Shop[100];
-
-	/**
-	 * Shop size
-	 */
 	public static final int SHOP_SIZE = 36;
-
-	/**
-	 * Shop id
-	 */
+	private static final Shop[] shops = new Shop[100];
 	private final int store;
 
-	/**
-	 * Default items
-	 */
 	private final Item[] defaultItems;
-
-	/**
-	 * Checks if general shop
-	 */
+	private final int restock = 50;
+	protected ShopType type;
 	private boolean general = false;
-
-	/**
-	 * Shop name
-	 */
 	private String name;
-
-	/**
-	 * Restock
-	 */
-	private int restock = 50;
-
-	/**
-	 * Update time
-	 */
 	private long update = System.currentTimeMillis();
 
-	/**
-	 * Shop Type
-	 */
-	protected ShopType type;
+	public Shop(int id, Item[] stock, boolean general, String name, ShopType type) {
+	super(SHOP_SIZE, ItemContainer.ContainerTypes.ALWAYS_STACK, true, false);
+	this.general = general;
+	this.name = name;
+	this.store = id;
+	this.type = type;
+	shops[id] = this;
 
-	/**
-	 * Declare all the shops
-	 */
+	defaultItems = (stock.clone());
+	for (int i = 0; i < stock.length; i++) {
+		if (stock[i] != null) {
+			setSlot(new Item(stock[i]), i);
+		}
+	}
+
+	shift();
+
+	TaskQueue.queue(new Task(restock) {
+		@Override
+		public void execute() {
+		refreshContainers();
+		}
+
+		@Override
+		public void onStop() {
+		}
+	});
+	}
+
+	public Shop(Item[] stock, String name) {
+	super(SHOP_SIZE, ItemContainer.ContainerTypes.ALWAYS_STACK, true, true);
+	general = false;
+	this.name = name;
+	store = -1;
+	defaultItems = (stock.clone());
+	}
+
+	public Shop(int id, Item[] stock, boolean general, String name) {
+	this(id, stock, general, name, ShopType.DEFAULT);
+	}
+
 	public static void declare() {
 	shops[TokkulShop.SHOP_ID] = new TokkulShop();
 	shops[PestShop.SHOP_ID] = new PestShop();
@@ -131,47 +129,6 @@ public class Shop extends ItemContainer {
 	return shops;
 	}
 
-	public Shop(int id, Item[] stock, boolean general, String name, ShopType type) {
-	super(SHOP_SIZE, ItemContainer.ContainerTypes.ALWAYS_STACK, true, false);
-	this.general = general;
-	this.name = name;
-	this.store = id;
-	this.type = type;
-	shops[id] = this;
-
-	defaultItems = (stock.clone());
-	for (int i = 0; i < stock.length; i++) {
-		if (stock[i] != null) {
-			setSlot(new Item(stock[i]), i);
-		}
-	}
-
-	shift();
-
-	TaskQueue.queue(new Task(restock) {
-		@Override
-		public void execute() {
-		refreshContainers();
-		}
-
-		@Override
-		public void onStop() {
-		}
-	});
-	}
-
-	public Shop(Item[] stock, String name) {
-	super(SHOP_SIZE, ItemContainer.ContainerTypes.ALWAYS_STACK, true, true);
-	general = false;
-	this.name = name;
-	store = -1;
-	defaultItems = (stock.clone());
-	}
-
-	public Shop(int id, Item[] stock, boolean general, String name) {
-	this(id, stock, general, name, ShopType.DEFAULT);
-	}
-
 	public ShopType getShopType() {
 	return type;
 	}
@@ -181,16 +138,32 @@ public class Shop extends ItemContainer {
 	return isDefaultItem(id);
 	}
 
+	@Override
+	public void onAdd(Item item) {
+	}
+
+	@Override
+	public void onFillContainer() {
+	}
+
+	@Override
+	public void onMaxStack() {
+	}
+
+	@Override
+	public void onRemove(Item item) {
+	}
+
+	@Override
+	public void update() {
+	update = System.currentTimeMillis();
+	}
+
 	public void buy(Stoner stoner, int slot, int id, int amount) {
 
 	if (System.currentTimeMillis() - stoner.shopDelay < 1000) {
 		stoner.send(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] Please wait before doing this again!"));
 		return;
-	}
-
-	if (amount > 500) {
-		stoner.getClient().queueOutgoingPacket(new SendMessage("[" + ShopConstants.COLOUR + "*</col>] You can only buy 500 maximum at a time from these shops."));
-		amount = 500;
 	}
 
 	if (!hasItem(slot, id))
@@ -303,6 +276,10 @@ public class Shop extends ItemContainer {
 	return name;
 	}
 
+	public void setName(String name) {
+	this.name = name;
+	}
+
 	public int getSellPrice(int id) {
 	if (this.store == 21) {
 		return 0;
@@ -331,22 +308,6 @@ public class Shop extends ItemContainer {
 
 	public boolean isUpdate() {
 	return System.currentTimeMillis() - update < 1000L;
-	}
-
-	@Override
-	public void onAdd(Item item) {
-	}
-
-	@Override
-	public void onFillContainer() {
-	}
-
-	@Override
-	public void onMaxStack() {
-	}
-
-	@Override
-	public void onRemove(Item item) {
 	}
 
 	public void refreshContainers() {
@@ -432,15 +393,6 @@ public class Shop extends ItemContainer {
 	add(item);
 	update();
 	return true;
-	}
-
-	public void setName(String name) {
-	this.name = name;
-	}
-
-	@Override
-	public void update() {
-	update = System.currentTimeMillis();
 	}
 
 	public void onOpen(Stoner stoner) {

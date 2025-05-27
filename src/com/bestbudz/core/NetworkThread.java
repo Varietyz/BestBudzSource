@@ -11,90 +11,93 @@ import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
 
 public class NetworkThread extends Thread {
 
-	public static class PacketLog {
-		public final String username;
-		public final String packet;
+  public static final String PACKET_LOG_DIR = "./data/logs/packets/";
+  private static final Queue<PacketLog> packetLog = new ConcurrentLinkedQueue<PacketLog>();
+  public static NetworkThread singleton;
+  public static int cycles = 0;
 
-		public PacketLog(String username, String packet) {
-		this.username = username;
-		this.packet = packet;
-		}
-	}
+  public static void createLog(String username, IncomingPacket packet, int opcode) {
+    packetLog.add(new PacketLog(username, packet.getClass().getSimpleName() + " : " + opcode));
+  }
 
-	public static NetworkThread singleton;
-
-	private static Queue<PacketLog> packetLog = new ConcurrentLinkedQueue<PacketLog>();
-	public static int cycles = 0;
-
-	public static final String PACKET_LOG_DIR = "./data/logs/packets/";
-
-	public static void createLog(String username, IncomingPacket packet, int opcode) {
-	packetLog.add(new PacketLog(username, packet.getClass().getSimpleName() + " : " + opcode));
-	}
-
-	public static void cycle() {
-	long start = System.nanoTime();
-
-	GameObject r;
-	while ((r = ObjectManager.getSend().poll()) != null) {
-		try {
-			ObjectManager.send(r);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	for (Stoner k : World.getStoners()) {
-		try {
-			if ((k != null) && (k.isActive())) {
-				try {
-					if (k.getStonerShop().hasSearch()) {
-						k.getStonerShop().doSearch();
-						k.getStonerShop().resetSearch();
-					}
-
-					k.getGroundItems().process();
-					k.getObjects().process();
-					k.getClient().processOutgoingPackets();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	private void processObjectQueue() {
+		GameObject obj;
+		while ((obj = ObjectManager.getSend().poll()) != null) {
+			try {
+				ObjectManager.send(obj);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
-	long elapsed = (System.nanoTime() - start) / 1000000;
+	private void processStoners() {
+		for (Stoner s : World.getStoners()) {
+			if (s == null || !s.isActive()) continue;
 
-	if (elapsed < 200) {
-		try {
-			Thread.sleep(200 - elapsed);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			try {
+				if (s.getStonerShop().hasSearch()) {
+					s.getStonerShop().doSearch();
+					s.getStonerShop().resetSearch();
+				}
+
+				s.getGroundItems().process();
+				s.getObjects().process();
+				s.getClient().processOutgoingPackets();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-	} else {
-		System.out.println("network thread overflow: " + elapsed);
 	}
+
+	private void sleepIfNeeded(long start) {
+		long elapsed = (System.nanoTime() - start) / 1_000_000;
+		if (elapsed < 200) {
+			try {
+				Thread.sleep(200 - elapsed);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt(); // Correct way to restore interrupt flag
+			}
+		} else {
+			System.out.println("Network thread overflow: " + elapsed + "ms");
+		}
 	}
+
 
 	public static NetworkThread getSingleton() {
-	return singleton;
-	}
+    return singleton;
+  }
 
-	public NetworkThread() {
-	singleton = this;
+  public static class PacketLog {
+    public final String username;
+    public final String packet;
 
-	setName("Network Thread");
+    public PacketLog(String username, String packet) {
+      this.username = username;
+      this.packet = packet;
+    }
+  }
 
-	setPriority(Thread.MAX_PRIORITY - 1);
+  public NetworkThread() {
+    singleton = this;
 
-	start();
-	}
+    setName("Network Thread");
+
+    setPriority(Thread.MAX_PRIORITY - 1);
+
+    start();
+  }
 
 	@Override
 	public void run() {
-	while (!Thread.interrupted())
-		cycle();
+		while (!Thread.interrupted()) {
+			long start = System.nanoTime();
+
+			processObjectQueue();
+			processStoners();
+
+			sleepIfNeeded(start);
+		}
 	}
+
 }

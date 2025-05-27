@@ -9,9 +9,8 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSound;
 @SuppressWarnings("all")
 public class StonerSounds {
 
-	private static final Sound[][] sounds = new Sound[22000][];
-
 	public static final int[] RANDOM_METAL_ARMOR_SOUNDS = new int[] { 405, 406, 785, 786, 790, 1052, 1066 };
+	private static final Sound[][] sounds = new Sound[22000][];
 
 	public static void declare() {
 	int defaultDelay = 18;

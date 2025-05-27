@@ -1,5 +1,6 @@
 package com.bestbudz.core.util.logger;
 
+import com.bestbudz.core.util.Utility;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -7,8 +8,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import com.bestbudz.core.util.Utility;
 
 public enum StonerLogger {
 
@@ -24,7 +23,7 @@ public enum StonerLogger {
 	private static final String LOCATION = "./data/logs/stoner logs/";
 	private final String filePath;
 
-	private StonerLogger(String filePath) {
+	StonerLogger(String filePath) {
 	this.filePath = filePath;
 	}
 

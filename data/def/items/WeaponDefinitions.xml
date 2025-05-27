@@ -4473,7 +4473,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>1323</id>
-			<twoHanded>false</twoHanded>
+		<twoHanded>false</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>451</short>
@@ -4525,7 +4525,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>1327</id>
-	<twoHanded>false</twoHanded>
+		<twoHanded>false</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>451</short>
@@ -4551,7 +4551,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>1329</id>
-	<twoHanded>false</twoHanded>
+		<twoHanded>false</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>451</short>
@@ -4577,7 +4577,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>1331</id>
-	<twoHanded>false</twoHanded>
+		<twoHanded>false</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>451</short>
@@ -5253,7 +5253,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>1383</id>
-	<twoHanded>false</twoHanded>
+		<twoHanded>false</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>393</short>
@@ -5903,7 +5903,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>2416</id>
-	<twoHanded>false</twoHanded>
+		<twoHanded>false</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>393</short>
@@ -5929,7 +5929,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>2417</id>
-	<twoHanded>false</twoHanded>
+		<twoHanded>false</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>393</short>
@@ -7486,7 +7486,7 @@
 		<turn90CW>821</turn90CW>
 		<turn90CCW>821</turn90CCW>
 		<sidebarId>5855</sidebarId>
-	</WeaponDefinition>	
+	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>4086</id>
 		<twoHanded>false</twoHanded>
@@ -58735,7 +58735,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>12416</id>
-	<twoHanded>false</twoHanded>
+		<twoHanded>false</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>393</short>
@@ -78781,7 +78781,7 @@
 	</WeaponDefinition>
 	<WeaponDefinition>
 		<id>13188</id>
-	<twoHanded>true</twoHanded>
+		<twoHanded>true</twoHanded>
 		<type>MELEE</type>
 		<assaultAnimations>
 			<short>393</short>

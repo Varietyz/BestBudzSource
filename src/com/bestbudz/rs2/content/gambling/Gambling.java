@@ -1,7 +1,7 @@
 package com.bestbudz.rs2.content.gambling;
 
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.FileHandler;
+import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.entity.World;
@@ -54,11 +54,7 @@ public class Gambling {
 	if (!canPlay(stoner, amount)) {
 		return;
 	}
-	if (calculateWin()) {
-		results(stoner, amount, true);
-	} else {
-		results(stoner, amount, false);
-	}
+		results(stoner, amount, calculateWin());
 	}
 
 	public static void results(Stoner stoner, int amount, boolean win) {

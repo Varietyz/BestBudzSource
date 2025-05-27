@@ -1,32 +1,5 @@
 package com.bestbudz.rs2.entity.stoner.net;
 
-/*
- * This file is part of RuneSource.
- *
- * RuneSource is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * RuneSource is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with RuneSource.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.channel.Channel;
-
 import com.bestbudz.core.network.ISAACCipher;
 import com.bestbudz.core.network.ReceivedPacket;
 import com.bestbudz.core.util.Utility;
@@ -36,34 +9,23 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.PacketHandler;
 import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 
-/**
- * The class behind a Stoner that handles all networking-related things.
- * 
- * @author blakeman8192
- */
 public class Client {
 
-	public enum Stages {
-		CONNECTED,
-		LOGGING_IN,
-		LOGGED_IN,
-		LOGGED_OUT
-	}
-
-	private Channel channel;
-
 	private final List<Mob> mobs = new LinkedList<Mob>();
-	/**
-	 * Incoming packets
-	 */
-	private Queue<ReceivedPacket> incomingPackets = new ConcurrentLinkedQueue<ReceivedPacket>();
-
-	/**
-	 * Outgoing Packets
-	 */
-	private Queue<OutgoingPacket> outgoingPackets = new ConcurrentLinkedQueue<OutgoingPacket>();
+	private final Queue<ReceivedPacket> incomingPackets = new ConcurrentLinkedQueue<ReceivedPacket>();
 	private final Utility.Stopwatch timeoutStopwatch = new Utility.Stopwatch();
+	private final Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
+	private Channel channel;
+	private Queue<OutgoingPacket> outgoingPackets = new ConcurrentLinkedQueue<OutgoingPacket>();
 	private Stages stage = Stages.LOGGING_IN;
 	private ISAACCipher encryptor;
 	private ISAACCipher decryptor;
@@ -81,33 +43,32 @@ public class Client {
 
 	private long lastPacketTime = World.getCycles();
 
-	/**
-	 * Creates a new Client.
-	 */
 	public Client(Channel channel) {
-	try {
-		this.channel = channel;
+		try {
+			this.channel = channel;
 
-		// set host
-		if (channel != null) {
-			host = channel.getRemoteAddress().toString();
-			host = host.substring(1, host.indexOf(":"));
+			if (channel != null) {
+				if (channel.remoteAddress() instanceof java.net.InetSocketAddress) {
+					java.net.InetSocketAddress addr = (java.net.InetSocketAddress) channel.remoteAddress();
+					host = addr.getAddress().getHostAddress();
+				} else {
+					host = "unknown";
+				}
 
-			hostId = Utility.nameToLong(host);
-		} else {
-			host = "none";
-			hostId = -1;
+				hostId = Utility.nameToLong(host);
+			} else {
+				host = "none";
+				hostId = -1;
+			}
+
+			stoner = new Stoner(this);
+			packetHandler = new PacketHandler(this);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		stoner = new Stoner(this);
-		packetHandler = new PacketHandler(this);
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
 	}
 
-	/**
-	 * Disconnects the client.
-	 */
+
 	public void disconnect() {
 	if (outgoingPackets != null) {
 		synchronized (outgoingPackets) {
@@ -116,35 +77,36 @@ public class Client {
 	}
 	}
 
-	/**
-	 * Gets the decryptor.
-	 * 
-	 * @return the decryptor
-	 */
 	public synchronized ISAACCipher getDecryptor() {
 	return decryptor;
 	}
 
-	/**
-	 * Gets the encryptor.
-	 * 
-	 * @return the encryptor
-	 */
+	public void setDecryptor(ISAACCipher decryptor) {
+	this.decryptor = decryptor;
+	}
+
 	public synchronized ISAACCipher getEncryptor() {
 	return encryptor;
+	}
+
+	public void setEncryptor(ISAACCipher encryptor) {
+	this.encryptor = encryptor;
 	}
 
 	public String getEnteredPassword() {
 	return enteredPassword;
 	}
 
-	/**
-	 * Gets the remote host of the client.
-	 * 
-	 * @return the host
-	 */
+	public void setEnteredPassword(String enteredPassword) {
+	this.enteredPassword = enteredPassword;
+	}
+
 	public String getHost() {
 	return host;
+	}
+
+	public void setHost(String host) {
+	this.host = host;
 	}
 
 	public long getHostId() {
@@ -159,28 +121,28 @@ public class Client {
 	return lastStonerOption;
 	}
 
+	public void setLastStonerOption(String lastStonerOption) {
+	this.lastStonerOption = lastStonerOption;
+	}
+
 	public List<Mob> getNpcs() {
 	return mobs;
 	}
 
-	/**
-	 * @return the outgoing packets.
-	 */
 	public Queue<OutgoingPacket> getOutgoingPackets() {
 	return outgoingPackets;
 	}
 
-	/**
-	 * Gets the Stoner subclass implementation of this superclass.
-	 * 
-	 * @return the stoner
-	 */
 	public Stoner getStoner() {
 	return stoner;
 	}
 
 	public Stages getStage() {
 	return stage;
+	}
+
+	public void setStage(Stages stage) {
+	this.stage = stage;
 	}
 
 	public Stopwatch getTimeoutStopwatch() {
@@ -191,9 +153,10 @@ public class Client {
 	return logStoner;
 	}
 
-	/**
-	 * Handles packets we have received
-	 */
+	public void setLogStoner(boolean logStoner) {
+	this.logStoner = logStoner;
+	}
+
 	public void processIncomingPackets() {
 	ReceivedPacket p = null;
 
@@ -201,10 +164,6 @@ public class Client {
 		if (outgoingPackets == null) {
 			return;
 		}
-
-		/**
-		 * Synchronize to the queue so we don't corrupt data
-		 */
 		synchronized (incomingPackets) {
 			if (outgoingPackets == null) {
 				return;
@@ -217,42 +176,24 @@ public class Client {
 
 	} catch (Exception e) {
 		e.printStackTrace();
-
-		/**
-		 * Safely disconnect this stoner
-		 */
 		stoner.logout(true);
-		return;
 	}
 	}
 
-	/**
-	 * Handles packets we are sending
-	 */
 	public void processOutgoingPackets() {
 	if (channel == null || outgoingPackets == null) {
 		return;
 	}
 
 	try {
-		/**
-		 * Synchronize to the channel to wait for modifications to complete
-		 */
 		synchronized (channel) {
 			if (channel == null) {
 				return;
 			}
-
-			/**
-			 * Synchronize to the queue so we won't corrupt data
-			 */
 			synchronized (outgoingPackets) {
 				if (outgoingPackets == null) {
 					return;
 				}
-				/**
-				 * Then process all the outgoing packets
-				 */
 				OutgoingPacket p = null;
 				while ((p = outgoingPackets.poll()) != null) {
 					p.execute(this);
@@ -264,11 +205,6 @@ public class Client {
 	}
 	}
 
-	/**
-	 * Adds a packet to the queue
-	 * 
-	 * @param packet
-	 */
 	public void queueIncomingPacket(ReceivedPacket packet) {
 	resetLastPacketReceived();
 
@@ -277,20 +213,10 @@ public class Client {
 	}
 	}
 
-	/**
-	 * Adds a packet to the outgoing queue
-	 * 
-	 * @param o
-	 *              the OutGoingPacket object
-	 */
 	public void queueOutgoingPacket(OutgoingPacket o) {
 	if (outgoingPackets == null) {
 		return;
 	}
-
-	// if (!(o instanceof SendStonerUpdate) && !(o instanceof SendNPCUpdate)) {
-	// System.err.println("Sent packet: " + o.getClass().getSimpleName());
-	// }
 
 	synchronized (outgoingPackets) {
 		if (outgoingPackets == null) {
@@ -301,9 +227,6 @@ public class Client {
 	}
 	}
 
-	/**
-	 * Resets the packet handler
-	 */
 	public void reset() {
 	packetHandler.reset();
 	}
@@ -312,81 +235,20 @@ public class Client {
 	lastPacketTime = World.getCycles();
 	}
 
-	/**
-	 * Sends the buffer to the socket.
-	 * 
-	 * @param buffer
-	 *                   the buffer
-	 */
-	public void send(ChannelBuffer buffer) {
+	public void send(ByteBuf buffer) {
 	try {
 
-		if (channel == null || !channel.isConnected()) {
+		if (channel == null || !channel.isActive()) {
+
 			return;
 		}
-
-		/**
-		 * Synchronize to the outgoing packets just for added protection against sending
-		 * packets at the exact same time
-		 */
 		synchronized (outgoingPackets) {
-			channel.write(buffer);
+			channel.writeAndFlush(buffer);
+
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	}
-
-	/**
-	 * Sets the decryptor.
-	 * 
-	 * @param decryptor
-	 *                      the decryptor.
-	 */
-	public void setDecryptor(ISAACCipher decryptor) {
-	this.decryptor = decryptor;
-	}
-
-	/**
-	 * Sets the encryptor.
-	 * 
-	 * @param encryptor
-	 *                      the encryptor
-	 */
-	public void setEncryptor(ISAACCipher encryptor) {
-	this.encryptor = encryptor;
-	}
-
-	public void setEnteredPassword(String enteredPassword) {
-	this.enteredPassword = enteredPassword;
-	}
-
-	public void setHost(String host) {
-	this.host = host;
-	}
-
-	public void setLastStonerOption(String lastStonerOption) {
-	this.lastStonerOption = lastStonerOption;
-	}
-
-	public void setLogStoner(boolean logStoner) {
-	this.logStoner = logStoner;
-	}
-
-	public void setStage(Stages stage) {
-	this.stage = stage;
-	}
-
-	private Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
-
-	public class TinterfaceText {
-		public int id;
-		public String currentState;
-
-		public TinterfaceText(String s, int id) {
-		this.currentState = s;
-		this.id = id;
-		}
 	}
 
 	public boolean checkSendString(String text, int id) {
@@ -400,5 +262,22 @@ public class Client {
 		t.currentState = text;
 	}
 	return true;
+	}
+
+	public enum Stages {
+		CONNECTED,
+		LOGGING_IN,
+		LOGGED_IN,
+		LOGGED_OUT
+	}
+
+	public class TinterfaceText {
+		public int id;
+		public String currentState;
+
+		public TinterfaceText(String s, int id) {
+		this.currentState = s;
+		this.id = id;
+		}
 	}
 }

@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.content.combat;
 
-import java.security.SecureRandom;
-
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.GameConstants;
 import com.bestbudz.rs2.content.combat.impl.DamageMap;
@@ -16,39 +14,28 @@ import com.bestbudz.rs2.entity.following.Following;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.pathfinding.StraightPathFinder;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.security.SecureRandom;
 
 public class Combat {
 
-	public static enum CombatTypes {
-		MELEE,
-		SAGITTARIUS,
-		MAGE,
-		NONE;
-	}
-
 	private static final SecureRandom random = new SecureRandom();
-
-	public static int next(int length) {
-	return random.nextInt(length) + 1;
-	}
-
 	private final Entity entity;
-
+	private final Melee melee;
+	private final Sagittarius sagittarius;
+	private final Mage mage;
+	private final DamageMap damageMap;
 	private Entity assaulting = null;
 	private Entity lastAssaultedBy = null;
 	private Animation blockAnimation = null;
-	private final Melee melee;
-	private final Sagittarius sagittarius;
-
-	private final Mage mage;
-
-	private final DamageMap damageMap;
 	private CombatTypes combatType = CombatTypes.MELEE;
-
 	private long combatTimer = 0L;
-
 	private int assaultTimer = 5;
-
+	private long hitChainStage = 0;
+	private long lastDamageDealt = 0;
+	private boolean chainPrimed = false;
+	private double hitChance = 0.0;
 	public Combat(Entity entity) {
 	this.entity = entity;
 	melee = new Melee(entity);
@@ -56,6 +43,91 @@ public class Combat {
 	mage = new Mage(entity);
 	damageMap = new DamageMap(entity);
 
+	}
+
+	public static int next(int length) {
+	return random.nextInt(length) + 1;
+	}
+
+	public static void applyHit(Entity target, Hit hit) {
+		if (target == null || hit == null) {
+			return;
+		}
+
+		target.getUpdateFlags().sendHit(hit.getDamage(), hit.getHitType(), hit.getCombatHitType());
+
+		// Show hit
+		target.setLastHitSuccess(hit.isSuccess()); // Update flag
+
+		if (target.getCombat() != null) {
+			target.getCombat().updateHitChain(hit.getDamage()); // ✅ correct now
+			target.getCombat().setInCombat(hit.getAssaulter());
+		}
+	}
+
+	public long getHitChainStage() {
+		return hitChainStage;
+	}
+
+	public long getHitChainBonus() {
+		return hitChainStage * 10; // % bonus
+	}
+
+	public void resetHitChain() {
+		if (hitChainStage > 0 && entity instanceof Stoner) {
+			Stoner stoner = (Stoner) entity;
+			stoner.getClient().queueOutgoingPacket(new SendMessage("@red@Your hit chain has ended."));
+		}
+		hitChainStage = 0;
+	}
+
+	public void advanceHitChain() {
+		if (hitChainStage < 3) {
+			hitChainStage++;
+		}
+		if (entity instanceof Stoner) {
+			Stoner stoner = (Stoner) entity;
+			if (hitChainStage > 0){
+				String color = hitChainStage == 1 ? "@blu@" : hitChainStage == 2 ? "@cya@" : "@gre@";
+				stoner.getClient().queueOutgoingPacket(new SendMessage(color + "You're on a hit chain! Stage: " + hitChainStage));
+			}
+			long bonus = entity.getCombat().getHitChainBonus();
+			if (bonus > 0) {
+				stoner.getClient().queueOutgoingPacket(
+					new SendMessage("@gre@Chain bonus active: +" + bonus + "% damage boost."));
+			}
+		}
+		if (entity instanceof Stoner) {
+
+		}
+
+	}
+
+	public void updateHitChain(long newDamage) {
+		if (!chainPrimed) {
+			lastDamageDealt = newDamage;
+			chainPrimed = true;
+			return;
+		}
+
+		if (newDamage > lastDamageDealt) {
+			lastDamageDealt = newDamage;
+			chainPrimed = false;
+			advanceHitChain(); // Stage 1 starts here
+			return;
+		} else {
+			chainPrimed = false;
+			resetHitChain();
+			lastDamageDealt = newDamage;
+		}
+	}
+
+	public double getHitChance() {
+		return hitChance;
+	}
+
+	public void setHitChance(double chance) {
+		this.hitChance = chance;
 	}
 
 	public void assault() {
@@ -85,7 +157,7 @@ public class Combat {
 		break;
 	case MAGE:
 		mage.execute(assaulting);
-		mage.setMulti(false);
+		mage.setMulti(true);
 		mage.setpDelay((byte) 0);
 		break;
 	case SAGITTARIUS:
@@ -128,16 +200,32 @@ public class Combat {
 	return assaulting;
 	}
 
+	public void setAssaulting(Entity assaulting) {
+	this.assaulting = assaulting;
+	}
+
 	public int getAssaultTimer() {
 	return assaultTimer;
+	}
+
+	public void setAssaultTimer(int assaultTimer) {
+	this.assaultTimer = assaultTimer;
 	}
 
 	public Animation getBlockAnimation() {
 	return blockAnimation;
 	}
 
+	public void setBlockAnimation(Animation blockAnimation) {
+	this.blockAnimation = blockAnimation;
+	}
+
 	public CombatTypes getCombatType() {
 	return combatType;
+	}
+
+	public void setCombatType(CombatTypes combatType) {
+	this.combatType = combatType;
 	}
 
 	public DamageMap getDamageTracker() {
@@ -231,22 +319,6 @@ public class Combat {
 	public void setAssault(Entity e) {
 	assaulting = e;
 	entity.getFollowing().setFollow(e, Following.FollowType.COMBAT);
-	}
-
-	public void setAssaulting(Entity assaulting) {
-	this.assaulting = assaulting;
-	}
-
-	public void setAssaultTimer(int assaultTimer) {
-	this.assaultTimer = assaultTimer;
-	}
-
-	public void setBlockAnimation(Animation blockAnimation) {
-	this.blockAnimation = blockAnimation;
-	}
-
-	public void setCombatType(CombatTypes combatType) {
-	this.combatType = combatType;
 	}
 
 	public void setInCombat(Entity assaultedBy) {
@@ -368,10 +440,18 @@ public class Combat {
 			}
 		}
 
-		if (blocked) {
-			return false;
-		}
+		return !blocked;
 	}
 	return true;
 	}
+
+	public enum CombatTypes {
+		MELEE,
+		SAGITTARIUS,
+		MAGE,
+		NONE
+	}
+
+
+
 }

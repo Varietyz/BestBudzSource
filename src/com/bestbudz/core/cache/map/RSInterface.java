@@ -1,5 +1,6 @@
 package com.bestbudz.core.cache.map;
 
+import com.bestbudz.core.cache.ByteStreamExt;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -9,13 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import com.bestbudz.core.cache.ByteStreamExt;
-
 public final class RSInterface {
 
 	private static final Map<Integer, Short> songs = new HashMap<Integer, Short>();
 
-	private static String[] musicNames = { "7th Realm", "A Familiar Feeling", "A New Menace", "A Pirate's Life for Me", "Adorno I", "Adorno II", "Adorno III", "Adorno IV", "Adorno IX", "Adorno V", "Adorno VI", "Adorno VII", "Adorno VIII", "Adorno X", "Adventure", "Al Kharid", "All's Fairy in Love and War", "Alone", "Altar Ego", "Alternative Root", "Ambient Jungle", "An Easter United", "Ancestral Wisdom", "Animal Apogee", "Anywhere", "Arabian", "Arabian 2", "Arabian 3", "Arabique", "Ardougne Ago", "Arma Gonna Get You", "Armadyl Alliance", "Armageddon", "Army of Darkness", "Arrival", "Artistry", "Assault and Battery", "Assault 1", "Assault 2", "Assault 3", "Assault 4", "Assault 5", "Assault 6", "Attention", "Autumn Voyage", "Aye Car Rum Ba", "Aztec", "Back to Life", "Background", "Bal'lak the Pummeller", "Ballad of Enchantment", "Bandit Camp", "Bandos Battalion", "Bane of Summer", "Barb Wire", "Barbarianism", "Barking Mad", "Baroque", "Battle of Souls", "Beetle Juice", "Beyond",
+	private static final String[] musicNames = { "7th Realm", "A Familiar Feeling", "A New Menace", "A Pirate's Life for Me", "Adorno I", "Adorno II", "Adorno III", "Adorno IV", "Adorno IX", "Adorno V", "Adorno VI", "Adorno VII", "Adorno VIII", "Adorno X", "Adventure", "Al Kharid", "All's Fairy in Love and War", "Alone", "Altar Ego", "Alternative Root", "Ambient Jungle", "An Easter United", "Ancestral Wisdom", "Animal Apogee", "Anywhere", "Arabian", "Arabian 2", "Arabian 3", "Arabique", "Ardougne Ago", "Arma Gonna Get You", "Armadyl Alliance", "Armageddon", "Army of Darkness", "Arrival", "Artistry", "Assault and Battery", "Assault 1", "Assault 2", "Assault 3", "Assault 4", "Assault 5", "Assault 6", "Attention", "Autumn Voyage", "Aye Car Rum Ba", "Aztec", "Back to Life", "Background", "Bal'lak the Pummeller", "Ballad of Enchantment", "Bandit Camp", "Bandos Battalion", "Bane of Summer", "Barb Wire", "Barbarianism", "Barking Mad", "Baroque", "Battle of Souls", "Beetle Juice", "Beyond",
 			"Big Chords", "Bish Bash Bosh", "Bittersweet Bunny", "Black of Knight", "Blistering Barnacles", "Bloodbath", "Body Parts", "Bolrie's Diary", "Bone Dance", "Bone Dry", "Book of Spells", "Borderland", "Born to Do This", "Bounty Hunter Grade 1", "Bounty Hunter Grade 2", "Bounty Hunter Grade 3", "Brain Battle", "Breeze", "Brew Hoo Hoo", "Brimstail's Scales", "Bubble and Squeak", "Bulwark Beast", "But We Can Fight", "Cabin Fever", "Camelot", "CastleWars", "Catacombs and Tombs", "Catch Me If You Can", "Cave Background", "Cave of Beasts", "Cave of the Goblins", "Cavern", "Cavernous Mythology", "Cellar Song", "Chain of Command", "Chamber", "Charmin' Farmin'", "Chef Surprize", "Chickened Out", "Chompy Hunt", "Circus", "City of the Dead", "Clan Wars", "Claustrophobia", "Close Quarters", "Command Centre", "Competition", "Complication", "Conspiracy: Part 1", "Conspiracy: Part 2", "Contest", "Cool for Ali Cats", "Copris Lunaris", "Corporal Punishment", "Corridors of Power", "Courage",
 			"Creature Cruelty", "Creepy", "Crystal Castle", "Crystal Cave", "Crystal Sword", "Cursed", "Dagannoth Dawn", "Dance of Death", "Dance of the Undead", "Dangerous", "Dangerous Logic", "Dangerous Road", "Dangerous Way", "Dark", "Davy Jones's Locker", "Dead and Buried", "Dead Can Dance", "Dead Quiet", "Deadlands", "Deep Down", "Deep Wildy", "Demise of the Dorgeshuun", "Desert Heat", "Desert Island Bear", "Desert Smoke", "Desert Voyage", "Desolate Ruins", "Desolo I", "Desolo II", "Desolo III", "Desolo IV", "Desolo IX", "Desolo V", "Desolo VI", "Desolo VII", "Desolo VIII", "Desolo X", "Diango's Little Helpers", "Dillo-gence is Key", "Dimension X", "Distant Land", "Distillery Hilarity", "Divine Skinweaver", "Dogs of War", "Don't Panic Zanik", "Doorways", "Dorgeshuun City", "Dorgeshuun Deep", "Down and Out", "Down Below", "Down to Earth", "Dragontooth Island", "Dream", "Dream Theatre", "Dreamstate", "Duel Arena", "Dunjun", "Dusk in Yu'biusk", "Dwarf Theme", "Dynasty", "Eagle Peak",
 			"Easter Jig", "Egypt", "Elven Mist", "Elven Seed", "Emotion", "Emperor", "Eruption", "Escape", "Espionage", "Etcetera", "Everlasting", "Everlasting Fire", "Everywhere", "Evil Bob's Island", "Exam Conditions", "Exhibit 'A'", "Expanse", "Expecting", "Expedition", "Exposed", "Face Off", "Faerie", "Faithless", "Fanfare", "Fanfare 2", "Fanfare 3", "Fangs for the Memory", "Far Away", "Fe Fi Fo Fum", "Fear and Loathing", "Fenkenstrain's Refrain", "Fight of the Dwarves", "Fight or Flight", "Final Destination", "Find My Way", "Fire and Brimstone", "Fisher", "Floating Free", "Flute Salad", "Food for Thought", "Forbidden", "Forest", "Forever", "Forgettable Melody", "Forgotten", "Freshwater", "Frogland", "Frost Fight", "Frostbite", "Fruits de Mer", "Funny Bunnies", "Gaol", "Garden", "Garden of Autumn", "Garden of Spring", "Garden of Summer", "Garden of Winter", "Ghost of Christmas Presents", "Glacialis IV", "Glacialis VI", "Glacialis VIII", "Glorious Recallation...",
@@ -27,8 +26,88 @@ public final class RSInterface {
 			"The Dance of the Snow Queen", "The Depths", "The Desert", "The Desolate Isle", "The Duke", "The Enchanter", "The Evil Within", "The Fallen Hero", "The Far Side", "The Galleon", "The Genie", "The Golem", "The Heist", "The Horn of Chill", "The Last Shanty", "The Longramble Scramble", "The Lost Melody", "The Lost Tribe", "The Lunar Isle", "The Mad Mole", "The Mentor", "The Mollusc Menace", "The Monsters Below", "The Muspah's Tomb", "The Navigator", "The Noble Rodent", "The Other Side", "The Pact", "The Pengmersible", "The Phoenixb", "The Plundered Tomb", "The Power of Tears", "The Quiz Master", "The Rogues' Den", "The Route of All Evil", "The Route of the Problem", "The Ruins of Camdozaal", "The Shadow", "The Mercenary", "The Sound of Guthix", "The Terrible Caverns", "The Terrible Tower", "The Terrible Tunnels", "The Throne of Bandos", "The Tower", "The Trade Parade", "The Vacant Abyss", "The Wrong Path", "Theme", "These Stones", "Throne of the Demon", "Time Out",
 			"Time to Quarry", "Tiptoe", "Title Fight", "TokTz-Ket-Ek-Mack", "Tomb Raider", "Tomorrow", "Too Many Cooks...", "Tournament!", "Trawler", "Trawler Minor", "Tree Spirits", "Trees Aren't Your Friends", "Tremble", "Tribal", "Tribal 2", "Tribal Background", "Trick or Treat?", "Trinity", "Trouble Brewing", "Troubled", "Troubled Spirit", "Tune from the Dune", "Twilight", "TzHaar!", "Undead Army", "Undead Dungeon", "Under the Sand", "Undercurrent", "Underground", "Underground Pass", "Understanding", "Unholy Cursebearer", "Unknown Land", "Untouchable", "Upcoming", "Venomous", "Venture", "Venture 2", "Victory is Quarry", "Village", "Vision", "Volcanic Vikings", "Voodoo Cult", "Voyage", "Waiting for Battle", "Waiting for the Hunt", "Waking Dream", "Wander", "Warrior", "Warriors' Guild", "Waste Defaced", "Waterfall", "Waterlogged", "Way of the Enchanter", "Wayward", "We Are the Fairies", "Well of Voyage", "Where Eagles Lair", "Wild Isle", "Wild Side", "Wilderness", "Wilderness 2",
 			"Wilderness 3", "Wildwood", "Winter Funfare", "Witching", "Woe of the Wyvern", "Wonder", "Wonderous", "Woodland", "Work Work Work", "Workshop", "Wrath and Ruin", "Xenophobe", "Yesteryear", "Zamorak Zoo", "Zanik's Theme", "Zaros Stirs", "Zealot", "Zogre Dance" };
+	private static final int[] summoningGradeRequirements = { 1, 4, 10, 13, 16, 17, 18, 19, 22, 23, 25, 28, 29, 31, 32, 33, 34, 34, 34, 34, 36, 40, 41, 42, 43, 43, 43, 43, 43, 43, 43, 46, 46, 47, 49, 52, 54, 55, 56, 56, 57, 57, 57, 58, 61, 62, 63, 64, 66, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 76, 77, 78, 79, 79, 79, 80, 83, 83, 85, 86, 88, 89, 92, 93, 95, 96, 99 };
+	private static final int[] pouchItems = { 12047, 12043, 12059, 12019, 12009, 12778, 12049, 12055, 12808, 12067, 12063, 12091, 12800, 12053, 12065, 12021, 12818, 12780, 12798, 12814, 12073, 12087, 12071, 12051, 12095, 12097, 12099, 12101, 12103, 12105, 12107, 12075, 12816, 12041, 12061, 12007, 12035, 12027, 12077, 12531, 12810, 12812, 12784, 12023, 12085, 12037, 12015, 12045, 12079, 12123, 12031, 12029, 12033, 12820, 12057, 14623, 12792, 12069, 12011, 12081, 12782, 12794, 12013, 12802, 12804, 12806, 12025, 12017, 12788, 12776, 12083, 12039, 12786, 12089, 12796, 12822, 12093, 12790 };
+	private static final int[] scrollItems = { 12425, 12445, 12428, 12459, 12533, 12838, 12460, 12432, 12839, 12430, 12446, 12440, 12834, 12447, 12433, 12429, 12443, 12443, 12443, 12443, 12461, 12431, 12422, 12448, 12458, 12458, 12458, 12458, 12458, 12458, 12458, 12462, 12829, 12426, 12444, 12441, 12454, 12453, 12463, 12424, 12835, 12836, 12840, 12455, 12468, 12427, 12436, 12467, 12464, 12452, 12439, 12438, 12423, 12830, 12451, 14622, 12826, 12449, 12450, 12465, 12841, 12831, 12457, 12824, 12824, 12824, 12442, 12456, 12837, 12832, 12466, 12434, 12833, 12437, 12827, 12828, 12435, 12825 };
+	private static final String[] scrollNames = { "Howl", "Dreadfowl Strike", "Egg Spawn", "Slime Spray", "Stony Shell", "Pester", "Electric Lash", "Venom Shot", "Fireball Assault", "Cheese Feast", "Sandstorm", "Generate Compost", "Explode", "Vampire Touch", "Insane Ferocity", "Multichop", "Call of Arms", "Call of Arms", "Call of Arms", "Call of Arms", "Bronze Bull Rush", "Unburden", "Weedcall", "Evil Flames", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Iron Bull Rush", "Immense Heat", "Accomplisher Fingers", "Blood Drain", "Tireless Run", "Abyssal Drain", "Dissolve", "Steel Bull Rush", "Fish Rain", "Goad", "Ambush", "Rending", "Doomsphere Device", "Dust Cloud", "Abyssal Stealth", "Ophidian Incubation", "Poisonous Blast", "Mithril Bull Rush", "Toad Bark", "Testudo", "Swallow Whole", "Fruitfall", "Faquarry", "Arctic Blast", "Rise from the Ashes", "Volcanic Vigour", "Crushing Claw", "Mantis Strike",
+			"Adamant Bull Rush", "Inferno", "Deadly Claw", "Acorn Missile", "Titan's Consitution", "Titan's Consitution", "Titan's Consitution", "Regrowth", "Spike Shot", "Ebon Thunder", "Swamp Plague", "Rune Bull Rush", "Healing Aura", "Boil", "Mage Focus", "Essence Shipment", "Iron Within", "Winter Storage", "Steel of Legends" };
+	private static final String[] pouchNames = { "Spirit wolf", "Dreadfowl", "Spirit spider", "Thorny snail", "Granite crab", "Spirit mosquito", "Desert wyrm", "Spirit scorpion", "Spirit tz-kih", "Albino rat", "Spirit kalphite", "Compost mound", "Giant chinchompa", "Vampire bat", "Honey badger", "Beaver", "Void ravager", "Void spinner", "Void torcher", "Void shifter", "Bronze minotaur", "Bull ant", "Macaw", "Evil turnip", "Sp. cockatrice", "Sp. guthatrice", "Sp. saratrice", "Sp. zamatrice", "Sp. pengatrice", "Sp. coraxatrice", "Sp. vulatrice", "Iron minotaur", "Pyrelord", "Magpie", "Bloated leech", "Spirit terrorbird", "Abyssal parasite", "Spirit jelly", "Steel minotaur", "Ibis", "Spirit graahk", "Spirit kyatt", "Spirit larupia", "Karam. overlord", "Smoke devil", "Abyssal lurker", "Spirit cobra", "Stsagittarius plant", "Mithril minotaur", "Barker toad", "War tortoise", "Bunyip", "Fruit bat", "Ravenous locust", "Arctic bear", "Phoenix", "Obsidian golem", "Granite lobster", "Praying mantis",
+			"Adamant minotaur", "Forge regent", "Talon beast", "Giant ent", "Fire titan", "Moss titan", "Ice titan", "Hydra", "Spirit dagannoth", "Lava titan", "Swamp titan", "Rune minotaur", "Unicorn stallion", "Geyser titan", "Wolpertinger", "Abyssal titan", "Iron titan", "Pack yak", "Steel titan" };
+	private static final Logger logger = Logger.getLogger(RSInterface.class.getSimpleName());
+	public static int[] boxIds = { 4041, 4077, 4113, 4047, 4083, 4119, 4053, 4089, 4125, 4059, 4095, 4131, 4065, 4101, 4137, 4071, 4107, 4143, 4154, 12168, 13918 };
+	public static RSInterface[] interfaceCache;
+	public String popupString;
+	public String hoverText;
+	public boolean drawsTransparent;
+	public int anInt208;
+	public int[] requiredValues;
+	public int contentType;
+	public int[] spritesX;
+	public int textHoverColour;
+	public int atActionType;
+	public String spellName;
+	public int anInt219;
+	public int width;
+	public String tooltip;
+	public String selectedActionName;
+	public boolean centerText;
+	public int scrollLocation;
+	public String[] itemActions;
+	public int[][] valueIndexArray;
+	public boolean aBoolean227;
+	public String disabledText;
+	public int mouseOverPopupInterface;
+	public int invSpritePadX;
+	public int textColor;
+	public int anInt233;
+	public int mediaID;
+	public boolean aBoolean235;
+	public int parentID;
+	public int spellUsableOn;
+	public int anInt239;
+	public int[] children;
+	public int[] childX;
+	public boolean usableItemInterface;
+	public int invSpritePadY;
+	public int[] valueCompareType;
+	public int anInt246;
+	public int[] spritesY;
+	public String message;
+	public boolean isBoxInterface;
+	public int id;
+	public int[] invStackSizes;
+	public int[] inv;
+	public byte opacity;
+	public int anInt255;
+	public int anInt256;
+	public int anInt257;
+	public int anInt258;
+	public boolean aBoolean259;
+	public int scrollMax;
+	public int type;
+	public int anInt263;
+	public int anInt265;
+	public boolean isMouseoverTriggered;
+	public int height;
+	public boolean textShadow;
+	public int modelZoom;
+	public int modelRotation1;
+	public int modelRotation2;
+	public int[] childY;
+	public int itemSpriteId1;
+	public int itemSpriteId2;
+	public int itemSpriteZoom1;
+	public int itemSpriteZoom2;
+	public int itemSpriteIndex;
+	public boolean greyScale;
 
-	public static int boxIds[] = { 4041, 4077, 4113, 4047, 4083, 4119, 4053, 4089, 4125, 4059, 4095, 4131, 4065, 4101, 4137, 4071, 4107, 4143, 4154, 12168, 13918 };
+	public RSInterface() {
+	itemSpriteId1 = -1;
+	itemSpriteId2 = -1;
+	itemSpriteZoom1 = -1;
+	itemSpriteZoom2 = -1;
+	itemSpriteIndex = 0;
+	}
 
 	public static void addBobStorage(int index) {
 	RSInterface rsi = interfaceCache[index] = new RSInterface();
@@ -51,9 +130,7 @@ public final class RSInterface {
 	rsi.aBoolean235 = false;
 	rsi.usableItemInterface = false;
 	rsi.isBoxInterface = false;
-	// rsi.aBoolean251 = false;
 	rsi.aBoolean259 = true;
-	// rsi.interfaceShown = false;
 	rsi.textShadow = false;
 	rsi.type = -1;
 	rsi.invSpritePadX = 24;
@@ -88,11 +165,9 @@ public final class RSInterface {
 	tab.contentType = 0;
 	tab.opacity = 0;
 	tab.mouseOverPopupInterface = mOver;
-	// Tab.enabledSprite = imageLoader(sid, spriteName);
 	tab.width = width;
 	tab.height = height;
 	tab.tooltip = tooltip;
-	// tab.boxhover = true;
 	}
 
 	public static void addChar(int ID) {
@@ -113,7 +188,7 @@ public final class RSInterface {
 	t.anInt258 = -1;
 	}
 
-	public static void addHDHoverButton(int i, String imageName, int j, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable button
+	public static void addHDHoverButton(int i, String imageName, int j, int width, int height, String text, int contentType, int hoverOver, int aT) {
 	RSInterface tab = addTabInterface(i);
 	tab.id = i;
 	tab.parentID = i;
@@ -128,8 +203,7 @@ public final class RSInterface {
 	tab.tooltip = text;
 	}
 
-	public static void addHDHoveredButton(int i, String imageName, int j, int w, int h, int IMAGEID) {// hoverable
-																										// button
+	public static void addHDHoveredButton(int i, String imageName, int j, int w, int h, int IMAGEID) {
 	RSInterface tab = addTabInterface(i);
 	tab.parentID = i;
 	tab.id = i;
@@ -210,7 +284,6 @@ public final class RSInterface {
 	tab.height = 334;
 	tab.opacity = 0;
 	tab.mouseOverPopupInterface = 52;
-	// Tab.enabledSprite = imageLoader(k, name);
 	}
 
 	public static void addInAreaHover(int i, String imageName, int sId, int sId2, int w, int h, String text, int contentType, int actionType) {
@@ -222,7 +295,6 @@ public final class RSInterface {
 	tab.contentType = contentType;
 	tab.opacity = 0;
 	tab.mouseOverPopupInterface = i;
-	// Tab.enabledSprite = imageLoader(sId2, imageName);
 	tab.width = w;
 	tab.height = h;
 	tab.tooltip = text;
@@ -240,7 +312,7 @@ public final class RSInterface {
 	rsInterface.selectedActionName = "Cast On";
 	rsInterface.width = 20;
 	rsInterface.height = 20;
-	rsInterface.tooltip = (new StringBuilder()).append("Cast @gre@").append(name).toString();
+	rsInterface.tooltip = "Cast @gre@" + name;
 	rsInterface.spellName = name;
 	rsInterface.valueCompareType = new int[3];
 	rsInterface.requiredValues = new int[3];
@@ -265,9 +337,6 @@ public final class RSInterface {
 	rsInterface.valueIndexArray[2][0] = 1;
 	rsInterface.valueIndexArray[2][1] = 6;
 	rsInterface.valueIndexArray[2][2] = 0;
-	// rsinterface.enabledSprite = loadSprite(sid,
-	// "Interfaces/Lunar/LUNARON");
-	// class9.disabledSprite = loadSprite(sid, "Interfaces/Lunar/LUNAROFF");
 	RSInterface hover = addTabInterface(ID + 1);
 	hover.mouseOverPopupInterface = -1;
 	hover.isMouseoverTriggered = true;
@@ -275,7 +344,6 @@ public final class RSInterface {
 	addSprite(ID + 2, 0, "Interfaces/Lunar/BOX");
 	setBounds(ID + 2, 0, 0, 0, hover);
 	setBounds(ID + 3, 90, 4, 1, hover);
-	// addText(ID + 4, descr, 0xaf6a1a, true, true, 52, 0);
 	setBounds(ID + 4, 90, 19, 2, hover);
 	setBounds(30016, 37, 35, 3, hover);
 	setBounds(rune1, 112, 35, 4, hover);
@@ -297,7 +365,7 @@ public final class RSInterface {
 	rsInterface.selectedActionName = "Cast on";
 	rsInterface.width = 20;
 	rsInterface.height = 20;
-	rsInterface.tooltip = (new StringBuilder()).append("Cast @gre@").append(name).toString();
+	rsInterface.tooltip = "Cast @gre@" + name;
 	rsInterface.spellName = name;
 	rsInterface.valueCompareType = new int[4];
 	rsInterface.requiredValues = new int[4];
@@ -329,17 +397,13 @@ public final class RSInterface {
 	rsInterface.valueIndexArray[3][0] = 1;
 	rsInterface.valueIndexArray[3][1] = 6;
 	rsInterface.valueIndexArray[3][2] = 0;
-	// class9.disabledSprite = loadSprite(sid, "Interfaces/Lunar/LUNAROFF");
 	RSInterface hover = addTabInterface(ID + 1);
 	hover.mouseOverPopupInterface = -1;
 	hover.isMouseoverTriggered = true;
 	setChildren(9, hover);
 	addSprite(ID + 2, 1, "Interfaces/Lunar/BOX");
 	setBounds(ID + 2, 0, 0, 0, hover);
-	// addText(ID + 3, (new StringBuilder()).append("Grade ").append(lvl +
-	// 1)
 	setBounds(ID + 3, 90, 4, 1, hover);
-	// addText(ID + 4, descr, 0xaf6a1a, true, true, 52, 0);
 	setBounds(ID + 4, 90, 21, 2, hover);
 	setBounds(30016, 14, 48, 3, hover);
 	setBounds(rune1, 74, 48, 4, hover);
@@ -364,7 +428,7 @@ public final class RSInterface {
 	rsInterface.selectedActionName = "Cast on";
 	rsInterface.width = 20;
 	rsInterface.height = 20;
-	rsInterface.tooltip = (new StringBuilder()).append("Cast @gre@").append(name).toString();
+	rsInterface.tooltip = "Cast @gre@" + name;
 	rsInterface.spellName = name;
 	rsInterface.valueCompareType = new int[4];
 	rsInterface.requiredValues = new int[4];
@@ -402,10 +466,7 @@ public final class RSInterface {
 	setChildren(9, hover);
 	addSprite(ID + 2, 2, "Interfaces/Lunar/BOX");
 	setBounds(ID + 2, 0, 0, 0, hover);
-	// addText(ID + 3, (new StringBuilder()).append("Grade ").append(lvl +
-	// 1)
 	setBounds(ID + 3, 90, 4, 1, hover);
-	// addText(ID + 4, descr, 0xaf6a1a, true, true, 52, 0);
 	setBounds(ID + 4, 90, 34, 2, hover);
 	setBounds(30016, 14, 61, 3, hover);
 	setBounds(rune1, 74, 61, 4, hover);
@@ -430,7 +491,7 @@ public final class RSInterface {
 	rsInterface.selectedActionName = "Cast on";
 	rsInterface.width = 20;
 	rsInterface.height = 20;
-	rsInterface.tooltip = (new StringBuilder()).append("Cast @gre@").append(name).toString();
+	rsInterface.tooltip = "Cast @gre@" + name;
 	rsInterface.spellName = name;
 	rsInterface.valueCompareType = new int[4];
 	rsInterface.requiredValues = new int[4];
@@ -468,10 +529,7 @@ public final class RSInterface {
 	setChildren(9, hover);
 	addSprite(ID + 2, 0, "Interfaces/Lunar/BOX");
 	setBounds(ID + 2, 0, 0, 0, hover);
-	// addText(ID + 3, (new StringBuilder()).append("Grade ").append(lvl +
-	// 1)
 	setBounds(ID + 3, 90, 4, 1, hover);
-	// addText(ID + 4, descr, 0xaf6a1a, true, true, 52, 0);
 	setBounds(ID + 4, 90, 19, 2, hover);
 	setBounds(30016, 14, 35, 3, hover);
 	setBounds(rune1, 74, 35, 4, hover);
@@ -505,7 +563,7 @@ public final class RSInterface {
 	rsInterface.valueIndexArray[0][3] = 0;
 	rsInterface.centerText = true;
 	rsInterface.textShadow = true;
-	rsInterface.message = (new StringBuilder()).append("%1/").append(runeAmount).append("").toString();
+	rsInterface.message = "%1/" + runeAmount;
 	rsInterface.disabledText = "";
 	rsInterface.textColor = 0xc00000;
 	rsInterface.anInt219 = 49152;
@@ -710,23 +768,6 @@ public final class RSInterface {
 	addSprite(19149, 0, "Interfaces/Equipment/CHAR");
 	addHover(19150, 3, 0, 19151, 3, "Interfaces/Equipment/CHAR", 21, 21, "Close");
 	addHovered(19151, 2, "Interfaces/Equipment/CHAR", 21, 21, 19152);
-	// addText(19154, "Equip Your Character...", 0xFF981F, false, true, 52,
-	// addText(1673, "Assault bonus", 0xFF981F, false, true, 52, 2);
-	// addText(1674, "Defense bonus", 0xFF981F, false, true, 52, 2);
-	// addText(1685, "Other bonuses", 0xFF981F, false, true, 52, 2);
-	// addText(1675, "Stab:", 0xFF981F, false, true, 52, 1);
-	// addText(1676, "Slash:", 0xFF981F, false, true, 52, 1);
-	// addText(1677, "Crush:", 0xFF981F, false, true, 52, 1);
-	// addText(1678, "Mage:", 0xFF981F, false, true, 52, 1);
-	// addText(1679, "Sagittarius:", 0xFF981F, false, true, 52, 1);
-	// addText(1680, "Stab:", 0xFF981F, false, true, 52, 1);
-	// addText(1681, "Slash:", 0xFF981F, false, true, 52, 1);
-	// addText(1682, "Crush:", 0xFF981F, false, true, 52, 1);
-	// addText(1683, "Mage:", 0xFF981F, false, true, 52, 1);
-	// addText(1684, "Sagittarius:", 0xFF981F, false, true, 52, 1);
-	// addText(1686, "Vigour:", 0xFF981F, false, true, 52, 1);
-	// addText(1687, "Necromance:", 0xFF981F, false, true, 52, 1);
-	// addText(19155, "0%", 0xFF981F, false, true, 52, 1);
 	addChar(19153);
 	int last = 45;
 	int frame = 0;
@@ -825,9 +866,9 @@ public final class RSInterface {
 
 	public static void EquipmentTab() {
 	RSInterface Interface = interfaceCache[1644];
-	addSprite(15101, 0, "Interfaces/Equipment/bl");// cheap hax
-	addSprite(15102, 1, "Interfaces/Equipment/bl");// cheap hax
-	addSprite(15109, 2, "Interfaces/Equipment/bl");// cheap hax
+	addSprite(15101, 0, "Interfaces/Equipment/bl");
+	addSprite(15102, 1, "Interfaces/Equipment/bl");
+	addSprite(15109, 2, "Interfaces/Equipment/bl");
 	removeSomething(15103);
 	removeSomething(15104);
 	Interface.children[23] = 15101;
@@ -884,152 +925,9 @@ public final class RSInterface {
 	RSinterface.childY[frame] = Y;
 	}
 
-	public String popupString;
-
-	public String hoverText;
-
-	public boolean drawsTransparent;
-
-	public int anInt208;
-
-	public static RSInterface interfaceCache[];
-
-	public int requiredValues[];
-
-	public int contentType;
-
-	public int spritesX[];
-
-	public int textHoverColour;
-
-	public int atActionType;
-
-	public String spellName;
-
-	public int anInt219;
-
-	public int width;
-
-	public String tooltip;
-
-	public String selectedActionName;
-
-	public boolean centerText;
-
-	public int scrollLocation;
-
-	public String itemActions[];
-
-	public int valueIndexArray[][];
-
-	public boolean aBoolean227;
-
-	public String disabledText;
-
-	public int mouseOverPopupInterface;
-
-	public int invSpritePadX;
-
-	public int textColor;
-
-	public int anInt233;
-
-	public int mediaID;
-
-	public boolean aBoolean235;
-
-	public int parentID;
-
-	public int spellUsableOn;
-
-	public int anInt239;
-
-	public int children[];
-
-	public int childX[];
-
-	public boolean usableItemInterface;
-
-	public int invSpritePadY;
-
-	public int valueCompareType[];
-
-	public int anInt246;
-
-	public int spritesY[];
-
-	public String message;
-
-	public boolean isBoxInterface;
-
-	public int id;
-
-	public int invStackSizes[];
-
-	public int inv[];
-
-	public byte opacity;
-
-	public int anInt255;
-
-	public int anInt256;
-
-	public int anInt257;
-
-	public int anInt258;
-
-	public boolean aBoolean259;
-
-	public int scrollMax;
-
-	public int type;
-
-	public int anInt263;
-
-	public int anInt265;
-
-	public boolean isMouseoverTriggered;
-
-	public int height;
-
-	public boolean textShadow;
-
-	public int modelZoom;
-
-	public int modelRotation1;
-
-	public int modelRotation2;
-
-	public int childY[];
-
-	public int itemSpriteId1;
-
-	public int itemSpriteId2;
-
-	public int itemSpriteZoom1;
-
-	public int itemSpriteZoom2;
-
-	public int itemSpriteIndex;
-
-	public boolean greyScale;
-
-	private static int summoningGradeRequirements[] = { 1, 4, 10, 13, 16, 17, 18, 19, 22, 23, 25, 28, 29, 31, 32, 33, 34, 34, 34, 34, 36, 40, 41, 42, 43, 43, 43, 43, 43, 43, 43, 46, 46, 47, 49, 52, 54, 55, 56, 56, 57, 57, 57, 58, 61, 62, 63, 64, 66, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 76, 77, 78, 79, 79, 79, 80, 83, 83, 85, 86, 88, 89, 92, 93, 95, 96, 99 };
-
-	private static int pouchItems[] = { 12047, 12043, 12059, 12019, 12009, 12778, 12049, 12055, 12808, 12067, 12063, 12091, 12800, 12053, 12065, 12021, 12818, 12780, 12798, 12814, 12073, 12087, 12071, 12051, 12095, 12097, 12099, 12101, 12103, 12105, 12107, 12075, 12816, 12041, 12061, 12007, 12035, 12027, 12077, 12531, 12810, 12812, 12784, 12023, 12085, 12037, 12015, 12045, 12079, 12123, 12031, 12029, 12033, 12820, 12057, 14623, 12792, 12069, 12011, 12081, 12782, 12794, 12013, 12802, 12804, 12806, 12025, 12017, 12788, 12776, 12083, 12039, 12786, 12089, 12796, 12822, 12093, 12790 };
-
-	private static int scrollItems[] = { 12425, 12445, 12428, 12459, 12533, 12838, 12460, 12432, 12839, 12430, 12446, 12440, 12834, 12447, 12433, 12429, 12443, 12443, 12443, 12443, 12461, 12431, 12422, 12448, 12458, 12458, 12458, 12458, 12458, 12458, 12458, 12462, 12829, 12426, 12444, 12441, 12454, 12453, 12463, 12424, 12835, 12836, 12840, 12455, 12468, 12427, 12436, 12467, 12464, 12452, 12439, 12438, 12423, 12830, 12451, 14622, 12826, 12449, 12450, 12465, 12841, 12831, 12457, 12824, 12824, 12824, 12442, 12456, 12837, 12832, 12466, 12434, 12833, 12437, 12827, 12828, 12435, 12825 };
-
-	private static String scrollNames[] = { "Howl", "Dreadfowl Strike", "Egg Spawn", "Slime Spray", "Stony Shell", "Pester", "Electric Lash", "Venom Shot", "Fireball Assault", "Cheese Feast", "Sandstorm", "Generate Compost", "Explode", "Vampire Touch", "Insane Ferocity", "Multichop", "Call of Arms", "Call of Arms", "Call of Arms", "Call of Arms", "Bronze Bull Rush", "Unburden", "Weedcall", "Evil Flames", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Petrifying gaze", "Iron Bull Rush", "Immense Heat", "Accomplisher Fingers", "Blood Drain", "Tireless Run", "Abyssal Drain", "Dissolve", "Steel Bull Rush", "Fish Rain", "Goad", "Ambush", "Rending", "Doomsphere Device", "Dust Cloud", "Abyssal Stealth", "Ophidian Incubation", "Poisonous Blast", "Mithril Bull Rush", "Toad Bark", "Testudo", "Swallow Whole", "Fruitfall", "Faquarry", "Arctic Blast", "Rise from the Ashes", "Volcanic Vigour", "Crushing Claw", "Mantis Strike",
-			"Adamant Bull Rush", "Inferno", "Deadly Claw", "Acorn Missile", "Titan's Consitution", "Titan's Consitution", "Titan's Consitution", "Regrowth", "Spike Shot", "Ebon Thunder", "Swamp Plague", "Rune Bull Rush", "Healing Aura", "Boil", "Mage Focus", "Essence Shipment", "Iron Within", "Winter Storage", "Steel of Legends" };
-
-	private static String pouchNames[] = { "Spirit wolf", "Dreadfowl", "Spirit spider", "Thorny snail", "Granite crab", "Spirit mosquito", "Desert wyrm", "Spirit scorpion", "Spirit tz-kih", "Albino rat", "Spirit kalphite", "Compost mound", "Giant chinchompa", "Vampire bat", "Honey badger", "Beaver", "Void ravager", "Void spinner", "Void torcher", "Void shifter", "Bronze minotaur", "Bull ant", "Macaw", "Evil turnip", "Sp. cockatrice", "Sp. guthatrice", "Sp. saratrice", "Sp. zamatrice", "Sp. pengatrice", "Sp. coraxatrice", "Sp. vulatrice", "Iron minotaur", "Pyrelord", "Magpie", "Bloated leech", "Spirit terrorbird", "Abyssal parasite", "Spirit jelly", "Steel minotaur", "Ibis", "Spirit graahk", "Spirit kyatt", "Spirit larupia", "Karam. overlord", "Smoke devil", "Abyssal lurker", "Spirit cobra", "Stsagittarius plant", "Mithril minotaur", "Barker toad", "War tortoise", "Bunyip", "Fruit bat", "Ravenous locust", "Arctic bear", "Phoenix", "Obsidian golem", "Granite lobster", "Praying mantis",
-			"Adamant minotaur", "Forge regent", "Talon beast", "Giant ent", "Fire titan", "Moss titan", "Ice titan", "Hydra", "Spirit dagannoth", "Lava titan", "Swamp titan", "Rune minotaur", "Unicorn stallion", "Geyser titan", "Wolpertinger", "Abyssal titan", "Iron titan", "Pack yak", "Steel titan" };
-
 	public static void achievementTab() {
 	RSInterface Interface = addInterface(638);
 	setChildren(4, Interface);
-	// addText(29155, "Quests", 0xFF981F, false, true, 52, 2);
 	addButton(29156, 2, "Interfaces/QuestTab/QUEST", 18, 18, "Swap to Quest Tab", 1);
 	addSprite(29157, 0, "Interfaces/QuestTab/QUEST");
 	setBounds(29155, 10, 5, 0, Interface);
@@ -1041,13 +939,6 @@ public final class RSInterface {
 	Interface.width = 165;
 	Interface.scrollMax = 4700;
 	setChildren(105, Interface);
-	// addText(29161, "TBD", 0xFF981F, false, true, 52, 2);
-	// tab.disabledSprite(29162, "", "Spawn", 0, 0xff0000, false, true,
-	// 150);
-	// tab.disabledSprite(29163, "", "Spawn", 0, 0xff0000, false, true,
-	// 150);
-	// tab.disabledSprite(29164, "", "Spawn", 0, 0xff0000, false, true,
-	// 150);
 
 	setBounds(29161, 8, 5, 0, Interface);
 	setBounds(29162, 8, 20, 1, Interface);
@@ -1058,19 +949,15 @@ public final class RSInterface {
 	int frameID = 5;
 
 	for (int id = 29165; id <= 29264; id++) {
-		// tab.disabledSprite(id, "" + id + "", "tbd", 0, 0xff0000, false,
 		setBounds(id, 8, Ypos, frameID, Interface);
 		frameID++;
 		Ypos += 15;
 		Ypos++;
 	}
 
-	// addText(29173, "", 0xFF981F, false, true, 58, 2);
-
 	Interface = addInterface(29265);
 	try {
 		setChildren(4, Interface);
-		// addText(29266, "Coming soon!", 0xFF981F, false, true, -1, 2);
 		addButton(29267, 1, "Interfaces/QuestTab/QUEST", 18, 18, "Swap to GameCharacter Info", 1);
 		addSprite(29269, 0, "Interfaces/QuestTab/QUEST");
 		setBounds(29266, 10, 5, 0, Interface);
@@ -1102,27 +989,6 @@ public final class RSInterface {
 		setBounds(29312, 8, 210, 17, Interface);
 		setBounds(29313, 8, 222, 18, Interface);
 		setBounds(29314, 8, 234, 19, Interface);
-		// tab.disabledSprite(29295, "Please register at",
-		// "Please Register",
-		// tab.disabledSprite(29296, "www.divinefury.org", "", 0, 0xff0000,
-		// tab.disabledSprite(29297, "And advertise/chill daily!", "", 0,
-		// tab.disabledSprite(29298, "::chill for more stoners!", "", 0,
-		// tab.disabledSprite(29299, "More stoners=More updates!", "", 0,
-		// tab.disabledSprite(29300, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29301, "", "", 1, 0xFF981F, false, true, 150);
-		// tab.disabledSprite(29302, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29303, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29304, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29305, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29306, "", "", 1, 0xFF981F, false, true, 150);
-		// tab.disabledSprite(29307, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29308, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29309, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29310, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29311, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29312, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29313, "", "", 0, 0xff0000, false, true, 150);
-		// tab.disabledSprite(29314, "", "", 0, 0xff0000, false, true, 150);
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -1130,11 +996,6 @@ public final class RSInterface {
 
 	public static void addActionButton(int id, int sprite, int sprite2, int width, int height, String s) {
 	RSInterface rsi = interfaceCache[id] = new RSInterface();
-	// rsi.disabledSprite = CustomSpriteLoader(sprite, "");
-	// if (sprite2 == sprite)
-	// rsi.enabledSprite = CustomSpriteLoader(sprite, "a");
-	// else
-	// rsi.enabledSprite = CustomSpriteLoader(sprite2, "");
 	rsi.tooltip = s;
 	rsi.contentType = 0;
 	rsi.atActionType = 1;
@@ -1148,8 +1009,6 @@ public final class RSInterface {
 
 	public static void addAssaultStyleButton2(int id, int sprite, int setconfig, int width, int height, String s, int hoverID, int hW, int hH, String hoverText) {
 	RSInterface rsi = addInterface(id);
-	// rsi.disabledSprite = CustomSpriteLoader(sprite, "");
-	// rsi.enabledSprite = CustomSpriteLoader(sprite, "a");
 	rsi.valueCompareType = new int[1];
 	rsi.valueCompareType[0] = 1;
 	rsi.requiredValues = new int[1];
@@ -1183,7 +1042,6 @@ public final class RSInterface {
 	hover.contentType = 0;
 	hover.opacity = 0;
 	hover.mouseOverPopupInterface = hoverid;
-	// Tab.enabledSprite = imageLoader(spriteId, NAME);
 	hover.width = Width;
 	hover.tooltip = Tooltip;
 	hover.height = Height;
@@ -1220,7 +1078,6 @@ public final class RSInterface {
 	hover.contentType = 0;
 	hover.opacity = 0;
 	hover.mouseOverPopupInterface = hoverid;
-	// Tab.enabledSprite = imageLoader(spriteId, NAME);
 	hover.width = Width;
 	hover.tooltip = Tooltip;
 	hover.height = Height;
@@ -1262,8 +1119,6 @@ public final class RSInterface {
 	rsinterface.atActionType = type;
 	rsinterface.opacity = 0;
 	rsinterface.mouseOverPopupInterface = hoverID;
-	// class9.disabledSprite = imageLoader(dS, NAME);
-	// rsinterface.enabledSprite = imageLoader(eS, NAME);
 	rsinterface.width = W;
 	rsinterface.height = H;
 	rsinterface.tooltip = text;
@@ -1286,8 +1141,6 @@ public final class RSInterface {
 	RSInterface.atActionType = AT;
 	RSInterface.opacity = 0;
 	RSInterface.mouseOverPopupInterface = hoverId;
-	// class9.disabledSprite = imageLoader(j, name);
-	// rsinterface.enabledSprite = imageLoader(j, name);
 	RSInterface.width = W;
 	RSInterface.height = H;
 	RSInterface.tooltip = S;
@@ -1302,10 +1155,6 @@ public final class RSInterface {
 	tab.contentType = 0;
 	tab.opacity = 0;
 	tab.mouseOverPopupInterface = 52;
-	// tab.disabledSprite = imageLoader(sid, spriteName);
-	// Tab.enabledSprite = imageLoader(sid, spriteName);
-	// tab.width = //tab.disabledSprite.myWidth;
-	// tab.height = //Tab.enabledSprite.myHeight;
 	tab.tooltip = tooltip;
 	}
 
@@ -1318,8 +1167,6 @@ public final class RSInterface {
 	tab.contentType = 0;
 	tab.opacity = 0;
 	tab.mouseOverPopupInterface = 52;
-	// tab.disabledSprite = imageLoader(sid, spriteName);
-	// Tab.enabledSprite = imageLoader(sid, spriteName);
 	tab.width = w;
 	tab.height = h;
 	tab.tooltip = tooltip;
@@ -1395,7 +1242,6 @@ public final class RSInterface {
 	Tab.valueIndexArray[0][0] = 5;
 	Tab.valueIndexArray[0][1] = configFrame;
 	Tab.valueIndexArray[0][2] = 0;
-	// Tab.enabledSprite = imageLoader(bID2, bName);
 	Tab.tooltip = tT;
 	}
 
@@ -1437,7 +1283,7 @@ public final class RSInterface {
 	rsi.hoverText = text;
 	}
 
-	public static void addHoverButton(int a, int i, String imageName, int j, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable button
+	public static void addHoverButton(int a, int i, String imageName, int j, int width, int height, String text, int contentType, int hoverOver, int aT) {
 	RSInterface tab = addTabInterface(i);
 	tab.id = i;
 	tab.parentID = i;
@@ -1446,7 +1292,6 @@ public final class RSInterface {
 	tab.contentType = contentType;
 	tab.opacity = 0;
 	tab.mouseOverPopupInterface = hoverOver;
-	// tab.disabledSprite = imageLoader(j, imageName);
 
 	if (a == 1) {
 	}
@@ -1487,8 +1332,6 @@ public final class RSInterface {
 	RSInterface.contentType = 0;
 	RSInterface.opacity = 0;
 	RSInterface.mouseOverPopupInterface = 52;
-	// class9.disabledSprite = imageLoader(j, name);
-	// rsinterface.enabledSprite = imageLoader(j, name);
 	RSInterface.width = W;
 	RSInterface.height = H;
 	RSInterface.tooltip = S;
@@ -1508,7 +1351,7 @@ public final class RSInterface {
 	class9.tooltip = s;
 	}
 
-	public static void addPouch(int ID, int r1[], int ra1, int r2, int lvl, String name, int imageID, int type) {
+	public static void addPouch(int ID, int[] r1, int ra1, int r2, int lvl, String name, int imageID, int type) {
 	RSInterface rsInterface = addTabInterface(ID);
 	rsInterface.id = ID;
 	rsInterface.parentID = 1151;
@@ -1518,7 +1361,7 @@ public final class RSInterface {
 	rsInterface.mouseOverPopupInterface = ID + 1;
 	rsInterface.width = 32;
 	rsInterface.height = 32;
-	rsInterface.tooltip = (new StringBuilder()).append("Infuse @or1@").append(name).toString();
+	rsInterface.tooltip = "Infuse @or1@" + name;
 	rsInterface.spellName = name;
 	rsInterface.valueCompareType = new int[2];
 	rsInterface.requiredValues = new int[2];
@@ -1548,8 +1391,6 @@ public final class RSInterface {
 	hover.isMouseoverTriggered = true;
 	setChildren(5, hover);
 	addSprite(ID + 2, 0, "Interfaces/Lunar/BOX");
-	// addText(ID + 3, (new StringBuilder()).append("Grade ").append(lvl)
-	// addText(ID + 4, "This item requires", 0xaf6a1a, true, true, 52, 0);
 	addRuneText(ID + 5, ra1, r1[0]);
 	addSprite(ID + 6, r1[0], null);
 	addSprite(ID + 7, r1[1], null);
@@ -1649,7 +1490,7 @@ public final class RSInterface {
 	rsInterface.mouseOverPopupInterface = ID + 1;
 	rsInterface.width = 32;
 	rsInterface.height = 32;
-	rsInterface.tooltip = (new StringBuilder()).append("Transform @or1@").append(name).toString();
+	rsInterface.tooltip = "Transform @or1@" + name;
 	rsInterface.spellName = name;
 	rsInterface.valueCompareType = new int[2];
 	rsInterface.requiredValues = new int[2];
@@ -1676,8 +1517,6 @@ public final class RSInterface {
 	hover.isMouseoverTriggered = true;
 	setChildren(5, hover);
 	addSprite(ID + 2, 0, "Interfaces/Lunar/BOX");
-	// addText(ID + 3, (new StringBuilder()).append("Grade ").append(lvl)
-	// addText(ID + 4, "This item requires", 0xaf6a1a, true, true, 52, 0);
 	addRuneText(ID + 5, ra1, r1);
 	addSprite(ID + 6, r1, null);
 	setBounds(ID + 2, 0, 0, 0, hover);
@@ -1747,10 +1586,8 @@ public final class RSInterface {
 	addSprite(id, spriteId, spriteName, -1, -1);
 	}
 
-	public static void addSprite(int id, int spriteId, String spriteName, int zoom1, int zoom2) // summon
-																								// pouch
-																								// creation
-	{
+	public static void addSprite(int id, int spriteId, String spriteName, int zoom1, int zoom2)
+																								{
 	RSInterface tab = interfaceCache[id] = new RSInterface();
 	tab.id = id;
 	tab.parentID = id;
@@ -1800,8 +1637,6 @@ public final class RSInterface {
 
 	public static void addToggleButton(int id, int sprite, int setconfig, int width, int height, String s) {
 	RSInterface rsi = addInterface(id);
-	// rsi.disabledSprite = CustomSpriteLoader(sprite, "");
-	// rsi.enabledSprite = CustomSpriteLoader(sprite, "a");
 	rsi.requiredValues = new int[1];
 	rsi.requiredValues[0] = 1;
 	rsi.valueCompareType = new int[1];
@@ -1887,7 +1722,7 @@ public final class RSInterface {
 	addButton(12856, 1, "Interfaces/Mage/Home", "Cast @gre@Home Teleport");
 	RSInterface homeButton = interfaceCache[12856];
 	homeButton.mouseOverPopupInterface = 1196;
-	int itfChildren[] = { 12856, 12939, 12987, 13035, 12901, 12861, 13045, 12963, 13011, 13053, 12919, 12881, 13061, 12951, 12999, 13069, 12911, 12871, 13079, 12975, 13023, 13087, 12929, 12891, 13095, 1196, 12940, 12988, 13036, 12902, 12862, 13046, 12964, 13012, 13054, 12920, 12882, 13062, 12952, 13000, 13070, 12912, 12872, 13080, 12976, 13024, 13088, 12930, 12892, 13096 };
+	int[] itfChildren = { 12856, 12939, 12987, 13035, 12901, 12861, 13045, 12963, 13011, 13053, 12919, 12881, 13061, 12951, 12999, 13069, 12911, 12871, 13079, 12975, 13023, 13087, 12929, 12891, 13095, 1196, 12940, 12988, 13036, 12902, 12862, 13046, 12964, 13012, 13054, 12920, 12882, 13062, 12952, 13000, 13070, 12912, 12872, 13080, 12976, 13024, 13088, 12930, 12892, 13096 };
 	tab.totalChildren(itfChildren.length);
 	int i1 = 0;
 	int xPos = 18;
@@ -1939,7 +1774,6 @@ public final class RSInterface {
 	addBankHover1(21020, 5, 21021, 21, "Interfaces/Bank/BANK", 35, 25, "Deposit beast of burden box.", 21022, 22, "Interfaces/Bank/BANK", 21023, "Empty your BoB's box\ninto your bank", 0, 20);
 	setBounds(21020, 455, 285, 17, Interface);
 	setBounds(21021, 440, 225, 18, Interface);
-	// addText(21022, "352", 0xF2A71B, false, true, 52, 0);
 	setBounds(21022, 455, 42, 19, Interface);
 	setBounds(5383, 170, 15, 1, Interface);
 	setBounds(5385, -4, 74, 2, Interface);
@@ -1952,9 +1786,8 @@ public final class RSInterface {
 	Interface.height = 35;
 	}
 
-	public static final void boss() {
+	public static void boss() {
 	RSInterface rsinterface = addTabInterface(45500);
-	// addText(45501, "Boss Teleport", 0xff9b00, false, true, 52, 2);
 	addHoverButton(45502, "Interfaces/Minigame/Hover", 0, 172, 24, "Nex", -1, 45503, 1);
 	addHoveredButton(45503, "Interfaces/Minigame/Hover", 3, 172, 24, 45504);
 	addHoverButton(45518, "Interfaces/Minigame/Hover", 0, 172, 24, "King Black Dragon", -1, 45519, 1);
@@ -1973,11 +1806,6 @@ public final class RSInterface {
 	addSprite(45508, 1, "Interfaces/Minigame/Chaos");
 	addSprite(45509, 1, "Interfaces/Minigame/Corporeal");
 	addSprite(45511, 1, "Interfaces/Minigame/Background");
-	// addText(45512, "Nex", 0xd67b29, true, true, 52, 2);
-	// addText(45513, "King Black Dragon", 0xd67b29, true, true, 52, 2);
-	// addText(45514, "Dagannoth Kings", 0xd67b29, true, true, 52, 2);
-	// addText(45515, "Tormented Demons", 0xd67b29, true, true, 52, 2);
-	// addText(45516, "Corporal Beast", 0xd67b29, true, true, 52, 2);
 	byte childAmount = 24;
 	int indexChild = 0;
 	setChildren(childAmount, rsinterface);
@@ -2069,16 +1897,8 @@ public final class RSInterface {
 	addHoveredButton(24663, "Interfaces/GrandExchange/sprite", 3, 13, 13, 24664);
 	addHoverButton(24665, "Interfaces/GrandExchange/sprite", 2, 13, 13, "Increase Price", 0, 24666, 1);
 	addHoveredButton(24666, "Interfaces/GrandExchange/sprite", 4, 13, 13, 24667);
-	// addText(24669, "Choose an item to exchange", 0, 0x96731A, false,
-	// true);
-	// addText(24670, "Click the icon to the left to search for items.", 0,
-	// 0x958E60, false, true);
-	// addText(24671, "0", 0, 0xB58338, true, true);
-	// addText(24672, "1 gp", 0, 0xB58338, true, true);
-	// addText(24673, "0 gp", 0, 0xB58338, true, true);
 	RSInterface add = addInterface(24680);
 	addToItemGroup(add, 1, 1, 24, 24, true, "[GE]", "[GE]", "[GE]");
-	// addText(24682, "N/A", 0, 0xB58338, false, true);
 	rsinterface.totalChildren(42);
 	rsinterface.child(0, 24601, 4 + x, 23);
 	rsinterface.child(1, 24602, 464 + x, 33);
@@ -2241,7 +2061,7 @@ public final class RSInterface {
 
 	}
 
-	public static final void C(int i, int j, int k, int l, int i1, String s) {
+	public static void C(int i, int j, int k, int l, int i1, String s) {
 	RSInterface qz = interfaceCache[i] = new RSInterface();
 	qz.id = i;
 	qz.parentID = i;
@@ -2262,12 +2082,7 @@ public final class RSInterface {
 	addHoverButton(18132, "Interfaces/Clan Chat/SPRITE", 6, 72, 32, "Leave Chat", -1, 18133, 5);
 	addHoveredButton(18133, "Interfaces/Clan Chat/SPRITE", 7, 72, 32, 18134);
 	addButton(18250, 0, "Interfaces/Clan Chat/Lootshare", "Toggle lootshare");
-	// addText(18135, "Join Chat", 0, 0xff9b00, true, true);
-	// addText(18136, "Clan Setup", 0, 0xff9b00, true, true);
 	addSprite(18137, 37, "Interfaces/Clan Chat/SPRITE");
-	// addText(18138, "Clan Chat", 1, 0xff9b00, true, true);
-	// addText(18139, "Talking in: Not in chat", 0, 0xff9b00, false, true);
-	// addText(18140, "Owner: None", 0, 0xff9b00, false, true);
 	tab.totalChildren(14);
 	tab.child(0, 16126, 0, 221);
 	tab.child(1, 16126, 0, 59);
@@ -2313,13 +2128,6 @@ public final class RSInterface {
 	addHoveredButton(53703, "Interfaces/GrandExchange/close", 2, 16, 16, 53704);
 	addHoverButton(53758, "Interfaces/GrandExchange/sprite", 25, 29, 23, "Back", 0, 53759, 1);
 	addHoveredButton(53759, "Interfaces/GrandExchange/sprite", 26, 29, 23, 53760);
-	// addText(53769, "Choose an item to exchange", 0, 0x96731A, false,
-	// true);
-	// addText(53770, "Select an item from your invertory to sell.", 0,
-	// 0x958E60, false, true);
-	// addText(53771, "0", 0, 0xB58338, true, true);
-	// addText(53772, "1 gp", 0, 0xB58338, true, true);
-	// addText(53773, "0 gp", 0, 0xB58338, true, true);
 	addHoverButton(53793, "Interfaces/GE/collectNoHover", 1, 40, 36, "[GE]", 0, 53794, 1);
 	addHoveredButton(53794, "Interfaces/GE/collectHover", 1, 40, 36, 53795);
 	addHoverButton(53796, "Interfaces/GE/collectNoHover", 1, 40, 36, "[GE]", 0, 53797, 1);
@@ -2330,16 +2138,11 @@ public final class RSInterface {
 	addToItemGroup(add, 1, 1, 24, 24, true, "[ITEM]Collect", "[GE]", "[GE]");
 	add = addInterface(53782);
 	addToItemGroup(add, 1, 1, 24, 24, true, "[BESTBUCKS]Collect", "[GE]", "[GE]");
-	// addText(53784, "", 0, 0xFFFF00, false, true);
-	// addText(53785, "", 0, 0xFFFF00, false, true);
-	// addText(53787, "N/A", 0, 0xB58338, false, true);
-	// addText(53788, "", 0, 0xFFFF00, true, true);
-	// addText(53789, "", 0, 0xFFFF00, true, true);
 	addHoverButton(53800, "Interfaces/GE/clickAbort", 1, 20, 20, "Abort offer", 0, 53801, 1);
 	addHoveredButton(53801, "Interfaces/GE/clickAbort", 2, 20, 20, 53802);
 	rsinterface.totalChildren(24);
-	rsinterface.child(0, 53701, 4 + x, 23);// 385, 260
-	rsinterface.child(1, 53702, 464 + x, 33);// 435, 260
+	rsinterface.child(0, 53701, 4 + x, 23);
+	rsinterface.child(1, 53702, 464 + x, 33);
 	rsinterface.child(2, 53703, 464 + x, 33);
 	rsinterface.child(3, 53758, 19 + x, 284);
 	rsinterface.child(4, 53759, 19 + x, 284);
@@ -2373,13 +2176,6 @@ public final class RSInterface {
 	addHoveredButton(54703, "Interfaces/GrandExchange/close", 2, 16, 16, 54704);
 	addHoverButton(54758, "Interfaces/GrandExchange/sprite", 25, 29, 23, "Back", 0, 54759, 1);
 	addHoveredButton(54759, "Interfaces/GrandExchange/sprite", 26, 29, 23, 54760);
-	// addText(54769, "Choose an item to exchange", 0, 0x96731A, false,
-	// true);
-	// addText(54770, "Select an item from your invertory to sell.", 0,
-	// 0x958E60, false, true);
-	// addText(54771, "0", 0, 0xB58338, true, true);
-	// addText(54772, "1 gp", 0, 0xB58338, true, true);
-	// addText(54773, "0 gp", 0, 0xB58338, true, true);
 	addHoverButton(54793, "Interfaces/GE/collectNoHover", 1, 40, 36, "[GE]", 0, 54794, 1);
 	addHoveredButton(54794, "Interfaces/GE/collectHover", 1, 40, 36, 54795);
 	addHoverButton(54796, "Interfaces/GE/collectNoHover", 1, 40, 36, "[GE]", 0, 54797, 1);
@@ -2390,16 +2186,11 @@ public final class RSInterface {
 	addToItemGroup(add, 1, 1, 24, 24, true, "[BESTBUCKS]Collect", "[GE]", "[GE]");
 	add = addInterface(54782);
 	addToItemGroup(add, 1, 1, 24, 24, true, "[ITEM]Collect", "[GE]", "[GE]");
-	// addText(54784, "", 0, 0xFFFF00, false, true);
-	// addText(54785, "", 0, 0xFFFF00, false, true);
-	// addText(54787, "N/A", 0, 0xB58338, false, true);
-	// addText(54788, "", 0, 0xFFFF00, true, true);
-	// addText(54789, "", 0, 0xFFFF00, true, true);
 	addHoverButton(54800, "Interfaces/GE/clickAbort", 1, 20, 20, "Abort offer", 0, 54801, 1);
 	addHoveredButton(54801, "Interfaces/GE/clickAbort", 2, 20, 20, 54802);
 	rsinterface.totalChildren(24);
-	rsinterface.child(0, 54701, 4 + x, 23);// 385, 260
-	rsinterface.child(1, 54702, 464 + x, 33);// 435, 260
+	rsinterface.child(0, 54701, 4 + x, 23);
+	rsinterface.child(1, 54702, 464 + x, 33);
 	rsinterface.child(2, 54703, 464 + x, 33);
 	rsinterface.child(3, 54758, 19 + x, 284);
 	rsinterface.child(4, 54759, 19 + x, 284);
@@ -2427,10 +2218,9 @@ public final class RSInterface {
 	public static void Construction() {
 	RSInterface Interface = addInterface(31250);
 	setChildren(53, Interface);
-	addHoverButton(29561, "Interfaces/Construction/BUTTON", 0, 16, 16, "Close", 0, 29562, 1);// CLOSE
-	addHoveredButton(29562, "Interfaces/Construction/BUTTON", 1, 16, 16, 29563);// CLOSE
-																				// HOVER
-	addSprite(31249, 0, "Interfaces/Construction/CONSTRUCTION");// BACKGROUND
+	addHoverButton(29561, "Interfaces/Construction/BUTTON", 0, 16, 16, "Close", 0, 29562, 1);
+	addHoveredButton(29562, "Interfaces/Construction/BUTTON", 1, 16, 16, 29563);
+	addSprite(31249, 0, "Interfaces/Construction/CONSTRUCTION");
 
 	addButton(31251, 0, "Interfaces/Construction/CONS", "Build @or1@Fern");
 	addTooltip(31252, "Fern (lvl 1):\n1x Kush, 1x Logs");
@@ -2507,87 +2297,87 @@ public final class RSInterface {
 	addButton(31323, 24, "Interfaces/Construction/CONS", "Build @or1@Bank chest");
 	addTooltip(31324, "Bank chest (lvl 92):\n40x Nails, 2x Mahogany plank, 1x Iron bar");
 
-	setBounds(29561, 413, 9, 1, Interface);// CLOSE
-	setBounds(29562, 413, 9, 2, Interface);// CLOSE HOVER
-	setBounds(31249, 69, 3, 0, Interface);// BACKOGRUND X Y
+	setBounds(29561, 413, 9, 1, Interface);
+	setBounds(29562, 413, 9, 2, Interface);
+	setBounds(31249, 69, 3, 0, Interface);
 
-	setBounds(31251, 109, 28, 3, Interface);// Build item
-	setBounds(31252, 76, 285, 4, Interface);// Requirements
+	setBounds(31251, 109, 28, 3, Interface);
+	setBounds(31252, 76, 285, 4, Interface);
 
-	setBounds(31254, 172, 28, 5, Interface);// Build item
-	setBounds(31255, 76, 285, 6, Interface);// Requirements
+	setBounds(31254, 172, 28, 5, Interface);
+	setBounds(31255, 76, 285, 6, Interface);
 
-	setBounds(31257, 236, 28, 7, Interface);// Build item
-	setBounds(31258, 76, 285, 8, Interface);// Requirements
+	setBounds(31257, 236, 28, 7, Interface);
+	setBounds(31258, 76, 285, 8, Interface);
 
-	setBounds(31260, 300, 28, 9, Interface);// Build item
-	setBounds(31261, 76, 285, 10, Interface);// Requirements
+	setBounds(31260, 300, 28, 9, Interface);
+	setBounds(31261, 76, 285, 10, Interface);
 
-	setBounds(31263, 364, 28, 11, Interface);// Build item
-	setBounds(31264, 76, 285, 12, Interface);// Requirements
+	setBounds(31263, 364, 28, 11, Interface);
+	setBounds(31264, 76, 285, 12, Interface);
 
-	setBounds(31266, 109, 76, 13, Interface);// Build item
-	setBounds(31267, 76, 285, 14, Interface);// Requirements
+	setBounds(31266, 109, 76, 13, Interface);
+	setBounds(31267, 76, 285, 14, Interface);
 
-	setBounds(31269, 172, 76, 15, Interface);// Build item
-	setBounds(31270, 76, 285, 16, Interface);// Requirements
+	setBounds(31269, 172, 76, 15, Interface);
+	setBounds(31270, 76, 285, 16, Interface);
 
-	setBounds(31272, 236, 76, 17, Interface);// Build item
-	setBounds(31273, 76, 285, 18, Interface);// Requirements
+	setBounds(31272, 236, 76, 17, Interface);
+	setBounds(31273, 76, 285, 18, Interface);
 
-	setBounds(31275, 300, 76, 19, Interface);// Build item
-	setBounds(31276, 76, 285, 20, Interface);// Requirements
+	setBounds(31275, 300, 76, 19, Interface);
+	setBounds(31276, 76, 285, 20, Interface);
 
-	setBounds(31278, 364, 76, 21, Interface);// Build item
-	setBounds(31279, 76, 285, 22, Interface);// Requirements
+	setBounds(31278, 364, 76, 21, Interface);
+	setBounds(31279, 76, 285, 22, Interface);
 
-	setBounds(31281, 109, 124, 23, Interface);// Build item
-	setBounds(31282, 76, 285, 24, Interface);// Requirements
+	setBounds(31281, 109, 124, 23, Interface);
+	setBounds(31282, 76, 285, 24, Interface);
 
-	setBounds(31284, 172, 124, 25, Interface);// Build item
-	setBounds(31285, 76, 285, 26, Interface);// Requirements
+	setBounds(31284, 172, 124, 25, Interface);
+	setBounds(31285, 76, 285, 26, Interface);
 
-	setBounds(31287, 236, 124, 27, Interface);// Build item
-	setBounds(31288, 76, 285, 28, Interface);// Requirements
+	setBounds(31287, 236, 124, 27, Interface);
+	setBounds(31288, 76, 285, 28, Interface);
 
-	setBounds(31290, 300, 124, 29, Interface);// Build item
-	setBounds(31291, 76, 285, 30, Interface);// Requirements
+	setBounds(31290, 300, 124, 29, Interface);
+	setBounds(31291, 76, 285, 30, Interface);
 
-	setBounds(31293, 364, 124, 31, Interface);// Build item
-	setBounds(31294, 76, 285, 32, Interface);// Requirements
+	setBounds(31293, 364, 124, 31, Interface);
+	setBounds(31294, 76, 285, 32, Interface);
 
-	setBounds(31296, 109, 172, 33, Interface);// Build item
-	setBounds(31297, 76, 285, 34, Interface);// Requirements
+	setBounds(31296, 109, 172, 33, Interface);
+	setBounds(31297, 76, 285, 34, Interface);
 
-	setBounds(31299, 172, 172, 35, Interface);// Build item
-	setBounds(31300, 76, 285, 36, Interface);// Requirements
+	setBounds(31299, 172, 172, 35, Interface);
+	setBounds(31300, 76, 285, 36, Interface);
 
-	setBounds(31302, 236, 172, 37, Interface);// Build item
-	setBounds(31303, 76, 285, 38, Interface);// Requirements
+	setBounds(31302, 236, 172, 37, Interface);
+	setBounds(31303, 76, 285, 38, Interface);
 
-	setBounds(31305, 300, 172, 39, Interface);// Build item
-	setBounds(31306, 76, 285, 40, Interface);// Requirements
+	setBounds(31305, 300, 172, 39, Interface);
+	setBounds(31306, 76, 285, 40, Interface);
 
-	setBounds(31308, 364, 172, 41, Interface);// Build item
-	setBounds(31309, 76, 285, 42, Interface);// Requirements
+	setBounds(31308, 364, 172, 41, Interface);
+	setBounds(31309, 76, 285, 42, Interface);
 
-	setBounds(31311, 109, 220, 43, Interface);// Build item
-	setBounds(31312, 76, 285, 44, Interface);// Requirements
+	setBounds(31311, 109, 220, 43, Interface);
+	setBounds(31312, 76, 285, 44, Interface);
 
-	setBounds(31314, 172, 220, 45, Interface);// Build item
-	setBounds(31315, 76, 285, 46, Interface);// Requirements
+	setBounds(31314, 172, 220, 45, Interface);
+	setBounds(31315, 76, 285, 46, Interface);
 
-	setBounds(31317, 236, 220, 47, Interface);// Build item
-	setBounds(31318, 76, 285, 48, Interface);// Requirements
+	setBounds(31317, 236, 220, 47, Interface);
+	setBounds(31318, 76, 285, 48, Interface);
 
-	setBounds(31320, 300, 220, 49, Interface);// Build item
-	setBounds(31321, 76, 285, 50, Interface);// Requirements
+	setBounds(31320, 300, 220, 49, Interface);
+	setBounds(31321, 76, 285, 50, Interface);
 
-	setBounds(31323, 364, 220, 51, Interface);// Build item
-	setBounds(31324, 76, 285, 52, Interface);// Requirements
+	setBounds(31323, 364, 220, 51, Interface);
+	setBounds(31324, 76, 285, 52, Interface);
 
 	Interface = addInterface(31330);
-	addSprite(31329, 1, "Interfaces/Construction/CONSTRUCTION");// Back
+	addSprite(31329, 1, "Interfaces/Construction/CONSTRUCTION");
 
 	addHoverButton(31331, "Interfaces/Construction/BUTTON", 2, 90, 44, "Choose", 0, 31332, 1);
 	addHoveredButton(31332, "Interfaces/Construction/BUTTON", 4, 90, 44, 31333);
@@ -2595,54 +2385,49 @@ public final class RSInterface {
 	addHoverButton(31334, "Interfaces/Construction/BUTTON", 2, 90, 44, "Choose", 0, 31335, 1);
 	addHoveredButton(31335, "Interfaces/Construction/BUTTON", 4, 90, 44, 31336);
 
-	// addText(31337, "Public", 0xFFEE33, false, true, 52, 2);
-	// addText(31338, "Private", 0xFFEE33, false, true, 52, 2);
-
-	addHoverButton(29561, "Interfaces/Construction/BUTTON", 0, 16, 16, "Close", 0, 29562, 1);// CLOSE
-	addHoveredButton(29562, "Interfaces/Construction/BUTTON", 1, 16, 16, 29563);// CLOSE
-																				// HOVER
+	addHoverButton(29561, "Interfaces/Construction/BUTTON", 0, 16, 16, "Close", 0, 29562, 1);
+	addHoveredButton(29562, "Interfaces/Construction/BUTTON", 1, 16, 16, 29563);
 
 	setChildren(9, Interface);
-	setBounds(31329, 169, 79, 0, Interface);// Back
+	setBounds(31329, 169, 79, 0, Interface);
 
-	setBounds(31331, 195, 95, 1, Interface);// Button 1
-	setBounds(31332, 195, 95, 2, Interface);// Button 1
+	setBounds(31331, 195, 95, 1, Interface);
+	setBounds(31332, 195, 95, 2, Interface);
 
-	setBounds(31334, 195, 157, 3, Interface);// Button 2
-	setBounds(31335, 195, 157, 4, Interface);// Button 2
+	setBounds(31334, 195, 157, 3, Interface);
+	setBounds(31335, 195, 157, 4, Interface);
 
-	setBounds(31337, 210, 108, 5, Interface);// Text 1
-	setBounds(31338, 210, 170, 6, Interface);// Text 2
+	setBounds(31337, 210, 108, 5, Interface);
+	setBounds(31338, 210, 170, 6, Interface);
 
-	setBounds(29561, 289, 85, 7, Interface);// CLOSE
-	setBounds(29562, 289, 85, 8, Interface);// CLOSE HOVER
+	setBounds(29561, 289, 85, 7, Interface);
+	setBounds(29562, 289, 85, 8, Interface);
 	}
 
 	public static void Curses() {
 	RSInterface Interface = addTabInterface(22500);
 	int index = 0;
-	// addText(687, "99/99", 0xFF981F, false, false, -1, 1);
 	addSprite(22502, 0, "Interfaces/CurseTab/ICON");
-	addNecromance(22503, 0, 610, 49, 7, "Protect Item", 22582);// 1
-	addNecromance(22505, 0, 611, 49, 4, "Sap Warrior", 22544);// 2
-	addNecromance(22507, 0, 612, 51, 5, "Sap Sagittarius", 22546);// 3
-	addNecromance(22509, 0, 613, 53, 3, "Sap Mage", 22548);// 4
-	addNecromance(22511, 0, 614, 55, 2, "Sap Spirit", 22550);// 5
-	addNecromance(22513, 0, 615, 58, 18, "Berserker", 22552);// 6
-	addNecromance(22515, 0, 616, 61, 15, "Deflect Summoning", 22554);// /7
-	addNecromance(22517, 0, 617, 64, 17, "Deflect Mage", 22556);// /8
-	addNecromance(22519, 0, 618, 67, 16, "Deflect Missiles", 22558);// /9
-	addNecromance(22521, 0, 619, 70, 6, "Deflect Melee", 22560);// /10
-	addNecromance(22523, 0, 620, 73, 9, "Leech Assault", 22562);// 11
-	addNecromance(22525, 0, 621, 75, 10, "Leech Sagittarius", 22564);// 12
-	addNecromance(22527, 0, 622, 77, 11, "Leech Mage", 22566);// 13
-	addNecromance(22529, 0, 623, 79, 12, "Leech Aegis", 22568);// 14
-	addNecromance(22531, 0, 624, 81, 13, "Leech Vigour", 22570);// 15
-	addNecromance(22533, 0, 625, 83, 14, "Leech Energy", 22572);// 16
-	addNecromance(22535, 0, 626, 85, 19, "Leech Special Assault", 22574);// 17
-	addNecromance(22537, 0, 627, 88, 1, "Wrath", 22576);// /18
-	addNecromance(22539, 0, 628, 91, 8, "Soul Split", 22578);// /19
-	addNecromance(22541, 0, 629, 94, 20, "Turmoil", 22580);// 20
+	addNecromance(22503, 0, 610, 49, 7, "Protect Item", 22582);
+	addNecromance(22505, 0, 611, 49, 4, "Sap Warrior", 22544);
+	addNecromance(22507, 0, 612, 51, 5, "Sap Sagittarius", 22546);
+	addNecromance(22509, 0, 613, 53, 3, "Sap Mage", 22548);
+	addNecromance(22511, 0, 614, 55, 2, "Sap Spirit", 22550);
+	addNecromance(22513, 0, 615, 58, 18, "Berserker", 22552);
+	addNecromance(22515, 0, 616, 61, 15, "Deflect Summoning", 22554);
+	addNecromance(22517, 0, 617, 64, 17, "Deflect Mage", 22556);
+	addNecromance(22519, 0, 618, 67, 16, "Deflect Missiles", 22558);
+	addNecromance(22521, 0, 619, 70, 6, "Deflect Melee", 22560);
+	addNecromance(22523, 0, 620, 73, 9, "Leech Assault", 22562);
+	addNecromance(22525, 0, 621, 75, 10, "Leech Sagittarius", 22564);
+	addNecromance(22527, 0, 622, 77, 11, "Leech Mage", 22566);
+	addNecromance(22529, 0, 623, 79, 12, "Leech Aegis", 22568);
+	addNecromance(22531, 0, 624, 81, 13, "Leech Vigour", 22570);
+	addNecromance(22533, 0, 625, 83, 14, "Leech Energy", 22572);
+	addNecromance(22535, 0, 626, 85, 19, "Leech Special Assault", 22574);
+	addNecromance(22537, 0, 627, 88, 1, "Wrath", 22576);
+	addNecromance(22539, 0, 628, 91, 8, "Soul Split", 22578);
+	addNecromance(22541, 0, 629, 94, 20, "Turmoil", 22580);
 	addTooltip(22582, "Grade 50\nProtect Item\nKeep 1 extra item if you die");
 	addTooltip(22544, "Grade 50\nSap Warrior\nDrains 10% of enemy Assault,\nVigour and Aegis,\nincreasing to 20% over time");
 	addTooltip(22546, "Grade 52\nSap Sagittarius\nDrains 10% of enemy Sagittarius\nand Aegis, increasing to 20%\nover time");
@@ -2793,20 +2578,14 @@ public final class RSInterface {
 	}
 
 	public static void customStrings() {
-	RSInterface rsinterface = addTabInterface(17050); // interface id
-	// addText(17051, "Custom Text", 0xff9040, false, true, 52, 0); // text
-	// shown
-	rsinterface.scrollMax = 0; // leave this
-	rsinterface.children = new int[1]; // how many children there are ( only
-										// added 1
-	rsinterface.childX = new int[1]; // children x ( same as above ) needs
-										// to be as many strings as there
-										// are
-	rsinterface.childY = new int[1]; // children y (same as above)
-	rsinterface.children[0] = 17051; // first child starting the children
-										// each will be + 1 of this one
-	rsinterface.childX[0] = 40; // x coord
-	rsinterface.childY[0] = 40; // y coord
+	RSInterface rsinterface = addTabInterface(17050);
+	rsinterface.scrollMax = 0;
+	rsinterface.children = new int[1];
+	rsinterface.childX = new int[1];
+	rsinterface.childY = new int[1];
+	rsinterface.children[0] = 17051;
+	rsinterface.childX[0] = 40;
+	rsinterface.childY[0] = 40;
 	}
 
 	public static void drawBlackBox(int xPos, int yPos) {
@@ -2814,11 +2593,6 @@ public final class RSInterface {
 
 	public static void drawCustomInterface() {
 	RSInterface rsinterface = addTabInterface(17600);
-	// addText(17601, "Next round starts in: ", 1, 0xff9040, true, true);
-	// addText(17602, "Current round: ", 1, 0xff9040, true, true);
-	// addText(17603, "Zombies Left: ", 1, 0xff9040, true, true);
-	// addText(17604, "Stoners alive: ", 1, 0xff9040, true, true);
-	// addText(17605, "LINE5", 1, 0xff9040, true, true);
 	rsinterface.children = new int[5];
 	rsinterface.childX = new int[5];
 	rsinterface.childY = new int[5];
@@ -2880,8 +2654,6 @@ public final class RSInterface {
 
 	addHoverButton(47261, "Interfaces/Clan Chat/BUTTON", 1, 150, 35, "Only me", -1, 47262, 1);
 	addHoveredButton(47262, "Interfaces/Clan Chat/BUTTON", 2, 150, 35, 47263);
-
-	// addHoverButton(48020, "b", 1, 150, 35, "Only me", -1, 47999, 1);
 	addHoverButton(48021, "b", 1, 150, 35, "General+", -1, 47999, 1);
 	addHoverButton(48022, "b", 1, 150, 35, "Captain+", -1, 47999, 1);
 	addHoverButton(48023, "b", 1, 150, 35, "Lieutenant+", -1, 47999, 1);
@@ -2891,15 +2663,6 @@ public final class RSInterface {
 
 	addHoverButton(47267, "Interfaces/Clan Chat/CLOSE", 3, 16, 16, "Close", -1, 47268, 1);
 	addHoveredButton(47268, "Interfaces/Clan Chat/CLOSE", 4, 16, 16, 47269);
-
-	// addText(47800, "Clan name:", 0, 0xff981f, false, true);
-	// addText(47801, "Who can enter chat?", 0, 0xff981f, false, true);
-	// addText(47812, "Who can talk on chat?", 0, 0xff981f, false, true);
-	// addText(47813, "Who can kick on chat?", 0, 0xff981f, false, true);
-	// addText(47814, "Alex", 0, 0xffffff, true, true);
-	// addText(47815, "Anyone", 0, 0xffffff, true, true);
-	// addText(47816, "Anyone", 0, 0xffffff, true, true);
-	// addText(47817, "Only me", 0, 0xffffff, true, true);
 	tab.totalChildren(42);
 	tab.child(0, 47251, 15, 15);
 	tab.child(1, 47252, 25, 47 + 20);
@@ -2926,7 +2689,6 @@ public final class RSInterface {
 	tab.child(22, 48017, 25, 128 + 30);
 	tab.child(23, 47258, 25, 128 + 30);
 	tab.child(24, 47259, 25, 128 + 30);
-	// tab.child(25, 48020, 25, 168+35);
 	tab.child(25, 48021, 25, 168 + 35);
 	tab.child(26, 48022, 25, 168 + 35);
 	tab.child(27, 48023, 25, 168 + 35);
@@ -2950,12 +2712,8 @@ public final class RSInterface {
 	tab.height = 213;
 	tab.scrollMax = 2030;
 	for (int i = 44001; i <= 44200; i++) {
-		// addText(i, "", 1, 0xffff64);
 	}
 	for (int i = 44801; i <= 45000; i++) {
-		// //addText(i, "Not in clan", 1, 0xffffff, false, true);
-		// //tab.disabledSprite(i, "Not ranked", "[CC]", 1, 0xffffff, false,
-		// false, 150);
 	}
 	tab.totalChildren(400);
 	int Child = 0;
@@ -2978,11 +2736,11 @@ public final class RSInterface {
 	RSInterface scroll = addTabInterface(148);
 	tab.totalChildren(1);
 	tab.child(0, 148, 0, 1);
-	int ButtonIDs[] = { 168, 169, 164, 165, 162, 163, 13370, 171, 167, 170, 13366, 13368, 166, 13363, 13364, 13365, 161, 11100, 13362, 13367, 172, 13369, 13383, 13384, 667, 6503, 6506, 666, 18464, 18465, 15166, 18686, 18689, 18688, 18691, 18692, 18687, 154, 22586, 22587, 22588, 22589, 22590, 22591, 22592, 22593, 22594 };
-	int EmoteX[] = { 10, 54, 98, 137, 9, 48, 95, 132, 7, 51, 95, 139, 6, 50, 90, 135, 8, 51, 99, 137, 10, 53, 85, 138, 3, 52, 96, 141, 5, 53, 88, 142, 10, 51, 139, 88, 12, 49, 97, 135, 10, 50, 90, 130, 10, 60, 90 };
-	int EmoteY[] = { 6, 6, 8, 6, 55, 55, 55, 55, 104, 104, 103, 104, 153, 153, 153, 153, 203, 202, 203, 202, 250, 250, 252, 249, 300, 299, 299, 299, 349, 350, 352, 350, 401, 402, 406, 402, 452, 450, 452, 452, 505, 505, 505, 505, 560, 560, 560 };
-	int EmoteIDs[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 33, 34, 35, 36, 28, 29, 30, 37, 31, 32, 38, 39, 40, 41, 42, 43, 44, 45, 46 };
-	String EmoteTooltip[] = { "Yes", "No", "Bow", "Angry", "Think", "Wave", "Shrug", "Cheer", "Beckon", "Laugh", "Jump for Joy", "Yawn", "Dance", "Jig", "Spin", "Headbang", "Cry", "Blow Kiss", "Panic", "Raspberry", "Clap", "Salute", "Goblin Bow", "Goblin Salute", "Glass Box", "Climb Rope", "Lean on Air", "Glass Wall", "Idea", "Stomp", "Flap", "Slap Head", "Zombie Walk", "Zombie Dance", "Scared", "Zombie Hand", "Bunny Hop", "Profession Cape", "Snowman Dance", "Air Guitar", "Safety First", "Explore", "Trick", "Freeze & Melt", "Give Thanks", "Around The World In Eggty Days", "Dramatic Point" };
+	int[] ButtonIDs = { 168, 169, 164, 165, 162, 163, 13370, 171, 167, 170, 13366, 13368, 166, 13363, 13364, 13365, 161, 11100, 13362, 13367, 172, 13369, 13383, 13384, 667, 6503, 6506, 666, 18464, 18465, 15166, 18686, 18689, 18688, 18691, 18692, 18687, 154, 22586, 22587, 22588, 22589, 22590, 22591, 22592, 22593, 22594 };
+	int[] EmoteX = { 10, 54, 98, 137, 9, 48, 95, 132, 7, 51, 95, 139, 6, 50, 90, 135, 8, 51, 99, 137, 10, 53, 85, 138, 3, 52, 96, 141, 5, 53, 88, 142, 10, 51, 139, 88, 12, 49, 97, 135, 10, 50, 90, 130, 10, 60, 90 };
+	int[] EmoteY = { 6, 6, 8, 6, 55, 55, 55, 55, 104, 104, 103, 104, 153, 153, 153, 153, 203, 202, 203, 202, 250, 250, 252, 249, 300, 299, 299, 299, 349, 350, 352, 350, 401, 402, 406, 402, 452, 450, 452, 452, 505, 505, 505, 505, 560, 560, 560 };
+	int[] EmoteIDs = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 33, 34, 35, 36, 28, 29, 30, 37, 31, 32, 38, 39, 40, 41, 42, 43, 44, 45, 46 };
+	String[] EmoteTooltip = { "Yes", "No", "Bow", "Angry", "Think", "Wave", "Shrug", "Cheer", "Beckon", "Laugh", "Jump for Joy", "Yawn", "Dance", "Jig", "Spin", "Headbang", "Cry", "Blow Kiss", "Panic", "Raspberry", "Clap", "Salute", "Goblin Bow", "Goblin Salute", "Glass Box", "Climb Rope", "Lean on Air", "Glass Wall", "Idea", "Stomp", "Flap", "Slap Head", "Zombie Walk", "Zombie Dance", "Scared", "Zombie Hand", "Bunny Hop", "Profession Cape", "Snowman Dance", "Air Guitar", "Safety First", "Explore", "Trick", "Freeze & Melt", "Give Thanks", "Around The World In Eggty Days", "Dramatic Point" };
 	scroll.totalChildren(ButtonIDs.length);
 	for (int index = 0; index < ButtonIDs.length; index++)
 		addButton(ButtonIDs[index], EmoteIDs[index], "Interfaces/Emotes/EMOTE", EmoteTooltip[index]);
@@ -2999,8 +2757,6 @@ public final class RSInterface {
 	RSInterface tab = addTabInterface(5065);
 	tab.width = 192;
 	tab.height = 263;
-	// addText(5067, "Friends List", kam, 1, 0xff9933, true, true);
-	// addText(5068, "- Actinium -", kam, 1, 0xff9933, true, true);
 	addSprite(5069, 0, "Interfaces/Kamiel/SPRITE");
 	addSprite(5070, 1, "Interfaces/Kamiel/SPRITE");
 	addSprite(5071, 1, "Interfaces/Kamiel/SPRITE");
@@ -3009,7 +2765,6 @@ public final class RSInterface {
 	addHoveredButton(5074, "Interfaces/Kamiel/SPRITE", 4, 17, 17, 5075);
 	addHoverButton(5076, "Interfaces/Kamiel/SPRITE", 5, 17, 17, "Delete friend", 202, 5077, 1);
 	addHoveredButton(5077, "Interfaces/Kamiel/SPRITE", 6, 17, 17, 5078);
-	// addText(5079, "0 / 200", kam, 0, 0xF5F5DC, false, true, 901, 0);
 	addButton(5080, 10, "Interfaces/Kamiel/SPRITE", "Show ignores tab", 17, 17);
 	addSprite(5081, 7, "Interfaces/Kamiel/SPRITE");
 
@@ -3047,7 +2802,7 @@ public final class RSInterface {
 
 	}
 
-	public static final int getParent(int id) {
+	public static int getParent(int id) {
 	if (interfaceCache[id] == null || interfaceCache[id].parentID == -1 || interfaceCache[id].parentID == id)
 		return id;
 	else
@@ -3060,15 +2815,6 @@ public final class RSInterface {
 
 	public static void GodWars() {
 	RSInterface rsinterface = addTabInterface(16220);
-	// addText(16211, "Mob killcount", 0xff9040, false, true, 52, 0);
-	// addText(16212, "Armadyl kills", 0xff9040, false, true, 52, 0);
-	// addText(16213, "Bandos kills", 0xff9040, false, true, 52, 0);
-	// addText(16214, "Saradomin kills", 0xff9040, false, true, 52, 0);
-	// addText(16215, "Zamorak kills", 0xff9040, false, true, 52, 0);
-	// addText(16216, "0", 0x66FFFF, false, true, 52, 0);// armadyl
-	// addText(16217, "0", 0x66FFFF, false, true, 52, 0);// bandos
-	// addText(16218, "0", 0x66FFFF, false, true, 52, 0);// saradomin
-	// addText(16219, "0", 0x66FFFF, false, true, 52, 0);// zamorak
 	rsinterface.scrollMax = 0;
 	rsinterface.children = new int[9];
 	rsinterface.childX = new int[9];
@@ -3107,7 +2853,6 @@ public final class RSInterface {
 	RSInterface tab = addTabInterface(5715);
 	tab.width = 192;
 	tab.height = 263;
-	// addText(5717, "Ignore List", kam, 1, 0xff9933, true, true);
 	addSprite(5718, 0, "Interfaces/Kamiel/SPRITE");
 	addSprite(5719, 1, "Interfaces/Kamiel/SPRITE");
 	addSprite(5720, 1, "Interfaces/Kamiel/SPRITE");
@@ -3115,7 +2860,6 @@ public final class RSInterface {
 	addHoveredButton(5722, "Interfaces/Kamiel/SPRITE", 12, 17, 17, 5723);
 	addHoverButton(5724, "Interfaces/Kamiel/SPRITE", 13, 17, 17, "Delete name", 502, 5725, 1);
 	addHoveredButton(5725, "Interfaces/Kamiel/SPRITE", 14, 17, 17, 5726);
-	// addText(5727, "0 / 100", kam, 0, 0xF5F5DC, false, true, 902, 0);
 	addSprite(5728, 8, "Interfaces/Kamiel/SPRITE");
 	addButton(5729, 9, "Interfaces/Kamiel/SPRITE", "Show friends tab", 17, 17);
 
@@ -3150,10 +2894,6 @@ public final class RSInterface {
 	addSprite(17101, 2, 2);
 	addHover(17102, 3, 0, 10601, 1, "Interfaces/Equipment/SPRITE", 17, 17, "Close Window");
 	addHovered(10601, 3, "Interfaces/Equipment/SPRITE", 17, 17, 10602);
-	// addText(17103, "Items Kept On Death", 2, 0xff981f);
-	// addText(17106, "Information", 1, 0xff981f);
-	// addText(17107, "Max items kept on death:", 1, 0xffcc33);
-	// addText(17108, "~ 3 ~", 1, 0xffcc33);
 	rsinterface.scrollMax = 0;
 	rsinterface.isMouseoverTriggered = false;
 	rsinterface.children = new int[12];
@@ -3200,26 +2940,6 @@ public final class RSInterface {
 
 	public static void itemsOnDeathDATA() {
 	RSInterface rsinterface = addInterface(17115);
-	// addText(17109, "", 0, 0xff981f);
-	// addText(17110, "The normal amount of", 0, 0xff981f);
-	// addText(17111, "items kept is three.", 0, 0xff981f);
-	// addText(17112, "", 0, 0xff981f);
-	// addText(17113, "If you are skulled,", 0, 0xff981f);
-	// addText(17114, "you will lose all your", 0, 0xff981f);
-	// addText(17117, "items, unless an item", 0, 0xff981f);
-	// addText(17118, "protecting necromance is", 0, 0xff981f);
-	// addText(17119, "used.", 0, 0xff981f);
-	// addText(17120, "", 0, 0xff981f);
-	// addText(17121, "Item protecting necromances", 0, 0xff981f);
-	// addText(17122, "will allow you to keep", 0, 0xff981f);
-	// addText(17123, "one extra item.", 0, 0xff981f);
-	// addText(17124, "", 0, 0xff981f);
-	// addText(17125, "The items kept are", 0, 0xff981f);
-	// addText(17126, "selected by the server", 0, 0xff981f);
-	// addText(17127, "and include the most", 0, 0xff981f);
-	// addText(17128, "expensive items you're", 0, 0xff981f);
-	// addText(17129, "carrying.", 0, 0xff981f);
-	// addText(17130, "", 0, 0xff981f);
 	rsinterface.parentID = 17115;
 	rsinterface.id = 17115;
 	rsinterface.type = 0;
@@ -3302,7 +3022,7 @@ public final class RSInterface {
 	spellButtons.scrollMax = 0;
 	spellButtons.height = 260;
 	spellButtons.width = 190;
-	int spellButton[] = { 1196, 1199, 1206, 1215, 1224, 1231, 1240, 1249, 1258, 1267, 1274, 1283, 1573, 1290, 1299, 1308, 1315, 1324, 1333, 1340, 1349, 1358, 1367, 1374, 1381, 1388, 1397, 1404, 1583, 12038, 1414, 1421, 1430, 1437, 1446, 1453, 1460, 1469, 15878, 1602, 1613, 1624, 7456, 1478, 1485, 1494, 1503, 1512, 1521, 1530, 1544, 1553, 1563, 1593, 1635, 12426, 12436, 12446, 12456, 6004, 18471 };
+	int[] spellButton = { 1196, 1199, 1206, 1215, 1224, 1231, 1240, 1249, 1258, 1267, 1274, 1283, 1573, 1290, 1299, 1308, 1315, 1324, 1333, 1340, 1349, 1358, 1367, 1374, 1381, 1388, 1397, 1404, 1583, 12038, 1414, 1421, 1430, 1437, 1446, 1453, 1460, 1469, 15878, 1602, 1613, 1624, 7456, 1478, 1485, 1494, 1503, 1512, 1521, 1530, 1544, 1553, 1563, 1593, 1635, 12426, 12436, 12446, 12456, 6004, 18471 };
 	tab.totalChildren(63);
 	tab.child(0, 12424, 13, 24);
 	for (int i1 = 0; i1 < spellButton.length; i1++) {
@@ -3330,12 +3050,9 @@ public final class RSInterface {
 	}
 
 	homeHover.isMouseoverTriggered = true;
-	// addText(1197, "Grade 0: Home Teleport", 1, 0xfe981f, true, true);
 	RSInterface homeGrade = interfaceCache[1197];
 	homeGrade.width = 174;
 	homeGrade.height = 68;
-	// addText(1198, "A teleport which requires no", 0, 0xaf6a1a, true,
-	// addText(18998, "runes and no required grade that", 0, 0xaf6a1a,
 	homeHover.totalChildren(4);
 	homeHover.child(0, 1197, 3, 4);
 	homeHover.child(1, 1198, 91, 23);
@@ -3343,9 +3060,8 @@ public final class RSInterface {
 	homeHover.child(3, 18999, 91, 45);
 	}
 
-	public static final void minigame() {
+	public static void minigame() {
 	RSInterface rsinterface = addTabInterface(45200);
-	// addText(45201, "Minigames Teleport", 0xff9b00, false, true, 52, 2);
 	addHoverButton(45202, "Interfaces/Minigame/Hover", 0, 172, 24, "Duel Arena", -1, 45203, 1);
 	addHoveredButton(45203, "Interfaces/Minigame/Hover", 4, 172, 24, 45204);
 	addHoverButton(45218, "Interfaces/Minigame/Hover", 0, 172, 24, "Barrows", -1, 45219, 1);
@@ -3364,11 +3080,6 @@ public final class RSInterface {
 	addSprite(45208, 1, "Interfaces/Minigame/Tzhaar");
 	addSprite(45209, 1, "Interfaces/Minigame/Warriors");
 	addSprite(45211, 1, "Interfaces/Minigame/Background");
-	// addText(45212, "Duel Arena", 0xd67b29, true, true, 52, 2);
-	// addText(45213, "Barrows", 0xd67b29, true, true, 52, 2);
-	// addText(45214, "Pest Control", 0xd67b29, true, true, 52, 2);
-	// addText(45215, "Tzhaar", 0xd67b29, true, true, 52, 2);
-	// addText(45216, "Warriors Guild", 0xd67b29, true, true, 52, 2);
 	byte childAmount = 24;
 	int indexChild = 0;
 	setChildren(childAmount, rsinterface);
@@ -3428,11 +3139,6 @@ public final class RSInterface {
 	addSprite(3324, 6, "Interfaces/TradeTab/TRADE");
 	addHover(3442, 3, 0, 3325, 1, "Interfaces/Bank/BANK", 17, 17, "Close Window");
 	addHovered(3325, 2, "Interfaces/Bank/BANK", 17, 17, 3326);
-	// addText(3417, "Trading With:", 0xFF981F, true, true, 52, 2);
-	// addText(3418, "Trader's Offer", 0xFF981F, false, true, 52, 1);
-	// addText(3419, "Your Offer", 0xFF981F, false, true, 52, 1);
-	// addText(3421, "Accept", 0x00C000, true, true, 52, 1);
-	// addText(3423, "Decline", 0xC00000, true, true, 52, 1);
 
 	addHover(3420, 1, 0, 3327, 5, "Interfaces/TradeTab/TRADE", 65, 32, "Accept");
 	addHovered(3327, 2, "Interfaces/TradeTab/TRADE", 65, 32, 3328);
@@ -3462,10 +3168,6 @@ public final class RSInterface {
 	addSprite(3444, 3, "Interfaces/TradeTab/TRADE");
 	AddInterfaceButton(3546, 2, "Interfaces/ShopTab/SHOP", 63, 24, "Accept", 1);
 	AddInterfaceButton(3548, 2, "Interfaces/ShopTab/SHOP", 63, 24, "Decline", 3);
-	// addText(3547, "Accept", 0x00C000, true, true, 52, 1);
-	// addText(3549, "Decline", 0xC00000, true, true, 52, 1);
-	// addText(3450, "Trading With:", 0x00FFFF, true, true, 52, 2);
-	// addText(3451, "Yourself", 0x00FFFF, true, true, 52, 2);
 	setBounds(3444, 12, 20, 0, Interface);
 	setBounds(3442, 470, 32, 1, Interface);
 	setBounds(3325, 470, 32, 2, Interface);
@@ -3576,7 +3278,6 @@ public final class RSInterface {
 	addSprite(25859, 14, "Interfaces/OptionTab/OPTION");
 	addSprite(25860, 15, "Interfaces/OptionTab/OPTION");
 	addSprite(25861, 12, "sideicon/sideicons");
-	// addText(149, "100%", 0xff9800, true, true, 52, 1);
 	setBounds(149, 94, 230, 45, Interface);
 	}
 
@@ -3588,10 +3289,6 @@ public final class RSInterface {
 	addSprite(22596, 0, "Interfaces/password/backing");
 	addButton(22597, 0, "Interfaces/password/button", 53, 21, "Change", 1);
 	addButton(22598, 1, "Interfaces/password/button", 53, 21, "Close", 3);
-	// addText(22599, "Password Changer", 0xff981f, false, true, 52, 2);
-	// addText(22600, "Choose your new password.", 0xffffff, false, true,
-	// 52,
-	// addText(22601, "Password Vigour: None.", 0xf3ede1, false, true, 52,
 	setBounds(22596, xPos, yPos, 0, Interface);
 	setBounds(22597, xPos + 120, yPos + 114, 1, Interface);
 	setBounds(22598, xPos + 215, yPos + 114, 2, Interface);
@@ -3602,10 +3299,6 @@ public final class RSInterface {
 
 	public static void Pestpanel() {
 	RSInterface RSinterface = addInterface(27119);
-	// addText(27120, "What", 0x999999, false, true, 52, 1);
-	// addText(27121, "What", 0x33cc00, false, true, 52, 1);
-	// addText(27122, "(Need 5 to 25 stoners)", 0xffcc33, false, true, 52,
-	// addText(27123, "Points", 0x33ccff, false, true, 52, 1);
 	int last = 4;
 	RSinterface.children = new int[last];
 	RSinterface.childX = new int[last];
@@ -3624,18 +3317,6 @@ public final class RSInterface {
 	addSprite(21104, 3, "Interfaces/Pest Control/PEST1");
 	addSprite(21105, 4, "Interfaces/Pest Control/PEST1");
 	addSprite(21106, 5, "Interfaces/Pest Control/PEST1");
-	// addText(21107, "", 0xcc00cc, false, true, 52, 1);
-	// addText(21108, "", 255, false, true, 52, 1);
-	// addText(21109, "", 0xffff44, false, true, 52, 1);
-	// addText(21110, "", 0xcc0000, false, true, 52, 1);
-	// addText(21111, "250", 0x99ff33, false, true, 52, 1);
-	// addText(21112, "250", 0x99ff33, false, true, 52, 1);
-	// addText(21113, "250", 0x99ff33, false, true, 52, 1);
-	// addText(21114, "250", 0x99ff33, false, true, 52, 1);
-	// addText(21115, "200", 0x99ff33, false, true, 52, 1);
-	// addText(21116, "0", 0x99ff33, false, true, 52, 1);
-	// addText(21117, "Time Remaining:", 0xffffff, false, true, 52, 0);
-	// addText(21118, "", 0xffffff, false, true, 52, 0);
 	int last = 18;
 	RSinterface.children = new int[last];
 	RSinterface.childX = new int[last];
@@ -3660,7 +3341,7 @@ public final class RSInterface {
 	setBounds(21118, 87, 88, 17, RSinterface);
 	}
 
-	public static final void pestPointExchange() {
+	public static void pestPointExchange() {
 	RSInterface qz = addTabInterface(14244);
 	qz.children = new int[7];
 	qz.childX = new int[7];
@@ -3882,24 +3563,8 @@ public final class RSInterface {
 	qz.childY[59] = 296;
 	C(14247, 501, 501, 16, 16, "Close Window");
 	C(14306, 217, 217, 157, 49, "Confirm");
-	// addText(14248, "Void Knight's Reward Options", 2, 0xff9040);
 	Z(14245, 200, 200, "");
 	Z(14284, 216, 216, "");
-	// addText(14256, "Assault - 0 xp", 1, 0xff9b00);
-	// addText(14257, "Vigour - 0 xp", 1, 0xff9b00);
-	// addText(14258, "Aegis - 0 xp", 1, 0xff9b00);
-	// addText(14259, "Sagittarius - 0 xp", 1, 0xff9b00);
-	// addText(14260, "Mage - 0 xp", 1, 0xff9b00);
-	// addText(14261, "Life - 0 xp", 1, 0xff9b00);
-	// addText(14262, "Necromance - 0 xp", 1, 0xff9b00);
-	// addText(14292, "Void knight mace", 1, 0xff9b00);
-	// addText(14293, "Void knight top", 1, 0xff9b00);
-	// addText(14294, "Void knight robe", 1, 0xff9b00);
-	// addText(14295, "Void knight gloves", 1, 0xff9b00);
-	// addText(14296, "Void mage helm", 1, 0xff9b00);
-	// addText(14297, "Void sagittarius helm", 1, 0xff9b00);
-	// addText(14298, "Void melee helm", 1, 0xff9b00);
-	// addText(14309, "Fighter torso", 1, 0xff9b00);
 	addPActionButton(14263, 218, 218, 44, 9, "Use 1 Point");
 	addPActionButton(14264, 219, 219, 44, 9, "Use 10 Points");
 	addPActionButton(14265, 220, 220, 44, 9, "Use 100 Points");
@@ -3929,8 +3594,6 @@ public final class RSInterface {
 	addPActionButton(14304, 225, 225, 35, 9, "Use 50 Points");
 	addPActionButton(14305, 225, 225, 35, 9, "Use 50 Points");
 	addPActionButton(14310, 220, 220, 44, 9, "Use 100 Points");
-	// addText(14307, "Points: 0", 0, 0xff9040);
-	// addText(14308, "Confirm: 0", 0, 0x969696);
 	Z(14249, 201, 201, "");
 	Z(14250, 205, 205, "");
 	Z(14251, 202, 202, "");
@@ -3948,17 +3611,9 @@ public final class RSInterface {
 	Z(14311, 224, 224, "");
 	}
 
-	public static final void plotSongList() {
+	public static void plotSongList() {
 	int plotted = 0;
-
-	/**
-	 * Song data, name -> id for name
-	 */
 	Map<String, Integer> loaded = new HashMap<String, Integer>();
-
-	/**
-	 * Load song data
-	 */
 	try {
 		BufferedReader reader = new BufferedReader(new FileReader("./data/def/music.txt"));
 
@@ -3975,7 +3630,7 @@ public final class RSInterface {
 			}
 
 			try {
-				name = line.substring(line.indexOf("e: ") + 2, line.length()).trim();
+				name = line.substring(line.indexOf("e: ") + 2).trim();
 				id = Integer.parseInt(line.substring(line.indexOf("id: ") + 3, line.indexOf(" n")).trim());
 
 				for (int i = 0; i <= 9; i++) {
@@ -4007,10 +3662,6 @@ public final class RSInterface {
 	}
 
 	System.out.println("Loaded music data.");
-
-	/**
-	 * Music selection interface
-	 */
 	RSInterface musicInterface = interfaceCache[962];
 
 	for (Integer i : musicInterface.children) {
@@ -4053,10 +3704,10 @@ public final class RSInterface {
 	setChildren(3 * totalScrolls, scroll);
 	for (int i = 0; i < totalScrolls; i++) {
 		addInAreaHover(23479 + i * 8, "Interfaces/summoning/creation/box", 0, 1, 48, 52, "nothing", -1, 0);
-		int req[] = { 1, 2, 3 };
+		int[] req = { 1, 2, 3 };
 		addPouch(23480 + i * 8, req, 1, pouchItems[i], summoningGradeRequirements[i], pouchNames[i], i, 5);
 		addSprite(23485 + i * 8, pouchItems[i], null, 50, 50);
-		setBounds(23479 + i * 8, 36 + (i % 8) * xPadding, 0 + (i / 8) * yPadding, 0 + i * 2, scroll);
+		setBounds(23479 + i * 8, 36 + (i % 8) * xPadding, (i / 8) * yPadding, i * 2, scroll);
 		setBounds(23480 + i * 8, 43 + (i % 8) * xPadding, 2 + (i / 8) * yPadding, 1 + i * 2, scroll);
 	}
 
@@ -4102,7 +3753,6 @@ public final class RSInterface {
 	int fifthRowYPos = 86;
 	int sixthRowXPos = 1;
 	int sixthRowYPos = 52;
-	// addText(687, "", 0xff981f, false, true, -1, 1);
 	addSprite(25105, 0, "Interfaces/NecromanceTab/NECROMANCEICON");
 	addNecromanceWithTooltip(25000, 0, 83, 0, prayIndex, 25052, "Activate @lre@Thick Skin");
 	prayIndex++;
@@ -4322,7 +3972,6 @@ public final class RSInterface {
 	public static void questTab() {
 	RSInterface localRSInterface = addInterface(639);
 	setChildren(4, localRSInterface);
-	// addText(39155, "Quests", 16750623, false, true, 52, 2);
 	addButton(39156, 1, "Interfaces/QuestTab/QUEST", 18, 18, "Swap to Quest Diary", 1);
 	addSprite(39157, 0, "Interfaces/QuestTab/QUEST");
 	setBounds(39155, 10, 5, 0, localRSInterface);
@@ -4334,10 +3983,6 @@ public final class RSInterface {
 	localRSInterface.width = 165;
 	localRSInterface.scrollMax = 4700;
 	setChildren(105, localRSInterface);
-	// addText(39161, "GameCharacter Information", 16750623, false, true,
-	// 52, 2);
-	// addText(663, "", 16750623, false, true, 52, 2);
-	// tab.disabledSprite(39162, "", "", 0, 16711680, false, true, 150);
 	setBounds(39161, 8, 0, 0, localRSInterface);
 	setBounds(39162, 8, 18, 1, localRSInterface);
 	setBounds(39163, 8, 33, 2, localRSInterface);
@@ -4346,7 +3991,6 @@ public final class RSInterface {
 	int i = 63;
 	int j = 5;
 	for (int k = 39165; k <= 39264; k++) {
-		// tab.disabledSprite(k, "", "View Quest", 0, 16711680, false, true,
 		setBounds(k, 8, i, j, localRSInterface);
 		j++;
 		i += 15;
@@ -4354,7 +3998,6 @@ public final class RSInterface {
 	localRSInterface = addInterface(39265);
 	try {
 		setChildren(4, localRSInterface);
-		// addText(39266, " ", 16750623, false, true, -1, 2);
 		addButton(39267, 2, "Interfaces/QuestTab/QUEST", 18, 18, "Swap to Quest Diary", 1);
 		addSprite(39269, 0, "Interfaces/QuestTab/QUEST");
 		setBounds(39266, 10, 5, 0, localRSInterface);
@@ -4386,39 +4029,6 @@ public final class RSInterface {
 		setBounds(39312, 8, 210, 17, localRSInterface);
 		setBounds(39313, 8, 222, 18, localRSInterface);
 		setBounds(39314, 8, 234, 19, localRSInterface);
-		// tab.disabledSprite(39295, "", "", 0, 16750623, false, true, 150);
-		// tab.disabledSprite(39296, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39297, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39298, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39299, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39300, "", "", 0, 16711680, false, true, 150);
-		// tab.disabledSprite(39301, "", "", 0, 16750623, false, true, 150);
-		// tab.disabledSprite(39302, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39303, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39304, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39305, "", "", 0, 16711680, false, true, 150);
-		// tab.disabledSprite(39306, "", "", 0, 16750623, false, true, 150);
-		// tab.disabledSprite(39307, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39308, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39309, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39310, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39311, "", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39312, " ", " ", 0, 16711680, false, true,
-		// 150);
-		// tab.disabledSprite(39313, "", "", 0, 16711680, false, true, 150);
-		// tab.disabledSprite(39314, "", "", 0, 16711680, false, true, 150);
 	} catch (Exception localException) {
 		localException.printStackTrace();
 	}
@@ -4427,7 +4037,6 @@ public final class RSInterface {
 	public static void quickCurses() {
 	int frame = 0;
 	RSInterface tab = addTabInterface(17234);
-	// addText(17235, "Select your quick curses:", 0, 0xff981f, false,
 	int i = 17202;
 	for (int j = 630; i <= 17222 || j <= 656; j++) {
 		addConfigButton(i, 17200, 2, 1, "/Interfaces/QuickNecromance/Sprite", 14, 15, "Select", 0, 1, j);
@@ -4489,7 +4098,6 @@ public final class RSInterface {
 	int frame = 0;
 	RSInterface tab = addTabInterface(17200);
 	addSprite(17201, 3, "/Interfaces/QuickNecromance/Sprite");
-	// addText(17230, "Select your quick necromances:", 0, 0xff981f, false,
 	addTransparentSprite(17229, 0, "/Interfaces/QuickNecromance/Sprite", 50);
 	int i = 17202;
 	for (int j = 630; i <= 17228 || j <= 656; j++) {
@@ -4587,11 +4195,6 @@ public final class RSInterface {
 	addHoveredButton(29837, "Interfaces/RingofKinship/BUTTON", 3, 75, 23, 29838);
 	addHoverButton(29839, "Interfaces/RingofKinship/BUTTON", 2, 75, 23, "Buy", -1, 29840, 1);
 	addHoveredButton(29840, "Interfaces/RingofKinship/BUTTON", 3, 75, 23, 29841);
-	// addText(29842, "Buy", 1, 0xFFFFFF, false, true);
-	// addText(29843, "Buy", 1, 0xFFFFFF, false, true);
-	// addText(29844, "Buy", 1, 0xFFFFFF, false, true);
-	// addText(29845, "Buy", 1, 0xFFFFFF, false, true);
-	// addText(29846,
 	setBounds(29813, 60, 71, 0, Interface);
 	setBounds(29814, 433, 80, 1, Interface);
 	setBounds(29815, 433, 80, 2, Interface);
@@ -4640,7 +4243,7 @@ public final class RSInterface {
 		addInAreaHover(22768 + i * 9, "Interfaces/summoning/creation/box", 0, 1, 48, 52, "nothing", -1, 0);
 		addScroll(22769 + i * 9, pouchItems[i], 1, scrollItems[i], summoningGradeRequirements[i], scrollNames[i], i, 5);
 		addSprite(22776 + i * 9, pouchItems[i], null, 50, 50);
-		setBounds(22768 + i * 9, 36 + (i % 8) * xPadding, 0 + (i / 8) * yPadding, 0 + i * 3, scroll);
+		setBounds(22768 + i * 9, 36 + (i % 8) * xPadding, (i / 8) * yPadding, i * 3, scroll);
 		setBounds(22769 + i * 9, 43 + (i % 8) * xPadding, 2 + (i / 8) * yPadding, 1 + i * 3, scroll);
 		setBounds(22776 + i * 9, 28 + (i % 8) * xPadding, 28 + (i / 8) * yPadding, 2 + i * 3, scroll);
 	}
@@ -4707,16 +4310,8 @@ public final class RSInterface {
 	addHoveredButton(24763, "Interfaces/GrandExchange/sprite", 3, 13, 13, 24764);
 	addHoverButton(24765, "Interfaces/GrandExchange/sprite", 2, 13, 13, "Increase Price", 0, 24766, 1);
 	addHoveredButton(24766, "Interfaces/GrandExchange/sprite", 4, 13, 13, 24767);
-	// addText(24769, "Choose an item to exchange", 0, 0x96731A, false,
-	// true);
-	// addText(24770, "Select an item from your invertory to sell.", 0,
-	// 0x958E60, false, true);
-	// addText(24771, "0", 0, 0xB58338, true, true);
-	// addText(24772, "1 gp", 0, 0xB58338, true, true);
-	// addText(24773, "0 gp", 0, 0xB58338, true, true);
 	RSInterface add = addInterface(24780);
 	addToItemGroup(add, 1, 1, 24, 24, true, "[GE]", "[GE]", "[GE]");
-	// addText(24782, "N/A", 0, 0xB58338, false, true);
 	rsinterface.totalChildren(40);
 	rsinterface.child(0, 24701, 4 + x, 23);
 	rsinterface.child(1, 24702, 464 + x, 33);
@@ -4777,30 +4372,20 @@ public final class RSInterface {
 	int x = 168;
 	int y = 49;
 	addSprite(26001, 0, "Interfaces/settings/base");
-	// addText(26002, "More Options", 0xe4a146, true, true, 52, 2);
 	addInAreaHover(26003, "Interfaces/summoning/creation/close", 0, 1, 16, 16, "Close", 250, 3);
 	addButton(26007, 4, -1, 2, 3, "Interfaces/settings/click", 15, 15, "Toggle function keys", 650, 1);
 	addButton(26008, 4, -1, 2, 3, "Interfaces/settings/click", 15, 15, "Toggle halth bars", 651, 1);
 	addButton(26010, 4, -1, 2, 3, "Interfaces/settings/click", 15, 15, "Toggle x10 damage", 652, 1);
 	addButton(26014, 4, -1, 2, 3, "Interfaces/settings/click", 15, 15, "Toggle day time", 654, 1);
-	/**
-	 * Fixed buttons
-	 */
 	addHoverButton(26016, "Interfaces/settings/full", 0, 50, 39, "Fixed Mode", -1, 26017, 1);
 	addHoveredButton(26017, "Interfaces/settings/full", 1, 50, 39, 26018);
-	/**
-	 * Resizable buttons
-	 */
 	addHoverButton(26019, "Interfaces/settings/full", 2, 50, 39, "Resizable Mode", -1, 26020, 1);
 	addHoveredButton(26020, "Interfaces/settings/full", 3, 50, 39, 26021);
-	/**
-	 * Fullscreen buttons
-	 */
 	addHoverButton(26022, "Interfaces/settings/full", 4, 50, 39, "Fullscreen Mode", -1, 26023, 1);
 	addHoveredButton(26023, "Interfaces/settings/full", 5, 50, 39, 26024);
 	setChildren(26, rsinterface);
 	int i = 0;
-	setBounds(26001, x + 0, y + 0, i, rsinterface);
+	setBounds(26001, x, y, i, rsinterface);
 	i++;
 	setBounds(26002, x + 89, y + 3, i, rsinterface);
 	i++;
@@ -4840,23 +4425,14 @@ public final class RSInterface {
 	i++;
 	setBounds(26011, x + 151, y + 117, i, rsinterface);
 	i++;
-	/**
-	 * Fixed
-	 */
 	setBounds(26016, x + 10, y + 155, i, rsinterface);
 	i++;
 	setBounds(26017, x + 10, y + 155, i, rsinterface);
 	i++;
-	/**
-	 * Resizable
-	 */
 	setBounds(26019, x + 64, y + 155, i, rsinterface);
 	i++;
 	setBounds(26020, x + 64, y + 155, i, rsinterface);
 	i++;
-	/**
-	 * Fullscreen
-	 */
 	setBounds(26022, x + 118, y + 155, i, rsinterface);
 	i++;
 	setBounds(26023, x + 118, y + 155, i, rsinterface);
@@ -4869,8 +4445,6 @@ public final class RSInterface {
 	addSprite(3825, 0, "Interfaces/Shop/SHOP");
 	addHover(3902, 3, 0, 3826, 1, "Interfaces/Shop/CLOSE", 17, 17, "Close Window");
 	addHovered(3826, 2, "Interfaces/Shop/CLOSE", 17, 17, 3827);
-	// addText(19679, "", 0xff981f, false, true, 52, 1);
-	// addText(19680, "", 0xbf751d, false, true, 52, 1);
 	addButton(19681, 2, "Interfaces/Shop/SHOP", 0, 0, "", 1);
 	addSprite(19687, 1, "Interfaces/Shop/ITEMBG");
 	setBounds(3825, 6, 8, 0, rsinterface);
@@ -4890,8 +4464,6 @@ public final class RSInterface {
 	rsinterface.invSpritePadY = 25;
 	rsinterface = addTabInterface(19682);
 	addSprite(19683, 1, "Interfaces/Shop/SHOP");
-	// addText(19684, "Main Stock", 0xbf751d, false, true, 52, 1);
-	// addText(19685, "Store Info", 0xff981f, false, true, 52, 1);
 	addButton(19686, 2, "Interfaces/Shop/SHOP", 95, 19, "Main Stock", 1);
 	setChildren(7, rsinterface);
 	setBounds(19683, 12, 12, 0, rsinterface);
@@ -4935,11 +4507,6 @@ public final class RSInterface {
 
 	public static void Sidebar0a(int id, int id2, int id3, String text1, String text2, String text3, String text4, int str1x, int str1y, int str2x, int str2y, int str3x, int str3y, int str4x, int str4y, int img1x, int img1y, int img2x, int img2y, int img3x, int img3y, int img4x, int img4y) {
 	RSInterface rsi = addInterface(id);
-	// addText(id2, "-2", 3, 0xff981f, true);
-	// addText(id2 + 11, text1, 0, 0xff981f, false);
-	// addText(id2 + 12, text2, 0, 0xff981f, false);
-	// addText(id2 + 13, text3, 0, 0xff981f, false);
-	// addText(id2 + 14, text4, 0, 0xff981f, false);
 	rsi.specialBar(id3);
 	rsi.width = 190;
 	rsi.height = 261;
@@ -4978,8 +4545,6 @@ public final class RSInterface {
 	frame++;
 	for (int i = id2 + 3; i < id2 + 7; i++) {
 		rsi = interfaceCache[i];
-		// rsi.disabledSprite = CustomSpriteLoader(19301, "");
-		// rsi.enabledSprite = CustomSpriteLoader(19301, "a");
 		rsi.width = 68;
 		rsi.height = 44;
 	}
@@ -4988,11 +4553,6 @@ public final class RSInterface {
 
 	public static void Sidebar0b(int id, int id2, String text1, String text2, String text3, String text4, int str1x, int str1y, int str2x, int str2y, int str3x, int str3y, int str4x, int str4y, int img1x, int img1y, int img2x, int img2y, int img3x, int img3y, int img4x, int img4y) {
 	RSInterface rsi = addInterface(id);
-	// addText(id2, "-2", 3, 0xff981f, true);
-	// addText(id2 + 11, text1, 0, 0xff981f, false);
-	// addText(id2 + 12, text2, 0, 0xff981f, false);
-	// addText(id2 + 13, text3, 0, 0xff981f, false);
-	// addText(id2 + 14, text4, 0, 0xff981f, false);
 	rsi.width = 190;
 	rsi.height = 261;
 	int last = 14;
@@ -5028,8 +4588,6 @@ public final class RSInterface {
 	frame++;
 	for (int i = id2 + 3; i < id2 + 7; i++) {
 		rsi = interfaceCache[i];
-		// rsi.disabledSprite = CustomSpriteLoader(19301, "");
-		// rsi.enabledSprite = CustomSpriteLoader(19301, "a");
 		rsi.width = 68;
 		rsi.height = 44;
 	}
@@ -5038,10 +4596,6 @@ public final class RSInterface {
 
 	public static void Sidebar0c(int id, int id2, int id3, String text1, String text2, String text3, int str1x, int str1y, int str2x, int str2y, int str3x, int str3y, int img1x, int img1y, int img2x, int img2y, int img3x, int img3y) {
 	RSInterface rsi = addInterface(id);
-	// addText(id2, "-2", 3, 0xff981f, true);
-	// addText(id2 + 9, text1, 0, 0xff981f, false);
-	// addText(id2 + 10, text2, 0, 0xff981f, false);
-	// addText(id2 + 11, text3, 0, 0xff981f, false);
 	rsi.specialBar(id3);
 	rsi.width = 190;
 	rsi.height = 261;
@@ -5074,8 +4628,6 @@ public final class RSInterface {
 	frame++;
 	for (int i = id2 + 3; i < id2 + 6; i++) {
 		rsi = interfaceCache[i];
-		// rsi.disabledSprite = CustomSpriteLoader(19301, "");
-		// rsi.enabledSprite = CustomSpriteLoader(19301, "a");
 		rsi.width = 68;
 		rsi.height = 44;
 	}
@@ -5084,12 +4636,7 @@ public final class RSInterface {
 
 	public static void Sidebar0d(int id, int id2, String text1, String text2, String text3, int str1x, int str1y, int str2x, int str2y, int str3x, int str3y, int img1x, int img1y, int img2x, int img2y, int img3x, int img3y) {
 	RSInterface rsi = addInterface(id);
-	// addText(id2, "-2", 3, 0xff981f, true);
-	// addText(id2 + 9, text1, 0, 0xff981f, false);
-	// addText(id2 + 10, text2, 0, 0xff981f, false);
-	// addText(id2 + 11, text3, 0, 0xff981f, false);
 	removeSomething(353);
-	// addText(354, "Spell", 0, 0xff981f, false);
 	addCacheSprite(337, 19, 0, "combaticons");
 	addCacheSprite(338, 13, 0, "combaticons2");
 	addCacheSprite(339, 14, 0, "combaticons2");
@@ -5136,19 +4683,12 @@ public final class RSInterface {
 	RSInterface rsinterface = addTabInterface(3917);
 	professionInterface(19746, 255);
 	professionInterface(19749, 52);
-	// addText(29801, "", 0, 0xFFEE33); // Summoning
-	// addText(29800, "", 0, 0xFFEE33); // Hunter
 
 	addButton(19747, 51, 27700, "Profession/Profession", 62, 32, "View @lre@Hunter @whi@Guide", 1);
 	addButton(19748, 50, 27701, "Profession/Profession", 62, 32, "@lre@Dismiss Summoning Familiar@whi@", 1);
-
-	// addText(13984, "Total", 0, 0xFFEE33);
-	// addText(3985, "", 0, 0xFFEE33);
-	// addText(13983, "", 0, 0xFFEE33, true, true);
 	for (int k = 0; k < boxIds.length; k++) {
 		professionInterface(boxIds[k], 256);
 	}
-	// RSInterface rsinterface = addTabInterface(3917);
 	rsinterface.children = new int[63];
 	rsinterface.childX = new int[63];
 	rsinterface.childY = new int[63];
@@ -5354,12 +4894,9 @@ public final class RSInterface {
 	rsinterface.height = 34;
 	rsinterface.opacity = 0;
 	rsinterface.mouseOverPopupInterface = 0;
-	// class9.disabledSprite = imageLoader(j, "Profession/Profession");
-	// rsinterface.enabledSprite = imageLoader(j, "Profession/Profession");
 	}
 
 	public static void sprite1(int id, int sprite) {
-	// class9.disabledSprite = CustomSpriteLoader(sprite, "");
 	}
 
 	public static void summoningUpGrade() {
@@ -5384,13 +4921,9 @@ public final class RSInterface {
 	addHoverButton(17023, "Interfaces/SummonTab/SUMMON", 3, 38, 36, "Dismiss Familiar", -1, 17033, 1);
 	addHoveredButton(17033, "Interfaces/SummonTab/SUMMON", 15, 38, 36, 17034);
 	addSprite(17016, 5, "Interfaces/SummonTab/SUMMON");
-	// addText(17017, "", 2, 14329120, false, true);
 	addSprite(17019, 9, "Interfaces/SummonTab/SUMMON");
-	// addText(17021, "", 0, 16753920, false, true);
 	addSprite(17020, 10, "Interfaces/SummonTab/SUMMON");
 	addSprite(17024, 11, "Interfaces/SummonTab/SUMMON");
-	// addText(17025, "", 0, 16753920, false, true);
-	// addText(17026, "", 0, 16753920, false, true);
 	localRSInterface.totalChildren(19);
 	localRSInterface.child(0, 17012, 10, 25);
 	localRSInterface.child(1, 17013, 24, 7);
@@ -5432,14 +4965,6 @@ public final class RSInterface {
 	addHoveredButton(11671, "CLICK", 3, 200, 30, 11672);
 	addHoverButton(11673, "CLICK", 1, 200, 30, "Stop Viewing", -1, 11674, 1);
 	addHoveredButton(11674, "CLICK", 1, 200, 30, 11675);
-	// addText(11204, "Yak's/Rock Crabs", 0, 16750623, false, true);
-	// addText(11208, "Taverly Dungeon", 0, 16750623, false, true);
-	// addText(11212, "Mercenary Tower", 0, 16750623, false, true);
-	// addText(11216, "Brimhaven Dungeon", 0, 16750623, false, true);
-	// addText(11220, "Hill Giants", 0, 16750623, false, true);
-	// //addText(11220, "Hill Giants", false, true, -1, 2);
-	// addText(11224, "Dark Beasts", 0, 16750623, false, true);
-	// addText(11228, "Strykeworms", 0, 16750623, false, true);
 	localRSInterface.totalChildren(24);
 	localRSInterface.child(0, 11651, 0, 0);
 	localRSInterface.child(1, 11652, 12, 40);
@@ -5470,7 +4995,6 @@ public final class RSInterface {
 	localRSInterface.height = 213;
 	localRSInterface.scrollMax = 305;
 	for (int i = 14001; i <= 14030; ++i) {
-		// addText(i, "", 1, 16777215, false, true);
 	}
 	localRSInterface.totalChildren(30);
 	int i = 0;
@@ -5693,8 +5217,6 @@ public final class RSInterface {
 	logger.info("All interfaces have been loaded successfully.");
 	}
 
-	private static Logger logger = Logger.getLogger(RSInterface.class.getSimpleName());
-
 	public static void unpackCustom() {
 	RSInterface tab = addTabInterface(962);
 	addSprite(27800, 2, "Music/img");
@@ -5736,10 +5258,9 @@ public final class RSInterface {
 	list.scrollMax = 10143;
 	}
 
-	public static final void wilderness() {
+	public static void wilderness() {
 
 	RSInterface rsinterface = addTabInterface(45600);
-	// addText(45601, "PKing Teleport", 0xff9b00, false, true, 52, 2);
 	addHoverButton(45602, "Interfaces/Minigame/Hover", 0, 172, 24, "Mage Bank", -1, 45603, 1);
 	addHoveredButton(45603, "Interfaces/Minigame/Hover", 2, 172, 24, 45604);
 	addHoverButton(45618, "Interfaces/Minigame/Hover", 0, 172, 24, "Varrock PK (Multi)", -1, 45619, 1);
@@ -5758,11 +5279,6 @@ public final class RSInterface {
 	addSprite(45608, 1, "Interfaces/Minigame/Pk");
 	addSprite(45609, 1, "Interfaces/Minigame/Pk");
 	addSprite(45611, 1, "Interfaces/Minigame/Background");
-	// addText(45612, "Mage Bank", 0xd67b29, true, true, 52, 2);
-	// addText(45613, "Varrock PK (Multi)", 0xd67b29, true, true, 52, 2);
-	// addText(45614, "GraveYard", 0xd67b29, true, true, 52, 2);
-	// addText(45615, "Edgeville", 0xd67b29, true, true, 52, 2);
-	// addText(45616, "Green Dragons", 0xd67b29, true, true, 52, 2);
 	byte childAmount = 24;
 	int indexChild = 0;
 	setChildren(childAmount, rsinterface);
@@ -5816,7 +5332,7 @@ public final class RSInterface {
 	indexChild++;
 	}
 
-	public static final void Z(int i, int j, int k, String s) {
+	public static void Z(int i, int j, int k, String s) {
 	RSInterface qz = interfaceCache[i] = new RSInterface();
 	qz.id = i;
 	qz.parentID = i;
@@ -5828,14 +5344,6 @@ public final class RSInterface {
 	qz.opacity = 0;
 	qz.mouseOverPopupInterface = 52;
 	qz.tooltip = s;
-	}
-
-	public RSInterface() {
-	itemSpriteId1 = -1;
-	itemSpriteId2 = -1;
-	itemSpriteZoom1 = -1;
-	itemSpriteZoom2 = -1;
-	itemSpriteIndex = 0;
 	}
 
 	public void child(int id, int interID, int x, int y) {
@@ -5863,7 +5371,6 @@ public final class RSInterface {
 
 	rsi = interfaceCache[id + 1];
 	rsi.type = 5;
-	// rsi.disabledSprite = CustomSpriteLoader(7600, "");
 	for (int i = id + 2; i < id + 12; i++) {
 		rsi = interfaceCache[i];
 		rsi.type = 5;

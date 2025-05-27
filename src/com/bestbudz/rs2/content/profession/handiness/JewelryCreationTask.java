@@ -17,106 +17,113 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItemsAlt;
 
 public class JewelryCreationTask extends Task {
 
-	public static void sendInterface(Stoner p) {
-	for (int k = 0; k < 3; k++) {
-		int interfaceId = 4233;
+  public static final int[][] JEWELRY_INTERFACE_ITEMS = {
+    {1635, 1637, 1639, 1641, 1643, 1645, 6575},
+    {1654, 1656, 1658, 1660, 1662, 1664, 6577},
+    {1673, 1675, 1677, 1679, 1681, 1683, 6579}
+  };
+  private final Stoner stoner;
+  private final Jewelry data;
+  private byte amount;
 
-		if (k == 1)
-			interfaceId = 4239;
-		else if (k == 2) {
-			interfaceId = 4245;
-		}
-		for (int i = 0; i < JEWELRY_INTERFACE_ITEMS[k].length; i++) {
-			p.getClient().queueOutgoingPacket(new SendUpdateItemsAlt(interfaceId, JEWELRY_INTERFACE_ITEMS[k][i], 1, i));
-		}
-	}
+  public JewelryCreationTask(Stoner stoner, Jewelry data, int amount) {
+    super(
+        stoner,
+        2,
+        false,
+        Task.StackType.NEVER_STACK,
+        Task.BreakType.ON_MOVE,
+        TaskIdentifier.CURRENT_ACTION);
+    this.data = data;
+    this.stoner = stoner;
+    this.amount = ((byte) amount);
 
-	p.getClient().queueOutgoingPacket(new SendInterfaceConfig(4229, 0, -1));
-	p.getClient().queueOutgoingPacket(new SendInterfaceConfig(4235, 0, -1));
-	p.getClient().queueOutgoingPacket(new SendInterfaceConfig(4241, 0, -1));
+    if (stoner.getMaxGrades()[12] < data.getRequiredGrade()) {
+      stoner.send(
+          new SendMessage("This requires a handiness grade of " + data.getRequiredGrade() + "!"));
+      stop();
+      return;
+    }
 
-	p.getClient().queueOutgoingPacket(new SendString("", 4230));
-	p.getClient().queueOutgoingPacket(new SendString("", 4236));
-	p.getClient().queueOutgoingPacket(new SendString("", 4242));
+    for (int i : data.getMaterialsRequired())
+      if (!stoner.getBox().hasItemId(i)) {
+        String req = Item.getDefinition(i).getName();
+        stoner.send(
+            new SendMessage("You need " + Utility.getAOrAn(req) + " " + req + " to make this!"));
+        stop();
+        return;
+      }
+  }
 
-	p.getClient().queueOutgoingPacket(new SendInterface(4161));
-	}
+  public static void sendInterface(Stoner p) {
+    for (int k = 0; k < 3; k++) {
+      int interfaceId = 4233;
 
-	private final Stoner stoner;
-	private final Jewelry data;
-	private byte amount;
+      if (k == 1) interfaceId = 4239;
+      else if (k == 2) {
+        interfaceId = 4245;
+      }
+      for (int i = 0; i < JEWELRY_INTERFACE_ITEMS[k].length; i++) {
+        p.getClient()
+            .queueOutgoingPacket(
+                new SendUpdateItemsAlt(interfaceId, JEWELRY_INTERFACE_ITEMS[k][i], 1, i));
+      }
+    }
 
-	public static final int[][] JEWELRY_INTERFACE_ITEMS = { { 1635, 1637, 1639, 1641, 1643, 1645, 6575 },
+    p.getClient().queueOutgoingPacket(new SendInterfaceConfig(4229, 0, -1));
+    p.getClient().queueOutgoingPacket(new SendInterfaceConfig(4235, 0, -1));
+    p.getClient().queueOutgoingPacket(new SendInterfaceConfig(4241, 0, -1));
 
-			{ 1654, 1656, 1658, 1660, 1662, 1664, 6577 },
+    p.getClient().queueOutgoingPacket(new SendString("", 4230));
+    p.getClient().queueOutgoingPacket(new SendString("", 4236));
+    p.getClient().queueOutgoingPacket(new SendString("", 4242));
 
-			{ 1673, 1675, 1677, 1679, 1681, 1683, 6579 } };
+    p.getClient().queueOutgoingPacket(new SendInterface(4161));
+  }
 
-	public static boolean clickButton(Stoner p, int id) {
-	return false;
-	}
+  public static boolean clickButton(Stoner p, int id) {
+    return false;
+  }
 
-	public static void start(Stoner p, int item, int amount) {
-	if (Jewelry.forReward(item) != null) {
-		TaskQueue.queue(new JewelryCreationTask(p, Jewelry.forReward(item), amount));
-		p.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
-	}
-	}
+  public static void start(Stoner p, int item, int amount) {
+    if (Jewelry.forReward(item) != null) {
+      TaskQueue.queue(new JewelryCreationTask(p, Jewelry.forReward(item), amount));
+      p.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
+    }
+  }
 
-	public JewelryCreationTask(Stoner stoner, Jewelry data, int amount) {
-	super(stoner, 2, false, Task.StackType.NEVER_STACK, Task.BreakType.ON_MOVE, TaskIdentifier.CURRENT_ACTION);
-	this.data = data;
-	this.stoner = stoner;
-	this.amount = ((byte) amount);
+  @Override
+  public void execute() {
+    for (int i : data.getMaterialsRequired()) {
+      if (!stoner.getBox().hasItemId(i)) {
+        stoner.send(
+            new SendMessage("You have run out of " + Item.getDefinition(i).getName() + "s."));
+        stop();
+        return;
+      }
+    }
 
-	if (stoner.getMaxGrades()[12] < data.getRequiredGrade()) {
-		stoner.send(new SendMessage("This requires a handiness grade of " + data.getRequiredGrade() + "!"));
-		stop();
-		return;
-	}
+    for (int i : data.getMaterialsRequired()) {
+      if (i != 0) stoner.getBox().remove(i, 1, true);
+    }
 
-	for (int i : data.getMaterialsRequired())
-		if (!stoner.getBox().hasItemId(i)) {
-			String req = Item.getDefinition(i).getName();
-			stoner.send(new SendMessage("You need " + Utility.getAOrAn(req) + " " + req + " to make this!"));
-			stop();
-			return;
-		}
-	}
+    if ((this.amount = (byte) (amount - 1)) == 0) {
+      stop();
+    }
 
-	@Override
-	public void execute() {
-	for (int i : data.getMaterialsRequired()) {
-		if (!stoner.getBox().hasItemId(i)) {
-			stoner.send(new SendMessage("You have run out of " + Item.getDefinition(i).getName() + "s."));
-			stop();
-			return;
-		}
-	}
+    stoner.getUpdateFlags().sendAnimation(Smelting.SMELTING_ANIMATION);
 
-	for (int i : data.getMaterialsRequired()) {
-		if (i != 0)
-			stoner.getBox().remove(i, 1, true);
-	}
+    stoner.getClient().queueOutgoingPacket(new SendSound(469, 0, 0));
 
-	if ((this.amount = (byte) (amount - 1)) == 0) {
-		stop();
-	}
+    stoner.getBox().add(data.getReward(), true);
 
-	stoner.getUpdateFlags().sendAnimation(Smelting.SMELTING_ANIMATION);
+    stoner.getProfession().addExperience(12, data.getExperience());
 
-	stoner.getClient().queueOutgoingPacket(new SendSound(469, 0, 0));
+    String name = Item.getDefinition(data.getReward().getId()).getName();
 
-	stoner.getBox().add(data.getReward(), true);
+    stoner.send(new SendMessage("You have crafted " + Utility.getAOrAn(name) + " " + name + "."));
+  }
 
-	stoner.getProfession().addExperience(12, data.getExperience());
-
-	String name = Item.getDefinition(data.getReward().getId()).getName();
-
-	stoner.send(new SendMessage("You have crafted " + Utility.getAOrAn(name) + " " + name + "."));
-	}
-
-	@Override
-	public void onStop() {
-	}
+  @Override
+  public void onStop() {}
 }

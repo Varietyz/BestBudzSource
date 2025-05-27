@@ -4,24 +4,24 @@ import com.bestbudz.rs2.entity.Location;
 
 public class NpcSpawnDefinition {
 
-	private short id;
-	private Location location;
-	private boolean walk;
-	private byte face = -1;
+  private final byte face = -1;
+  private short id;
+  private Location location;
+  private boolean walk;
 
-	public int getFace() {
-		return face;
-	}
+  public int getFace() {
+    return face;
+  }
 
-	public int getId() {
-		return id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public Location getLocation() {
-		return location;
-	}
+  public Location getLocation() {
+    return location;
+  }
 
-	public boolean isWalk() {
-		return walk;
-	}
+  public boolean isWalk() {
+    return walk;
+  }
 }

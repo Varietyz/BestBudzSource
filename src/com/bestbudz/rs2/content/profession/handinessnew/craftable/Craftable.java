@@ -4,17 +4,17 @@ import com.bestbudz.rs2.entity.item.Item;
 
 public interface Craftable {
 
-	public String getName();
+  String getName();
 
-	public int getAnimation();
+  int getAnimation();
 
-	public Item getUse();
+  Item getUse();
 
-	public Item getWith();
+  Item getWith();
 
-	public CraftableItem[] getCraftableItems();
+  CraftableItem[] getCraftableItems();
 
-	public Item[] getIngediants(int index);
+  Item[] getIngediants(int index);
 
-	public String getProductionMessage();
+  String getProductionMessage();
 }

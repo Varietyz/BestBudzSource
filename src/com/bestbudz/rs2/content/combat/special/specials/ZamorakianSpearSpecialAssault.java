@@ -7,20 +7,20 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class ZamorakianSpearSpecialAssault implements Special {
 
-	@Override
-	public boolean checkRequirements(Stoner stoner) {
-	return true;
-	}
+  @Override
+  public boolean checkRequirements(Stoner stoner) {
+    return true;
+  }
 
-	@Override
-	public int getSpecialAmountRequired() {
-	return 25;
-	}
+  @Override
+  public int getSpecialAmountRequired() {
+    return 25;
+  }
 
-	@Override
-	public void handleAssault(Stoner stoner) {
-	stoner.getCombat().getAssaulting().getUpdateFlags().sendGraphic(Graphic.highGraphic(80, 0));
-	stoner.getCombat().getMelee().setAnimation(new Animation(1064, 0));
-	stoner.getUpdateFlags().sendGraphic(Graphic.highGraphic(253, 0));
-	}
+  @Override
+  public void handleAssault(Stoner stoner) {
+    stoner.getCombat().getAssaulting().getUpdateFlags().sendGraphic(Graphic.highGraphic(80, 0));
+    stoner.getCombat().getMelee().setAnimation(new Animation(1064, 0));
+    stoner.getUpdateFlags().sendGraphic(Graphic.highGraphic(253, 0));
+  }
 }

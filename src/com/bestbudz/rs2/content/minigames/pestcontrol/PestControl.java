@@ -1,46 +1,23 @@
 package com.bestbudz.rs2.content.minigames.pestcontrol;
 
+import com.bestbudz.rs2.entity.Location;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import com.bestbudz.rs2.entity.Location;
-import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-
-/**
- * Handles the Pest Control minigame
- * 
- * @author Jaybane
- *
- */
 public class PestControl {
 
-	/**
-	 * List of games
-	 */
 	private static final List<PestControlGame> games = new LinkedList<PestControlGame>();
 
-	/**
-	 * List of stoners waiting
-	 */
 	private static final Queue<Stoner> waiting = new ArrayDeque<Stoner>();
 
-	/**
-	 * Time
-	 */
 	private static short time = 120;
 
-	/**
-	 * Handles object clicking
-	 * 
-	 * @param stoner
-	 * @param id
-	 * @return
-	 */
 	public static boolean clickObject(Stoner stoner, int id) {
 	switch (id) {
 	case 14315:
@@ -65,47 +42,24 @@ public class PestControl {
 	return false;
 	}
 
-	/**
-	 * Get the minutes till depart
-	 * 
-	 * @return
-	 */
 	public static int getMinutesTillDepart() {
 	return time;
 	}
 
-	/**
-	 * Gets the ready stoners
-	 * 
-	 * @return
-	 */
 	public static int getStonersReady() {
 	return waiting.size();
 	}
 
-	/**
-	 * Game ending
-	 * 
-	 * @param game
-	 */
 	public static void onGameEnd(PestControlGame game) {
 	games.remove(game);
 	}
 
-	/**
-	 * Sends message to stoners waiting
-	 * 
-	 * @param message
-	 */
 	public static void sendMessageToWaiting(String message) {
 	for (Stoner p : waiting) {
 		p.getClient().queueOutgoingPacket(new SendMessage(message));
 	}
 	}
 
-	/**
-	 * Starts the game
-	 */
 	public static void startGame() {
 
 	if (waiting.size() < 2) {
@@ -137,9 +91,6 @@ public class PestControl {
 	games.add(new PestControlGame(toPlay, toPlay.get(0).getIndex() << 2));
 	}
 
-	/**
-	 * Process
-	 */
 	public static void tick() {
 	if (waiting.size() > 0) {
 		time--;

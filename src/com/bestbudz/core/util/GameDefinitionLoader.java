@@ -1,21 +1,5 @@
 package com.bestbudz.core.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.logging.Logger;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.reflection.Sun14ReflectionProvider;
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.definitions.CombatSpellDefinition;
 import com.bestbudz.core.definitions.EquipmentDefinition;
@@ -33,81 +17,133 @@ import com.bestbudz.core.definitions.SagittariusWeaponDefinition;
 import com.bestbudz.core.definitions.ShopDefinition;
 import com.bestbudz.core.definitions.SpecialAssaultDefinition;
 import com.bestbudz.core.definitions.WeaponDefinition;
-//import com.bestbudz.rs2.content.combat.impl.StonerDrops;
 import com.bestbudz.rs2.content.gambling.FlowerGame;
-import com.bestbudz.rs2.content.shopping.Shop;
 import com.bestbudz.rs2.content.profession.Professions;
+import com.bestbudz.rs2.content.shopping.Shop;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.mob.Mob;
+import com.thoughtworks.xstream.XStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.logging.Logger;
 
 public class GameDefinitionLoader {
 
-	/**
-	 * The logger for the class
-	 */
-	private static Logger logger = Logger.getLogger(GameDefinitionLoader.class.getSimpleName());
+	private static final Logger logger = Logger.getLogger(GameDefinitionLoader.class.getSimpleName());
 
-	private static XStream xStream = new XStream(new Sun14ReflectionProvider());
-
+	private static final XStream xStream = new XStream();
+	private static final Map<Integer, Integer> rareDropChances = new HashMap<Integer, Integer>();
+	private static final Map<Integer, byte[][]> itemRequirements = new HashMap<Integer, byte[][]>();
+	private static final Map<Integer, ItemDefinition> itemDefinitions = new HashMap<Integer, ItemDefinition>();
+	private static final Map<Integer, NpcDefinition> npcDefinitions = new HashMap<Integer, NpcDefinition>();
+	private static final Map<Integer, SpecialAssaultDefinition> specialAssaultDefinitions = new HashMap<Integer, SpecialAssaultDefinition>();
+	private static final Map<Integer, SagittariusWeaponDefinition> sagittariusWeaponDefinitions = new HashMap<Integer, SagittariusWeaponDefinition>();
+	private static final Map<Integer, WeaponDefinition> weaponDefinitions = new HashMap<Integer, WeaponDefinition>();
+	private static final Map<Integer, FoodDefinition> foodDefinitions = new HashMap<Integer, FoodDefinition>();
+	private static final Map<Integer, PotionDefinition> potionDefinitions = new HashMap<Integer, PotionDefinition>();
+	private static final Map<Integer, EquipmentDefinition> equipmentDefinitions = new HashMap<Integer, EquipmentDefinition>();
+	private static final Map<Integer, ItemBonusDefinition> itemBonusDefinitions = new HashMap<Integer, ItemBonusDefinition>();
+	private static final Map<Integer, CombatSpellDefinition> combatSpellDefinitions = new HashMap<Integer, CombatSpellDefinition>();
+	private static final Map<Integer, NpcCombatDefinition> npcCombatDefinitions = new HashMap<Integer, NpcCombatDefinition>();
+	private static final Map<Integer, SagittariusVigourDefinition> sagittariusVigourDefinitions = new HashMap<Integer, SagittariusVigourDefinition>();
+	private static final Map<Integer, ItemDropDefinition> mobDropDefinitions = new HashMap<Integer, ItemDropDefinition>();
 	private static int[][] alternates = new int[53000][1];
 
-	private static Map<Integer, Integer> rareDropChances = new HashMap<Integer, Integer>();
-
-	private static Map<Integer, byte[][]> itemRequirements = new HashMap<Integer, byte[][]>();
-	private static Map<Integer, ItemDefinition> itemDefinitions = new HashMap<Integer, ItemDefinition>();
-	private static Map<Integer, NpcDefinition> npcDefinitions = new HashMap<Integer, NpcDefinition>();
-
-	private static Map<Integer, SpecialAssaultDefinition> specialAssaultDefinitions = new HashMap<Integer, SpecialAssaultDefinition>();
-	private static Map<Integer, SagittariusWeaponDefinition> sagittariusWeaponDefinitions = new HashMap<Integer, SagittariusWeaponDefinition>();
-	private static Map<Integer, WeaponDefinition> weaponDefinitions = new HashMap<Integer, WeaponDefinition>();
-	private static Map<Integer, FoodDefinition> foodDefinitions = new HashMap<Integer, FoodDefinition>();
-	private static Map<Integer, PotionDefinition> potionDefinitions = new HashMap<Integer, PotionDefinition>();
-	private static Map<Integer, EquipmentDefinition> equipmentDefinitions = new HashMap<Integer, EquipmentDefinition>();
-	private static Map<Integer, ItemBonusDefinition> itemBonusDefinitions = new HashMap<Integer, ItemBonusDefinition>();
-	private static Map<Integer, CombatSpellDefinition> combatSpellDefinitions = new HashMap<Integer, CombatSpellDefinition>();
-	private static Map<Integer, NpcCombatDefinition> npcCombatDefinitions = new HashMap<Integer, NpcCombatDefinition>();
-	private static Map<Integer, SagittariusVigourDefinition> sagittariusVigourDefinitions = new HashMap<Integer, SagittariusVigourDefinition>();
-
-	private static Map<Integer, ItemDropDefinition> mobDropDefinitions = new HashMap<Integer, ItemDropDefinition>();
+	private GameDefinitionLoader() {
+	}
 
 	public static final void clearAlternates() {
 	alternates = null;
 	}
 
 	public static final void declare() {
-	xStream.alias("ItemDropDefinition", com.bestbudz.core.definitions.ItemDropDefinition.class);
-	xStream.alias("constant", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
-	xStream.alias("common", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
-	xStream.alias("uncommon", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
-	xStream.alias("itemDrop", com.bestbudz.core.definitions.ItemDropDefinition.ItemDrop.class);
-	xStream.alias("scroll", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.ScrollTypes.class);
+		xStream.allowTypes(new Class[] {
+			com.bestbudz.core.definitions.ItemDropDefinition.class,
+			com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class,
+			com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class,
+			com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class,
+			com.bestbudz.core.definitions.ItemDropDefinition.ItemDrop.class,
+			com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.ScrollTypes.class,
 
-	xStream.alias("location", com.bestbudz.rs2.entity.Location.class);
-	xStream.alias("item", com.bestbudz.rs2.entity.item.Item.class);
-	xStream.alias("projectile", com.bestbudz.rs2.entity.Projectile.class);
-	xStream.alias("graphic", com.bestbudz.rs2.entity.Graphic.class);
-	xStream.alias("animation", com.bestbudz.rs2.entity.Animation.class);
+			com.bestbudz.rs2.entity.Location.class,
+			com.bestbudz.rs2.entity.item.Item.class,
+			com.bestbudz.rs2.entity.Projectile.class,
+			com.bestbudz.rs2.entity.Graphic.class,
+			com.bestbudz.rs2.entity.Animation.class,
 
-	xStream.alias("NpcCombatDefinition", com.bestbudz.core.definitions.NpcCombatDefinition.class);
-	xStream.alias("profession", com.bestbudz.core.definitions.NpcCombatDefinition.Profession.class);
-	xStream.alias("melee", com.bestbudz.core.definitions.NpcCombatDefinition.Melee.class);
-	xStream.alias("mage", com.bestbudz.core.definitions.NpcCombatDefinition.Mage.class);
-	xStream.alias("sagittarius", com.bestbudz.core.definitions.NpcCombatDefinition.Sagittarius.class);
+			com.bestbudz.core.definitions.NpcCombatDefinition.class,
+			com.bestbudz.core.definitions.NpcCombatDefinition.Profession.class,
+			com.bestbudz.core.definitions.NpcCombatDefinition.Melee.class,
+			com.bestbudz.core.definitions.NpcCombatDefinition.Mage.class,
+			com.bestbudz.core.definitions.NpcCombatDefinition.Sagittarius.class,
 
-	xStream.alias("ItemDefinition", com.bestbudz.core.definitions.ItemDefinition.class);
-	xStream.alias("ShopDefinition", com.bestbudz.core.definitions.ShopDefinition.class);
-	xStream.alias("WeaponDefinition", com.bestbudz.core.definitions.WeaponDefinition.class);
-	xStream.alias("SpecialAssaultDefinition", com.bestbudz.core.definitions.SpecialAssaultDefinition.class);
-	xStream.alias("SagittariusWeaponDefinition", com.bestbudz.core.definitions.SagittariusWeaponDefinition.class);
-	xStream.alias("SagittariusVigourDefinition", com.bestbudz.core.definitions.SagittariusVigourDefinition.class);
-	xStream.alias("FoodDefinition", com.bestbudz.core.definitions.FoodDefinition.class);
-	xStream.alias("PotionDefinition", com.bestbudz.core.definitions.PotionDefinition.class);
-	xStream.alias("professionData", com.bestbudz.core.definitions.PotionDefinition.ProfessionData.class);
-	xStream.alias("ItemBonusDefinition", com.bestbudz.core.definitions.ItemBonusDefinition.class);
-	xStream.alias("CombatSpellDefinition", com.bestbudz.core.definitions.CombatSpellDefinition.class);
-	xStream.alias("NpcDefinition", com.bestbudz.core.definitions.NpcDefinition.class);
-	xStream.alias("NpcSpawnDefinition", com.bestbudz.core.definitions.NpcSpawnDefinition.class);
-	xStream.alias("EquipmentDefinition", com.bestbudz.core.definitions.EquipmentDefinition.class);
+			com.bestbudz.core.definitions.ItemDefinition.class,
+			com.bestbudz.core.definitions.ShopDefinition.class,
+			com.bestbudz.core.definitions.WeaponDefinition.class,
+			com.bestbudz.core.definitions.SpecialAssaultDefinition.class,
+			com.bestbudz.core.definitions.SagittariusWeaponDefinition.class,
+			com.bestbudz.core.definitions.SagittariusVigourDefinition.class,
+			com.bestbudz.core.definitions.FoodDefinition.class,
+			com.bestbudz.core.definitions.PotionDefinition.class,
+			com.bestbudz.core.definitions.PotionDefinition.ProfessionData.class,
+			com.bestbudz.core.definitions.ItemBonusDefinition.class,
+			com.bestbudz.core.definitions.CombatSpellDefinition.class,
+			com.bestbudz.core.definitions.NpcDefinition.class,
+			com.bestbudz.core.definitions.NpcSpawnDefinition.class,
+			com.bestbudz.core.definitions.EquipmentDefinition.class,
+		});
+
+    xStream.alias("ItemDropDefinition", com.bestbudz.core.definitions.ItemDropDefinition.class);
+    xStream.alias("constant", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
+    xStream.alias("common", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
+    xStream.alias("uncommon", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
+    xStream.alias("itemDrop", com.bestbudz.core.definitions.ItemDropDefinition.ItemDrop.class);
+    xStream.alias(
+        "scroll", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.ScrollTypes.class);
+
+    xStream.alias("location", com.bestbudz.rs2.entity.Location.class);
+    xStream.alias("item", com.bestbudz.rs2.entity.item.Item.class);
+    xStream.alias("projectile", com.bestbudz.rs2.entity.Projectile.class);
+    xStream.alias("graphic", com.bestbudz.rs2.entity.Graphic.class);
+    xStream.alias("animation", com.bestbudz.rs2.entity.Animation.class);
+
+    xStream.alias("NpcCombatDefinition", com.bestbudz.core.definitions.NpcCombatDefinition.class);
+    xStream.alias("profession", com.bestbudz.core.definitions.NpcCombatDefinition.Profession.class);
+    xStream.alias("melee", com.bestbudz.core.definitions.NpcCombatDefinition.Melee.class);
+    xStream.alias("mage", com.bestbudz.core.definitions.NpcCombatDefinition.Mage.class);
+    xStream.alias(
+        "sagittarius", com.bestbudz.core.definitions.NpcCombatDefinition.Sagittarius.class);
+
+    xStream.alias("ItemDefinition", com.bestbudz.core.definitions.ItemDefinition.class);
+    xStream.alias("ShopDefinition", com.bestbudz.core.definitions.ShopDefinition.class);
+    xStream.alias("WeaponDefinition", com.bestbudz.core.definitions.WeaponDefinition.class);
+    xStream.alias(
+        "SpecialAssaultDefinition", com.bestbudz.core.definitions.SpecialAssaultDefinition.class);
+    xStream.alias(
+        "SagittariusWeaponDefinition",
+        com.bestbudz.core.definitions.SagittariusWeaponDefinition.class);
+    xStream.alias(
+        "SagittariusVigourDefinition",
+        com.bestbudz.core.definitions.SagittariusVigourDefinition.class);
+    xStream.alias("FoodDefinition", com.bestbudz.core.definitions.FoodDefinition.class);
+    xStream.alias("PotionDefinition", com.bestbudz.core.definitions.PotionDefinition.class);
+    xStream.alias(
+        "professionData", com.bestbudz.core.definitions.PotionDefinition.ProfessionData.class);
+    xStream.alias("ItemBonusDefinition", com.bestbudz.core.definitions.ItemBonusDefinition.class);
+    xStream.alias(
+        "CombatSpellDefinition", com.bestbudz.core.definitions.CombatSpellDefinition.class);
+    xStream.alias("NpcDefinition", com.bestbudz.core.definitions.NpcDefinition.class);
+    xStream.alias("NpcSpawnDefinition", com.bestbudz.core.definitions.NpcSpawnDefinition.class);
+    xStream.alias("EquipmentDefinition", com.bestbudz.core.definitions.EquipmentDefinition.class);
 	logger.info("All GameDefinitions have been loaded.");
 	}
 
@@ -283,7 +319,7 @@ public class GameDefinitionLoader {
 		while ((line = reader.readLine()) != null) {
 			int id = Integer.parseInt(line.substring(0, line.indexOf(":")));
 			line = line.substring(line.indexOf(":") + 1);
-			int alt = Integer.parseInt(line.substring(0, line.length()));
+			int alt = Integer.parseInt(line);
 
 			alternates[id][0] = alt;
 		}
@@ -297,7 +333,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadCombatSpellDefinitions() throws FileNotFoundException, IOException {
+	public static void loadCombatSpellDefinitions() throws IOException {
 	List<CombatSpellDefinition> list = (List<CombatSpellDefinition>) xStream.fromXML(new FileInputStream("./data/def/mage/CombatSpellDefinitions.xml"));
 	for (CombatSpellDefinition definition : list) {
 		combatSpellDefinitions.put(definition.getId(), definition);
@@ -306,7 +342,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadEquipmentDefinitions() throws FileNotFoundException, IOException {
+	public static void loadEquipmentDefinitions() throws IOException {
 	List<EquipmentDefinition> list = (List<EquipmentDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/EquipmentDefinitions.xml"));
 
 	for (EquipmentDefinition definition : list) {
@@ -424,13 +460,13 @@ public class GameDefinitionLoader {
 	logger.info("Loaded " + Utility.format(list.size()) + " equipment definitions.");
 	}
 
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) throws IOException {
 	declare();
 	loadNpcDropDefinitions();
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadFoodDefinitions() throws FileNotFoundException, IOException {
+	public static void loadFoodDefinitions() throws IOException {
 	List<FoodDefinition> list = (List<FoodDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/FoodDefinitions.xml"));
 	for (FoodDefinition definition : list) {
 		foodDefinitions.put(definition.getId(), definition);
@@ -439,7 +475,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadItemBonusDefinitions() throws FileNotFoundException, IOException {
+	public static void loadItemBonusDefinitions() throws IOException {
 	List<ItemBonusDefinition> list = (List<ItemBonusDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/ItemBonusDefinitions.xml"));
 	for (ItemBonusDefinition definition : list) {
 		itemBonusDefinitions.put(definition.getId(), definition);
@@ -448,7 +484,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadItemDefinitions() throws FileNotFoundException, IOException {
+	public static void loadItemDefinitions() throws IOException {
 	List<ItemDefinition> list = (List<ItemDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/ItemDefinitions.xml"));
 	for (ItemDefinition definition : list) {
 		itemDefinitions.put(definition.getId(), definition);
@@ -466,7 +502,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadNpcCombatDefinitions() throws FileNotFoundException, IOException {
+	public static void loadNpcCombatDefinitions() throws IOException {
 	List<NpcCombatDefinition> list = (List<NpcCombatDefinition>) xStream.fromXML(new FileInputStream("./data/def/npcs/NpcCombatDefinitions.xml"));
 	for (NpcCombatDefinition definition : list) {
 		npcCombatDefinitions.put(definition.getId(), definition);
@@ -476,13 +512,12 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadNpcDefinitions() throws FileNotFoundException, IOException {
+	public static void loadNpcDefinitions() throws IOException {
 	List<NpcDefinition> list = (List<NpcDefinition>) xStream.fromXML(new FileInputStream("./data/def/npcs/NpcDefinitions.xml"));
 	for (NpcDefinition definition : list) {
 		npcDefinitions.put(definition.getId(), definition);
 	}
 	logger.info("Loaded " + Utility.format(list.size()) + " NPC definitions.");
-	// dumpSizes();
 	}
 
 	public static Map<Integer, NpcDefinition> getNpcDefinitions() {
@@ -494,21 +529,10 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadNpcDropDefinitions() throws FileNotFoundException, IOException {
+	public static void loadNpcDropDefinitions() throws IOException {
 	List<ItemDropDefinition> list = (List<ItemDropDefinition>) xStream.fromXML(new FileInputStream("./data/def/npcs/ItemDropDefinitions.xml"));
 	for (ItemDropDefinition def : list) {
 		mobDropDefinitions.put(def.getId(), def);
-
-		// if (def.getCommon() != null && def.getCommon().getDrops() != null) {
-		// for (ItemDrop i : def.getCommon().getDrops()) {
-		// if (i.getId() != 995) {
-		// if (i.getMax() >= 600 || i.getMin() >= 600) {
-		// i.setMin((short) 100);
-		// i.setMax((short) 600);
-		// }
-		// }
-		// }
-		// }
 	}
 
 	for (ItemDropDefinition i : mobDropDefinitions.values()) {
@@ -628,7 +652,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadNpcSpawns() throws FileNotFoundException, IOException {
+	public static void loadNpcSpawns() throws IOException {
 	List<NpcSpawnDefinition> list = (List<NpcSpawnDefinition>) xStream.fromXML(new FileInputStream("./data/def/npcs/NpcSpawnDefinitions.xml"));
 	for (NpcSpawnDefinition def : list) {
 		if (Region.getRegion(def.getLocation().getX(), def.getLocation().getY()) == null) {
@@ -655,7 +679,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadPotionDefinitions() throws FileNotFoundException, IOException {
+	public static void loadPotionDefinitions() throws IOException {
 	List<PotionDefinition> list = (List<PotionDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/PotionDefinitions.xml"));
 	for (PotionDefinition definition : list) {
 		if (definition.getName() == null) {
@@ -667,7 +691,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadSagittariusVigourDefinitions() throws FileNotFoundException, IOException {
+	public static void loadSagittariusVigourDefinitions() throws IOException {
 	List<SagittariusVigourDefinition> list = (List<SagittariusVigourDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/SagittariusVigourDefinitions.xml"));
 	for (SagittariusVigourDefinition definition : list) {
 		sagittariusVigourDefinitions.put(definition.getId(), definition);
@@ -676,7 +700,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadSagittariusWeaponDefinitions() throws FileNotFoundException, IOException {
+	public static void loadSagittariusWeaponDefinitions() throws IOException {
 	List<SagittariusWeaponDefinition> list = (List<SagittariusWeaponDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/SagittariusWeaponDefinitions.xml"));
 	for (SagittariusWeaponDefinition definition : list) {
 		sagittariusWeaponDefinitions.put(definition.getId(), definition);
@@ -708,15 +732,6 @@ public class GameDefinitionLoader {
 
 		reader.close();
 
-		// remove me
-		/*
-		 * new File("./data/def/npcs/DropChances.txt").delete(); BufferedWriter writer =
-		 * new BufferedWriter(new FileWriter("./data/def/npcs/DropChances.txt")); for
-		 * (Entry<Integer, Byte> i : rareDropChances.entrySet()) {
-		 * writer.write(i.getKey() + ":" + i.getValue() + "//" +
-		 * itemDefinitions.get(i.getKey()).getName()); writer.newLine(); }
-		 * writer.close();
-		 */
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -725,7 +740,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadShopDefinitions() throws FileNotFoundException, IOException {
+	public static void loadShopDefinitions() throws IOException {
 	List<ShopDefinition> list = (List<ShopDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/ShopDefinitions.xml"));
 	for (ShopDefinition def : list) {
 		Shop.getShops()[def.getId()] = new Shop(def.getId(), def.getItems(), def.isGeneral(), def.getName());
@@ -734,7 +749,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadSpecialAssaultDefinitions() throws FileNotFoundException, IOException {
+	public static void loadSpecialAssaultDefinitions() throws IOException {
 	List<SpecialAssaultDefinition> list = (List<SpecialAssaultDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/SpecialAssaultDefinitions.xml"));
 	for (SpecialAssaultDefinition definition : list) {
 		specialAssaultDefinitions.put(definition.getId(), definition);
@@ -743,7 +758,7 @@ public class GameDefinitionLoader {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadWeaponDefinitions() throws FileNotFoundException, IOException {
+	public static void loadWeaponDefinitions() throws IOException {
 	List<WeaponDefinition> list = (List<WeaponDefinition>) xStream.fromXML(new FileInputStream("./data/def/items/WeaponDefinitions.xml"));
 	for (WeaponDefinition definition : list) {
 		weaponDefinitions.put(definition.getId(), definition);
@@ -822,8 +837,5 @@ public class GameDefinitionLoader {
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	}
-
-	private GameDefinitionLoader() {
 	}
 }

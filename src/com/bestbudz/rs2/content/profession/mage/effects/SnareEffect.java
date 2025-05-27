@@ -5,8 +5,8 @@ import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class SnareEffect implements CombatEffect {
-	@Override
-	public void execute(Stoner p, Entity e) {
-	e.freeze(10, 5);
-	}
+  @Override
+  public void execute(Stoner p, Entity e) {
+    e.freeze(10, 5);
+  }
 }
