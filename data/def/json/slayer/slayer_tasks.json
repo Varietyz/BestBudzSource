@@ -1,0 +1,123 @@
+[
+  {
+    "identifier": "Banshees",
+    "npcsToKill": [ 414 ],
+    "tip": {
+      "lines": [
+        [ "Banshees text 1", "banshee text 2", "banshee text 3" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael", "Mazchna", "Vannaka" ]
+  },
+  {
+    "identifier": "Crabs",
+    "npcsToKill": [ 100 ],
+    "tip": {
+      "lines": [
+        [ "Crabs text 1", "Crabs text 2", "Crabs text 3" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael", "Mazchna" ]
+  },
+  {
+    "identifier": "Turoths",
+    "npcsToKill": [ 426, 427, 428, 429, 430, 431, 432 ],
+    "tip": {
+      "lines": [
+        [ "Turoths text 1", "Turoths text 2", "Turoths text 3" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Vannaka", "Chaeldar", "Nieve", "Steve" ]
+  },
+  {
+    "identifier": "Bats",
+    "npcsToKill": [ 2827, 2834  ],
+    "tip": {
+      "lines": [
+        [ "Bats" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael", "Mazchna"]
+  },
+  {
+    "identifier": "Birds",
+    "npcsToKill": [ 3316, 3564, 2067, 2064, 2065, 2066, 2068, 2692, 2693  ],
+    "tip": {
+      "lines": [
+        [ "Birds tip" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael"]
+  },
+  {
+    "identifier": "Bears",
+    "npcsToKill": [ 2838, 2839, 3424, 3425, 6609  ],
+    "tip": {
+      "lines": [
+        [ "bears tips" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael", "Mazchna"]
+  },
+  {
+    "identifier": "Cave Bugs",
+    "npcsToKill": [ 481, 483  ],
+    "tip": {
+      "lines": [
+        [ "cave bugs tips" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael", "Mazchna", "Vannaka"]
+  },
+  {
+    "identifier": "Cave Crawlers",
+    "npcsToKill": [ 406, 407, 408, 409  ],
+    "tip": {
+      "lines": [
+        [ "cave crawlers tips" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael", "Mazchna", "Vannaka"]
+  },
+  {
+    "identifier": "Cave Slimes",
+    "npcsToKill": [ 480  ],
+    "tip": {
+      "lines": [
+        [ "cave slimes tips" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael", "Mazchna", "Vannaka"]
+  },
+  {
+    "identifier": "Cows",
+    "npcsToKill": [ 2805, 2806, 2807, 2808, 2809, 2810  ],
+    "tip": {
+      "lines": [
+        [ "cows tips" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael"]
+  },
+  {
+    "identifier": "Crawling Hands",
+    "npcsToKill": [ 448, 449, 450, 451, 452, 453, 454, 455, 456, 457 ],
+    "tip": {
+      "lines": [
+        [ "crawling hands tips" ],
+        [ "next page 1", "next page 2", "next page 3", "next page 4" ]
+      ]
+    },
+    "assigners": [ "Turael", "Mazchna"]
+  }
+]

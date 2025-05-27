@@ -1,0 +1,68 @@
+[
+  {
+    "masterName": "Turael",
+    "masterID": 401,
+    "taskReward": 0,
+    "tenTaskReward": 0,
+    "fiftyTaskReward": 0,
+    "lowestAmountAssigned": 15,
+    "highestAmountAssigned": 50,
+    "slayerRequired": 1,
+    "combatRequired": 0
+  },
+  {
+    "masterName": "Mazchna",
+    "masterID": 402,
+    "taskReward": 2,
+    "tenTaskReward": 10,
+    "fiftyTaskReward": 30,
+    "lowestAmountAssigned": 40,
+    "highestAmountAssigned": 70,
+    "slayerRequired": 1,
+    "combatRequired": 20
+  },
+  {
+    "masterName": "Vannaka",
+    "masterID": 403,
+    "taskReward": 4,
+    "tenTaskReward": 20,
+    "fiftyTaskReward": 60,
+    "lowestAmountAssigned": 60,
+    "highestAmountAssigned": 120,
+    "slayerRequired": 1,
+    "combatRequired": 40
+  },
+  {
+    "masterName": "Chaeldar",
+    "masterID": 404,
+    "taskReward": 10,
+    "tenTaskReward": 50,
+    "fiftyTaskReward": 150,
+    "lowestAmountAssigned": 110,
+    "highestAmountAssigned": 170,
+    "slayerRequired": 1,
+    "combatRequired": 70
+  },
+  {
+    "masterName": "Nieve",
+    "masterID": 405,
+    "taskReward": 12,
+    "tenTaskReward": 60,
+    "fiftyTaskReward": 180,
+    "lowestAmountAssigned": 120,
+    "highestAmountAssigned": 185,
+    "slayerRequired": 1,
+    "combatRequired": 85
+  },
+  {
+    "masterName": "Duradel",
+    "masterID": 406,
+    "taskReward": 15,
+    "tenTaskReward": 75,
+    "fiftyTaskReward": 225,
+    "lowestAmountAssigned": 130,
+    "highestAmountAssigned": 250,
+    "slayerRequired": 50,
+    "combatRequired": 100
+  }
+]

@@ -1,0 +1,138 @@
+//must keep same format (10 = 1%)
+
+12819:15//Sigil
+12823:15//Sigil
+12827:15//Sigil
+6731:50//Seers' ring
+6733:50//Archers' ring
+6735:50//Warrior ring
+6737:50//Berserker ring
+6571:15//Uncut onyx
+4151:70//Abyssal whip
+11235:50//Dark bow
+11212:70//Dragon arrow
+6528:65//Tzhaar-ket-om
+6529:110//Tokkul
+10887:80//Barrelchest anchor
+7158:35//Dragon 2h sword
+11286:29//Draconic visage
+6739:45//Dragon hatchet
+6524:52//Toktz-ket-xil
+11818:30//GS shard 1
+11820:30//GS shard 2
+11822:30//GS shard 3
+11830:25//Armadyl chainskirt
+11828:25//Armadyl chest plate
+11826:25//Armadyl helm
+11810:20//Armadyl hilt
+12649:20//Armadyl pet
+11814:25//Saradomin hilt
+11838:28//Saradomin sword
+11785:25//Armadyl crossbow
+12651:20//Saradomin pet
+11832:20//Bandos chest
+11834:20//Bandos tassets
+11836:30//Bandos boots
+11812:18//Bandos hilt
+12650:20//Bandos pet
+12643:20//Pet supreme
+12644:20//Pet prime
+12645:20//Pet rex
+11840:30//Dragon boots
+10858:60//Shadow sword
+11791:25//Staff of the Dead
+12652:20//Zamorak Pet
+11824:20//Zamorak Spear
+11905:35//Trident of seas
+12655:20//Kraken Pet
+12004:30//Kraken Tenacle
+11908:50//Trident
+11995:20//Chaos Elemental pet
+11920:50//Dragon Pickaxe
+12603:25//Tyrannical ring
+13178:20//Callisto Pet
+13181:20//Scorpia's offspring
+12601:15//Ring of the gods
+13180:20//Vet'ion pet
+11931:25//Malediction shard 1
+11928:25//Odium shard 1
+11932:25//Malediction shard 2
+11929:25//Odium shard 2
+11933:25//Malediction shard 3
+11930:25//Odium shard 3
+12833:51//Elixer
+12816:20//Pet Dark Core
+12927:35//Sperp Vis
+12922:25//Fang
+12932:25//Magic Fang
+12921:20//Zulrah Pet
+12646:10//Mole pet
+11816:15//Zammy hilt
+12653:20//KBD Pet
+18835:20//pet
+18837:20//pet
+18333:20//pet
+18402:20//
+18403:30//
+18404:30//
+18405:30//
+18401:30//
+18406:15//
+18834:15//
+18836:15//
+20784:10//
+19592:20//
+19601:20//
+19589:20//
+19586:20//
+21012:10//
+5016:15//
+13262:25//
+15040:20//
+15041:20//
+15042:20//
+13576:15//dragon warhammer
+17014:15//dragon flail
+19679:100//totem
+19681:100//
+19683:100//
+20730:20//mist staff
+20736:20//
+17600:150//skotizo pet
+19544:35//zenyte
+19547:35//
+19550:35//
+19553:35//
+16504:20//pet dark beast
+13227:10//peg
+13229:10//
+13231:10//
+13233:20//smoldering
+5000:20//pvp sets
+5001:20//
+5002:20//
+5003:20//
+5004:20//
+5005:20//
+5006:20//
+5007:20//
+5008:20//
+5009:20//
+5010:20//
+5011:20//
+6581:50//fury
+13876:20//
+13870:20//
+13873:20//
+13858:20//
+13861:20//
+13864:20//
+12536:20//
+12530:30//
+12751:30//
+6916:20//
+6918:20//
+6920:20//
+6922:20//
+6924:20//
+12528:30//

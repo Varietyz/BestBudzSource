@@ -1,0 +1,107 @@
+[
+  {
+    "npcs": [ 414 ],
+    "experience": 22,
+    "levelRequired": 15
+  },
+  {
+    "npcs": [ 100 ],
+    "experience": 10,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 426, 427, 428, 429, 430, 431, 432],
+    "experience": 76,
+    "levelRequired": 55
+  },
+  {
+    "npcs": [ 2064, 2065, 2066 ],
+    "experience": 34,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2067, 2068 ],
+    "experience": 36,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2692, 2693 ],
+    "experience": 3,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2838, 2839 ],
+    "experience": 27,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 3424, 3425 ],
+    "experience": 20,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2827 ],
+    "experience": 8,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2834 ],
+    "experience": 32,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 6609 ],
+    "experience": 156,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 481 ],
+    "experience": 5,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 483 ],
+    "experience": 93,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 406, 407, 408, 409 ],
+    "experience": 22,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 480 ],
+    "experience": 25,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2805, 2806, 2808, 2810  ],
+    "experience": 8,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2807, 2809 ],
+    "experience": 6,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 448, 449, 450, 451, 452, 453, 454, 455, 456, 457 ],
+    "experience": 16,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 3316, 3564 ],
+    "experience": 3,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2067, 2068, 2692, 2693 ],
+    "experience": 28,
+    "levelRequired": 1
+  },
+  {
+    "npcs": [ 2064, 2065, 2066 ],
+    "experience": 34,
+    "levelRequired": 1
+  }
+]
