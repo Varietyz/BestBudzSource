@@ -1,5 +1,11 @@
 package com.bestbudz;
 
+import com.bestbudz.core.GameThread;
+import com.bestbudz.core.util.logger.StonerLogger;
+import com.bestbudz.rs2.content.clanchat.ClanManager;
+import com.bestbudz.rs2.content.io.StonerSave;
+import com.bestbudz.rs2.entity.World;
+import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.text.DateFormat;
@@ -7,17 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.logging.Logger;
-
-import com.bestbudz.core.GameThread;
-import com.bestbudz.core.util.logger.StonerLogger;
-import com.bestbudz.rs2.content.clanchat.ClanManager;
-import com.bestbudz.rs2.content.io.StonerSave;
-import com.bestbudz.rs2.entity.World;
-import com.bestbudz.rs2.entity.stoner.Stoner;
-
-//import org.javacord.api.DiscordApiBuilder;
-//import org.javacord.api.entity.channel.TextChannel;
-//import com.bestbudz.rs2.content.clanchat.Clan;
 
 /**
  * Initializes the server
@@ -82,78 +77,8 @@ public class Server {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		// discord
-	/*	GameDataLoader.discord = new DiscordApiBuilder().setToken("OTQ3NjAyNDU4NTI2NTAyOTYy.Yhvpjw.Q5lHkFkWWPJ2KNkXCnkMUnYRLlc").login().join();
-		TextChannel mainChannel = (TextChannel) GameDataLoader.discord.getChannelById("947600792599289906").get();
-		TextChannel helpChannel = (TextChannel) GameDataLoader.discord.getChannelById("947616122964934686").get();
-		GameDataLoader.discord.addMessageCreateListener(event -> {
-			if (event.isServerMessage() && event.getChannel().equals(mainChannel)) {
-				// yell
 
-				if (!event.getMessageAuthor().isBotUser()) {
-					String text = "[Disc]" + event.getMessageAuthor().getDisplayName() + ": " + event.getMessageContent().toString();
-					String[] strings = text.split("(?<=\\G.{75,}\\s)");
-					if (strings.length > 4) {
-						event.getChannel().sendMessage("Your message was too long and therefore not sent, " + event.getMessageAuthor().asUser().get().getMentionTag());
-					} else {
 
-						Boolean tooLong = false;
-						for (String s : strings) {
-							if (s.length() > 100) {
-								tooLong = true;
-							}
-						}
-
-						if (tooLong) {
-							event.getChannel().sendMessage("Your message was too long and therefore not sent, " + event.getMessageAuthor().asUser().get().getMentionTag());
-						} else {
-							for (String s : strings) {
-								World.sendGlobalMessage("@blu@" + s);
-							}
-						}
-
-					}
-
-				}
-			}
-
-			if (event.isServerMessage() && event.getChannel().equals(helpChannel)) {
-				if (!event.getMessageAuthor().isBotUser()) {
-					Clan helpcc = clanManager.getClan("bestbudz");
-					String text = "</col>[@gre@" + helpcc.getTitle() + "</col>] " + "[Disc]" + event.getMessageAuthor().getDisplayName() + ": @yel@" + event.getMessageContent().toString();
-					String[] strings = text.split("(?<=\\G.{75,}\\s)");
-					if (strings.length > 4) {
-						event.getChannel().sendMessage("Your message was too long and therefore not sent, " + event.getMessageAuthor().asUser().get().getMentionTag());
-					} else {
-
-						Boolean tooLong = false;
-						for (String s : strings) {
-							if (s.length() > 100) {
-								tooLong = true;
-							}
-						}
-
-						if (tooLong) {
-							event.getChannel().sendMessage("Your message was too long and therefore not sent, " + event.getMessageAuthor().asUser().get().getMentionTag());
-						} else {
-							for (String s : strings) {
-
-								if (s.equals(strings[0])) {
-									helpcc.sendMessage(s);
-								} else {
-									helpcc.sendMessage("@dre@" + s);
-								}
-
-							}
-						}
-
-					}
-
-				}
-			}
-		});
-		// end discord
- */
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			for (Stoner stoners : World.getStoners()) {
 				if (stoners != null && stoners.isActive()) {

@@ -1,16 +1,11 @@
 package com.bestbudz.rs2.entity.stoner.net.in.impl;
 
-import java.util.concurrent.TimeUnit;
-
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.rs2.entity.ReportHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-
-import org.javacord.api.entity.channel.TextChannel;
-import com.bestbudz.GameDataLoader;
-import com.bestbudz.core.util.Utility;
+import java.util.concurrent.TimeUnit;
 
 public class PublicChatPacket extends IncomingPacket {
 
@@ -31,11 +26,6 @@ public class PublicChatPacket extends IncomingPacket {
 		return;
 	}
 
-	// String message = Misc.textUnpack(text, chatLength);
-	//
-	// if (message.length() > 60) {
-	// return;
-	// }
 
 	stoner.setChatEffects(effects);
 	stoner.setChatColor(color);
@@ -63,7 +53,6 @@ public class PublicChatPacket extends IncomingPacket {
 	} else {
 		stoner.setChatUpdateRequired(true);
 		ReportHandler.addText(stoner.getUsername(), text, chatLength);
-		// discord
 		String ts = "";
 		ts = ts + stoner.getUsername() + ": ";
 	}

@@ -28,3 +28,4 @@ gradle-app.setting
 /data/clan
 /data/logs/err
 /data/logs
+*.zip

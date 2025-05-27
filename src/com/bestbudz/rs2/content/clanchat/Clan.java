@@ -1,17 +1,14 @@
 package com.bestbudz.rs2.content.clanchat;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
-
 import com.bestbudz.Server;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
-import org.javacord.api.entity.channel.TextChannel;
-import com.bestbudz.GameDataLoader;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class Clan {

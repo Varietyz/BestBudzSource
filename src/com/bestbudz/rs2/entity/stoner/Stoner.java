@@ -108,7 +108,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSidebarInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendProfessionGoal;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendWalkableInterface;
-import org.javacord.api.entity.channel.TextChannel;
 import com.bestbudz.GameDataLoader;
 
 public class Stoner extends Entity {
@@ -1354,6 +1353,7 @@ public class Stoner extends Entity {
 	send(new SendConfig(1992, getSideStones()));
 	String ts = "";
 	ts = ts + "**" + this.getUsername() + " came to get high asf.**";
+
 	return true;
 	}
 
@@ -1410,8 +1410,10 @@ public class Stoner extends Entity {
 		}
 	}
 
+
 	String ts = "";
 	ts = ts + "**" + this.getUsername() + " is way too stoned.**";
+
 
 	World.unregister(this);
 	client.setStage(Client.Stages.LOGGED_OUT);
