@@ -8,8 +8,18 @@ public class BloodBarrageEffect implements CombatEffect {
   @Override
   public void execute(Stoner p, Entity e) {
     int dmg = p.getLastDamageDealt();
-    if (dmg >= 4) {
-      int heal = dmg / 4;
+	  int heal;
+	  if (dmg >= 15) {
+		  heal = dmg;
+		  if (dmg >= 35) {
+			  heal = dmg / 2;
+		  }
+		  if (dmg >= 85) {
+			  heal = dmg / 3;
+		  }
+		  if (dmg >= 165) {
+			  heal = dmg / 4;
+		  }
       int tmp20_19 = 3;
       long[] tmp20_16 = p.getGrades();
       tmp20_16[tmp20_19] = ((short) (tmp20_16[tmp20_19] + heal));
@@ -20,3 +30,4 @@ public class BloodBarrageEffect implements CombatEffect {
     }
   }
 }
+

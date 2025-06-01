@@ -1,0 +1,947 @@
+package com.bestbudz.rs2.entity.stoner.net.in.impl.clickbuttons;
+
+import com.bestbudz.core.network.StreamBuffer;
+import com.bestbudz.core.util.Utility;
+import com.bestbudz.rs2.content.*;
+import com.bestbudz.rs2.content.achievements.AchievementButtons;
+import com.bestbudz.rs2.content.combat.formula.MageFormulas;
+import com.bestbudz.rs2.content.combat.formula.MeleeFormulas;
+import com.bestbudz.rs2.content.combat.formula.RangeFormulas;
+import com.bestbudz.rs2.content.dialogue.DialogueManager;
+import com.bestbudz.rs2.content.dialogue.Emotion;
+import com.bestbudz.rs2.content.dialogue.OptionDialogue;
+import com.bestbudz.rs2.content.dialogue.impl.*;
+import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
+import com.bestbudz.rs2.content.interfaces.impl.*;
+import com.bestbudz.rs2.content.membership.CreditHandler;
+import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
+import com.bestbudz.rs2.content.minigames.duelarena.DuelingConstants;
+import com.bestbudz.rs2.content.profession.ProfessionGoal;
+import com.bestbudz.rs2.content.profession.Professions;
+import com.bestbudz.rs2.content.profession.foodie.FoodieTask;
+import com.bestbudz.rs2.content.profession.forging.ForgingConstants;
+import com.bestbudz.rs2.content.profession.handiness.Handiness;
+import com.bestbudz.rs2.content.profession.handiness.HideTanning;
+import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
+import com.bestbudz.rs2.content.profession.mage.Autocast;
+import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
+import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
+import com.bestbudz.rs2.content.profession.mage.spells.BoltEnchanting;
+import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
+import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
+import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
+import com.bestbudz.rs2.content.profession.summoning.SummoningCreation;
+import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
+import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
+import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
+import com.bestbudz.rs2.content.profession.woodcarving.Woodcarving;
+import com.bestbudz.rs2.content.profiles.ProfileLeaderboard;
+import com.bestbudz.rs2.content.profiles.StonerProfiler;
+import com.bestbudz.rs2.entity.Animation;
+import com.bestbudz.rs2.entity.Graphic;
+import com.bestbudz.rs2.entity.Location;
+import com.bestbudz.rs2.entity.ReportHandler;
+import com.bestbudz.rs2.entity.ReportHandler.ReportData;
+import com.bestbudz.rs2.entity.item.EquipmentConstants;
+import com.bestbudz.rs2.entity.item.Item;
+import com.bestbudz.rs2.entity.item.ItemCheck;
+import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.StonerConstants;
+import com.bestbudz.rs2.entity.stoner.net.Client;
+import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
+import static com.bestbudz.rs2.entity.stoner.net.in.impl.clickbuttons.ButtonAssignment.*;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.*;
+import java.math.BigInteger;
+import java.text.NumberFormat;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ClickButtonPacket extends IncomingPacket {
+
+
+	static {
+		initializeTeleportLocations();
+		initializeShopActions();
+		initializeLeaderboardTypes();
+		initializeButtonHandlers();
+
+		// CRITICAL DEBUG: Check for shop buttons in wrong map
+		System.out.println("DEBUG: Checking for shop buttons in BUTTON_HANDLERS (should be NONE):");
+		for (Integer shopButtonId : SHOP_ACTIONS.keySet()) {
+			if (BUTTON_HANDLERS.containsKey(shopButtonId)) {
+				System.out.println("ERROR: Shop button " + shopButtonId + " found in BUTTON_HANDLERS - THIS IS THE BUG!");
+			}
+		}
+		System.out.println("DEBUG: BUTTON_HANDLERS size: " + BUTTON_HANDLERS.size());
+		System.out.println("DEBUG: SHOP_ACTIONS size: " + SHOP_ACTIONS.size());
+	}
+
+	static {
+		initializeTeleportLocations();
+		initializeShopActions();
+		initializeLeaderboardTypes();
+		initializeButtonHandlers();
+	}
+
+	// Helper methods for button actions
+	public static void handleStaffCommands(Stoner stoner) {
+		if (!StonerConstants.isStaff(stoner)) return;
+
+		String accessibility = "";
+		if (StonerConstants.isModerator(stoner)) {
+			accessibility = "You have access to a few commands!";
+		} else if (StonerConstants.isAdministrator(stoner)) {
+			accessibility = "You have access to most commands!";
+		} else if (StonerConstants.isOwner(stoner)) {
+			accessibility = "You have access to all commands!";
+		}
+
+		stoner.send(new SendString(accessibility, 49704));
+		stoner.send(new SendString("</col>Rank: " + stoner.deterquarryIcon(stoner) + " " + stoner.deterquarryRank(stoner), 49705));
+		stoner.send(new SendSidebarInterface(2, 49700));
+		stoner.send(new SendOpenTab(2));
+		stoner.send(new SendMessage("<col=25236>Consequences upon abuse."));
+	}
+
+	public static void handleQuestTab(Stoner stoner) {
+		if (!StonerConstants.isStaff(stoner)) return;
+
+		InterfaceHandler.writeText(new QuestTab(stoner));
+		stoner.send(new SendSidebarInterface(2, 29400));
+		stoner.send(new SendOpenTab(2));
+	}
+
+	public static void openTrainingInterface(Stoner stoner) {
+		InterfaceHandler.writeText(new TrainingInterface(stoner));
+		stoner.send(new SendInterface(61000));
+	}
+
+	public static void openProfessionInterface(Stoner stoner) {
+		InterfaceHandler.writeText(new ProfessioningInterface(stoner));
+		stoner.send(new SendInterface(62000));
+	}
+
+	public static void openPvPInterface(Stoner stoner) {
+		InterfaceHandler.writeText(new PvPInterface(stoner));
+		stoner.send(new SendInterface(63000));
+	}
+
+	public static void openBossInterface(Stoner stoner) {
+		InterfaceHandler.writeText(new BossInterface(stoner));
+		stoner.send(new SendInterface(64000));
+	}
+
+	public static void openMinigameInterface(Stoner stoner) {
+		InterfaceHandler.writeText(new MinigameInterface(stoner));
+		stoner.send(new SendInterface(65000));
+	}
+
+	public static void openOtherInterface(Stoner stoner) {
+		InterfaceHandler.writeText(new OtherInterface(stoner));
+		stoner.send(new SendInterface(61500));
+	}
+
+	public static void cancelReport(Stoner stoner) {
+		stoner.send(new SendRemoveInterfaces());
+		stoner.reportClicked = 0;
+		stoner.reportName = "";
+		stoner.send(new SendInterface(41750));
+	}
+
+	public static void handleHomeTeleport(Stoner stoner) {
+		if (stoner.getMage().isTeleporting() || stoner.inJailed()) {
+			return;
+		}
+
+		stoner.getMage().teleport(
+			StonerConstants.HOME.getX(),
+			StonerConstants.HOME.getY(),
+			StonerConstants.HOME.getZ(),
+			TeleportTypes.SPELL_BOOK
+		);
+		stoner.send(new SendMessage("Home weed home. " + stoner.deterquarryIcon(stoner)));
+	}
+
+	public static void toggleRunning(Stoner stoner) {
+		stoner.getRunEnergy().setRunning(!stoner.getRunEnergy().isRunning());
+		stoner.getClient().queueOutgoingPacket(new SendConfig(173, stoner.getRunEnergy().isRunning() ? 1 : 0));
+	}
+
+	public static void handleLogout(Stoner stoner) {
+		if (stoner.getCombat().inCombat()) {
+			stoner.getClient().queueOutgoingPacket(new SendMessage("Nope, we dont flight, we fight!"));
+		} else {
+			if (stoner.getClient().getStage() == Client.Stages.LOGGED_IN) {
+				stoner.logout(false);
+			}
+		}
+	}
+
+	public static void handlePaymentOption(Stoner stoner) {
+		stoner.start(new OptionDialogue(
+			"Pay by Cash",
+			p -> {
+				stoner.setPouchPayment(false);
+				stoner.send(new SendRemoveInterfaces());
+				stoner.send(new SendMessage("You will now be paying with your Cash."));
+			},
+			"Pay by Debit",
+			p -> {
+				stoner.setPouchPayment(true);
+				stoner.send(new SendRemoveInterfaces());
+				stoner.send(new SendMessage("You will now be paying with your Debit Card."));
+			}
+		));
+	}
+
+	public static void handleWeaponUnload(Stoner stoner) {
+		if (stoner.getAttributes().getInt("ASK_KEY") == 0) {
+			ToxicBlowpipe.unload(stoner);
+		} else if (stoner.getAttributes().getInt("ASK_KEY") == 1) {
+			TridentOfTheSeas.unload(stoner);
+			stoner.getBox().remove(11908, 1);
+			stoner.getGroundItems().drop(new Item(11908), stoner.getLocation());
+		}
+		stoner.send(new SendRemoveInterfaces());
+	}
+
+	public static void displayCombatFormulas(Stoner stoner) {
+		stoner.send(new SendString("</col>Melee Max Hit: @gre@" + MeleeFormulas.calculateBaseDamage(stoner), 15116));
+		stoner.send(new SendString("</col>Range Max Hit: @gre@" + RangeFormulas.getSagittariusMaxHit(stoner) + ".0", 15117));
+		stoner.send(new SendString("</col>Mage Max Hit: @gre@" + MageFormulas.mageMaxHit(stoner) + ".0", 15118));
+		stoner.send(new SendInterface(15106));
+	}
+
+	public static void openSettingsInterface(Stoner stoner) {
+		stoner.send(new SendMessage(":updateSettings:"));
+		stoner.send(new SendSidebarInterface(11, 28400));
+		stoner.send(new SendOpenTab(11));
+	}
+
+	public static void saveSettings(Stoner stoner) {
+		stoner.send(new SendMessage(":saveSettings:"));
+		stoner.send(new SendSidebarInterface(11, 904));
+		stoner.send(new SendOpenTab(11));
+		stoner.send(new SendMessage("@gre@Your settings have been saved!"));
+	}
+
+	public static void resetSettings(Stoner stoner) {
+		stoner.send(new SendMessage(":defaultSettings:"));
+		stoner.send(new SendMessage("@yel@Your settings have been reset!"));
+	}
+
+	public static void openColorChooser(Stoner stoner) {
+		stoner.send(new SendInterface(37500));
+		stoner.send(new SendString("Color chosen: @or2@-", 37506));
+	}
+
+	public static void toggleAdvanceColors(Stoner stoner) {
+		if (stoner.getDelay().elapsed() < 3_000) {
+			stoner.send(new SendMessage("YO CHILL! Wait before doing this again!"));
+			return;
+		}
+
+		if (stoner.isAdvanceColors()) {
+			stoner.setAdvanceColors(false);
+			stoner.send(new SendMessage(":advanceColorsFalse:"));
+			stoner.getProfession().resetColors();
+			stoner.send(new SendMessage("Advance colors will not display in profession tab."));
+		} else {
+			stoner.setAdvanceColors(true);
+			stoner.send(new SendMessage(":advanceColorsTrue:"));
+			stoner.getProfession().resetColors();
+			stoner.send(new SendMessage("Advance colors will now display in profession tab."));
+		}
+		stoner.getDelay().reset();
+	}
+
+	public static void setProfilePrivacy(Stoner stoner, boolean hidden) {
+		int config = hidden ? 1 : 2;
+		String message = hidden ? "@dre@You have hidden yourself in some bushes." : "@dre@You jumped out of the bushes.";
+
+		stoner.send(new SendConfig(1032, config));
+		stoner.setProfilePrivacy(hidden);
+		stoner.send(new SendMessage(message));
+	}
+
+	public static void handleExperienceLock(Stoner stoner) {
+		stoner.start(new OptionDialogue(
+			"Lock experience",
+			p -> {
+				stoner.getProfession().setExpLock(true);
+				stoner.send(new SendMessage("You have @blu@locked</col> your experience."));
+				stoner.send(new SendRemoveInterfaces());
+			},
+			"Unlock experience",
+			p -> {
+				stoner.getProfession().setExpLock(false);
+				stoner.send(new SendMessage("You have @blu@unlocked</col> your experience."));
+				stoner.send(new SendRemoveInterfaces());
+			}
+		));
+	}
+
+	public static void handleSearchOptions(Stoner stoner) {
+		stoner.start(new OptionDialogue(
+			"Search name",
+			p -> {
+				stoner.setEnterXInterfaceId(55777);
+				stoner.getClient().queueOutgoingPacket(new SendEnterString());
+			},
+			"Search item",
+			p -> {
+				stoner.setEnterXInterfaceId(55778);
+				stoner.getClient().queueOutgoingPacket(new SendEnterString());
+			}
+		));
+	}
+
+	public static void openAchievementTab(Stoner stoner) {
+		InterfaceHandler.writeText(new AchievementTab(stoner));
+		stoner.send(new SendSidebarInterface(2, 31000));
+		stoner.send(new SendMessage("@gre@Redirected to the Achievements Tab."));
+	}
+
+	public static void openBestBudzTab(Stoner stoner) {
+		InterfaceHandler.writeText(new QuestTab(stoner));
+		stoner.send(new SendSidebarInterface(2, 29400));
+		stoner.send(new SendMessage("@gre@Redirected to the BestBudz Tab."));
+	}
+
+	public static void openPointsInterface(Stoner stoner) {
+		stoner.send(new SendString("@gre@" + stoner.getUsername() + "'s tracked points.", 8144));
+		InterfaceHandler.writeText(new PointsInterface(stoner));
+		stoner.send(new SendInterface(8134));
+	}
+
+	public static void openPvmTracker(Stoner stoner) {
+		int linePosition = 8145;
+		HashMap<String, Integer> map = stoner.getProperties().getPropertyValues("MOB");
+
+		List<String> alphabetical = new ArrayList<>(map.keySet());
+		alphabetical.sort(String.CASE_INSENSITIVE_ORDER);
+
+		for (String key : alphabetical) {
+			String line = Utility.formatStonerName(key.toLowerCase().replaceAll("_", " ")) + ": @gre@" + map.get(key);
+			stoner.send(new SendString("@gre@PvM Tracker | " + alphabetical.size(), 8144));
+			stoner.send(new SendString("</col>" + line, linePosition++));
+		}
+
+		map = stoner.getProperties().getPropertyValues("BARROWS");
+		for (String key : map.keySet()) {
+			String line = Utility.formatStonerName(key.toLowerCase().replaceAll("_", " ")) + ": @gre@" + map.get(key);
+			stoner.send(new SendString("</col>" + line, linePosition++));
+		}
+
+		while (linePosition < 8193) {
+			stoner.send(new SendString("", linePosition++));
+		}
+
+		stoner.send(new SendInterface(8134));
+	}
+
+	public static void handleSpellbookSwitch(Stoner stoner) {
+		stoner.start(new OptionDialogue(
+			"Focused Mage",
+			p -> {
+				stoner.getMage().setSpellBookType(SpellBookTypes.MODERN);
+				stoner.getMage().setMageBook(1151);
+				stoner.getUpdateFlags().sendAnimation(new Animation(6299));
+				stoner.getUpdateFlags().sendGraphic(new Graphic(1062));
+				stoner.send(new SendMessage("You are now a focused mage."));
+				stoner.send(new SendRemoveInterfaces());
+			},
+			"AoE Mage",
+			p -> {
+				stoner.getMage().setSpellBookType(SpellBookTypes.ANCIENT);
+				stoner.getMage().setMageBook(12855);
+				stoner.getUpdateFlags().sendAnimation(new Animation(6299));
+				stoner.getUpdateFlags().sendGraphic(new Graphic(1062));
+				stoner.send(new SendMessage("You are now a AoE mage."));
+				stoner.send(new SendRemoveInterfaces());
+			}
+		));
+	}
+
+	public static void openAdvanceInterface(Stoner stoner) {
+		Advance.update(stoner);
+		stoner.send(new SendInterface(51000));
+	}
+
+	public static void rechargeNecromance(Stoner stoner) {
+		if (stoner.getProfession().getGrades()[Professions.NECROMANCE] < stoner.getMaxGrades()[Professions.NECROMANCE]) {
+			stoner.getProfession().setGrade(Professions.NECROMANCE, stoner.getMaxGrades()[Professions.NECROMANCE]);
+			stoner.getClient().queueOutgoingPacket(new SendMessage("You recharge your necromance points."));
+			stoner.getUpdateFlags().sendAnimation(new Animation(5864));
+		} else {
+			stoner.getClient().queueOutgoingPacket(new SendMessage("Your necromance is already full."));
+		}
+	}
+
+	public static void handleSkulling(Stoner stoner) {
+		if (stoner.getSkulling().isSkulled()) {
+			DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You already have a wilderness skull!");
+		} else {
+			stoner.getSkulling().skull(stoner, stoner);
+			DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You have been skulled.");
+			stoner.getUpdateFlags().sendAnimation(new Animation(5315));
+			stoner.getUpdateFlags().sendGraphic(new Graphic(1061));
+		}
+	}
+
+	public static void showOnlineStoners(Stoner stoner) {
+		StonersOnline.showStoners(stoner, p -> true);
+	}
+
+	public static void updateAppearance(Stoner stoner) {
+		stoner.setAppearanceUpdateRequired(true);
+		stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
+	}
+
+	public static void handleSpecialAttackRestore(Stoner stoner) {
+		if (stoner.getSpecialAssault().getAmount() != 100) {
+			stoner.send(new SendMessage("You lack a bit of spec man."));
+			return;
+		}
+
+		stoner.getUpdateFlags().sendAnimation(new Animation(1056));
+		stoner.getUpdateFlags().sendGraphic(new Graphic(246));
+		stoner.getSpecialAssault().deduct(100);
+		stoner.getSpecialAssault().update();
+		stoner.getSpecialAssault().setInitialized(false);
+
+		// Update profession grades
+		stoner.getGrades()[Professions.ASSAULT] = (short) (stoner.getMaxGrades()[Professions.ASSAULT] * 0.9);
+		stoner.getGrades()[Professions.AEGIS] = (short) (stoner.getMaxGrades()[Professions.AEGIS] * 0.9);
+		stoner.getGrades()[Professions.SAGITTARIUS] = (short) (stoner.getMaxGrades()[Professions.SAGITTARIUS] * 0.9);
+		stoner.getGrades()[Professions.MAGE] = (short) (stoner.getMaxGrades()[Professions.MAGE] * 0.9);
+		stoner.getGrades()[Professions.VIGOUR] = (short) (stoner.getMaxGrades()[Professions.VIGOUR] * 1.2);
+
+		// Update profession displays
+		stoner.getProfession().update(Professions.ASSAULT);
+		stoner.getProfession().update(Professions.AEGIS);
+		stoner.getProfession().update(Professions.SAGITTARIUS);
+		stoner.getProfession().update(Professions.MAGE);
+		stoner.getProfession().update(Professions.VIGOUR);
+
+		stoner.getUpdateFlags().sendForceMessage("Raarrrrrgggggghhhhhhh!");
+	}
+
+	public static void displayItemsKeptOnDeath(Stoner stoner) {
+		int kept = 3;
+
+		if (stoner.getSkulling().isSkulled()) {
+			kept = 0;
+		}
+
+		if (stoner.getNecromance().active(Necromance.PROTECT_ITEM)) {
+			kept++;
+		}
+
+		Queue<Item> dropItems = new PriorityQueue<>(42);
+
+		// Add items from inventory and equipment
+		for (Item i : stoner.getBox().getItems()) {
+			if (i != null) {
+				dropItems.add(new Item(i.getId(), i.getAmount()));
+			}
+		}
+
+		for (Item i : stoner.getEquipment().getItems()) {
+			if (i != null) {
+				dropItems.add(new Item(i.getId(), i.getAmount()));
+			}
+		}
+
+		// Determine items to keep
+		Item[] toKeep = new Item[kept];
+		int keepIndex = 0;
+
+		for (int i = 0; i < kept; i++) {
+			Item keep = dropItems.poll();
+			if (keep != null) {
+				if (keep.getAmount() == 1) {
+					toKeep[keepIndex++] = keep;
+				} else {
+					keep.remove(1);
+					toKeep[keepIndex++] = new Item(keep.getId(), 1);
+				}
+			}
+		}
+
+		// Determine items to drop
+		Item[] toDrop = new Item[dropItems.size()];
+		int dropIndex = 0;
+		Item dropItem;
+
+		while ((dropItem = dropItems.poll()) != null) {
+			if (dropItem.getDefinition().isTradable() || !dropItem.getDefinition().isTradable() || ItemCheck.isItemDyedWhip(dropItem)) {
+				toDrop[dropIndex++] = dropItem;
+			}
+		}
+
+		// Clear interface strings
+		for (int i = 17109; i < 17131; i++) {
+			stoner.send(new SendString("", i));
+		}
+
+		// Set up interface text
+		setupDeathInterfaceText(stoner, kept);
+
+		// Calculate wealth
+		BigInteger carrying = stoner.getBox().getContainerNet().add(stoner.getEquipment().getContainerNet());
+		BigInteger risked = calculateRiskedWealth(toDrop);
+
+		// Display wealth information
+		stoner.send(new SendString("Carried wealth:", 17121));
+		stoner.send(new SendString(carrying.equals(BigInteger.ZERO) ? "@red@Nothing!" :
+			"@red@" + NumberFormat.getNumberInstance(Locale.US).format(carrying) + "</col> bestbucks.", 17122));
+
+		stoner.send(new SendString("Risked wealth:", 17124));
+		stoner.send(new SendString(risked.equals(BigInteger.ZERO) ? "@red@Nothing!" :
+			"@red@" + NumberFormat.getNumberInstance(Locale.US).format(risked) + "</col> bestbucks.", 17125));
+
+		// Update interface
+		stoner.send(new SendUpdateItems(10494, toKeep));
+		stoner.send(new SendUpdateItems(10600, toDrop));
+		stoner.send(new SendInterface(17100));
+	}
+
+	private static void setupDeathInterfaceText(Stoner stoner, int kept) {
+		stoner.send(new SendString("Items you will keep on death:", 17104));
+		stoner.send(new SendString("Items you will lose on death:", 17105));
+		stoner.send(new SendString("Stoner Information", 17106));
+		stoner.send(new SendString("Max items kept on death:", 17107));
+		stoner.send(new SendString("~ " + kept + " ~", 17108));
+
+		switch (kept) {
+			case 0 -> {
+				stoner.send(new SendString("You're marked with a", 17111));
+				stoner.send(new SendString("@red@skull. @lre@This reduces the", 17112));
+				stoner.send(new SendString("items you keep from", 17113));
+				stoner.send(new SendString("three to zero!", 17114));
+			}
+			case 1 -> {
+				stoner.send(new SendString("You're marked with a", 17111));
+				stoner.send(new SendString("@red@skull. @lre@This reduces the", 17112));
+				stoner.send(new SendString("items you keep from", 17113));
+				stoner.send(new SendString("three to zero!", 17114));
+				stoner.send(new SendString("However, you also have", 17115));
+				stoner.send(new SendString("the @red@Protect @lre@Items necromance", 17116));
+				stoner.send(new SendString("active, which saves you", 17117));
+				stoner.send(new SendString("one extra item!", 17118));
+			}
+			case 3 -> {
+				stoner.send(new SendString("You have no factors", 17111));
+				stoner.send(new SendString("affecting the items you", 17112));
+				stoner.send(new SendString("keep.", 17113));
+			}
+			case 4 -> {
+				stoner.send(new SendString("You have the @red@Protect", 17111));
+				stoner.send(new SendString("@red@Item @lre@necromance active,", 17112));
+				stoner.send(new SendString("which saves you one", 17113));
+				stoner.send(new SendString("extra item!", 17114));
+			}
+		}
+	}
+
+	private static BigInteger calculateRiskedWealth(Item[] toDrop) {
+		BigInteger risked = BigInteger.ZERO;
+		for (Item dropping : toDrop) {
+			if (dropping == null || dropping.getDefinition() == null) {
+				continue;
+			}
+			risked = risked.add(
+				new BigInteger(String.valueOf(dropping.getDefinition().getGeneralPrice()))
+					.multiply(new BigInteger(String.valueOf(dropping.getAmount())))
+			);
+		}
+		return risked;
+	}
+
+	@Override
+	public int getMaxDuplicates() {
+		return 5;
+	}
+
+	@Override
+	public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
+		int buttonId = parseButtonId(in);
+
+		// Early exit conditions
+		if (shouldIgnoreClick(stoner)) {
+			return;
+		}
+
+		// Debug logging for developers
+		logButtonClick(stoner, buttonId);
+
+		// CRITICAL DEBUG: Check if this is a shop button
+		if (SHOP_ACTIONS.containsKey(buttonId)) {
+			if (StonerConstants.isOwner(stoner)) {
+				System.out.println("DEBUG: Button " + buttonId + " is a SHOP BUTTON - should be handled!");
+			}
+		}
+
+		// Handle special cases first
+		if (handleSpecialCases(stoner, buttonId)) {
+			if (StonerConstants.isOwner(stoner)) {
+				System.out.println("DEBUG: Button " + buttonId + " handled by special cases");
+			}
+			return;
+		}
+
+		// Handle mapped button actions (from static map)
+		ButtonHandler handler = BUTTON_HANDLERS.get(buttonId);
+		if (handler != null) {
+			if (StonerConstants.isOwner(stoner)) {
+				System.out.println("DEBUG: Button " + buttonId + " handled by static handler");
+			}
+			handler.handle(stoner);
+			return;
+		} else {
+			if (StonerConstants.isOwner(stoner) && SHOP_ACTIONS.containsKey(buttonId)) {
+				System.out.println("DEBUG: Shop button " + buttonId + " NOT found in BUTTON_HANDLERS - this is the problem!");
+			}
+		}
+
+		// Handle shop interfaces FIRST (before complex cases)
+		if (handleShopInterfaces(stoner, buttonId)) {
+			if (StonerConstants.isOwner(stoner)) {
+				System.out.println("DEBUG: Button " + buttonId + " handled by shop interfaces");
+			}
+			return;
+		}
+
+		// Handle teleport locations
+		if (handleTeleportLocations(stoner, buttonId)) {
+			if (StonerConstants.isOwner(stoner)) {
+				System.out.println("DEBUG: Button " + buttonId + " handled by teleport locations");
+			}
+			return;
+		}
+
+		// Handle profile leaderboards
+		if (handleProfileLeaderboards(stoner, buttonId)) {
+			if (StonerConstants.isOwner(stoner)) {
+				System.out.println("DEBUG: Button " + buttonId + " handled by profile leaderboards");
+			}
+			return;
+		}
+
+		// Handle complex cases that require additional logic
+		if (handleComplexCases(stoner, buttonId)) {
+			if (StonerConstants.isOwner(stoner)) {
+				System.out.println("DEBUG: Button " + buttonId + " handled by complex cases");
+			}
+			return;
+		}
+
+		// CRITICAL DEBUG: If we reach here with a shop button, something is wrong
+		if (SHOP_ACTIONS.containsKey(buttonId)) {
+			if (StonerConstants.isOwner(stoner)) {
+				System.out.println("ERROR: Shop button " + buttonId + " reached default cases - THIS SHOULD NOT HAPPEN!");
+			}
+		}
+
+		// Handle default cases (plugins, etc.) LAST
+		if (StonerConstants.isOwner(stoner)) {
+			if (buttonId == 50001){
+				System.out.println("DEBUG: Button " + buttonId + " Blocked from falling through!");
+				return;
+			}
+			System.out.println("DEBUG: Button " + buttonId + " falling through to default cases");
+		}
+		handleDefaultCases(stoner, buttonId);
+	}
+
+	private int parseButtonId(StreamBuffer.InBuffer in) {
+		int buttonId = in.readShort();
+		in.reset();
+		return Utility.hexToInt(in.readBytes(2));
+	}
+
+	private boolean shouldIgnoreClick(Stoner stoner) {
+		return stoner.isStunned() ||
+			stoner.getNecromance().clickButton(0) || // Assuming this method checks internally
+			(stoner.isDead() && !stoner.getController().canClick()) ||
+			StonerConstants.isSettingAppearance(stoner);
+	}
+
+	private void logButtonClick(Stoner stoner, int buttonId) {
+		if (StonerConstants.isOwner(stoner)) {
+			stoner.getClient().queueOutgoingPacket(new SendMessage("@red@Developer - button: " + buttonId));
+			System.out.println("button: " + buttonId);
+		}
+	}
+
+	private boolean handleSpecialCases(Stoner stoner, int buttonId) {
+		// Handle drop table search
+		if (handleDropTableSearch(stoner, buttonId)) return true;
+
+		// Handle report system
+		if (handleReportSystem(stoner, buttonId)) return true;
+
+		// Handle tutorial
+		if (handleTutorial(stoner, buttonId)) return true;
+
+		// Handle easter ring
+		if (handleEasterRing(stoner, buttonId)) return true;
+
+		// Handle various content systems
+		if (LoyaltyShop.handleButtons(stoner, buttonId)) return true;
+		if (StarterKit.handle(stoner, buttonId)) return true;
+		if (TeleportHandler.selection(stoner, buttonId)) return true;
+		if (ProfessionGoal.handle(stoner, buttonId)) return true;
+		return Advance.handleActionButtons(stoner, buttonId);
+	}
+
+	private boolean handleDropTableSearch(Stoner stoner, int buttonId) {
+		@SuppressWarnings("unchecked")
+		HashMap<Integer, Integer> searchButtons =
+			(HashMap<Integer, Integer>) stoner.getAttributes().get("DROPTABLE_SEARCH");
+
+		if (searchButtons != null && searchButtons.containsKey(buttonId)) {
+			DropTable.displayNpc(stoner, searchButtons.get(buttonId));
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleReportSystem(Stoner stoner, int buttonId) {
+		if (ReportData.get(buttonId) != null) {
+			stoner.reportClicked = buttonId;
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleTutorial(Stoner stoner, int buttonId) {
+		if (stoner.getController().equals(Tutorial.TUTORIAL_CONTROLLER) && stoner.getDialogue() != null) {
+			stoner.getDialogue().clickButton(buttonId);
+			return stoner.getInterfaceManager().getMain() != 51750;
+		}
+		return false;
+	}
+
+	private boolean handleEasterRing(Stoner stoner, int buttonId) {
+		if (stoner.getController().equals(EasterRing.EASTER_RING_CONTROLLER) && buttonId == 23132) {
+			EasterRing.cancel(stoner);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleComplexCases(Stoner stoner, int buttonId) {
+		// Handle volume controls
+		if (handleVolumeControls(stoner, buttonId)) return true;
+
+		// Handle brightness controls
+		if (handleBrightnessControls(stoner, buttonId)) return true;
+
+		// Handle special attacks
+		if (handleSpecialAttacks(stoner, buttonId)) return true;
+
+		// Handle interface navigation with parameters
+		return handleParameterizedInterfaceNavigation(stoner, buttonId);
+	}
+
+	private boolean handleVolumeControls(Stoner stoner, int buttonId) {
+		// Music volume controls
+		if (buttonId >= 3163 && buttonId <= 3166) {
+			byte volume = (byte) (3166 - buttonId);
+			stoner.setMusicVolume(volume);
+			stoner.getClient().queueOutgoingPacket(new SendConfig(168, volume));
+			return true;
+		}
+		// Sound volume controls
+		else if (buttonId >= 3174 && buttonId <= 3177) {
+			byte volume = (byte) (3177 - buttonId);
+			stoner.setSoundVolume(volume);
+			stoner.getClient().queueOutgoingPacket(new SendConfig(169, volume));
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleBrightnessControls(Stoner stoner, int buttonId) {
+		byte brightness = switch (buttonId) {
+			case 3138 -> 1;
+			case 3140 -> 2;
+			case 3142 -> 3;
+			case 3144 -> 4;
+			default -> -1;
+		};
+
+		if (brightness != -1) {
+			stoner.setScreenBrightness(brightness);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleSpecialAttacks(Stoner stoner, int buttonId) {
+		int[] specialAttackButtons = {29124, 29049, 29199, 29138, 48034, 155, 30108, 29238};
+
+		if (Arrays.stream(specialAttackButtons).anyMatch(id -> id == buttonId)) {
+			stoner.getSpecialAssault().clickSpecialButton(buttonId);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleTeleportLocations(Stoner stoner, int buttonId) {
+		Location location = TELEPORT_LOCATIONS.get(buttonId);
+		if (location != null) {
+			stoner.teleport(location);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleShopInterfaces(Stoner stoner, int buttonId) {
+		ShopAction shopAction = SHOP_ACTIONS.get(buttonId);
+		if (shopAction != null) {
+			stoner.send(new SendMessage("@gre@You have opened " + shopAction.message + "."));
+			stoner.getShopping().open(shopAction.shopId);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleProfileLeaderboards(Stoner stoner, int buttonId) {
+		String type = LEADERBOARD_TYPES.get(buttonId);
+		if (type != null) {
+			ProfileLeaderboard.open(stoner, type);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean handleParameterizedInterfaceNavigation(Stoner stoner, int buttonId) {
+		// Handle teleport interface navigation with consistent pattern
+		int[] teleportButtons = {238107, 242083, 246059, 250035, 254011, 240095};
+		if (Arrays.stream(teleportButtons).anyMatch(id -> id == buttonId)) {
+			TeleportHandler.teleport(stoner);
+			return true;
+		}
+
+		// Handle interface navigation buttons with common pattern
+		if (handleInterfaceNavigationGroup(stoner, buttonId,
+			new int[]{238077, 242053, 246029, 253237, 240065, 250005, 5227},
+			() -> {
+				InterfaceHandler.writeText(new TrainingInterface(stoner));
+				sendInterfaceWithDefaults(stoner, 61000, 61031, 61032, 61033, 61034);
+			})) return true;
+
+		if (handleInterfaceNavigationGroup(stoner, buttonId,
+			new int[]{238080, 242056, 246032, 253240, 240068, 250008},
+			() -> {
+				InterfaceHandler.writeText(new ProfessioningInterface(stoner));
+				sendInterfaceWithDefaults(stoner, 62000, 62031, 62032, 62033, 62034);
+			})) return true;
+
+		if (handleInterfaceNavigationGroup(stoner, buttonId,
+			new int[]{238083, 242059, 246035, 253243, 240071, 250011},
+			() -> {
+				InterfaceHandler.writeText(new PvPInterface(stoner));
+				sendInterfaceWithDefaults(stoner, 63000, 63031, 63032, 63033, 63034);
+			})) return true;
+
+		if (handleInterfaceNavigationGroup(stoner, buttonId,
+			new int[]{238086, 246038, 253246, 240074, 250014, 242062},
+			() -> {
+				InterfaceHandler.writeText(new BossInterface(stoner));
+				sendInterfaceWithDefaults(stoner, 64000, 64031, 64032, 64033, 64034);
+			})) return true;
+
+		if (handleInterfaceNavigationGroup(stoner, buttonId,
+			new int[]{238089, 253249, 246041, 240077, 250017, 242065},
+			() -> {
+				Utility.writeBuffer(stoner.getUsername());
+				InterfaceHandler.writeText(new MinigameInterface(stoner));
+				sendInterfaceWithDefaults(stoner, 65000, 65031, 65032, 65033, 65034);
+			})) return true;
+
+		return handleInterfaceNavigationGroup(stoner, buttonId,
+			new int[]{238092, 253252, 240080, 250020, 242068, 246044},
+			() -> {
+				InterfaceHandler.writeText(new OtherInterface(stoner));
+				sendInterfaceWithDefaults(stoner, 61500, 61531, 61532, 61533, 61534);
+			});
+	}
+
+	private boolean handleInterfaceNavigationGroup(Stoner stoner, int buttonId, int[] buttons, Runnable action) {
+		if (Arrays.stream(buttons).anyMatch(id -> id == buttonId)) {
+			action.run();
+			return true;
+		}
+		return false;
+	}
+
+	private void sendInterfaceWithDefaults(Stoner stoner, int interfaceId, int selectedId, int costId, int reqId, int otherId) {
+		stoner.send(new SendInterface(interfaceId));
+		stoner.send(new SendString("Selected: @red@None", selectedId));
+		stoner.send(new SendString("Cost: @red@Free", costId));
+		stoner.send(new SendString("Requirement: @red@None", reqId));
+		stoner.send(new SendString("Other: @red@None", otherId));
+	}
+
+	private void handleDefaultCases(Stoner stoner, int buttonId) {
+		// Handle plugin systems in order of priority
+		if (CreditHandler.handleClicking(stoner, buttonId)) return;
+		if (GenieLamp.handle(stoner, buttonId)) return;
+		if (GenieReset.handle(stoner, buttonId)) return;
+		if (AchievementButtons.handleButtons(stoner, buttonId)) return;
+		if (ProfessionsChat.handle(stoner, buttonId)) return;
+		if (stoner.getSummoning().click(buttonId)) return;
+		if (SummoningCreation.create(stoner, buttonId)) return;
+		if (stoner.getDialogue() != null && stoner.getDialogue().clickButton(buttonId)) return;
+		if (Autocast.clickButton(stoner, buttonId)) return;
+		if (Emotes.clickButton(stoner, buttonId)) return;
+		if (DuelingConstants.clickDuelButton(stoner, buttonId)) return;
+		if (stoner.getTrade().clickTradeButton(buttonId)) return;
+		if (stoner.getBank().clickButton(buttonId)) return;
+		if (stoner.getMage().clickMageButtons(buttonId)) return;
+		if (EquipmentConstants.clickAssaultStyleButtons(stoner, buttonId)) return;
+		if (ForgingConstants.clickSmeltSelection(stoner, buttonId)) return;
+		if (Woodcarving.SINGLETON.clickButton(stoner, buttonId)) return;
+		if (com.bestbudz.rs2.content.profession.handinessnew.Handiness.SINGLETON.clickButton(stoner, buttonId)) return;
+		if (Handiness.handleHandinessByButtons(stoner, buttonId)) return;
+		if (HideTanning.clickButton(stoner, buttonId)) return;
+		if (FoodieTask.handleFoodieByAmount(stoner, buttonId)) return;
+
+		handleTHChempistryButtons(stoner, buttonId);
+	}
+
+	private void handleTHChempistryButtons(Stoner stoner, int buttonId) {
+		if (stoner.getAttributes().get("thchempistryitem1") != null) {
+			Item item1 = (Item) stoner.getAttributes().get("thchempistryitem1");
+			Item item2 = (Item) stoner.getAttributes().get("thchempistryitem2");
+
+			if (item1.getId() == 227 || item2.getId() == 227) {
+				THChempistryUnfinishedPotionTask.handleTHChempistryButtons(stoner, buttonId);
+			} else {
+				THChempistryFinishedPotionTask.handleTHChempistryButtons(stoner, buttonId);
+			}
+		}
+	}
+
+	// Button handler interface for cleaner code organization
+	@FunctionalInterface
+	public interface ButtonHandler {
+		void handle(Stoner stoner);
+	}
+
+
+	// Helper class for shop actions
+	public static class ShopAction {
+		final int shopId;
+		final String message;
+
+		ShopAction(int shopId, String message) {
+			this.shopId = shopId;
+			this.message = message;
+		}
+	}
+}

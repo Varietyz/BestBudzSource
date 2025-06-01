@@ -15,7 +15,7 @@ import java.util.List;
 
 public class LoginDecoder extends ByteToMessageDecoder {
 
-	private static final int CLIENT_VERSION = 10;
+	private static final int CLIENT_VERSION = 420;
 	private static final SecureRandom secureRandom = new SecureRandom();
 
 	private static final int CONNECTED = 0;
@@ -125,7 +125,7 @@ public class LoginDecoder extends ByteToMessageDecoder {
 
 			in.readUnsignedByte(); // ignore
 			int clientVersion = in.readUnsignedShort();
-			int expectedVersion = 217 + CLIENT_VERSION;
+			int expectedVersion = CLIENT_VERSION;
 
 			if (clientVersion != expectedVersion) {
 				System.out.println("Invalid client version: " + clientVersion + " != " + expectedVersion);

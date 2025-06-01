@@ -141,10 +141,21 @@ public enum Woodcarving {
   }
 
   public boolean clickButton(Stoner stoner, int button) {
-    if (stoner.getAttributes().get(FLETCHABLE_KEY) == null) {
-      return false;
-    }
+	  Object attributeValue = stoner.getAttributes().get(FLETCHABLE_KEY);
 
+	  if (attributeValue == null) {
+		  return false;
+	  }
+
+	  // DEFENSIVE: Check the type before casting
+	  if (!(attributeValue instanceof Fletchable)) {
+		  System.out.println("🚨 ERROR: Expected Fletchable but found " + attributeValue.getClass().getSimpleName() +
+			  " with value: " + attributeValue + " for button: " + button);
+
+		  // Clean up the corrupted attribute
+		  stoner.getAttributes().remove(FLETCHABLE_KEY);
+		  return false;
+	  }
     Fletchable fletchable = (Fletchable) stoner.getAttributes().get(FLETCHABLE_KEY);
 
     switch (button) {

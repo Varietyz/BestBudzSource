@@ -39,23 +39,6 @@ public class TeleportHandler {
       }
     }
 
-    if (!stoner.isCreditUnlocked(CreditPurchase.FREE_TELEPORTS)) {
-      if (!stoner.payment(teleportation.getCost())) {
-        if (teleportation.getCost() != 0) {
-          return;
-        }
-      }
-      stoner.send(
-          new SendMessage(
-              teleportation.getCost() == 0
-                  ? "You paid @red@nothing</col> and were teleported!"
-                  : "You have paid @red@"
-                      + Utility.format(teleportation.getCost())
-                      + "</col> bestbucks and were teleported!"));
-    } else {
-      stoner.send(new SendMessage("@red@You have been teleported for free."));
-    }
-
     int height =
         teleportation.isInstanced() ? stoner.getIndex() << 2 : teleportation.getPosition().getZ();
 
@@ -225,7 +208,6 @@ public class TeleportHandler {
                 mob.getUpdateFlags().sendAnimation(new Animation(5071));
                 stoner.face(mob);
                 stoner.send(new SendMessage("Welcome to Zulrah's shrine."));
-                DialogueManager.sendStatement(stoner, "Welcome to Zulrah's shrine.");
                 stop();
               }
 
@@ -235,21 +217,9 @@ public class TeleportHandler {
         return true;
 
       case 240111:
-        if (StonerConstants.isStoner(stoner)) {
-          DialogueManager.sendNpcChat(
-              stoner,
-              5523,
-              Emotion.DEFAULT,
-              "You need to be a <img=4>@red@member </col>to do this!");
-          return false;
-        }
         return true;
 
       case 240112:
-        if (!StonerConstants.isStaff(stoner)) {
-          DialogueManager.sendStatement(stoner, "You are not privileged enough to do this!");
-          return false;
-        }
         return true;
     }
     return false;
@@ -272,7 +242,6 @@ public class TeleportHandler {
                     + Utility.formatStonerName(
                         teleportation.name().replaceAll("_", " ").toLowerCase()),
                 61031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 61032));
         stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 61033));
         stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 61034));
         break;
@@ -283,7 +252,6 @@ public class TeleportHandler {
                     + Utility.formatStonerName(
                         teleportation.name().replaceAll("_", " ").toLowerCase()),
                 62031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 62032));
         stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 62033));
         stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 62034));
         break;
@@ -294,7 +262,6 @@ public class TeleportHandler {
                     + Utility.formatStonerName(
                         teleportation.name().replaceAll("_", " ").toLowerCase()),
                 63031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 63032));
         stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 63033));
         stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 63034));
         break;

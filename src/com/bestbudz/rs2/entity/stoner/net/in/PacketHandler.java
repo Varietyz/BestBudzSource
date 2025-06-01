@@ -9,7 +9,7 @@ import com.bestbudz.rs2.entity.stoner.net.in.impl.BankModifiableX;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ChangeAppearancePacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ChangeRegionPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ChatInterfacePacket;
-import com.bestbudz.rs2.entity.stoner.net.in.impl.ClickButtonPacket;
+import com.bestbudz.rs2.entity.stoner.net.in.impl.clickbuttons.ClickButtonPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.CloseInterfacePacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.CommandPacket;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.DockPanelPacket;

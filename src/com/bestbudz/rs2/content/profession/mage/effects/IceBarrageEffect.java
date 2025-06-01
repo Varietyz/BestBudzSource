@@ -15,6 +15,6 @@ public class IceBarrageEffect implements CombatEffect {
       }
       p2.getClient().queueOutgoingPacket(new SendMessage("You have been frozen."));
     }
-    e.freeze(20, 5);
+    e.freeze(10, 8);
   }
 }

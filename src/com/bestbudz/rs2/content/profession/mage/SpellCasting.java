@@ -145,24 +145,26 @@ public class SpellCasting {
     }
   }
 
-  public void castCombatSpell(int castId, Entity other) {
-    if (castId == 12445 && other.isTeleblocked()) {
-      stoner
-          .getClient()
-          .queueOutgoingPacket(
-              new SendMessage("@dre@This stoner is already affected by this spell."));
-      return;
-    }
-    if (canCastSpell(castId)) {
-      this.castId = castId;
-      updateMageAssault();
-      stoner.updateCombatType();
-      stoner.getFollowing().setFollow(other, Following.FollowType.COMBAT);
-      stoner.getCombat().setAssaulting(other);
-    } else {
-      stoner.getCombat().reset();
-    }
-  }
+	public void castCombatSpell(int castId, Entity other) {
+		if (castId == 12445 && other.isTeleblocked()) {
+			stoner
+				.getClient()
+				.queueOutgoingPacket(
+					new SendMessage("@dre@This stoner is already affected by this spell."));
+			return;
+		}
+		if (canCastSpell(castId)) {
+			this.castId = castId;
+			this.autocastId = castId;  // ← Add this line to enable autocast
+			updateMageAssault();
+			stoner.updateCombatType();
+			//Autocast.resetAutoCastInterface(stoner);  // ← Add this to update the interface
+			stoner.getFollowing().setFollow(other, Following.FollowType.COMBAT);
+			stoner.getCombat().setAssaulting(other);
+		} else {
+			stoner.getCombat().reset();
+		}
+	}
 
   public Item[] createArray(Item[] items) {
     Item[] array = new Item[items.length];

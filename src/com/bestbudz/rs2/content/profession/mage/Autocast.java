@@ -11,9 +11,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 
 public class Autocast {
 
-  public static final int[] ANCIENT_STAFFS = {4675, 4710, 11791, 12904, 6914};
-  public static final int[] NO_AUTOCAST = {12899, 11907, 11908};
-
   public static boolean clickButton(Stoner stoner, int id) {
     switch (id) {
       case 1093:
@@ -149,50 +146,12 @@ public class Autocast {
   }
 
   public static void sendSelectionInterface(Stoner stoner, int weaponId) {
-    for (int i = 0; i < NO_AUTOCAST.length; i++) {
-      if (weaponId == NO_AUTOCAST[i]) {
-        stoner.send(new SendMessage("You can't autocast with this weapon!"));
-        return;
-      }
-    }
 
     switch (stoner.getMage().getSpellBookType()) {
       case ANCIENT:
-        boolean hasStaff = false;
-        for (int index = 0; index < ANCIENT_STAFFS.length; index++) {
-          if (stoner.getEquipment().isWearingItem(ANCIENT_STAFFS[index])) {
-            hasStaff = true;
-            break;
-          }
-        }
-
-        if (!hasStaff) {
-          if (stoner.getEquipment().getItems()[3] == null) {
-            return;
-          }
-
-          String def =
-              GameDefinitionLoader.getItemDef(stoner.getEquipment().getItems()[3].getId())
-                  .getName()
-                  .toLowerCase();
-
-          stoner.send(
-              new SendMessage(
-                  "You can't autocast ancient spells with "
-                      + Utility.getAOrAn(def)
-                      + " "
-                      + def
-                      + "."));
-          return;
-        }
-
         stoner.getClient().queueOutgoingPacket(new SendSidebarInterface(0, 1689));
         break;
       case MODERN:
-        if (stoner.getEquipment().isWearingItem(4675)) {
-          stoner.send(new SendMessage("You can't autocast normal spells with this staff!"));
-          return;
-        }
         stoner.getClient().queueOutgoingPacket(new SendSidebarInterface(0, 1829));
         break;
     }

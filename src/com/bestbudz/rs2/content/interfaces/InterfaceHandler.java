@@ -15,7 +15,7 @@ public abstract class InterfaceHandler {
 		int frame = handler.startingLine();
 		for (String line : handler.text()) {
 			handler.stoner.send(new SendString(line, frame++));
-			System.out.println("Sending text to frame " + frame + ": " + line);
+			//System.out.println("Sending text to frame " + frame + ": " + line);
 		}
 	}
 
