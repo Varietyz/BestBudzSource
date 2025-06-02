@@ -17,6 +17,7 @@ import com.bestbudz.rs2.content.MoneyPouch;
 import com.bestbudz.rs2.content.PriceChecker;
 import com.bestbudz.rs2.content.PrivateMessaging;
 import com.bestbudz.rs2.content.RunEnergy;
+import com.bestbudz.rs2.content.StarterKit;
 import com.bestbudz.rs2.content.StonerProperties;
 import com.bestbudz.rs2.content.StonerTitle;
 import com.bestbudz.rs2.content.achievements.AchievementList;
@@ -30,7 +31,6 @@ import com.bestbudz.rs2.content.combat.impl.Skulling;
 import com.bestbudz.rs2.content.combat.impl.SpecialAssault;
 import com.bestbudz.rs2.content.consumables.Consumables;
 import com.bestbudz.rs2.content.dialogue.Dialogue;
-import com.bestbudz.rs2.content.dialogue.impl.Tutorial;
 import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.CreditTab;
@@ -50,7 +50,7 @@ import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
 import com.bestbudz.rs2.content.pets.BossPets;
 import com.bestbudz.rs2.content.profession.Profession;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.cultivation.Cultivation;
+import com.bestbudz.rs2.content.profession.bankstanding.BankStanding;
 import com.bestbudz.rs2.content.profession.fisher.Fisher;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
@@ -238,7 +238,7 @@ public class Stoner extends Entity {
   private NecromanceBook necromance = new NecromanceBook(this);
   private Dialogue dialogue = null;
   private Controller controller = ControllerManager.DEFAULT_CONTROLLER;
-  private Cultivation cultivation = new Cultivation(this);
+  private BankStanding bankStanding = new BankStanding(this);
   private StonerTitle stonerTitle;
   private ToxicBlowpipe toxicBlowpipe = new ToxicBlowpipe(null, 0);
   private TridentOfTheSeas seasTrident = new TridentOfTheSeas(0);
@@ -389,12 +389,12 @@ public class Stoner extends Entity {
     this.lastRequestedLookup = lastRequestedLookup;
   }
 
-  public Cultivation getCultivation() {
-    return cultivation;
+  public BankStanding getBankStanding() {
+    return bankStanding;
   }
 
-  public void setCultivation(Cultivation cultivation) {
-    this.cultivation = cultivation;
+  public void setCultivation(BankStanding bankStanding) {
+    this.bankStanding = bankStanding;
   }
 
   public StonerTitle getStonerTitle() {
@@ -730,8 +730,6 @@ public class Stoner extends Entity {
   public void doFadeTeleport(final Location l, final boolean setController) {
     send(new SendInterface(18460));
 
-    setController(Tutorial.TUTORIAL_CONTROLLER);
-
     final Stoner stoner = this;
 
     TaskQueue.queue(
@@ -824,6 +822,8 @@ public class Stoner extends Entity {
     getCombat().process();
 
     doAgressionCheck();
+
+	  bankStanding.process();
   }
 
   @Override
@@ -1480,16 +1480,19 @@ public class Stoner extends Entity {
 
     send(new SendSidebarInterface(5, necromanceInterface));
 
-    if (starter) {
-      ChangeAppearancePacket.setToDefault(this);
+// Replace the starter section in Stoner.java with this:
 
-      this.start(new Tutorial(this));
+	  if (starter) {
+		  ChangeAppearancePacket.setToDefault(this);
 
-      if (lastLoginYear == 0) {
-        yearCreated = Utility.getYear();
-        dayCreated = Utility.getDayOfYear();
-      }
-    }
+		  // Give starter items automatically without any tutorial or interface
+		  StarterKit.giveStarterItems(this);
+
+		  if (lastLoginYear == 0) {
+			  yearCreated = Utility.getYear();
+			  dayCreated = Utility.getDayOfYear();
+		  }
+	  }
 
     if (!ChangeAppearancePacket.validate(this)) {
       ChangeAppearancePacket.setToDefault(this);
@@ -1538,20 +1541,6 @@ public class Stoner extends Entity {
     send(new SendConfig(876, 0));
     send(new SendConfig(1032, profilePrivacy ? 1 : 2));
 
-    cultivation.doCalculations();
-    cultivation.getAllotment().updateAllotmentsStates();
-    cultivation.getWeeds().updateWeedsStates();
-    cultivation.getTrees().updateTreeStates();
-    cultivation.getFruitTrees().updateFruitTreeStates();
-    cultivation.getFlowers().updateFlowerStates();
-    cultivation.getSpecialPlantOne().updateSpecialPlants();
-    cultivation.getSpecialPlantTwo().updateSpecialPlants();
-    cultivation.getHops().updateHopsStates();
-    cultivation.getBushes().updateBushesStates();
-
-    for (int i = 0; i < 4; i++) {
-      cultivation.getCompost().updateCompostBin(i);
-    }
 
     send(new SendExpCounter(0, 0));
 
@@ -1612,6 +1601,8 @@ public class Stoner extends Entity {
 
 	public void logout(boolean force) {
     if (isActive()) {
+		bankStanding.forceStop();
+		bankStanding.cleanup();
       if (force) {
         ControllerManager.onForceLogout(this);
 
@@ -1768,6 +1759,7 @@ public class Stoner extends Entity {
     getLocation().setAs(location);
     setResetMovementQueue(true);
     setNeedsPlacement(true);
+	  bankStanding.forceStop();
     movementHandler
         .getLastLocation()
         .setAs(new Location(getLocation().getX(), getLocation().getY() + 1));

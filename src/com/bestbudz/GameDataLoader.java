@@ -43,7 +43,7 @@ import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.quarrying.Quarrying;
 import com.bestbudz.rs2.content.profession.sagittarius.AmmoData;
-import com.bestbudz.rs2.content.profession.cultivation.Cultivation;
+import com.bestbudz.rs2.content.profession.bankstanding.BankStanding;
 import com.bestbudz.rs2.content.profession.woodcarving.fletchable.impl.Arrow;
 import com.bestbudz.rs2.content.profession.woodcarving.fletchable.impl.Bolt;
 import com.bestbudz.rs2.content.profession.woodcarving.fletchable.impl.Carvable;
@@ -127,7 +127,7 @@ public class GameDataLoader {
       Spinnable.declare();
       com.bestbudz.rs2.content.profession.handinessnew.craftable.impl.Gem.declare();
       Hide.declare();
-      Cultivation.declare();
+      BankStanding.declare();
       Shop.declare();
       MageConstants.declare();
       MercenaryMonsters.declare();

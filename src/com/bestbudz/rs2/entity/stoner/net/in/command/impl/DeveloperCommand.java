@@ -293,7 +293,7 @@ public class DeveloperCommand implements Command {
         return true;
 
       case "starter":
-        StarterKit.handle(stoner, 202051);
+        StarterKit.giveStarterItems(stoner);
         return true;
 
       case "clue":

@@ -261,6 +261,59 @@ public final class ObjectDef {
         class46.hasActions = true;
         break;
 
+		case 2097:
+			class46.name = "Anvil";
+			class46.description = "It's a solid iron block hammer thingy.".getBytes();
+			class46.actions = new String[5];
+			class46.actions[0] = "Hammer";
+			class46.hasActions = true;
+			break;
+
+		case 2030:
+			class46.name = "Forge";
+			class46.description = "Wondering if i could get my blunt lit here..".getBytes();
+			class46.hasActions = true;
+			break;
+
+		case 26181:
+			class46.name = "Stove";
+			class46.description = "Looks like someone attempted to cook meth on this stove.".getBytes();
+			class46.actions = new String[5];
+			class46.actions[0] = "Cook";
+			class46.hasActions = true;
+			break;
+
+		case 10377:
+			class46.name = "Giant's Glory Hole";
+			class46.description = "HOLY FUCK! There is a lot a semen in there!.".getBytes();
+			break;
+
+		case 10379:
+			class46.name = "Weed Stash";
+			class46.description = "You sniff the boxes & It's Cheese Haze!".getBytes();
+			break;
+
+		case 10380:
+			class46.name = "Trim Waste";
+			class46.description = "Boxes filled with trimmed cannabis leaves and branches.".getBytes();
+			break;
+
+		case 14854:
+		case 14855:
+		case 14856:
+			class46.name = "Fancy Rocks";
+			class46.description = "There are tons of gems in these rocks.".getBytes();
+			class46.hasActions = true;
+			break;
+
+		case 14901:
+			class46.name = "Fire Essence";
+			class46.description = "It compels you to keep burning wood, but it also pays you!.".getBytes();
+			class46.actions = new String[5];
+			class46.actions[0] = "Offer to";
+			class46.hasActions = true;
+			break;
+
       case 9472:
       case 9371:
         class46.name = "Stoner Market";

@@ -42,6 +42,7 @@ import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
 import com.bestbudz.rs2.content.profession.thchempistry.SuperCombatPotion;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryGrindingTask;
+import com.bestbudz.rs2.content.profession.thchempistry.THChempistryMasterProcessor;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
 import com.bestbudz.rs2.content.profession.weedsmoking.Weedsmoker;
 import com.bestbudz.rs2.content.profession.woodcarving.Woodcarving;
@@ -724,25 +725,15 @@ public class ItemPackets extends IncomingPacket {
           return;
         }
 
-        if ((usedWith.getId() == 227) || (itemUsed.getId() == 227)) {
-          THChempistryUnfinishedPotionTask.displayInterface(stoner, itemUsed, usedWith);
-        } else if (!THChempistryFinishedPotionTask.displayInterface(stoner, itemUsed, usedWith)) {
-          if ((usedWith.getId() == 233) || (itemUsed.getId() == 233)) {
-            THChempistryGrindingTask.handleGrindingIngredients(stoner, itemUsed, usedWith);
-          } else {
-            if ((usedWith.getId() == 1785) || (itemUsed.getId() == 1785)) {
-              if ((usedWith.getId() == 1785) && (itemUsed.getId() == 1775))
-                stoner.getClient().queueOutgoingPacket(new SendInterface(11462));
-              else if ((itemUsed.getId() == 1785) && (usedWith.getId() == 1775)) {
-                stoner.getClient().queueOutgoingPacket(new SendInterface(11462));
-              }
-            }
+// Replace the entire THC-hempistry block with this:
+		  if (THChempistryMasterProcessor.SINGLETON.handleItemOnItem(stoner, itemUsed, usedWith)) {
+			  return;
+		  }
 
-            if (PotionDecanting.decant(stoner, firstSlot, secondSlot)) {
-              return;
-            }
-          }
-        }
+// Keep the potion decanting at the end:
+		  if (PotionDecanting.decant(stoner, firstSlot, secondSlot)) {
+			  return;
+		  }
 
         break;
       case 25:

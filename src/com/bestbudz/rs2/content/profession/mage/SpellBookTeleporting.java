@@ -56,7 +56,7 @@ public final class SpellBookTeleporting {
   }
 
   enum TeleportationData {
-    HOME_TELEPORT(3434, 2890, 75010, 1, new int[] {AIR_RUNE, 3, FIRE_RUNE, 1, LAW_RUNE, 1}),
+    HOME_TELEPORT(3443, 2915, 75010, 1, new int[] {AIR_RUNE, 3, FIRE_RUNE, 1, LAW_RUNE, 1}),
 
     VARROCK(3210, 3424, 4140, 25, new int[] {AIR_RUNE, 3, FIRE_RUNE, 1, LAW_RUNE, 1}),
 
@@ -72,7 +72,7 @@ public final class SpellBookTeleporting {
 
     TROLLHEIM(3243, 3513, 29031, 61, new int[] {FIRE_RUNE, 2, LAW_RUNE, 2, LAW_RUNE, 2}),
 
-    HOME_TELEPORT_ANCIENT(3434, 2890, 84237, 1, new int[] {AIR_RUNE, 3, FIRE_RUNE, 1, LAW_RUNE, 1}),
+    HOME_TELEPORT_ANCIENT(3443, 2915, 84237, 1, new int[] {AIR_RUNE, 3, FIRE_RUNE, 1, LAW_RUNE, 1}),
 
     PADDEWWA(3097, 9882, 50235, 54, new int[] {AIR_RUNE, 1, FIRE_RUNE, 1, LAW_RUNE, 2}),
 

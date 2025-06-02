@@ -15,460 +15,335 @@ import com.bestbudz.rs2.content.profession.handinessnew.craftable.CraftableItem;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendChatBoxInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendItemOnInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum Handiness {
-  SINGLETON;
+	SINGLETON;
 
-  public static final String CRAFTABLE_KEY = "CRAFTABLE_KEY";
+	private final HashMap<Integer, Craftable> CRAFTABLES = new HashMap<>();
 
-  private final HashMap<Integer, Craftable> CRAFTABLES = new HashMap<>();
+	/**
+	 * Handles item on item interactions - automatically crafts all eligible items
+	 */
+	public boolean itemOnItem(Stoner stoner, Item use, Item with) {
+		if (stoner.getProfession().locked()) {
+			return false;
+		}
 
-  public boolean itemOnItem(Stoner stoner, Item use, Item with) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
+		// Special case for needle and thread
+		if (isNeedleAndThread(use, with)) {
+			stoner.send(new SendMessage("@red@This combination requires the old crafting interface."));
+			return true;
+		}
 
-    if ((use.getId() == 1733 && with.getId() == 1741)
-        || (use.getId() == 1741 && with.getId() == 1733)) {
-      stoner.getClient().queueOutgoingPacket(new SendInterface(2311));
-      return true;
-    }
-    if (!stoner.getEquipment().isWearingItem(6575)) {
-      DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-      return false;
-    }
-    final Craftable craftable = getCraftable(use.getId(), with.getId());
+		// Check if player has tool ring equipped
+		if (!stoner.getEquipment().isWearingItem(6575)) {
+			DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
+			return false;
+		}
 
-    if (craftable == null) {
-      return false;
-    }
+		final Craftable craftable = getCraftable(use.getId(), with.getId());
+		if (craftable == null) {
+			return false;
+		}
 
-    switch (craftable.getCraftableItems().length) {
-      case 1:
-        stoner.getAttributes().set(CRAFTABLE_KEY, craftable);
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    + craftable.getCraftableItems()[0].getProduct().getDefinition().getName(),
-                2799));
-        stoner.send(
-            new SendItemOnInterface(
-                1746, 170, craftable.getCraftableItems()[0].getProduct().getId()));
-        stoner.send(new SendChatBoxInterface(4429));
-        return true;
+		// For gem cutting, find all available gems in inventory
+		if ("Gem".equals(craftable.getName())) {
+			return autoCraftAllAvailableGems(stoner);
+		}
 
-      case 2:
-        stoner.getAttributes().set(CRAFTABLE_KEY, craftable);
-        stoner.send(
-            new SendItemOnInterface(
-                8869, 170, craftable.getCraftableItems()[0].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8870, 170, craftable.getCraftableItems()[1].getProduct().getId()));
+		// Auto-craft all eligible items for other craftables
+		return autoCraftAll(stoner, craftable);
+	}
 
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n "
-                    .concat(
-                        craftable
-                            .getCraftableItems()[0]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8874));
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n "
-                    .concat(
-                        craftable
-                            .getCraftableItems()[1]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8878));
+	/**
+	 * Automatically crafts all items the player can make with available resources
+	 */
+	private boolean autoCraftAll(Stoner stoner, Craftable craftable) {
+		List<Integer> eligibleItems = new ArrayList<>();
 
-        stoner.send(new SendChatBoxInterface(8866));
-        return true;
+		// Add all craftable items (no grade requirement check)
+		for (int i = 0; i < craftable.getCraftableItems().length; i++) {
+			eligibleItems.add(i);
+		}
 
-      case 3:
-        stoner.getAttributes().set(CRAFTABLE_KEY, craftable);
-        stoner.send(
-            new SendItemOnInterface(
-                8883, 170, craftable.getCraftableItems()[0].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8884, 170, craftable.getCraftableItems()[1].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8885, 170, craftable.getCraftableItems()[2].getProduct().getId()));
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    .concat(
-                        craftable
-                            .getCraftableItems()[0]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8889));
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    .concat(
-                        craftable
-                            .getCraftableItems()[1]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8893));
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    .concat(
-                        craftable
-                            .getCraftableItems()[2]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8897));
-        stoner.send(new SendChatBoxInterface(8880));
-        return true;
+		if (eligibleItems.isEmpty()) {
+			stoner.send(new SendMessage("@red@No craftable items found."));
+			return true;
+		}
 
-      case 4:
-        stoner.getAttributes().set(CRAFTABLE_KEY, craftable);
-        stoner.send(
-            new SendItemOnInterface(
-                8902, 170, craftable.getCraftableItems()[0].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8903, 170, craftable.getCraftableItems()[1].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8904, 170, craftable.getCraftableItems()[2].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8905, 170, craftable.getCraftableItems()[3].getProduct().getId()));
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    .concat(
-                        craftable
-                            .getCraftableItems()[0]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8909));
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    .concat(
-                        craftable
-                            .getCraftableItems()[1]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8913));
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    .concat(
-                        craftable
-                            .getCraftableItems()[2]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8917));
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    .concat(
-                        craftable
-                            .getCraftableItems()[3]
-                            .getProduct()
-                            .getDefinition()
-                            .getName()
-                            .replace("d'hide ", "")),
-                8921));
-        stoner.send(new SendChatBoxInterface(8899));
-        return true;
+		// Start continuous crafting
+		startContinuousCrafting(stoner, craftable, eligibleItems);
+		return true;
+	}
 
-      case 5:
-        stoner.getAttributes().set(CRAFTABLE_KEY, craftable);
-        stoner.send(
-            new SendItemOnInterface(
-                8941, 170, craftable.getCraftableItems()[0].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8942, 170, craftable.getCraftableItems()[1].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8943, 170, craftable.getCraftableItems()[2].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8944, 170, craftable.getCraftableItems()[3].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8945, 170, craftable.getCraftableItems()[4].getProduct().getId()));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Body"), 8949));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Chaps"), 8953));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Vambraces"), 8957));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Bandana"), 8961));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Boots"), 8965));
-        stoner.send(new SendChatBoxInterface(8938));
-        return true;
+	/**
+	 * Starts continuous crafting for all eligible items
+	 */
+	private void startContinuousCrafting(Stoner stoner, Craftable craftable, List<Integer> eligibleItems) {
+		stoner.send(new SendMessage("@gre@Auto-crafting started - will craft until materials run out..."));
 
-      default:
-        return false;
-    }
-  }
+		TaskQueue.queue(new ContinuousCraftingTask(stoner, craftable, eligibleItems));
+	}
 
-  public boolean craft(Stoner stoner, int index, int amount) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
+	/**
+	 * Automatically finds and crafts all available gems in inventory
+	 */
+	private boolean autoCraftAllAvailableGems(Stoner stoner) {
+		// List of all gem item IDs that can be cut
+		int[] gemIds = {1625, 1627, 1629, 1623, 1621, 1619, 1617, 1631, 6571};
+		List<Craftable> availableGemCraftables = new ArrayList<>();
 
-    Craftable craftable = (Craftable) stoner.getAttributes().get(CRAFTABLE_KEY);
+		// Find all gems in inventory and their corresponding craftables
+		for (int gemId : gemIds) {
+			if (stoner.getBox().contains(new Item(gemId))) {
+				Craftable gemCraftable = getCraftable(1755, gemId); // 1755 is chisel
+				if (gemCraftable != null) {
+					availableGemCraftables.add(gemCraftable);
+				}
+			}
+		}
 
-    if (craftable == null) {
-      return false;
-    }
+		if (availableGemCraftables.isEmpty()) {
+			stoner.send(new SendMessage("@red@No gems found in inventory to cut."));
+			return true;
+		}
 
-    return start(stoner, craftable, index, amount);
-  }
+		// Start multi-gem crafting
+		startMultiGemCrafting(stoner, availableGemCraftables);
+		return true;
+	}
 
-  public void addCraftable(Craftable craftable) {
-    if (CRAFTABLES.put(craftable.getWith().getId(), craftable) != null) {
-      System.out.println(
-          "[Handiness] Conflicting item values: "
-              + craftable.getWith().getId()
-              + " Type: "
-              + craftable.getName());
-    }
-  }
+	/**
+	 * Starts crafting for multiple gem types
+	 */
+	private void startMultiGemCrafting(Stoner stoner, List<Craftable> gemCraftables) {
+		stoner.send(new SendMessage("@gre@Auto gem-cutting started - found " + gemCraftables.size() + " gem types!"));
+		TaskQueue.queue(new MultiGemCraftingTask(stoner, gemCraftables));
+	}
+	private boolean isNeedleAndThread(Item use, Item with) {
+		return (use.getId() == 1733 && with.getId() == 1741) ||
+			(use.getId() == 1741 && with.getId() == 1733);
+	}
 
-  public Craftable getCraftable(int use, int with) {
-    return CRAFTABLES.get(use) == null ? CRAFTABLES.get(with) : CRAFTABLES.get(use);
-  }
+	/**
+	 * Easy method to add new craftables
+	 */
+	public void registerCraftable(Craftable craftable) {
+		if (CRAFTABLES.put(craftable.getWith().getId(), craftable) != null) {
+			System.out.println(
+				"[Handiness] Warning: Overriding existing craftable for item ID: "
+					+ craftable.getWith().getId() + " (" + craftable.getName() + ")");
+		} else {
+			System.out.println(
+				"[Handiness] Registered craftable: " + craftable.getName()
+					+ " (Item ID: " + craftable.getWith().getId() + ")");
+		}
+	}
 
-  public boolean clickButton(Stoner stoner, int button) {
-    if (stoner.getAttributes().get(CRAFTABLE_KEY) == null) {
-      return false;
-    }
+	/**
+	 * Easy method to add multiple craftables at once
+	 */
+	public void registerCraftables(Craftable... craftables) {
+		for (Craftable craftable : craftables) {
+			registerCraftable(craftable);
+		}
+	}
 
-    Craftable craftable = (Craftable) stoner.getAttributes().get(CRAFTABLE_KEY);
+	/**
+	 * Get craftable by item combination
+	 */
+	public Craftable getCraftable(int use, int with) {
+		return CRAFTABLES.get(use) == null ? CRAFTABLES.get(with) : CRAFTABLES.get(use);
+	}
 
-    switch (button) {
-      case 6211:
-        start(stoner, craftable, 0, stoner.getBox().getItemAmount(craftable.getWith().getId()));
-        return true;
-      case 34205:
-      case 34185:
-      case 34170:
-      case 10239:
-      case 34245:
-        start(stoner, craftable, 0, 1);
-        return true;
-      case 34204:
-      case 34184:
-      case 34169:
-      case 10238:
-      case 34244:
-        start(stoner, craftable, 0, 5);
-        return true;
-      case 34203:
-      case 34183:
-      case 34168:
-      case 34243:
-        start(stoner, craftable, 0, 10);
-        return true;
-      case 34202:
-      case 34182:
-      case 34167:
-      case 6212:
-      case 34242:
-        start(stoner, craftable, 0, 250);
-        return true;
-      case 34209:
-      case 34189:
-      case 34174:
-      case 34249:
-        start(stoner, craftable, 1, 1);
-        return true;
-      case 34208:
-      case 34188:
-      case 34173:
-      case 34248:
-        start(stoner, craftable, 1, 5);
-        return true;
-      case 34207:
-      case 34187:
-      case 34172:
-      case 34247:
-        start(stoner, craftable, 1, 10);
-        return true;
-      case 34206:
-      case 34186:
-      case 34171:
-      case 34246:
-        start(stoner, craftable, 1, 250);
-        return true;
-      case 34213:
-      case 34193:
-      case 34253:
-        start(stoner, craftable, 2, 1);
-        return true;
-      case 34212:
-      case 34192:
-      case 34252:
-        start(stoner, craftable, 2, 5);
-        return true;
-      case 34211:
-      case 34191:
-      case 34251:
-        start(stoner, craftable, 2, 10);
-        return true;
-      case 34210:
-      case 34190:
-      case 34250:
-        start(stoner, craftable, 2, 250);
-        return true;
-      case 34217:
-      case 35001:
-        start(stoner, craftable, 3, 1);
-        return true;
-      case 34216:
-      case 35000:
-        start(stoner, craftable, 3, 5);
-        return true;
-      case 34215:
-      case 34255:
-        start(stoner, craftable, 3, 10);
-        return true;
-      case 34214:
-      case 34254:
-        start(stoner, craftable, 3, 250);
-        return true;
-      case 35005:
-        start(stoner, craftable, 4, 1);
-        return true;
-      case 35004:
-        start(stoner, craftable, 4, 5);
-        return true;
-      case 35003:
-        start(stoner, craftable, 4, 10);
-        return true;
-      case 35002:
-        start(stoner, craftable, 4, 250);
-        return true;
+	/**
+	 * Legacy method for manual crafting (kept for compatibility)
+	 */
+	public void addCraftable(Craftable craftable) {
+		registerCraftable(craftable);
+	}
 
-      default:
-        return false;
-    }
-  }
+	/**
+	 * Inner class to represent eligible items (simplified)
+	 */
+	private static class EligibleItem {
+		final int index;
+		final CraftableItem item;
 
-  public boolean start(Stoner stoner, Craftable craftable, int index, int amount) {
-    if (craftable == null) {
-      return false;
-    }
+		EligibleItem(int index, CraftableItem item) {
+			this.index = index;
+			this.item = item;
+		}
+	}
 
-    stoner.getAttributes().remove(CRAFTABLE_KEY);
+	/**
+	 * Multi-gem crafting task that cycles through all available gem types
+	 */
+	private static class MultiGemCraftingTask extends Task {
+		private final Stoner stoner;
+		private final List<Craftable> gemCraftables;
+		private int currentGemIndex = 0;
 
-    CraftableItem item = craftable.getCraftableItems()[index];
+		public MultiGemCraftingTask(Stoner stoner, List<Craftable> gemCraftables) {
+			super(stoner, 2, true, StackType.NEVER_STACK, BreakType.ON_MOVE, TaskIdentifier.PROFESSION_CREATING);
+			this.stoner = stoner;
+			this.gemCraftables = gemCraftables;
+		}
 
-    stoner.send(new SendRemoveInterfaces());
+		@Override
+		public void execute() {
+			// Find next gem type we can craft
+			Craftable nextGem = findNextCraftableGem();
 
-    if (stoner.getGrades()[Professions.HANDINESS] < item.getGrade()) {
-      DialogueManager.sendStatement(
-          stoner, "<col=369>You need a Handiness grade of " + item.getGrade() + " to do that.");
-      return true;
-    }
+			if (nextGem == null) {
+				// No more gems can be crafted
+				stoner.send(new SendMessage("@gre@Auto gem-cutting completed - no more gems available!"));
+				stop();
+				return;
+			}
 
-    if (!stoner.getBox().hasAllItems(craftable.getIngediants(index))) {
-      Item requiredItem = craftable.getCraftableItems()[index].getRequiredItem();
-      Item product = craftable.getCraftableItems()[index].getProduct();
-      String productAmount = "";
+			// Get the first (and only) craftable item for this gem
+			CraftableItem gemItem = nextGem.getCraftableItems()[0];
+			stoner.getProfession().lock(2);
 
-      if (product.getDefinition().getName().contains("vamb")) {
-        productAmount = " pair of";
-      } else if (!product.getDefinition().getName().endsWith("s")) {
-        productAmount = " " + Utility.getAOrAn(product.getDefinition().getName());
-      }
+			// Perform the crafting
+			stoner.getUpdateFlags().sendAnimation(new Animation(nextGem.getAnimation()));
+			stoner.getProfession().addExperience(Professions.HANDINESS, gemItem.getExperience());
+			stoner.getBox().remove(nextGem.getIngediants(0), true);
+			stoner.getBox().add(gemItem.getProduct());
 
-      stoner.send(
-          new SendMessage(
-              "You need "
-                  + requiredItem.getAmount()
-                  + " piece"
-                  + (requiredItem.getAmount() > 1 ? "s" : "")
-                  + " of "
-                  + requiredItem.getDefinition().getName().toLowerCase()
-                  + " to make"
-                  + productAmount
-                  + " "
-                  + product.getDefinition().getName().toLowerCase()
-                  + "."));
-      return true;
-    }
+			// Send production message if available
+			if (nextGem.getProductionMessage() != null) {
+				stoner.send(new SendMessage(nextGem.getProductionMessage()));
+			}
 
-    TaskQueue.queue(
-        new Task(
-            stoner,
-            2,
-            true,
-            StackType.NEVER_STACK,
-            BreakType.ON_MOVE,
-            TaskIdentifier.PROFESSION_CREATING) {
-          private int iterations = 0;
+			// Handle achievements
+			AchievementHandler.activateAchievement(stoner, AchievementList.CUT_2500_GEMS, 1);
+		}
 
-          @Override
-          public void execute() {
-            stoner.getProfession().lock(2);
+		/**
+		 * Finds the next gem type that can be crafted with current materials
+		 */
+		private Craftable findNextCraftableGem() {
+			// Start from current gem and cycle through all available gem types
+			for (int i = 0; i < gemCraftables.size(); i++) {
+				int gemIndex = (currentGemIndex + i) % gemCraftables.size();
+				Craftable gem = gemCraftables.get(gemIndex);
 
-            stoner.getUpdateFlags().sendAnimation(new Animation(craftable.getAnimation()));
-            stoner.getProfession().addExperience(Professions.HANDINESS, item.getExperience());
-            stoner.getBox().remove(craftable.getIngediants(index), true);
-            stoner.getBox().add(item.getProduct());
+				// Check if we have materials for this gem
+				Item[] requiredItems = gem.getIngediants(0);
+				boolean hasAllMaterials = true;
 
-            if (craftable.getProductionMessage() != null) {
-              stoner.send(new SendMessage(craftable.getProductionMessage()));
-            }
+				for (Item requiredItem : requiredItems) {
+					if (!stoner.getBox().contains(requiredItem)) {
+						hasAllMaterials = false;
+						break;
+					}
+				}
 
-            if (craftable.getName() == "Gem") {
-              AchievementHandler.activateAchievement(stoner, AchievementList.CUT_2500_GEMS, 1);
-            }
+				if (hasAllMaterials) {
+					currentGemIndex = (currentGemIndex + i + 1) % gemCraftables.size(); // Move to next for next time
+					return gem;
+				}
+			}
 
-            if (++iterations == amount) {
-              stop();
-              return;
-            }
+			return null; // No gems can be crafted
+		}
 
-            if (!stoner.getBox().hasAllItems(craftable.getIngediants(index))) {
-              stop();
-              DialogueManager.sendStatement(stoner, "<col=369>You have run out of materials.");
-            }
-          }
+		@Override
+		public void onStop() {
+			stoner.getUpdateFlags().sendAnimation(new Animation(65535));
+		}
+	}
 
-          @Override
-          public void onStop() {
-            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
-          }
-        });
+	/**
+	 * Continuous crafting task that keeps making items until materials run out
+	 */
+	private static class ContinuousCraftingTask extends Task {
+		private final Stoner stoner;
+		private final Craftable craftable;
+		private final List<Integer> eligibleItems;
+		private int currentItemIndex = 0;
 
-    return true;
-  }
+		public ContinuousCraftingTask(Stoner stoner, Craftable craftable, List<Integer> eligibleItems) {
+			super(stoner, 2, true, StackType.NEVER_STACK, BreakType.ON_MOVE, TaskIdentifier.PROFESSION_CREATING);
+			this.stoner = stoner;
+			this.craftable = craftable;
+			this.eligibleItems = eligibleItems;
+		}
+
+		@Override
+		public void execute() {
+			// Find next item we can craft
+			int itemIndex = findNextCraftableItem();
+
+			if (itemIndex == -1) {
+				// No more items can be crafted
+				stoner.send(new SendMessage("@gre@Auto-crafting completed - no more materials available!"));
+				stop();
+				return;
+			}
+
+			CraftableItem currentItem = craftable.getCraftableItems()[itemIndex];
+			stoner.getProfession().lock(2);
+
+			// Perform the crafting
+			stoner.getUpdateFlags().sendAnimation(new Animation(craftable.getAnimation()));
+			stoner.getProfession().addExperience(Professions.HANDINESS, currentItem.getExperience());
+			stoner.getBox().remove(craftable.getIngediants(itemIndex), true);
+			stoner.getBox().add(currentItem.getProduct());
+
+			// Send production message if available
+			if (craftable.getProductionMessage() != null) {
+				stoner.send(new SendMessage(craftable.getProductionMessage()));
+			}
+
+			// Handle achievements
+			if ("Gem".equals(craftable.getName())) {
+				AchievementHandler.activateAchievement(stoner, AchievementList.CUT_2500_GEMS, 1);
+			}
+		}
+
+		/**
+		 * Finds the next item that can be crafted with current materials
+		 */
+		private int findNextCraftableItem() {
+			// Start from current item and cycle through all eligible items
+			for (int i = 0; i < eligibleItems.size(); i++) {
+				int itemIndex = eligibleItems.get((currentItemIndex + i) % eligibleItems.size());
+
+				// Check if we have materials for this item
+				Item[] requiredItems = craftable.getIngediants(itemIndex);
+				boolean hasAllMaterials = true;
+
+				for (Item requiredItem : requiredItems) {
+					if (!stoner.getBox().contains(requiredItem)) {
+						hasAllMaterials = false;
+						break;
+					}
+				}
+
+				if (hasAllMaterials) {
+					currentItemIndex = (currentItemIndex + i + 1) % eligibleItems.size(); // Move to next for next time
+					return itemIndex;
+				}
+			}
+
+			return -1; // Nothing can be crafted
+		}
+
+		@Override
+		public void onStop() {
+			stoner.getUpdateFlags().sendAnimation(new Animation(65535));
+		}
+	}
+
+	public boolean clickButton(Stoner stoner, int button) {
+		stoner.send(new SendMessage("@red@Interface crafting is disabled. Use item-on-item for auto-crafting."));
+		return false;
+	}
 }

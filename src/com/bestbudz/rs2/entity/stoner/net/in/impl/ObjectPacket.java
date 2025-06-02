@@ -3,7 +3,7 @@ package com.bestbudz.rs2.entity.stoner.net.in.impl;
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.core.task.TaskQueue;
-import com.bestbudz.rs2.entity.WalkToActions;
+import com.bestbudz.rs2.entity.ObjectActions;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
@@ -62,7 +62,7 @@ public class ObjectPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.itemOnObject(stoner, itemId, id, x, y);
+        ObjectActions.itemOnObject(stoner, itemId, id, x, y);
         break;
       case 132:
         x = in.readShort(true, StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
@@ -84,7 +84,7 @@ public class ObjectPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.clickObject(stoner, 1, id, x, y);
+        ObjectActions.clickObject(stoner, 1, id, x, y);
         break;
       case 252:
         id = in.readShort(StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
@@ -106,7 +106,7 @@ public class ObjectPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.clickObject(stoner, 2, id, x, y);
+        ObjectActions.clickObject(stoner, 2, id, x, y);
         break;
       case 70:
         x = in.readShort(true, StreamBuffer.ByteOrder.LITTLE);
@@ -128,7 +128,7 @@ public class ObjectPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.clickObject(stoner, 3, id, x, y);
+        ObjectActions.clickObject(stoner, 3, id, x, y);
         break;
       case 234:
         x = in.readShort(StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
@@ -150,7 +150,7 @@ public class ObjectPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.clickObject(stoner, 4, id, x, y);
+        ObjectActions.clickObject(stoner, 4, id, x, y);
         break;
       case 35:
         x = in.readShort(StreamBuffer.ByteOrder.LITTLE);

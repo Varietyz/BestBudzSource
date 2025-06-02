@@ -117720,7 +117720,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Cultivation cape</name>
+		<name>BankStanding cape</name>
 		<id>9810</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -117732,7 +117732,7 @@
 		<generalPrice>59400</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Cultivation cape(t)</name>
+		<name>BankStanding cape(t)</name>
 		<id>9811</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -117744,7 +117744,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Cultivation hood</name>
+		<name>BankStanding hood</name>
 		<id>9812</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -118836,7 +118836,7 @@
 		<generalPrice>3</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Cultivation manual</name>
+		<name>BankStanding manual</name>
 		<id>9903</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -127932,7 +127932,7 @@
 		<generalPrice>59400</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Cultivation cape</name>
+		<name>BankStanding cape</name>
 		<id>10661</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -158616,7 +158616,7 @@
 		<generalPrice>2000000</generalPrice>
 	</ItemDefinition>	
 			<ItemDefinition>
-		<name>Cultivation Master Cape</name>
+		<name>BankStanding Master Cape</name>
 			<id>13219</id>
 		<members>false</members>
 		<tradable>false</tradable>

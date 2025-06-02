@@ -863,10 +863,10 @@
 		</items>
 	</ShopDefinition>
 
-	//Cultivation store
+	//BankStanding store
 	<ShopDefinition>
 		<id>32</id>
-		<name>Cultivation store</name>
+		<name>BankStanding store</name>
 		<general>false</general>
 		<items>
 			//Rake

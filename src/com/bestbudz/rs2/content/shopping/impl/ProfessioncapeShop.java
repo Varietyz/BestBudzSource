@@ -216,7 +216,7 @@ public class ProfessioncapeShop extends Shop {
         new int[] {
           9786, 9787, 9788,
         }),
-    CULTIVATION(
+    BANKSTANDING(
         new int[] {
           9810, 9811, 9812,
         }),

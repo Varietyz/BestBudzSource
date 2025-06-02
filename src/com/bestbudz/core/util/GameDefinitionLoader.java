@@ -454,7 +454,7 @@ public class GameDefinitionLoader {
             name = "MERCENARY";
             break;
           case 19:
-            name = "CULTIVATION";
+            name = "BANKSTANDING";
             break;
           case 20:
             name = "HUNTER";

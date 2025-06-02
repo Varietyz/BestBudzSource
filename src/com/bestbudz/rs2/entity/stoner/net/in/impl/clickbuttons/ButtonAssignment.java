@@ -288,8 +288,11 @@ public class ButtonAssignment extends ClickButtonPacket {
 		// 115071 - Open PVM tracker
 		BUTTON_HANDLERS.put(115071, ClickButtonPacket::openPvmTracker);
 
+		// 115074 - Handle spellbook switch
+		BUTTON_HANDLERS.put(115074, ClickButtonPacket::focusedMageBookSwap);
+
 		// 115075 - Handle spellbook switch
-		BUTTON_HANDLERS.put(115075, ClickButtonPacket::handleSpellbookSwitch);
+		BUTTON_HANDLERS.put(115075, ClickButtonPacket::aoeMageBookSwap);
 
 		// 115076 - Drop table open
 		BUTTON_HANDLERS.put(115076, DropTable::open);
@@ -425,11 +428,10 @@ public class ButtonAssignment extends ClickButtonPacket {
 	}
 
 	public static void initializeShopActions() {
-		SHOP_ACTIONS.put(115078, new ClickButtonPacket.ShopAction(0, "General shop"));
 		SHOP_ACTIONS.put(115082, new ClickButtonPacket.ShopAction(0, "General shop"));
 		SHOP_ACTIONS.put(115083, new ClickButtonPacket.ShopAction(31, "Packs shop"));
 		SHOP_ACTIONS.put(115084, new ClickButtonPacket.ShopAction(17, "Professioning shop"));
-		SHOP_ACTIONS.put(115085, new ClickButtonPacket.ShopAction(32, "Cultivation shop"));
+		SHOP_ACTIONS.put(115085, new ClickButtonPacket.ShopAction(32, "BankStanding shop"));
 		SHOP_ACTIONS.put(115086, new ClickButtonPacket.ShopAction(33, "THC-hempistry shop"));
 		SHOP_ACTIONS.put(115087, new ClickButtonPacket.ShopAction(15, "Close combat shop"));
 		SHOP_ACTIONS.put(115088, new ClickButtonPacket.ShopAction(16, "Sagittarius's shop"));
@@ -448,12 +450,10 @@ public class ButtonAssignment extends ClickButtonPacket {
 		// Debug: Print shop actions size
 		System.out.println("DEBUG: Initialized " + SHOP_ACTIONS.size() + " shop actions");
 		System.out.println("DEBUG: Shop actions for failing buttons:");
-		System.out.println("115085: " + SHOP_ACTIONS.get(115085));
-		System.out.println("115097: " + SHOP_ACTIONS.get(115097));
-		System.out.println("115098: " + SHOP_ACTIONS.get(115098));
 	}
 
 	public static void initializeTeleportLocations() {
+		TELEPORT_LOCATIONS.put(115132, new Location(3443, 2915)); // HOME
 		TELEPORT_LOCATIONS.put(115133, new Location(2843, 4832)); // AIR ALTAR
 		TELEPORT_LOCATIONS.put(115134, new Location(2787, 4839)); // MIND ALTAR
 		TELEPORT_LOCATIONS.put(115135, new Location(2718, 4837)); // WATER ALTAR
@@ -465,10 +465,10 @@ public class ButtonAssignment extends ClickButtonPacket {
 		TELEPORT_LOCATIONS.put(115141, new Location(2400, 4839)); // NATURE ALTAR
 		TELEPORT_LOCATIONS.put(115142, new Location(2464, 4830)); // LAW ALTAR
 		TELEPORT_LOCATIONS.put(115143, new Location(2205, 4834)); // DEATH ALTAR
-		TELEPORT_LOCATIONS.put(115144, new Location(2674, 3710, 0)); // ROCK_CRABS
+		TELEPORT_LOCATIONS.put(115144, new Location(3417, 2923, 0)); // ROCK_CRABS
 		TELEPORT_LOCATIONS.put(115145, new Location(3117, 9856, 0)); // HILL_GIANTS
 		TELEPORT_LOCATIONS.put(115146, new Location(3293, 3182, 0)); // AL_KAHID
-		TELEPORT_LOCATIONS.put(115147, new Location(3257, 3263, 0)); // COWS
+		TELEPORT_LOCATIONS.put(115147, new Location(3362, 2889, 0)); // COWS
 		TELEPORT_LOCATIONS.put(115148, new Location(2321, 3804, 0)); // YAKS
 		TELEPORT_LOCATIONS.put(115149, new Location(2710, 9466, 0)); // BRIMHAVEN_DUNG
 		TELEPORT_LOCATIONS.put(115150, new Location(2884, 9798, 0)); // TAVERLY_DUNG
@@ -482,7 +482,7 @@ public class ButtonAssignment extends ClickButtonPacket {
 		TELEPORT_LOCATIONS.put(115158, new Location(3186, 3425, 0)); // FORGING
 		TELEPORT_LOCATIONS.put(115159, new Location(2840, 3437, 0)); // FISHER
 		TELEPORT_LOCATIONS.put(115160, new Location(2722, 3473, 0)); // LUMBERING
-		TELEPORT_LOCATIONS.put(115161, new Location(2806, 3463, 0)); // CULTIVATION
+		TELEPORT_LOCATIONS.put(115161, new Location(2806, 3463, 0)); // BANKSTANDING
 		TELEPORT_LOCATIONS.put(115162, new Location(3087, 3515, 0)); // EDGEVILLE
 		TELEPORT_LOCATIONS.put(115163, new Location(3244, 3512, 0)); // VARROCK
 		TELEPORT_LOCATIONS.put(115164, new Location(3333, 3666, 0)); // EAST_DRAGONS
@@ -512,6 +512,8 @@ public class ButtonAssignment extends ClickButtonPacket {
 		TELEPORT_LOCATIONS.put(115188, ClanWarsConstants.CLAN_WARS_ARENA); // CLAN_WARS
 		TELEPORT_LOCATIONS.put(115189, StonerConstants.MEMEBER_AREA); // MEMBERSHIP
 		TELEPORT_LOCATIONS.put(115190, StonerConstants.STAFF_AREA); // STAFFZONE
+		TELEPORT_LOCATIONS.put(115191, new Location(3039, 4834, 0)); // ABYSS
+		TELEPORT_LOCATIONS.put(115192, new Location(2923, 4819, 0)); // ESSENCE MINE
 	}
 
 	public static void initializeLeaderboardTypes() {

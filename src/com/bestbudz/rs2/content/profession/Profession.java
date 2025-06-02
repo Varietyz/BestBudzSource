@@ -4,6 +4,7 @@ import com.bestbudz.rs2.content.Advance;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.content.io.sqlite.SaveCache;
 import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
+import com.bestbudz.rs2.content.profession.bankstanding.BankStanding;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
@@ -190,12 +191,21 @@ public class Profession {
     addExperience(3, exp * meleeExp * 1.33D);
   }
 
+// In Profession.java, modify the addExperience method around line 100:
+
 	public double addExperience(int id, double experience) {
 		if ((expLock) && (id <= 6)) {
 			return 0;
 		}
 
 		experience = experience * Professions.EXPERIENCE_RATES[id] * 1.0D;
+
+		// ADD THIS - Apply bank standing XP bonus to other skills (not to bank standing itself)
+		if (id != BankStanding.BANKSTANDING_SKILL_ID && stoner.getBankStanding().isActive()) {
+			int originalXP = (int) experience;
+			int bonusXP = stoner.getBankStanding().applyXPBonus(id, originalXP);
+			experience = bonusXP;
+		}
 
 		this.experience[id] += experience;
 
@@ -235,6 +245,7 @@ public class Profession {
 		stoner.send(new SendExpCounter(id, (int) experience));
 		SaveCache.markDirty(stoner);
 		update(id);
+
 		return experience;
 	}
 
@@ -416,7 +427,7 @@ public class Profession {
   }
 
   public void onUpgrade(long lvl, int profession) {
-    stoner.getUpdateFlags().sendGraphic(Professions.UPGRADE_GRAPHIC);
+   // stoner.getUpdateFlags().sendGraphic(Professions.UPGRADE_GRAPHIC);
     String line1 =
         "Well done bud! You have advanced "
             + Professions.PROFESSION_NAMES[profession]
@@ -428,7 +439,7 @@ public class Profession {
     stoner.getClient().queueOutgoingPacket(new SendMessage(line1));
 	  SaveWorker.enqueueSave(stoner);
 
-    if (profession == Professions.CULTIVATION) {
+    if (profession == Professions.BANKSTANDING) {
       stoner.send(new SendInterfaceConfig(4888, 200, 5340));
     }
 

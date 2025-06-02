@@ -25,7 +25,7 @@ public class ProfessionsChat {
     "Weedsmoking",
     "Accomplisher",
     "Mercenary",
-    "Cultivation",
+    "BankStanding",
     "Consumer"
   };
 
@@ -77,7 +77,7 @@ public class ProfessionsChat {
     HANDINESS(94160, 12),
     CONSUMER(94165, 20),
     MERCENARY(94166, 18),
-    CULTIVATION(94167, 19),
+    BANKSTANDING(94167, 19),
     QUARRYING(94149, 14),
     FORGING(94152, 13),
     FISHER(94155, 10),

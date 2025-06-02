@@ -94,7 +94,7 @@ public class Emotes {
           capeEmotes.put(Integer.valueOf(i), new ProfessionCapeEmote(4965, 826));
         else if ((name.contains("Mercenary cape")) || (name.contains("Mercenary Master Cape")))
           capeEmotes.put(Integer.valueOf(i), new ProfessionCapeEmote(4967, 827));
-        else if ((name.contains("Cultivation cape")) || (name.contains("Cultivation Master Cape")))
+        else if ((name.contains("BankStanding cape")) || (name.contains("BankStanding Master Cape")))
           capeEmotes.put(Integer.valueOf(i), new ProfessionCapeEmote(4963, 825));
         else if ((name.contains("Consumer cape")) || (name.contains("Consumer Master Cape")))
           capeEmotes.put(Integer.valueOf(i), new ProfessionCapeEmote(4947, 817));

@@ -32,7 +32,7 @@ public class Professions {
     "weedsmoking",
     "accomplisher",
     "mercenary",
-    "cultivation",
+    "bankstanding",
     "consumer",
   };
   public static final int ASSAULT = 0;
@@ -54,7 +54,7 @@ public class Professions {
   public static final int WEEDSMOKING = 16;
   public static final int ACCOMPLISHER = 17;
   public static final int MERCENARY = 18;
-  public static final int CULTIVATION = 19;
+  public static final int BANKSTANDING = 19;
   public static final int CONSUMER = 20;
   public static final int[][] CHAT_INTERFACES = {
     {0, 6247},
@@ -129,7 +129,7 @@ public class Professions {
     EXPERIENCE_RATES[WEEDSMOKING] = 10;
     EXPERIENCE_RATES[ACCOMPLISHER] = 1;
     EXPERIENCE_RATES[MERCENARY] = 10;
-    EXPERIENCE_RATES[CULTIVATION] = 10;
+    EXPERIENCE_RATES[BANKSTANDING] = 10;
     EXPERIENCE_RATES[CONSUMER] = 1;
   }
 

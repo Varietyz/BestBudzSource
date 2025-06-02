@@ -19,331 +19,203 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum Woodcarving {
-  SINGLETON;
+	SINGLETON;
 
-  public static final String FLETCHABLE_KEY = "FLETCHABLE_KEY";
+	public static final String FLETCHABLE_KEY = "FLETCHABLE_KEY";
 
-  private final HashMap<Integer, Fletchable> FLETCHABLES = new HashMap<>();
+	private final HashMap<Integer, Fletchable> FLETCHABLES = new HashMap<>();
 
-  public boolean itemOnItem(Stoner stoner, Item use, Item with) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
+	public boolean itemOnItem(Stoner stoner, Item use, Item with) {
+		if (stoner.getProfession().locked()) {
+			return false;
+		}
 
-    final Fletchable fletchable = getFletchable(use.getId(), with.getId());
+		final Fletchable fletchable = getFletchable(use.getId(), with.getId());
 
-    if (fletchable == null || use.getId() == 590 || with.getId() == 590) {
-      return false;
-    }
-    if (!stoner.getEquipment().isWearingItem(6575)) {
-      DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-      return false;
-    }
+		if (fletchable == null || use.getId() == 590 || with.getId() == 590) {
+			return false;
+		}
+		if (!stoner.getEquipment().isWearingItem(6575)) {
+			DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
+			return false;
+		}
 
-    String prefix = fletchable.getWith().getDefinition().getName().split(" ")[0];
+		// Auto-craft all available woodcarving items
+		return autoCraftAllAvailableItems(stoner);
+	}
 
-    switch (fletchable.getFletchableItems().length) {
-      case 1:
-        stoner.getAttributes().set(FLETCHABLE_KEY, fletchable);
-        stoner.send(
-            new SendString(
-                "\\n \\n \\n \\n \\n"
-                    + fletchable.getFletchableItems()[0].getProduct().getDefinition().getName(),
-                2799));
-        stoner.send(
-            new SendItemOnInterface(
-                1746, 170, fletchable.getFletchableItems()[0].getProduct().getId()));
-        stoner.send(new SendChatBoxInterface(4429));
-        return true;
-      case 2:
-        stoner.getAttributes().set(FLETCHABLE_KEY, fletchable);
-        stoner.send(
-            new SendItemOnInterface(
-                8869, 170, fletchable.getFletchableItems()[0].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8870, 170, fletchable.getFletchableItems()[1].getProduct().getId()));
+	/**
+	 * Automatically finds and crafts all available woodcarving items in inventory
+	 */
+	private boolean autoCraftAllAvailableItems(Stoner stoner) {
+		List<FletchableTask> availableFletchables = new ArrayList<>();
 
-        stoner.send(new SendString("\\n \\n \\n \\n \\n ".concat(prefix + " Short Bow"), 8874));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n ".concat(prefix + " Long Bow"), 8878));
+		// Check all registered fletchables for items in inventory
+		for (Fletchable fletchable : FLETCHABLES.values()) {
+			// For each fletchable, check all possible items it can make
+			for (int i = 0; i < fletchable.getFletchableItems().length; i++) {
+				// Check if we have materials for this specific item
+				Item[] requiredItems = fletchable.getIngediants();
+				boolean hasAllMaterials = true;
 
-        stoner.send(new SendChatBoxInterface(8866));
-        return true;
-      case 3:
-        stoner.getAttributes().set(FLETCHABLE_KEY, fletchable);
-        stoner.send(
-            new SendItemOnInterface(
-                8883, 170, fletchable.getFletchableItems()[0].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8884, 170, fletchable.getFletchableItems()[1].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8885, 170, fletchable.getFletchableItems()[2].getProduct().getId()));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat(prefix + " Short Bow"), 8889));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat(prefix + " Long Bow"), 8893));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Crossbow Stock"), 8897));
-        stoner.send(new SendChatBoxInterface(8880));
-        return true;
-      case 4:
-        stoner.getAttributes().set(FLETCHABLE_KEY, fletchable);
-        stoner.send(
-            new SendItemOnInterface(
-                8902, 170, fletchable.getFletchableItems()[0].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8903, 170, fletchable.getFletchableItems()[1].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8904, 170, fletchable.getFletchableItems()[2].getProduct().getId()));
-        stoner.send(
-            new SendItemOnInterface(
-                8905, 170, fletchable.getFletchableItems()[3].getProduct().getId()));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("5 Headless Arrow"), 8909));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Short Bow"), 8913));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Long Bow"), 8917));
-        stoner.send(new SendString("\\n \\n \\n \\n \\n".concat("Crossbow Stock"), 8921));
-        stoner.send(new SendChatBoxInterface(8899));
-        return true;
-      default:
-        return false;
-    }
-  }
+				for (Item requiredItem : requiredItems) {
+					if (!stoner.getBox().contains(requiredItem)) {
+						hasAllMaterials = false;
+						break;
+					}
+				}
 
-  public boolean fletch(Stoner stoner, int index, int amount) {
-    if (stoner.getProfession().locked()) {
-      return false;
-    }
+				if (hasAllMaterials) {
+					availableFletchables.add(new FletchableTask(fletchable, i));
+				}
+			}
+		}
 
-    Fletchable fletchable = (Fletchable) stoner.getAttributes().get(FLETCHABLE_KEY);
+		if (availableFletchables.isEmpty()) {
+			stoner.send(new SendMessage("@red@No woodcarving materials found in inventory."));
+			return true;
+		}
 
-    if (fletchable == null) {
-      return false;
-    }
+		// Start multi-item crafting
+		startMultiItemCrafting(stoner, availableFletchables);
+		return true;
+	}
 
-    return start(stoner, fletchable, index, amount);
-  }
+	/**
+	 * Starts crafting for multiple item types
+	 */
+	private void startMultiItemCrafting(Stoner stoner, List<FletchableTask> fletchableTasks) {
+		stoner.send(new SendMessage("@gre@Auto-crafting started - found " + fletchableTasks.size() + " craftable items!"));
+		TaskQueue.queue(new MultiItemCraftingTask(stoner, fletchableTasks));
+	}
 
-  public void addFletchable(Fletchable fletchable) {
-    if (FLETCHABLES.put(fletchable.getWith().getId(), fletchable) != null) {
-      System.out.println(
-          "[Woodcarving] Conflicting item values: "
-              + fletchable.getWith().getId()
-              + " Type: "
-              + fletchable.getClass().getSimpleName());
-    }
-  }
+	/**
+	 * Helper class to store fletchable and item index
+	 */
+	private static class FletchableTask {
+		final Fletchable fletchable;
+		final int itemIndex;
 
-  public Fletchable getFletchable(int use, int with) {
-    return FLETCHABLES.get(use) == null ? FLETCHABLES.get(with) : FLETCHABLES.get(use);
-  }
+		FletchableTask(Fletchable fletchable, int itemIndex) {
+			this.fletchable = fletchable;
+			this.itemIndex = itemIndex;
+		}
+	}
 
-  public boolean clickButton(Stoner stoner, int button) {
-	  Object attributeValue = stoner.getAttributes().get(FLETCHABLE_KEY);
+	/**
+	 * Multi-item crafting task that cycles through all available item types
+	 */
+	private static class MultiItemCraftingTask extends Task {
+		private final Stoner stoner;
+		private final List<FletchableTask> fletchableTasks;
+		private int currentTaskIndex = 0;
 
-	  if (attributeValue == null) {
-		  return false;
-	  }
+		public MultiItemCraftingTask(Stoner stoner, List<FletchableTask> fletchableTasks) {
+			super(stoner, 2, true, StackType.NEVER_STACK, BreakType.ON_MOVE, TaskIdentifier.PROFESSION_CREATING);
+			this.stoner = stoner;
+			this.fletchableTasks = fletchableTasks;
+		}
 
-	  // DEFENSIVE: Check the type before casting
-	  if (!(attributeValue instanceof Fletchable)) {
-		  System.out.println("🚨 ERROR: Expected Fletchable but found " + attributeValue.getClass().getSimpleName() +
-			  " with value: " + attributeValue + " for button: " + button);
+		@Override
+		public void execute() {
+			// Check if inventory is full
+			if (!stoner.getBox().hasSpaceFor(new Item(1, 1))) {
+				stoner.send(new SendMessage("@gre@Auto-crafting stopped - inventory is full!"));
+				stop();
+				return;
+			}
 
-		  // Clean up the corrupted attribute
-		  stoner.getAttributes().remove(FLETCHABLE_KEY);
-		  return false;
-	  }
-    Fletchable fletchable = (Fletchable) stoner.getAttributes().get(FLETCHABLE_KEY);
+			// Find next item we can craft
+			FletchableTask nextTask = findNextCraftableItem();
 
-    switch (button) {
-      case 6211:
-        start(stoner, fletchable, 0, stoner.getBox().getItemAmount(fletchable.getWith().getId()));
-        return true;
-      case 34205:
-      case 34185:
-      case 34170:
-      case 10239:
-        start(stoner, fletchable, 0, 1);
-        return true;
-      case 34204:
-      case 34184:
-      case 34169:
-      case 10238:
-        start(stoner, fletchable, 0, 5);
-        return true;
-      case 34203:
-      case 34183:
-      case 34168:
-        start(stoner, fletchable, 0, 10);
-        return true;
-      case 34202:
-      case 34182:
-      case 34167:
-      case 6212:
-        start(stoner, fletchable, 0, 2500);
-        return true;
-      case 34209:
-      case 34189:
-      case 34174:
-        start(stoner, fletchable, 1, 1);
-        return true;
-      case 34208:
-      case 34188:
-      case 34173:
-        start(stoner, fletchable, 1, 5);
-        return true;
-      case 34207:
-      case 34187:
-      case 34172:
-        start(stoner, fletchable, 1, 10);
-        return true;
-      case 34206:
-      case 34186:
-      case 34171:
-        start(stoner, fletchable, 1, 2500);
-        return true;
-      case 34213:
-      case 34193:
-        start(stoner, fletchable, 2, 1);
-        return true;
-      case 34212:
-      case 34192:
-        start(stoner, fletchable, 2, 5);
-        return true;
-      case 34211:
-      case 34191:
-        start(stoner, fletchable, 2, 10);
-        return true;
-      case 34210:
-      case 34190:
-        start(stoner, fletchable, 2, 2500);
-        return true;
-      case 34217:
-        start(stoner, fletchable, 3, 1);
-        return true;
-      case 34216:
-        start(stoner, fletchable, 3, 5);
-        return true;
-      case 34215:
-        start(stoner, fletchable, 3, 10);
-        return true;
-      case 34214:
-        start(stoner, fletchable, 3, 2500);
-        return true;
+			if (nextTask == null) {
+				// No more items can be crafted
+				stoner.send(new SendMessage("@gre@Auto-crafting completed - no more materials available!"));
+				stop();
+				return;
+			}
 
-      default:
-        return false;
-    }
-  }
+			Fletchable fletchable = nextTask.fletchable;
+			FletchableItem craftableItem = fletchable.getFletchableItems()[nextTask.itemIndex];
+			stoner.getProfession().lock(2);
 
-  public boolean start(Stoner stoner, Fletchable fletchable, int index, int amount) {
-    if (fletchable == null) {
-      return false;
-    }
+			// Perform the crafting
+			stoner.getUpdateFlags().sendAnimation(new Animation(fletchable.getAnimation()));
+			stoner.getProfession().addExperience(Professions.WOODCARVING, craftableItem.getExperience());
+			stoner.getBox().remove(fletchable.getIngediants(), true);
+			stoner.getBox().add(craftableItem.getProduct());
 
-    stoner.getAttributes().remove(FLETCHABLE_KEY);
+			// Send production message if available
+			if (fletchable.getProductionMessage() != null) {
+				stoner.send(new SendMessage(fletchable.getProductionMessage()));
+			}
+		}
 
-    FletchableItem item = fletchable.getFletchableItems()[index];
+		/**
+		 * Finds the next item that can be crafted with current materials
+		 */
+		private FletchableTask findNextCraftableItem() {
+			// Start from current task and cycle through all available tasks
+			for (int i = 0; i < fletchableTasks.size(); i++) {
+				int taskIndex = (currentTaskIndex + i) % fletchableTasks.size();
+				FletchableTask task = fletchableTasks.get(taskIndex);
 
-    stoner.send(new SendRemoveInterfaces());
+				// Check if we have materials for this item
+				Item[] requiredItems = task.fletchable.getIngediants();
+				boolean hasAllMaterials = true;
 
-    if (stoner.getGrades()[Professions.WOODCARVING] < item.getGrade()) {
-      DialogueManager.sendStatement(
-          stoner, "<col=369>You need a Woodcarving grade of " + item.getGrade() + " to do that.");
-      return true;
-    }
-    if (!stoner.getEquipment().isWearingItem(6575)) {
-      DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-      return false;
-    }
+				for (Item requiredItem : requiredItems) {
+					if (!stoner.getBox().contains(requiredItem)) {
+						hasAllMaterials = false;
+						break;
+					}
+				}
 
-    if (!(stoner.getBox().hasAllItems(fletchable.getIngediants()))) {
-      String firstName = fletchable.getUse().getDefinition().getName().toLowerCase();
-      String secondName = fletchable.getWith().getDefinition().getName().toLowerCase();
+				if (hasAllMaterials) {
+					currentTaskIndex = (currentTaskIndex + i + 1) % fletchableTasks.size(); // Move to next for next time
+					return task;
+				}
+			}
 
-      if (fletchable.getUse().getAmount() > 1 && !firstName.endsWith("s")) {
-        firstName = firstName.concat("s");
-      }
+			return null; // No items can be crafted
+		}
 
-      if (fletchable.getWith().getAmount() > 1 && !secondName.endsWith("s")) {
-        secondName = secondName.concat("s");
-      }
+		@Override
+		public void onStop() {
+			stoner.getUpdateFlags().sendAnimation(new Animation(65535));
+		}
+	}
 
-      if (fletchable.getUse().getAmount() == 1 && firstName.endsWith("s")) {
-        firstName = firstName.substring(0, firstName.length() - 1);
-      }
+	public boolean fletch(Stoner stoner, int index, int amount) {
+		stoner.send(new SendMessage("@red@Manual crafting is disabled. Use item-on-item for auto-crafting."));
+		return false;
+	}
 
-      if (fletchable.getWith().getAmount() == 1 && secondName.endsWith("s")) {
-        secondName = secondName.substring(0, secondName.length() - 1);
-      }
+	public void addFletchable(Fletchable fletchable) {
+		if (FLETCHABLES.put(fletchable.getWith().getId(), fletchable) != null) {
+			System.out.println(
+				"[Woodcarving] Conflicting item values: "
+					+ fletchable.getWith().getId()
+					+ " Type: "
+					+ fletchable.getClass().getSimpleName());
+		}
+	}
 
-      final String firstAmount;
+	public Fletchable getFletchable(int use, int with) {
+		return FLETCHABLES.get(use) == null ? FLETCHABLES.get(with) : FLETCHABLES.get(use);
+	}
 
-      if (fletchable.getUse().getAmount() == 1) {
-        firstAmount = Utility.getAOrAn(fletchable.getUse().getDefinition().getName());
-      } else {
-        firstAmount = String.valueOf(fletchable.getUse().getAmount());
-      }
+	public boolean clickButton(Stoner stoner, int button) {
+		stoner.send(new SendMessage("@red@Interface crafting is disabled. Use item-on-item for auto-crafting."));
+		return false;
+	}
 
-      final String secondAmount;
-
-      if (fletchable.getWith().getAmount() == 1) {
-        secondAmount = Utility.getAOrAn(fletchable.getWith().getDefinition().getName());
-      } else {
-        secondAmount = String.valueOf(fletchable.getWith().getAmount());
-      }
-
-      String firstRequirement = firstAmount + " " + firstName;
-      String secondRequirement = secondAmount + " " + secondName;
-      stoner.send(
-          new SendMessage(
-              "You need " + firstRequirement + " and " + secondRequirement + " to do that."));
-      return true;
-    }
-
-    TaskQueue.queue(
-        new Task(
-            stoner,
-            2,
-            true,
-            StackType.NEVER_STACK,
-            BreakType.ON_MOVE,
-            TaskIdentifier.PROFESSION_CREATING) {
-          private int iterations = 0;
-
-          @Override
-          public void execute() {
-            stoner.getProfession().lock(2);
-
-            stoner.getUpdateFlags().sendAnimation(new Animation(fletchable.getAnimation()));
-            stoner.getProfession().addExperience(Professions.WOODCARVING, item.getExperience());
-            stoner.getBox().remove(fletchable.getIngediants(), true);
-            stoner.getBox().add(item.getProduct());
-
-            if (fletchable.getProductionMessage() != null) {
-              stoner.send(new SendMessage(fletchable.getProductionMessage()));
-            }
-
-            if (++iterations == amount) {
-              stop();
-              return;
-            }
-
-            if (!(stoner.getBox().hasAllItems(fletchable.getIngediants()))) {
-              stop();
-              DialogueManager.sendStatement(stoner, "<col=369>You have run out of materials.");
-            }
-          }
-
-          @Override
-          public void onStop() {
-            stoner.getUpdateFlags().sendAnimation(new Animation(65535));
-          }
-        });
-
-    return true;
-  }
+	public boolean start(Stoner stoner, Fletchable fletchable, int index, int amount) {
+		stoner.send(new SendMessage("@red@Manual crafting is disabled. Use item-on-item for auto-crafting."));
+		return false;
+	}
 }

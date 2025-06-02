@@ -4015,171 +4015,188 @@
 		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
+
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2665</x>
-			<y>3712</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3420</x><y>2938</y><z>0</z></location>
+		<walk>true</walk><face>2</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2668</x>
-			<y>3716</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3419</x><y>2936</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2671</x>
-			<y>3712</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3418</x><y>2938</y><z>0</z></location>
+		<walk>true</walk><face>3</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2675</x>
-			<y>3716</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3418</x><y>2935</y><z>0</z></location>
+		<walk>true</walk><face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2679</x>
-			<y>3713</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3422</x><y>2937</y><z>0</z></location>
+		<walk>true</walk><face>3</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2684</x>
-			<y>3714</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3415</x><y>2937</y><z>0</z></location>
+		<walk>true</walk><face>2</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2680</x>
-			<y>3718</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3413</x><y>2939</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2684</x>
-			<y>3722</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3413</x><y>2935</y><z>0</z></location>
+		<walk>true</walk><face>2</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2686</x>
-			<y>3726</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3415</x><y>2934</y><z>0</z></location>
+		<walk>true</walk><face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2682</x>
-			<y>3726</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3417</x><y>2932</y><z>0</z></location>
+		<walk>true</walk><face>3</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2680</x>
-			<y>3731</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3412</x><y>2932</y><z>0</z></location>
+		<walk>true</walk><face>2</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2676</x>
-			<y>3729</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3409</x><y>2932</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2672</x>
-			<y>3729</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3410</x><y>2934</y><z>0</z></location>
+		<walk>true</walk><face>0</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2671</x>
-			<y>3725</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3409</x><y>2936</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
 	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Rock Crab<-->
 		<id>100</id>
-		<location>
-			<x>2684</x>
-			<y>3730</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
+		<location><x>3414</x><y>2942</y><z>0</z></location>
+		<walk>true</walk><face>0</face>
 	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3416</x><y>2942</y><z>0</z></location>
+		<walk>true</walk><face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3419</x><y>2942</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3423</x><y>2940</y><z>0</z></location>
+		<walk>true</walk><face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3426</x><y>2938</y><z>0</z></location>
+		<walk>true</walk><face>0</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3425</x><y>2934</y><z>0</z></location>
+		<walk>true</walk><face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3422</x><y>2933</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3418</x><y>2932</y><z>0</z></location>
+		<walk>true</walk><face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3417</x><y>2928</y><z>0</z></location>
+		<walk>true</walk><face>0</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3414</x><y>2927</y><z>0</z></location>
+		<walk>true</walk><face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3410</x><y>2927</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3406</x><y>2929</y><z>0</z></location>
+		<walk>true</walk><face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3405</x><y>2934</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3407</x><y>2938</y><z>0</z></location>
+		<walk>true</walk><face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3409</x><y>2942</y><z>0</z></location>
+		<walk>true</walk><face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Rock Crab<-->
+		<id>100</id>
+		<location><x>3416</x><y>2948</y><z>0</z></location>
+		<walk>true</walk><face>1</face>
+	</NpcSpawnDefinition>
+
 	<NpcSpawnDefinition>
 		<!-->Hill Giant<-->
 		<id>2098</id>
@@ -4406,8 +4423,41 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3256</x>
-			<y>3258</y>
+			<x>3354</x>
+			<y>2880</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3357</x>
+			<y>2882</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3355</x>
+			<y>2886</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3353</x>
+			<y>2890</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4417,8 +4467,30 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3260</x>
-			<y>3261</y>
+			<x>3354</x>
+			<y>2894</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3358</x>
+			<y>2898</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3362</x>
+			<y>2899</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4428,8 +4500,41 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3256</x>
-			<y>3266</y>
+			<x>3367</x>
+			<y>2898</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3372</x>
+			<y>2899</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3376</x>
+			<y>2898</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3379</x>
+			<y>2895</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4439,8 +4544,41 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3261</x>
-			<y>3270</y>
+			<x>3380</x>
+			<y>2890</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3378</x>
+			<y>2886</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3374</x>
+			<y>2883</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3370</x>
+			<y>2881</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4450,8 +4588,41 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3262</x>
-			<y>3275</y>
+			<x>3365</x>
+			<y>2880</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3360</x>
+			<y>2881</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3356</x>
+			<y>2883</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3353</x>
+			<y>2886</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4461,8 +4632,41 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3257</x>
-			<y>3276</y>
+			<x>3352</x>
+			<y>2890</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3353</x>
+			<y>2894</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3356</x>
+			<y>2897</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3360</x>
+			<y>2899</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4472,8 +4676,30 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3254</x>
-			<y>3280</y>
+			<x>3365</x>
+			<y>2898</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3370</x>
+			<y>2899</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3369</x>
+			<y>2883</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4483,8 +4709,8 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3261</x>
-			<y>3283</y>
+			<x>3364</x>
+			<y>2883</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4494,8 +4720,8 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3258</x>
-			<y>3289</y>
+			<x>3360</x>
+			<y>2879</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4505,8 +4731,8 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3263</x>
-			<y>3293</y>
+			<x>3358</x>
+			<y>2884</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4516,8 +4742,8 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3254</x>
-			<y>3293</y>
+			<x>3359</x>
+			<y>2888</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4527,8 +4753,8 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3251</x>
-			<y>3289</y>
+			<x>3363</x>
+			<y>2888</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4538,8 +4764,8 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3246</x>
-			<y>3293</y>
+			<x>3369</x>
+			<y>2886</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4549,8 +4775,8 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3246</x>
-			<y>3287</y>
+			<x>3374</x>
+			<y>2886</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
@@ -4560,13 +4786,191 @@
 		<!-->Cow<-->
 		<id>2805</id>
 		<location>
-			<x>3248</x>
-			<y>3281</y>
+			<x>3378</x>
+			<y>2891</y>
 			<z>0</z>
 		</location>
 		<walk>true</walk>
 		<face>0</face>
 	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3374</x>
+			<y>2894</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3366</x>
+			<y>2894</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3358</x>
+			<y>2895</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3362</x>
+			<y>2881</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3365</x>
+			<y>2880</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3371</x>
+			<y>2881</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3367</x>
+			<y>2889</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3360</x>
+			<y>2886</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3366</x>
+			<y>2890</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3371</x>
+			<y>2892</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3376</x>
+			<y>2895</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3370</x>
+			<y>2897</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3363</x>
+			<y>2896</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>2</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3356</x>
+			<y>2893</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>3</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3355</x>
+			<y>2889</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>1</face>
+	</NpcSpawnDefinition>
+	<NpcSpawnDefinition>
+		<!-->Cow<-->
+		<id>2805</id>
+		<location>
+			<x>3356</x>
+			<y>2884</y>
+			<z>0</z>
+		</location>
+		<walk>true</walk>
+		<face>0</face>
+	</NpcSpawnDefinition>
+
+
 
 	<NpcSpawnDefinition>
 		<!-->Al-Kharid warrior<-->
@@ -4668,171 +5072,6 @@
 		<face>0</face>
 	</NpcSpawnDefinition>
 
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3256</x>
-			<y>3258</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3260</x>
-			<y>3261</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3256</x>
-			<y>3266</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3261</x>
-			<y>3270</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3262</x>
-			<y>3275</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3257</x>
-			<y>3276</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3254</x>
-			<y>3280</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3261</x>
-			<y>3283</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3258</x>
-			<y>3289</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3263</x>
-			<y>3293</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3254</x>
-			<y>3293</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3251</x>
-			<y>3289</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3246</x>
-			<y>3293</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3246</x>
-			<y>3287</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
-	<NpcSpawnDefinition>
-		<!-->Cow<-->
-		<id>2805</id>
-		<location>
-			<x>3248</x>
-			<y>3281</y>
-			<z>0</z>
-		</location>
-		<walk>true</walk>
-		<face>0</face>
-	</NpcSpawnDefinition>
 	<NpcSpawnDefinition>
 		<!-->Yak<-->
 		<id>5816</id>

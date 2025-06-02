@@ -8,273 +8,187 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendColor;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSidebarInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItemsAlt;
 
 public class StarterKit {
 
-  private static int selected = 202051;
+	/**
+	 * Automatically gives starter items to new players without any interface or dialog
+	 */
+	public static void giveStarterItems(Stoner stoner) {
+		if (!Boolean.TRUE.equals(stoner.getAttributes().get("starter_ip_logged"))) {
 
-  public static boolean handle(Stoner stoner, int buttonId) {
+			// Get STONER starter kit items (202051)
+			StarterData stonerKit = StarterData.STONER;
 
-    StarterData data = StarterData.starterKits.get(buttonId);
+			// Add items directly to inventory
+			for (Item item : stonerKit.getItems()) {
+				stoner.getBox().insert(item);
+			}
 
-    if (data == null) {
-      if (extraButton(stoner, buttonId)) {
-        return false;
-      }
-      return false;
-    }
+			// Get DEALER starter kit items (202052) and add to bank
+			StarterData dealerKit = StarterData.DEALER;
+			for (Item item : dealerKit.getItems()) {
+				stoner.getBank().depositFromNoting(item, 0, false);
+			}
 
-    int color = 0xBA640D;
+			// Get GROWER starter kit items (202053) and add to bank
+			StarterData growerKit = StarterData.GROWER;
+			for (Item item : growerKit.getItems()) {
+				stoner.getBank().depositFromNoting(item, 0, false);
+			}
 
-    if (buttonId == 202051) {
-      stoner.send(new SendColor(51766, color));
-      stoner.send(new SendColor(51767, 0xF7AA25));
-      stoner.send(new SendColor(51768, 0xF7AA25));
-    } else if (buttonId == 202052) {
-      stoner.send(new SendColor(51766, 0xF7AA25));
-      stoner.send(new SendColor(51767, color));
-      stoner.send(new SendColor(51768, 0xF7AA25));
-    } else if (buttonId == 202053) {
-      stoner.send(new SendColor(51766, 0xF7AA25));
-      stoner.send(new SendColor(51767, 0xF7AA25));
-      stoner.send(new SendColor(51768, color));
-    }
+			// Update the bank display after adding all items
+			stoner.getBank().update();
 
-    selected = buttonId;
-    stoner.send(new SendColor(data.getString(), 0xC71C1C));
-    String name = Utility.capitalize(data.name().toLowerCase().replaceAll("_", " "));
-    stoner.send(new SendString("Stash (@red@" + name + "</col>):", 51757));
+			// Mark as completed
+			stoner.getAttributes().set("starter_ip_logged", true);
+			SaveCache.markDirty(stoner);
 
-    for (int i = 0; i < 30; i++) {
-      stoner.getClient().queueOutgoingPacket(new SendUpdateItemsAlt(51758, 0, 0, i));
-    }
+			// Set up player
+			setupNewPlayer(stoner);
 
-    for (int i = 0; i < data.getItems().length; i++) {
-      stoner
-          .getClient()
-          .queueOutgoingPacket(
-              new SendUpdateItemsAlt(
-                  51758, data.getItems()[i].getId(), data.getItems()[i].getAmount(), i));
-    }
+			// Send confirmation message
+			stoner.send(new SendMessage("@gre@Welcome to Best Budz! Your starter items have been added."));
+			stoner.send(new SendMessage("Check your inventory and bank for all your starter gear!"));
+		}
+	}
 
-    for (int i = 0; i < data.getDescription().length; i++) {
-      stoner.send(new SendString(data.getDescription()[i], 51760 + i));
-    }
+	/**
+	 * Sets up the new player with proper interfaces and settings
+	 */
+	private static void setupNewPlayer(Stoner stoner) {
+		// Set default controller
+		stoner.setController(ControllerManager.DEFAULT_CONTROLLER);
+		stoner.setStarter(false);
 
-    return true;
-  }
+		// Set up main interface
+		stoner.send(new SendInterface(3559));
 
-  public static boolean extraButton(Stoner stoner, int button) {
-    if (stoner.getInterfaceManager().main != 51750) {
-      return false;
-    }
-    switch (button) {
-      case 202054:
-        stoner.send(new SendConfig(1085, 0));
-        StarterKit.handle(stoner, 202051);
-        return true;
-      case 202055:
-        stoner.send(new SendConfig(1085, 1));
-        StarterKit.handle(stoner, 202052);
-        return true;
-      case 202056:
-        stoner.send(new SendConfig(1085, 2));
-        StarterKit.handle(stoner, 202053);
-        return true;
-      case 202057:
-        StarterKit.confirm(stoner);
-        return true;
-    }
-    return false;
-  }
+		// Set up sidebar interfaces
+		for (int i = 0; i < StonerConstants.SIDEBAR_INTERFACE_IDS.length; i++) {
+			stoner.send(new SendSidebarInterface(i, StonerConstants.SIDEBAR_INTERFACE_IDS[i]));
+		}
 
-  public static void confirm(Stoner stoner) {
+		stoner.send(new SendSidebarInterface(5, 5608));
+		stoner.send(new SendSidebarInterface(6, 1151));
 
-    StarterData data = StarterData.starterKits.get(selected);
+		// Set default rights (regular player)
+		stoner.setRights(0);
+		stoner.getUpdateFlags().setUpdateRequired(true);
+	}
 
-    if (data == null || stoner.getDelay().elapsed() < 1000) {
-      return;
-    }
+	// Keep the enum for item definitions but remove button handling
+	public enum StarterData {
+		STONER(
+			202051,
+			51766,
+			0,
+			new Item[] {
+				new Item(995, 5000000),    // Coins
+				new Item(7945, 100),       // Prayer potions
+				new Item(11879, 1),        // Equipment items
+				new Item(11881, 1),
+				new Item(11883, 1),
+				new Item(12009, 1),
+				new Item(11885, 1),
+				new Item(12859, 1),
+				new Item(11738, 1),
+				new Item(1511, 100),       // Logs
+				new Item(1521, 100),
+				new Item(1519, 100),
+				new Item(1517, 100),
+				new Item(1515, 100),
+				new Item(1513, 100),
+				new Item(6199, 1),         // Tools
+				new Item(6857, 1),
+				new Item(775, 1),
+				new Item(1837, 1),
+				new Item(13223, 1),
+				new Item(6575, 1),
+				new Item(6577, 1),
+				new Item(12647, 1)
+			}),
 
-    if (stoner.getInterfaceManager().main != 51750) {
-      stoner.send(new SendRemoveInterfaces());
-      return;
-    }
+		DEALER(
+			202052,
+			51767,
+			11,
+			new Item[] {
+				new Item(995, 5000000),    // Coins
+				new Item(7947, 100),       // Super restores
+				new Item(2437, 10),        // Prayer potions
+				new Item(2441, 10),
+				new Item(2443, 10),
+				new Item(3025, 10),
+				new Item(12414, 1),        // Equipment
+				new Item(12415, 1),
+				new Item(12416, 1),
+				new Item(12417, 1),
+				new Item(12418, 1),
+				new Item(4587, 1),
+				new Item(6585, 1),
+				new Item(7461, 1),
+				new Item(11840, 1),
+				new Item(2675, 1),
+				new Item(2673, 1),
+				new Item(2671, 1),
+				new Item(2669, 1),
+				new Item(13223, 1),
+				new Item(12654, 1)
+			}),
 
-    stoner.getDelay().reset();
-    String name = Utility.capitalize(data.name().toLowerCase().replaceAll("_", " "));
-    stoner.send(new SendRemoveInterfaces());
-    stoner.send(
-        new SendMessage(
-            "@red@You will be playing as " + Utility.getAOrAn(name) + " " + name + "."));
-    stoner.setController(ControllerManager.DEFAULT_CONTROLLER);
-    stoner.setStarter(false);
-    stoner.send(new SendInterface(3559));
+		GROWER(
+			202053,
+			51768,
+			12,
+			new Item[] {
+				new Item(995, 5000000),    // Coins
+				new Item(7947, 100),       // Super restores
+				new Item(2445, 10),        // Potions
+				new Item(3041, 10),
+				new Item(3025, 10),
+				new Item(892, 500),        // Arrows
+				new Item(4675, 1),         // Equipment
+				new Item(2579, 1),
+				new Item(2577, 1),
+				new Item(4214, 1),
+				new Item(861, 1),
+				new Item(10376, 1),
+				new Item(10380, 1),
+				new Item(6585, 1),
+				new Item(13223, 1),
+				new Item(12648, 1)
+			});
 
-    for (int i = 0; i < StonerConstants.SIDEBAR_INTERFACE_IDS.length; i++) {
-      stoner.send(new SendSidebarInterface(i, StonerConstants.SIDEBAR_INTERFACE_IDS[i]));
-    }
+		private final int button;
+		private final int stringId;
+		private final int rights;
+		private final Item[] items;
 
-    stoner.send(new SendSidebarInterface(5, 5608));
-    stoner.send(new SendSidebarInterface(6, 1151));
-    stoner.setRights(data.getRights());
-    stoner.getUpdateFlags().setUpdateRequired(true);
+		StarterData(int button, int stringId, int rights, Item[] items) {
+			this.button = button;
+			this.stringId = stringId;
+			this.rights = rights;
+			this.items = items;
+		}
 
-    switch (selected) {
-      case 202052:
-      case 202053:
-      case 202051:
-		  if (!Boolean.TRUE.equals(stoner.getAttributes().get("starter_ip_logged"))) {
-			  stoner.getBox().addItems(data.getItems());
-			  stoner.getAttributes().set("starter_ip_logged", true);
-			  SaveCache.markDirty(stoner);
-		  }
+		public int getButton() {
+			return button;
+		}
 
-		  stoner.setRights(0);
-        break;
-    }
-  }
+		public int getString() {
+			return stringId;
+		}
 
-  public enum StarterData {
-    STONER(
-        202051,
-        51766,
-        0,
-        new Item[] {
-          new Item(995, 5000000),
-          new Item(7945, 100),
-          new Item(11879, 1),
-          new Item(11881, 1),
-          new Item(11883, 1),
-          new Item(12009, 1),
-          new Item(11885, 1),
-          new Item(12859, 1),
-          new Item(11738, 1),
-          new Item(1511, 100),
-          new Item(1521, 100),
-          new Item(1519, 100),
-          new Item(1517, 100),
-          new Item(1515, 100),
-          new Item(1513, 100),
-          new Item(6199, 1),
-          new Item(6857, 1),
-          new Item(775, 1),
-          new Item(1837, 1),
-          new Item(13223, 1),
-          new Item(6575, 1),
-          new Item(6577, 1),
-          new Item(12647, 1)
-        },
-        "",
-        "",
-        ""),
+		public int getRights() {
+			return rights;
+		}
 
-    DEALER(
-        202052,
-        51767,
-        11,
-        new Item[] {
-          new Item(995, 5000000),
-          new Item(7947, 100),
-          new Item(2437, 10),
-          new Item(2441, 10),
-          new Item(2443, 10),
-          new Item(3025, 10),
-          new Item(12414, 1),
-          new Item(12415, 1),
-          new Item(12416, 1),
-          new Item(12417, 1),
-          new Item(12418, 1),
-          new Item(4587, 1),
-          new Item(6585, 1),
-          new Item(7461, 1),
-          new Item(11840, 1),
-          new Item(2675, 1),
-          new Item(2673, 1),
-          new Item(2671, 1),
-          new Item(2669, 1),
-          new Item(13223, 1),
-          new Item(12654, 1)
-        },
-        "",
-        "",
-        ""),
-
-    GROWER(
-        202053,
-        51768,
-        12,
-        new Item[] {
-          new Item(995, 5000000),
-          new Item(7947, 100),
-          new Item(2445, 10),
-          new Item(3041, 10),
-          new Item(3025, 10),
-          new Item(892, 500),
-          new Item(4675, 1),
-          new Item(2579, 1),
-          new Item(2577, 1),
-          new Item(4214, 1),
-          new Item(861, 1),
-          new Item(10376, 1),
-          new Item(10380, 1),
-          new Item(6585, 1),
-          new Item(13223, 1),
-          new Item(12648, 1)
-        },
-        "",
-        "",
-        "");
-
-    private static final HashMap<Integer, StarterData> starterKits =
-        new HashMap<Integer, StarterData>();
-
-    static {
-      for (final StarterData starters : StarterData.values()) {
-        StarterData.starterKits.put(starters.button, starters);
-      }
-    }
-
-    private final int button;
-    private final int stringId;
-    private final int rights;
-    private final Item[] items;
-    private final String[] descriptions;
-
-    StarterData(int button, int stringId, int rights, Item[] items, String... descriptions) {
-      this.button = button;
-      this.stringId = stringId;
-      this.rights = rights;
-      this.items = items;
-      this.descriptions = descriptions;
-    }
-
-    public int getButton() {
-      return button;
-    }
-
-    public int getString() {
-      return stringId;
-    }
-
-    public int getRights() {
-      return rights;
-    }
-
-    public Item[] getItems() {
-      return items;
-    }
-
-    public String[] getDescription() {
-      return descriptions;
-    }
-  }
+		public Item[] getItems() {
+			return items;
+		}
+	}
 }

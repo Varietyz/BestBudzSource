@@ -204,10 +204,10 @@ public class StonerCommand implements Command {
           stoner.send(
               new SendMessage(
                   "You normally cannot teleport above 20 wilderness, but fuck that, beep boop going home!"));
-          stoner.getMage().teleport(3434, 2890, 0, TeleportTypes.SPELL_BOOK);
+          stoner.getMage().teleport(3443, 2915, 0, TeleportTypes.SPELL_BOOK);
           return true;
         }
-        stoner.getMage().teleport(3434, 2890, 0, TeleportTypes.SPELL_BOOK);
+        stoner.getMage().teleport(3443, 2915, 0, TeleportTypes.SPELL_BOOK);
         return true;
 
       case "devilspact":

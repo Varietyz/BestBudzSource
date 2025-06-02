@@ -1587,7 +1587,7 @@ public final class RSInterface {
         30006,
         65,
         "Cure Plant",
-        "Cure disease on cultivation patch",
+        "Cure disease on bankstanding patch",
         1,
         4,
         2);
@@ -1927,7 +1927,7 @@ public final class RSInterface {
         30006,
         82,
         "Fertile Soil",
-        "Fertilise a cultivation patch with super\\ncompost",
+        "Fertilise a bankstanding patch with super\\ncompost",
         24,
         4,
         2);

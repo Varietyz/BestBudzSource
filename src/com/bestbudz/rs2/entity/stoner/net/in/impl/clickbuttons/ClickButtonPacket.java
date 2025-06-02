@@ -10,37 +10,29 @@ import com.bestbudz.rs2.content.combat.formula.RangeFormulas;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.*;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.*;
 import com.bestbudz.rs2.content.membership.CreditHandler;
-import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelingConstants;
 import com.bestbudz.rs2.content.profession.ProfessionGoal;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.foodie.FoodieTask;
 import com.bestbudz.rs2.content.profession.forging.ForgingConstants;
 import com.bestbudz.rs2.content.profession.handiness.Handiness;
 import com.bestbudz.rs2.content.profession.handiness.HideTanning;
-import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
 import com.bestbudz.rs2.content.profession.mage.Autocast;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
-import com.bestbudz.rs2.content.profession.mage.spells.BoltEnchanting;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
 import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
 import com.bestbudz.rs2.content.profession.summoning.SummoningCreation;
-import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
 import com.bestbudz.rs2.content.profession.woodcarving.Woodcarving;
 import com.bestbudz.rs2.content.profiles.ProfileLeaderboard;
-import com.bestbudz.rs2.content.profiles.StonerProfiler;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.Location;
-import com.bestbudz.rs2.entity.ReportHandler;
 import com.bestbudz.rs2.entity.ReportHandler.ReportData;
 import com.bestbudz.rs2.entity.item.EquipmentConstants;
 import com.bestbudz.rs2.entity.item.Item;
@@ -54,7 +46,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.*;
 import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ClickButtonPacket extends IncomingPacket {
 
@@ -340,27 +331,24 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendInterface(8134));
 	}
 
-	public static void handleSpellbookSwitch(Stoner stoner) {
-		stoner.start(new OptionDialogue(
-			"Focused Mage",
-			p -> {
+	public static void focusedMageBookSwap(Stoner stoner) {
+
 				stoner.getMage().setSpellBookType(SpellBookTypes.MODERN);
 				stoner.getMage().setMageBook(1151);
 				stoner.getUpdateFlags().sendAnimation(new Animation(6299));
 				stoner.getUpdateFlags().sendGraphic(new Graphic(1062));
-				stoner.send(new SendMessage("You are now a focused mage."));
+				stoner.send(new SendMessage("You are now casting focused mage."));
 				stoner.send(new SendRemoveInterfaces());
-			},
-			"AoE Mage",
-			p -> {
+
+	}
+
+	public static void aoeMageBookSwap(Stoner stoner) {
 				stoner.getMage().setSpellBookType(SpellBookTypes.ANCIENT);
 				stoner.getMage().setMageBook(12855);
 				stoner.getUpdateFlags().sendAnimation(new Animation(6299));
 				stoner.getUpdateFlags().sendGraphic(new Graphic(1062));
 				stoner.send(new SendMessage("You are now a AoE mage."));
 				stoner.send(new SendRemoveInterfaces());
-			}
-		));
 	}
 
 	public static void openAdvanceInterface(Stoner stoner) {
@@ -682,15 +670,11 @@ public class ClickButtonPacket extends IncomingPacket {
 		// Handle report system
 		if (handleReportSystem(stoner, buttonId)) return true;
 
-		// Handle tutorial
-		if (handleTutorial(stoner, buttonId)) return true;
-
 		// Handle easter ring
 		if (handleEasterRing(stoner, buttonId)) return true;
 
 		// Handle various content systems
 		if (LoyaltyShop.handleButtons(stoner, buttonId)) return true;
-		if (StarterKit.handle(stoner, buttonId)) return true;
 		if (TeleportHandler.selection(stoner, buttonId)) return true;
 		if (ProfessionGoal.handle(stoner, buttonId)) return true;
 		return Advance.handleActionButtons(stoner, buttonId);
@@ -712,14 +696,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		if (ReportData.get(buttonId) != null) {
 			stoner.reportClicked = buttonId;
 			return true;
-		}
-		return false;
-	}
-
-	private boolean handleTutorial(Stoner stoner, int buttonId) {
-		if (stoner.getController().equals(Tutorial.TUTORIAL_CONTROLLER) && stoner.getDialogue() != null) {
-			stoner.getDialogue().clickButton(buttonId);
-			return stoner.getInterfaceManager().getMain() != 51750;
 		}
 		return false;
 	}
@@ -894,8 +870,8 @@ public class ClickButtonPacket extends IncomingPacket {
 		if (GenieReset.handle(stoner, buttonId)) return;
 		if (AchievementButtons.handleButtons(stoner, buttonId)) return;
 		if (ProfessionsChat.handle(stoner, buttonId)) return;
-		if (stoner.getSummoning().click(buttonId)) return;
-		if (SummoningCreation.create(stoner, buttonId)) return;
+		//if (stoner.getSummoning().click(buttonId)) return;
+		//if (SummoningCreation.create(stoner, buttonId)) return;
 		if (stoner.getDialogue() != null && stoner.getDialogue().clickButton(buttonId)) return;
 		if (Autocast.clickButton(stoner, buttonId)) return;
 		if (Emotes.clickButton(stoner, buttonId)) return;
@@ -904,12 +880,9 @@ public class ClickButtonPacket extends IncomingPacket {
 		if (stoner.getBank().clickButton(buttonId)) return;
 		if (stoner.getMage().clickMageButtons(buttonId)) return;
 		if (EquipmentConstants.clickAssaultStyleButtons(stoner, buttonId)) return;
-		if (ForgingConstants.clickSmeltSelection(stoner, buttonId)) return;
-		if (Woodcarving.SINGLETON.clickButton(stoner, buttonId)) return;
-		if (com.bestbudz.rs2.content.profession.handinessnew.Handiness.SINGLETON.clickButton(stoner, buttonId)) return;
-		if (Handiness.handleHandinessByButtons(stoner, buttonId)) return;
+		//if (Woodcarving.SINGLETON.clickButton(stoner, buttonId)) return;
+		//if (com.bestbudz.rs2.content.profession.handinessnew.Handiness.SINGLETON.clickButton(stoner, buttonId)) return;
 		if (HideTanning.clickButton(stoner, buttonId)) return;
-		if (FoodieTask.handleFoodieByAmount(stoner, buttonId)) return;
 
 		handleTHChempistryButtons(stoner, buttonId);
 	}

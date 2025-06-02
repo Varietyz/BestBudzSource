@@ -3,7 +3,7 @@ package com.bestbudz.rs2.entity.stoner.net.in.impl;
 import com.bestbudz.BestbudzConstants;
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.core.network.StreamBuffer.ByteOrder;
-import com.bestbudz.rs2.entity.WalkToActions;
+import com.bestbudz.rs2.entity.ObjectActions;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.following.Following;
 import com.bestbudz.rs2.entity.mob.Mob;
@@ -49,7 +49,7 @@ public class NPCPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.clickNpc(stoner, 1, slot);
+        ObjectActions.clickNpc(stoner, 1, slot);
         break;
       case 17:
         slot = in.readShort(StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE) & 0xFFFF;
@@ -58,7 +58,7 @@ public class NPCPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.clickNpc(stoner, 2, slot);
+        ObjectActions.clickNpc(stoner, 2, slot);
         break;
       case 21:
         slot = in.readShort();
@@ -67,7 +67,7 @@ public class NPCPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.clickNpc(stoner, 3, slot);
+        ObjectActions.clickNpc(stoner, 3, slot);
         break;
       case 18:
         slot = in.readShort(true, ByteOrder.LITTLE);
@@ -76,7 +76,7 @@ public class NPCPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.clickNpc(stoner, 4, slot);
+        ObjectActions.clickNpc(stoner, 4, slot);
         break;
       case 72:
         slot = in.readShort(StreamBuffer.ValueType.A);
@@ -100,7 +100,7 @@ public class NPCPacket extends IncomingPacket {
             || mob.getId() == 490
             || mob.getId() == 4936
             || mob.getId() == 315) {
-          WalkToActions.clickNpc(stoner, 2, slot);
+          ObjectActions.clickNpc(stoner, 2, slot);
           return;
         }
 
@@ -158,7 +158,7 @@ public class NPCPacket extends IncomingPacket {
           return;
         }
 
-        WalkToActions.useItemOnNpc(stoner, itemId, slot);
+        ObjectActions.useItemOnNpc(stoner, itemId, slot);
     }
   }
 }

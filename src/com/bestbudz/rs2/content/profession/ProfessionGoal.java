@@ -27,7 +27,7 @@ public enum ProfessionGoal {
   FOODIE(7, 94122, 94121, 33217),
   PYROMANIAC(11, 94128, 94127, 33220),
   LUMBERING(8, 94134, 94133, 33223),
-  CULTIVATION(19, 94140, 94139, 54104);
+  BANKSTANDING(19, 94140, 94139, 54104);
 
   public static HashMap<Integer, ProfessionGoal> professions =
       new HashMap<Integer, ProfessionGoal>();

@@ -204,7 +204,7 @@ public class PotionDecanting {
     }
 
     if (decanted == 0) {
-      DialogueManager.sendStatement(p, "You do not have any potions to decant.");
+		p.getClient().queueOutgoingPacket(new SendMessage("You do not have any potions to decant."));
     } else {
       p.getClient().queueOutgoingPacket(new SendMessage("Bob Barter decants your potions."));
       p.getBox().update();

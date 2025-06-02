@@ -31,15 +31,7 @@ public class ForgingTask extends Task {
     this.bar = bar;
     this.amount = amount;
 
-    int lvl = ForgingConstants.getGrade(forger.getId());
-
-    if (stoner.getMaxGrades()[13] < lvl) {
-      stoner
-          .getClient()
-          .queueOutgoingPacket(
-              new SendMessage("You need a Forging grade of " + lvl + " to make that."));
-      stop();
-    } else if (!stoner.getBox().hasItemAmount(new Item(bar))) {
+     if (!stoner.getBox().hasItemAmount(new Item(bar))) {
       stoner
           .getClient()
           .queueOutgoingPacket(new SendMessage("You do not have enough bars to make that."));

@@ -105,7 +105,7 @@ public class PlunderController extends Controller {
 
   @Override
   public Location getRespawnLocation(Stoner stoner) {
-    return new Location(3434, 2890, 0);
+    return new Location(3443, 2915, 0);
   }
 
   @Override
@@ -124,7 +124,7 @@ public class PlunderController extends Controller {
 
   @Override
   public void onDisconnect(Stoner paramStoner) {
-    paramStoner.teleport(new Location(3434, 2890, 0));
+    paramStoner.teleport(new Location(3443, 2915, 0));
   }
 
   @Override

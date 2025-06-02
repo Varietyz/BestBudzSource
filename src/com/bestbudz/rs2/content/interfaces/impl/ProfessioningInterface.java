@@ -14,7 +14,7 @@ public class ProfessioningInterface extends InterfaceHandler {
     "Forging",
     "Fisher",
     "Lumbering",
-    "Cultivation",
+    "BankStanding",
     "",
     "",
     "",

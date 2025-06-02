@@ -205,7 +205,7 @@ public class MasterCapeShop extends Shop {
         new int[] {
           13218,
         }),
-    CULTIVATION(
+    BANKSTANDING(
         new int[] {
           13219,
         }),

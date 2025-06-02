@@ -38,200 +38,150 @@ public class ObjectManager {
     register.add(o);
   }
 
-  public static void declare() {
+	public static void declare() {
+		// Clear existing active objects
+		for (GameObject obj : active) {
+			send(getBlankObject(obj.getLocation()));
+		}
+		active.clear();
 
-    for (GameObject i : active) {
-      send(getBlankObject(i.getLocation()));
-    }
+		deleteWithObject(3444, 2909, 0);
+		deleteWithObject(3440, 2909, 0);
+		deleteWithObject(3438, 2910, 0);
+		deleteWithObject(3446, 2911, 0);
+		deleteWithObject(3440, 2922, 0);
+		deleteWithObject(3443, 2922, 0);
+		deleteWithObject(3449, 2912, 0);
+		deleteWithObject(3445, 2918, 0);
+		deleteWithObject(3439, 2918, 0);
 
-    active.clear();
-    deleteWithObject(3444, 2909, 0);
-    deleteWithObject(3440, 2909, 0);
-    deleteWithObject(3438, 2910, 0);
-    deleteWithObject(3446, 2911, 0);
-    deleteWithObject(3440, 2922, 0);
-    deleteWithObject(3443, 2922, 0);
-    deleteWithObject(3449, 2912, 0);
-    deleteWithObject(3445, 2918, 0);
-    deleteWithObject(3439, 2918, 0);
-    spawnWithObject(13709, 3438, 2911, 0, 10, 0);
-    spawnWithObject(13712, 3438, 2910, 0, 10, 0);
-    spawnWithObject(13711, 3439, 2909, 0, 10, 0);
-    spawnWithObject(13714, 3440, 2909, 0, 10, 0);
-    spawnWithObject(13707, 3443, 2909, 0, 10, 0);
-    spawnWithObject(13718, 3444, 2909, 0, 10, 0);
-    spawnWithObject(14168, 3447, 2909, 0, 10, 0);
-    spawnWithObject(14175, 3448, 2909, 0, 10, 0);
-    spawnWithObject(14856, 3449, 2912, 0, 10, 0);
-    spawnWithObject(14855, 3448, 2912, 0, 10, 0);
-    spawnWithObject(14854, 3447, 2912, 0, 10, 0);
-    spawnWithObject(2097, 3444, 2913, 0, 10, 1);
-    spawnWithObject(2097, 3442, 2913, 0, 10, 1);
-    spawnWithObject(2097, 3440, 2913, 0, 10, 1);
-    spawnWithObject(2030, 3439, 2916, 0, 10, 1);
-    spawnWithObject(26181, 3443, 2922, 0, 10, 1);
-    spawnWithObject(4309, 3445, 2919, 0, 10, 0);
-    spawnWithObject(11601, 3439, 2922, 0, 10, 1);
-    spawnWithObject(11744, 3446, 2920, 0, 10, 3);
-    spawnWithObject(4090, 3424, 2898, 0, 10, 3);
-    spawnWithObject(11764, 3435, 2913, 0, 10, 1);
-    spawnWithObject(11764, 3432, 2917, 0, 10, 1);
-    spawnWithObject(11764, 3429, 2921, 0, 10, 1);
-    spawnWithObject(11764, 3432, 2903, 0, 10, 1);
-    spawnWithObject(11764, 3432, 2895, 0, 10, 1);
-    spawnWithObject(11764, 3435, 2887, 0, 10, 1);
-    spawnWithObject(11758, 3444, 2898, 0, 10, 1);
-    spawnWithObject(11758, 3444, 2893, 0, 10, 1);
-    spawnWithObject(11758, 3436, 2906, 0, 10, 1);
-    spawnWithObject(11762, 3434, 2921, 0, 10, 1);
-    spawnWithObject(11762, 3420, 2920, 0, 10, 1);
-    spawnWithObject(11762, 3420, 2911, 0, 10, 1);
-    spawnWithObject(11762, 3432, 2909, 0, 10, 1);
-    spawnWithObject(11759, 3413, 2913, 0, 10, 3);
-    spawnWithObject(11759, 3431, 2887, 0, 10, 1);
-    spawnWithObject(11759, 3429, 2910, 0, 10, 1);
-    spawnWithObject(11759, 3436, 2910, 0, 10, 1);
-    spawnWithObject(11756, 3438, 2928, 0, 10, 1);
-    spawnWithObject(11756, 3442, 2927, 0, 10, 1);
-    spawnWithObject(11756, 3413, 2922, 0, 10, 1);
-    spawnWithObject(11756, 3443, 2887, 0, 10, 1);
-    spawnWithObject(1276, 3445, 2928, 0, 10, 1);
-    spawnWithObject(1276, 3449, 2925, 0, 10, 1);
-    spawnWithObject(1276, 3409, 2918, 0, 10, 1);
-    spawnWithObject(1276, 3436, 2918, 0, 10, 1);
-    spawnWithObject(1276, 3432, 2898, 0, 10, 1);
-    spawnWithObject(7134, 3437, 2914, 0, 10, 1);
-    spawnWithObject(7134, 3436, 2917, 0, 10, 1);
-    spawnWithObject(7134, 3432, 2920, 0, 10, 1);
-    spawnWithObject(7134, 3437, 2921, 0, 10, 1);
-    spawnWithObject(7134, 3438, 2912, 0, 10, 1);
+		spawnWithObject(13709, 3438, 2911, 0, 10, 0);
+		spawnWithObject(13712, 3438, 2910, 0, 10, 0);
+		spawnWithObject(13711, 3439, 2909, 0, 10, 0);
+		spawnWithObject(13714, 3440, 2909, 0, 10, 0);
+		spawnWithObject(13707, 3443, 2909, 0, 10, 0);
+		spawnWithObject(13718, 3444, 2909, 0, 10, 0);
+		spawnWithObject(14168, 3447, 2909, 0, 10, 0);
+		spawnWithObject(14175, 3448, 2909, 0, 10, 0);
 
-    spawnWithObject(11744, 3446, 2916, 0, 10, 3);
-    spawnWithObject(11744, 3446, 2915, 0, 10, 3);
-    spawnWithObject(14175, 3195, 3942, 0, 10, 3);
-    spawnWithObject(14175, 3194, 3943, 0, 10, 3);
-    spawnWithObject(14175, 3175, 3937, 0, 10, 3);
-    spawnWithObject(14175, 3175, 3943, 0, 10, 3);
-    deleteWithObject(1863, 5328, 0);
-    deleteWithObject(1863, 5326, 0);
-    deleteWithObject(1863, 5323, 0);
-    deleteWithObject(1862, 5327, 0);
-    deleteWithObject(1862, 5326, 0);
-    deleteWithObject(1862, 5325, 0);
-    deleteWithObject(1865, 5325, 0);
-    deleteWithObject(1863, 5321, 0);
-    deleteWithObject(1865, 5321, 0);
-    deleteWithObject(1865, 5323, 0);
-    deleteWithObject(1863, 5319, 0);
-    deleteWithObject(1862, 5319, 0);
-    deleteWithObject(1863, 5317, 0);
-    deleteWithObject(1865, 5319, 0);
-    deleteWithObject(1862, 5321, 0);
-    deleteWithObject(1862, 5323, 0);
-    spawnWithObject(1, 1866, 5323, 0, 10, 0);
-    spawnWithObject(1, 1865, 5323, 0, 10, 0);
-    spawnWithObject(11005, 1864, 5323, 0, 10, 1);
-    spawnWithObject(11005, 1863, 5323, 0, 10, 1);
-    spawnWithObject(1, 1862, 5323, 0, 10, 0);
-    spawnWithObject(1, 1861, 5323, 0, 10, 0);
-    spawnWithObject(11744, 1861, 5330, 0, 10, 0);
-    spawnWithObject(11744, 1862, 5330, 0, 10, 0);
-    spawnWithObject(11744, 1863, 5330, 0, 10, 0);
-    spawnWithObject(11744, 1864, 5330, 0, 10, 0);
-    spawnWithObject(11744, 1865, 5330, 0, 10, 0);
-    spawnWithObject(11744, 1866, 5330, 0, 10, 0);
-    spawnWithObject(11744, 2804, 3463, 0, 10, 1);
-    spawnWithObject(11744, 3599, 3522, 0, 10, 0);
-    spawnWithObject(11744, 3056, 3311, 0, 10, 0);
-    spawnWithObject(11744, 2662, 3375, 0, 10, 0);
+		spawnWithObject(14856, 3449, 2912, 0, 10, 0);
+		spawnWithObject(14855, 3448, 2912, 0, 10, 0);
+		spawnWithObject(14854, 3447, 2912, 0, 10, 0);
 
-    spawnWithObject(11744, 2930, 4821, 0, 10, 0);
-    delete(3079, 3501, 0);
-    delete(3080, 3501, 0);
-    delete(3445, 3554, 2);
-    remove(3431, 2891, 0);
-    remove(3431, 2892, 0);
-    deleteWithObject(3429, 2898, 0);
-    deleteWithObject(3428, 2898, 0);
-    deleteWithObject(3427, 2898, 0);
-    deleteWithObject(3424, 2897, 0);
-    deleteWithObject(3423, 2897, 0);
-    deleteWithObject(3423, 2899, 0);
-    deleteWithObject(3424, 2899, 0);
-    remove(3425, 2901, 0);
-    remove(3440, 2892, 0);
-    deleteWithObject(3438, 2902, 0);
-    deleteWithObject(3444, 2901, 0);
-    deleteWithObject(3444, 2904, 0);
-    deleteWithObject(3444, 2905, 0);
-    deleteWithObject(3441, 2905, 0);
-    deleteWithObject(3439, 2899, 0);
+		spawnWithObject(2097, 3443, 2913, 0, 10, 1); // ANVIL
+		spawnWithObject(2097, 3440, 2913, 0, 10, 1); // ANVIL
+		spawnWithObject(2030, 3439, 2916, 0, 10, 1);
 
-    deleteWithObject(3430, 2894, 0);
+		spawnWithObject(26181, 3443, 2922, 0, 10, 1);
+		spawnWithObject(4309, 3445, 2919, 0, 10, 0);
+		spawnWithObject(11601, 3439, 2922, 0, 10, 1);
+		spawnWithObject(11744, 3446, 2920, 0, 10, 3);
+		spawnWithObject(4090, 3424, 2898, 0, 10, 3);
 
-    delete(3426, 2916, 0);
-    spawnWithObject(11744, 3430, 2930, 0, 10, 1);
-    spawnWithObject(11744, 3430, 2929, 0, 10, 1);
-    spawnWithObject(11744, 3430, 2928, 0, 10, 1);
-    spawnWithObject(11744, 3430, 2927, 0, 10, 1);
-    spawnWithObject(22472, 3430, 2902, 0, 10, 2);
-    spawnWithObject(8720, 3286, 3494, 0, 10, 2);
-    spawnWithObject(4875, 3424, 2927, 0, 10, 5);
-    spawnWithObject(4876, 3423, 2927, 0, 10, 5);
-    spawnWithObject(4874, 3422, 2928, 0, 10, 5);
-    spawnWithObject(4877, 3422, 2929, 0, 10, 5);
-    spawnWithObject(4878, 3422, 2930, 0, 10, 5);
+		spawnWithObject(11758, 3444, 2898, 0, 10, 1);
+		spawnWithObject(11758, 3444, 2893, 0, 10, 1);
+		spawnWithObject(11758, 3436, 2906, 0, 10, 1);
 
-    spawnWithObject(13618, 3438, 2899, 0, 10, 0);
-    spawnWithObject(13619, 3440, 2899, 0, 10, 0);
-    spawnWithObject(2191, 3439, 2902, 0, 10, 0);
+		spawnWithObject(1276, 3445, 2928, 0, 10, 1);
+		spawnWithObject(1276, 3449, 2925, 0, 10, 1);
+		spawnWithObject(1276, 3409, 2918, 0, 10, 1);
+		spawnWithObject(1276, 3436, 2918, 0, 10, 1);
+		spawnWithObject(1276, 3432, 2898, 0, 10, 1);
 
-    spawnWithObject(409, 3437, 2891, 0, 10, 3);
-    spawnWithObject(5249, 3428, 2912, 0, 10, 3);
-    delete(3105, 3958, 0);
-    delete(3106, 3958, 0);
-    delete(3093, 3957, 0);
-    delete(3095, 3957, 0);
-    delete(3092, 3957, 0);
-    delete(3158, 3951, 0);
-    deleteWithObject(2543, 4715, 0);
-    spawnWithObject(734, 3105, 3958, 0, 10, 3);
-    spawnWithObject(734, 3106, 3958, 0, 10, 3);
-    spawnWithObject(734, 3158, 3951, 0, 10, 1);
-    spawnWithObject(734, 3093, 3957, 0, 10, 0);
-    spawnWithObject(734, 3095, 3957, 0, 10, 0);
-    delete(2543, 4715, 0);
-    delete(2855, 3546, 0);
-    delete(2854, 3546, 0);
-    setClipToZero(3445, 3554, 2);
-    setClipToZero(3119, 9850, 0);
-    setClipToZero(3002, 3961, 0);
-    setClipToZero(3002, 3960, 0);
-    setClipToZero(2539, 4716, 0);
-    setClipToZero(3068, 10255, 0);
-    setClipToZero(3068, 10256, 0);
-    setClipToZero(3068, 10258, 0);
-    setClipToZero(3067, 10255, 0);
-    setClipToZero(3066, 10256, 0);
-    setClipToZero(3426, 3555, 1);
-    setClipToZero(3427, 3555, 1);
-    setClipToZero(3005, 3953, 0);
-    setClipToZero(3005, 3952, 0);
-    setClipToZero(2551, 3554, 0);
-    setClipToZero(2551, 3555, 0);
-    setClipToZero(2833, 3352, 0);
-    setClipToZero(2996, 3960, 0);
-    setClipToZero(3431, 2891, 0);
-    setClipToZero(3431, 2892, 0);
-    setClipToZero(3427, 2923, 0);
-    setClipToZero(3426, 2923, 0);
+		// Decorative or map-specific objects (11764 group)
+		int[][] coords11764 = {
+			{3435, 2913}, {3432, 2917}, {3429, 2921},
+			{3432, 2903}, {3432, 2895}, {3435, 2887}
+		};
+		for (int[] pos : coords11764) {
+			spawnWithObject(11764, pos[0], pos[1], 0, 10, 1);
+		}
 
-    for (GameObject i : active) {
-      send(i);
-    }
+		// Multi-spot repeated types
+		spawnWithObject(11762, 3434, 2921, 0, 10, 1);
+		spawnWithObject(11762, 3420, 2920, 0, 10, 1);
+		spawnWithObject(11762, 3420, 2911, 0, 10, 1);
+		spawnWithObject(11762, 3432, 2909, 0, 10, 1);
 
-    logger.info("All object spawns have been loaded successfully.");
-  }
+		spawnWithObject(11759, 3413, 2913, 0, 10, 3);
+		spawnWithObject(11759, 3431, 2887, 0, 10, 1);
+		spawnWithObject(11759, 3429, 2910, 0, 10, 1);
+		spawnWithObject(11759, 3436, 2910, 0, 10, 1);
+
+		spawnWithObject(11756, 3438, 2928, 0, 10, 1);
+		spawnWithObject(11756, 3442, 2927, 0, 10, 1);
+		spawnWithObject(11756, 3413, 2922, 0, 10, 1);
+		spawnWithObject(11756, 3443, 2887, 0, 10, 1);
+
+		// Portal-like objects
+		spawnWithObject(7134, 3437, 2914, 0, 10, 1);
+		spawnWithObject(7134, 3436, 2917, 0, 10, 1);
+		spawnWithObject(7134, 3432, 2920, 0, 10, 1);
+		spawnWithObject(7134, 3437, 2921, 0, 10, 1);
+		spawnWithObject(7134, 3438, 2912, 0, 10, 1);
+
+		// Custom areas - group 1
+		spawnWithObject(11744, 3446, 2916, 0, 10, 3);
+		spawnWithObject(11744, 3446, 2915, 0, 10, 3);
+		spawnWithObject(14175, 3195, 3942, 0, 10, 3);
+		spawnWithObject(14175, 3194, 3943, 0, 10, 3);
+		spawnWithObject(14175, 3175, 3937, 0, 10, 3);
+		spawnWithObject(14175, 3175, 3943, 0, 10, 3);
+
+		// Cleanup area - group 2
+		int[][] deleteCoords = {
+			{1863, 5328}, {1863, 5326}, {1863, 5323},
+			{1862, 5327}, {1862, 5326}, {1862, 5325},
+			{1865, 5325}, {1863, 5321}, {1865, 5321},
+			{1865, 5323}, {1863, 5319}, {1862, 5319},
+			{1863, 5317}, {1865, 5319}, {1862, 5321},
+			{1862, 5323}
+		};
+		for (int[] coord : deleteCoords) {
+			deleteWithObject(coord[0], coord[1], 0);
+		}
+
+		// Replacements for group 2
+		spawnWithObject(1, 1866, 5323, 0, 10, 0);
+		spawnWithObject(1, 1865, 5323, 0, 10, 0);
+		spawnWithObject(11005, 1864, 5323, 0, 10, 1);
+		spawnWithObject(11005, 1863, 5323, 0, 10, 1);
+		spawnWithObject(1, 1862, 5323, 0, 10, 0);
+		spawnWithObject(1, 1861, 5323, 0, 10, 0);
+		for (int x = 1861; x <= 1866; x++) {
+			spawnWithObject(11744, x, 5330, 0, 10, 0);
+		}
+
+		// Other regions
+		spawnWithObject(11744, 2804, 3463, 0, 10, 1);
+		spawnWithObject(11744, 3599, 3522, 0, 10, 0);
+		spawnWithObject(11744, 3056, 3311, 0, 10, 0);
+		spawnWithObject(11744, 2662, 3375, 0, 10, 0);
+		spawnWithObject(11744, 2930, 4821, 0, 10, 0);
+
+		// Legacy cleanup - wilderness/legacy tiles
+		delete(3079, 3501, 0);
+		delete(3080, 3501, 0);
+		delete(3445, 3554, 2);
+
+		// Misc removals
+		remove(3431, 2891, 0);
+		remove(3431, 2892, 0);
+		deleteWithObject(3429, 2898, 0);
+		deleteWithObject(3428, 2898, 0);
+		deleteWithObject(3427, 2898, 0);
+		deleteWithObject(3424, 2897, 0);
+		deleteWithObject(3423, 2897, 0);
+		deleteWithObject(3423, 2899, 0);
+		deleteWithObject(3424, 2899, 0);
+		remove(3425, 2901, 0);
+		remove(3440, 2892, 0);
+		deleteWithObject(3438, 2902, 0);
+		deleteWithObject(3444, 2901, 0);
+		deleteWithObject(3444, 2904, 0);
+		deleteWithObject(3444, 2905, 0);
+	}
+
 
   private static final void delete(int x, int y, int z) {
     RSObject object = Region.getObject(x, y, z);

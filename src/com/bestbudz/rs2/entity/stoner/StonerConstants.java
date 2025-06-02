@@ -16,7 +16,7 @@ public final class StonerConstants {
 
   public static Location LUMBRIDGE = new Location(3222, 3216 + Utility.randomNumber(2), 0);
 
-  public static Location HOME = new Location(3434, 2890, 0);
+  public static Location HOME = new Location(3443, 2915, 0);
 
   public static Location EDGEVILLE = new Location(3094, 3447, 0);
 

@@ -39,7 +39,7 @@ public class Advance {
     "Weedsmoking",
     "Accomplisher",
     "Mercenary",
-    "Cultivation",
+    "BankStanding",
     "Consumer"
   };
 
@@ -197,7 +197,7 @@ public class Advance {
     WEEDSMOKING(199112, " ", 16, 51018, 50_000_000),
     ACCOMPLISHER(199118, " ", 17, 51020, 10_500_000),
     MERCENARY(199127, " ", 18, 51023, 10_500_000),
-    CULTIVATION(199148, " ", 19, 51030, 20_500_000),
+    BANKSTANDING(199148, " ", 19, 51030, 20_500_000),
     CONSUMER(199106, " ", 20, 51016, 10_500_000);
 
     public static HashMap<Integer, AdvanceData> advance = new HashMap<Integer, AdvanceData>();

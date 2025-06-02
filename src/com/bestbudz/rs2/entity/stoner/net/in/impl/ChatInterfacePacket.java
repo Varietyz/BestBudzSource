@@ -2,7 +2,6 @@ package com.bestbudz.rs2.entity.stoner.net.in.impl;
 
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.foodie.FoodieTask;
 import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
@@ -136,11 +135,6 @@ public class ChatInterfacePacket extends IncomingPacket {
       case 15460:
         break;
       case 1743:
-        FoodieTask.attemptFoodie(
-            stoner,
-            stoner.getAttributes().getInt("foodieitem"),
-            stoner.getAttributes().getInt("foodieobject"),
-            amount);
         break;
       case 4429:
         THChempistryUnfinishedPotionTask.attemptToCreateUnfinishedPotion(

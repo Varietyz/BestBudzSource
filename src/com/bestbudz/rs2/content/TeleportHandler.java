@@ -93,28 +93,28 @@ public class TeleportHandler {
                   p.teleport(new Location(2805, 3464, 0));
                   p.send(
                       new SendMessage(
-                          "<col=482CB8>You have teleported to the Catweedy cultivation area."));
+                          "<col=482CB8>You have teleported to the Catweedy bankstanding area."));
                 },
                 "Ardougne",
                 p -> {
                   p.teleport(new Location(2662, 3375, 0));
                   p.send(
                       new SendMessage(
-                          "<col=482CB8>You have teleported to the Ardougne cultivation area."));
+                          "<col=482CB8>You have teleported to the Ardougne bankstanding area."));
                 },
                 "Falador",
                 p -> {
                   p.teleport(new Location(3056, 3310, 0));
                   p.send(
                       new SendMessage(
-                          "<col=482CB8>You have teleported to the Falador cultivation area."));
+                          "<col=482CB8>You have teleported to the Falador bankstanding area."));
                 },
                 "Phasmatys",
                 p -> {
                   p.teleport(new Location(3600, 3524, 0));
                   p.send(
                       new SendMessage(
-                          "<col=482CB8>You have teleported to the Phasmatys cultivation area."));
+                          "<col=482CB8>You have teleported to the Phasmatys bankstanding area."));
                 }));
         return false;
 
@@ -311,10 +311,10 @@ public class TeleportHandler {
   }
 
   public enum TeleportationData {
-    ROCK_CRABS(238123, 0, "None", "None", 0, new Location(2674, 3710, 0), false, false),
+    ROCK_CRABS(238123, 0, "None", "None", 0, new Location(3417, 2923, 0), false, false),
     HILL_GIANTS(238124, 0, "None", "None", 0, new Location(3117, 9856, 0), false, false),
     AL_KAHID(238125, 0, "None", "None", 0, new Location(3293, 3182, 0), false, false),
-    COWS(238126, 0, "None", "None", 0, new Location(3257, 3263, 0), false, false),
+    COWS(238126, 0, "None", "None", 0, new Location(3362, 2889, 0), false, false),
     YAKS(238127, 0, "None", "None", 0, new Location(2321, 3804, 0), false, false),
     BRIMHAVEN_DUNG(238128, 1000, "None", "None", 0, new Location(2710, 9466, 0), false, false),
     TAVERLY_DUNG(238129, 1500, "None", "None", 0, new Location(2884, 9798, 0), false, false),
@@ -329,7 +329,7 @@ public class TeleportHandler {
     FORGING(242104, 2000, "None", "None", 0, new Location(3186, 3425, 0), false, false),
     FISHER(242105, 4000, "None", "None", 0, new Location(2840, 3437, 0), false, false),
     LUMBERING(242106, 3000, "None", "None", 0, new Location(2722, 3473, 0), false, false),
-    CULTIVATION(242107, 3000, "None", "None", 0, new Location(2806, 3463, 0), false, true),
+    BANKSTANDING(242107, 3000, "None", "None", 0, new Location(2806, 3463, 0), false, true),
 
     EDGEVILLE(246075, 0, "None", "None", 0, new Location(3087, 3515, 0), false, false),
     VARROCK(246076, 0, "None", "None", 0, new Location(3244, 3512, 0), false, false),

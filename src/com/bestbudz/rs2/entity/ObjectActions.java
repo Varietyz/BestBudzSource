@@ -28,8 +28,6 @@ import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.FountainOfRune;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.content.dialogue.OneLineDialogue;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.AchievementDialogue;
@@ -76,11 +74,12 @@ import com.bestbudz.rs2.content.pets.BossPets.PetData;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.accomplisher.HomeStalls;
 import com.bestbudz.rs2.content.profession.accomplisher.WallSafes;
-import com.bestbudz.rs2.content.profession.cultivation.Cultivation;
-import com.bestbudz.rs2.content.profession.foodie.FoodieTask;
-import com.bestbudz.rs2.content.profession.forging.ForgingConstants;
+import com.bestbudz.rs2.content.profession.bankstanding.BankStanding;
+import com.bestbudz.rs2.content.profession.foodie.Foodie;
+import com.bestbudz.rs2.content.profession.foodie.FoodieData;
+import com.bestbudz.rs2.content.profession.forging.Forging;
 import com.bestbudz.rs2.content.profession.handiness.Flax;
-import com.bestbudz.rs2.content.profession.handiness.HandinessType;
+import com.bestbudz.rs2.content.profession.handiness.Handiness;
 import com.bestbudz.rs2.content.profession.handiness.HideTanning;
 import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
 import com.bestbudz.rs2.content.profession.handiness.Spinnable;
@@ -89,6 +88,7 @@ import com.bestbudz.rs2.content.profession.lumbering.LumberingTask;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
 import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
+import com.bestbudz.rs2.content.profession.pyromaniac.PyroAutoBurn;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.quarrying.Quarrying;
 import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
@@ -105,22 +105,36 @@ import com.bestbudz.rs2.entity.object.ObjectConstants;
 import com.bestbudz.rs2.entity.object.ObjectManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendChatBoxInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendEnterString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendItemOnInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSound;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItemsAlt;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
-public class WalkToActions {
+public class ObjectActions
+{
+
+	private static boolean hasSmithableBars(int itemId) {
+		// Check if item is a bar that can be smithed
+		int[] bars = {2349, 2351, 2353, 2359, 2361, 2363}; // Bronze, Iron, Steel, Mith, Addy, Rune
+		for (int barId : bars) {
+			if (itemId == barId) return true;
+		}
+		return false;
+	}
+
+	private boolean hasSmeltableOres(int itemId) {
+		// Check if item is an ore that can be smelted
+		int[] ores = {438, 436, 440, 453, 447, 449, 451}; // Tin, Copper, Iron, Coal, Gold, Mith, Addy
+		for (int oreId : ores) {
+			if (itemId == oreId) return true;
+		}
+		return false;
+	}
 
   public static final int[][] NPC_STORE_DATA = {
     {519, 0},
@@ -183,6 +197,7 @@ public class WalkToActions {
       stoner.getClient().queueOutgoingPacket(new SendMessage("option: " + option));
     }
 
+
     TaskQueue.queue(
         new FollowToEntityTask(stoner, mob) {
           @Override
@@ -197,7 +212,7 @@ public class WalkToActions {
               stoner.getMovementHandler().reset();
             }
 
-            WalkToActions.finishClickNpc(stoner, option, mob);
+            ObjectActions.finishClickNpc(stoner, option, mob);
           }
         });
   }
@@ -331,7 +346,7 @@ public class WalkToActions {
                 .sendFaceToDirection(
                     length[0] >= 2 ? x + length[0] / 2 : x, length[1] >= 2 ? y + length[1] / 2 : y);
 
-            WalkToActions.finishObjectClick(stoner, id, option, x, y);
+            ObjectActions.finishObjectClick(stoner, id, option, x, y);
           }
         });
   }
@@ -373,13 +388,11 @@ public class WalkToActions {
             break;
           case 2801:
             if (!stoner.getEquipment().isWearingItem(6575)) {
-              DialogueManager.sendItem1(
-                  stoner, "You must be wearing a tool ring to do this!", 6575);
+				stoner.send(new SendMessage("You must be wearing a tool ring to do this!"));
               return;
             }
             if (stoner.getBox().getFreeSlots() == 0) {
-              DialogueManager.sendStatement(
-                  stoner, "You do not have any free box spaces to do this!");
+				stoner.send(new SendMessage("You do not have any free box spaces to do this!"));
               return;
             }
             if (stoner.getDelay().elapsed() < 5000) {
@@ -421,7 +434,7 @@ public class WalkToActions {
             stoner.start(new TzhaarMejKahDialogue(stoner));
             break;
           case 2195:
-            DialogueManager.sendNpcChat(stoner, 2195, Emotion.VERY_SAD, "Help me...");
+			  stoner.send(new SendMessage("Help me..."));
             break;
           case 490:
             stoner.start(new NeiveDialogue(stoner));
@@ -437,29 +450,15 @@ public class WalkToActions {
             stoner.start(new OziachDialogue(stoner));
             break;
           case 954:
-            DialogueManager.sendNpcChat(
-                stoner,
-                954,
-                Emotion.HAPPY,
-                "Oy! Need your items repaired?",
-                "I can fix them for 250,000 bestbucks each.",
-                "Simply use your item on me.");
+			  stoner.send(new SendMessage("Fix items for 250,000 bestbucks each. Simply use your item on me."));
             break;
           case 5787:
             stoner.send(new SendString("Exercisement Ticket Exchange", 8383));
             stoner.send(new SendInterface(8292));
             break;
           case 732:
-            stoner.start(
-                new OptionDialogue(
-                    "Cultivation Store",
-                    p -> {
-                      stoner.getShopping().open(32);
-                    },
-                    "THC-hempistry Store",
-                    p -> {
+
                       stoner.getShopping().open(33);
-                    }));
             break;
           case 5523:
             stoner.start(new MembershipDialogue(stoner));
@@ -504,16 +503,11 @@ public class WalkToActions {
             stoner.start(new KamfreeDialogue());
             break;
           case 1756:
-            DialogueManager.sendNpcChat(
-                stoner, 1756, Emotion.ANGRY_4, "HABALALAAAAAA SHAAAHAAAABBAAALLAAAA!");
+			  stoner.send(new SendMessage("HABALALAAAAAA SHAAAHAAAABBAAALLAAAA!"));
             stoner.send(new SendMessage("Maybe I should focus on defeating the portals..."));
             break;
           case 1771:
-            DialogueManager.sendNpcChat(
-                stoner,
-                1771,
-                Emotion.HAPPY,
-                "Welcome to Pest Control " + stoner.getUsername() + "!");
+			  stoner.send(new SendMessage("Welcome to Pest Control " + stoner.getUsername() + "!"));
             break;
           case 5527:
             stoner.start(new AchievementDialogue(stoner));
@@ -530,8 +524,7 @@ public class WalkToActions {
             if (OneLineDialogue.doOneLineChat(stoner, id)) {
               return;
             }
-            DialogueManager.sendNpcChat(
-                stoner, id, Emotion.DEFAULT, Utility.randomElement(DEFAULT_DIALOGUES));
+			  stoner.send(new SendMessage(Utility.randomElement(DEFAULT_DIALOGUES)));
 
             break;
         }
@@ -667,8 +660,7 @@ public class WalkToActions {
             stoner.getBank().openBank();
             break;
           case 6524:
-            DialogueManager.sendNpcChat(
-                stoner, 6524, Emotion.CALM, "I can decant your potions for 300 gp each.");
+			  stoner.send(new SendMessage("I can decant your potions for 300 gp each."));
             break;
           case 4936:
             stoner.getShopping().open(30);
@@ -678,8 +670,7 @@ public class WalkToActions {
             if (BestbudzConstants.DEV_MODE) {
               stoner.getClient().queueOutgoingPacket(new SendMessage("Mob id: " + mob.getId()));
             }
-            DialogueManager.sendNpcChat(
-                stoner, id, Emotion.DEFAULT, Utility.randomElement(DEFAULT_DIALOGUES));
+			  stoner.send(new SendMessage( Utility.randomElement(DEFAULT_DIALOGUES)));
             break;
         }
         break;
@@ -697,8 +688,7 @@ public class WalkToActions {
             break;
           case 1306:
             if (!stoner.getBox().hasItemAmount(new Item(995, 10000))) {
-              DialogueManager.sendNpcChat(
-                  stoner, 1306, Emotion.ANNOYED, "You don't have 10,000 bestbucks!");
+				stoner.send(new SendMessage("You don't have 10,000 bestbucks!"));
               return;
             }
             stoner.getBox().remove(new Item(995, 10000));
@@ -706,28 +696,16 @@ public class WalkToActions {
             break;
           case 5523:
             if (StonerConstants.isStoner(stoner)) {
-              DialogueManager.sendNpcChat(
-                  stoner,
-                  5523,
-                  Emotion.DEFAULT,
-                  "You need to be a <img=4>@red@member </col>to do this!");
+				stoner.send(new SendMessage("You need to be a <img=4>@red@member </col>to do this!"));
               return;
             }
             TaskQueue.queue(new TeleOtherTask(mob, stoner, StonerConstants.MEMEBER_AREA));
             break;
           case 4936:
-            stoner.start(
-                new OptionDialogue(
-                    "Abyss",
-                    p -> {
+
                       stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
                       TaskQueue.queue(new TeleOtherTask(mob, stoner, new Location(3039, 4834)));
-                    },
-                    "Essence quarry",
-                    p -> {
-                      stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
-                      TaskQueue.queue(new TeleOtherTask(mob, stoner, new Location(2923, 4819)));
-                    }));
+
             break;
           case 1325:
             DropTable.open(stoner);
@@ -738,12 +716,11 @@ public class WalkToActions {
             break;
           case 315:
             if (stoner.getSkulling().isSkulled()) {
-              DialogueManager.sendNpcChat(
-                  stoner, 315, Emotion.DEFAULT, "You already have a wilderness skull!");
+				stoner.send(new SendMessage("You already have a wilderness skull!"));
               return;
             }
             stoner.getSkulling().skull(stoner, stoner);
-            DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You have been skulled.");
+			  stoner.send(new SendMessage("You have been skulled."));
             break;
           case 6524:
             PotionDecanting.decantAll(stoner);
@@ -752,8 +729,7 @@ public class WalkToActions {
             break;
 
           default:
-            DialogueManager.sendNpcChat(
-                stoner, id, Emotion.DEFAULT, Utility.randomElement(DEFAULT_DIALOGUES));
+			  stoner.send(new SendMessage(Utility.randomElement(DEFAULT_DIALOGUES)));
         }
         break;
 
@@ -761,19 +737,17 @@ public class WalkToActions {
         switch (id) {
           case 315:
             if (stoner.getSkulling().isSkulled()) {
-              DialogueManager.sendNpcChat(
-                  stoner, 315, Emotion.DEFAULT, "You already have a wilderness skull!");
+				stoner.send(new SendMessage("You already have a wilderness skull!"));
               return;
             }
 
             stoner.getSkulling().skull(stoner, stoner);
-            DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You have been skulled.");
+			  stoner.send(new SendMessage("You have been skulled."));
             break;
         }
 
       default:
-        DialogueManager.sendNpcChat(
-            stoner, id, Emotion.DEFAULT, Utility.randomElement(DEFAULT_DIALOGUES));
+		  stoner.send(new SendMessage( Utility.randomElement(DEFAULT_DIALOGUES)));
         break;
     }
   }
@@ -787,7 +761,7 @@ public class WalkToActions {
           return;
         }
         if (!stoner.getBox().hasItemId(6570)) {
-          DialogueManager.sendItem1(stoner, "You don't have a Firecape to do this!", 6570);
+			stoner.send(new SendMessage("You don't have a Firecape to do this!"));
           return;
         }
         stoner.getBox().remove(6570, 1);
@@ -823,19 +797,11 @@ public class WalkToActions {
               stoner.getBox().remove(item, 1);
               stoner.getBox().remove(new Item(995, 250_000));
               stoner.getBox().add(new Item(id[0]));
-              DialogueManager.sendNpcChat(
-                  stoner,
-                  954,
-                  Emotion.DEFAULT,
-                  "Your "
+				stoner.send(new SendMessage("Your "
                       + GameDefinitionLoader.getItemDef(id[0]).getName()
-                      + " has been repaired.");
+                      + " has been repaired."));
             } else {
-              DialogueManager.sendNpcChat(
-                  stoner,
-                  954,
-                  Emotion.EVIL_LAUGH_SHORT,
-                  "You need 250k to repair your barrows piece!");
+				stoner.send(new SendMessage("You need 250k to repair your barrows piece!"));
             }
             break;
           }
@@ -898,15 +864,7 @@ public class WalkToActions {
       }
     }
 
-    if (ForgingConstants.clickAnvil(stoner, id)) {
-      return;
-    }
-
     if (option == 1) {
-      if (Cultivation.harvest(stoner, x, y)) {
-        return;
-      }
-
       RSObject o = Region.getObject(x, y, stoner.getLocation().getZ());
 
       if (o == null) {
@@ -916,10 +874,6 @@ public class WalkToActions {
       if (PyramidPlunder.SINGLETON.clickObject(stoner, o)) {
         return;
       }
-    }
-
-    if (Cultivation.inspectObject(stoner, x, y)) {
-      return;
     }
 
     if (Doors.isDoorJammed(stoner, x, y, z)) {
@@ -1140,11 +1094,11 @@ public class WalkToActions {
             break;
           case 2873:
             if (ItemCheck.hasGodCape(stoner)) {
-              DialogueManager.sendStatement(stoner, "It appears you already have a god cape!");
+				stoner.send(new SendMessage("It appears you already have a god cape!"));
               return;
             }
             if (stoner.getProfession().getGrades()[Professions.MAGE] < 60) {
-              DialogueManager.sendStatement(stoner, "You need a Mage grade of 60 to do this!");
+				stoner.send(new SendMessage("You need a Mage grade of 60 to do this!"));
               return;
             }
             stoner.getUpdateFlags().sendAnimation(new Animation(645));
@@ -1153,11 +1107,11 @@ public class WalkToActions {
             break;
           case 2875:
             if (ItemCheck.hasGodCape(stoner)) {
-              DialogueManager.sendStatement(stoner, "It appears you already have a god cape!");
+				stoner.send(new SendMessage("It appears you already have a god cape!"));
               return;
             }
             if (stoner.getProfession().getGrades()[Professions.MAGE] < 60) {
-              DialogueManager.sendStatement(stoner, "You need a Mage grade of 60 to do this!");
+				stoner.send(new SendMessage("You need a Mage grade of 60 to do this!"));
               return;
             }
             stoner.getUpdateFlags().sendAnimation(new Animation(645));
@@ -1166,11 +1120,11 @@ public class WalkToActions {
             break;
           case 2874:
             if (ItemCheck.hasGodCape(stoner)) {
-              DialogueManager.sendStatement(stoner, "It appears you already have a god cape!");
+				stoner.send(new SendMessage("It appears you already have a god cape!"));
               return;
             }
             if (stoner.getProfession().getGrades()[Professions.MAGE] < 60) {
-              DialogueManager.sendStatement(stoner, "You need a Mage grade of 60 to do this!");
+				stoner.send(new SendMessage("You need a Mage grade of 60 to do this!"));
               return;
             }
             stoner.getUpdateFlags().sendAnimation(new Animation(645));
@@ -1178,34 +1132,19 @@ public class WalkToActions {
             stoner.send(new SendMessage("@dre@You have obtained a Zamorak cape."));
             break;
           case 13618:
-            stoner.start(
-                new OptionDialogue(
-                    "Teleport to Wyverns",
-                    p -> {
+
                       stoner.teleport(new Location(3056, 9555, 0));
                       stoner.send(
                           new SendMessage("You have been teleported to the Skeletal Wyverns."));
-                    },
-                    "Nevermind",
-                    p -> {
-                      stoner.send(new SendRemoveInterfaces());
-                    }));
+
             break;
           case 13619:
-            stoner.start(
-                new OptionDialogue(
-                    "Teleport (30+ Wild)",
-                    p -> {
+
                       stoner
                           .getMage()
                           .teleport(3372, 3894, 0, MageProfession.TeleportTypes.FOUNTAIN_OF_RUNE);
                       stoner.send(
                           new SendMessage("You have been teleported to the Fountain of Rune."));
-                    },
-                    "Nevermind",
-                    p -> {
-                      stoner.send(new SendRemoveInterfaces());
-                    }));
             break;
 
           case 10596:
@@ -1217,14 +1156,12 @@ public class WalkToActions {
             if (stoner.getLocation().getX() == 3184 && stoner.getLocation().getY() == 3945) {
               if (stoner.isPouchPayment()) {
                 if (stoner.getMoneyPouch() < 7500) {
-                  DialogueManager.sendStatement(
-                      stoner, "You need 7,500 bestbucks to enter the arena.");
+					stoner.send(new SendMessage("You need 7,500 bestbucks to enter the arena."));
                   return;
                 }
               } else {
                 if (!stoner.getBox().hasItemAmount(995, 7500)) {
-                  DialogueManager.sendStatement(
-                      stoner, "You need 7,500 bestbucks to enter the arena.");
+					stoner.send(new SendMessage("You need 7,500 bestbucks to enter the arena."));
                   return;
                 }
               }
@@ -1745,7 +1682,7 @@ public class WalkToActions {
             stoner.teleport(new Location(2712, 9564));
             break;
           case 10041:
-            DialogueManager.sendNpcChat(stoner, 496, Emotion.ANGRY_1, "Woah Woah! Watch out!");
+			  stoner.send(new SendMessage("Woah Woah! Watch out!"));
             break;
           case 21309:
             stoner.getMovementHandler().addToPath(new Location(2343, 3820));
@@ -1826,26 +1763,7 @@ public class WalkToActions {
             break;
 
           case 412:
-            stoner.start(
-                new OptionDialogue(
-                    "Focused Mage",
-                    p -> {
-                      stoner.getMage().setSpellBookType(SpellBookTypes.MODERN);
-                      stoner.getMage().setMageBook(1151);
-                      stoner.getUpdateFlags().sendAnimation(new Animation(6299));
-                      stoner.getUpdateFlags().sendGraphic(new Graphic(1062));
-                      stoner.send(new SendMessage("You are now a focused mage."));
-                      stoner.send(new SendRemoveInterfaces());
-                    },
-                    "AoE Mage",
-                    p -> {
-                      stoner.getMage().setSpellBookType(SpellBookTypes.ANCIENT);
-                      stoner.getMage().setMageBook(12855);
-                      stoner.getUpdateFlags().sendAnimation(new Animation(6299));
-                      stoner.getUpdateFlags().sendGraphic(new Graphic(1062));
-                      stoner.send(new SendMessage("You are now a AoE mage."));
-                      stoner.send(new SendRemoveInterfaces());
-                    }));
+			  stoner.send(new SendMessage("Use the dock to swap spellbooks!"));
             break;
 
           case 6552:
@@ -2137,27 +2055,54 @@ public class WalkToActions {
           case 4309:
             for (Item i : stoner.getBox().getItems()) {
               if (i != null && Spinnable.forId(i.getId()) != null) {
-                Spinnable spinnable = Spinnable.forId(i.getId());
-                stoner.getAttributes().set("handinessType", HandinessType.WHEEL_SPINNING);
-                stoner.getAttributes().set("spinnable", spinnable);
-                stoner
-                    .getClient()
-                    .queueOutgoingPacket(
-                        new SendString(
-                            "\\n \\n \\n \\n" + spinnable.getOutcome().getDefinition().getName(),
-                            2799));
-                stoner.getClient().queueOutgoingPacket(new SendChatBoxInterface(4429));
-                stoner
-                    .getClient()
-                    .queueOutgoingPacket(
-                        new SendItemOnInterface(1746, 170, spinnable.getOutcome().getId()));
-                return;
+				  Handiness.SINGLETON.handleObjectClick(stoner, 2644);
+				  return;
               }
             }
             stoner
                 .getClient()
                 .queueOutgoingPacket(new SendMessage("You do not have anything to spin!"));
             break;
+
+			case 2097: // Anvil
+				for (Item i : stoner.getBox().getItems()) {
+					if (i != null && hasSmithableBars(i.getId())) {
+						Forging.SINGLETON.handleObjectClick(stoner, id);
+						return;
+					}
+				}
+				stoner
+					.getClient()
+					.queueOutgoingPacket(new SendMessage("You do not have any bars to hammer!"));
+				break;
+
+			case 26181: // Range
+				for (Item i : stoner.getBox().getItems()) {
+					if (i != null && FoodieData.forId(i.getId()) != null) {
+						Foodie.SINGLETON.handleObjectClick(stoner, id);
+						return;
+					}
+				}
+				stoner
+					.getClient()
+					.queueOutgoingPacket(new SendMessage("You do not have any raw food to cook!"));
+				break;
+
+			case 5249:  // Fyah (Fire Altar)
+			case 114:   // Fire
+			case 2732:  // Range (can burn on)
+			case 26185: // Other fire objects
+			case 14901: // Fire Altar
+				for (Item i : stoner.getBox().getItems()) {
+					if (i != null && Pyromaniac.Wood.forId(i.getId()) != null) {
+						PyroAutoBurn.SINGLETON.handleObjectClick(stoner, id);
+						return;
+					}
+				}
+				stoner
+					.getClient()
+					.queueOutgoingPacket(new SendMessage("You do not have any wood to burn!"));
+				break;
           default:
             break;
         }
@@ -2199,8 +2144,9 @@ public class WalkToActions {
           case 21303:
           case 24009:
           case 26814:
-            ForgingConstants.sendSmeltSelectionInterface(stoner);
-            break;
+			  Forging.SINGLETON.handleObjectClick(stoner, id);
+			  return;
+
           case 2557:
           case 2558:
             if (stoner.getProfession().getGrades()[17] < 52) {
@@ -2212,8 +2158,7 @@ public class WalkToActions {
               return;
             }
             if (!stoner.getEquipment().isWearingItem(6575)) {
-              DialogueManager.sendStatement(
-                  stoner, "You must be wearing a tool ring to be able to open this door.");
+				stoner.send(new SendMessage("You must be wearing a tool ring to be able to open this door."));
               return;
             }
             stoner
@@ -2227,21 +2172,8 @@ public class WalkToActions {
           case 4309:
             for (Item i : stoner.getBox().getItems()) {
               if (i != null && Spinnable.forId(i.getId()) != null) {
-                Spinnable spinnable = Spinnable.forId(i.getId());
-                stoner.getAttributes().set("handinessType", HandinessType.WHEEL_SPINNING);
-                stoner.getAttributes().set("spinnable", spinnable);
-                stoner
-                    .getClient()
-                    .queueOutgoingPacket(
-                        new SendString(
-                            "\\n \\n \\n \\n" + spinnable.getOutcome().getDefinition().getName(),
-                            2799));
-                stoner.getClient().queueOutgoingPacket(new SendChatBoxInterface(4429));
-                stoner
-                    .getClient()
-                    .queueOutgoingPacket(
-                        new SendItemOnInterface(1746, 170, spinnable.getOutcome().getId()));
-                return;
+				  Handiness.SINGLETON.handleObjectClick(stoner, 2644);
+				  return;
               }
             }
 
@@ -2253,8 +2185,8 @@ public class WalkToActions {
           case 3044:
           case 11666:
           case 45310:
-            ForgingConstants.sendSmeltSelectionInterface(stoner);
-            break;
+			  Forging.SINGLETON.handleObjectClick(stoner, id);
+			  return;
           case 2646:
             TaskQueue.queue(new HarvestTask(stoner, id, 1779, x, y, z));
             break;
@@ -2272,11 +2204,9 @@ public class WalkToActions {
           case 8720:
           case 26820:
           case 26813:
-            DialogueManager.sendStatement(
-                stoner,
-                "You have @blu@"
+			  stoner.send(new SendMessage("You have @blu@"
                     + Utility.format(stoner.getChillPoints())
-                    + " </col>chill points.");
+                    + " </col>chill points."));
             break;
           case 9371:
           case 9472:
@@ -2288,6 +2218,7 @@ public class WalkToActions {
         break;
       case 4:
         switch (id) {
+
         }
         break;
     }
@@ -2338,28 +2269,21 @@ public class WalkToActions {
               return;
             }
 
-            if (ForgingConstants.useBarOnAnvil(stoner, objectId, itemId)) {
-              return;
-            }
+			  if (Forging.SINGLETON.itemOnObject(stoner, new Item(itemId), objectId)) {
+				  return;
+			  }
 
-            if (Cultivation.prepareCrop(stoner, itemId, objectId, x, y)) {
-              return;
-            }
 
             if (GodWars.useItemOnObject(stoner, itemId, objectId)) {
               return;
             }
 
-            if (objectId == 3044 || objectId == 45310) {
-              ForgingConstants.sendSmeltSelectionInterface(stoner);
-              return;
+            if (objectId == 3044 || objectId == 45310 || objectId == 2097) {
+					Forging.SINGLETON.handleObjectClick(stoner, objectId);
+					return;
             }
 
             if (BoneBurying.useBonesOnAltar(stoner, itemId, objectId)) {
-              return;
-            }
-
-            if (Pyromaniac.useWoodOnAltar(stoner, itemId, objectId)) {
               return;
             }
 
@@ -2425,27 +2349,11 @@ public class WalkToActions {
               return;
             }
 
-            if (objectId == 3044 || objectId == 45310) {
-              ForgingConstants.sendSmeltSelectionInterface(stoner);
-              return;
-            }
 
             if (objectId == 4309) {
               if (Spinnable.forId(itemId) != null) {
-                Spinnable spinnable = Spinnable.forId(itemId);
-                stoner.getAttributes().set("handinessType", HandinessType.WHEEL_SPINNING);
-                stoner.getAttributes().set("spinnable", spinnable);
-                stoner
-                    .getClient()
-                    .queueOutgoingPacket(
-                        new SendString(
-                            "\\n \\n \\n \\n" + spinnable.getOutcome().getDefinition().getName(),
-                            2799));
-                stoner.getClient().queueOutgoingPacket(new SendChatBoxInterface(4429));
-                stoner
-                    .getClient()
-                    .queueOutgoingPacket(
-                        new SendItemOnInterface(1746, 170, spinnable.getOutcome().getId()));
+				  Handiness.SINGLETON.handleObjectClick(stoner, 2644);
+				  return;
               } else {
                 stoner.getClient().queueOutgoingPacket(new SendMessage("You cant spin this!"));
               }
@@ -2454,10 +2362,6 @@ public class WalkToActions {
             }
 
             GameObject object = new GameObject(objectId, x, y, stoner.getLocation().getZ(), 10, 0);
-
-            if (FoodieTask.isCookableObject(object)) {
-              FoodieTask.showInterface(stoner, object, new Item(itemId, 1));
-            }
 
             ArmourAnimator.armorOnAnimator(stoner, itemId, object, x, y);
 
@@ -2498,7 +2402,7 @@ public class WalkToActions {
               stoner.getMovementHandler().reset();
             }
 
-            WalkToActions.finishItemOnNpc(stoner, item, mob);
+            ObjectActions.finishItemOnNpc(stoner, item, mob);
           }
         });
   }
