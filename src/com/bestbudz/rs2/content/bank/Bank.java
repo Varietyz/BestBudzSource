@@ -21,12 +21,12 @@ import java.util.Arrays;
 public class Bank extends ItemContainer {
 
   public static final int SIZE = 350;
-  private final Stoner stoner;
+  public final Stoner stoner;
   public RearrangeTypes rearrangeType = RearrangeTypes.SWAP;
   public WithdrawTypes withdrawType = WithdrawTypes.ITEM;
   private boolean searching = false;
 
-  private int bankTab = 0;
+  public int bankTab = 0;
 
   private int[] tabAmounts = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
@@ -112,6 +112,10 @@ public class Bank extends ItemContainer {
   }
 
   public boolean clickButton(int buttonId) {
+	  if (buttonId >= 115247 && buttonId <= 117000) {
+		  return DockBank.handleDockButton(buttonId, this);  // Pass 'this' Bank instance
+	  }
+
     if (!stoner.getInterfaceManager().hasBankOpen()) {
       return false;
     }

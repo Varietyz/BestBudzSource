@@ -78880,7 +78880,7 @@
 		<id>6573</id>
 		<members>true</members>
 		<tradable>true</tradable>
-		<stackable>false</stackable>
+		<stackable>true</stackable>
 		<note>false</note>
 		<noteId>6574</noteId>
 		<highAlch>180000</highAlch>

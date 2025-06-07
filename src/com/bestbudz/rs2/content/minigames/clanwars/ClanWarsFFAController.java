@@ -101,7 +101,7 @@ public class ClanWarsFFAController extends GenericMinigameController {
 
   @Override
   public void onControllerInit(Stoner stoner) {
-    stoner.send(new SendMessage("@dre@Pass the line enter combat zone."));
+    stoner.send(new SendMessage("Pass the line enter combat zone."));
   }
 
   @Override

@@ -33,7 +33,7 @@ public class Vetion extends Mob {
 	if (pet1 != null && pet2 != null) {
 		if (!pet1.isDead() || !pet2.isDead()) {
 			if (hit.getAssaulter() != null || !hit.getAssaulter().isNpc()) {
-				hit.getAssaulter().getStoner().send(new SendMessage("@dre@Vet'ion can't take damage with his pets spawned!"));
+				hit.getAssaulter().getStoner().send(new SendMessage("Vet'ion can't take damage with his pets spawned!"));
 				return;
 			}
 		} else if (pet1.isDead() && pet2.isDead()) {

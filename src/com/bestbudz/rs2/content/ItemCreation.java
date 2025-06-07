@@ -28,7 +28,7 @@ public enum ItemCreation {
                       ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
                       DialogueManager.sendItem1(
                           stoner,
-                          "You have created a @dre@" + item.getName() + "</col>.",
+                          "You have created a " + item.getName() + "</col>.",
                           data.getNewItem());
                       stoner.getBox().remove(new Item(data.getItem()[0]));
                       stoner.getBox().remove(new Item(data.getItem()[1]));
@@ -57,7 +57,7 @@ public enum ItemCreation {
                       ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
                       DialogueManager.sendItem1(
                           stoner,
-                          "You have created a @dre@" + item.getName() + "</col>.",
+                          "You have created a " + item.getName() + "</col>.",
                           data.getNewItem());
                       stoner.getBox().remove(new Item(data.getItem()[0]));
                       stoner.getBox().add(new Item(data.getNewItem(), 1));
@@ -82,7 +82,7 @@ public enum ItemCreation {
                       ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
                       DialogueManager.sendItem1(
                           stoner,
-                          "You have created a @dre@" + item.getName() + "</col>.",
+                          "You have created a " + item.getName() + "</col>.",
                           data.getNewItem());
                       stoner.getBox().remove(new Item(data.getItem()[0]));
                       stoner.getBox().remove(new Item(data.getItem()[1]));
@@ -111,7 +111,7 @@ public enum ItemCreation {
                       ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
                       DialogueManager.sendItem1(
                           stoner,
-                          "You have created a @dre@" + item.getName() + "</col>.",
+                          "You have created a " + item.getName() + "</col>.",
                           data.getNewItem());
                       stoner.getBox().remove(new Item(data.getItem()[0]));
                       stoner.getBox().remove(new Item(data.getItem()[1]));
@@ -219,7 +219,7 @@ public enum ItemCreation {
       if (stoner.getGrades()[Professions.FORGING] < 80) {
         DialogueManager.sendStatement(
             stoner,
-            "<col=369>You need a forging grade of @dre@80<col=369> to create godsword blades.");
+            "<col=369>You need a forging grade of 80<col=369> to create godsword blades.");
         return true;
       }
       stoner.getProfession().addExperience(Professions.FORGING, 100.0);

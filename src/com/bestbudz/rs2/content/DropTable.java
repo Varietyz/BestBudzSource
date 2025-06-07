@@ -185,7 +185,7 @@ public class DropTable {
     stoner.send(new SendString("</col>Grade: @bla@" + npcDef.getGrade(), 59807));
     stoner.send(new SendString("", 59818));
 
-    stoner.send(new SendMessage("@dre@Now displaying drop tables of " + npcDef.getName() + "."));
+    stoner.send(new SendMessage("Now displaying drop tables of " + npcDef.getName() + "."));
 
     Item[] items = new Item[250];
 

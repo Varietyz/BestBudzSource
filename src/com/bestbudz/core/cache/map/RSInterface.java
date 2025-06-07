@@ -6780,7 +6780,7 @@ public final class RSInterface {
   }
 
   public static void professionInterface() {
-    RSInterface rsinterface = addTabInterface(3917);
+    /*RSInterface rsinterface = addTabInterface(3917);
     professionInterface(19746, 255);
     professionInterface(19749, 52);
 
@@ -6988,7 +6988,7 @@ public final class RSInterface {
     rsinterface.childY[61] = 150;
     rsinterface.children[62] = 13984;
     rsinterface.childX[62] = 145;
-    rsinterface.childY[62] = 225;
+    rsinterface.childY[62] = 225;*/
   }
 
   public static void professionInterface(int i, int j) {

@@ -111,7 +111,7 @@ public class THChempistryUnfinishedPotionTask extends Task {
 			.getClient()
 			.queueOutgoingPacket(
 				new SendString(
-					"\\n \\n \\n \\n @dre@" + unfinishedPotion.getDefinition().getName(), 2799));
+					"\\n \\n \\n \\n " + unfinishedPotion.getDefinition().getName(), 2799));
 
 		stoner.getAttributes().set("thchempistryitem1", used);
 		stoner.getAttributes().set("thchempistryitem2", usedWith);

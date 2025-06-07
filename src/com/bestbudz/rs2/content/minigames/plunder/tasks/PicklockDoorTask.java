@@ -66,7 +66,7 @@ public class PicklockDoorTask extends Task {
 
         if (PyramidPlunder.SINGLETON.isExitDoor(door, floor)) {
           if (PyramidPlunder.SINGLETON.changeFloor(getEntity().getStoner(), floor + 1)) {
-            getEntity().getStoner().send(new SendMessage("Floor @dre@" + (floor + 2) + "</col>."));
+            getEntity().getStoner().send(new SendMessage("Floor " + (floor + 2) + "</col>."));
           } else {
             ((Task) getEntity().getStoner().getAttributes().get("PLUNDER_TASK")).stop();
             getEntity().getStoner().send(new SendMessage("You have completed your run."));

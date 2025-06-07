@@ -78,7 +78,7 @@ public class TargetSystem {
           .getClient()
           .queueOutgoingPacket(
               new SendMessage(
-                  "@dre@Your target has left the wilderness. You will be assigned a new one shortly."));
+                  "Your target has left the wilderness. You will be assigned a new one shortly."));
       if (target.inWilderness()) {
         if (stoner.getAttributes().get("gainTarget") == null) {
           Task task = new GainTarget(stoner, (byte) 1);
@@ -101,7 +101,7 @@ public class TargetSystem {
         .getClient()
         .queueOutgoingPacket(
             new SendMessage(
-                "@dre@You have been assigned the user "
+                "You have been assigned the user "
                     + "'"
                     + targetName
                     + "'"

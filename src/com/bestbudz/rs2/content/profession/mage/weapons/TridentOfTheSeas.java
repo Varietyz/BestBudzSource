@@ -93,7 +93,7 @@ public class TridentOfTheSeas {
             stoner.getUpdateFlags().sendGraphic(new Graphic(1250, 40, false));
             DialogueManager.sendItem1(
                 stoner,
-                "You infuse the trident with @dre@"
+                "You infuse the trident with "
                     + stoner.getSeasTrident().tridentCharge
                     + "</col> charge"
                     + (stoner.getSeasTrident().tridentCharge > 1 ? "s" : "")

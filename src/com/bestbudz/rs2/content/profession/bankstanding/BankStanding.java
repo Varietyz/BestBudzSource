@@ -33,13 +33,13 @@ public class BankStanding {
 	private int sessionBonusXPGained = 0;
 
 	// XP and bonus constants - TWEAK THESE VALUES
-	private static final int BASE_XP = 110;              // Increased from 8 to 25
+	private static final int BASE_XP = 850;              // Increased from 8 to 25
 	private static final int MAX_STANDING_BONUS = 35;   // Increased from 15 to 20
 	private static final int ACTIVITY_BONUS = 10;       // Increased from 5 to 10
 	private static final double BASE_MULTIPLIER = 1.2;
 	private static final int XP_INTERVAL_TICKS = 25;    // Reduced from 50 to 30 (more frequent XP)
 	private static final int PROCESS_INTERVAL = 5; // Process every 5 game ticks
-
+	public static int BANKSTANDING_RANGE = 2;
 	/**
 	 * Constructor - called when player logs in
 	 */
@@ -120,9 +120,6 @@ public class BankStanding {
 			if (sessionXPGained > 0) {
 				stoner.send(new SendMessage("@red@You stop bank standing training after " + minutes + "m " + seconds + "s."));
 				stoner.send(new SendMessage("@gre@Total bank standing experience gained: " + sessionXPGained));
-				if (sessionBonusXPGained > 0){
-					stoner.send(new SendMessage("@gre@Total bonus experience gained: " + sessionBonusXPGained));
-				}
 			} else {
 				stoner.send(new SendMessage("@red@You stop bank standing training after " + minutes + "m " + seconds + "s."));
 			}
@@ -228,7 +225,9 @@ public class BankStanding {
 			int newMinutes = (int) ((currentTime - sessionStartTime) / 60000);
 			if (newMinutes > standingMinutes && standingMinutes < MAX_STANDING_BONUS) {
 				standingMinutes = newMinutes;
-				stoner.send(new SendMessage("@blu@Bank standing bonus increased! (" + standingMinutes + " minutes)"));
+				// Calculate current percentage bonus
+				double currentBonus = (Math.min(standingMinutes, MAX_STANDING_BONUS) * 100.0) / BASE_XP;
+				stoner.send(new SendMessage("@blu@Bank standing bonus increased! (+" + String.format("%.1f", currentBonus) + "%)"));
 			}
 		}
 	}
@@ -283,8 +282,21 @@ public class BankStanding {
 			int minutes = (int) (duration / 60000);
 			int seconds = (int) ((duration % 60000) / 1000);
 
-			return String.format("Bank Standing: %dm %ds | Bonus: +%d mins | Multiplier: %.2fx | Movement: %d tiles",
-				minutes, seconds, Math.min(standingMinutes, MAX_STANDING_BONUS), getXPMultiplier(), totalMovement);
+			// Calculate current percentage bonus from standing time
+			double standingBonus = (Math.min(standingMinutes, MAX_STANDING_BONUS) * 100.0) / BASE_XP;
+
+			// Calculate activity bonus percentage
+			long timeSinceActivity = System.currentTimeMillis() - lastActivityTime;
+			double activityBonus = 0;
+			if (timeSinceActivity < 60000) { // Within last minute
+				activityBonus = (ACTIVITY_BONUS * 100.0) / BASE_XP;
+			}
+
+			// Total bonus percentage
+			double totalBonusPercent = standingBonus + activityBonus;
+
+			return String.format("Bank Standing: %dm %ds | Bonus: +%.1f%% XP | Bonus XP Gained: %d | Multiplier: %.2fx | Movement: %d tiles",
+				minutes, seconds, totalBonusPercent, sessionBonusXPGained, getXPMultiplier(), totalMovement);
 		} else if (isNearBank()) {
 			return "You are near a bank. Stand still to begin bank standing training!";
 		} else {
@@ -334,11 +346,11 @@ public class BankStanding {
 		int playerLocalX = playerX - regionAbsX;
 		int playerLocalY = playerY - regionAbsY;
 
-		// Check 5x5 area around player (2 tiles in each direction)
-		int startX = Math.max(0, playerLocalX - 2);
-		int endX = Math.min(63, playerLocalX + 2);
-		int startY = Math.max(0, playerLocalY - 2);
-		int endY = Math.min(63, playerLocalY + 2);
+		// Check area around player (tiles in each direction)
+		int startX = Math.max(0, playerLocalX - BANKSTANDING_RANGE);
+		int endX = Math.min(63, playerLocalX + BANKSTANDING_RANGE);
+		int startY = Math.max(0, playerLocalY - BANKSTANDING_RANGE);
+		int endY = Math.min(63, playerLocalY + BANKSTANDING_RANGE);
 
 		// MEMORY SAFE LOOP: Comprehensive bounds checking
 		for (int localX = startX; localX <= endX; localX++) {

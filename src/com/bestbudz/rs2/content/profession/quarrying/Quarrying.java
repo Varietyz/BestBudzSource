@@ -45,25 +45,12 @@ public class Quarrying {
       return false;
     }
 
-    if (stoner.getGrades()[Professions.QUARRYING] < ore.getGrade()) {
-      DialogueManager.sendStatement(
-          stoner, "You need a Quarrying grade of " + ore.getGrade() + " to quarry that ore.");
-      return false;
-    }
-
     Pickaxe pickaxe = Pickaxe.get(stoner);
 
     if (pickaxe == null) {
-      DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-      return false;
-    }
-
-    if (stoner.getGrades()[Professions.QUARRYING] < pickaxe.getGrade()) {
-      stoner.send(
-          new SendMessage(
-              "You need a Quarrying grade of " + pickaxe.getGrade() + " to use that pickaxe."));
-      DialogueManager.sendStatement(
-          stoner, "You need a Quarrying grade of " + pickaxe.getGrade() + " to use that pickaxe.");
+		stoner.send(
+			new SendMessage(
+				"You must be wearing a tool ring to do this!"));
       return false;
     }
 
@@ -335,7 +322,7 @@ public class Quarrying {
         new int[] {14856, 14855, 14854},
         1,
         125,
-        new int[] {1625, 1627, 1629, 1623, 1621, 1619, 1617},
+        new int[] {1625, 1627, 1629, 1623, 1621, 1619, 1617, 1631, 6571},
         -1,
         -1,
         1);

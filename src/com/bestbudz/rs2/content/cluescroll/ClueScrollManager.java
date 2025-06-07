@@ -2,7 +2,6 @@ package com.bestbudz.rs2.content.cluescroll;
 
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.chance.Chance;
-import com.bestbudz.rs2.content.Emotes.Emote;
 import com.bestbudz.rs2.content.cluescroll.Clue.ClueType;
 import com.bestbudz.rs2.content.cluescroll.scroll.EmoteScroll;
 import com.bestbudz.rs2.content.cluescroll.scroll.MapScroll;
@@ -12,6 +11,7 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemContainer;
 import com.bestbudz.rs2.entity.item.ItemContainer.ContainerTypes;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.in.impl.clickbuttons.ButtonAssignment;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
@@ -940,7 +940,7 @@ public enum ClueScrollManager {
     return false;
   }
 
-  public void handleEmote(Stoner stoner, Emote emote) {
+  public void handleEmote(Stoner stoner, ButtonAssignment.Emote emote) {
     List<ClueScroll> emoteScrolls =
         CLUE_SCROLLS.values().stream()
             .filter(scroll -> scroll.getClueType() == ClueType.EMOTE)

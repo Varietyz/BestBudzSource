@@ -39,7 +39,6 @@ import com.bestbudz.rs2.content.profession.lumbering.LumberingAxeData;
 import com.bestbudz.rs2.content.profession.mage.MageConstants;
 import com.bestbudz.rs2.content.profession.mage.MageEffects;
 import com.bestbudz.rs2.content.profession.mercenary.MercenaryMonsters;
-import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.quarrying.Quarrying;
 import com.bestbudz.rs2.content.profession.sagittarius.AmmoData;
@@ -148,7 +147,6 @@ public class GameDataLoader {
       GrindingData.declare();
       UnfinishedPotionData.declare();
       MageEffects.declare();
-      BoneBurying.Bones.declare();
       AmmoData.Ammo.declare();
       Professions.declare();
       LumberingAxeData.declare();

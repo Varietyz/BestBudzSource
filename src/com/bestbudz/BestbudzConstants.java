@@ -88,7 +88,7 @@ public class BestbudzConstants {
     "jaybane", "bestbudz",
   };
   public static final String[] LOGIN_MESSAGES = {
-    "There are currently@dre@ /s/ </col> Stoners chillin on the server.",
+    "There are currently /s/ </col> Stoners chillin on the server.",
     "Be sure to spark one up at 4:20!",
   };
   public static final String[] ITEM_IDENTIFICATION_MESSAGES = {

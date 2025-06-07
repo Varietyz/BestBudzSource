@@ -59,7 +59,7 @@ public class MoneyPouch {
     stoner.setMoneyPouch(stoner.getMoneyPouch() + amount);
     stoner.send(
         new SendMessage(
-            "@dre@You have added "
+            "You have added "
                 + Utility.format(amount)
                 + " BestBucks to your debit card. Total: "
                 + formatBestBucks(stoner.getMoneyPouch())

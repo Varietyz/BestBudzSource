@@ -13,7 +13,7 @@ public class Flax {
       return;
     }
     stoner.getBox().addItems(new Item(1779, 3));
-    stoner.getUpdateFlags().sendAnimation((new Animation(827)));
+    stoner.getUpdateFlags().sendAnimation((new Animation(5407)));
     stoner.send(new SendMessage("You grab a handful of flax."));
   }
 }

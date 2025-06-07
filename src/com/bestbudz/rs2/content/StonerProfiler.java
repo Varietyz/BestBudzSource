@@ -18,21 +18,21 @@ public class StonerProfiler {
 
     stoner.send(
         new SendMessage(
-            "@dre@Searching '" + Utility.capitalizeFirstLetter(string) + "' for stoner..."));
+            "Searching '" + Utility.capitalizeFirstLetter(string) + "' for stoner..."));
 
     Stoner viewing = World.getStonerByName(string);
 
     stoner.viewing = string;
 
     if (stoner == viewing && !StonerConstants.isOwner(stoner)) {
-      stoner.send(new SendMessage("@dre@Please click on the 'My Profile' button."));
+      stoner.send(new SendMessage("Please click on the 'My Profile' button."));
       return;
     }
 
     if (viewing == null) {
       stoner.send(
           new SendMessage(
-              "@dre@"
+              ""
                   + Utility.capitalizeFirstLetter(string)
                   + " either does not exist or is not present!"));
       return;
@@ -50,7 +50,7 @@ public class StonerProfiler {
 
             if ((deltaX < 16) || (deltaX >= 88) || (deltaY < 16) || (deltaY > 88)) {
               stoner.send(
-                  new SendMessage("@dre@You can only view stoners that are in your region."));
+                  new SendMessage("You can only view stoners that are in your region."));
               stop();
               return;
             }
@@ -58,7 +58,7 @@ public class StonerProfiler {
             if (viewing.getProfilePrivacy()) {
               stoner.send(
                   new SendMessage(
-                      "@dre@"
+                      ""
                           + Utility.capitalizeFirstLetter(viewing.getUsername())
                           + " has disabled Bongbase."));
               stop();
@@ -67,7 +67,7 @@ public class StonerProfiler {
 
             if (stoner.getProfilePrivacy()) {
               stoner.send(
-                  new SendMessage("@dre@You cannot view Bongbase while you are in the bushes!"));
+                  new SendMessage("You cannot view Bongbase while you are in the bushes!"));
               stop();
               return;
             }
@@ -85,7 +85,7 @@ public class StonerProfiler {
 
     viewing.send(
         new SendMessage(
-            "@dre@" + Utility.capitalizeFirstLetter(stoner.getUsername()) + " is viewing you!"));
+            "" + Utility.capitalizeFirstLetter(stoner.getUsername()) + " is viewing you!"));
 
     viewing.setProfileViews(+1);
 
@@ -146,7 +146,7 @@ public class StonerProfiler {
 
   public static void myProfile(Stoner stoner) {
 
-    stoner.send(new SendMessage("@dre@You are now viewing your own profile."));
+    stoner.send(new SendMessage("You are now viewing your own profile."));
 
     stoner.send(new SendString("My Profile", 51602));
 

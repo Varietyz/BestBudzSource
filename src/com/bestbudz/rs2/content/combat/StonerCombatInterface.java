@@ -18,7 +18,6 @@ import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSwamp;
 import com.bestbudz.rs2.content.profession.melee.BarrowsSpecials;
 import com.bestbudz.rs2.content.profession.mercenary.MercenaryMonsters;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.content.profession.sagittarius.BoltSpecials;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
 import com.bestbudz.rs2.content.profession.summoning.FamiliarMob;
@@ -188,12 +187,6 @@ public class StonerCombatInterface implements CombatInterface {
     if (stoner.getGrades()[3] <= 0 && !stoner.isDead()) {
 
       TaskQueue.queue(new StonerDeathTask(stoner));
-    } else if (stoner.getNecromance().active(Necromance.REDEMPTION)) {
-      if (stoner.getGrades()[3] <= stoner.getMaxGrades()[3] * .1) {
-        stoner.getNecromance().drain(stoner.getGrades()[5]);
-        stoner.getGrades()[3] += (int) (stoner.getMaxGrades()[5] * 0.25);
-        stoner.getUpdateFlags().sendGraphic(new Graphic(436));
-      }
     }
   }
 

@@ -28,7 +28,7 @@ public class OttoGodblessed extends Dialogue {
             stoner.getBox().remove(ZAMORAKIAN_SPEAR, 1);
             stoner.getBox().add(ZAMORAKIAN_HASTA, 1);
             DialogueManager.sendItem1(
-                stoner, "Otto has given you a @dre@Zamorakian hasta</col>!", ZAMORAKIAN_HASTA);
+                stoner, "Otto has given you a Zamorakian hasta</col>!", ZAMORAKIAN_HASTA);
             setNext(-1);
           } else {
             DialogueManager.sendNpcChat(
@@ -49,7 +49,7 @@ public class OttoGodblessed extends Dialogue {
           stoner.getBox().remove(ZAMORAKIAN_HASTA, 1);
           stoner.getBox().add(ZAMORAKIAN_SPEAR, 1);
           DialogueManager.sendItem1(
-              stoner, "Otto has given you a @dre@Zamorakian spear</col>!", ZAMORAKIAN_SPEAR);
+              stoner, "Otto has given you a Zamorakian spear</col>!", ZAMORAKIAN_SPEAR);
           setNext(-1);
 
         } else {

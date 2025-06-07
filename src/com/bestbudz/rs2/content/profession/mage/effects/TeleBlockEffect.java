@@ -1,7 +1,6 @@
 package com.bestbudz.rs2.content.profession.mage.effects;
 
 import com.bestbudz.rs2.content.combat.impl.CombatEffect;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -15,13 +14,10 @@ public class TeleBlockEffect implements CombatEffect {
       if (p2 == null) {
         return;
       }
-      if (p2.getNecromance().active(Necromance.PROTECT_FROM_MAGE)) {
-        p2.getClient().queueOutgoingPacket(new SendMessage("@dre@You have been half teleblocked."));
-        e.teleblock(150);
-      } else {
-        p2.getClient().queueOutgoingPacket(new SendMessage("@dre@You have been full teleblocked."));
+
+        p2.getClient().queueOutgoingPacket(new SendMessage("You have been full teleblocked."));
         e.teleblock(300);
-      }
+
     } else {
       e.teleblock(300);
     }

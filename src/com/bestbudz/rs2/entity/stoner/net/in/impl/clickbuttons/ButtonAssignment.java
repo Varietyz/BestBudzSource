@@ -121,22 +121,22 @@ public class ButtonAssignment extends ClickButtonPacket {
 		});
 
 		// 4140 - Training interface 2
-		BUTTON_HANDLERS.put(ButtonIds.TRAINING_INTERFACE_2, ClickButtonPacket::openTrainingInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.TRAINING_INTERFACE_2, ClickButtonPacket::openTrainingInterface);
 
 		// 4143 - Profession interface 2
-		BUTTON_HANDLERS.put(ButtonIds.PROFESSING_INTERFACE_2, ClickButtonPacket::openProfessionInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.PROFESSING_INTERFACE_2, ClickButtonPacket::openProfessionInterface);
 
 		// 4146 - PvP interface 2
-		BUTTON_HANDLERS.put(ButtonIds.PVP_INTERFACE_2, ClickButtonPacket::openPvPInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.PVP_INTERFACE_2, ClickButtonPacket::openPvPInterface);
 
 		// 4150 - Boss interface 2
-		BUTTON_HANDLERS.put(ButtonIds.BOSS_INTERFACE_2, ClickButtonPacket::openBossInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.BOSS_INTERFACE_2, ClickButtonPacket::openBossInterface);
 
 		// 6004 - Minigame interface 2
-		BUTTON_HANDLERS.put(ButtonIds.MINIGAME_INTERFACE_2, ClickButtonPacket::openMinigameInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.MINIGAME_INTERFACE_2, ClickButtonPacket::openMinigameInterface);
 
 		// 6005 - Other interface 2
-		BUTTON_HANDLERS.put(ButtonIds.OTHER_INTERFACE_2, ClickButtonPacket::openOtherInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.OTHER_INTERFACE_2, ClickButtonPacket::openOtherInterface);
 
 		// 9118 - Close interface 1
 		BUTTON_HANDLERS.put(ButtonIds.CLOSE_INTERFACE_1, stoner -> stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces()));
@@ -163,22 +163,22 @@ public class ButtonAssignment extends ClickButtonPacket {
 		BUTTON_HANDLERS.put(ButtonIds.RUN_TOGGLE_3, ClickButtonPacket::toggleRunning);
 
 		// 50235 - Training interface 1
-		BUTTON_HANDLERS.put(ButtonIds.TRAINING_INTERFACE_1, ClickButtonPacket::openTrainingInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.TRAINING_INTERFACE_1, ClickButtonPacket::openTrainingInterface);
 
 		// 50245 - Profession interface 1
-		BUTTON_HANDLERS.put(ButtonIds.PROFESSING_INTERFACE_1, ClickButtonPacket::openProfessionInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.PROFESSING_INTERFACE_1, ClickButtonPacket::openProfessionInterface);
 
 		// 50253 - PvP interface 1
-		BUTTON_HANDLERS.put(ButtonIds.PVP_INTERFACE_1, ClickButtonPacket::openPvPInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.PVP_INTERFACE_1, ClickButtonPacket::openPvPInterface);
 
 		// 51005 - Boss interface 1
-		BUTTON_HANDLERS.put(ButtonIds.BOSS_INTERFACE_1, ClickButtonPacket::openBossInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.BOSS_INTERFACE_1, ClickButtonPacket::openBossInterface);
 
 		// 51013 - Minigame interface 1
-		BUTTON_HANDLERS.put(ButtonIds.MINIGAME_INTERFACE_1, ClickButtonPacket::openMinigameInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.MINIGAME_INTERFACE_1, ClickButtonPacket::openMinigameInterface);
 
 		// 51023 - Other interface 1
-		BUTTON_HANDLERS.put(ButtonIds.OTHER_INTERFACE_1, ClickButtonPacket::openOtherInterface);
+		//BUTTON_HANDLERS.put(ButtonIds.OTHER_INTERFACE_1, ClickButtonPacket::openOtherInterface);
 
 		// 55095 - Weapon unload
 		BUTTON_HANDLERS.put(55095, ClickButtonPacket::handleWeaponUnload);
@@ -325,7 +325,7 @@ public class ButtonAssignment extends ClickButtonPacket {
 		BUTTON_HANDLERS.put(115115, stoner -> stoner.start(new GenieResetDialogue(stoner)));
 
 		// 115116 - Send interface
-		BUTTON_HANDLERS.put(115116, stoner -> stoner.send(new SendInterface(3559)));
+		//BUTTON_HANDLERS.put(115116, stoner -> stoner.send(new SendInterface(3559)));
 
 		// 115117 - Recharge necromance
 		BUTTON_HANDLERS.put(115117, ClickButtonPacket::rechargeNecromance);
@@ -522,4 +522,86 @@ public class ButtonAssignment extends ClickButtonPacket {
 		LEADERBOARD_TYPES.put(185052, "A bad man");
 		LEADERBOARD_TYPES.put(185055, "What kind of man");
 	}
+
+	public enum Emote {
+		Professioncape(154, 1, 1),
+		Yes(168, 855, -1),
+		No(169, 856, -1),
+		Bow(164, 858, -1),
+		Think(162, 857, -1),
+		Wave(163, 863, -1),
+		Angry(167, 864, -1),
+		Cheer(171, 862, -1),
+		Beckon(165, 859, -1),
+		Cry(161, 860, -1),
+		Laugh(170, 861, -1),
+		Clap(172, 865, -1),
+		Dance(166, 866, -1),
+		Shrug(115206, 2113, -1),
+		Jump_For_Joy(115207, 2109, -1),
+		Yawn(115208, 2111, -1),
+		Jig(115209, 2106, -1),
+		Twirl(115210, 2107, -1),
+		Headbang(115211, 2108, -1),
+		Blow_Kiss(115212, 1368, -1),
+		Panic(115213, 2105, -1),
+		Rasberry(115214, 2110, -1),
+		Salute(115215, 2112, -1),
+		Goblin_Bow(115216, 2127, -1),
+		Goblin_Salute(115217, 2128, -1),
+		Glass_Box(115218, 1131, -1),
+		Climb_Rope(115219, 1130, -1),
+		Lean(115220, 1129, -1),
+		Glass_Wall(115221, 1128, -1),
+		Idea(115222, 4276, 712),
+		Stomp(115223, 4278, -1),
+		Flap(115224, 4280, -1),
+		Slap_Head(115225, 4275, -1),
+		Zombie_Walk(115226, 3544, -1),
+		Zombie_Dance(115227, 3543, -1),
+		Scared(115228, 2836, -1),
+		Bunny_Hop(115229, 6111, -1),
+		CHICKEN(115193, 1835, -1),
+		DRUNK(115194, 2770, -1),
+		CHILL(115195, 2339, -1),
+		JUMPING_JACKS(115196, 2761, -1),
+		PUSHUP(115197, 2762, -1),
+		SITUP(115198, 2763, -1),
+		JOGGING(115199, 2764, -1),
+		HURT_FOOT(115200, 779, -1),
+		ELEGANT_BOW(115201, 5312, -1),
+		ADVANCED_YAWN(115202, 5313, -1),
+		POWDERED_ANGRY(115203, 5315, -1),
+		FLARED_DANCE(115204, 5316, -1),
+		WRITE(115205, 909, -1),
+		SMOKE(115231, 884, 354),
+		PREACH(115232, 1670, -1),
+		FRUSTRATION_KICK(115233, 1746, -1),
+		MATRIX(115234, 1110, -1),
+		ZOMBIE_HEAD(115235, 2840, -1),
+		YO_YO(115236, 1457, -1),
+		RESPECT(115237, 1818, -1),
+		JUMP(115238, 3067, -1),
+		EXCITED_JUMP(115239, 6382, -1),
+		THINK_HARD(115240, 6380, -1),
+		WATERING(115241, 2293, -1),
+		POUR_POTION(115242, 2288, -1),
+		RAKE(115243, 2273, -1),
+		DIG(115244, 2272, -1),
+		CO_OP_HANDSHAKE(115245, 2270, -1),
+		BELLY_FLOP(115246, 1115, -1);
+
+		public final int gfxID;
+		public final int animID;
+		public final int buttonID;
+
+		Emote(int buttonId, int animId, int gfxId) {
+			buttonID = buttonId;
+			animID = animId;
+			gfxID = gfxId;
+		}
+
+
+	}
+
 }

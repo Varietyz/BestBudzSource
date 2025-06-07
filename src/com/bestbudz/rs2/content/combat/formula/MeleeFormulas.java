@@ -2,7 +2,6 @@ package com.bestbudz.rs2.content.combat.formula;
 
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.Equipment;
@@ -52,17 +51,7 @@ public class MeleeFormulas {
       return 8;
     }
     double baseAegis = blocker.getProfession().getGrades()[1];
-    if (blocker.getNecromance().active(Necromance.THICK_SKIN)) {
-      baseAegis += 0.5;
-    } else if (blocker.getNecromance().active(Necromance.ROCK_SKIN)) {
-      baseAegis += 0.7;
-    } else if (blocker.getNecromance().active(Necromance.STEEL_SKIN)) {
-      baseAegis += 1.3;
-    } else if (blocker.getNecromance().active(Necromance.CHIVALRY)) {
-      baseAegis += 1.14;
-    } else if (blocker.getNecromance().active(Necromance.PIETY)) {
-      baseAegis *= 1.18;
-    }
+
     return Math.floor(baseAegis) + 8;
   }
 
@@ -107,17 +96,7 @@ public class MeleeFormulas {
       assaultBonus = assaulter.getBonuses()[assaulter.getAssaultType().ordinal()];
       baseAssault = assaulter.getGrades()[0];
 
-      if (assaulter.getNecromance().active(Necromance.CLARITY_OF_THOUGHT)) {
-        baseAssault += 1.05;
-      } else if (assaulter.getNecromance().active(Necromance.IMPROVED_REFLEXES)) {
-        baseAssault += 1.10;
-      } else if (assaulter.getNecromance().active(Necromance.INCREDIBLE_REFLEXES)) {
-        baseAssault += 1.15;
-      } else if (assaulter.getNecromance().active(Necromance.CHIVALRY)) {
-        baseAssault += 1.20;
-      } else if (assaulter.getNecromance().active(Necromance.PIETY)) {
-        baseAssault *= 1.23;
-      }
+
     } else {
       if (entity.getBonuses() != null) {
         assaultBonus = entity.getBonuses()[entity.getAssaultType().ordinal()];
@@ -313,11 +292,7 @@ public class MeleeFormulas {
   }
 
   public static double getNecromanceStr(Stoner stoner) {
-    if (stoner.getNecromance().active(Necromance.BURST_OF_VIGOUR)) return 1.05;
-    else if (stoner.getNecromance().active(Necromance.SUPERHUMAN_VIGOUR)) return 1.1;
-    else if (stoner.getNecromance().active(Necromance.ULTIMATE_VIGOUR)) return 1.15;
-    else if (stoner.getNecromance().active(Necromance.CHIVALRY)) return 1.18;
-    else if (stoner.getNecromance().active(Necromance.PIETY)) return 1.23;
+
     return 1.0;
   }
 }

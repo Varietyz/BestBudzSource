@@ -331,7 +331,7 @@ public class MobDrops {
         stoner.setArenaPoints(stoner.getArenaPoints() + 1);
         stoner.send(
             new SendMessage(
-                "@dre@You now have " + stoner.getArenaPoints() + " Mage Arena points."));
+                "You now have " + stoner.getArenaPoints() + " Mage Arena points."));
         AchievementHandler.activateAchievement(
             stoner, AchievementList.EARN_100_MAGE_ARENA_POINTS, 1);
         AchievementHandler.activateAchievement(

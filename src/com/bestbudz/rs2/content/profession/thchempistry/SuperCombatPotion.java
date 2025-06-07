@@ -60,7 +60,7 @@ public class SuperCombatPotion {
       }
     }
     if (!hasItems) {
-      stoner.send(new SendMessage("@dre@Making Jah Powa (4) requires: " + required + "."));
+      stoner.send(new SendMessage("Making Jah Powa (4) requires: " + required + "."));
       return;
     }
     for (int index = 0; index < ITEMS.length; index++) {

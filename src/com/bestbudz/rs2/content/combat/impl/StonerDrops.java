@@ -156,7 +156,7 @@ public class StonerDrops {
         if (killer.getStoner().getHunterKills() > killer.getStoner().getHunterRecord()) {
           killer.getStoner().setHunterRecord(killer.getStoner().getHunterKills());
         }
-        killer.getStoner().send(new SendMessage("@dre@You smoked the stoner target."));
+        killer.getStoner().send(new SendMessage("You smoked the stoner target."));
         killer.getStoner().getBox().add(new Item(Utility.randomElement(FUN_PK_REWARDS)));
         killer.getStoner().getBox().add(new Item(Utility.randomElement(FUN_PK_REWARDS)));
         killer.getStoner().getBox().update();

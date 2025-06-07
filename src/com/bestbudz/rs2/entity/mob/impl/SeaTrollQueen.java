@@ -5,7 +5,6 @@ import com.bestbudz.core.definitions.NpcCombatDefinition.Melee;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.Projectile;
 import com.bestbudz.rs2.entity.World;
@@ -29,30 +28,13 @@ public class SeaTrollQueen extends Mob {
       if (!getCombat().getAssaulting().isNpc()) {
         Stoner stoner = (Stoner) getCombat().getAssaulting();
         if (!getCombat().withinDistanceForAssault(CombatTypes.MELEE, true)) {
-          if (stoner.getNecromance().active(Necromance.PROTECT_FROM_MAGE)) {
-            if (stoner.getProfession().getGrades()[Professions.NECROMANCE] > 0) {
-              World.sendProjectile(getProjectile(), stoner, this);
-              long modifier =
-                  stoner.getProfession().getGrades()[Professions.NECROMANCE] - 20 > 0
-                      ? 20
-                      : stoner.getProfession().getGrades()[Professions.NECROMANCE];
-              stoner.getNecromance().drain(modifier);
-              type = CombatTypes.SAGITTARIUS;
-              getCombat().setAssaultTimer(6);
-            } else {
-              type = CombatTypes.MAGE;
-            }
-          } else {
+
             type = CombatTypes.MAGE;
-          }
+
         } else {
-          if (stoner.getNecromance().active(Necromance.PROTECT_FROM_MAGE)) {
-            type = CombatTypes.MELEE;
-          } else if (stoner.getNecromance().active(Necromance.PROTECT_FROM_MELEE)) {
-            type = CombatTypes.MAGE;
-          } else {
+
             type = Utility.randomNumber(10) < 5 ? CombatTypes.MELEE : CombatTypes.MAGE;
-          }
+
         }
       }
 

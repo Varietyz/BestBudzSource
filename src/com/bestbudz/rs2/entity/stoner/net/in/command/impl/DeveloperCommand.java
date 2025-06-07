@@ -883,8 +883,8 @@ public class DeveloperCommand implements Command {
         stoner.setNpcAppearanceId(npc);
         stoner.setAppearanceUpdateRequired(true);
         if (npc == -1) {
-          stoner.getAnimations().setWalkEmote(819);
-          stoner.getAnimations().setRunEmote(824);
+          stoner.getAnimations().setWalkEmote(2769); // OG 819
+          stoner.getAnimations().setRunEmote(2769); // OG 824
           stoner.getAnimations().setStandEmote(808);
           stoner.getAnimations().setTurn180Emote(820);
           stoner.getAnimations().setTurn90CCWEmote(822);

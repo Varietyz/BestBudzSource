@@ -1,6 +1,7 @@
 package com.bestbudz.rs2.content.profession;
 
 import com.bestbudz.core.util.Utility;
+import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
@@ -9,7 +10,10 @@ public class Professions {
   public static final int GRADE_99_SONG = 420;
   public static final int[] GRADE_UP_SOUNDS = {112, 107, 104, 10, 21, 24};
   public static final short PROFESSION_COUNT = 21;
-  public static final Graphic UPGRADE_GRAPHIC = Graphic.highGraphic(199, 0);
+
+  public static final Graphic UPGRADE_GRAPHIC = Graphic.lowGraphic(1154, 0);
+  public static final Animation UPGRADE_ANIM = new Animation(3170);
+
   public static final int[] EXPERIENCE_RATES = new int[PROFESSION_COUNT];
   public static final int MAX_EXPERIENCE = 420000000;
   public static final String[] PROFESSION_NAMES = {
@@ -109,7 +113,8 @@ public class Professions {
   public static final int CURRENT_NECROMANCE_UPDATE_ID = 4012;
   public static final int MAX_NECROMANCE_UPDATE_ID = 4013;
 
-  public static void declare() {
+
+	public static void declare() {
     EXPERIENCE_RATES[ASSAULT] = 1;
     EXPERIENCE_RATES[AEGIS] = 1;
     EXPERIENCE_RATES[VIGOUR] = 1;

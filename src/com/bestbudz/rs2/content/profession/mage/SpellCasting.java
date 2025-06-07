@@ -150,7 +150,7 @@ public class SpellCasting {
 			stoner
 				.getClient()
 				.queueOutgoingPacket(
-					new SendMessage("@dre@This stoner is already affected by this spell."));
+					new SendMessage("This stoner is already affected by this spell."));
 			return;
 		}
 		if (canCastSpell(castId)) {

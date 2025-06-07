@@ -127,9 +127,9 @@ public class WeaponLobbyController extends Controller {
           public void execute() {
             DialogueManager.sendStatement(
                 stoner,
-                "Welcome to the @dre@Weapon Game Lobby@bla@!",
-                "Game will start when there are a minimum of @dre@5@bla@ stoners.",
-                "Click on the @dre@portal@bla@ to @dre@exit@bla@.");
+                "Welcome to the Weapon Game Lobby@bla@!",
+                "Game will start when there are a minimum of 5@bla@ stoners.",
+                "Click on the portal@bla@ to exit@bla@.");
             stop();
           }
 
@@ -151,7 +151,7 @@ public class WeaponLobbyController extends Controller {
 
   @Override
   public void onTeleport(Stoner stoner) {
-    stoner.send(new SendMessage("@dre@If you would like to exit, please enter the portal."));
+    stoner.send(new SendMessage("If you would like to exit, please enter the portal."));
   }
 
   @Override

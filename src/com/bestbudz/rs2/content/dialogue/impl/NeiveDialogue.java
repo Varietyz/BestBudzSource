@@ -82,7 +82,7 @@ public class NeiveDialogue extends Dialogue {
         break;
 
       case 1:
-        DialogueManager.sendOption(stoner, "Yes", "No", "Reset current task (@dre@250k</col>)");
+        DialogueManager.sendOption(stoner, "Yes", "No", "Reset current task (250k</col>)");
         break;
 
       case 2:
@@ -93,7 +93,7 @@ public class NeiveDialogue extends Dialogue {
             490,
             Emotion.CALM,
             "You have been assigned the task of killing:",
-            "@dre@" + am + " " + task);
+            "" + am + " " + task);
         end();
         break;
     }

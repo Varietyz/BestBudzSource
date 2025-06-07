@@ -314,6 +314,11 @@ public final class ObjectDef {
 			class46.hasActions = true;
 			break;
 
+		case 10376:
+			class46.name = "Cocaïne Stall";
+			class46.description = "You look and wonder.. Where are the topless women?".getBytes();
+			break;
+
       case 9472:
       case 9371:
         class46.name = "Stoner Market";

@@ -2,7 +2,6 @@ package com.bestbudz.rs2.content.combat.formula;
 
 import com.bestbudz.rs2.content.profession.mage.spells.Charge;
 import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.mob.Mob;
@@ -33,13 +32,6 @@ public class MageFormulas {
     double assaultBonus = assaulter.getBonuses()[3];
     double baseAssault = assaulter.getProfession().getGrades()[6];
 
-    if (assaulter.getNecromance().active(Necromance.MYSTIC_WILL)) {
-      baseAssault += 1.05;
-    } else if (assaulter.getNecromance().active(Necromance.MYSTIC_LORE)) {
-      baseAssault += 1.10;
-    } else if (assaulter.getNecromance().active(Necromance.MYSTIC_MIGHT)) {
-      baseAssault *= 1.15;
-    }
     return Math.floor(baseAssault + assaultBonus) + 15;
   }
 

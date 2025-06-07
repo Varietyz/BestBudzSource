@@ -50,9 +50,9 @@ public class StonersOnline {
 
     stoner.send(
         new SendString(
-            "@dre@BestBudz's <img=11> Active Stoners (</col> "
+            "BestBudz's <img=11> Active Stoners (</col> "
                 + World.getActiveStoners()
-                + " @dre@)",
+                + " )",
             8144));
 
     int frameBegin = 8145;

@@ -14,14 +14,14 @@ public class AchievementInterface {
     DialogueManager.sendInformationBox(
         stoner,
         "<u>Achievement System",
-        "@dre@" + achievement.getName(),
-        "@bla@Difficulty: @blu@" + difficulty,
-        "@bla@Point(s): @blu@" + achievement.getReward(),
-        "Progress: @blu@"
+        achievement.getName(),
+        "@bla@Difficulty: @gre@" + difficulty,
+        "@bla@Point(s): @gre@" + achievement.getReward(),
+        "Progress: @gre@"
             + completed
-            + "@bla@/@blu@"
+            + "@bla@/@gre@"
             + achievement.getCompleteAmount()
-            + " @bla@(@blu@"
+            + " @bla@(@gre@"
             + progress
             + "%@bla@)");
   }

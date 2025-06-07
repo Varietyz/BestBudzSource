@@ -74,7 +74,6 @@ import com.bestbudz.rs2.content.pets.BossPets.PetData;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.accomplisher.HomeStalls;
 import com.bestbudz.rs2.content.profession.accomplisher.WallSafes;
-import com.bestbudz.rs2.content.profession.bankstanding.BankStanding;
 import com.bestbudz.rs2.content.profession.foodie.Foodie;
 import com.bestbudz.rs2.content.profession.foodie.FoodieData;
 import com.bestbudz.rs2.content.profession.forging.Forging;
@@ -87,7 +86,7 @@ import com.bestbudz.rs2.content.profession.hunter.Impling.ImplingRewards.Impling
 import com.bestbudz.rs2.content.profession.lumbering.LumberingTask;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
-import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
+import com.bestbudz.rs2.content.profession.necromance.PetInteraction;
 import com.bestbudz.rs2.content.profession.pyromaniac.PyroAutoBurn;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.quarrying.Quarrying;
@@ -687,12 +686,6 @@ public class ObjectActions
             WeaponGameStore.open(stoner);
             break;
           case 1306:
-            if (!stoner.getBox().hasItemAmount(new Item(995, 10000))) {
-				stoner.send(new SendMessage("You don't have 10,000 bestbucks!"));
-              return;
-            }
-            stoner.getBox().remove(new Item(995, 10000));
-            stoner.send(new SendInterface(3559));
             break;
           case 5523:
             if (StonerConstants.isStoner(stoner)) {
@@ -1103,7 +1096,7 @@ public class ObjectActions
             }
             stoner.getUpdateFlags().sendAnimation(new Animation(645));
             stoner.getBox().add(new Item(2412));
-            stoner.send(new SendMessage("@dre@You have obtained a Saradomin cape."));
+            stoner.send(new SendMessage("You have obtained a Saradomin cape."));
             break;
           case 2875:
             if (ItemCheck.hasGodCape(stoner)) {
@@ -1116,7 +1109,7 @@ public class ObjectActions
             }
             stoner.getUpdateFlags().sendAnimation(new Animation(645));
             stoner.getBox().add(new Item(2413));
-            stoner.send(new SendMessage("@dre@You have obtained a Guthix cape."));
+            stoner.send(new SendMessage("You have obtained a Guthix cape."));
             break;
           case 2874:
             if (ItemCheck.hasGodCape(stoner)) {
@@ -1129,7 +1122,7 @@ public class ObjectActions
             }
             stoner.getUpdateFlags().sendAnimation(new Animation(645));
             stoner.getBox().add(new Item(2414));
-            stoner.send(new SendMessage("@dre@You have obtained a Zamorak cape."));
+            stoner.send(new SendMessage("You have obtained a Zamorak cape."));
             break;
           case 13618:
 
@@ -2281,10 +2274,6 @@ public class ObjectActions
             if (objectId == 3044 || objectId == 45310 || objectId == 2097) {
 					Forging.SINGLETON.handleObjectClick(stoner, objectId);
 					return;
-            }
-
-            if (BoneBurying.useBonesOnAltar(stoner, itemId, objectId)) {
-              return;
             }
 
             if (objectId == 11744) {

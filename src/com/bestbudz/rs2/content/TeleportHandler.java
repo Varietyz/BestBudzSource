@@ -56,7 +56,7 @@ public class TeleportHandler {
   public static boolean specialCase(Stoner stoner, int buttonId) {
     switch (buttonId) {
       case 254033:
-        stoner.send(new SendMessage("@dre@Walk west to enter the FFA arena."));
+        stoner.send(new SendMessage("Walk west to enter the FFA arena."));
         return true;
 
       case 250053:

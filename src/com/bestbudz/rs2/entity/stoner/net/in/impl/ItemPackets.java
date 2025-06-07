@@ -34,16 +34,13 @@ import com.bestbudz.rs2.content.profession.mage.spells.BoltEnchanting;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSwamp;
 import com.bestbudz.rs2.content.profession.melee.SerpentineHelmet;
-import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
+import com.bestbudz.rs2.content.profession.necromance.PetInteraction;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
 import com.bestbudz.rs2.content.profession.thchempistry.CleanWeedTask;
 import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
 import com.bestbudz.rs2.content.profession.thchempistry.SuperCombatPotion;
-import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
-import com.bestbudz.rs2.content.profession.thchempistry.THChempistryGrindingTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryMasterProcessor;
-import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
 import com.bestbudz.rs2.content.profession.weedsmoking.Weedsmoker;
 import com.bestbudz.rs2.content.profession.woodcarving.Woodcarving;
 import com.bestbudz.rs2.content.wilderness.TargetSystem;
@@ -821,7 +818,7 @@ public class ItemPackets extends IncomingPacket {
           return;
         }
 
-        if (BoneBurying.bury(stoner, itemId, slot)) {
+        if (PetInteraction.bury(stoner, itemId, slot)) {
           return;
         }
 
@@ -988,7 +985,7 @@ public class ItemPackets extends IncomingPacket {
                 DialogueManager.sendItem2zoom(
                     stoner,
                     "You carefully attempt to dismantly your godsword...",
-                    "@dre@You were successful!",
+                    "You were successful!",
                     items[i][1],
                     11798);
                 break;

@@ -427,7 +427,8 @@ public class Profession {
   }
 
   public void onUpgrade(long lvl, int profession) {
-   // stoner.getUpdateFlags().sendGraphic(Professions.UPGRADE_GRAPHIC);
+    stoner.getUpdateFlags().sendGraphic(Professions.UPGRADE_GRAPHIC);
+	  stoner.getUpdateFlags().sendAnimation(Professions.UPGRADE_ANIM);
     String line1 =
         "Well done bud! You have advanced "
             + Professions.PROFESSION_NAMES[profession]

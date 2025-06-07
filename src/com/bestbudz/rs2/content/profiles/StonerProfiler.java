@@ -17,7 +17,7 @@ public class StonerProfiler {
   public static void search(Stoner stoner, String string) {
     stoner.send(
         new SendMessage(
-            "@dre@Searching Bongbase '"
+            "Searching Bongbase '"
                 + Utility.capitalizeFirstLetter(string)
                 + "' for stoner..."));
     Stoner viewing = World.getStonerByName(string);
@@ -31,7 +31,7 @@ public class StonerProfiler {
     if (viewing == null) {
       stoner.send(
           new SendMessage(
-              "@dre@"
+              ""
                   + Utility.capitalizeFirstLetter(string)
                   + " either has not arrived yet or is asleep!"));
       return;
@@ -40,14 +40,14 @@ public class StonerProfiler {
     if (viewing.getProfilePrivacy()) {
       stoner.send(
           new SendMessage(
-              "@dre@"
+              ""
                   + Utility.capitalizeFirstLetter(viewing.getUsername())
                   + " has disabled stoner viewing."));
       return;
     }
 
     if (stoner.getProfilePrivacy()) {
-      stoner.send(new SendMessage("@dre@You cannot view stoners whilst your in the bushes!"));
+      stoner.send(new SendMessage("You cannot view stoners whilst your in the bushes!"));
       return;
     }
 
@@ -56,7 +56,7 @@ public class StonerProfiler {
 
     if ((deltaX < 16) || (deltaX >= 88) || (deltaY < 16) || (deltaY > 88)) {
       stoner.send(
-          new SendMessage("@dre@Viewing character models is disabled while not in same region."));
+          new SendMessage("Viewing character models is disabled while not in same region."));
       displayProfile(stoner, viewing, false);
     } else {
       displayProfile(stoner, viewing, true);
@@ -66,7 +66,7 @@ public class StonerProfiler {
   public static void displayProfile(Stoner stoner, Stoner viewing, boolean inRegion) {
     viewing.send(
         new SendMessage(
-            "@dre@" + Utility.capitalizeFirstLetter(stoner.getUsername()) + " is viewing you!"));
+            "" + Utility.capitalizeFirstLetter(stoner.getUsername()) + " is viewing you!"));
     AchievementHandler.activateAchievement(stoner, AchievementList.VIEW_15_STONER_PROFILES, 1);
     viewing.setProfileViews(+1);
 
@@ -142,7 +142,7 @@ public class StonerProfiler {
 
   public static void myProfile(Stoner stoner) {
 
-    stoner.send(new SendMessage("@dre@This is you."));
+    stoner.send(new SendMessage("This is you."));
 
     stoner.send(new SendString("", 51602));
 
@@ -150,13 +150,13 @@ public class StonerProfiler {
       stoner.send(
           new SendString(
               Utility.capitalizeFirstLetter(Professions.PROFESSION_NAMES[i])
-                  + " lv: @dre@"
+                  + " lv: "
                   + stoner.getProfession().getGrades()[i]
-                  + "@bla@/@dre@"
+                  + "@bla@/"
                   + stoner
                       .getProfession()
                       .getGradeForExperience(i, stoner.getProfession().getExperience()[i])
-                  + "\\nAdvance lv: @dre@"
+                  + "\\nAdvance lv: "
                   + stoner.getProfessionAdvances()[i],
               51632 + i));
     }

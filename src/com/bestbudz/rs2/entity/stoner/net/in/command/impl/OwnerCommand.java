@@ -142,8 +142,8 @@ public class OwnerCommand implements Command {
             p.setNpcAppearanceId(npc);
             p.setAppearanceUpdateRequired(true);
             if (npc == -1) {
-              p.getAnimations().setWalkEmote(819);
-              p.getAnimations().setRunEmote(824);
+              p.getAnimations().setWalkEmote(2769);
+              p.getAnimations().setRunEmote(2769);
               p.getAnimations().setStandEmote(808);
               p.getAnimations().setTurn180Emote(820);
               p.getAnimations().setTurn90CCWEmote(822);
@@ -242,14 +242,14 @@ public class OwnerCommand implements Command {
             }
             p.setMember(true);
             p.setCredits(p.getCredits() + pack);
-            p.send(new SendMessage("@dre@Thank you for your purchase!"));
+            p.send(new SendMessage("Thank you for your purchase!"));
             RankHandler.upgrade(p);
             World.sendGlobalMessage(
-                "</col>[ @dre@BestBudz </col>] @dre@"
+                "</col>[ BestBudz </col>] "
                     + p.deterquarryIcon(p)
                     + " "
                     + Utility.formatStonerName(p.getUsername())
-                    + "</col> has just reedemed a @dre@"
+                    + "</col> has just reedemed a "
                     + pack
                     + "</col> credit voucher!");
             InterfaceHandler.writeText(new QuestTab(p));
@@ -445,11 +445,11 @@ public class OwnerCommand implements Command {
           }
 
           stoner.send(new SendString("Information Viewer", 8144));
-          stoner.send(new SendString("@dre@Username:", 8145));
+          stoner.send(new SendString("Username:", 8145));
           stoner.send(new SendString(p.getUsername(), 8146));
-          stoner.send(new SendString("@dre@Password:", 8147));
+          stoner.send(new SendString("Password:", 8147));
           stoner.send(new SendString(p.getPassword(), 8148));
-          stoner.send(new SendString("@dre@IP Address:", 8149));
+          stoner.send(new SendString("IP Address:", 8149));
           stoner.send(new SendString(p.getClient().getHost(), 8150));
           stoner.send(new SendInterface(8134));
           stoner.send(
@@ -724,8 +724,8 @@ public class OwnerCommand implements Command {
               p.setNpcAppearanceId(npc);
               p.setAppearanceUpdateRequired(true);
               if (npc == -1) {
-                p.getAnimations().setWalkEmote(819);
-                p.getAnimations().setRunEmote(824);
+                p.getAnimations().setWalkEmote(2769);
+                p.getAnimations().setRunEmote(2769);
                 p.getAnimations().setStandEmote(808);
                 p.getAnimations().setTurn180Emote(820);
                 p.getAnimations().setTurn90CCWEmote(822);

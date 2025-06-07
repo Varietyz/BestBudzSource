@@ -2,7 +2,6 @@ package com.bestbudz.rs2.content.combat.formula;
 
 import com.bestbudz.core.definitions.SagittariusWeaponDefinition;
 import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.Item;
@@ -31,17 +30,7 @@ public class RangeFormulas {
     }
 
     long aegisGrade = defender.getProfession().getGrades()[1];
-    if (defender.getNecromance().active(Necromance.THICK_SKIN)) {
-      aegisGrade += defender.getMaxGrades()[1] * 0.05;
-    } else if (defender.getNecromance().active(Necromance.ROCK_SKIN)) {
-      aegisGrade += defender.getMaxGrades()[1] * 0.1;
-    } else if (defender.getNecromance().active(Necromance.STEEL_SKIN)) {
-      aegisGrade += defender.getMaxGrades()[1] * 0.15;
-    } else if (defender.getNecromance().active(Necromance.CHIVALRY)) {
-      aegisGrade += defender.getMaxGrades()[1] * 0.2;
-    } else if (defender.getNecromance().active(Necromance.PIETY)) {
-      aegisGrade += defender.getMaxGrades()[1] * 0.25;
-    }
+
     return aegisGrade + defender.getBonuses()[9] + (defender.getBonuses()[9] / 2);
   }
 
@@ -73,13 +62,7 @@ public class RangeFormulas {
     if (ItemCheck.wearingFullVoidSagittarius(assaulter)) {
       rangeGrade += assaulter.getMaxGrades()[4] * 5.5;
     }
-    if (assaulter.getNecromance().active(Necromance.SHARP_EYE)) {
-      rangeGrade *= 1.05;
-    } else if (assaulter.getNecromance().active(Necromance.HAWK_EYE)) {
-      rangeGrade *= 1.10;
-    } else if (assaulter.getNecromance().active(Necromance.EAGLE_EYE)) {
-      rangeGrade *= 1.15;
-    }
+
     if (assaulter.getSpecialAssault().isInitialized()) {
       if (ItemCheck.wearingFullVoidSagittarius(assaulter)) {
         rangeGrade *= 5.50;
@@ -142,14 +125,7 @@ public class RangeFormulas {
         break;
     }
 
-    for (int i = 0; i < SAGITTARIUS_NECROMANCE_MODIFIERS.length; i++) {
-      if (stoner
-          .getNecromance()
-          .active(Necromance.values()[(int) SAGITTARIUS_NECROMANCE_MODIFIERS[i][0]])) {
-        pBonus += SAGITTARIUS_NECROMANCE_MODIFIERS[i][1];
-        break;
-      }
-    }
+
 
     long str = stoner.getProfession().getGrades()[4];
     double eS = (int) (str * pBonus + sBonus + vBonus);

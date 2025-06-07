@@ -37,7 +37,7 @@ public class AdvancementBonds extends Stoner
         /* award bond + credits */
         s.getBox().add(new Item(b.getItem(), 1));
         s.setCredits(s.getCredits() + b.getCredits() + b.getComplimentary());
-        s.send(new SendMessage("@dre@Milestone reached – you received " + b.getName() + "!"));
+        s.send(new SendMessage("Milestone reached – you received " + b.getName() + "!"));
 
 
         return b; // tell caller we paid
@@ -64,22 +64,22 @@ public class AdvancementBonds extends Stoner
     stoner.setMember(true);
     stoner.getBox().remove(data.getItem(), 1);
     stoner.setCredits(stoner.getCredits() + data.getCredits());
-    stoner.send(new SendMessage("@dre@Jah bless!"));
+    stoner.send(new SendMessage("Jah bless!"));
     RankHandler.upgrade(stoner);
     if (data.getComplimentary() != 0) {
       stoner.setCredits(stoner.getCredits() + data.getComplimentary());
       stoner.send(
           new SendMessage(
-              "@dre@You have been complimentated "
+              "You have been complimentated "
                   + Utility.format(data.getComplimentary())
                   + " CannaCredits!"));
     }
     World.sendGlobalMessage(
-        "</col>[ @dre@BestBudz </col>] @dre@"
+        "</col>[ BestBudz </col>] "
             + stoner.deterquarryIcon(stoner)
             + " "
             + Utility.formatStonerName(stoner.getUsername())
-            + "</col> redeemed an advance voucher of @dre@"
+            + "</col> redeemed an advance voucher of "
             + Utility.format(data.getCredits())
             + "</col> CannaCredits!");
 

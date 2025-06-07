@@ -64,9 +64,6 @@ public class StarterKit {
 		stoner.setController(ControllerManager.DEFAULT_CONTROLLER);
 		stoner.setStarter(false);
 
-		// Set up main interface
-		stoner.send(new SendInterface(3559));
-
 		// Set up sidebar interfaces
 		for (int i = 0; i < StonerConstants.SIDEBAR_INTERFACE_IDS.length; i++) {
 			stoner.send(new SendSidebarInterface(i, StonerConstants.SIDEBAR_INTERFACE_IDS[i]));

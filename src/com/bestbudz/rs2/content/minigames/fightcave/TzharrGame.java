@@ -77,7 +77,7 @@ public final class TzharrGame {
       stoner
           .getClient()
           .queueOutgoingPacket(
-              new SendMessage("@dre@Congratulations, you have completed The Fight Caves"));
+              new SendMessage("Congratulations, you have completed The Fight Caves"));
       DialogueManager.sendStatement(stoner, "Congratulations, you have completed The Fight Caves");
       World.sendGlobalMessage(
           "<img=8> <col=C42BAD>"
@@ -92,7 +92,7 @@ public final class TzharrGame {
       stoner
           .getClient()
           .queueOutgoingPacket(
-              new SendMessage("@dre@You did not make it far enough to receive a reward."));
+              new SendMessage("You did not make it far enough to receive a reward."));
     }
 
     stoner.teleport(LEAVE);
@@ -151,7 +151,7 @@ public final class TzharrGame {
 
   public static void startNextWave(final Stoner p) {
     p.getClient()
-        .queueOutgoingPacket(new SendMessage("@dre@The next wave will start in a few seconds."));
+        .queueOutgoingPacket(new SendMessage("The next wave will start in a few seconds."));
     if (p.getJadDetails().getZ() == 0) {
       p.getJadDetails().setZ(p);
       p.changeZ(p.getJadDetails().getZ());
@@ -177,7 +177,7 @@ public final class TzharrGame {
             }
             p.getClient()
                 .queueOutgoingPacket(
-                    new SendMessage("@dre@Wave: " + (p.getJadDetails().getStage() + 1)));
+                    new SendMessage("Wave: " + (p.getJadDetails().getStage() + 1)));
             stop();
           }
 

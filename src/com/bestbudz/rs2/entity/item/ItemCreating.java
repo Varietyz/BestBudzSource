@@ -170,7 +170,7 @@ public enum ItemCreating {
 
     DialogueManager.sendItem1(
         stoner,
-        "@dre@You have created " + Utility.getAOrAn(data.getName()) + " " + data.getName() + ".",
+        "You have created " + Utility.getAOrAn(data.getName()) + " " + data.getName() + ".",
         data.getProduct()[0]);
     return true;
   }

@@ -36,7 +36,7 @@ public class Yelling {
     } else if (rights == 3) {
       send = "[@gre@BestBud</col>] <img=2>@gre@" + stoner.getUsername() + "</col>: " + message;
     } else if (rights == 4) {
-      send = "[@dre@Developer</col>] <img=3>@dre@" + stoner.getUsername() + "</col>: " + message;
+      send = "[Developer</col>] <img=3>" + stoner.getUsername() + "</col>: " + message;
     } else if (rights == 5) {
       send =
           "[<col=B20000>"

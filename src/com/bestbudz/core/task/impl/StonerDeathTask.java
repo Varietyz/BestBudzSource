@@ -9,7 +9,6 @@ import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.content.combat.Hit.HitTypes;
 import com.bestbudz.rs2.content.combat.impl.StonerDrops;
 import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -54,19 +53,11 @@ public class StonerDeathTask extends Task {
           @Override
           public void execute() {
             stoner.getUpdateFlags().sendGraphic(new Graphic(293));
-            stoner.getUpdateFlags().sendAnimation(836, 0);
+            stoner.getUpdateFlags().sendAnimation(837, 0);
 
             Entity killer = stoner.getCombat().getDamageTracker().getKiller();
 
-            if (stoner.getNecromance().active(Necromance.RETRIBUTION)) {
-              stoner.getUpdateFlags().sendGraphic(new Graphic(437));
 
-              if (killer != null && !killer.isNpc()) {
-                int damage = Utility.random((int) (stoner.getMaxGrades()[5] * 0.25)) + 1;
-
-                killer.hit(new Hit(stoner, damage, HitTypes.NONE));
-              }
-            }
 
             stop();
           }

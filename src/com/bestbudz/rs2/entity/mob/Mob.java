@@ -359,7 +359,7 @@ public class Mob extends Entity {
         getOwner()
             .send(
                 new SendMessage(
-                    "@dre@You need to assault all 4 whirlpools before doing this! Remaining: "
+                    "You need to assault all 4 whirlpools before doing this! Remaining: "
                         + (4 - getOwner().whirlpoolsHit)));
         return;
       }

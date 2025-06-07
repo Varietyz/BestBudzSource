@@ -47,7 +47,7 @@ public final class CyclopsRoom {
           .getClient()
           .queueOutgoingPacket(
               new SendMessage(
-                  "@dre@The cyclops are now dropping: "
+                  "The cyclops are now dropping: "
                       + Item.getDefinition(defender).getName()
                       + "."));
       stoner.getAttributes().set("warrguildtokensused", 0);
@@ -75,7 +75,7 @@ public final class CyclopsRoom {
         .getClient()
         .queueOutgoingPacket(
             new SendMessage(
-                "@dre@The cyclops are now dropping: "
+                "The cyclops are now dropping: "
                     + Item.getDefinition(DEFENDERS[getDefenderIndex(stoner)]).getName()
                     + "."));
     updateInterface(stoner);

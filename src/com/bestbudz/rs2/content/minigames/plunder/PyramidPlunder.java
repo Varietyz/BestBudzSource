@@ -61,19 +61,19 @@ public enum PyramidPlunder {
                   public void execute() {
                     switch (++ticks) {
                       case 10:
-                        stoner.send(new SendMessage("You have @dre@4:00</col> minutes remaining!"));
+                        stoner.send(new SendMessage("You have 4:00</col> minutes remaining!"));
                         break;
                       case 20:
-                        stoner.send(new SendMessage("You have @dre@3:00</col> minutes remaining!"));
+                        stoner.send(new SendMessage("You have 3:00</col> minutes remaining!"));
                         break;
                       case 30:
-                        stoner.send(new SendMessage("You have @dre@2:00</col> minutes remaining!"));
+                        stoner.send(new SendMessage("You have 2:00</col> minutes remaining!"));
                         break;
                       case 40:
-                        stoner.send(new SendMessage("You have @dre@1:00</col> minute remaining!"));
+                        stoner.send(new SendMessage("You have 1:00</col> minute remaining!"));
                         break;
                       case 45:
-                        stoner.send(new SendMessage("You have @dre@0:30</col> seconds remaining!"));
+                        stoner.send(new SendMessage("You have 0:30</col> seconds remaining!"));
                         break;
                       case 50:
                         stoner.send(new SendMessage("Your time is up!"));
@@ -92,7 +92,7 @@ public enum PyramidPlunder {
                   public void onStart() {
                     stoner.send(
                         new SendMessage(
-                            "You have @dre@5:00</col> minutes to plunder as much loot as possible."));
+                            "You have 5:00</col> minutes to plunder as much loot as possible."));
                     changeFloor(stoner, 0);
                     stoner.setController(ControllerManager.PLUNDER_CONTROLLER);
                   }

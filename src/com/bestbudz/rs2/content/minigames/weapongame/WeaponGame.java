@@ -58,7 +58,7 @@ public class WeaponGame {
       }
       stoner.send(
           new SendMessage(
-              "@dre@There are currently " + lobbyStoners.size() + " stoners in the lobby."));
+              "There are currently " + lobbyStoners.size() + " stoners in the lobby."));
     }
   }
 
@@ -68,18 +68,18 @@ public class WeaponGame {
       stoner.setController(ControllerManager.DEFAULT_CONTROLLER);
     }
     if (barrier) {
-      stoner.send(new SendMessage("@dre@You have left the Weapon Game Lobby."));
+      stoner.send(new SendMessage("You have left the Weapon Game Lobby."));
       stoner.teleport(new Location(stoner.getX(), stoner.getY() + 2, stoner.getZ()));
     }
   }
 
   public static void startGame() {
     if (lobbyStoners.size() < WeaponGameConstants.MINIMUM_STONERS) {
-      messageStoners("@dre@There were not enough stoners to start the game!", true);
+      messageStoners("There were not enough stoners to start the game!", true);
       return;
     }
     if (started) {
-      messageStoners("@dre@There is currently a game in session.", true);
+      messageStoners("There is currently a game in session.", true);
       return;
     }
     World.sendGlobalMessage("[ <col=0079AD>Weapon Game</col> ] Game has just begun!");
@@ -93,10 +93,10 @@ public class WeaponGame {
       stoners.teleport(Utility.randomElement(WeaponGameConstants.SPAWN_LOCATIONS));
       DialogueManager.sendInformationBox(
           stoners,
-          "@dre@Weapon Game",
-          "@dre@Objective: @bla@Be the first to reach 10 kills",
-          "@dre@Note: @bla@Each kill will upgrade your weapon",
-          "@dre@Hint: @bla@Click on scattered crates for supplies ",
+          "Weapon Game",
+          "Objective: @bla@Be the first to reach 10 kills",
+          "Note: @bla@Each kill will upgrade your weapon",
+          "Hint: @bla@Click on scattered crates for supplies ",
           "Good luck!");
       stoners.send(new SendStonerOption("Assault", 3));
       lobbyStoners.remove(stoners);
@@ -107,7 +107,7 @@ public class WeaponGame {
   }
 
   public static void meteors() {
-    messageStoners("@dre@Beware meteors are inbound!", false);
+    messageStoners("Beware meteors are inbound!", false);
     for (int i = 0; i < Utility.random(10); i++) {
       Location location = Utility.randomElement(WeaponGameConstants.SPAWN_LOCATIONS);
       World.sendStillGraphic(659, 100, location);
@@ -123,7 +123,7 @@ public class WeaponGame {
               public void onStop() {
                 if (stoners.getLocation() == location) {
                   stoners.hit(new Hit(Utility.random(35)));
-                  stoners.send(new SendMessage("@dre@A meteor came crashing down on your head!"));
+                  stoners.send(new SendMessage("A meteor came crashing down on your head!"));
                 }
               }
             });
@@ -133,7 +133,7 @@ public class WeaponGame {
   }
 
   public static void spawnCrates() {
-    messageStoners("@dre@A crate has spawned! Find it for some gear and supplies!", false);
+    messageStoners("A crate has spawned! Find it for some gear and supplies!", false);
     for (int index = 0; index < 5; index++) {
       Location location = Utility.randomElement(WeaponGameConstants.CRATE_LOCATIONS);
       GameObject object = new GameObject(2072, location, 10, 0);
@@ -181,7 +181,7 @@ public class WeaponGame {
         stoner.getBox().addItems(weapon);
         stoner.send(
             new SendMessage(
-                "@dre@...You have found some "
+                "...You have found some "
                     + weapon.getDefinition().getName()
                     + " inside the chest!"));
         break;
@@ -189,7 +189,7 @@ public class WeaponGame {
       case 4:
         stoner.hit(new Hit(Utility.random(10)));
         stoner.send(
-            new SendMessage("@dre@...While searching you cut your hand on a sharp object!"));
+            new SendMessage("...While searching you cut your hand on a sharp object!"));
         ObjectManager.remove(object);
         crates.remove(object);
         break;
@@ -197,7 +197,7 @@ public class WeaponGame {
       case 5:
         stoner.teleport(Utility.randomElement(WeaponGameConstants.SPAWN_LOCATIONS));
         stoner.send(
-            new SendMessage("@dre@...While searching you feel a mysterious force move you!"));
+            new SendMessage("...While searching you feel a mysterious force move you!"));
         ObjectManager.remove(object);
         crates.remove(object);
         break;

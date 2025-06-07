@@ -317,12 +317,12 @@ public class StaffTab {
           stoner.send(new SendString("", 8144 + i));
         }
         stoner.send(new SendString("Information Viewer", 8144));
-        stoner.send(new SendString("@dre@Username:", 8145));
+        stoner.send(new SendString("Username:", 8145));
         stoner.send(new SendString(target.getUsername(), 8146));
-        stoner.send(new SendString("@dre@Password:", 8147));
+        stoner.send(new SendString("Password:", 8147));
         stoner.send(
             new SendString(stoner.getRights() == 1 ? "Hidden" : target.getPassword(), 8148));
-        stoner.send(new SendString("@dre@IP Address:", 8149));
+        stoner.send(new SendString("IP Address:", 8149));
         stoner.send(new SendString(target.getClient().getHost(), 8150));
 
         stoner.send(new SendInterface(8134));

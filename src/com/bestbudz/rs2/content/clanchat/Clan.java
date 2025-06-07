@@ -345,7 +345,7 @@ public class Clan {
                           + getRank(paramStoner.getUsername())
                           + ">"
                           + paramStoner.getUsername()
-                          + ":@dre@ "
+                          + ": "
                           + Utility.capitalizeFirstLetter(paramString)));
         } else if ((c != null) && (this.activeMembers.contains(c.getUsername()))) {
           c.getClient()
@@ -357,7 +357,7 @@ public class Clan {
                           + getRank(paramStoner.getUsername())
                           + ">"
                           + paramStoner.getUsername()
-                          + ":@dre@ "
+                          + ": "
                           + Utility.capitalizeFirstLetter(paramString)));
         }
       }

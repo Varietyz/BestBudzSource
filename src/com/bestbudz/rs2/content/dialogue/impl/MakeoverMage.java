@@ -16,39 +16,22 @@ public class MakeoverMage extends Dialogue {
 
   @Override
   public boolean clickButton(int id) {
-    switch (id) {
-      case 9157:
-        if (!stoner.getBox().hasItemAmount(new Item(995, 10000))) {
-          DialogueManager.sendNpcChat(
-              stoner, 1306, Emotion.ANNOYED, "You don't have 10,000 bestbucks!");
-          return false;
-        }
-        stoner.getBox().remove(new Item(995, 10000));
-        stoner.send(new SendInterface(3559));
-        break;
-      case 9158:
-        stoner.send(new SendRemoveInterfaces());
-        return false;
-    }
+
     return false;
   }
 
   @Override
   public void execute() {
-    switch (next) {
-      case 0:
-        DialogueManager.sendNpcChat(
-            stoner,
-            1306,
-            Emotion.HAPPY,
-            "Hello " + stoner.getUsername() + ".",
-            "Would you care for a make over?",
-            "Only 10,000 bestbucks!");
-        next++;
-        break;
-      case 1:
-        DialogueManager.sendOption(stoner, "Yes, take my money!", "10,000!? Scam much? Bye.");
-        break;
-    }
+	  if (next == 0)
+	  {
+		  DialogueManager.sendNpcChat(
+			  stoner,
+			  1306,
+			  Emotion.HAPPY,
+			  "Hello " + stoner.getUsername() + ".",
+			  "Would you care for a make over?",
+			  "Only 10,000 bestbucks!");
+		  next++;
+	  }
   }
 }

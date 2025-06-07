@@ -58,8 +58,7 @@ import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSwamp;
 import com.bestbudz.rs2.content.profession.melee.Melee;
 import com.bestbudz.rs2.content.profession.melee.SerpentineHelmet;
 import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
+import com.bestbudz.rs2.content.profession.necromance.PetTrainer;
 import com.bestbudz.rs2.content.profession.sagittarius.SagittariusProfession;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
 import com.bestbudz.rs2.content.profession.summoning.Summoning;
@@ -235,7 +234,7 @@ public class Stoner extends Entity {
   private String pin;
   private long shopCollection;
   private Location currentRegion = new Location(0, 0, 0);
-  private NecromanceBook necromance = new NecromanceBook(this);
+  private PetTrainer necromance = new PetTrainer(this);
   private Dialogue dialogue = null;
   private Controller controller = ControllerManager.DEFAULT_CONTROLLER;
   private BankStanding bankStanding = new BankStanding(this);
@@ -357,7 +356,7 @@ public class Stoner extends Entity {
     return null;
   }
 
-  public NecromanceBook getNecromance() {
+  public PetTrainer getNecromance() {
     return necromance;
   }
 
@@ -874,7 +873,7 @@ public class Stoner extends Entity {
 
   public Bank getBank() {
     return bank;
-  }
+	}
 
   public MoneyPouch getPouch() {
     return pouch;
@@ -1325,14 +1324,11 @@ public class Stoner extends Entity {
   }
 
   public boolean isBusy() {
-    return (interfaceManager.hasBankOpen())
-        || interfaceManager.hasInterfaceOpen()
-        || (trade.trading())
-        || (dueling.isStaking());
+    return trade.trading();
   }
 
   public boolean isBusyNoInterfaceCheck() {
-    return (interfaceManager.hasBankOpen()) || (trade.trading()) || (dueling.isStaking());
+    return trade.trading();
   }
 
   public boolean isChatUpdateRequired() {
@@ -1475,7 +1471,7 @@ public class Stoner extends Entity {
 
     if (necromanceInterface == 0) {
       necromanceInterface = 5608;
-      necromance = new NecromanceBook(this);
+      necromance = new PetTrainer(this);
     }
 
     send(new SendSidebarInterface(5, necromanceInterface));
@@ -1566,12 +1562,7 @@ public class Stoner extends Entity {
 
     controller.onControllerInit(this);
 
-    for (Necromance necromance : Necromance.values()) {
-      send(
-          new SendConfig(
-              630 + necromance.ordinal(), this.necromance.isQuickNecromance(necromance) ? 1 : 0));
-      send(new SendConfig(necromance.getConfigId(), 0));
-    }
+
 
     clearClanChat();
     setClanData();

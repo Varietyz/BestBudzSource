@@ -67,7 +67,7 @@ public class ModeratorCommand implements Command {
                 .getClient()
                 .queueOutgoingPacket(
                     new SendMessage(
-                        "There is currently @dre@"
+                        "There is currently "
                             + Utility.format(amount)
                             + "x @bla@of: "
                             + Item.getDefinition(id).getName()

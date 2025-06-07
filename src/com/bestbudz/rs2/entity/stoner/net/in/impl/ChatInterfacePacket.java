@@ -2,7 +2,7 @@ package com.bestbudz.rs2.entity.stoner.net.in.impl;
 
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.necromance.BoneBurying;
+import com.bestbudz.rs2.content.profession.necromance.PetInteraction;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
 import com.bestbudz.rs2.entity.item.Item;
@@ -124,8 +124,7 @@ public class ChatInterfacePacket extends IncomingPacket {
         }
         break;
       case 55678:
-        BoneBurying.finishOnAltar(stoner, amount);
-        break;
+		  break;
       case 3823:
         stoner.getShopping().sell(id, amount, slot);
         break;

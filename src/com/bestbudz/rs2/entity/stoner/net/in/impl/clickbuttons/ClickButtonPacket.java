@@ -16,19 +16,14 @@ import com.bestbudz.rs2.content.membership.CreditHandler;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelingConstants;
 import com.bestbudz.rs2.content.profession.ProfessionGoal;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.forging.ForgingConstants;
-import com.bestbudz.rs2.content.profession.handiness.Handiness;
 import com.bestbudz.rs2.content.profession.handiness.HideTanning;
 import com.bestbudz.rs2.content.profession.mage.Autocast;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
-import com.bestbudz.rs2.content.profession.necromance.NecromanceBook.Necromance;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
-import com.bestbudz.rs2.content.profession.summoning.SummoningCreation;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
-import com.bestbudz.rs2.content.profession.woodcarving.Woodcarving;
 import com.bestbudz.rs2.content.profiles.ProfileLeaderboard;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Graphic;
@@ -100,36 +95,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		InterfaceHandler.writeText(new QuestTab(stoner));
 		stoner.send(new SendSidebarInterface(2, 29400));
 		stoner.send(new SendOpenTab(2));
-	}
-
-	public static void openTrainingInterface(Stoner stoner) {
-		InterfaceHandler.writeText(new TrainingInterface(stoner));
-		stoner.send(new SendInterface(61000));
-	}
-
-	public static void openProfessionInterface(Stoner stoner) {
-		InterfaceHandler.writeText(new ProfessioningInterface(stoner));
-		stoner.send(new SendInterface(62000));
-	}
-
-	public static void openPvPInterface(Stoner stoner) {
-		InterfaceHandler.writeText(new PvPInterface(stoner));
-		stoner.send(new SendInterface(63000));
-	}
-
-	public static void openBossInterface(Stoner stoner) {
-		InterfaceHandler.writeText(new BossInterface(stoner));
-		stoner.send(new SendInterface(64000));
-	}
-
-	public static void openMinigameInterface(Stoner stoner) {
-		InterfaceHandler.writeText(new MinigameInterface(stoner));
-		stoner.send(new SendInterface(65000));
-	}
-
-	public static void openOtherInterface(Stoner stoner) {
-		InterfaceHandler.writeText(new OtherInterface(stoner));
-		stoner.send(new SendInterface(61500));
 	}
 
 	public static void cancelReport(Stoner stoner) {
@@ -248,7 +213,7 @@ public class ClickButtonPacket extends IncomingPacket {
 
 	public static void setProfilePrivacy(Stoner stoner, boolean hidden) {
 		int config = hidden ? 1 : 2;
-		String message = hidden ? "@dre@You have hidden yourself in some bushes." : "@dre@You jumped out of the bushes.";
+		String message = hidden ? "You have hidden yourself in some bushes." : "You jumped out of the bushes.";
 
 		stoner.send(new SendConfig(1032, config));
 		stoner.setProfilePrivacy(hidden);
@@ -290,13 +255,11 @@ public class ClickButtonPacket extends IncomingPacket {
 	public static void openAchievementTab(Stoner stoner) {
 		InterfaceHandler.writeText(new AchievementTab(stoner));
 		stoner.send(new SendSidebarInterface(2, 31000));
-		stoner.send(new SendMessage("@gre@Redirected to the Achievements Tab."));
 	}
 
 	public static void openBestBudzTab(Stoner stoner) {
 		InterfaceHandler.writeText(new QuestTab(stoner));
 		stoner.send(new SendSidebarInterface(2, 29400));
-		stoner.send(new SendMessage("@gre@Redirected to the BestBudz Tab."));
 	}
 
 	public static void openPointsInterface(Stoner stoner) {
@@ -420,10 +383,6 @@ public class ClickButtonPacket extends IncomingPacket {
 
 		if (stoner.getSkulling().isSkulled()) {
 			kept = 0;
-		}
-
-		if (stoner.getNecromance().active(Necromance.PROTECT_ITEM)) {
-			kept++;
 		}
 
 		Queue<Item> dropItems = new PriorityQueue<>(42);
@@ -716,10 +675,9 @@ public class ClickButtonPacket extends IncomingPacket {
 		if (handleBrightnessControls(stoner, buttonId)) return true;
 
 		// Handle special attacks
-		if (handleSpecialAttacks(stoner, buttonId)) return true;
+		return handleSpecialAttacks(stoner, buttonId);
 
 		// Handle interface navigation with parameters
-		return handleParameterizedInterfaceNavigation(stoner, buttonId);
 	}
 
 	private boolean handleVolumeControls(Stoner stoner, int buttonId) {
@@ -794,74 +752,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		return false;
 	}
 
-	private boolean handleParameterizedInterfaceNavigation(Stoner stoner, int buttonId) {
-		// Handle teleport interface navigation with consistent pattern
-		int[] teleportButtons = {238107, 242083, 246059, 250035, 254011, 240095};
-		if (Arrays.stream(teleportButtons).anyMatch(id -> id == buttonId)) {
-			TeleportHandler.teleport(stoner);
-			return true;
-		}
-
-		// Handle interface navigation buttons with common pattern
-		if (handleInterfaceNavigationGroup(stoner, buttonId,
-			new int[]{238077, 242053, 246029, 253237, 240065, 250005, 5227},
-			() -> {
-				InterfaceHandler.writeText(new TrainingInterface(stoner));
-				sendInterfaceWithDefaults(stoner, 61000, 61031, 61032, 61033, 61034);
-			})) return true;
-
-		if (handleInterfaceNavigationGroup(stoner, buttonId,
-			new int[]{238080, 242056, 246032, 253240, 240068, 250008},
-			() -> {
-				InterfaceHandler.writeText(new ProfessioningInterface(stoner));
-				sendInterfaceWithDefaults(stoner, 62000, 62031, 62032, 62033, 62034);
-			})) return true;
-
-		if (handleInterfaceNavigationGroup(stoner, buttonId,
-			new int[]{238083, 242059, 246035, 253243, 240071, 250011},
-			() -> {
-				InterfaceHandler.writeText(new PvPInterface(stoner));
-				sendInterfaceWithDefaults(stoner, 63000, 63031, 63032, 63033, 63034);
-			})) return true;
-
-		if (handleInterfaceNavigationGroup(stoner, buttonId,
-			new int[]{238086, 246038, 253246, 240074, 250014, 242062},
-			() -> {
-				InterfaceHandler.writeText(new BossInterface(stoner));
-				sendInterfaceWithDefaults(stoner, 64000, 64031, 64032, 64033, 64034);
-			})) return true;
-
-		if (handleInterfaceNavigationGroup(stoner, buttonId,
-			new int[]{238089, 253249, 246041, 240077, 250017, 242065},
-			() -> {
-				Utility.writeBuffer(stoner.getUsername());
-				InterfaceHandler.writeText(new MinigameInterface(stoner));
-				sendInterfaceWithDefaults(stoner, 65000, 65031, 65032, 65033, 65034);
-			})) return true;
-
-		return handleInterfaceNavigationGroup(stoner, buttonId,
-			new int[]{238092, 253252, 240080, 250020, 242068, 246044},
-			() -> {
-				InterfaceHandler.writeText(new OtherInterface(stoner));
-				sendInterfaceWithDefaults(stoner, 61500, 61531, 61532, 61533, 61534);
-			});
-	}
-
-	private boolean handleInterfaceNavigationGroup(Stoner stoner, int buttonId, int[] buttons, Runnable action) {
-		if (Arrays.stream(buttons).anyMatch(id -> id == buttonId)) {
-			action.run();
-			return true;
-		}
-		return false;
-	}
-
-	private void sendInterfaceWithDefaults(Stoner stoner, int interfaceId, int selectedId, int costId, int reqId, int otherId) {
-		stoner.send(new SendInterface(interfaceId));
-		stoner.send(new SendString("Selected: @red@None", selectedId));
-		stoner.send(new SendString("Cost: @red@Free", costId));
-		stoner.send(new SendString("Requirement: @red@None", reqId));
-		stoner.send(new SendString("Other: @red@None", otherId));
-	}
 
 	private void handleDefaultCases(Stoner stoner, int buttonId) {
 		// Handle plugin systems in order of priority
@@ -870,8 +760,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		if (GenieReset.handle(stoner, buttonId)) return;
 		if (AchievementButtons.handleButtons(stoner, buttonId)) return;
 		if (ProfessionsChat.handle(stoner, buttonId)) return;
-		//if (stoner.getSummoning().click(buttonId)) return;
-		//if (SummoningCreation.create(stoner, buttonId)) return;
 		if (stoner.getDialogue() != null && stoner.getDialogue().clickButton(buttonId)) return;
 		if (Autocast.clickButton(stoner, buttonId)) return;
 		if (Emotes.clickButton(stoner, buttonId)) return;
@@ -880,8 +768,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		if (stoner.getBank().clickButton(buttonId)) return;
 		if (stoner.getMage().clickMageButtons(buttonId)) return;
 		if (EquipmentConstants.clickAssaultStyleButtons(stoner, buttonId)) return;
-		//if (Woodcarving.SINGLETON.clickButton(stoner, buttonId)) return;
-		//if (com.bestbudz.rs2.content.profession.handinessnew.Handiness.SINGLETON.clickButton(stoner, buttonId)) return;
 		if (HideTanning.clickButton(stoner, buttonId)) return;
 
 		handleTHChempistryButtons(stoner, buttonId);
@@ -917,4 +803,6 @@ public class ClickButtonPacket extends IncomingPacket {
 			this.message = message;
 		}
 	}
+
+
 }

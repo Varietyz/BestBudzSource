@@ -4,11 +4,11 @@ public class StonerAnimations {
 
   private int standEmote = 808;
   private int standTurnEmote = 823;
-  private int walkEmote = 819;
+  private int walkEmote = 2769; // og 819
   private int turn180Emote = 820;
   private int turn90CWEmote = 821;
   private int turn90CCWEmote = 822;
-  private int runEmote = 824;
+  private int runEmote = 2769; // og 824
 
   public int getRunEmote() {
     return runEmote;

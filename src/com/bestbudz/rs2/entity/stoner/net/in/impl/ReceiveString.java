@@ -93,6 +93,35 @@ public class ReceiveString extends IncomingPacket {
           clan.save();
         }
         break;
+		case 99998: // Dock deposit attributes
+			try {
+				String[] parts = string.split(",");
+				if (parts.length == 2) {
+					int itemId = Integer.parseInt(parts[0]);
+					int amount = Integer.parseInt(parts[1]);
+					stoner.getAttributes().set("dock_deposit_itemid", itemId);
+					stoner.getAttributes().set("dock_deposit_amount", amount);
+					System.out.println("Set deposit attributes: itemId=" + itemId + ", amount=" + amount);
+				}
+			} catch (NumberFormatException e) {
+				System.err.println("Invalid dock deposit attributes: " + string);
+			}
+			break;
+
+		case 99999: // Dock withdraw attributes
+			try {
+				String[] parts = string.split(",");
+				if (parts.length == 2) {
+					int itemId = Integer.parseInt(parts[0]);
+					int amount = Integer.parseInt(parts[1]);
+					stoner.getAttributes().set("dock_withdraw_itemid", itemId);
+					stoner.getAttributes().set("dock_withdraw_amount", amount);
+					System.out.println("Set withdraw attributes: itemId=" + itemId + ", amount=" + amount);
+				}
+			} catch (NumberFormatException e) {
+				System.err.println("Invalid dock withdraw attributes: " + string);
+			}
+			break;
       default:
         System.out.println("Received string: identifier=" + id + ", string=" + string);
         break;

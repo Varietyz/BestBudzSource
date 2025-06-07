@@ -25,7 +25,7 @@ public class LoyaltyShop {
     }
 
     if (stoner.getStonerTitle() != null && stoner.getStonerTitle().equals(button.getTitle())) {
-      stoner.send(new SendMessage("@dre@You already have this set as your title."));
+      stoner.send(new SendMessage("You already have this set as your title."));
       return true;
     }
 

@@ -69,7 +69,7 @@ public class TridentOfTheSwamp {
             stoner.getUpdateFlags().sendGraphic(new Graphic(1250, 40, false));
             DialogueManager.sendItem1(
                 stoner,
-                "You infuse the trident with @dre@"
+                "You infuse the trident with "
                     + stoner.getSwampTrident().tridentCharge
                     + "</col> charge"
                     + (stoner.getSwampTrident().tridentCharge > 1 ? "s" : "")
@@ -119,7 +119,7 @@ public class TridentOfTheSwamp {
             stoner.getUpdateFlags().sendGraphic(new Graphic(1250, 40, false));
             DialogueManager.sendItem1(
                 stoner,
-                "You infuse the trident with @dre@"
+                "You infuse the trident with "
                     + stoner.getSwampTrident().tridentCharge
                     + "</col> charge"
                     + (stoner.getSwampTrident().tridentCharge > 1 ? "s" : "")

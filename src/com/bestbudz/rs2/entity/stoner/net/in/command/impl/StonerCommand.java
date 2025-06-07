@@ -39,18 +39,6 @@ public class StonerCommand implements Command {
         InterfaceHandler.writeText(new CommandInterface(stoner));
         stoner.send(new SendInterface(8134));
         return true;
-      case "teleport":
-      case "teleports":
-      case "teleporting":
-      case "teleportings":
-      case "tp":
-        InterfaceHandler.writeText(new TrainingInterface(stoner));
-        stoner.send(new SendInterface(61000));
-        stoner.send(new SendString("Selected: @red@None", 61031));
-        stoner.send(new SendString("Cost: @red@Free", 61032));
-        stoner.send(new SendString("Requirement: @red@None", 61033));
-        stoner.send(new SendString("Other: @red@None", 61034));
-        return true;
       case "stoners":
         stoner.send(
             new SendMessage(

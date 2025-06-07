@@ -7,8 +7,11 @@ import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
+import com.bestbudz.rs2.util.Cooldown;
 
 public class BestBudzDialogue extends Dialogue {
+
+	private int cooldownSeconds = 3;
 
   public BestBudzDialogue(Stoner stoner) {
     this.stoner = stoner;
@@ -16,71 +19,57 @@ public class BestBudzDialogue extends Dialogue {
 
   @Override
   public boolean clickButton(int id) {
-    switch (id) {
-      case DialogueConstants.OPTIONS_2_1:
-        stoner.send(new SendInterface(55000));
-        break;
-
-      case DialogueConstants.OPTIONS_2_2:
-        stoner.send(new SendRemoveInterfaces());
-        break;
-    }
     return false;
   }
 
   @Override
   public void execute() {
-    switch (next) {
-      case 0:
-        DialogueManager.sendNpcChat(stoner, 1558, Emotion.HAPPY_TALK, "High, how hi are you?");
-        next++;
-        break;
+	  if (next == 0)
+	  {
+		  DialogueManager.sendNpcChat(stoner, 1558, Emotion.HAPPY_TALK, "High, how hi are you?");
 
-      case 1:
-        DialogueManager.sendStonerChat(
-            stoner,
-            Emotion.CALM,
-            "Hi to you too!",
-            "Just chillin, professioning, killing.",
-            "Getting baked, have a good feelin.");
-        next++;
-        break;
+		  Cooldown.cooldown(cooldownSeconds);
 
-      case 2:
-        DialogueManager.sendNpcChat(
-            stoner,
-            1558,
-            Emotion.HAPPY_TALK,
-            "Haha, word up!",
-            "What you smoking on fam?",
-            "Got some for me?");
-        next++;
-        break;
+		  DialogueManager.sendStonerChat(
+			  stoner,
+			  Emotion.CALM,
+			  "Hi to you too!",
+			  "Just chillin, professioning, killing.",
+			  "Getting baked, have a good feelin.");
 
-      case 3:
-        DialogueManager.sendStonerChat(
-            stoner,
-            Emotion.CALM,
-            "A spliff a day keep's the doctor away!",
-            "Sure i'll toke with you!",
-            "Let me grind some good goods!");
-        next++;
-        break;
+		  Cooldown.cooldown(cooldownSeconds);
 
-      case 4:
-        DialogueManager.sendNpcChat(
-            stoner,
-            1558,
-            Emotion.HAPPY_TALK,
-            "Oh yeah bud!",
-            "Maybe you smoking on some popular stuff?",
-            "Wanne see the weed titles i have in store?");
-        next++;
-        break;
+		  DialogueManager.sendNpcChat(
+			  stoner,
+			  1558,
+			  Emotion.HAPPY_TALK,
+			  "Haha, word up!",
+			  "What you smoking on fam?",
+			  "Got some for me?");
 
-      case 5:
-        DialogueManager.sendOption(stoner, "Deal for weed titles.", "I'm going to be back!");
-        break;
-    }
+		  Cooldown.cooldown(cooldownSeconds);
+
+		  DialogueManager.sendStonerChat(
+			  stoner,
+			  Emotion.CALM,
+			  "A spliff a day keep's the doctor away!",
+			  "Sure i'll toke with you!",
+			  "Let me grind some good goods!");
+
+		  Cooldown.cooldown(cooldownSeconds);
+
+		  DialogueManager.sendNpcChat(
+			  stoner,
+			  1558,
+			  Emotion.HAPPY_TALK,
+			  "Oh yeah bud!",
+			  "Maybe you smoking on some popular stuff?",
+			  "Check out these weed titles i have in store.");
+
+		  Cooldown.cooldown(cooldownSeconds);
+
+		  stoner.send(new SendInterface(55000));
+		  next++;
+	  }
   }
 }
