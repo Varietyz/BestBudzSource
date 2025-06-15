@@ -94,7 +94,7 @@ public class RandomEventController extends Controller {
   }
 
   @Override
-  public boolean canUseNecromance(Stoner paramStoner, int id) {
+  public boolean canUseResonance(Stoner paramStoner, int id) {
     return false;
   }
 

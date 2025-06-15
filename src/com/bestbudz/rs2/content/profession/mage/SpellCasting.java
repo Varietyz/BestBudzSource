@@ -75,15 +75,7 @@ public class SpellCasting {
       return false;
     }
 
-    if (!TridentOfTheSeas.hasTrident(stoner) || !TridentOfTheSwamp.hasTrident(stoner)) {
-      if ((id <= 12445)
-          && (stoner.getMage().getSpellBookType() != MageProfession.SpellBookTypes.MODERN))
-        return false;
-      if ((id > 12445)
-          && (stoner.getMage().getSpellBookType() != MageProfession.SpellBookTypes.ANCIENT)) {
-        return false;
-      }
-    } else if (definition.getId() == 9999) {
+    if (definition.getId() == 9999) {
       if (stoner.getCombat().getAssaulting() != null
           && !stoner.getCombat().getAssaulting().isNpc()) {
         stoner.send(new SendMessage("@red@You cannot use this spell on stoners!"));

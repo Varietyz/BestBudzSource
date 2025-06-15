@@ -51,7 +51,7 @@ public class GenieReset {
     AEGIS(232120, "Aegis", 1),
     RANGE(232123, "Sagittarius", 4),
     MAGE(232126, "Mage", 6),
-    NECROMANCE(232129, "Necromance", 5),
+    RESONANCE(232129, "Resonance", 5),
     LIFE(232132, "Life", 3);
 
     private final int buttonId;

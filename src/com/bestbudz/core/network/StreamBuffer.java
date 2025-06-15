@@ -94,7 +94,7 @@ public abstract class StreamBuffer {
 	  private final ByteBuf buffer;
 
 
-	  private InBuffer(ByteBuf buffer) {
+	  public InBuffer(ByteBuf buffer) {
       this.buffer = buffer;
     }
 

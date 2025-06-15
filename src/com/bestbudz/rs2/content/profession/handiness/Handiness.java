@@ -34,11 +34,6 @@ public enum Handiness {
 			return true;
 		}
 
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to do this!"));
-			return false;
-		}
 
 		// Auto-craft all available handiness items
 		return autoCraftAllAvailableItems(stoner);
@@ -49,12 +44,6 @@ public enum Handiness {
 	 */
 	public boolean handleObjectClick(Stoner stoner, int objectId) {
 		if (stoner.getProfession().locked()) {
-			return false;
-		}
-
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to do this!"));
 			return false;
 		}
 

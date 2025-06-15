@@ -37,7 +37,7 @@ public class DuelingConstants {
   public static final int NO_MAGE = 4;
   public static final int NO_DRINKS = 5;
   public static final int NO_FOOD = 6;
-  public static final int NO_NECROMANCE = 7;
+  public static final int NO_RESONANCE = 7;
   public static final int OBSTACLES = 8;
   public static final int NO_ARMOUR = 9;
   public static final int NO_SP_ASSAULT = 10;
@@ -166,7 +166,7 @@ public class DuelingConstants {
     String[] strings = new String[5];
 
     strings[0] = "Boosted stats will be restored.";
-    strings[1] = "Existing necromances will be stopped.";
+    strings[1] = "Existing resonances will be stopped.";
 
     for (int i = 11; i < 21; i++) {
       if (rules[i]) {
@@ -219,7 +219,7 @@ public class DuelingConstants {
     }
 
     if (rules[7]) {
-      strings[index] = "You cannot use necromance.";
+      strings[index] = "You cannot use resonance.";
       index++;
     }
 

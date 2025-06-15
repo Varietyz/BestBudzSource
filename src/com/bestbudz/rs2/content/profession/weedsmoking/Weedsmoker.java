@@ -24,20 +24,6 @@ public class Weedsmoker {
 			return false;
 		}
 
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("You must be wearing a tool ring to spark the pipe!"));
-			return false;
-		}
-
-		if (!stoner.getEquipment().isWearingItem(1511)) {
-			stoner.send(new SendMessage("You must be wearing wood to keep the fire going!"));
-			return false;
-		}
-
-		if (!stoner.getBox().hasItemId(1785)) {
-			stoner.send(new SendMessage("You must have a weed pipe in your box to smoke!"));
-			return false;
-		}
 
 		if (System.currentTimeMillis() - stoner.getCurrentStunDelay() < stoner.getSetStunDelay()) {
 			return false;
@@ -66,7 +52,7 @@ public class Weedsmoker {
 			stoner.getUpdateFlags().sendGraphic(new Graphic(354, true));
 			stoner.getUpdateFlags().sendAnimation(new Animation(884));
 			stoner.getBox().remove(weed.getId(), 1);
-			stoner.getBox().add(995, 100);
+			stoner.getBox().add(995, 420);
 			stoner.getProfession().addExperience(16, weed.experience);
 			AchievementHandler.activateAchievement(stoner, AchievementList.SMOKE_100G_WEED, 1);
 			AchievementHandler.activateAchievement(stoner, AchievementList.SMOKE_1000G_WEED, 1);

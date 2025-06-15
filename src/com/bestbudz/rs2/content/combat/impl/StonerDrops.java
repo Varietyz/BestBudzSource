@@ -5,7 +5,6 @@ import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.logger.StonerLogger;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
-import com.bestbudz.rs2.content.wilderness.StonerKilling;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -130,24 +129,6 @@ public class StonerDrops {
       Utility.formatStonerName(stoner.getStoner().getUsername());
       killer.getStoner().setRogueKills(killer.getStoner().getRogueKills() + 1);
 
-      if (!StonerKilling.hostOnList(killer.getStoner(), stoner.getClient().getHost())) {
-        killer
-            .getStoner()
-            .send(
-                new SendMessage("@gre@You got rewarded for smoking " + stoner.getUsername() + "!"));
-        killer.getStoner().getBox().add(new Item(Utility.randomElement(FUN_PK_REWARDS)));
-        killer.getStoner().getBox().update();
-      } else {
-
-        StonerKilling.addHostToList(killer.getStoner(), stoner.getClient().getHost());
-        killer.getStoner().setKills(killer.getStoner().getKills() + 1);
-
-        if (!killer.getStoner().targetName.equals(stoner.getUsername())) {
-          if (killer.getStoner().getRogueKills() > killer.getStoner().getRogueRecord()) {
-            killer.getStoner().setRogueRecord(killer.getStoner().getRogueKills());
-          }
-        }
-
         AchievementHandler.activateAchievement(killer.getStoner(), AchievementList.WIN_20_DUELS, 1);
 
         if (killer.getStoner().targetName.equals(stoner.getUsername())) {}
@@ -162,25 +143,5 @@ public class StonerDrops {
         killer.getStoner().getBox().update();
       }
     }
-
-    if (killer != null) {
-      if (!killer.isNpc()) {
-        if (StonerConstants.isHighClass(stoner)
-            || StonerConstants.isHighClass(killer.getStoner())) {
-          return;
-        }
-      }
-    }
-
-    if (killer != null) {
-      if (!killer.isNpc()) {
-        StonerLogger.DEATH_LOGGER.log(
-            stoner.getUsername(),
-            String.format(
-                "%s been smoked by %s.",
-                Utility.formatStonerName(stoner.getUsername()),
-                Utility.formatStonerName(killer.getStoner().getUsername())));
-      }
-    }
   }
-}
+

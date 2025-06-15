@@ -3,8 +3,6 @@ package com.bestbudz.rs2.entity.stoner.controllers;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
-import com.bestbudz.rs2.content.wilderness.GainTarget;
-import com.bestbudz.rs2.content.wilderness.TargetSystem;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -126,7 +124,7 @@ public class WildernessController extends Controller {
   }
 
   @Override
-  public boolean canUseNecromance(Stoner p, int id) {
+  public boolean canUseResonance(Stoner p, int id) {
     return true;
   }
 
@@ -148,21 +146,12 @@ public class WildernessController extends Controller {
   @Override
   public void onControllerInit(Stoner stoner) {
     stoner.getClient().queueOutgoingPacket(new SendStonerOption("Assault", 3));
-    TargetSystem.getInstance().update(stoner);
-    if (stoner.getAttributes().get("gainTarget") == null
-        && !TargetSystem.getInstance().stonerHasTarget(stoner)) {
-      Task task = new GainTarget(stoner, (byte) 1);
-      stoner.getAttributes().set("gainTarget", task);
-      TaskQueue.queue(task);
-    }
+
   }
 
   @Override
   public void onDeath(Stoner p) {
     p.getAttributes().remove("gainTarget");
-    if (TargetSystem.getInstance().stonerHasTarget(p)) {
-      TargetSystem.getInstance().resetTarget(p, false);
-    }
   }
 
   @Override
@@ -176,14 +165,12 @@ public class WildernessController extends Controller {
     if (p.getAttributes().get("gainTarget") != null) {
       ((Task) p.getAttributes().get("gainTarget")).stop();
     }
-    if (TargetSystem.getInstance().stonerHasTarget(p)) {
-      TargetSystem.getInstance().resetTarget(p, false);
-    }
+
   }
 
   @Override
   public void tick(Stoner stoner) {
-    TargetSystem.getInstance().update(stoner);
+
   }
 
   @Override

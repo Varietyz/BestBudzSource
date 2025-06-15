@@ -96,7 +96,7 @@ public class DuelArenaController extends Controller {
   }
 
   @Override
-  public boolean canUseNecromance(Stoner p, int id) {
+  public boolean canUseResonance(Stoner p, int id) {
     return true;
   }
 

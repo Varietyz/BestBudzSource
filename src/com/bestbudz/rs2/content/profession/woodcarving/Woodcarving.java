@@ -39,10 +39,7 @@ public enum Woodcarving {
 		if (fletchable == null || use.getId() == 590 || with.getId() == 590) {
 			return false;
 		}
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-			return false;
-		}
+
 
 		// Auto-craft all available woodcarving items
 		return autoCraftAllAvailableItems(stoner);

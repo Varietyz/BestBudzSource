@@ -324,11 +324,11 @@ public class ButtonAssignment extends ClickButtonPacket {
 		// 115115 - Genie reset dialogue
 		BUTTON_HANDLERS.put(115115, stoner -> stoner.start(new GenieResetDialogue(stoner)));
 
-		// 115116 - Send interface
-		//BUTTON_HANDLERS.put(115116, stoner -> stoner.send(new SendInterface(3559)));
+		// 115116 - Toggle Auto-Combat
+		BUTTON_HANDLERS.put(115116, stoner -> stoner.getAutoCombat().toggle());
 
-		// 115117 - Recharge necromance
-		BUTTON_HANDLERS.put(115117, ClickButtonPacket::rechargeNecromance);
+		// 115117 - Recharge resonance
+		BUTTON_HANDLERS.put(115117, ClickButtonPacket::rechargeResonance);
 
 		// 115118 - Handle skulling
 		BUTTON_HANDLERS.put(115118, ClickButtonPacket::handleSkulling);

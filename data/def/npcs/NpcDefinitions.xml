@@ -34440,7 +34440,7 @@
 	</NpcDefinition>
 	<NpcDefinition>
 		<id>2869</id>
-		<name>Invrigar the Necromancer</name>
+		<name>Invrigar the Resonancer</name>
 		<walkAnimation>819</walkAnimation>
 		<standAnimation>808</standAnimation>
 		<turn180Animation>820</turn180Animation>
@@ -34704,7 +34704,7 @@
 	</NpcDefinition>
 	<NpcDefinition>
 		<id>2891</id>
-		<name>Necromancer</name>
+		<name>Resonancer</name>
 		<walkAnimation>819</walkAnimation>
 		<standAnimation>808</standAnimation>
 		<turn180Animation>820</turn180Animation>
@@ -38700,7 +38700,7 @@
 	</NpcDefinition>
 	<NpcDefinition>
 		<id>3223</id>
-		<name>Necromance tutor</name>
+		<name>Resonance tutor</name>
 		<walkAnimation>819</walkAnimation>
 		<standAnimation>808</standAnimation>
 		<turn180Animation>820</turn180Animation>

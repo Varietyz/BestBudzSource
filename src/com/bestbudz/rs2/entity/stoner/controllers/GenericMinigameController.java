@@ -55,7 +55,7 @@ public abstract class GenericMinigameController extends Controller {
   public abstract boolean canUseCombatType(Stoner paramStoner, CombatTypes paramCombatTypes);
 
   @Override
-  public abstract boolean canUseNecromance(Stoner paramStoner, int id);
+  public abstract boolean canUseResonance(Stoner paramStoner, int id);
 
   @Override
   public abstract boolean canUseSpecialAssault(Stoner paramStoner);

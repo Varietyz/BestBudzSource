@@ -169,13 +169,13 @@ public class DuelingController extends Controller {
   }
 
   @Override
-  public boolean canUseNecromance(Stoner p, int id) {
+  public boolean canUseResonance(Stoner p, int id) {
     if (p.getDueling().getRuleToggle() == null) {
       return true;
     }
     if (p.getDueling().getRuleToggle()[7]) {
       p.getClient()
-          .queueOutgoingPacket(new SendMessage("You cannot use necromance during this duel!"));
+          .queueOutgoingPacket(new SendMessage("You cannot use resonance during this duel!"));
       return false;
     }
     return true;

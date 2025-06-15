@@ -33,18 +33,16 @@ public class Melee {
 
     double accuracy = MeleeFormulas.getAssaultRoll(entity);
     double aegis = MeleeFormulas.getAegisRoll(entity, entity.getCombat().getAssaulting());
-    double chance = FormulaData.getChance(accuracy, aegis);
-    boolean accurate = FormulaData.isAccurateHit(chance);
+	  double chance = FormulaData.getChance(accuracy, aegis, entity, entity.getCombat().getAssaulting());
+	  boolean accurate = FormulaData.isAccurateHit(chance, entity, entity.getCombat().getAssaulting());
     entity.getCombat().setHitChance(chance);
 
     boolean success;
 
     success = accurate;
 
-    int damage =
-        (int)
-            (entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.MELEE) + 1))
-                * damageBoost);
+	  int baseDamage = entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.MELEE) + 1));
+	  int damage = (int)(FormulaData.applyEmergentScaling(entity, baseDamage) * damageBoost);
 
     if (nextDamage != -1) {
       damage = nextDamage;
@@ -74,8 +72,7 @@ public class Melee {
   public void finish(Entity assaulting, Hit hit) {
     assaulting.getCombat().setInCombat(entity);
     TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
-    if (FormulaData.isDoubleHit(
-        entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage())) {
+	  if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
       long secondHitDamage = hit.getDamage() / 2;
 
       if (secondHitDamage > 0) {
@@ -85,7 +82,7 @@ public class Melee {
         final Entity target = assaulting;
 
         TaskQueue.queue(
-            new Task(1) { // 1 tick = 300ms
+            new Task(2) { // 1 tick = 300ms
               @Override
               public void execute() {
                 Combat.applyHit(target, secondHit);
@@ -95,6 +92,14 @@ public class Melee {
                       .queueOutgoingPacket(
                           new SendMessage("@gre@Double strike landed! Bonus: " + secondHitDamage));
                 }
+				  FormulaData.updateCombatEvolution(entity, assaulting, hit.getDamage() > 0, (int)hit.getDamage());
+				  if (entity instanceof Stoner) {
+					  ((Stoner) entity).getResonance().updateResonance(
+						  hit.getDamage() > 0,
+						  (int)hit.getDamage(),
+						  Combat.CombatTypes.MELEE
+					  );
+				  }
                 entity.getCombat().resetHitChain();
                 stop();
               }

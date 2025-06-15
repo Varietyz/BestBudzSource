@@ -22,7 +22,6 @@ import com.bestbudz.rs2.content.dialogue.impl.teleport.RingOfDuelingDialogue;
 import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
 import com.bestbudz.rs2.content.membership.AdvancementBonds;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameStore;
-import com.bestbudz.rs2.content.pets.BossPets;
 import com.bestbudz.rs2.content.profession.forging.ForgingTask;
 import com.bestbudz.rs2.content.profession.handiness.AmuletStringing;
 import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
@@ -34,7 +33,6 @@ import com.bestbudz.rs2.content.profession.mage.spells.BoltEnchanting;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
 import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSwamp;
 import com.bestbudz.rs2.content.profession.melee.SerpentineHelmet;
-import com.bestbudz.rs2.content.profession.necromance.PetInteraction;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
 import com.bestbudz.rs2.content.profession.thchempistry.CleanWeedTask;
@@ -43,13 +41,12 @@ import com.bestbudz.rs2.content.profession.thchempistry.SuperCombatPotion;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryMasterProcessor;
 import com.bestbudz.rs2.content.profession.weedsmoking.Weedsmoker;
 import com.bestbudz.rs2.content.profession.woodcarving.Woodcarving;
-import com.bestbudz.rs2.content.wilderness.TargetSystem;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Location;
-import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemCreating;
 import com.bestbudz.rs2.entity.mob.impl.Zulrah;
+import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
@@ -598,7 +595,7 @@ public class ItemPackets extends IncomingPacket {
           return;
         }
 
-        if (BossPets.spawnPet(stoner, itemId, false)) {
+        if (PetManager.spawnPet(stoner, itemId, false)) {
           return;
         }
 
@@ -818,10 +815,6 @@ public class ItemPackets extends IncomingPacket {
           return;
         }
 
-        if (PetInteraction.bury(stoner, itemId, slot)) {
-          return;
-        }
-
         if (Pyromaniac.burnin(stoner, itemId, slot, interfaceId)) {
           return;
         }
@@ -844,16 +837,6 @@ public class ItemPackets extends IncomingPacket {
             break;
 
           case 12846:
-            if (TargetSystem.getInstance().stonerHasTarget(stoner)) {
-              Stoner target = World.getStoners()[stoner.targetIndex];
-              if (target != null) {
-                stoner.getMage().teleport(target.getLocation(), TeleportTypes.SPELL_BOOK);
-                stoner.getBox().remove(12846, 1);
-                stoner.send(new SendMessage("You have teleported to your target."));
-              }
-            } else {
-              stoner.send(new SendMessage("You do not have a target to teleport to!"));
-            }
             break;
 
           case 405:

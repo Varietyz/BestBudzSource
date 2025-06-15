@@ -64,8 +64,8 @@ public class Dueling {
     p1.resetCombatStats();
     p2.resetCombatStats();
 
-    p1.getNecromance().disable();
-    p2.getNecromance().disable();
+    p1.getResonance().disable();
+    p2.getResonance().disable();
 
     p1.getRunEnergy().restoreAll();
     p2.getRunEnergy().restoreAll();
@@ -329,7 +329,7 @@ public class Dueling {
       return false;
     }
 
-    if (p.getSummoning().hasFamiliar() || !p.getActivePets().isEmpty()) {
+    if (p.getSummoning().hasFamiliar()) {
       p.getClient().queueOutgoingPacket(new SendMessage("You must dismiss your familiar to duel."));
       return false;
     }
@@ -508,7 +508,7 @@ public class Dueling {
         p.curePoison(0);
         p.getClient().queueOutgoingPacket(new SendMessage(":curepoison:"));
       }
-      p.getNecromance().disable();
+      p.getResonance().disable();
       p.resetCombatStats();
     }
 
@@ -517,7 +517,7 @@ public class Dueling {
     }
 
     if (interacting != null) {
-      interacting.getNecromance().disable();
+      interacting.getResonance().disable();
       interacting.resetCombatStats();
     }
 

@@ -2,6 +2,7 @@ package com.bestbudz.core.task.impl;
 
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
+import com.bestbudz.rs2.content.profession.resonance.Resonance;
 import com.bestbudz.rs2.content.sounds.MobSounds;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.mob.Mob;
@@ -9,6 +10,7 @@ import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.mob.MobDrops;
 import com.bestbudz.rs2.entity.mob.Walking;
 import com.bestbudz.rs2.entity.mob.impl.KalphiteQueen;
+import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class MobDeathTask extends Task {
   public static final int DEATH_DELAY = 2;
@@ -24,7 +26,6 @@ public class MobDeathTask extends Task {
         Task.BreakType.NEVER,
         TaskIdentifier.CURRENT_ACTION);
     this.mob = mob;
-
     mob.setDead(true);
     mob.getUpdateFlags().faceEntity(65535);
     mob.getCombat().reset();
@@ -53,29 +54,39 @@ public class MobDeathTask extends Task {
           @Override
           public void onStop() {}
         };
-    Task dissapear =
-        new Task(
-            mob,
-            MobConstants.MobDissapearDelay.getDelay(mob.getId()),
-            false,
-            Task.StackType.STACK,
-            Task.BreakType.NEVER,
-            TaskIdentifier.CURRENT_ACTION) {
-          @Override
-          public void execute() {
-            mob.onDeath();
-            MobDrops.dropItems(mob.getCombat().getDamageTracker().getKiller(), mob);
-            mob.setVisible(false);
-            Walking.setNpcOnTile(mob, false);
-            mob.getUpdateFlags().setUpdateRequired(true);
-            mob.curePoison(0);
-            mob.unTransform();
-            stop();
-          }
+	  Task dissapear =
+		  new Task(
+			  mob,
+			  MobConstants.MobDissapearDelay.getDelay(mob.getId()),
+			  false,
+			  Task.StackType.STACK,
+			  Task.BreakType.NEVER,
+			  TaskIdentifier.CURRENT_ACTION) {
+			  @Override
+			  public void execute() {
+				  mob.onDeath();
+				  MobDrops.dropItems(mob.getCombat().getDamageTracker().getKiller(), mob);
 
-          @Override
-          public void onStop() {}
-        };
+				  // Flush any pending resonance messages before mob disappears
+				  Entity killer = mob.getCombat().getDamageTracker().getKiller();
+				  if (killer != null && !killer.isNpc()) {
+					  Stoner stoner = (Stoner) killer; // You might need to cast appropriately
+					  if (stoner.getResonance() != null) {
+						  stoner.getResonance().flushPendingMessage();
+					  }
+				  }
+
+				  mob.setVisible(false);
+				  Walking.setNpcOnTile(mob, false);
+				  mob.getUpdateFlags().setUpdateRequired(true);
+				  mob.curePoison(0);
+				  mob.unTransform();
+				  stop();
+			  }
+
+			  @Override
+			  public void onStop() {}
+		  };
     TaskQueue.queue(death);
     TaskQueue.queue(dissapear);
   }

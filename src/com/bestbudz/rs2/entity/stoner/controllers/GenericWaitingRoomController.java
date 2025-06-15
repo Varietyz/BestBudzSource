@@ -51,7 +51,7 @@ public abstract class GenericWaitingRoomController extends GenericMinigameContro
   }
 
   @Override
-  public boolean canUseNecromance(Stoner p, int id) {
+  public boolean canUseResonance(Stoner p, int id) {
     return false;
   }
 

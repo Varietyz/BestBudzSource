@@ -31,12 +31,6 @@ public class PyroAutoBurn extends Task {
 			return false;
 		}
 
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to do this!"));
-			return false;
-		}
-
 		// Check if it's a fire/altar object
 		if (isBurningObject(objectId)) {
 			return autoBurnAllLogs(stoner, objectId);
@@ -53,11 +47,6 @@ public class PyroAutoBurn extends Task {
 			return false;
 		}
 
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to do this!"));
-			return false;
-		}
 
 		// Check if it's a burning object
 		if (isBurningObject(objectId)) {

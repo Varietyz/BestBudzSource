@@ -25,7 +25,7 @@ public class Advance {
     "Vigour",
     "Life",
     "Sagittarius",
-    "Necromance",
+    "Resonance",
     "Mage",
     "Foodie",
     "Lumbering",
@@ -137,6 +137,7 @@ public class Advance {
             + stoner.getProfessionAdvances()[professionId]
             + "</col>, SMOKE SESH!");
     AchievementHandler.activateAchievement(stoner, AchievementList.ADVANCE_105_TIMES, 1);
+
     stoner.getProfession().restore();
     update(stoner);
     return true;
@@ -183,7 +184,7 @@ public class Advance {
     VIGOUR(199091, " ", 2, 51011, 6_000_000),
     LIFE(199109, " ", 3, 51017, 6_000_000),
     SAGITTARIUS(199097, " ", 4, 51013, 6_000_000),
-    NECROMANCE(199100, " ", 5, 51014, 6_000_000),
+    RESONANCE(199100, " ", 5, 51014, 6_000_000),
     MAGE(199103, " ", 6, 51015, 6_000_000),
     FOODIE(199139, " ", 7, 51027, 10_500_000),
     LUMBERING(199145, " ", 8, 51029, 10_500_000),

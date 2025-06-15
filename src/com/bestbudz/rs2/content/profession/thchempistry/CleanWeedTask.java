@@ -82,10 +82,6 @@ public class CleanWeedTask extends Task {
 							+ " to trim this weed."));
 			return false;
 		}
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-			return false;
-		}
 		return true;
 	}
 
@@ -124,11 +120,6 @@ public class CleanWeedTask extends Task {
 				return;
 			}
 
-			if (!stoner.getEquipment().isWearingItem(6575)) {
-				stoner.send(new SendMessage("You can no longer clean - missing tool ring."));
-				stop();
-				return;
-			}
 
 			// Find next untrimmed weed
 			UntrimmedWeedData data = null;

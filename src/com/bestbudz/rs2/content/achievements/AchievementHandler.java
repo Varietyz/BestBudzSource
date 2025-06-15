@@ -3,6 +3,7 @@ package com.bestbudz.rs2.content.achievements;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.AchievementTab;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.in.impl.ChatBridgeManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class AchievementHandler {
@@ -24,6 +25,8 @@ public class AchievementHandler {
       stoner.addAchievementPoints(stoner.getAchievementsPoints() + achievement.getReward());
       stoner.send(
           new SendMessage("@or2@Achievement completed: @gre@'" + achievement.getName() + "'"));
+		ChatBridgeManager.notifyAchievement(stoner.getUsername(), achievement.getName()
+		);
       if (achievement.getDifficulty() == AchievementDifficulty.HARD)
         stoner.getProfession().addExperience(17, 1830000);
       else if (achievement.getDifficulty() == AchievementDifficulty.MEDIUM)

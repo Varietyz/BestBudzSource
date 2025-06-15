@@ -1668,7 +1668,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Power of the necromancer(3)</name>
+		<name>Power of the resonancer(3)</name>
 		<id>139</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -1680,7 +1680,7 @@
 		<generalPrice>91</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Power of the necromancer(3)</name>
+		<name>Power of the resonancer(3)</name>
 		<id>140</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -1692,7 +1692,7 @@
 		<generalPrice>91</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Power of the necromancer(2)</name>
+		<name>Power of the resonancer(2)</name>
 		<id>141</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -1704,7 +1704,7 @@
 		<generalPrice>3415</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Power of the necromancer(2)</name>
+		<name>Power of the resonancer(2)</name>
 		<id>142</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -1716,7 +1716,7 @@
 		<generalPrice>91</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Power of the necromancer(1)</name>
+		<name>Power of the resonancer(1)</name>
 		<id>143</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -1728,7 +1728,7 @@
 		<generalPrice>91</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Power of the necromancer(1)</name>
+		<name>Power of the resonancer(1)</name>
 		<id>144</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -29208,7 +29208,7 @@
 		<generalPrice>4562</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Power of the necromancer(4)</name>
+		<name>Power of the resonancer(4)</name>
 		<id>2434</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -29220,7 +29220,7 @@
 		<generalPrice>5562</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Power of the necromancer(4)</name>
+		<name>Power of the resonancer(4)</name>
 		<id>2435</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -117108,7 +117108,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance cape</name>
+		<name>Resonance cape</name>
 		<id>9759</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -117120,7 +117120,7 @@
 		<generalPrice>59300</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance cape(t)</name>
+		<name>Resonance cape(t)</name>
 		<id>9760</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -117132,7 +117132,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance hood</name>
+		<name>Resonance hood</name>
 		<id>9761</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -127716,7 +127716,7 @@
 		<generalPrice>59400</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance cape</name>
+		<name>Resonance cape</name>
 		<id>10643</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -130632,7 +130632,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance book</name>
+		<name>Resonance book</name>
 		<id>10886</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -130680,7 +130680,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance book</name>
+		<name>Resonance book</name>
 		<id>10890</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -137580,7 +137580,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance mix(2)</name>
+		<name>Resonance mix(2)</name>
 		<id>11465</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -137592,7 +137592,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance mix(2)</name>
+		<name>Resonance mix(2)</name>
 		<id>11466</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -137604,7 +137604,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance mix(1)</name>
+		<name>Resonance mix(1)</name>
 		<id>11467</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -137616,7 +137616,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Necromance mix(1)</name>
+		<name>Resonance mix(1)</name>
 		<id>11468</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -158448,7 +158448,7 @@
 		<generalPrice>2000000</generalPrice>
 	</ItemDefinition>	
 			<ItemDefinition>
-		<name>Necromance Master Cape</name>
+		<name>Resonance Master Cape</name>
 			<id>13205</id>
 		<members>false</members>
 		<tradable>false</tradable>

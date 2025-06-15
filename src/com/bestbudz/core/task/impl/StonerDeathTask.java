@@ -2,11 +2,8 @@ package com.bestbudz.core.task.impl;
 
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
-import com.bestbudz.rs2.content.combat.Hit;
-import com.bestbudz.rs2.content.combat.Hit.HitTypes;
 import com.bestbudz.rs2.content.combat.impl.StonerDrops;
 import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
 import com.bestbudz.rs2.entity.Entity;
@@ -90,7 +87,7 @@ public class StonerDeathTask extends Task {
       stoner.getSkulling().unskull(stoner);
     }
 
-    stoner.getNecromance().disable();
+    stoner.getResonance().disable();
 
     stoner.getRunEnergy().setEnergy(100);
 

@@ -15,6 +15,9 @@ import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.Projectile;
 import com.bestbudz.rs2.entity.mob.Mob;
+import com.bestbudz.rs2.entity.pets.Pet;
+import com.bestbudz.rs2.entity.pets.PetData;
+import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
@@ -23,7 +26,9 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendOpenTab;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSidebarInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSound;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MageProfession {
@@ -262,7 +267,6 @@ public class MageProfession {
   public void doWildernessTeleport(
       final int x, final int y, final int z, final TeleportTypes type) {
     teleporting = true;
-    stoner.setTakeDamage(false);
     stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
     stoner.getController().onTeleport(stoner);
     int delay = 3;
@@ -446,7 +450,6 @@ public class MageProfession {
   private void initTeleport(final int x, final int y, final int z, final TeleportTypes type) {
 
     teleporting = true;
-    stoner.setTakeDamage(false);
     stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
     stoner.getController().onTeleport(stoner);
     int delay = 3;
@@ -498,70 +501,70 @@ public class MageProfession {
         break;
     }
 
-    TaskQueue.queue(
-        new Task(
-            stoner,
-            delay,
-            false,
-            Task.StackType.STACK,
-            Task.BreakType.NEVER,
-            TaskIdentifier.CURRENT_ACTION) {
-          @Override
-          public void execute() {
-            if (!stoner.getController().canTeleport()) {
-              stoner.setTakeDamage(true);
-              teleporting = false;
-              return;
-            }
+	  TaskQueue.queue(
+		  new Task(
+			  stoner,
+			  delay,
+			  false,
+			  Task.StackType.STACK,
+			  Task.BreakType.NEVER,
+			  TaskIdentifier.CURRENT_ACTION) {
+			  @Override
+			  public void execute() {
+				  if (!stoner.getController().canTeleport()) {
+					  stoner.setTakeDamage(true);
+					  teleporting = false;
+					  return;
+				  }
 
-            TaskQueue.onMovement(stoner);
+				  TaskQueue.onMovement(stoner);
 
-            stoner.teleport(new Location(x, y, z));
-            stoner.setTakeDamage(true);
-            teleporting = false;
+				  stoner.teleport(new Location(x, y, z));
+				  stoner.setTakeDamage(true);
+				  teleporting = false;
 
-            switch (type) {
-              case SPELL_BOOK:
-                stoner.getUpdateFlags().sendAnimation(MageConstants.MODERN_TELEPORT_END_ANIMATION);
-                switch (spellBookType) {
-                  case MODERN:
-                    stoner.getUpdateFlags().sendGraphic(MageConstants.MODERN_TELEPORT_END_GRAPHIC);
-                    break;
-                  default:
-                    break;
-                }
-                break;
-              case TABLET:
-                stoner.getUpdateFlags().sendAnimation(MageConstants.TABLET_TELEPORT_END_ANIMATION);
-                break;
-              default:
-                break;
-            }
+				  switch (type) {
+					  case SPELL_BOOK:
+						  stoner.getUpdateFlags().sendAnimation(MageConstants.MODERN_TELEPORT_END_ANIMATION);
+						  switch (spellBookType) {
+							  case MODERN:
+								  stoner.getUpdateFlags().sendGraphic(MageConstants.MODERN_TELEPORT_END_GRAPHIC);
+								  break;
+							  default:
+								  break;
+						  }
+						  break;
+					  case TABLET:
+						  stoner.getUpdateFlags().sendAnimation(MageConstants.TABLET_TELEPORT_END_ANIMATION);
+						  break;
+					  default:
+						  break;
+				  }
 
-            stop();
-          }
+				  stop();
+			  }
 
-          @Override
-          public void onStop() {
-            if (stoner.getBossID() <= 0) {
-              return; // No valid pet assigned
-            }
+			  @Override
+			  public void onStop() {
+				  // Use the new Stoner pet system instead of old Mob pets
+				  if (stoner.getBossID() > 0) {
+					  // Find the PetData for this boss ID
+					  PetData petData = PetData.forNPC(stoner.getBossID());
+					  if (petData != null) {
+						  // Remove any existing pets first (handles teleportation cleanup)
+						  List<Pet> existingPets = new ArrayList<>(stoner.getActivePets());
+						  for (Pet pet : existingPets) {
+							  pet.remove();
+							  stoner.getActivePets().remove(pet);
+						  }
 
-            for (Mob pet : stoner.getActivePets()) {
-              if (pet != null && pet.getId() == stoner.getBossID()) {
-                return; // Pet already active, do not respawn
-              }
-            }
-
-            final Mob mob =
-                new Mob(stoner, stoner.getBossID(), false, false, true, stoner.getLocation());
-            mob.getFollowing().setIgnoreDistance(true);
-            mob.getFollowing().setFollow(stoner);
-            mob.setPet(true);
-            mob.setCanAssault(false);
-            stoner.addPet(mob);
-          }
-        });
+						  // Spawn new pet at teleport destination
+						  Pet newPet = new Pet(stoner, petData);
+						  stoner.getActivePets().add(newPet);
+					  }
+				  }
+			  }
+		  });
   }
 
   public boolean isAhrimEffectActive() {

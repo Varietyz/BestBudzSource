@@ -45,10 +45,6 @@ public class SuperCombatPotion {
       return;
     }
 
-    if (!stoner.getEquipment().isWearingItem(6575)) {
-      DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-      return;
-    }
     boolean hasItems = true;
     ArrayList<String> required = new ArrayList<String>();
     for (int index = 0; index < ITEMS.length; index++) {

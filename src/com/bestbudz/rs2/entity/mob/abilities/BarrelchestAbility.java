@@ -18,7 +18,7 @@ public class BarrelchestAbility implements CombatEffect {
       Stoner p = World.getStoners()[e2.getIndex()];
 
       if (p != null) {
-        p.getNecromance().drain(10 + Utility.randomNumber(10));
+        p.getResonance().drain();
 
       }
     }

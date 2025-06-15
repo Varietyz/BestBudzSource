@@ -2,7 +2,6 @@ package com.bestbudz.rs2.entity.stoner.net.in.impl;
 
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.necromance.PetInteraction;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
 import com.bestbudz.rs2.entity.item.Item;

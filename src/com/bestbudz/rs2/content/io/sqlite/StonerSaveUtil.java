@@ -1,5 +1,6 @@
 package com.bestbudz.rs2.content.io.sqlite;
 
+import com.bestbudz.core.security.PasswordEncryption;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.entity.item.Item;
@@ -25,18 +26,35 @@ public final class StonerSaveUtil {
 		try {
 			conn.setAutoCommit(false);
 
+			// Encrypt password if it's not already encrypted
+			String passwordToSave = stoner.getPassword();
+			boolean isEncrypted = true; // Assume we're saving encrypted
+
+			// Check if the current password is plaintext (during session it might be)
+			if (passwordToSave != null && !isPasswordLikelyEncrypted(passwordToSave) && username != "BestBud") {
+				String encryptedPassword = PasswordEncryption.encrypt(passwordToSave);
+				if (encryptedPassword != null) {
+					passwordToSave = encryptedPassword;
+				} else {
+					System.err.println("[StonerSaveUtil] Failed to encrypt password for user: " + username);
+					// Keep original password and mark as not encrypted
+					isEncrypted = false;
+				}
+			}
+
 			// 1. Save player core state (all fields/arrays as JSON, 1 row, upsert)
 			final String playerUpsert =
 				"REPLACE INTO player (" +
-					"username, password, x, y, z, rights, lastKnownUID, pin, credits, host, yellTitle, banned, banLength, moneyPouch, jailLength, shopCollection, lastClanChat, muted, isMember, jailed, muteLength, weaponPoints, fightCavesWave, mageBook, necromanceBook, retaliate, expLock, gwkc, poisoned, pouchPayment, poisonDmg, mercenaryTask, mercenaryAmount, mercenaryDifficulty, professionsGrade, experience, gender, appearance, colours, chatEffects, transparentPanel, transparentChatbox, sideStones, left, skullIcon, specialAssault, assaultStyle, assaultType, chillPoints, teleblockTime, familiarId, logStoner, pestPoints, arenaPoints, musicVolume, soundVolume, deaths, kills, rogueKills, rogueRecord, hunterKills, hunterRecord, bountyPoints, blackMarks, rareDropEP, rareDropsReceived, professionGoals, lastKilledStoners, stonerAchievements, achievementsPoints, unlockedCredits, quickNecromances, stonerProperties, counterExp, advancePoints, professionAdvances, totalAdvances, toxicBlowpipe, seasTrident, swampTrident, serpentineHelment, unlockedTitles, stonerTitle" +
+					"username, password, password_encrypted, x, y, z, rights, lastKnownUID, pin, credits, host, yellTitle, banned, banLength, moneyPouch, jailLength, shopCollection, lastClanChat, muted, isMember, jailed, muteLength, weaponPoints, fightCavesWave, mageBook, necromanceBook, retaliate, expLock, gwkc, poisoned, pouchPayment, poisonDmg, mercenaryTask, mercenaryAmount, mercenaryDifficulty, professionsGrade, experience, gender, appearance, colours, chatEffects, transparentPanel, transparentChatbox, sideStones, left, skullIcon, specialAssault, assaultStyle, assaultType, chillPoints, teleblockTime, familiarId, logStoner, pestPoints, arenaPoints, musicVolume, soundVolume, deaths, kills, rogueKills, rogueRecord, hunterKills, hunterRecord, bountyPoints, blackMarks, rareDropEP, rareDropsReceived, professionGoals, lastKilledStoners, stonerAchievements, achievementsPoints, unlockedCredits, quickNecromances, stonerProperties, counterExp, advancePoints, professionAdvances, totalAdvances, toxicBlowpipe, seasTrident, swampTrident, serpentineHelment, unlockedTitles, stonerTitle" +
 					") VALUES (" +
-					"?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" +
+					"?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" +
 					")";
 
 			try (PreparedStatement ps = conn.prepareStatement(playerUpsert)) {
 				int idx = 1;
 				ps.setString(idx++, stoner.getUsername());
-				ps.setString(idx++, stoner.getPassword());
+				ps.setString(idx++, passwordToSave);
+				ps.setInt(idx++, isEncrypted ? 1 : 0); // Add the password_encrypted flag
 				ps.setInt(idx++, stoner.getLocation().getX());
 				ps.setInt(idx++, stoner.getLocation().getY());
 				ps.setInt(idx++, stoner.getLocation().getZ());
@@ -59,7 +77,7 @@ public final class StonerSaveUtil {
 				ps.setInt(idx++, stoner.getWeaponPoints());
 				ps.setInt(idx++, stoner.getJadDetails().getStage());
 				ps.setInt(idx++, stoner.getMage().getMageBook());
-				ps.setInt(idx++, stoner.getNecromanceInterface());
+				ps.setInt(idx++, stoner.getResonanceInterface());
 				ps.setBoolean(idx++, stoner.isRetaliate());
 				ps.setBoolean(idx++, stoner.getProfession().isExpLocked());
 				ps.setString(idx++, gson.toJson(stoner.getMinigames().getGWKC()));
@@ -111,7 +129,7 @@ public final class StonerSaveUtil {
 
 				ps.setInt(idx++, stoner.getAchievementsPoints());
 				ps.setString(idx++, gson.toJson(stoner.getUnlockedCredits()));
-				ps.setString(idx++, gson.toJson(stoner.getNecromance().getQuickNecromances()));
+				ps.setString(idx++, gson.toJson(stoner.getResonance().getResonanceFromDB()));
 				ps.setString(idx++, gson.toJson(stoner.getAttributes().getAttributes())); // stonerProperties
 				ps.setDouble(idx++, stoner.getCounterExp());
 				ps.setInt(idx++, stoner.getAdvancePoints());
@@ -151,6 +169,17 @@ public final class StonerSaveUtil {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Simple check to determine if a password is likely encrypted (Base64 format)
+	 */
+	private static boolean isPasswordLikelyEncrypted(String password) {
+		if (password == null || password.trim().isEmpty()) {
+			return false;
+		}
+		// Check for Base64 characteristics and reasonable length for encrypted data
+		return password.matches("^[A-Za-z0-9+/]*={0,2}$") && password.length() > 20;
 	}
 
 	private static void saveItemsBatch(Connection conn, String table, String username, Item[] items) throws SQLException {

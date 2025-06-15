@@ -193,19 +193,26 @@ public class UpdateFlags {
     this.forceMovement = forceMovement;
   }
 
-  public void reset() {
-    if (graphicsUpdateRequired) graphicsUpdateRequired = false;
-    if (animationUpdateRequired) animationUpdateRequired = false;
-    if (faceToDirection) faceToDirection = false;
-    if (hitUpdate) hitUpdate = false;
-    if (hitUpdate2) hitUpdate2 = false;
-    if (graphic != null) graphic = null;
-    if (isForceChatUpdate) isForceChatUpdate = false;
-    if (forceMovement) {
-      forceMovement = false;
-    }
-    if (entityFaceIndex != 65535) faceEntity(65535);
-  }
+	public void reset() {
+		if (graphicsUpdateRequired) graphicsUpdateRequired = false;
+		if (animationUpdateRequired) {
+			animationUpdateRequired = false;
+			animationId = -1;  // Reset to "no animation"
+			animationDelay = 0;
+		}
+		if (faceToDirection) faceToDirection = false;
+		if (hitUpdate) hitUpdate = false;
+		if (hitUpdate2) hitUpdate2 = false;
+		if (graphic != null) graphic = null;
+		if (isForceChatUpdate) isForceChatUpdate = false;
+		if (forceMovement) forceMovement = false;
+
+		// FIX: Reset face index without triggering updates
+		if (entityFaceIndex != 65535) {
+			entityFaceIndex = 65535;
+			entityFaceUpdate = false;  // Don't trigger update during reset
+		}
+	}
 
   public void sendAnimation(Animation animation) {
     animationId = animation.getId();

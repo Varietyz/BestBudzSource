@@ -160,7 +160,7 @@ public class ProfessioncapeShop extends Shop {
         new int[] {
           9756, 9757, 9758,
         }),
-    NECROMANCE(
+    RESONANCE(
         new int[] {
           9759, 9760, 9761,
         }),

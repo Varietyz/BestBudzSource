@@ -26,10 +26,6 @@ public class THChempistryMasterProcessor {
 			return false; // Not THC-hempistry related
 		}
 
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to use auto-processing!"));
-			return false;
-		}
 
 		if (stoner.getProfession().locked()) {
 			stoner.send(new SendMessage("@red@You cannot process while your profession is locked!"));
@@ -141,12 +137,6 @@ public class THChempistryMasterProcessor {
 		public void execute() {
 			if (stoner.getProfession().locked()) {
 				return; // Wait for profession to unlock
-			}
-
-			if (!stoner.getEquipment().isWearingItem(6575)) {
-				stoner.send(new SendMessage("@red@Processing stopped - tool ring removed."));
-				stop();
-				return;
 			}
 
 			if (cycleCount++ > MAX_CYCLES) {

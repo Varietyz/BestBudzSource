@@ -100,10 +100,6 @@ public class BankStanding {
 
 		stoner.send(new SendMessage("@gre@You begin bank standing training..."));
 
-		// Debug message for testing
-		if (stoner.getRights() >= 1) {
-			stoner.send(new SendMessage("@blu@[DEBUG] Bank standing session started at " + startLocation.toString()));
-		}
 	}
 
 	/**
@@ -124,10 +120,6 @@ public class BankStanding {
 				stoner.send(new SendMessage("@red@You stop bank standing training after " + minutes + "m " + seconds + "s."));
 			}
 
-			// Debug message for testing
-			if (stoner.getRights() >= 1) {
-				stoner.send(new SendMessage("@blu@[DEBUG] Bank standing session ended. Total XP: " + sessionXPGained));
-			}
 		}
 	}
 
@@ -183,13 +175,6 @@ public class BankStanding {
 		sessionXPGained += (int)finalXP;
 
 		lastXPTime = System.currentTimeMillis();
-
-		// Only send messages to admins for debugging - no regular XP messages
-		if (stoner.getRights() >= 1) {
-			long timeSinceActivity = System.currentTimeMillis() - lastActivityTime;
-			boolean hasActivityBonus = timeSinceActivity < 60000;
-			stoner.send(new SendMessage("@blu@[DEBUG] Gained " + (int)finalXP + " XP | Base: " + BASE_XP + ", Time: +" + Math.min(standingMinutes, MAX_STANDING_BONUS) + ", Activity: " + (hasActivityBonus ? "+" + ACTIVITY_BONUS : "0") + ", Movement penalty: " + (totalMovement > 3 ? "Yes" : "No")));
-		}
 	}
 
 	/**

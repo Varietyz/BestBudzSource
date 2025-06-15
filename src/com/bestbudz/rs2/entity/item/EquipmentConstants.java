@@ -38,10 +38,10 @@ public class EquipmentConstants {
     "Mage",
     "Range",
     "Vigour",
-    "Necromance"
+    "Resonance"
   };
   public static final int VIGOUR = 10;
-  public static final int NECROMANCE = 11;
+  public static final int RESONANCE = 11;
   public static final int SAGITTARIUS_VIGOUR = 12;
   private static final byte[] FULL_BODY = new byte[StonerConstants.MAX_ITEM_COUNT];
   private static final byte[] FULL_HELM = new byte[StonerConstants.MAX_ITEM_COUNT];

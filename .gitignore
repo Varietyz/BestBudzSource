@@ -32,3 +32,9 @@ gradle-app.setting
 *.db-wal
 *.db-shm
 *.db
+src/com/bestbudz/core/discord/DiscordConfig.java
+src/com/bestbudz/core/security/PasswordEncryption.java
+DiscordConfig.java
+PasswordEncryption.java
+src/com/bestbudz/core/discord/core/DiscordConfig.java
+*.bak

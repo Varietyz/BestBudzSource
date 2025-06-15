@@ -88,10 +88,10 @@ public class Mage {
 
     boolean success;
 
-    double accuracy = MageFormulas.getMageAssaultRoll(entity);
-    double aegis = MageFormulas.getMageAegisRoll(entity.getCombat().getAssaulting());
-    double chance = FormulaData.getChance(accuracy, aegis);
-    boolean accurate = FormulaData.isAccurateHit(chance);
+	  double accuracy = MageFormulas.getMageAssaultRoll(entity);
+	  double aegis = MageFormulas.getMageAegisRoll(entity.getCombat().getAssaulting());
+	  double chance = FormulaData.getChance(accuracy, aegis, entity, entity.getCombat().getAssaulting());
+	  boolean accurate = FormulaData.isAccurateHit(chance, entity, entity.getCombat().getAssaulting());
     entity.getCombat().setHitChance(chance);
 
     success = accurate;
@@ -136,8 +136,7 @@ public class Mage {
 
     if (end != null) {
       TaskQueue.queue(new GraphicTask(assault.getHitDelay(), false, end, assaulting));
-      if (FormulaData.isDoubleHit(
-          entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage())) {
+		if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
         long secondHitDamage = hit.getDamage() / 2;
 
         if (secondHitDamage > 0) {
@@ -147,7 +146,7 @@ public class Mage {
           final Entity target = assaulting;
 
           TaskQueue.queue(
-              new Task(1) { // 1 tick = 300ms
+              new Task(2) { // 1 tick = 300ms
                 @Override
                 public void execute() {
                   Combat.applyHit(target, secondHit);
@@ -158,6 +157,14 @@ public class Mage {
                             new SendMessage(
                                 "@gre@Double strike landed! Bonus: " + secondHitDamage));
                   }
+					FormulaData.updateCombatEvolution(entity, assaulting, hit.getDamage() > -1, Math.max(0, (int)hit.getDamage()));
+					if (entity instanceof Stoner) {
+						((Stoner) entity).getResonance().updateResonance(
+							hit.getDamage() > -1,
+							Math.max(0, (int)hit.getDamage()),
+							Combat.CombatTypes.MAGE
+						);
+					}
                   entity.getCombat().resetHitChain();
                   stop();
                 }

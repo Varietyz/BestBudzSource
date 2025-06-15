@@ -41,7 +41,7 @@ public abstract class Controller {
 
   public abstract boolean canUseCombatType(Stoner stoner, CombatTypes paramCombatTypes);
 
-  public abstract boolean canUseNecromance(Stoner stoner, int id);
+  public abstract boolean canUseResonance(Stoner stoner, int id);
 
   public abstract boolean canUseSpecialAssault(Stoner stoner);
 

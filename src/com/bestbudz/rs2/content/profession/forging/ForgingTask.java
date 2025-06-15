@@ -36,9 +36,6 @@ public class ForgingTask extends Task {
           .getClient()
           .queueOutgoingPacket(new SendMessage("You do not have enough bars to make that."));
       stop();
-    } else if (!stoner.getEquipment().isWearingItem(6575)) {
-      DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-      stop();
     } else {
       stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces());
     }

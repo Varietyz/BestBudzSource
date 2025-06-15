@@ -6,8 +6,8 @@ import com.bestbudz.rs2.content.dialogue.Dialogue;
 import com.bestbudz.rs2.content.dialogue.DialogueConstants;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.Emotion;
-import com.bestbudz.rs2.content.pets.BossPets;
-import com.bestbudz.rs2.content.pets.BossPets.PetData;
+import com.bestbudz.rs2.entity.pets.PetData;
+import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -24,7 +24,7 @@ public class TzhaarMejKahDialogue extends Dialogue {
 
     if (petDrop != null) {
       if (stoner.getActivePets().size() < 5) {
-        BossPets.spawnPet(stoner, petDrop.getItem(), true);
+		  PetManager.spawnPet(stoner, petDrop.getItem(), true);
         stoner.send(
             new SendMessage(
                 "You feel a pressence following you; "

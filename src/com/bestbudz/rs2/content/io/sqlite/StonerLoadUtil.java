@@ -1,5 +1,6 @@
 package com.bestbudz.rs2.content.io.sqlite;
 
+import com.bestbudz.core.security.PasswordEncryption;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -34,7 +35,33 @@ public final class StonerLoadUtil {
 				System.out.println("[DB] Loaded player '" + username + "'");
 				int idx = 1;
 				stoner.setUsername(rs.getString(idx++));
-				stoner.setPassword(rs.getString(idx++));
+
+				// Handle password loading with encryption support
+				String storedPassword = rs.getString(idx++);
+
+				// Check if password_encrypted column exists and get its value
+				boolean isEncrypted = false;
+				try {
+					isEncrypted = rs.getInt("password_encrypted") == 1;
+				} catch (SQLException e) {
+					// Column doesn't exist yet, assume plaintext
+					isEncrypted = false;
+				}
+
+				if (isEncrypted && storedPassword != null) {
+					// Password is encrypted, decrypt it for session use
+					String decryptedPassword = PasswordEncryption.decrypt(storedPassword);
+					if (decryptedPassword != null) {
+						stoner.setPassword(decryptedPassword);
+					} else {
+						System.err.println("[DB] Failed to decrypt password for user: " + username);
+						stoner.setPassword(storedPassword); // Fallback to stored value
+					}
+				} else {
+					// Password is plaintext (legacy)
+					stoner.setPassword(storedPassword);
+				}
+
 				int x = rs.getInt(idx++);
 				int y = rs.getInt(idx++);
 				int z = rs.getInt(idx++);
@@ -58,7 +85,7 @@ public final class StonerLoadUtil {
 				stoner.setWeaponPoints(rs.getInt(idx++));
 				stoner.getJadDetails().setStage(rs.getInt(idx++));
 				stoner.getMage().setMageBook(rs.getInt(idx++));
-				stoner.setNecromanceInterface(rs.getInt(idx++));
+				stoner.setResonanceInterface(rs.getInt(idx++));
 				stoner.setRetaliate(rs.getBoolean(idx++));
 				stoner.getProfession().setExpLock(rs.getBoolean(idx++));
 				stoner.getMinigames().setGWKC(gson.fromJson(rs.getString(idx++), short[].class));
@@ -133,7 +160,7 @@ public final class StonerLoadUtil {
 
 				stoner.addAchievementPoints(rs.getInt(idx++));
 				stoner.getUnlockedCredits().addAll(gson.fromJson(rs.getString(idx++), java.util.HashSet.class));
-				stoner.getNecromance().setQuickNecromances(gson.fromJson(rs.getString(idx++), boolean[].class));
+				stoner.getResonance().setResonanceOnBD(gson.fromJson(rs.getString(idx++), boolean[].class));
 				java.util.HashMap<?,?> properties = gson.fromJson(rs.getString(idx++), java.util.HashMap.class);
 				if (properties != null) stoner.getAttributes().getAttributes().putAll(properties);
 				stoner.addCounterExp(rs.getDouble(idx++));
@@ -160,7 +187,7 @@ public final class StonerLoadUtil {
 	}
 
 	private static void loadItems(Connection conn, String table, String username, Item[] items, Stoner stoner)
-	throws SQLException {
+		throws SQLException {
 		String sql = "SELECT slot, item_id, amount FROM " + table + " WHERE username = ?";
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setString(1, username);

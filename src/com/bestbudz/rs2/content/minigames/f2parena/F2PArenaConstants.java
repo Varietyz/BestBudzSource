@@ -4,7 +4,7 @@ import com.bestbudz.rs2.entity.Location;
 
 public class F2PArenaConstants {
 
-  public static final int[] ALLOWED_NECROMANCES = {};
+  public static final int[] ALLOWED_RESONANCES = {};
 
   public static final int[] ALLOWED_ITEMS = {};
 

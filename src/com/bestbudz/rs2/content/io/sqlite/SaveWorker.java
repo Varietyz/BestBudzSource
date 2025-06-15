@@ -83,6 +83,7 @@ public final class SaveWorker {
 	}
 
 	private static void saveOne(Stoner stoner) {
+		if (stoner.isPetStoner()) return;
 		try {
 			StonerSaveUtil.saveToDatabase(stoner);
 			AntiRollbackManager.markSave(stoner);              // keep rollback map fresh

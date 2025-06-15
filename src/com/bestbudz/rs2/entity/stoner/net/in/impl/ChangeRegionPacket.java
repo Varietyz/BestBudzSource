@@ -15,7 +15,7 @@ public class ChangeRegionPacket extends IncomingPacket {
   @Override
   public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
     stoner.getClient().queueOutgoingPacket(new SendDetails(stoner.getIndex()));
-    stoner.getGroundItems().onRegionChange();
+   // stoner.getGroundItems().onRegionChange();
     stoner.getObjects().onRegionChange();
 
     if (stoner.getDueling().isStaking()) {

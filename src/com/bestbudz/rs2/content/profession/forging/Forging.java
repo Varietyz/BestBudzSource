@@ -77,11 +77,6 @@ public enum Forging {
 			return false;
 		}
 
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to do this!"));
-			return false;
-		}
 
 		// Check if it's an anvil or furnace
 		if (isAnvil(objectId)) {
@@ -120,11 +115,6 @@ public enum Forging {
 			return false;
 		}
 
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to do this!"));
-			return false;
-		}
 
 		switch (objectId) {
 			// Anvils - Auto-forging bars into items

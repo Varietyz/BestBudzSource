@@ -3,14 +3,21 @@ package com.bestbudz.core.network.login;
 import com.bestbudz.BestbudzConstants;
 import com.bestbudz.core.network.ISAACCipher;
 import com.bestbudz.core.network.StreamBuffer;
+import com.bestbudz.core.security.PasswordEncryption;
+import com.bestbudz.core.security.PasswordMigrationUtil;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.Client;
+import com.bestbudz.rs2.content.io.sqlite.SQLiteDB;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import java.security.SecureRandom;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class LoginDecoder extends ByteToMessageDecoder {
@@ -26,6 +33,93 @@ public class LoginDecoder extends ByteToMessageDecoder {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(1);
 		out.writeByte(code);
 		ctx.writeAndFlush(out.getBuffer()).addListener(ChannelFutureListener.CLOSE);
+	}
+
+	/**
+	 * Validates password against stored password (handles both encrypted and legacy plaintext)
+	 * Creates new user if username doesn't exist
+	 */
+	private boolean validatePassword(String username, String enteredPassword) {
+		Connection conn = SQLiteDB.getConnection();
+		String sql = "SELECT password, password_encrypted FROM player WHERE username = ?";
+
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, username);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (!rs.next()) {
+					System.out.println("[LoginDecoder] New user detected: " + username);
+					return true;
+				}
+
+				String storedPassword = rs.getString("password");
+				boolean isEncrypted = rs.getInt("password_encrypted") == 1;
+
+				if (isEncrypted) {
+					// Password is encrypted - verify using encryption utility
+					return PasswordEncryption.verify(enteredPassword, storedPassword);
+				} else {
+					// Legacy plaintext password - direct comparison
+					boolean matches = enteredPassword.equals(storedPassword);
+
+					if (matches) {
+						// Encrypt the password for future use
+						migrateUserPassword(username, enteredPassword);
+					}
+
+					return matches;
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("[LoginDecoder] Database error during password validation: " + e.getMessage());
+			return false;
+		}
+	}
+
+	/**
+	 * Creates a new user with encrypted password
+	 */
+	private boolean createNewUser(String username, String password) {
+		try {
+			String encryptedPassword = PasswordEncryption.encrypt(password);
+			if (encryptedPassword == null) {
+				System.err.println("[LoginDecoder] Failed to encrypt password for new user: " + username);
+				return false;
+			}
+
+			Connection conn = SQLiteDB.getConnection();
+			String insertSql = "INSERT INTO player (username, password, password_encrypted) VALUES (?, ?, 1)";
+			try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
+				ps.setString(1, username);
+				ps.setString(2, encryptedPassword);
+				ps.executeUpdate();
+				System.out.println("[LoginDecoder] Created new user: " + username);
+				return true;
+			}
+		} catch (SQLException e) {
+			System.err.println("[LoginDecoder] Failed to create new user " + username + ": " + e.getMessage());
+			return false;
+		}
+	}
+
+	/**
+	 * Migrates a single user's password to encrypted format
+	 */
+	private void migrateUserPassword(String username, String plainPassword) {
+		try {
+			String encryptedPassword = PasswordEncryption.encrypt(plainPassword);
+			if (encryptedPassword != null) {
+				Connection conn = SQLiteDB.getConnection();
+				String updateSql = "UPDATE player SET password = ?, password_encrypted = 1 WHERE username = ?";
+				try (PreparedStatement ps = conn.prepareStatement(updateSql)) {
+					ps.setString(1, encryptedPassword);
+					ps.setString(2, username);
+					ps.executeUpdate();
+					System.out.println("[LoginDecoder] Migrated password for user: " + username);
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("[LoginDecoder] Failed to migrate password for user " + username + ": " + e.getMessage());
+		}
 	}
 
 	private Client login(ChannelHandlerContext ctx, ISAACCipher inCipher, ISAACCipher outCipher,
@@ -64,6 +158,12 @@ public class LoginDecoder extends ByteToMessageDecoder {
 
 		name = name.trim();
 
+		// Validate password using new encryption-aware method
+		if (!validatePassword(name, pass)) {
+			sendReturnCode(ctx, Utility.LOGIN_RESPONSE_INVALID_CREDENTIALS);
+			return null;
+		}
+
 		ChannelPipeline pipeline = ctx.pipeline();
 		pipeline.remove(this);
 		pipeline.addFirst("decoder", new Decoder(inCipher));
@@ -73,7 +173,7 @@ public class LoginDecoder extends ByteToMessageDecoder {
 		stoner.setUid(uid);
 		stoner.setUsername(name);
 		stoner.setDisplay(name);
-		stoner.setPassword(pass);
+		stoner.setPassword(pass); // Store the plaintext password for the session
 		client.setEnteredPassword(pass);
 		client.setEncryptor(outCipher);
 

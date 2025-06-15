@@ -2997,13 +2997,13 @@ public final class RSInterface {
     setBounds(ID + 6, 14, 33, 4, hover);
   }
 
-  public static void addNecromance(
+  public static void addResonance(
       int i,
       int configId,
       int configFrame,
       int requiredValues,
-      int necromanceSpriteID,
-      String NecromanceName,
+      int resonanceSpriteID,
+      String ResonanceName,
       int Hover) {
     RSInterface Interface = addTabInterface(i);
     Interface.id = i;
@@ -3023,7 +3023,7 @@ public final class RSInterface {
     Interface.valueIndexArray[0][0] = 5;
     Interface.valueIndexArray[0][1] = configFrame;
     Interface.valueIndexArray[0][2] = 0;
-    Interface.tooltip = "Activate@or1@ " + NecromanceName;
+    Interface.tooltip = "Activate@or1@ " + ResonanceName;
     Interface = addTabInterface(i + 1);
     Interface.id = i + 1;
     Interface.parentID = 22500;
@@ -3043,12 +3043,12 @@ public final class RSInterface {
     Interface.valueIndexArray[0][2] = 0;
   }
 
-  public static void addNecromanceWithTooltip(
+  public static void addResonanceWithTooltip(
       int i,
       int configId,
       int configFrame,
       int requiredValues,
-      int necromanceSpriteID,
+      int resonanceSpriteID,
       int Hover,
       String tooltip) {
     RSInterface Interface = addTabInterface(i);
@@ -4147,26 +4147,26 @@ public final class RSInterface {
     RSInterface Interface = addTabInterface(22500);
     int index = 0;
     addSprite(22502, 0, "Interfaces/CurseTab/ICON");
-    addNecromance(22503, 0, 610, 49, 7, "Protect Item", 22582);
-    addNecromance(22505, 0, 611, 49, 4, "Sap Warrior", 22544);
-    addNecromance(22507, 0, 612, 51, 5, "Sap Sagittarius", 22546);
-    addNecromance(22509, 0, 613, 53, 3, "Sap Mage", 22548);
-    addNecromance(22511, 0, 614, 55, 2, "Sap Spirit", 22550);
-    addNecromance(22513, 0, 615, 58, 18, "Berserker", 22552);
-    addNecromance(22515, 0, 616, 61, 15, "Deflect Summoning", 22554);
-    addNecromance(22517, 0, 617, 64, 17, "Deflect Mage", 22556);
-    addNecromance(22519, 0, 618, 67, 16, "Deflect Missiles", 22558);
-    addNecromance(22521, 0, 619, 70, 6, "Deflect Melee", 22560);
-    addNecromance(22523, 0, 620, 73, 9, "Leech Assault", 22562);
-    addNecromance(22525, 0, 621, 75, 10, "Leech Sagittarius", 22564);
-    addNecromance(22527, 0, 622, 77, 11, "Leech Mage", 22566);
-    addNecromance(22529, 0, 623, 79, 12, "Leech Aegis", 22568);
-    addNecromance(22531, 0, 624, 81, 13, "Leech Vigour", 22570);
-    addNecromance(22533, 0, 625, 83, 14, "Leech Energy", 22572);
-    addNecromance(22535, 0, 626, 85, 19, "Leech Special Assault", 22574);
-    addNecromance(22537, 0, 627, 88, 1, "Wrath", 22576);
-    addNecromance(22539, 0, 628, 91, 8, "Soul Split", 22578);
-    addNecromance(22541, 0, 629, 94, 20, "Turmoil", 22580);
+    addResonance(22503, 0, 610, 49, 7, "Protect Item", 22582);
+    addResonance(22505, 0, 611, 49, 4, "Sap Warrior", 22544);
+    addResonance(22507, 0, 612, 51, 5, "Sap Sagittarius", 22546);
+    addResonance(22509, 0, 613, 53, 3, "Sap Mage", 22548);
+    addResonance(22511, 0, 614, 55, 2, "Sap Spirit", 22550);
+    addResonance(22513, 0, 615, 58, 18, "Berserker", 22552);
+    addResonance(22515, 0, 616, 61, 15, "Deflect Summoning", 22554);
+    addResonance(22517, 0, 617, 64, 17, "Deflect Mage", 22556);
+    addResonance(22519, 0, 618, 67, 16, "Deflect Missiles", 22558);
+    addResonance(22521, 0, 619, 70, 6, "Deflect Melee", 22560);
+    addResonance(22523, 0, 620, 73, 9, "Leech Assault", 22562);
+    addResonance(22525, 0, 621, 75, 10, "Leech Sagittarius", 22564);
+    addResonance(22527, 0, 622, 77, 11, "Leech Mage", 22566);
+    addResonance(22529, 0, 623, 79, 12, "Leech Aegis", 22568);
+    addResonance(22531, 0, 624, 81, 13, "Leech Vigour", 22570);
+    addResonance(22533, 0, 625, 83, 14, "Leech Energy", 22572);
+    addResonance(22535, 0, 626, 85, 19, "Leech Special Assault", 22574);
+    addResonance(22537, 0, 627, 88, 1, "Wrath", 22576);
+    addResonance(22539, 0, 628, 91, 8, "Soul Split", 22578);
+    addResonance(22541, 0, 629, 94, 20, "Turmoil", 22580);
     addTooltip(22582, "Grade 50\nProtect Item\nKeep 1 extra item if you die");
     addTooltip(
         22544,
@@ -4214,7 +4214,7 @@ public final class RSInterface {
     addTooltip(22576, "Grade 89\nWrath\nInflicts damage to nearby\ntargets if you die");
     addTooltip(
         22578,
-        "Grade 92\nSoul Split\n1/4 of damage dealt is also removed\nfrom opponent's Necromance and\nadded to your Life");
+        "Grade 92\nSoul Split\n1/4 of damage dealt is also removed\nfrom opponent's Resonance and\nadded to your Life");
     addTooltip(
         22580,
         "Grade 95\nTurmoil\nIncreases Assault and Aegis\nby 15%, plus 15% of enemy's\ngrade, and Vigour by 23% plus\n10% of enemy's grade");
@@ -5610,8 +5610,8 @@ public final class RSInterface {
     setBounds(23478, 0, yPos + 39, 6, rsinterface);
   }
 
-  public static void necromanceMenu() {
-    RSInterface necromanceMenu = addInterface(5608);
+  public static void resonanceMenu() {
+    RSInterface resonanceMenu = addInterface(5608);
     int index = 0;
     int prayIndex = 0;
     int firstRowXPos = 10;
@@ -5626,61 +5626,61 @@ public final class RSInterface {
     int fifthRowYPos = 86;
     int sixthRowXPos = 1;
     int sixthRowYPos = 52;
-    addSprite(25105, 0, "Interfaces/NecromanceTab/NECROMANCEICON");
-    addNecromanceWithTooltip(25000, 0, 83, 0, prayIndex, 25052, "Activate @lre@Thick Skin");
+    addSprite(25105, 0, "Interfaces/ResonanceTab/RESONANCEICON");
+    addResonanceWithTooltip(25000, 0, 83, 0, prayIndex, 25052, "Activate @lre@Thick Skin");
     prayIndex++;
-    addNecromanceWithTooltip(25002, 0, 84, 3, prayIndex, 25054, "Activate @lre@Burst of Vigour");
+    addResonanceWithTooltip(25002, 0, 84, 3, prayIndex, 25054, "Activate @lre@Burst of Vigour");
     prayIndex++;
-    addNecromanceWithTooltip(25004, 0, 85, 6, prayIndex, 25056, "Activate @lre@Clarity of Thought");
+    addResonanceWithTooltip(25004, 0, 85, 6, prayIndex, 25056, "Activate @lre@Clarity of Thought");
     prayIndex++;
-    addNecromanceWithTooltip(25006, 0, 601, 7, prayIndex, 25058, "Activate @lre@Sharp Eye");
+    addResonanceWithTooltip(25006, 0, 601, 7, prayIndex, 25058, "Activate @lre@Sharp Eye");
     prayIndex++;
-    addNecromanceWithTooltip(25008, 0, 602, 8, prayIndex, 25060, "Activate @lre@Mystic Will");
+    addResonanceWithTooltip(25008, 0, 602, 8, prayIndex, 25060, "Activate @lre@Mystic Will");
     prayIndex++;
-    addNecromanceWithTooltip(25010, 0, 86, 9, prayIndex, 25062, "Activate @lre@Rock Skin");
+    addResonanceWithTooltip(25010, 0, 86, 9, prayIndex, 25062, "Activate @lre@Rock Skin");
     prayIndex++;
-    addNecromanceWithTooltip(25012, 0, 87, 12, prayIndex, 25064, "Activate @lre@Superhuman Vigour");
+    addResonanceWithTooltip(25012, 0, 87, 12, prayIndex, 25064, "Activate @lre@Superhuman Vigour");
     prayIndex++;
-    addNecromanceWithTooltip(25014, 0, 88, 15, prayIndex, 25066, "Activate @lre@Improved Reflexes");
+    addResonanceWithTooltip(25014, 0, 88, 15, prayIndex, 25066, "Activate @lre@Improved Reflexes");
     prayIndex++;
-    addNecromanceWithTooltip(25016, 0, 89, 18, prayIndex, 25068, "Activate @lre@Rapid Restore");
+    addResonanceWithTooltip(25016, 0, 89, 18, prayIndex, 25068, "Activate @lre@Rapid Restore");
     prayIndex++;
-    addNecromanceWithTooltip(25018, 0, 90, 21, prayIndex, 25070, "Activate @lre@Rapid Heal");
+    addResonanceWithTooltip(25018, 0, 90, 21, prayIndex, 25070, "Activate @lre@Rapid Heal");
     prayIndex++;
-    addNecromanceWithTooltip(25020, 0, 91, 24, prayIndex, 25072, "Activate @lre@Protect Item");
+    addResonanceWithTooltip(25020, 0, 91, 24, prayIndex, 25072, "Activate @lre@Protect Item");
     prayIndex++;
-    addNecromanceWithTooltip(25022, 0, 603, 25, prayIndex, 25074, "Activate @lre@Hawk Eye");
+    addResonanceWithTooltip(25022, 0, 603, 25, prayIndex, 25074, "Activate @lre@Hawk Eye");
     prayIndex++;
-    addNecromanceWithTooltip(25024, 0, 604, 26, prayIndex, 25076, "Activate @lre@Mystic Lore");
+    addResonanceWithTooltip(25024, 0, 604, 26, prayIndex, 25076, "Activate @lre@Mystic Lore");
     prayIndex++;
-    addNecromanceWithTooltip(25026, 0, 92, 27, prayIndex, 25078, "Activate @lre@Steel Skin");
+    addResonanceWithTooltip(25026, 0, 92, 27, prayIndex, 25078, "Activate @lre@Steel Skin");
     prayIndex++;
-    addNecromanceWithTooltip(25028, 0, 93, 30, prayIndex, 25080, "Activate @lre@Ultimate Vigour");
+    addResonanceWithTooltip(25028, 0, 93, 30, prayIndex, 25080, "Activate @lre@Ultimate Vigour");
     prayIndex++;
-    addNecromanceWithTooltip(
+    addResonanceWithTooltip(
         25030, 0, 94, 33, prayIndex, 25082, "Activate @lre@Incredible Reflexes");
     prayIndex++;
-    addNecromanceWithTooltip(25032, 0, 95, 36, prayIndex, 25084, "Activate @lre@Protect from Mage");
+    addResonanceWithTooltip(25032, 0, 95, 36, prayIndex, 25084, "Activate @lre@Protect from Mage");
     prayIndex++;
-    addNecromanceWithTooltip(
+    addResonanceWithTooltip(
         25034, 0, 96, 39, prayIndex, 25086, "Activate @lre@Protect from Missles");
     prayIndex++;
-    addNecromanceWithTooltip(
+    addResonanceWithTooltip(
         25036, 0, 97, 42, prayIndex, 25088, "Activate @lre@Protect from Melee");
     prayIndex++;
-    addNecromanceWithTooltip(25038, 0, 605, 43, prayIndex, 25090, "Activate @lre@Eagle Eye");
+    addResonanceWithTooltip(25038, 0, 605, 43, prayIndex, 25090, "Activate @lre@Eagle Eye");
     prayIndex++;
-    addNecromanceWithTooltip(25040, 0, 606, 44, prayIndex, 25092, "Activate @lre@Mystic Might");
+    addResonanceWithTooltip(25040, 0, 606, 44, prayIndex, 25092, "Activate @lre@Mystic Might");
     prayIndex++;
-    addNecromanceWithTooltip(25042, 0, 98, 45, prayIndex, 25094, "Activate @lre@Retribution");
+    addResonanceWithTooltip(25042, 0, 98, 45, prayIndex, 25094, "Activate @lre@Retribution");
     prayIndex++;
-    addNecromanceWithTooltip(25044, 0, 99, 48, prayIndex, 25096, "Activate @lre@Redemption");
+    addResonanceWithTooltip(25044, 0, 99, 48, prayIndex, 25096, "Activate @lre@Redemption");
     prayIndex++;
-    addNecromanceWithTooltip(25046, 0, 100, 51, prayIndex, 25098, "Activate @lre@Smite");
+    addResonanceWithTooltip(25046, 0, 100, 51, prayIndex, 25098, "Activate @lre@Smite");
     prayIndex++;
-    addNecromanceWithTooltip(25048, 0, 607, 59, prayIndex, 25100, "Activate @lre@Chivalry");
+    addResonanceWithTooltip(25048, 0, 607, 59, prayIndex, 25100, "Activate @lre@Chivalry");
     prayIndex++;
-    addNecromanceWithTooltip(25050, 0, 608, 69, prayIndex, 25102, "Activate @lre@Piety");
+    addResonanceWithTooltip(25050, 0, 608, 69, prayIndex, 25102, "Activate @lre@Piety");
     prayIndex++;
     addTooltip(25052, "Grade 01\nThick Skin\nIncreases your Aegis by 5%");
     addTooltip(25054, "Grade 04\nBurst of Vigour\nIncreases your Vigour by 5%");
@@ -5692,7 +5692,7 @@ public final class RSInterface {
     addTooltip(25066, "Grade 16\nImproved Reflexes\nIncreases your Assault by 10%");
     addTooltip(
         25068,
-        "Grade 19\nRapid Restore\n2x restore rate for all stats\nexcept Life, Summoning\nand Necromance");
+        "Grade 19\nRapid Restore\n2x restore rate for all stats\nexcept Life, Summoning\nand Resonance");
     addTooltip(25070, "Grade 22\nRapid Heal\n2x restore rate for the\nLife stat");
     addTooltip(25072, "Grade 25\nProtect Item\nKeep 1 extra item if you die");
     addTooltip(25074, "Grade 26\nHawk Eye\nIncreases your Sagittarius by 10%");
@@ -5708,146 +5708,146 @@ public final class RSInterface {
     addTooltip(25094, "Grade 46\nRetribution\nInflicts damage to nearby\ntargets if you die");
     addTooltip(25096, "Grade 49\nRedemption\nHeals you when damaged\nand Life falls\nbelow 10%");
     addTooltip(
-        25098, "Grade 52\nSmite\n1/4 of damage dealt is\nalso removed from\nopponent's Necromance");
+        25098, "Grade 52\nSmite\n1/4 of damage dealt is\nalso removed from\nopponent's Resonance");
     addTooltip(
         25100,
         "Grade 60\nChivalry\nIncreases your Aegis by 20%,\nVigour by 18%, and Assault by\n15%");
     addTooltip(
         25102, "Grade 70\nPiety\nIncreases your Aegis by 25%,\nVigour by 23%, and Assault by\n20%");
-    setChildren(80, necromanceMenu);
-    setBounds(687, 85, 241, index, necromanceMenu);
+    setChildren(80, resonanceMenu);
+    setBounds(687, 85, 241, index, resonanceMenu);
     index++;
-    setBounds(25105, 65, 241, index, necromanceMenu);
+    setBounds(25105, 65, 241, index, resonanceMenu);
     index++;
-    setBounds(25000, 2, 5, index, necromanceMenu);
+    setBounds(25000, 2, 5, index, resonanceMenu);
     index++;
-    setBounds(25001, 5, 8, index, necromanceMenu);
+    setBounds(25001, 5, 8, index, resonanceMenu);
     index++;
-    setBounds(25002, 40, 5, index, necromanceMenu);
+    setBounds(25002, 40, 5, index, resonanceMenu);
     index++;
-    setBounds(25003, 44, 8, index, necromanceMenu);
+    setBounds(25003, 44, 8, index, resonanceMenu);
     index++;
-    setBounds(25004, 76, 5, index, necromanceMenu);
+    setBounds(25004, 76, 5, index, resonanceMenu);
     index++;
-    setBounds(25005, 79, 11, index, necromanceMenu);
+    setBounds(25005, 79, 11, index, resonanceMenu);
     index++;
-    setBounds(25006, 113, 5, index, necromanceMenu);
+    setBounds(25006, 113, 5, index, resonanceMenu);
     index++;
-    setBounds(25007, 116, 10, index, necromanceMenu);
+    setBounds(25007, 116, 10, index, resonanceMenu);
     index++;
-    setBounds(25008, 150, 5, index, necromanceMenu);
+    setBounds(25008, 150, 5, index, resonanceMenu);
     index++;
-    setBounds(25009, 153, 9, index, necromanceMenu);
+    setBounds(25009, 153, 9, index, resonanceMenu);
     index++;
-    setBounds(25010, 2, 45, index, necromanceMenu);
+    setBounds(25010, 2, 45, index, resonanceMenu);
     index++;
-    setBounds(25011, 5, 48, index, necromanceMenu);
+    setBounds(25011, 5, 48, index, resonanceMenu);
     index++;
-    setBounds(25012, 39, 45, index, necromanceMenu);
+    setBounds(25012, 39, 45, index, resonanceMenu);
     index++;
-    setBounds(25013, 44, 47, index, necromanceMenu);
+    setBounds(25013, 44, 47, index, resonanceMenu);
     index++;
-    setBounds(25014, 76, 45, index, necromanceMenu);
+    setBounds(25014, 76, 45, index, resonanceMenu);
     index++;
-    setBounds(25015, 79, 49, index, necromanceMenu);
+    setBounds(25015, 79, 49, index, resonanceMenu);
     index++;
-    setBounds(25016, 113, 45, index, necromanceMenu);
+    setBounds(25016, 113, 45, index, resonanceMenu);
     index++;
-    setBounds(25017, 116, 50, index, necromanceMenu);
+    setBounds(25017, 116, 50, index, resonanceMenu);
     index++;
-    setBounds(25018, 151, 45, index, necromanceMenu);
+    setBounds(25018, 151, 45, index, resonanceMenu);
     index++;
-    setBounds(25019, 154, 50, index, necromanceMenu);
+    setBounds(25019, 154, 50, index, resonanceMenu);
     index++;
-    setBounds(25020, 2, 82, index, necromanceMenu);
+    setBounds(25020, 2, 82, index, resonanceMenu);
     index++;
-    setBounds(25021, 4, 84, index, necromanceMenu);
+    setBounds(25021, 4, 84, index, resonanceMenu);
     index++;
-    setBounds(25022, 40, 82, index, necromanceMenu);
+    setBounds(25022, 40, 82, index, resonanceMenu);
     index++;
-    setBounds(25023, 44, 87, index, necromanceMenu);
+    setBounds(25023, 44, 87, index, resonanceMenu);
     index++;
-    setBounds(25024, 77, 82, index, necromanceMenu);
+    setBounds(25024, 77, 82, index, resonanceMenu);
     index++;
-    setBounds(25025, 81, 85, index, necromanceMenu);
+    setBounds(25025, 81, 85, index, resonanceMenu);
     index++;
-    setBounds(25026, 114, 83, index, necromanceMenu);
+    setBounds(25026, 114, 83, index, resonanceMenu);
     index++;
-    setBounds(25027, 117, 85, index, necromanceMenu);
+    setBounds(25027, 117, 85, index, resonanceMenu);
     index++;
-    setBounds(25028, 153, 83, index, necromanceMenu);
+    setBounds(25028, 153, 83, index, resonanceMenu);
     index++;
-    setBounds(25029, 156, 87, index, necromanceMenu);
+    setBounds(25029, 156, 87, index, resonanceMenu);
     index++;
-    setBounds(25030, 2, 120, index, necromanceMenu);
+    setBounds(25030, 2, 120, index, resonanceMenu);
     index++;
-    setBounds(25031, 5, 125, index, necromanceMenu);
+    setBounds(25031, 5, 125, index, resonanceMenu);
     index++;
-    setBounds(25032, 40, 120, index, necromanceMenu);
+    setBounds(25032, 40, 120, index, resonanceMenu);
     index++;
-    setBounds(25033, 43, 124, index, necromanceMenu);
+    setBounds(25033, 43, 124, index, resonanceMenu);
     index++;
-    setBounds(25034, 78, 120, index, necromanceMenu);
+    setBounds(25034, 78, 120, index, resonanceMenu);
     index++;
-    setBounds(25035, 83, 124, index, necromanceMenu);
+    setBounds(25035, 83, 124, index, resonanceMenu);
     index++;
-    setBounds(25036, 114, 120, index, necromanceMenu);
+    setBounds(25036, 114, 120, index, resonanceMenu);
     index++;
-    setBounds(25037, 115, 121, index, necromanceMenu);
+    setBounds(25037, 115, 121, index, resonanceMenu);
     index++;
-    setBounds(25038, 151, 120, index, necromanceMenu);
+    setBounds(25038, 151, 120, index, resonanceMenu);
     index++;
-    setBounds(25039, 154, 124, index, necromanceMenu);
+    setBounds(25039, 154, 124, index, resonanceMenu);
     index++;
-    setBounds(25040, 2, 158, index, necromanceMenu);
+    setBounds(25040, 2, 158, index, resonanceMenu);
     index++;
-    setBounds(25041, 5, 160, index, necromanceMenu);
+    setBounds(25041, 5, 160, index, resonanceMenu);
     index++;
-    setBounds(25042, 39, 158, index, necromanceMenu);
+    setBounds(25042, 39, 158, index, resonanceMenu);
     index++;
-    setBounds(25043, 41, 158, index, necromanceMenu);
+    setBounds(25043, 41, 158, index, resonanceMenu);
     index++;
-    setBounds(25044, 76, 158, index, necromanceMenu);
+    setBounds(25044, 76, 158, index, resonanceMenu);
     index++;
-    setBounds(25045, 79, 163, index, necromanceMenu);
+    setBounds(25045, 79, 163, index, resonanceMenu);
     index++;
-    setBounds(25046, 114, 158, index, necromanceMenu);
+    setBounds(25046, 114, 158, index, resonanceMenu);
     index++;
-    setBounds(25047, 116, 158, index, necromanceMenu);
+    setBounds(25047, 116, 158, index, resonanceMenu);
     index++;
-    setBounds(25048, 153, 158, index, necromanceMenu);
+    setBounds(25048, 153, 158, index, resonanceMenu);
     index++;
-    setBounds(25049, 161, 160, index, necromanceMenu);
+    setBounds(25049, 161, 160, index, resonanceMenu);
     index++;
-    setBounds(25050, 2, 196, index, necromanceMenu);
+    setBounds(25050, 2, 196, index, resonanceMenu);
     index++;
-    setBounds(25051, 4, 207, index, necromanceMenu);
-    setBoundry(++index, 25052, firstRowXPos - 2, firstRowYPos, necromanceMenu);
-    setBoundry(++index, 25054, firstRowXPos - 5, firstRowYPos, necromanceMenu);
-    setBoundry(++index, 25056, firstRowXPos, firstRowYPos, necromanceMenu);
-    setBoundry(++index, 25058, firstRowXPos, firstRowYPos, necromanceMenu);
-    setBoundry(++index, 25060, firstRowXPos, firstRowYPos, necromanceMenu);
-    setBoundry(++index, 25062, secondRowXPos - 9, secondRowYPos, necromanceMenu);
-    setBoundry(++index, 25064, secondRowXPos - 11, secondRowYPos, necromanceMenu);
-    setBoundry(++index, 25066, secondRowXPos, secondRowYPos, necromanceMenu);
-    setBoundry(++index, 25068, secondRowXPos, secondRowYPos, necromanceMenu);
-    setBoundry(++index, 25070, secondRowXPos + 25, secondRowYPos, necromanceMenu);
-    setBoundry(++index, 25072, thirdRowXPos, thirdRowYPos, necromanceMenu);
-    setBoundry(++index, 25074, thirdRowXPos - 2, thirdRowYPos, necromanceMenu);
-    setBoundry(++index, 25076, thirdRowXPos, thirdRowYPos, necromanceMenu);
-    setBoundry(++index, 25078, thirdRowXPos - 7, thirdRowYPos, necromanceMenu);
-    setBoundry(++index, 25080, thirdRowXPos - 10, thirdRowYPos, necromanceMenu);
-    setBoundry(++index, 25082, fourthRowXPos, fourthRowYPos, necromanceMenu);
-    setBoundry(++index, 25084, fourthRowXPos - 8, fourthRowYPos, necromanceMenu);
-    setBoundry(++index, 25086, fourthRowXPos - 7, fourthRowYPos, necromanceMenu);
-    setBoundry(++index, 25088, fourthRowXPos - 2, fourthRowYPos, necromanceMenu);
-    setBoundry(++index, 25090, fourthRowXPos - 2, fourthRowYPos, necromanceMenu);
-    setBoundry(++index, 25092, fifthRowXPos, fifthRowYPos, necromanceMenu);
-    setBoundry(++index, 25094, fifthRowXPos, fifthRowYPos - 20, necromanceMenu);
-    setBoundry(++index, 25096, fifthRowXPos, fifthRowYPos - 25, necromanceMenu);
-    setBoundry(++index, 25098, fifthRowXPos + 15, fifthRowYPos - 25, necromanceMenu);
-    setBoundry(++index, 25100, fifthRowXPos - 12, fifthRowYPos - 20, necromanceMenu);
-    setBoundry(++index, 25102, sixthRowXPos - 2, sixthRowYPos, necromanceMenu);
+    setBounds(25051, 4, 207, index, resonanceMenu);
+    setBoundry(++index, 25052, firstRowXPos - 2, firstRowYPos, resonanceMenu);
+    setBoundry(++index, 25054, firstRowXPos - 5, firstRowYPos, resonanceMenu);
+    setBoundry(++index, 25056, firstRowXPos, firstRowYPos, resonanceMenu);
+    setBoundry(++index, 25058, firstRowXPos, firstRowYPos, resonanceMenu);
+    setBoundry(++index, 25060, firstRowXPos, firstRowYPos, resonanceMenu);
+    setBoundry(++index, 25062, secondRowXPos - 9, secondRowYPos, resonanceMenu);
+    setBoundry(++index, 25064, secondRowXPos - 11, secondRowYPos, resonanceMenu);
+    setBoundry(++index, 25066, secondRowXPos, secondRowYPos, resonanceMenu);
+    setBoundry(++index, 25068, secondRowXPos, secondRowYPos, resonanceMenu);
+    setBoundry(++index, 25070, secondRowXPos + 25, secondRowYPos, resonanceMenu);
+    setBoundry(++index, 25072, thirdRowXPos, thirdRowYPos, resonanceMenu);
+    setBoundry(++index, 25074, thirdRowXPos - 2, thirdRowYPos, resonanceMenu);
+    setBoundry(++index, 25076, thirdRowXPos, thirdRowYPos, resonanceMenu);
+    setBoundry(++index, 25078, thirdRowXPos - 7, thirdRowYPos, resonanceMenu);
+    setBoundry(++index, 25080, thirdRowXPos - 10, thirdRowYPos, resonanceMenu);
+    setBoundry(++index, 25082, fourthRowXPos, fourthRowYPos, resonanceMenu);
+    setBoundry(++index, 25084, fourthRowXPos - 8, fourthRowYPos, resonanceMenu);
+    setBoundry(++index, 25086, fourthRowXPos - 7, fourthRowYPos, resonanceMenu);
+    setBoundry(++index, 25088, fourthRowXPos - 2, fourthRowYPos, resonanceMenu);
+    setBoundry(++index, 25090, fourthRowXPos - 2, fourthRowYPos, resonanceMenu);
+    setBoundry(++index, 25092, fifthRowXPos, fifthRowYPos, resonanceMenu);
+    setBoundry(++index, 25094, fifthRowXPos, fifthRowYPos - 20, resonanceMenu);
+    setBoundry(++index, 25096, fifthRowXPos, fifthRowYPos - 25, resonanceMenu);
+    setBoundry(++index, 25098, fifthRowXPos + 15, fifthRowYPos - 25, resonanceMenu);
+    setBoundry(++index, 25100, fifthRowXPos - 12, fifthRowYPos - 20, resonanceMenu);
+    setBoundry(++index, 25102, sixthRowXPos - 2, sixthRowYPos, resonanceMenu);
     index++;
   }
 
@@ -5922,13 +5922,13 @@ public final class RSInterface {
     int i = 17202;
     for (int j = 630; i <= 17222 || j <= 656; j++) {
       addConfigButton(
-          i, 17200, 2, 1, "/Interfaces/QuickNecromance/Sprite", 14, 15, "Select", 0, 1, j);
+          i, 17200, 2, 1, "/Interfaces/QuickResonance/Sprite", 14, 15, "Select", 0, 1, j);
       i++;
     }
 
     addHoverButton(
-        17231, "/Interfaces/QuickNecromance/Sprite", 4, 190, 24, "Confirm Selection", -1, 17232, 1);
-    addHoveredButton(17232, "/Interfaces/QuickNecromance/Sprite", 5, 190, 24, 17233);
+        17231, "/Interfaces/QuickResonance/Sprite", 4, 190, 24, "Confirm Selection", -1, 17232, 1);
+    addHoveredButton(17232, "/Interfaces/QuickResonance/Sprite", 5, 190, 24, 17233);
     setChildren(46, tab);
     setBounds(22504, 5, 28, frame++, tab);
     setBounds(22506, 44, 28, frame++, tab);
@@ -5978,21 +5978,21 @@ public final class RSInterface {
     setBounds(17232, 0, 237, frame++, tab);
   }
 
-  public static void quickNecromances() {
+  public static void quickResonances() {
     int frame = 0;
     RSInterface tab = addTabInterface(17200);
-    addSprite(17201, 3, "/Interfaces/QuickNecromance/Sprite");
-    addTransparentSprite(17229, 0, "/Interfaces/QuickNecromance/Sprite", 50);
+    addSprite(17201, 3, "/Interfaces/QuickResonance/Sprite");
+    addTransparentSprite(17229, 0, "/Interfaces/QuickResonance/Sprite", 50);
     int i = 17202;
     for (int j = 630; i <= 17228 || j <= 656; j++) {
       addConfigButton(
-          i, 17200, 2, 1, "/Interfaces/QuickNecromance/Sprite", 14, 15, "Select", 0, 1, j);
+          i, 17200, 2, 1, "/Interfaces/QuickResonance/Sprite", 14, 15, "Select", 0, 1, j);
       i++;
     }
 
     addHoverButton(
-        17231, "/Interfaces/QuickNecromance/Sprite", 4, 190, 24, "Confirm Selection", -1, 17232, 1);
-    addHoveredButton(17232, "/Interfaces/QuickNecromance/Sprite", 5, 190, 24, 17233);
+        17231, "/Interfaces/QuickResonance/Sprite", 4, 190, 24, "Confirm Selection", -1, 17232, 1);
+    addHoveredButton(17232, "/Interfaces/QuickResonance/Sprite", 5, 190, 24, 17233);
     setChildren(58, tab);
     setBounds(25001, 5, 28, frame++, tab);
     setBounds(25003, 44, 28, frame++, tab);
@@ -7445,7 +7445,7 @@ public final class RSInterface {
   }
 
   public void specialBar(int id) {
-    addActionButton(id - 12, 7587, -1, 150, 26, "Use @gre@Special Assault");
+    addActionButton(id - 12, 7587, -1, 150, 26, "WOOP ASS");
     for (int i = id - 11; i < id; i++) removeSomething(i);
 
     RSInterface rsi = interfaceCache[id - 12];

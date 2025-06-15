@@ -170,10 +170,7 @@ public class THChempistryFinishedPotionTask extends Task {
 							+ " to make this potion."));
 			return false;
 		}
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-			return false;
-		}
+
 		if ((!stoner.getBox().hasItemId(data.getUnfinishedPotion()))
 			|| (!stoner.getBox().hasItemId(data.getItemNeeded()))) {
 			stoner
@@ -227,12 +224,6 @@ public class THChempistryFinishedPotionTask extends Task {
 		@Override
 		public void execute() {
 			if (stoner.getProfession().locked()) {
-				return;
-			}
-
-			if (!stoner.getEquipment().isWearingItem(6575)) {
-				stoner.send(new SendMessage("You can no longer make potions - missing tool ring."));
-				stop();
 				return;
 			}
 

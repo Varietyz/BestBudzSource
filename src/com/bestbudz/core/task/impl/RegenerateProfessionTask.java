@@ -87,7 +87,7 @@ public class RegenerateProfessionTask extends Task {
         break;
       }
 
-      if (i == Professions.NECROMANCE
+      if (i == Professions.RESONANCE
           || i == Professions.LIFE
               && entity.getGrades()[Professions.LIFE] > entity.getMaxGrades()[Professions.LIFE]) {
         continue;

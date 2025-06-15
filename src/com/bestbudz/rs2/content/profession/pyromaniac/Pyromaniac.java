@@ -20,11 +20,6 @@ public class Pyromaniac {
 			return false;
 		}
 
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("You must be wearing a tool ring to spark a starting fire!"));
-			return false;
-		}
-
 		if (System.currentTimeMillis() - stoner.getCurrentStunDelay() < stoner.getSetStunDelay()) {
 			return false;
 		}

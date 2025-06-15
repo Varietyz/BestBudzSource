@@ -41,12 +41,13 @@ public class Sagittarius {
 
     boolean success;
 
-    success =
-        Utility.randomNumber(RangeFormulas.calculateRangeAegis(entity.getCombat().getAssaulting()))
-            <= Utility.randomNumber(RangeFormulas.calculateRangeAssault(entity));
+	  double accuracy = RangeFormulas.calculateRangeAssault(entity);
+	  double aegis = RangeFormulas.calculateRangeAegis(entity.getCombat().getAssaulting());
+	  double chance = FormulaData.getChance(accuracy, aegis, entity, entity.getCombat().getAssaulting());
+	  success = FormulaData.isAccurateHit(chance, entity, entity.getCombat().getAssaulting());
 
-    int damage =
-        entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.SAGITTARIUS) + 1));
+	  int baseDamage = entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.SAGITTARIUS) + 1));
+	  int damage = (int)FormulaData.applyEmergentScaling(entity, baseDamage);
 
     Hit hit =
         new Hit(
@@ -73,8 +74,7 @@ public class Sagittarius {
     }
 
     TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
-    if (FormulaData.isDoubleHit(
-        entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage())) {
+	  if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
       long secondHitDamage = hit.getDamage() / 2;
 
       if (secondHitDamage > 0) {
@@ -84,7 +84,7 @@ public class Sagittarius {
         final Entity target = assaulting;
 
         TaskQueue.queue(
-            new Task(1) { // 1 tick = 300ms
+            new Task(2) { // 1 tick = 300ms
               @Override
               public void execute() {
                 Combat.applyHit(target, secondHit);
@@ -94,6 +94,14 @@ public class Sagittarius {
                       .queueOutgoingPacket(
                           new SendMessage("@gre@Double strike landed! Bonus: " + secondHitDamage));
                 }
+				  FormulaData.updateCombatEvolution(entity, assaulting, hit.getDamage() > 0, (int)hit.getDamage());
+				  if (entity instanceof Stoner) {
+					  ((Stoner) entity).getResonance().updateResonance(
+						  hit.getDamage() > 0,
+						  (int)hit.getDamage(),
+						  Combat.CombatTypes.SAGITTARIUS
+					  );
+				  }
                 entity.getCombat().resetHitChain();
                 stop();
               }

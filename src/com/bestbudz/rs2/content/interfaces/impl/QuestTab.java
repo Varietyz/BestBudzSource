@@ -66,7 +66,7 @@ public class QuestTab extends InterfaceHandler {
 	  "Deluxe title", // 115114
 	  "Reset Combat Stats", // 115115
 	  "Plastic Surgery", // 115116
-	  "Recharge Necromance", // 115117
+	  "Recharge Resonance", // 115117
 	  "Skull Self", // 115118
 	  "", // 115119
 	  "-TASKS-", // 115120

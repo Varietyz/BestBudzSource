@@ -189,7 +189,7 @@ public class GodWars {
           stoner
               .getClient()
               .queueOutgoingPacket(
-                  new SendMessage("You recharge your Necromance points at the altar."));
+                  new SendMessage("You recharge your Resonance points at the altar."));
           stoner.getUpdateFlags().sendAnimation(645, 5);
           stoner.getGrades()[5] = stoner.getMaxGrades()[5];
           stoner.getProfession().update(5);

@@ -319,13 +319,13 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendInterface(51000));
 	}
 
-	public static void rechargeNecromance(Stoner stoner) {
-		if (stoner.getProfession().getGrades()[Professions.NECROMANCE] < stoner.getMaxGrades()[Professions.NECROMANCE]) {
-			stoner.getProfession().setGrade(Professions.NECROMANCE, stoner.getMaxGrades()[Professions.NECROMANCE]);
-			stoner.getClient().queueOutgoingPacket(new SendMessage("You recharge your necromance points."));
+	public static void rechargeResonance(Stoner stoner) {
+		if (stoner.getProfession().getGrades()[Professions.RESONANCE] < stoner.getMaxGrades()[Professions.RESONANCE]) {
+			stoner.getProfession().setGrade(Professions.RESONANCE, stoner.getMaxGrades()[Professions.RESONANCE]);
+			stoner.getClient().queueOutgoingPacket(new SendMessage("You recharge your resonance points."));
 			stoner.getUpdateFlags().sendAnimation(new Animation(5864));
 		} else {
-			stoner.getClient().queueOutgoingPacket(new SendMessage("Your necromance is already full."));
+			stoner.getClient().queueOutgoingPacket(new SendMessage("Your resonance is already full."));
 		}
 	}
 
@@ -474,7 +474,7 @@ public class ClickButtonPacket extends IncomingPacket {
 				stoner.send(new SendString("items you keep from", 17113));
 				stoner.send(new SendString("three to zero!", 17114));
 				stoner.send(new SendString("However, you also have", 17115));
-				stoner.send(new SendString("the @red@Protect @lre@Items necromance", 17116));
+				stoner.send(new SendString("the @red@Protect @lre@Items resonance", 17116));
 				stoner.send(new SendString("active, which saves you", 17117));
 				stoner.send(new SendString("one extra item!", 17118));
 			}
@@ -485,7 +485,7 @@ public class ClickButtonPacket extends IncomingPacket {
 			}
 			case 4 -> {
 				stoner.send(new SendString("You have the @red@Protect", 17111));
-				stoner.send(new SendString("@red@Item @lre@necromance active,", 17112));
+				stoner.send(new SendString("@red@Item @lre@resonance active,", 17112));
 				stoner.send(new SendString("which saves you one", 17113));
 				stoner.send(new SendString("extra item!", 17114));
 			}
@@ -610,7 +610,6 @@ public class ClickButtonPacket extends IncomingPacket {
 
 	private boolean shouldIgnoreClick(Stoner stoner) {
 		return stoner.isStunned() ||
-			stoner.getNecromance().clickButton(0) || // Assuming this method checks internally
 			(stoner.isDead() && !stoner.getController().canClick()) ||
 			StonerConstants.isSettingAppearance(stoner);
 	}

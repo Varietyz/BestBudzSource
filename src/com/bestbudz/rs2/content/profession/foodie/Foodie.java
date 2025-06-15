@@ -30,12 +30,6 @@ public class Foodie extends Task {
 			return false;
 		}
 
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to do this!"));
-			return false;
-		}
-
 		// Check if it's a cooking object
 		if (isCookingObject(objectId)) {
 			return autoCookAllFood(stoner, objectId);
@@ -49,12 +43,6 @@ public class Foodie extends Task {
 	 */
 	public boolean itemOnObject(Stoner stoner, Item item, int objectId) {
 		if (stoner.getProfession().locked()) {
-			return false;
-		}
-
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			stoner.send(new SendMessage("@red@You must be wearing a tool ring to do this!"));
 			return false;
 		}
 

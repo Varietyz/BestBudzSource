@@ -82,7 +82,7 @@ public class WeaponGameController extends GenericMinigameController {
   }
 
   @Override
-  public boolean canUseNecromance(Stoner paramStoner, int id) {
+  public boolean canUseResonance(Stoner paramStoner, int id) {
     return false;
   }
 

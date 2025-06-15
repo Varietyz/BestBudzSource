@@ -17,8 +17,6 @@ import com.bestbudz.rs2.content.minigames.fightcave.TzharrGame;
 import com.bestbudz.rs2.content.minigames.godwars.GodWars;
 import com.bestbudz.rs2.content.minigames.warriorsguild.ArmourAnimator;
 import com.bestbudz.rs2.content.minigames.warriorsguild.CyclopsRoom;
-import com.bestbudz.rs2.content.pets.BossPets;
-import com.bestbudz.rs2.content.pets.BossPets.PetData;
 import com.bestbudz.rs2.content.profession.summoning.FamiliarMob;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Location;
@@ -29,6 +27,8 @@ import com.bestbudz.rs2.entity.mob.impl.GiantMole;
 import com.bestbudz.rs2.entity.mob.impl.Kraken;
 import com.bestbudz.rs2.entity.mob.impl.SeaTrollQueen;
 import com.bestbudz.rs2.entity.mob.impl.Zulrah;
+import com.bestbudz.rs2.entity.pets.PetData;
+import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -694,7 +694,7 @@ public class MobDrops {
 
           if (petDrop != null) {
             if (e.getStoner().getActivePets().size() < 5) {
-              BossPets.spawnPet(e.getStoner(), petDrop.getItem(), true);
+				PetManager.spawnPet(e.getStoner(), petDrop.getItem(), true);
               e.getStoner()
                   .send(
                       new SendMessage(

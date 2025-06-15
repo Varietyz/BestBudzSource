@@ -88,7 +88,7 @@ public class WeaponGame {
     WeaponGameConstants.GAME_TIME = 900;
     for (Stoner stoners : lobbyStoners) {
       stoners.getProfession().resetCombatStats();
-      stoners.getNecromance().disable();
+      stoners.getResonance().disable();
       stoners.setWeaponKills(0);
       stoners.teleport(Utility.randomElement(WeaponGameConstants.SPAWN_LOCATIONS));
       DialogueManager.sendInformationBox(

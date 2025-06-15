@@ -23,7 +23,6 @@ import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
 import com.bestbudz.rs2.content.profession.summoning.FamiliarMob;
 import com.bestbudz.rs2.content.sounds.StonerSounds;
 import com.bestbudz.rs2.entity.Entity;
-import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.EquipmentConstants;
 import com.bestbudz.rs2.entity.item.Item;
@@ -301,7 +300,6 @@ public class StonerCombatInterface implements CombatInterface {
       }
     }
 
-    hit.setDamage(stoner.getNecromance().getDamage(hit));
     hit.setDamage(stoner.getEquipment().getEffectedDamage(hit.getDamage()));
 
     if (hit.getDamage() > stoner.getGrades()[3]) {
@@ -502,10 +500,6 @@ public class StonerCombatInterface implements CombatInterface {
       if (hit.getDamage() != 0 && !ToxicBlowpipe.hasBlowpipe(stoner)) {
         BoltSpecials.checkForBoltSpecial(stoner, entity, hit);
       }
-    }
-
-    if (hit.getType() != Hit.HitTypes.POISON && hit.getType() != Hit.HitTypes.NONE) {
-      stoner.getNecromance().doEffectOnHit(entity, hit);
     }
 
     if (stoner.getMelee().isGuthanEffectActive())

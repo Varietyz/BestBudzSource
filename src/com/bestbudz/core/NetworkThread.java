@@ -1,5 +1,7 @@
 package com.bestbudz.core;
 
+import static com.bestbudz.core.discord.stonerbot.config.DiscordBotDefaults.DEFAULT_USERNAME;
+import com.bestbudz.core.discord.stonerbot.DiscordBotStoner;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -11,86 +13,156 @@ import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
 
 public class NetworkThread extends Thread {
 
-  public static final String PACKET_LOG_DIR = "./data/logs/packets/";
-  private static final Queue<PacketLog> packetLog = new ConcurrentLinkedQueue<PacketLog>();
-  public static NetworkThread singleton;
-  public static int cycles = 0;
+	public static final String PACKET_LOG_DIR = "./data/logs/packets/";
+	private static final Queue<PacketLog> packetLog = new ConcurrentLinkedQueue<PacketLog>();
+	public static NetworkThread singleton;
+	public static int cycles = 0;
 
-  public NetworkThread() {
-    singleton = this;
+	public NetworkThread() {
+		singleton = this;
+		setName("Network Thread");
+		setPriority(Thread.MAX_PRIORITY - 1);
+		start();
+	}
 
-    setName("Network Thread");
+	public static void createLog(String username, IncomingPacket packet, int opcode) {
+		packetLog.add(new PacketLog(username, packet.getClass().getSimpleName() + " : " + opcode));
+	}
 
-    setPriority(Thread.MAX_PRIORITY - 1);
+	public static NetworkThread getSingleton() {
+		return singleton;
+	}
 
-    start();
-  }
+	private void processObjectQueue() {
+		GameObject obj;
+		int processed = 0;
 
-  public static void createLog(String username, IncomingPacket packet, int opcode) {
-    packetLog.add(new PacketLog(username, packet.getClass().getSimpleName() + " : " + opcode));
-  }
+		// Limit object processing per cycle to prevent overflow
+		while ((obj = ObjectManager.getSend().poll()) != null && processed < 50) {
+			try {
+				ObjectManager.send(obj);
+				processed++;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-  public static NetworkThread getSingleton() {
-    return singleton;
-  }
+	private void processStoners() {
+		int processed = 0;
 
-  private void processObjectQueue() {
-    GameObject obj;
-    while ((obj = ObjectManager.getSend().poll()) != null) {
-      try {
-        ObjectManager.send(obj);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-  }
+		for (Stoner s : World.getStoners()) {
+			if (s == null || !s.isActive()) continue;
 
-  private void processStoners() {
-    for (Stoner s : World.getStoners()) {
-      if (s == null || !s.isActive()) continue;
+			try {
+				// CRITICAL OPTIMIZATION: Skip Discord bot entirely in NetworkThread
+				if (isDiscordBot(s)) {
+					// Discord bot handles its own networking in isolation
+					// Skip all processing here to avoid interference
+					continue;
+				}
 
-      try {
-        s.getGroundItems().process();
-        s.getObjects().process();
-        s.getClient().processOutgoingPackets();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-  }
+				// Full processing for real players only
+				s.getGroundItems().process();
+				s.getObjects().process();
+				s.getClient().processOutgoingPackets();
 
-  private void sleepIfNeeded(long start) {
-    long elapsed = (System.nanoTime() - start) / 1_000_000;
-    if (elapsed < 200) {
-      try {
-        Thread.sleep(200 - elapsed);
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt(); // Correct way to restore interrupt flag
-      }
-    } else {
-      System.out.println("Network thread overflow: " + elapsed + "ms");
-    }
-  }
+				processed++;
 
-  @Override
-  public void run() {
-    while (!Thread.interrupted()) {
-      long start = System.nanoTime();
+				// Yield control every 10 players to prevent thread hogging
+				if (processed % 10 == 0) {
+					Thread.yield();
+				}
 
-      processObjectQueue();
-      processStoners();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-      sleepIfNeeded(start);
-    }
-  }
+	private boolean isDiscordBot(Stoner stoner) {
+		return DEFAULT_USERNAME.equals(stoner.getUsername()) ||
+			stoner instanceof DiscordBotStoner;
+	}
 
-  public static class PacketLog {
-    public final String username;
-    public final String packet;
+	private void sleepIfNeeded(long start) {
+		long elapsed = (System.nanoTime() - start) / 1_000_000;
 
-    public PacketLog(String username, String packet) {
-      this.username = username;
-      this.packet = packet;
-    }
-  }
+		// Reduce target cycle time when there are many players
+		int realPlayerCount = World.getRealStonerCount(); // Exclude Discord bot from count
+		long targetCycleTime = realPlayerCount > 50 ? 150 : 200;
+
+		if (elapsed < targetCycleTime) {
+			try {
+				long sleepTime = targetCycleTime - elapsed;
+
+				// Use more efficient sleep for very short durations
+				if (sleepTime <= 5) {
+					Thread.yield();
+				} else {
+					Thread.sleep(sleepTime);
+				}
+
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+		} else if (elapsed > targetCycleTime * 2) {
+			// Only log significant overflows to reduce spam
+			System.out.println("Network thread overflow: " + elapsed + "ms (target: " + targetCycleTime + "ms, real players: " + realPlayerCount + ")");
+		}
+	}
+
+	@Override
+	public void run() {
+		long lastOptimizationCheck = System.currentTimeMillis();
+
+		while (!Thread.interrupted()) {
+			long start = System.nanoTime();
+
+			try {
+				processObjectQueue();
+				processStoners();
+
+				// Periodic optimization check (every 30 seconds)
+				long currentTime = System.currentTimeMillis();
+				if (currentTime - lastOptimizationCheck > 30000) {
+					optimizeIfNeeded();
+					lastOptimizationCheck = currentTime;
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			sleepIfNeeded(start);
+			cycles++;
+		}
+	}
+
+	/**
+	 * Perform periodic optimizations based on current load
+	 */
+	private void optimizeIfNeeded() {
+		int realPlayerCount = World.getRealStonerCount(); // Exclude Discord bot
+
+		// Suggest garbage collection if many real players are online
+		if (realPlayerCount > 100) {
+			System.gc(); // Hint to JVM - not guaranteed but can help
+		}
+
+		// Log performance statistics
+		if (cycles % 1000 == 0) {
+			System.out.println("Network thread: " + cycles + " cycles, " + realPlayerCount + " real players, " + World.getStonerCount() + " total entities");
+		}
+	}
+
+	public static class PacketLog {
+		public final String username;
+		public final String packet;
+
+		public PacketLog(String username, String packet) {
+			this.username = username;
+			this.packet = packet;
+		}
+	}
 }

@@ -56,15 +56,15 @@ public class BulkPlayerImporter {
 		  final String sql =
 			  "REPLACE INTO player (" +
 				  "username, password, x, y, z, rights, lastKnownUID, pin, credits, host, yellTitle, banned, banLength, moneyPouch, jailLength, shopCollection, " +
-				  "lastClanChat, muted, isMember, jailed, muteLength, weaponPoints, fightCavesWave, mageBook, necromanceBook, retaliate, " +
+				  "lastClanChat, muted, isMember, jailed, muteLength, weaponPoints, fightCavesWave, mageBook, retaliate, " +
 				  "expLock, gwkc, poisoned, pouchPayment, poisonDmg, mercenaryTask, mercenaryAmount, mercenaryDifficulty, professionsGrade, experience, gender, " +
 				  "appearance, colours, chatEffects, transparentPanel, transparentChatbox, sideStones, left, skullIcon, specialAssault, assaultStyle, assaultType, " +
 				  "chillPoints, teleblockTime, familiarId, logStoner, pestPoints, arenaPoints, musicVolume, soundVolume, deaths, kills, rogueKills, rogueRecord, " +
 				  "hunterKills, hunterRecord, bountyPoints, blackMarks, rareDropEP, rareDropsReceived, professionGoals, lastKilledStoners, stonerAchievements, " +
-				  "achievementsPoints, unlockedCredits, quickNecromances, stonerProperties, counterExp, advancePoints, professionAdvances, totalAdvances, " +
+				  "achievementsPoints, unlockedCredits, stonerProperties, counterExp, advancePoints, professionAdvances, totalAdvances, " +
 				  "toxicBlowpipe, seasTrident, swampTrident, serpentineHelment, unlockedTitles, stonerTitle" +
 				  ") VALUES (" +
-				  "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" +
+				  "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" +
 				  ")";
 
 		  try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -93,7 +93,6 @@ public class BulkPlayerImporter {
 			  ps.setInt(i++, num(data, "weaponPoints"));
 			  ps.setInt(i++, num(data, "fightCavesWave"));
 			  ps.setInt(i++, num(data, "mageBook"));
-			  ps.setInt(i++, num(data, "necromanceBook"));
 			  ps.setBoolean(i++, bool(data, "retaliate"));
 			  ps.setBoolean(i++, bool(data, "expLock"));
 			  ps.setString(i++, json(gson, data, "gwkc"));
@@ -140,7 +139,6 @@ public class BulkPlayerImporter {
 			  ps.setString(i++, json(gson, data, "stonerAchievements"));
 			  ps.setInt(i++, num(data, "achievementsPoints"));
 			  ps.setString(i++, json(gson, data, "unlockedCredits"));
-			  ps.setString(i++, json(gson, data, "quickNecromances"));
 			  ps.setString(i++, json(gson, data, "stonerProperties"));
 			  ps.setDouble(i++, dbl(data, "expCounter"));
 			  ps.setInt(i++, num(data, "advancePoints"));
@@ -246,7 +244,6 @@ public class BulkPlayerImporter {
               + "weaponPoints INTEGER,"
               + "fightCavesWave INTEGER,"
               + "mageBook INTEGER,"
-              + "necromanceBook INTEGER,"
               + "retaliate BOOLEAN,"
               + "expLock BOOLEAN,"
               + "gwkc TEXT,"
@@ -293,7 +290,6 @@ public class BulkPlayerImporter {
               + "stonerAchievements TEXT,"
               + "achievementsPoints INTEGER,"
               + "unlockedCredits TEXT,"
-              + "quickNecromances TEXT,"
               + "stonerProperties TEXT,"
               + "counterExp REAL,"
               + "advancePoints INTEGER,"

@@ -39,11 +39,6 @@ public enum Handiness {
 			return true;
 		}
 
-		// Check if player has tool ring equipped
-		if (!stoner.getEquipment().isWearingItem(6575)) {
-			DialogueManager.sendItem1(stoner, "You must be wearing a tool ring to do this!", 6575);
-			return false;
-		}
 
 		final Craftable craftable = getCraftable(use.getId(), with.getId());
 		if (craftable == null) {

@@ -44,6 +44,8 @@ public class Client {
 
 	private long lastPacketTime = World.getCycles();
 
+// CRITICAL FIX: Add this modified constructor to Client.java
+
 	public Client(Channel channel) {
 		try {
 			this.channel = channel;
@@ -62,11 +64,24 @@ public class Client {
 				hostId = -1;
 			}
 
-			stoner = new Stoner(this);
-			packetHandler = new PacketHandler(this);
+			// CRITICAL FIX: Only create a Stoner for real clients (non-null channel)
+			// Isolated clients will set their own stoner reference
+			if (channel != null) {
+				stoner = new Stoner(this);
+				packetHandler = new PacketHandler(this);
+			} else {
+				// For isolated clients, stoner will be set externally
+				stoner = null;
+				packetHandler = new PacketHandler(this);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	// CRITICAL FIX: Add this setter method to Client.java
+	public void setStoner(Stoner stoner) {
+		this.stoner = stoner;
 	}
 
 

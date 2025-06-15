@@ -412,7 +412,7 @@ public class GameDefinitionLoader {
             name = "SAGITTARIUS";
             break;
           case 5:
-            name = "NECROMANCE";
+            name = "RESONANCE";
             break;
           case 6:
             name = "MAGE";

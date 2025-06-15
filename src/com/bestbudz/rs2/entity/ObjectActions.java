@@ -69,8 +69,6 @@ import com.bestbudz.rs2.content.minigames.warriorsguild.ArmourAnimator;
 import com.bestbudz.rs2.content.minigames.warriorsguild.CyclopsRoom;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameStore;
-import com.bestbudz.rs2.content.pets.BossPets;
-import com.bestbudz.rs2.content.pets.BossPets.PetData;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.accomplisher.HomeStalls;
 import com.bestbudz.rs2.content.profession.accomplisher.WallSafes;
@@ -86,7 +84,6 @@ import com.bestbudz.rs2.content.profession.hunter.Impling.ImplingRewards.Impling
 import com.bestbudz.rs2.content.profession.lumbering.LumberingTask;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.SpellBookTypes;
-import com.bestbudz.rs2.content.profession.necromance.PetInteraction;
 import com.bestbudz.rs2.content.profession.pyromaniac.PyroAutoBurn;
 import com.bestbudz.rs2.content.profession.pyromaniac.Pyromaniac;
 import com.bestbudz.rs2.content.profession.quarrying.Quarrying;
@@ -94,7 +91,6 @@ import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
 import com.bestbudz.rs2.content.shopping.impl.BountyShop;
 import com.bestbudz.rs2.content.shopping.impl.PestShop;
 import com.bestbudz.rs2.content.wilderness.Lockpick;
-import com.bestbudz.rs2.content.wilderness.TargetSystem;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemCheck;
 import com.bestbudz.rs2.entity.item.impl.GroundItemHandler;
@@ -102,6 +98,8 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.object.GameObject;
 import com.bestbudz.rs2.entity.object.ObjectConstants;
 import com.bestbudz.rs2.entity.object.ObjectManager;
+import com.bestbudz.rs2.entity.pets.PetData;
+import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
@@ -374,7 +372,7 @@ public class ObjectActions
           }
         }
 
-        if (BossPets.pickupPet(stoner, mob)) {
+        if (PetManager.pickupPet(stoner, stoner)) {
           return;
         }
 
@@ -386,10 +384,7 @@ public class ObjectActions
             stoner.start(new OttoGodblessed(stoner));
             break;
           case 2801:
-            if (!stoner.getEquipment().isWearingItem(6575)) {
-				stoner.send(new SendMessage("You must be wearing a tool ring to do this!"));
-              return;
-            }
+
             if (stoner.getBox().getFreeSlots() == 0) {
 				stoner.send(new SendMessage("You do not have any free box spaces to do this!"));
               return;
@@ -763,7 +758,7 @@ public class ObjectActions
 
           if (petDrop != null) {
             if (stoner.getActivePets().size() < 5) {
-              BossPets.spawnPet(stoner, petDrop.getItem(), true);
+				PetManager.spawnPet(stoner, petDrop.getItem(), true);
               stoner.send(
                   new SendMessage(
                       "You feel a pressence following you; "
@@ -1775,19 +1770,19 @@ public class ObjectActions
           case 409:
           case 10638:
           case 19145:
-            if (stoner.getProfession().getGrades()[Professions.NECROMANCE]
-                < stoner.getMaxGrades()[Professions.NECROMANCE]) {
+            if (stoner.getProfession().getGrades()[Professions.RESONANCE]
+                < stoner.getMaxGrades()[Professions.RESONANCE]) {
               stoner
                   .getProfession()
-                  .setGrade(Professions.NECROMANCE, stoner.getMaxGrades()[Professions.NECROMANCE]);
+                  .setGrade(Professions.RESONANCE, stoner.getMaxGrades()[Professions.RESONANCE]);
               stoner
                   .getClient()
-                  .queueOutgoingPacket(new SendMessage("You recharge your necromance points."));
+                  .queueOutgoingPacket(new SendMessage("You recharge your resonance points."));
               stoner.getUpdateFlags().sendAnimation(new Animation(645));
             } else {
               stoner
                   .getClient()
-                  .queueOutgoingPacket(new SendMessage("Your necromance is already full."));
+                  .queueOutgoingPacket(new SendMessage("Your resonance is already full."));
             }
             break;
           case 18772:
@@ -1885,13 +1880,13 @@ public class ObjectActions
             if (stoner.getGrades()[5] == stoner.getMaxGrades()[5]) {
               stoner
                   .getClient()
-                  .queueOutgoingPacket(new SendMessage("You already have full Necromance."));
+                  .queueOutgoingPacket(new SendMessage("You already have full Resonance."));
             } else {
               stoner.getClient().queueOutgoingPacket(new SendSound(442, 1, 0));
               stoner
                   .getClient()
                   .queueOutgoingPacket(
-                      new SendMessage("You recharge your Necromance points at the altar."));
+                      new SendMessage("You recharge your Resonance points at the altar."));
               stoner.getUpdateFlags().sendAnimation(645, 5);
               stoner.getGrades()[5] = stoner.getMaxGrades()[5];
               stoner.getProfession().update(5);
@@ -1899,9 +1894,6 @@ public class ObjectActions
             break;
           case 23271:
             TaskQueue.queue(new HopDitchTask(stoner));
-            if (TargetSystem.getInstance().stonerHasTarget(stoner)) {
-              TargetSystem.getInstance().resetTarget(stoner, false);
-            }
             stoner.send(new SendString("---", 25351));
             stoner.send(new SendString("---", 25353));
             stoner.send(new SendString("---", 25355));
@@ -2150,10 +2142,7 @@ public class ObjectActions
                           "You need a accomplisher grade of 52 to pick the lock on this door."));
               return;
             }
-            if (!stoner.getEquipment().isWearingItem(6575)) {
-				stoner.send(new SendMessage("You must be wearing a tool ring to be able to open this door."));
-              return;
-            }
+
             stoner
                 .getClient()
                 .queueOutgoingPacket(new SendMessage("You attempt to pick the lock..."));

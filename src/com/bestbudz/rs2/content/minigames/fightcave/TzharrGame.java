@@ -11,11 +11,11 @@ import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.minigames.fightcave.TzharrData.NPCS_DETAILS;
-import com.bestbudz.rs2.content.pets.BossPets;
-import com.bestbudz.rs2.content.pets.BossPets.PetData;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.mob.Mob;
+import com.bestbudz.rs2.entity.pets.PetData;
+import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -105,7 +105,7 @@ public final class TzharrGame {
 
     if (petDrop != null) {
       if (stoner.getActivePets().size() < 5) {
-        BossPets.spawnPet(stoner, petDrop.getItem(), true);
+        PetManager.spawnPet(stoner, petDrop.getItem(), true);
         stoner.send(
             new SendMessage(
                 "You feel a presence following you; "

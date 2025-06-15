@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 public class Bank extends ItemContainer {
 
-  public static final int SIZE = 350;
+  public static final int SIZE = 420;
   public final Stoner stoner;
   public RearrangeTypes rearrangeType = RearrangeTypes.SWAP;
   public WithdrawTypes withdrawType = WithdrawTypes.ITEM;

@@ -22,7 +22,7 @@ public class Professions {
     "vigour",
     "life",
     "sagittarius",
-    "necromance",
+    "resonance",
     "mage",
     "foodie",
     "lumbering",
@@ -44,7 +44,7 @@ public class Professions {
   public static final int VIGOUR = 2;
   public static final int LIFE = 3;
   public static final int SAGITTARIUS = 4;
-  public static final int NECROMANCE = 5;
+  public static final int RESONANCE = 5;
   public static final int MAGE = 6;
   public static final int FOODIE = 7;
   public static final int LUMBERING = 8;
@@ -110,8 +110,8 @@ public class Professions {
   };
   public static final int CURRENT_HEALTH_UPDATE_ID = 4016;
   public static final int MAX_HEALTH_UPDATE_ID = 4017;
-  public static final int CURRENT_NECROMANCE_UPDATE_ID = 4012;
-  public static final int MAX_NECROMANCE_UPDATE_ID = 4013;
+  public static final int CURRENT_RESONANCE_UPDATE_ID = 4012;
+  public static final int MAX_RESONANCE_UPDATE_ID = 4013;
 
 
 	public static void declare() {
@@ -120,7 +120,7 @@ public class Professions {
     EXPERIENCE_RATES[VIGOUR] = 1;
     EXPERIENCE_RATES[LIFE] = 1;
     EXPERIENCE_RATES[SAGITTARIUS] = 1;
-    EXPERIENCE_RATES[NECROMANCE] = 20;
+    EXPERIENCE_RATES[RESONANCE] = 20;
     EXPERIENCE_RATES[MAGE] = 1;
     EXPERIENCE_RATES[FOODIE] = 10;
     EXPERIENCE_RATES[LUMBERING] = 4;

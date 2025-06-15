@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    // Keep your Netty 4.2.1
     implementation platform('io.netty:netty-bom:4.2.1.Final')
     implementation 'io.netty:netty-transport:4.2.1.Final'
     implementation 'io.netty:netty-common:4.2.1.Final'
@@ -22,16 +23,25 @@ dependencies {
     implementation 'io.netty:netty-resolver:4.2.1.Final'
     implementation 'io.netty:netty-transport-classes-epoll:4.2.1.Final'
     implementation 'io.netty:netty-transport-classes-kqueue:4.2.1.Final'
+
+    // Your local JARs
     implementation name: 'gson-2.2.2'
     implementation name: 'json-lib-2.4-jdk15'
     implementation name: 'json-simple-1.1.1'
-    implementation name: 'javacord-3.0.6-shaded'
     implementation name: 'xpp3_min-1.1.4c'
+
+    // Other dependencies
     implementation 'com.thoughtworks.xstream:xstream:1.4.20'
     implementation 'org.xerial:sqlite-jdbc:3.41.2.1'
 
-}
+    // Use stable JDA 4.4.0 that works reliably
+    implementation('net.dv8tion:JDA:5.0.1') {
+        exclude group: 'io.netty'
+    }
 
+    // Logging
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
+}
 
 application {
     mainClassName = 'com.bestbudz.Server'
@@ -51,9 +61,8 @@ sourceSets {
             srcDirs = ['data']
         }
     }
+}
 
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:deprecation"
-    }
-
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:deprecation"
 }

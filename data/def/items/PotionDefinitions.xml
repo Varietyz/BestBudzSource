@@ -280,7 +280,7 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>139</id>
-		<name>Power of the necromancer (3)</name>
+		<name>Power of the resonancer (3)</name>
 		<replaceId>141</replaceId>
 		<potionType>RESTORE</potionType>
 		<professionData>
@@ -293,7 +293,7 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>141</id>
-		<name>Power of the necromancer (2)</name>
+		<name>Power of the resonancer (2)</name>
 		<replaceId>143</replaceId>
 		<potionType>RESTORE</potionType>
 		<professionData>
@@ -306,7 +306,7 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>143</id>
-		<name>Power of the necromancer (1)</name>
+		<name>Power of the resonancer (1)</name>
 		<replaceId>-1</replaceId>
 		<potionType>RESTORE</potionType>
 		<professionData>
@@ -633,7 +633,7 @@
 	</PotionDefinition>
 	<PotionDefinition>
 		<id>2434</id>
-		<name>Power of the necromancer (4)</name>
+		<name>Power of the resonancer (4)</name>
 		<replaceId>139</replaceId>
 		<potionType>RESTORE</potionType>
 		<professionData>

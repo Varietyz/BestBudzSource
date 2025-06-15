@@ -32,18 +32,8 @@ public final class MobConstants {
   private static final byte[] aggressive = new byte[18000];
   private static final String[] NON_AGGRESSIVE_NPCS = {
     "zulrah",
-    "saradomin wizard",
-    "zamorak wizard",
-    "man",
-    "woman",
-    "gnome",
-    "dwarf",
-    "cow",
     "guard",
-    "goblin",
     "banker",
-    "tzhaar-xil",
-    "tzhaar-ket"
   };
   private static final int[] NO_FOLLOW_MOBS = {1457, 3943, 3847};
   public static HashMap<Integer, Integer> MERCENARY_REQUIREMENTS = new HashMap<>();

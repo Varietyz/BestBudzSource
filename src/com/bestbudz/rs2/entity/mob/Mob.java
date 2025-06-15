@@ -64,7 +64,6 @@ public class Mob extends Entity {
   private final boolean noFollow;
   private final boolean lockFollow;
   private final Stoner owner;
-  private boolean pet;
   private short npcId;
   private short transformId = -1;
   private boolean visible = true;
@@ -138,8 +137,8 @@ public class Mob extends Entity {
         }
       }
 
-      if (inMultiArea()) combatants = new ArrayList<Stoner>();
-      else combatants = null;
+      combatants = new ArrayList<Stoner>();
+
     } else {
       combatants = null;
     }
@@ -212,18 +211,6 @@ public class Mob extends Entity {
     logger.info("All MOB bosses have been spawned.");
   }
 
-  public boolean isPet() {
-    return pet;
-  }
-
-  public void setPet(boolean pet) {
-    this.pet = pet;
-    if (pet) {
-      this.getGrades()[3] = 420000;
-      this.getMaxGrades()[3] = 420000;
-    }
-  }
-
   public void addCombatant(Stoner p) {
     if (combatants == null) {
       combatants = new ArrayList<Stoner>();
@@ -244,22 +231,9 @@ public class Mob extends Entity {
   @Override
   public boolean canAssault() {
     Entity assaulting = getCombat().getAssaulting();
-    if (isPet()) return false;
 
     if (!isCanAssault()) {
       return false;
-    }
-
-    if ((!inMultiArea()) || (!assaulting.inMultiArea())) {
-      if ((getCombat().inCombat())
-          && (getCombat().getLastAssaultedBy() != getCombat().getAssaulting())) {
-        return false;
-      }
-
-      if ((assaulting.getCombat().inCombat())
-          && (assaulting.getCombat().getLastAssaultedBy() != this)) {
-        return false;
-      }
     }
 
     if (!assaulting.isNpc()) {
@@ -274,12 +248,7 @@ public class Mob extends Entity {
   @Override
   public void checkForDeath() {
     if (getGrades()[3] <= 0) {
-      if (isPet()) {
-        getGrades()[3] = 1; // 💡 Keep them alive
-        return;
-      }
       TaskQueue.queue(new MobDeathTask(this));
-
       if (combatants != null) combatants.clear();
     }
   }
@@ -385,9 +354,9 @@ public class Mob extends Entity {
       hit.setDamage(hit.getDamage() / 10);
     }
 
-    if (isPet() && getGrades()[3] - hit.getDamage() < 1) {
-      hit.setDamage(getGrades()[3] - 1);
-    }
+	  if (hit.getDamage() > getGrades()[3]) {
+		  hit.setDamage(getGrades()[3]);
+	  }
 
     getGrades()[3] = ((short) (getGrades()[3] - hit.getDamage()));
 
@@ -404,7 +373,7 @@ public class Mob extends Entity {
         getCombat().setAssault(hit.getAssaulter());
       }
 
-      if (inMultiArea() && (assaultable) && isRetaliate()) {
+      if (assaultable && isRetaliate()) {
         if (((assaulted) && (hit.getAssaulter() != getCombat().getAssaulting()))
             || ((!assaulted)
                 && (!movedLastCycle)
@@ -473,7 +442,7 @@ public class Mob extends Entity {
 
   @Override
   public void onHit(Entity e, Hit hit) {
-    if ((e.isDead()) && (inMultiArea()) && (!e.isNpc())) {
+    if ((e.isDead()) && (!e.isNpc())) {
       if (combatants == null) {
         combatants = new ArrayList<Stoner>();
       }
@@ -635,6 +604,84 @@ public class Mob extends Entity {
 		return pathMemory.getOrDefault(loc, 0);
 	}
 
+	/**
+	 * CRITICAL FIX: Enhanced method to find nearby players including Discord bot
+	 */
+	private java.util.List<com.bestbudz.rs2.entity.stoner.Stoner> findNearbyPlayers() {
+		java.util.List<com.bestbudz.rs2.entity.stoner.Stoner> nearbyPlayers = new java.util.ArrayList<>();
+
+		// Get all active stoners from World
+		com.bestbudz.rs2.entity.stoner.Stoner[] allStoners = com.bestbudz.rs2.entity.World.getStoners();
+
+		for (com.bestbudz.rs2.entity.stoner.Stoner stoner : allStoners) {
+			if (stoner == null || !stoner.isActive()) {
+				continue;
+			}
+
+			// Check if player is in same Z level
+			if (stoner.getLocation().getZ() != getLocation().getZ()) {
+				continue;
+			}
+
+			// Calculate distance
+			int distance = Math.max(
+				Math.abs(getLocation().getX() - stoner.getLocation().getX()),
+				Math.abs(getLocation().getY() - stoner.getLocation().getY())
+			);
+
+			// Include players within aggro range
+			if (distance <= 25) {
+				nearbyPlayers.add(stoner);
+
+				// Debug output for Discord bot detection
+				/*if (com.bestbudz.rs2.entity.World.isDiscordBot(stoner)) {
+					System.out.println("NPC " + getId() + " detected Discord bot at distance: " + distance);
+				}*/
+			}
+		}
+
+		return nearbyPlayers;
+	}
+
+	/**
+	 * FIXED: Process aggression for this NPC
+	 */
+	private void processAggression() {
+		// Only process aggression for aggressive NPCs
+		if (!getDefinition().isAssaultable() || getCombatDefinition() == null) {
+			return;
+		}
+
+		// Skip if already in combat
+		if (getCombat().getAssaulting() != null) {
+			return;
+		}
+
+		// Find nearby players using our enhanced method
+		java.util.List<com.bestbudz.rs2.entity.stoner.Stoner> nearbyPlayers = findNearbyPlayers();
+
+		for (com.bestbudz.rs2.entity.stoner.Stoner player : nearbyPlayers) {
+			// Skip if player can't be attacked
+			if (!player.getController().canAssaultNPC()) {
+				continue;
+			}
+
+			// Calculate precise distance for aggro check
+			int distance = Math.abs(getLocation().getX() - player.getLocation().getX()) +
+				Math.abs(getLocation().getY() - player.getLocation().getY());
+
+			// Check if within aggro range (typically 2x NPC size)
+			if (distance <= getSize() * 2 + 2) {
+				// Attack the player
+				getCombat().setAssault(player);
+
+				// Debug output
+				//System.out.println("NPC " + getId() + " is attacking " + player.getUsername() +
+				//	" (Discord bot: " + com.bestbudz.rs2.entity.World.isDiscordBot(player) + ")");
+				break; // Only attack one player at a time
+			}
+		}
+	}
 
 	@Override
   public MovementHandler getMovementHandler() {
@@ -660,10 +707,14 @@ public class Mob extends Entity {
         return;
       }
 
-      if (inMultiArea()) {
+
         if (combatants == null) {
           combatants = new ArrayList<Stoner>();
         }
+
+		  if (!getCombat().inCombat() && !isDead()) {
+      processAggression();
+  }
 
         if (combatants.size() > 0) {
           if (getCombat().getAssaulting() == null) combatants.clear();
@@ -678,7 +729,7 @@ public class Mob extends Entity {
             }
           }
         }
-      }
+
 
       doAliveMobProcessing();
 

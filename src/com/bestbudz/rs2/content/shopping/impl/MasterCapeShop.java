@@ -149,7 +149,7 @@ public class MasterCapeShop extends Shop {
         new int[] {
           13204,
         }),
-    NECROMANCE(
+    RESONANCE(
         new int[] {
           13205,
         }),

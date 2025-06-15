@@ -10,7 +10,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
-import org.javacord.api.entity.channel.TextChannel;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class Clan {

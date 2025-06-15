@@ -28,10 +28,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>250</grade>
-			</profession>
+			<profession><id>3</id><grade>2500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>85</grade>
@@ -143,10 +140,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>250</grade>
-			</profession>
+			<profession><id>3</id><grade>2500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>85</grade>
@@ -212,10 +206,7 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>25</grade>
@@ -323,10 +314,7 @@
 				<id>2</id>
 				<grade>2</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>500</grade>
-			</profession>
+			<profession><id>3</id><grade>5000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>270</grade>
@@ -403,10 +391,7 @@
 				<id>2</id>
 				<grade>300</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>500</grade>
-			</profession>
+			<profession><id>3</id><grade>5000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>270</grade>
@@ -474,10 +459,7 @@
 				<id>2</id>
 				<grade>300</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>500</grade>
-			</profession>
+			<profession><id>3</id><grade>5000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>270</grade>
@@ -555,10 +537,7 @@
 				<id>2</id>
 				<grade>600</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>1</grade>
-			</profession>
+			<profession><id>3</id><grade>10</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>270</grade>
@@ -629,10 +608,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>1000</grade>
-			</profession>
+			<profession><id>3</id><grade>10000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>150</grade>
@@ -705,28 +681,6 @@
 				</animation>
 				<max>60</max>
 			</mage>
-			<!--><mage>
-				<assault>
-					<hitDelay>20</hitDelay>
-					<assaultDelay>7</assaultDelay>
-				</assault>
-				<animation>
-					<id>12699</id>
-					<delay>0</delay>
-				</animation>
-				<start>null</start>
-				<projectile>
-					<id>1828</id>
-					<size>1</size>
-					<delay>50</delay>
-					<duration>75</duration>
-					<startHeight>43</startHeight>
-					<endHeight>31</endHeight>
-					<curve>16</curve>
-				</projectile>
-				<end>null</end>
-				<max>50</max>
-			</mage><-->
 		</mage>
 		<sagittarius>
 			<sagittarius>
@@ -778,10 +732,7 @@
 				<id>2</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>50</grade>
@@ -871,10 +822,7 @@
 				<id>2</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>50</grade>
@@ -964,10 +912,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>200</grade>
@@ -1046,10 +991,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>200</grade>
@@ -1138,10 +1080,7 @@
 				<id>2</id>
 				<grade>2</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>2</grade>
@@ -1209,10 +1148,7 @@
 				<id>2</id>
 				<grade>175</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>400</grade>
-			</profession>
+			<profession><id>3</id><grade>4000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>175</grade>
@@ -1307,10 +1243,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>350</grade>
-			</profession>
+			<profession><id>3</id><grade>3500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>150</grade>
@@ -1379,10 +1312,7 @@
 				<id>2</id>
 				<grade>90</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>90</grade>
@@ -1450,10 +1380,7 @@
 				<id>2</id>
 				<grade>90</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>175</grade>
-			</profession>
+			<profession><id>3</id><grade>1750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>90</grade>
@@ -1521,10 +1448,7 @@
 				<id>2</id>
 				<grade>90</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>175</grade>
-			</profession>
+			<profession><id>3</id><grade>1750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>90</grade>
@@ -1592,10 +1516,7 @@
 				<id>2</id>
 				<grade>65</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>70</grade>
-			</profession>
+			<profession><id>3</id><grade>700</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>65</grade>
@@ -1663,10 +1584,7 @@
 				<id>2</id>
 				<grade>95</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>125</grade>
-			</profession>
+			<profession><id>3</id><grade>1250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>80</grade>
@@ -1760,10 +1678,7 @@
 				<id>2</id>
 				<grade>95</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>125</grade>
-			</profession>
+			<profession><id>3</id><grade>1250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>95</grade>
@@ -1858,10 +1773,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>250</grade>
-			</profession>
+			<profession><id>3</id><grade>2500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>150</grade>
@@ -1974,10 +1886,7 @@
 				<id>2</id>
 				<grade>125</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>125</grade>
@@ -2072,10 +1981,7 @@
 				<id>2</id>
 				<grade>86</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>110</grade>
-			</profession>
+			<profession><id>3</id><grade>1100</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>86</grade>
@@ -2170,10 +2076,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>325</grade>
-			</profession>
+			<profession><id>3</id><grade>3250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>175</grade>
@@ -2264,10 +2167,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>350</grade>
-			</profession>
+			<profession><id>3</id><grade>3500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>130</grade>
@@ -2331,10 +2231,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>350</grade>
-			</profession>
+			<profession><id>3</id><grade>3500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>130</grade>
@@ -2398,10 +2295,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>350</grade>
-			</profession>
+			<profession><id>3</id><grade>3500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>130</grade>
@@ -2465,10 +2359,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>150</grade>
-			</profession>
+			<profession><id>3</id><grade>1500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>100</grade>
@@ -2532,10 +2423,7 @@
 				<id>1</id>
 				<grade>155</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>175</grade>
@@ -2617,10 +2505,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>350</grade>
-			</profession>
+			<profession><id>3</id><grade>3500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>130</grade>
@@ -2706,10 +2591,7 @@
 				<id>2</id>
 				<grade>175</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>300</grade>
-			</profession>
+			<profession><id>3</id><grade>3000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>175</grade>
@@ -2790,10 +2672,7 @@
 				<id>2</id>
 				<grade>250</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>450</grade>
-			</profession>
+			<profession><id>3</id><grade>4500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>250</grade>
@@ -2920,10 +2799,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>300</grade>
-			</profession>
+			<profession><id>3</id><grade>3000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>150</grade>
@@ -3014,10 +2890,7 @@
 				<id>2</id>
 				<grade>200</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>300</grade>
-			</profession>
+			<profession><id>3</id><grade>3000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>200</grade>
@@ -3109,10 +2982,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>300</grade>
-			</profession>
+			<profession><id>3</id><grade>3000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>150</grade>
@@ -3193,10 +3063,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>300</grade>
-			</profession>
+			<profession><id>3</id><grade>3000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>150</grade>
@@ -3264,10 +3131,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>2000</grade>
-			</profession>
+			<profession><id>3</id><grade>20000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>150</grade>
@@ -3390,10 +3254,7 @@
 				<id>2</id>
 				<grade>79</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>175</grade>
-			</profession>
+			<profession><id>3</id><grade>1750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>79</grade>
@@ -3485,10 +3346,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>85</grade>
@@ -3574,10 +3432,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>85</grade>
@@ -3663,10 +3518,7 @@
 				<id>2</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>150</grade>
-			</profession>
+			<profession><id>3</id><grade>1500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -3747,10 +3599,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>85</grade>
@@ -3818,10 +3667,7 @@
 				<id>2</id>
 				<grade>65</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>65</grade>
@@ -3902,10 +3748,7 @@
 				<id>2</id>
 				<grade>65</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>65</grade>
@@ -3986,10 +3829,7 @@
 				<id>2</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>50</grade>
@@ -4057,10 +3897,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>95</grade>
-			</profession>
+			<profession><id>3</id><grade>950</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -4129,10 +3966,7 @@
 				<id>2</id>
 				<grade>60</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>60</grade>
@@ -4201,10 +4035,7 @@
 				<id>2</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>55</grade>
-			</profession>
+			<profession><id>3</id><grade>550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>50</grade>
@@ -4273,10 +4104,7 @@
 				<id>2</id>
 				<grade>45</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>55</grade>
-			</profession>
+			<profession><id>3</id><grade>550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>45</grade>
@@ -4345,10 +4173,7 @@
 				<id>2</id>
 				<grade>35</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>45</grade>
-			</profession>
+			<profession><id>3</id><grade>450</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>35</grade>
@@ -4417,10 +4242,7 @@
 				<id>2</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>25</grade>
@@ -4489,10 +4311,7 @@
 				<id>2</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>25</grade>
@@ -4561,10 +4380,7 @@
 				<id>2</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>25</grade>
@@ -4633,10 +4449,7 @@
 				<id>2</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>25</grade>
@@ -4705,10 +4518,7 @@
 				<id>2</id>
 				<grade>1</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>5</grade>
-			</profession>
+			<profession><id>3</id><grade>50</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>1</grade>
@@ -4777,10 +4587,7 @@
 				<id>2</id>
 				<grade>1</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>15</grade>
-			</profession>
+			<profession><id>3</id><grade>150</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>1</grade>
@@ -4849,10 +4656,7 @@
 				<id>2</id>
 				<grade>20</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>20</grade>
@@ -4921,10 +4725,7 @@
 				<id>2</id>
 				<grade>20</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>20</grade>
@@ -4993,10 +4794,7 @@
 				<id>2</id>
 				<grade>20</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>20</grade>
@@ -5065,10 +4863,7 @@
 				<id>2</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>125</grade>
-			</profession>
+			<profession><id>3</id><grade>1250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -5136,10 +4931,7 @@
 				<id>2</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -5207,10 +4999,7 @@
 				<id>2</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -5274,10 +5063,7 @@
 				<id>1</id>
 				<grade>125</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>150</grade>
@@ -5350,7 +5136,101 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
-
+	<NpcCombatDefinition>
+		<!-- Kree'arra PET -->
+		<id>4003</id>
+		<combatType>ALL</combatType>
+		<respawnTime>100</respawnTime>
+		<block>
+			<id>6978</id>
+			<delay>0</delay>
+		</block>
+		<death>
+			<id>6979</id>
+			<delay>0</delay>
+		</death>
+		<professions>
+			<profession>
+				<id>0</id>
+				<grade>100</grade>
+			</profession>
+			<profession>
+				<id>1</id>
+				<grade>125</grade>
+			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
+			<profession>
+				<id>4</id>
+				<grade>150</grade>
+			</profession>
+			<profession>
+				<id>5</id>
+				<grade>100</grade>
+			</profession>
+		</professions>
+		<bonuses>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+			<int>150</int>
+		</bonuses>
+		<melee>
+			<melee>
+				<assault>
+					<hitDelay>1</hitDelay>
+					<assaultDelay>7</assaultDelay>
+				</assault>
+				<animation>
+					<id>6981</id>
+					<delay>0</delay>
+				</animation>
+				<max>26</max>
+			</melee>
+		</melee>
+		<mage>
+			<mage>
+				<assault>
+					<hitDelay>3</hitDelay>
+					<assaultDelay>7</assaultDelay>
+				</assault>
+				<animation>
+					<id>6980</id>
+					<delay>0</delay>
+				</animation>
+				<max>21</max>
+			</mage>
+		</mage>
+		<sagittarius>
+			<sagittarius>
+				<assault>
+					<hitDelay>3</hitDelay>
+					<assaultDelay>7</assaultDelay>
+				</assault>
+				<animation>
+					<id>6980</id>
+					<delay>0</delay>
+				</animation>
+				<projectile>
+					<id>1199</id>
+					<size>1</size>
+					<delay>50</delay>
+					<duration>75</duration>
+					<startHeight>43</startHeight>
+					<endHeight>31</endHeight>
+					<curve>16</curve>
+				</projectile>
+				<max>71</max>
+			</sagittarius>
+		</sagittarius>
+	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Wingman skree -->
 		<id>3163</id>
@@ -5377,10 +5257,7 @@
 				<id>2</id>
 				<grade>280</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>250</grade>
-			</profession>
+			<profession><id>3</id><grade>2500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>280</grade>
@@ -5471,10 +5348,7 @@
 				<id>2</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>250</grade>
-			</profession>
+			<profession><id>3</id><grade>2500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>100</grade>
@@ -5565,10 +5439,7 @@
 				<id>2</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>250</grade>
-			</profession>
+			<profession><id>3</id><grade>2500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>100</grade>
@@ -5655,10 +5526,7 @@
 				<id>1</id>
 				<grade>125</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>5</id>
 				<grade>100</grade>
@@ -5736,10 +5604,7 @@
 				<id>2</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>150</grade>
-			</profession>
+			<profession><id>3</id><grade>1500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>100</grade>
@@ -5808,10 +5673,7 @@
 				<id>2</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>150</grade>
-			</profession>
+			<profession><id>3</id><grade>1500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>100</grade>
@@ -5889,10 +5751,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -5961,10 +5820,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6033,10 +5889,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6106,10 +5959,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6191,10 +6041,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6282,10 +6129,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6354,10 +6198,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6426,10 +6267,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6498,10 +6336,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6570,10 +6405,7 @@
 				<id>2</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -6656,10 +6488,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6728,10 +6557,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6819,10 +6645,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6905,10 +6728,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -6977,10 +6797,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -7049,10 +6866,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -7122,10 +6936,7 @@
 				<id>2</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -7193,10 +7004,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -7266,10 +7074,7 @@
 				<id>2</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -7337,10 +7142,7 @@
 				<id>2</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -7408,10 +7210,7 @@
 				<id>2</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -7479,10 +7278,7 @@
 				<id>2</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -7550,10 +7346,7 @@
 				<id>2</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>1</grade>
@@ -7640,10 +7433,7 @@
 				<id>2</id>
 				<grade>1</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>120</grade>
@@ -7712,10 +7502,7 @@
 				<id>2</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>105</grade>
-			</profession>
+			<profession><id>3</id><grade>1050</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>50</grade>
@@ -7775,10 +7562,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>7</grade>
-			</profession>
+			<profession><id>3</id><grade>70</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -7827,10 +7611,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>7</grade>
-			</profession>
+			<profession><id>3</id><grade>70</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -7879,10 +7660,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>7</grade>
-			</profession>
+			<profession><id>3</id><grade>70</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -7931,10 +7709,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>8</grade>
-			</profession>
+			<profession><id>3</id><grade>80</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -7987,10 +7762,7 @@
 				<id>1</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>15</grade>
-			</profession>
+			<profession><id>3</id><grade>150</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8043,10 +7815,7 @@
 				<id>1</id>
 				<grade>15</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>3</grade>
-			</profession>
+			<profession><id>3</id><grade>30</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8099,10 +7868,7 @@
 				<id>1</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>10</grade>
-			</profession>
+			<profession><id>3</id><grade>100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8151,10 +7917,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>5</grade>
-			</profession>
+			<profession><id>3</id><grade>50</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8207,10 +7970,7 @@
 				<id>1</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>10</grade>
-			</profession>
+			<profession><id>3</id><grade>100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -8259,10 +8019,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>5</grade>
-			</profession>
+			<profession><id>3</id><grade>50</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8311,10 +8068,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>5</grade>
-			</profession>
+			<profession><id>3</id><grade>50</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8363,10 +8117,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>5</grade>
-			</profession>
+			<profession><id>3</id><grade>50</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8415,10 +8166,7 @@
 				<id>0</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>5</grade>
-			</profession>
+			<profession><id>3</id><grade>50</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8467,10 +8215,7 @@
 				<id>0</id>
 				<grade>10</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>10</grade>
-			</profession>
+			<profession><id>3</id><grade>100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8526,10 +8271,7 @@
 				<id>2</id>
 				<grade>15</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>25</int>
@@ -8585,10 +8327,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>-5</int>
@@ -8644,10 +8383,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>-5</int>
@@ -8699,10 +8435,7 @@
 				<id>1</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>15</grade>
-			</profession>
+			<profession><id>3</id><grade>150</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -8758,10 +8491,7 @@
 				<id>2</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>10</grade>
-			</profession>
+			<profession><id>3</id><grade>100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -8817,10 +8547,7 @@
 				<id>2</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>10</grade>
-			</profession>
+			<profession><id>3</id><grade>100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -8876,10 +8603,7 @@
 				<id>2</id>
 				<grade>40</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>20</grade>
-			</profession>
+			<profession><id>3</id><grade>200</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>40</grade>
@@ -8947,10 +8671,7 @@
 				<id>2</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>40</grade>
-			</profession>
+			<profession><id>3</id><grade>400</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>70</grade>
@@ -9031,10 +8752,7 @@
 				<id>2</id>
 				<grade>99</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>80</grade>
-			</profession>
+			<profession><id>3</id><grade>800</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>99</grade>
@@ -9098,10 +8816,7 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>140</grade>
-			</profession>
+			<profession><id>3</id><grade>1400</grade></profession>
 			<profession>
 				<id>5</id>
 				<grade>70</grade>
@@ -9161,10 +8876,7 @@
 				<id>2</id>
 				<grade>400</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>400</grade>
@@ -9277,10 +8989,7 @@
 				<id>2</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9336,10 +9045,7 @@
 				<id>2</id>
 				<grade>3</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9395,10 +9101,7 @@
 				<id>2</id>
 				<grade>8</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9454,10 +9157,7 @@
 				<id>2</id>
 				<grade>8</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9513,10 +9213,7 @@
 				<id>2</id>
 				<grade>8</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9572,10 +9269,7 @@
 				<id>2</id>
 				<grade>8</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9631,10 +9325,7 @@
 				<id>2</id>
 				<grade>8</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9690,10 +9381,7 @@
 				<id>2</id>
 				<grade>8</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>10</grade>
-			</profession>
+			<profession><id>3</id><grade>100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9763,10 +9451,7 @@
 				<id>2</id>
 				<grade>8</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>30</grade>
-			</profession>
+			<profession><id>3</id><grade>300</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -9832,10 +9517,7 @@
 				<id>1</id>
 				<grade>65</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -9887,10 +9569,7 @@
 				<id>1</id>
 				<grade>20</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -9942,10 +9621,7 @@
 				<id>1</id>
 				<grade>20</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -9997,10 +9673,7 @@
 				<id>1</id>
 				<grade>20</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -10052,10 +9725,7 @@
 				<id>1</id>
 				<grade>20</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -10107,10 +9777,7 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>109</grade>
-			</profession>
+			<profession><id>3</id><grade>1090</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -10192,14 +9859,8 @@
 				<id>1</id>
 				<grade>15</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
-			<profession>
-				<id>3</id>
-				<grade>86</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
+			<profession><id>3</id><grade>860</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>50</grade>
@@ -10281,14 +9942,8 @@
 				<id>1</id>
 				<grade>15</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
-			<profession>
-				<id>3</id>
-				<grade>86</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
+			<profession><id>3</id><grade>860</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>50</grade>
@@ -10370,14 +10025,8 @@
 				<id>1</id>
 				<grade>135</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>85</grade>
-			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>850</grade></profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>85</grade>
@@ -10459,14 +10108,8 @@
 				<id>1</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>85</grade>
-			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>850</grade></profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>85</grade>
@@ -10548,14 +10191,8 @@
 				<id>1</id>
 				<grade>70</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>90</grade>
-			</profession>
-			<profession>
-				<id>3</id>
-				<grade>275</grade>
-			</profession>
+			<profession><id>3</id><grade>900</grade></profession>
+			<profession><id>3</id><grade>2750</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>90</grade>
@@ -10641,14 +10278,8 @@
 				<id>1</id>
 				<grade>90</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
-			<profession>
-				<id>3</id>
-				<grade>300</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
+			<profession><id>3</id><grade>3000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>100</grade>
@@ -10735,14 +10366,8 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>100</grade>
@@ -10825,14 +10450,8 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
-			<profession>
-				<id>3</id>
-				<grade>109</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
+			<profession><id>3</id><grade>1090</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>75</grade>
@@ -10914,10 +10533,7 @@
 				<id>1</id>
 				<grade>145</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>140</grade>
-			</profession>
+			<profession><id>3</id><grade>1400</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -10969,10 +10585,7 @@
 				<id>1</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>25</int>
@@ -11024,10 +10637,7 @@
 				<id>1</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>20</grade>
@@ -11115,10 +10725,7 @@
 				<id>1</id>
 				<grade>15</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>30</grade>
-			</profession>
+			<profession><id>3</id><grade>300</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>20</grade>
@@ -11206,10 +10813,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>135</grade>
-			</profession>
+			<profession><id>3</id><grade>1350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -11261,10 +10865,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 		</professions>
 		<bonuses>
 			<int>35</int>
@@ -11316,10 +10917,7 @@
 				<id>1</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -11371,10 +10969,7 @@
 				<id>1</id>
 				<grade>45</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 		</professions>
 		<bonuses>
 			<int>35</int>
@@ -11426,10 +11021,7 @@
 				<id>1</id>
 				<grade>5</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>25</grade>
-			</profession>
+			<profession><id>3</id><grade>250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -11481,10 +11073,7 @@
 				<id>1</id>
 				<grade>5</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>15</grade>
-			</profession>
+			<profession><id>3</id><grade>150</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -11536,10 +11125,7 @@
 				<id>1</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>5</int>
@@ -11595,10 +11181,7 @@
 				<id>2</id>
 				<grade>60</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>70</grade>
-			</profession>
+			<profession><id>3</id><grade>700</grade></profession>
 		</professions>
 		<bonuses>
 			<int>40</int>
@@ -11654,10 +11237,7 @@
 				<id>2</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>65</grade>
-			</profession>
+			<profession><id>3</id><grade>650</grade></profession>
 		</professions>
 		<bonuses>
 			<int>40</int>
@@ -11713,10 +11293,7 @@
 				<id>2</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>65</grade>
-			</profession>
+			<profession><id>3</id><grade>650</grade></profession>
 		</professions>
 		<bonuses>
 			<int>40</int>
@@ -11772,10 +11349,7 @@
 				<id>2</id>
 				<grade>15</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>40</int>
@@ -11831,10 +11405,7 @@
 				<id>2</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -11890,10 +11461,7 @@
 				<id>2</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>100</int>
@@ -11949,10 +11517,7 @@
 				<id>2</id>
 				<grade>45</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 		</professions>
 		<bonuses>
 			<int>35</int>
@@ -12008,10 +11573,7 @@
 				<id>2</id>
 				<grade>10</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>45</grade>
-			</profession>
+			<profession><id>3</id><grade>450</grade></profession>
 		</professions>
 		<bonuses>
 			<int>10</int>
@@ -12067,10 +11629,7 @@
 				<id>2</id>
 				<grade>10</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>45</grade>
-			</profession>
+			<profession><id>3</id><grade>450</grade></profession>
 		</professions>
 		<bonuses>
 			<int>10</int>
@@ -12126,10 +11685,7 @@
 				<id>2</id>
 				<grade>10</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>45</grade>
-			</profession>
+			<profession><id>3</id><grade>450</grade></profession>
 		</professions>
 		<bonuses>
 			<int>10</int>
@@ -12185,10 +11741,7 @@
 				<id>2</id>
 				<grade>10</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>45</grade>
-			</profession>
+			<profession><id>3</id><grade>450</grade></profession>
 		</professions>
 		<bonuses>
 			<int>10</int>
@@ -12240,10 +11793,7 @@
 				<id>1</id>
 				<grade>20</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>10</int>
@@ -12295,10 +11845,7 @@
 				<id>1</id>
 				<grade>30</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>60</grade>
-			</profession>
+			<profession><id>3</id><grade>600</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>50</grade>
@@ -12373,10 +11920,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 		</professions>
 		<bonuses>
 			<int>30</int>
@@ -12428,10 +11972,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 		</professions>
 		<bonuses>
 			<int>30</int>
@@ -12483,10 +12024,7 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 			<profession>
 				<id>5</id>
 				<grade>60</grade>
@@ -12542,10 +12080,7 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>60</grade>
@@ -12619,10 +12154,7 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 			<profession>
 				<id>5</id>
 				<grade>60</grade>
@@ -12701,10 +12233,7 @@
 				<id>1</id>
 				<grade>200</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>240</grade>
-			</profession>
+			<profession><id>3</id><grade>2400</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>190</grade>
@@ -12803,7 +12332,7 @@
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Kalphite queen -->
-		<id>1158</id>
+		<id>6637</id>
 		<combatType>MELEE_AND_MAGE</combatType>
 		<respawnTime>4</respawnTime>
 		<block>
@@ -12827,10 +12356,7 @@
 				<id>2</id>
 				<grade>145</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>400</grade>
-			</profession>
+			<profession><id>3</id><grade>4000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>145</grade>
@@ -12906,7 +12432,7 @@
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Kalphite queen -->
-		<id>1160</id>
+		<id>6638</id>
 		<combatType>MELEE_AND_MAGE</combatType>
 		<respawnTime>75</respawnTime>
 		<block>
@@ -12930,10 +12456,7 @@
 				<id>2</id>
 				<grade>145</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>400</grade>
-			</profession>
+			<profession><id>3</id><grade>4000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>145</grade>
@@ -13029,10 +12552,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>90</grade>
-			</profession>
+			<profession><id>3</id><grade>900</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -13084,10 +12604,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>90</grade>
-			</profession>
+			<profession><id>3</id><grade>900</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -13139,10 +12656,7 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>200</grade>
@@ -13227,10 +12741,7 @@
 				<id>1</id>
 				<grade>290</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>180</grade>
-			</profession>
+			<profession><id>3</id><grade>1800</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>170</grade>
@@ -13290,10 +12801,7 @@
 				<id>1</id>
 				<grade>290</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>180</grade>
-			</profession>
+			<profession><id>3</id><grade>1800</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>170</grade>
@@ -13353,10 +12861,7 @@
 				<id>1</id>
 				<grade>290</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>180</grade>
-			</profession>
+			<profession><id>3</id><grade>1800</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>170</grade>
@@ -13420,10 +12925,7 @@
 				<id>2</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>350</grade>
-			</profession>
+			<profession><id>3</id><grade>3500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>120</grade>
@@ -13540,10 +13042,7 @@
 				<id>2</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>350</grade>
-			</profession>
+			<profession><id>3</id><grade>3500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>120</grade>
@@ -13660,10 +13159,7 @@
 				<id>2</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>350</grade>
-			</profession>
+			<profession><id>3</id><grade>3500</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>120</grade>
@@ -13776,10 +13272,7 @@
 				<id>1</id>
 				<grade>35</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>29</grade>
-			</profession>
+			<profession><id>3</id><grade>290</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -13831,10 +13324,7 @@
 				<id>1</id>
 				<grade>60</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>79</grade>
-			</profession>
+			<profession><id>3</id><grade>790</grade></profession>
 		</professions>
 		<bonuses>
 			<int>45</int>
@@ -13886,10 +13376,7 @@
 				<id>1</id>
 				<grade>45</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>29</grade>
-			</profession>
+			<profession><id>3</id><grade>290</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -13941,10 +13428,7 @@
 				<id>1</id>
 				<grade>35</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>22</grade>
-			</profession>
+			<profession><id>3</id><grade>220</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -13996,10 +13480,7 @@
 				<id>1</id>
 				<grade>35</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>22</grade>
-			</profession>
+			<profession><id>3</id><grade>220</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14052,10 +13533,7 @@
 				<id>1</id>
 				<grade>55</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14108,10 +13586,7 @@
 				<id>1</id>
 				<grade>25</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>10</grade>
-			</profession>
+			<profession><id>3</id><grade>100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14164,10 +13639,7 @@
 				<id>1</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>59</grade>
-			</profession>
+			<profession><id>3</id><grade>590</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14220,10 +13692,7 @@
 				<id>1</id>
 				<grade>55</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>29</grade>
-			</profession>
+			<profession><id>3</id><grade>290</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14276,10 +13745,7 @@
 				<id>1</id>
 				<grade>55</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14332,10 +13798,7 @@
 				<id>1</id>
 				<grade>55</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14388,10 +13851,7 @@
 				<id>1</id>
 				<grade>55</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14444,10 +13904,7 @@
 				<id>1</id>
 				<grade>55</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14500,10 +13957,7 @@
 				<id>1</id>
 				<grade>55</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>35</grade>
-			</profession>
+			<profession><id>3</id><grade>350</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14556,10 +14010,7 @@
 				<id>1</id>
 				<grade>45</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>22</grade>
-			</profession>
+			<profession><id>3</id><grade>220</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14611,10 +14062,7 @@
 				<id>1</id>
 				<grade>35</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>62</grade>
-			</profession>
+			<profession><id>3</id><grade>620</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14670,10 +14118,7 @@
 				<id>1</id>
 				<grade>125</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>125</grade>
@@ -14737,10 +14182,7 @@
 				<id>1</id>
 				<grade>35</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>40</grade>
-			</profession>
+			<profession><id>3</id><grade>400</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14792,10 +14234,7 @@
 				<id>1</id>
 				<grade>15</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>7</grade>
-			</profession>
+			<profession><id>3</id><grade>70</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14847,10 +14286,7 @@
 				<id>1</id>
 				<grade>35</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>40</grade>
-			</profession>
+			<profession><id>3</id><grade>400</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -14903,10 +14339,7 @@
 				<id>1</id>
 				<grade>275</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 		</professions>
 		<bonuses>
 			<int>120</int>
@@ -14959,10 +14392,7 @@
 				<id>1</id>
 				<grade>275</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -15024,10 +14454,7 @@
 				<id>1</id>
 				<grade>275</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -15094,10 +14521,7 @@
 				<id>1</id>
 				<grade>275</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>326</grade>
-			</profession>
+			<profession><id>3</id><grade>3260</grade></profession>
 		</professions>
 		<bonuses>
 			<int>120</int>
@@ -15150,10 +14574,7 @@
 				<id>1</id>
 				<grade>125</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>200</grade>
@@ -15235,10 +14656,7 @@
 				<id>2</id>
 				<grade>125</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>102</grade>
-			</profession>
+			<profession><id>3</id><grade>1020</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>125</grade>
@@ -15303,10 +14721,7 @@
 				<id>0</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>65</grade>
-			</profession>
+			<profession><id>3</id><grade>650</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -15359,10 +14774,7 @@
 				<id>1</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>85</grade>
-			</profession>
+			<profession><id>3</id><grade>850</grade></profession>
 		</professions>
 		<bonuses>
 			<int>40</int>
@@ -15415,10 +14827,7 @@
 				<id>1</id>
 				<grade>120</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>60</grade>
-			</profession>
+			<profession><id>3</id><grade>600</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -15471,10 +14880,7 @@
 				<id>1</id>
 				<grade>110</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>150</grade>
-			</profession>
+			<profession><id>3</id><grade>1500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -15536,10 +14942,7 @@
 				<id>1</id>
 				<grade>110</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>150</grade>
-			</profession>
+			<profession><id>3</id><grade>1500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -15594,10 +14997,7 @@
 				<id>1</id>
 				<grade>200</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>150</grade>
-			</profession>
+			<profession><id>3</id><grade>1500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -15650,10 +15050,7 @@
 				<id>1</id>
 				<grade>175</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>90</grade>
-			</profession>
+			<profession><id>3</id><grade>900</grade></profession>
 		</professions>
 		<bonuses>
 			<int>60</int>
@@ -15716,10 +15113,7 @@
 				<id>1</id>
 				<grade>175</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 		</professions>
 		<bonuses>
 			<int>0</int>
@@ -15773,10 +15167,7 @@
 				<id>1</id>
 				<grade>300</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>250</grade>
-			</profession>
+			<profession><id>3</id><grade>2500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>85</int>
@@ -15844,10 +15235,7 @@
 				<id>1</id>
 				<grade>250</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>325</grade>
-			</profession>
+			<profession><id>3</id><grade>3250</grade></profession>
 		</professions>
 		<bonuses>
 			<int>95</int>
@@ -15926,10 +15314,7 @@
 				<id>1</id>
 				<grade>75</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -15981,10 +15366,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>50</grade>
-			</profession>
+			<profession><id>3</id><grade>500</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16036,10 +15418,7 @@
 				<id>1</id>
 				<grade>65</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16091,10 +15470,7 @@
 				<id>4</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16155,10 +15531,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>45</grade>
-			</profession>
+			<profession><id>3</id><grade>450</grade></profession>
 		</professions>
 		<bonuses>
 			<int>30</int>
@@ -16210,10 +15583,7 @@
 				<id>1</id>
 				<grade>80</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16266,10 +15636,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>45</grade>
-			</profession>
+			<profession><id>3</id><grade>450</grade></profession>
 		</professions>
 		<bonuses>
 			<int>30</int>
@@ -16321,10 +15688,7 @@
 				<id>1</id>
 				<grade>90</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16385,10 +15749,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>27</grade>
-			</profession>
+			<profession><id>3</id><grade>270</grade></profession>
 		</professions>
 		<bonuses>
 			<int>30</int>
@@ -16440,10 +15801,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>128</grade>
-			</profession>
+			<profession><id>3</id><grade>1280</grade></profession>
 		</professions>
 		<bonuses>
 			<int>70</int>
@@ -16495,10 +15853,7 @@
 				<id>1</id>
 				<grade>60</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>60</grade>
-			</profession>
+			<profession><id>3</id><grade>600</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16550,10 +15905,7 @@
 				<id>1</id>
 				<grade>80</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16605,10 +15957,7 @@
 				<id>4</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16660,10 +16009,7 @@
 				<id>1</id>
 				<grade>90</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16724,10 +16070,7 @@
 				<id>1</id>
 				<grade>80</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -16775,10 +16118,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>89</grade>
-			</profession>
+			<profession><id>3</id><grade>890</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>105</grade>
@@ -16835,10 +16175,7 @@
 			<delay>0</delay>
 		</death>
 		<professions>
-			<profession>
-				<id>3</id>
-				<grade>89</grade>
-			</profession>
+			<profession><id>3</id><grade>890</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>105</grade>
@@ -16899,10 +16236,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>89</grade>
-			</profession>
+			<profession><id>3</id><grade>890</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>105</grade>
@@ -16963,10 +16297,7 @@
 				<id>4</id>
 				<grade>80</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17022,10 +16353,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17081,10 +16409,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17140,10 +16465,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17199,10 +16521,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17258,10 +16577,7 @@
 				<id>2</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>110</grade>
-			</profession>
+			<profession><id>3</id><grade>1100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>75</int>
@@ -17317,10 +16633,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17376,10 +16689,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17435,10 +16745,7 @@
 				<id>2</id>
 				<grade>0</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>100</grade>
-			</profession>
+			<profession><id>3</id><grade>1000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17494,10 +16801,7 @@
 				<id>2</id>
 				<grade>55</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>60</grade>
-			</profession>
+			<profession><id>3</id><grade>600</grade></profession>
 		</professions>
 		<bonuses>
 			<int>50</int>
@@ -17560,10 +16864,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>116</grade>
-			</profession>
+			<profession><id>3</id><grade>1160</grade></profession>
 		</professions>
 		<bonuses>
 			<int>85</int>
@@ -17615,10 +16916,7 @@
 				<id>1</id>
 				<grade>50</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>75</grade>
-			</profession>
+			<profession><id>3</id><grade>750</grade></profession>
 		</professions>
 		<bonuses>
 			<int>35</int>
@@ -17674,10 +16972,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>110</grade>
-			</profession>
+			<profession><id>3</id><grade>1100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>100</int>
@@ -17735,10 +17030,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>110</grade>
-			</profession>
+			<profession><id>3</id><grade>1100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>100</int>
@@ -17795,10 +17087,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>110</grade>
-			</profession>
+			<profession><id>3</id><grade>1100</grade></profession>
 		</professions>
 		<bonuses>
 			<int>100</int>
@@ -17846,10 +17135,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>300</grade>
@@ -17910,10 +17196,7 @@
 				<id>1</id>
 				<grade>100</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>120</grade>
-			</profession>
+			<profession><id>3</id><grade>1200</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>350</grade>
@@ -17982,10 +17265,7 @@
 				<id>2</id>
 				<grade>85</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 		</professions>
 		<bonuses>
 			<int>135</int>
@@ -18053,10 +17333,7 @@
 				<id>2</id>
 				<grade>135</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>500</grade>
@@ -18147,10 +17424,7 @@
 				<id>2</id>
 				<grade>300</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>200</grade>
-			</profession>
+			<profession><id>3</id><grade>2000</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>500</grade>
@@ -18215,10 +17489,7 @@
 				<id>2</id>
 				<grade>95</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>110</grade>
-			</profession>
+			<profession><id>3</id><grade>1100</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>800</grade>
@@ -18279,10 +17550,7 @@
 				<id>2</id>
 				<grade>95</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>190</grade>
-			</profession>
+			<profession><id>3</id><grade>1900</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>800</grade>
@@ -18343,10 +17611,7 @@
 				<id>2</id>
 				<grade>150</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>500</grade>
@@ -18436,10 +17701,7 @@
 				<id>2</id>
 				<grade>165</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>255</grade>
-			</profession>
+			<profession><id>3</id><grade>2550</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>515</grade>
@@ -18526,10 +17788,7 @@
 				<id>1</id>
 				<grade>135</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>225</grade>
-			</profession>
+			<profession><id>3</id><grade>2250</grade></profession>
 			<profession>
 				<id>6</id>
 				<grade>225</grade>
@@ -18595,10 +17854,7 @@
 				<id>1</id>
 				<grade>135</grade>
 			</profession>
-			<profession>
-				<id>3</id>
-				<grade>225</grade>
-			</profession>
+			<profession><id>3</id><grade>2250</grade></profession>
 			<profession>
 				<id>4</id>
 				<grade>225</grade>

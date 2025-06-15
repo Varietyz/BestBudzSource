@@ -1,5 +1,7 @@
 package com.bestbudz.core;
 
+import com.bestbudz.core.discord.core.DiscordServerIntegration;
+import com.bestbudz.core.security.ServerStartupMigration;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -36,156 +38,164 @@ import com.bestbudz.rs2.entity.object.ObjectManager;
 
 public class GameThread extends Thread {
 
-  private static final Logger logger = Logger.getLogger(GameThread.class.getSimpleName());
+	private static final Logger logger = Logger.getLogger(GameThread.class.getSimpleName());
 
-  private GameThread() {
-    setName("Main Thread");
-    setPriority(Thread.MAX_PRIORITY);
-    start();
-  }
+	private GameThread() {
+		setName("Main Thread");
+		setPriority(Thread.MAX_PRIORITY);
+		start();
+	}
 
-  public static void init() {
-    try {
-      try {
-        startup();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-      new GameThread();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+	public static void init() {
+		try {
+			try {
+				startup();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			new GameThread();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-  private static void startup() throws Exception {
-    Stopwatch timer = new Stopwatch().reset();
+	private static void startup() throws Exception {
+		Stopwatch timer = new Stopwatch().reset();
 
-    logger.info("Launching BestBudz..");
+		logger.info("Launching BestBudz..");
 
-    if (!BestbudzConstants.DEV_MODE) {
-      System.setErr(new SystemLogger(System.err, new File("./data/logs/err")));
-    }
+		if (!BestbudzConstants.DEV_MODE) {
+			System.setErr(new SystemLogger(System.err, new File("./data/logs/err")));
+		}
 
-    if (BestbudzConstants.DEV_MODE) {
-      LineCounter.run();
-    }
+		if (BestbudzConstants.DEV_MODE) {
+			LineCounter.run();
+		}
 
-    logger.info("Loading game data..");
+		// 🔐 Initialize password security EARLY in startup process
+		// This should happen before any player data loading/saving
+		logger.info("Initializing password security..");
+		ServerStartupMigration.initializePasswordSecurity();
 
-    GameDataLoader.load();
+		logger.info("Loading game data..");
+		GameDataLoader.load();
 
-    logger.info("Loading character backup strategy..");
-    TaskQueue.queue(new StonerBackupTask());
+		logger.info("Loading character backup strategy..");
+		TaskQueue.queue(new StonerBackupTask());
 
-    while (!GameDataLoader.loaded()) {
-      Thread.sleep(200);
-    }
+		while (!GameDataLoader.loaded()) {
+			Thread.sleep(200);
+		}
 
-    logger.info("Binding port and initializing threads..");
+		logger.info("Binding port and initializing threads..");
 
-    EventLoopGroup bossGroup;
-    EventLoopGroup workerGroup;
-    Class<? extends ServerSocketChannel> serverChannelClass;
-    IoHandlerFactory ioHandlerFactory;
+		EventLoopGroup bossGroup;
+		EventLoopGroup workerGroup;
+		Class<? extends ServerSocketChannel> serverChannelClass;
+		IoHandlerFactory ioHandlerFactory;
 
-    if (Epoll.isAvailable()) {
-      ioHandlerFactory = EpollIoHandler.newFactory();
-      serverChannelClass = EpollServerSocketChannel.class;
-      logger.info("Using Epoll Event Loop");
-    } else if (KQueue.isAvailable()) {
-      ioHandlerFactory = KQueueIoHandler.newFactory();
-      serverChannelClass = KQueueServerSocketChannel.class;
-      logger.info("Using KQueue Event Loop");
-    } else {
-      ioHandlerFactory = NioIoHandler.newFactory();
-      serverChannelClass = NioServerSocketChannel.class;
-      logger.warning("Falling back to NIO Event Loop");
-    }
+		if (Epoll.isAvailable()) {
+			ioHandlerFactory = EpollIoHandler.newFactory();
+			serverChannelClass = EpollServerSocketChannel.class;
+			logger.info("Using Epoll Event Loop");
+		} else if (KQueue.isAvailable()) {
+			ioHandlerFactory = KQueueIoHandler.newFactory();
+			serverChannelClass = KQueueServerSocketChannel.class;
+			logger.info("Using KQueue Event Loop");
+		} else {
+			ioHandlerFactory = NioIoHandler.newFactory();
+			serverChannelClass = NioServerSocketChannel.class;
+			logger.warning("Falling back to NIO Event Loop");
+		}
 
-    bossGroup = new MultiThreadIoEventLoopGroup(1, ioHandlerFactory);
-    workerGroup = new MultiThreadIoEventLoopGroup(ioHandlerFactory);
+		bossGroup = new MultiThreadIoEventLoopGroup(1, ioHandlerFactory);
+		workerGroup = new MultiThreadIoEventLoopGroup(ioHandlerFactory);
 
-    ServerBootstrap serverBootstrap = new ServerBootstrap();
-    serverBootstrap
-        .group(bossGroup, workerGroup)
-        .channel(serverChannelClass)
-        .childHandler(new PipelineFactory());
+		ServerBootstrap serverBootstrap = new ServerBootstrap();
+		serverBootstrap
+			.group(bossGroup, workerGroup)
+			.channel(serverChannelClass)
+			.childHandler(new PipelineFactory());
 
-    new LoginThread();
-    new NetworkThread();
+		new LoginThread();
+		new NetworkThread();
 
-    while (true) {
-      try {
-        serverBootstrap.bind(new InetSocketAddress(42000));
-        break;
-      } catch (ChannelException e2) {
-        logger.info("Server could not bind port - sleeping..");
-        Thread.sleep(2000);
-      }
-    }
-	  TaskQueue.queue(new Task(1000) { // 5 Min
-		  @Override
-		  public void execute() {
-			  for (Stoner stoner : World.getStoners()) {
-				  if (stoner != null && stoner.isActive()) {
-					  SaveWorker.enqueueSave(stoner);
-				  }
-			  }
-			  System.out.println("[AUTOSAVE] All active stoners enqueued for save.");
-		  }
+		while (true) {
+			try {
+				serverBootstrap.bind(new InetSocketAddress(42000));
+				break;
+			} catch (ChannelException e2) {
+				logger.info("Server could not bind port - sleeping..");
+				Thread.sleep(2000);
+			}
+		}
 
-		  @Override
-		  public void onStop()
-		  {
-// NO-OP
-		  }
-	  });
+		// Auto-save task for active players
+		TaskQueue.queue(new Task(1000) { // 5 Min
+			@Override
+			public void execute() {
+				for (Stoner stoner : World.getStoners()) {
+					if (stoner != null && stoner.isActive()) {
+						SaveWorker.enqueueSave(stoner);
+					}
+				}
+				System.out.println("[AUTOSAVE] All active stoners enqueued for save.");
+			}
 
-    logger.info("Server successfully launched. [Took " + timer.elapsed() / 1000 + " seconds]");
-  }
+			@Override
+			public void onStop() {
+				// NO-OP
+			}
+		});
 
-  private void cycle() {
-    try {
-      TaskQueue.process();
-      GroundItemHandler.process();
-      ObjectManager.process();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+		// Initialize Discord integration
+		DiscordServerIntegration.initializeDiscordBot();
+		new Thread(() -> {
+			DiscordServerIntegration.announceServerStartup();
+		}).start();
 
-    try {
-      World.process();
+		logger.info("Server successfully launched. [Took " + timer.elapsed() / 1000 + " seconds]");
+	}
 
-	  //long start = System.nanoTime();
-      //System.out.println("World.process(): " + ((System.nanoTime() - start) / 1_000_000.0) + "ms");
+	private void cycle() {
+		try {
+			TaskQueue.process();
+			GroundItemHandler.process();
+			ObjectManager.process();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+		try {
+			World.process();
+			//long start = System.nanoTime();
+			//System.out.println("World.process(): " + ((System.nanoTime() - start) / 1_000_000.0) + "ms");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-  @Override
-  public void run() {
-    int gameTick = 300; // Normal: 600 (300 = Double speed)
-    try {
-      while (!Thread.interrupted()) {
-        long s = System.nanoTime();
-        cycle();
-        long e = (System.nanoTime() - s) / 1_000_000;
-        if (e < gameTick) {
-
-          if (e < 400) {
-            for (int i = 0; i < 30; i++) {
-              long sleep = (gameTick - e) / 30;
-              Thread.sleep(sleep);
-            }
-          } else {
-            Thread.sleep(gameTick - e);
-          }
-        }
-      }
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-  }
+	@Override
+	public void run() {
+		int gameTick = 300; // Normal: 600 (300 = Double speed)
+		try {
+			while (!Thread.interrupted()) {
+				long s = System.nanoTime();
+				cycle();
+				long e = (System.nanoTime() - s) / 1_000_000;
+				if (e < gameTick) {
+					if (e < 400) {
+						for (int i = 0; i < 30; i++) {
+							long sleep = (gameTick - e) / 30;
+							Thread.sleep(sleep);
+						}
+					} else {
+						Thread.sleep(gameTick - e);
+					}
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }

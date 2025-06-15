@@ -20,10 +20,7 @@
 			<id>1</id>
 			<grade>75</grade>
 		</profession>
-		<profession>
-			<id>3</id>
-			<grade>100</grade>
-		</profession>
+		<profession><id>3</id><grade>1000</grade></profession>
 	</professions>
 	<bonuses>
 		<int>50</int>
@@ -53,6 +50,7 @@
 		</melee>
 	</melee>
 </NpcCombatDefinition>
+
 <NpcCombatDefinition>
 <!-- Vampire -->
 <id>3137</id>
@@ -79,10 +77,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -138,10 +133,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -197,10 +189,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -256,10 +245,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -315,10 +301,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -374,10 +357,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -433,10 +413,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -492,10 +469,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -551,10 +525,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -610,10 +581,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -669,10 +637,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -728,10 +693,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -787,10 +749,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>
@@ -820,6 +779,7 @@
 	</melee>
 </melee>
 </NpcCombatDefinition>
+
 <NpcCombatDefinition>
 <!-- Spiritual warrior -->
 <id>3166</id>
@@ -846,10 +806,7 @@
 		<id>2</id>
 		<grade>0</grade>
 	</profession>
-	<profession>
-		<id>3</id>
-		<grade>100</grade>
-	</profession>
+	<profession><id>3</id><grade>1000</grade></profession>
 </professions>
 <bonuses>
 	<int>50</int>

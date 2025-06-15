@@ -3,12 +3,26 @@ package com.bestbudz.rs2.content.combat.special;
 import com.bestbudz.rs2.content.combat.impl.CombatEffect;
 import com.bestbudz.rs2.content.combat.special.effects.AbyssalTentacleEffect;
 import com.bestbudz.rs2.content.combat.special.effects.AbyssalWhipEffect;
+import com.bestbudz.rs2.content.combat.special.effects.ArmadylCrossbowEffect;
+import com.bestbudz.rs2.content.combat.special.effects.ArmadylGodswordEffect;
 import com.bestbudz.rs2.content.combat.special.effects.BandosGodswordEffect;
 import com.bestbudz.rs2.content.combat.special.effects.BarrelchestAnchorEffect;
+import com.bestbudz.rs2.content.combat.special.effects.DarkBowEffect;
+import com.bestbudz.rs2.content.combat.special.effects.DragonBattleaxeEffect;
+import com.bestbudz.rs2.content.combat.special.effects.DragonClawsEffect;
+import com.bestbudz.rs2.content.combat.special.effects.DragonDaggerEffect;
+import com.bestbudz.rs2.content.combat.special.effects.DragonHalberdEffect;
+import com.bestbudz.rs2.content.combat.special.effects.DragonLongswordEffect;
+import com.bestbudz.rs2.content.combat.special.effects.DragonMaceEffect;
 import com.bestbudz.rs2.content.combat.special.effects.DragonScimitarEffect;
 import com.bestbudz.rs2.content.combat.special.effects.DragonSpearEffect;
+import com.bestbudz.rs2.content.combat.special.effects.GraniteMaulEffect;
+import com.bestbudz.rs2.content.combat.special.effects.MagicShortbowEffect;
 import com.bestbudz.rs2.content.combat.special.effects.SaradominGodswordEffect;
+import com.bestbudz.rs2.content.combat.special.effects.SaradominSwordEffect;
+import com.bestbudz.rs2.content.combat.special.effects.StaffOfDeadEffect;
 import com.bestbudz.rs2.content.combat.special.effects.ToxicBlowpipeEffect;
+import com.bestbudz.rs2.content.combat.special.effects.ZamorakGodswordEffect;
 import com.bestbudz.rs2.content.combat.special.effects.ZamorakianHastaEffect;
 import com.bestbudz.rs2.content.combat.special.effects.ZamorakianSpearEffect;
 import com.bestbudz.rs2.content.combat.special.specials.AbyssalTentacleSpecialAssault;
@@ -18,6 +32,7 @@ import com.bestbudz.rs2.content.combat.special.specials.ArmadylCrossbowSpecialAs
 import com.bestbudz.rs2.content.combat.special.specials.ArmadylGodswordSpecialAssault;
 import com.bestbudz.rs2.content.combat.special.specials.BandosGodswordSpecialAssault;
 import com.bestbudz.rs2.content.combat.special.specials.DarkBowSpecialAssault;
+import com.bestbudz.rs2.content.combat.special.specials.DragonBattleaxeSpecialAssault;
 import com.bestbudz.rs2.content.combat.special.specials.DragonClawsSpecialAssault;
 import com.bestbudz.rs2.content.combat.special.specials.DragonDaggerSpecialAssault;
 import com.bestbudz.rs2.content.combat.special.specials.DragonHalberdSpecialAssault;
@@ -107,6 +122,31 @@ public class SpecialAssaultHandler {
     add(12774, new AbyssalWhipEffect());
     add(12006, new AbyssalTentacleSpecialAssault());
     add(12006, new AbyssalTentacleEffect());
+	add(1377, new DragonBattleaxeSpecialAssault());
+	  add(13188, new DragonClawsEffect());        // Dragon Claws
+	  add(1215, new DragonDaggerEffect());        // Dragon Dagger
+	  add(1231, new DragonDaggerEffect());        // Dragon Dagger variants
+	  add(5680, new DragonDaggerEffect());
+	  add(5698, new DragonDaggerEffect());
+	  add(4153, new GraniteMaulEffect());         // Granite Maul
+	  add(11235, new DarkBowEffect());            // Dark Bow
+	  add(12765, new DarkBowEffect());            // Dark Bow variants
+	  add(12766, new DarkBowEffect());
+	  add(12767, new DarkBowEffect());
+	  add(12768, new DarkBowEffect());
+	  add(1434, new DragonMaceEffect());          // Dragon Mace
+	  add(1305, new DragonLongswordEffect());     // Dragon Longsword
+	  add(11802, new ArmadylGodswordEffect());    // Armadyl Godsword
+	  add(11808, new ZamorakGodswordEffect());    // Zamorak Godsword
+	  add(11785, new ArmadylCrossbowEffect());
+	  add(3204, new DragonHalberdEffect());
+	  add(861, new MagicShortbowEffect());
+	  add(859, new MagicShortbowEffect());
+	  add(11838, new SaradominSwordEffect());
+	  add(12809, new SaradominSwordEffect());
+	  add(20074, new StaffOfDeadEffect()); // Staff of the Dead
+	  add(20076, new StaffOfDeadEffect());
+	  add(1377, new DragonBattleaxeEffect());
   }
 
   public static void executeSpecialEffect(Stoner stoner, Entity assaulted) {
@@ -161,7 +201,7 @@ public class SpecialAssaultHandler {
       stoner
           .getClient()
           .queueOutgoingPacket(
-              new SendMessage("You do not have enough special assault to do that."));
+              new SendMessage("You do not have enough power to fuck em up yet, get gud."));
       return false;
     }
     return true;
@@ -182,11 +222,11 @@ public class SpecialAssaultHandler {
       p.getClient()
           .queueOutgoingPacket(
               new SendString(
-                  "@yel@Special Assault - " + p.getSpecialAssault().getAmount() + "%", id));
+                  "@gre@" + p.getSpecialAssault().getAmount() + "LIGHT EM UP", id));
     else
       p.getClient()
           .queueOutgoingPacket(
               new SendString(
-                  "@bla@Special Assault - " + p.getSpecialAssault().getAmount() + "%", id));
+                  "@bla@" + /*p.getSpecialAssault().getAmount()*/ "LIGHT EM UP", id));
   }
 }

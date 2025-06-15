@@ -105,14 +105,19 @@ public abstract class Entity implements CombatInterface {
     return false;
   }
 
-  public void face(Entity entity) {
-    if (entity == null) {
-      return;
-    }
+	public void face(Entity entity) {
+		if (entity == null) {
+			return;
+		}
 
-    if (!entity.isNpc()) updateFlags.faceEntity(entity.getIndex() + 32768);
-    else updateFlags.faceEntity(entity.getIndex());
-  }
+		// FIXED: Only face entities when in combat
+		if (!getCombat().inCombat()) {
+			return;
+		}
+
+		if (!entity.isNpc()) updateFlags.faceEntity(entity.getIndex() + 32768);
+		else updateFlags.faceEntity(entity.getIndex());
+	}
 
   public void freeze(double time, int immunity) {
     if ((isFrozen()) || (isImmuneToIce())) {
@@ -319,45 +324,9 @@ public abstract class Entity implements CombatInterface {
   }
 
   public boolean inMultiArea() {
-    if (attributes.get(PestControlGame.PEST_GAME_KEY) != null) {
-      return true;
+	  return true;
     }
 
-    if (inGodwars() || inZulrah() || inCorp() || inKraken() || inWGGame()) {
-      return true;
-    }
-
-    int x = location.getX();
-    int y = location.getY();
-    int z = location.getZ();
-    if (inArea(new Location(2686, 2690, 0), new Location(2825, 2816, 0), false)) {
-      return true;
-    }
-    if (inArea(new Location(3220, 10332, 0), new Location(3246, 10351, 0), false)) {
-      return true;
-    }
-    if (inArea(new Location(2254, 3063, 0), new Location(2281, 3086, 0), true)) {
-      return true;
-    }
-    return x >= 2333 && y >= 3687 && x <= 2362 && y <= 3717
-        || x >= 3306 && y >= 9364 && x <= 3332 && y <= 9392
-        || ((x >= 2956) && (y >= 3714) && (x <= 3006) && (y <= 3750))
-        || ((x <= 2049) && (y <= 5251) && (x >= 1980) && (y >= 5178))
-        || ((x >= 2893) && (y >= 4430) && (x <= 2934) && (y <= 4471))
-        || ((x >= 1761) && (y >= 5337) && (x <= 1780) && (y <= 5370))
-        || ((x >= 3029) && (x <= 3374) && (y >= 3759) && (y <= 3903))
-        || ((x >= 2250) && (x <= 2280) && (y >= 4670) && (y <= 4720))
-        || ((x >= 3198) && (x <= 3380) && (y >= 3904) && (y <= 3970))
-        || ((x >= 3191) && (x <= 3326) && (y >= 3510) && (y <= 3759))
-        || ((x >= 2987) && (x <= 3006) && (y >= 3912) && (y <= 3930))
-        || ((x >= 2245) && (x <= 2295) && (y >= 4675) && (y <= 4720))
-        || ((x >= 3006) && (x <= 3071) && (y >= 3602) && (y <= 3710))
-        || ((x >= 3134) && (x <= 3192) && (y >= 3519) && (y <= 3646))
-        || ((z > 0) && (x >= 3460) && (x <= 3545) && (y >= 3150) && (y <= 3267))
-        || ((x >= 2369) && (x <= 2425) && (y >= 5058) && (y <= 5122))
-        || ((x >= 3241) && (y >= 9353) && (x <= 3256) && (y <= 9378))
-        || ((x >= 2914) && (y >= 4359) && (x <= 2972) && (y <= 4412));
-  }
 
   public boolean inClanWarsFFA() {
     int x = location.getX();
@@ -540,7 +509,7 @@ public abstract class Entity implements CombatInterface {
   }
 
   public void resetGrades() {
-    System.arraycopy(maxGrades, 0, grades, 0, 22);
+    System.arraycopy(maxGrades, 0, grades, 0, 21);
 
     if (!npc) {
       Stoner p = World.getStoners()[index];

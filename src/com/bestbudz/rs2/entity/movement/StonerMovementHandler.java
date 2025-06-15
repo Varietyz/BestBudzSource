@@ -38,6 +38,31 @@ public class StonerMovementHandler extends MovementHandler {
 
   @Override
   public void process() {
+	  Location currentLocation = stoner.getLocation();
+	  if (currentLocation == null) {
+		  return;
+	  }
+
+	  com.bestbudz.core.cache.map.Region region = null;
+	  try {
+		  region = com.bestbudz.core.cache.map.Region.getRegion(
+			  currentLocation.getX(), currentLocation.getY());
+	  } catch (Exception e) {
+		  System.err.println("Region lookup error: " + e.getMessage());
+		  return;
+	  }
+
+	  // CRITICAL: If no region loaded, stop movement processing
+	  if (region == null) {
+		  System.err.println("No region loaded for " + stoner.getUsername() +
+			  " at " + currentLocation + ", stopping movement");
+
+		  // Reset movement state
+		  primaryDirection = -1;
+		  secondaryDirection = -1;
+		  return;
+	  }
+
     if ((stoner.isDead())
         || (stoner.isFrozen())
         || (stoner.isStunned())
@@ -55,7 +80,7 @@ public class StonerMovementHandler extends MovementHandler {
         stoner.getRunEnergy().toggleResting();
       }
 
-		Region region = Region.getRegion(stoner.getLocation());
+		region = Region.getRegion(stoner.getLocation());
 		int nextX = stoner.getLocation().getX() + GameConstants.DIR[walkPoint.getDirection()][0];
 		int nextY = stoner.getLocation().getY() + GameConstants.DIR[walkPoint.getDirection()][1];
 		int z = stoner.getLocation().getZ();
@@ -94,7 +119,7 @@ public class StonerMovementHandler extends MovementHandler {
         Point runPoint = waypoints.poll();
 
         if ((runPoint != null) && (runPoint.getDirection() != -1)) {
-			Region region = Region.getRegion(stoner.getLocation());
+			region = Region.getRegion(stoner.getLocation());
 			int nextX = stoner.getLocation().getX() + GameConstants.DIR[runPoint.getDirection()][0];
 			int nextY = stoner.getLocation().getY() + GameConstants.DIR[runPoint.getDirection()][1];
 			int z = stoner.getLocation().getZ();

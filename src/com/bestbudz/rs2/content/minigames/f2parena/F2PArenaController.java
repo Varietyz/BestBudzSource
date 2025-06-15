@@ -78,9 +78,9 @@ public class F2PArenaController extends GenericMinigameController {
   }
 
   @Override
-  public boolean canUseNecromance(Stoner paramStoner, int id) {
-    for (int i = 0; i < F2PArenaConstants.ALLOWED_NECROMANCES.length; i++) {
-      if (id == F2PArenaConstants.ALLOWED_NECROMANCES[i]) {
+  public boolean canUseResonance(Stoner paramStoner, int id) {
+    for (int i = 0; i < F2PArenaConstants.ALLOWED_RESONANCES.length; i++) {
+      if (id == F2PArenaConstants.ALLOWED_RESONANCES[i]) {
         return true;
       }
     }
