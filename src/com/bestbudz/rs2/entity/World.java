@@ -17,11 +17,6 @@ import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.StonerUpdateFlags;
 import com.bestbudz.rs2.entity.stoner.net.Client;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendGameUpdateTimer;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendNPCUpdate;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendProjectile;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStillGraphic;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStonerUpdate;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,11 +87,6 @@ public class World {
 					s.decayPathMemory();
 				}
 			}
-			for (Mob m : mobs) {
-				if (m != null) {
-					m.decayPathMemory();
-				}
-			}
 		}
 
 		// Debug output every 100 cycles
@@ -130,14 +120,6 @@ public class World {
 		return stoners;
 	}
 
-	public static boolean isIgnoreTick() {
-		return ignoreTick;
-	}
-
-	public static void setIgnoreTick(boolean ignore) {
-		ignoreTick = ignore;
-	}
-
 	public static boolean isUpdating() {
 		return updating;
 	}
@@ -163,18 +145,6 @@ public class World {
 		return entityManager.isPet(stoner);
 	}
 
-	public static boolean isPetByUsername(Stoner stoner) {
-		return entityManager.isPetByUsername(stoner);
-	}
-
-	public static String getPetDisplayName(Stoner stoner) {
-		return entityManager.getPetDisplayName(stoner);
-	}
-
-	public static Stoner getDiscordBot() {
-		return entityManager.getDiscordBot(stoners);
-	}
-
 	public static Stoner getStonerByName(long n) {
 		return entityManager.getStonerByName(stoners, n);
 	}
@@ -189,25 +159,6 @@ public class World {
 
 	public static boolean isStonerWithinRange(int stonerIndex) {
 		return (stonerIndex > -1) && (stonerIndex < stoners.length);
-	}
-
-	public static int npcAmount() {
-		int amount = 0;
-		for (int i = 1; i < mobs.length; i++) {
-			if (mobs[i] != null) {
-				amount++;
-			}
-		}
-		return amount;
-	}
-
-	public static int getNextAvailableIndex() {
-		for (int i = 1; i < stoners.length; i++) {
-			if (stoners[i] == null) {
-				return i;
-			}
-		}
-		return -1;
 	}
 
 	// Registration methods
@@ -253,26 +204,9 @@ public class World {
 
 				@Override
 				public void onStop() {
-					if (reboot) {
-						try {
-							ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "Run Server.bat");
-							processBuilder.directory(new File("./"));
-							processBuilder.start();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
 					System.exit(0);
 				}
 			});
-	}
-
-	public static void resetUpdate() {
-		updateTimer = -1;
-		synchronized (stoners) {
-			for (Stoner p : stoners)
-				if (p != null) p.getClient().queueOutgoingPacket(new SendGameUpdateTimer(0));
-		}
 	}
 
 	public static void update() {
@@ -324,14 +258,5 @@ public class World {
 			}
 		}
 		return amount;
-	}
-
-	// Debug methods
-	public static void debugPlayerVisibility() {
-		debugManager.debugPlayerVisibility(stoners);
-	}
-
-	public static void checkUsernameCollisions() {
-		debugManager.checkUsernameCollisions(stoners);
 	}
 }

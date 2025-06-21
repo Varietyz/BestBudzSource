@@ -31,6 +31,13 @@ public class Location {
 		this.z = (short) z;
 	}
 
+	public int distanceTo(Location other) {
+		return Math.max(
+			Math.abs(this.getX() - other.getX()),
+			Math.abs(this.getY() - other.getY())
+		);
+	}
+
 	@Override
 	public int hashCode() {
 		return (x << 16) | (y << 8) | z;

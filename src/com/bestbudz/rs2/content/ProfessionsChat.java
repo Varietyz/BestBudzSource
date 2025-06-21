@@ -23,7 +23,7 @@ public class ProfessionsChat {
     "Quarrying",
     "THC-hempistry",
     "Weedsmoking",
-    "Accomplisher",
+    "Pet Master",
     "Mercenary",
     "BankStanding",
     "Consumer"
@@ -73,7 +73,7 @@ public class ProfessionsChat {
     RESONANCE(94159, 5),
     WEEDSMOKER(94151, 16),
     THCHEMPISTRY(94154, 15),
-    ACCOMPLISHER(94157, 17),
+    PET_MASTER(94157, 17),
     HANDINESS(94160, 12),
     CONSUMER(94165, 20),
     MERCENARY(94166, 18),

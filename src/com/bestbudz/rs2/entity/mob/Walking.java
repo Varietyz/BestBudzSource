@@ -3,7 +3,6 @@ package com.bestbudz.rs2.entity.mob;
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.GameConstants;
-import com.bestbudz.rs2.content.profession.summoning.FamiliarMob;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.pathfinding.SimplePathWalker;
@@ -29,8 +28,6 @@ public class Walking {
 
 		int size = mob.getSize();
 
-		boolean familiar = mob instanceof FamiliarMob;
-
 		for (int i = 1; i < size + 1; i++) {
 			for (int k = 0; k < GameConstants.SIZES[i].length; k++) {
 				int x3 = x + GameConstants.SIZES[i][k][0];
@@ -41,10 +38,6 @@ public class Walking {
 
 				if (GameConstants.withinBlock(x, y, size, x2, y2)) {
 					continue;
-				}
-
-				if ((familiar) && (mob.getOwner().getX() == x2) && (mob.getOwner().getY() == y2)) {
-					return false;
 				}
 
 				Region r = getRegion(x3, y3);

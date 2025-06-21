@@ -12,127 +12,149 @@ import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import com.bestbudz.rs2.entity.pets.PetCombatHandler;
 
 public class Melee {
 
-  private final Entity entity;
-  private Assault assault = new Assault(1, 2);
-  private Animation animation = new Animation(422, 0);
+	private final Entity entity;
+	private Assault assault = new Assault(1, 2);
+	private Animation animation = new Animation(422, 0);
 
-  private int nextDamage = -1;
-  private double damageBoost = 1.0D;
+	private int nextDamage = -1;
+	private double damageBoost = 1.0D;
 
-  public Melee(Entity entity) {
-    this.entity = entity;
-  }
+	public Melee(Entity entity) {
+		this.entity = entity;
+	}
 
-  public void execute(Entity assaulting) {
-    if (assault == null) {
-      return;
-    }
+	public void execute(Entity assaulting) {
+		if (assault == null) {
+			return;
+		}
 
-    double accuracy = MeleeFormulas.getAssaultRoll(entity);
-    double aegis = MeleeFormulas.getAegisRoll(entity, entity.getCombat().getAssaulting());
-	  double chance = FormulaData.getChance(accuracy, aegis, entity, entity.getCombat().getAssaulting());
-	  boolean accurate = FormulaData.isAccurateHit(chance, entity, entity.getCombat().getAssaulting());
-    entity.getCombat().setHitChance(chance);
+		double accuracy = MeleeFormulas.getAssaultRoll(entity);
+		double aegis = MeleeFormulas.getAegisRoll(entity, entity.getCombat().getAssaulting());
+		double chance = FormulaData.getChance(accuracy, aegis, entity, entity.getCombat().getAssaulting());
+		boolean accurate = FormulaData.isAccurateHit(chance, entity, entity.getCombat().getAssaulting());
+		entity.getCombat().setHitChance(chance);
 
-    boolean success;
+		boolean success = accurate;
 
-    success = accurate;
+		int baseDamage = entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.MELEE) + 1));
+		int damage = (int)(FormulaData.applyEmergentScaling(entity, baseDamage) * damageBoost);
 
-	  int baseDamage = entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.MELEE) + 1));
-	  int damage = (int)(FormulaData.applyEmergentScaling(entity, baseDamage) * damageBoost);
+		if (nextDamage != -1) {
+			damage = nextDamage;
+			success = true;
+		}
 
-    if (nextDamage != -1) {
-      damage = nextDamage;
-      success = true;
-    }
+		Hit hit = new Hit(
+			entity, (success) || (entity.isIgnoreHitSuccess()) ? damage : 0, Hit.HitTypes.MELEE);
 
-    Hit hit =
-        new Hit(
-            entity, (success) || (entity.isIgnoreHitSuccess()) ? damage : 0, Hit.HitTypes.MELEE);
-    long dealt = !success ? 0 : hit.getDamage();
-    entity.getCombat().updateHitChain(dealt);
+		long dealt = !success ? 0 : hit.getDamage();
+		entity.getCombat().updateHitChain(dealt);
+		entity.setLastHitSuccess((success) || (entity.isIgnoreHitSuccess()));
+		entity.onAssault(assaulting, hit.getDamage(), CombatTypes.MELEE, success);
+		entity.getCombat().updateTimers(assault.getAssaultDelay());
 
-    entity.setLastHitSuccess((success) || (entity.isIgnoreHitSuccess()));
+		// Handle animations based on entity type
+		handleCombatAnimation();
 
-    entity.onAssault(assaulting, hit.getDamage(), CombatTypes.MELEE, success);
+		entity.doConsecutiveAssaults(assaulting);
+		finish(assaulting, hit);
+	}
 
-    entity.getCombat().updateTimers(assault.getAssaultDelay());
+	private void handleCombatAnimation() {
+		if (entity instanceof Stoner && ((Stoner) entity).isPetStoner()) {
+			handlePetAnimation();
+		} else {
+			handleRegularAnimation();
+		}
+	}
 
-    if (animation != null) {
-      entity.getUpdateFlags().sendAnimation(animation);
-    }
+	private void handleRegularAnimation() {
+		if (animation != null) {
+			entity.getUpdateFlags().sendAnimation(animation);
+			// Lock movement using combat definition duration
+			entity.setAnimationWithCombatLock(animation, Combat.CombatTypes.MELEE);
+			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
+		}
+	}
 
-    entity.doConsecutiveAssaults(assaulting);
-    finish(assaulting, hit);
-  }
+	private void handlePetAnimation() {
+		Animation petAnimation = (Animation) entity.getAttributes().get("PET_MELEE_ANIMATION");
+		if (petAnimation != null) {
+			entity.getUpdateFlags().sendAnimation(petAnimation);
+			// Lock movement using combat definition duration
+			entity.setAnimationWithCombatLock(petAnimation, Combat.CombatTypes.MELEE);
+			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
+		}
+	}
 
-  public void finish(Entity assaulting, Hit hit) {
-    assaulting.getCombat().setInCombat(entity);
-    TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
-	  if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
-      long secondHitDamage = hit.getDamage() / 2;
+	public void finish(Entity assaulting, Hit hit) {
+		assaulting.getCombat().setInCombat(entity);
+		TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
 
-      if (secondHitDamage > 0) {
-        Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
+		// Handle double hit logic
+		if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
+			handleDoubleHit(hit, assaulting);
+		}
+	}
 
-        // Copy of 'assaulting' must be made effectively final for the inner class
-        final Entity target = assaulting;
+	private void handleDoubleHit(Hit originalHit, Entity assaulting) {
+		long secondHitDamage = originalHit.getDamage() / 2;
 
-        TaskQueue.queue(
-            new Task(2) { // 1 tick = 300ms
-              @Override
-              public void execute() {
-                Combat.applyHit(target, secondHit);
-                if (entity instanceof Stoner) {
-                  ((Stoner) entity)
-                      .getClient()
-                      .queueOutgoingPacket(
-                          new SendMessage("@gre@Double strike landed! Bonus: " + secondHitDamage));
-                }
-				  FormulaData.updateCombatEvolution(entity, assaulting, hit.getDamage() > 0, (int)hit.getDamage());
-				  if (entity instanceof Stoner) {
-					  ((Stoner) entity).getResonance().updateResonance(
-						  hit.getDamage() > 0,
-						  (int)hit.getDamage(),
-						  Combat.CombatTypes.MELEE
-					  );
-				  }
-                entity.getCombat().resetHitChain();
-                stop();
-              }
+		if (secondHitDamage > 0) {
+			Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
+			final Entity target = assaulting;
 
-              @Override
-              public void onStop() {}
-            });
-      }
-    }
-  }
+			TaskQueue.queue(new Task(2) { // 1 tick = 300ms
+				@Override
+				public void execute() {
+					Combat.applyHit(target, secondHit);
+					if (entity instanceof Stoner) {
+						((Stoner) entity).getClient().queueOutgoingPacket(
+							new SendMessage("@gre@Double strike landed! Bonus: " + secondHitDamage));
+					}
+					FormulaData.updateCombatEvolution(entity, assaulting, originalHit.getDamage() > 0, (int)originalHit.getDamage());
+					if (entity instanceof Stoner) {
+						((Stoner) entity).getResonance().updateResonance(
+							originalHit.getDamage() > 0,
+							(int)originalHit.getDamage(),
+							Combat.CombatTypes.MELEE);
+					}
+					entity.getCombat().resetHitChain();
+					stop();
+				}
 
-  public Animation getAnimation() {
-    return animation;
-  }
+				@Override
+				public void onStop() {}
+			});
+		}
+	}
 
-  public void setAnimation(Animation animation) {
-    this.animation = animation;
-  }
+	public Animation getAnimation() {
+		return animation;
+	}
 
-  public Assault getAssault() {
-    return assault;
-  }
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
+	}
 
-  public void setAssault(Assault assault, Animation animation) {
-    this.assault = assault;
-    this.animation = animation;
-  }
+	public Assault getAssault() {
+		return assault;
+	}
 
-  public void setDamageBoost(double damageBoost) {
-    this.damageBoost = damageBoost;
-  }
+	public void setAssault(Assault assault, Animation animation) {
+		this.assault = assault;
+		this.animation = animation;
+	}
 
-  public void setNextDamage(int nextDamage) {
-    this.nextDamage = nextDamage;
-  }
+	public void setDamageBoost(double damageBoost) {
+		this.damageBoost = damageBoost;
+	}
+
+	public void setNextDamage(int nextDamage) {
+		this.nextDamage = nextDamage;
+	}
 }

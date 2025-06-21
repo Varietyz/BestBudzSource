@@ -7,6 +7,7 @@ import com.bestbudz.rs2.content.combat.impl.DamageMap;
 import com.bestbudz.rs2.content.combat.impl.Mage;
 import com.bestbudz.rs2.content.combat.impl.Melee;
 import com.bestbudz.rs2.content.combat.impl.Sagittarius;
+import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
@@ -17,9 +18,12 @@ import com.bestbudz.rs2.entity.following.Following;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.pathfinding.StraightPathFinder;
+import com.bestbudz.rs2.entity.pets.Pet;
+import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.security.SecureRandom;
+import java.util.Arrays;
 
 public class Combat {
 
@@ -39,8 +43,10 @@ public class Combat {
   private long lastDamageDealt = 0;
   private boolean chainPrimed = false;
   private double hitChance = 0.0;
+	private static final int[] TARGET_GRAPHICS = {451};
+	private long lastCombatActionTime = 0;
 
-  public Combat(Entity entity) {
+	public Combat(Entity entity) {
     this.entity = entity;
     melee = new Melee(entity);
     sagittarius = new Sagittarius(entity);
@@ -135,29 +141,15 @@ public class Combat {
   }
 
 	public void assault() {
-		// EMERGENCY: For pets, bypass some checks temporarily for testing
-		if (entity instanceof Stoner && ((Stoner)entity).isPetStoner()) {
-			System.out.println("EMERGENCY: Pet assault called - bypassing some checks");
-
-			if (assaulting == null) {
-				System.out.println("EMERGENCY: Pet has no target, aborting");
-				return;
-			}
-
-			if (!assaulting.isActive() || assaulting.isDead()) {
-				System.out.println("EMERGENCY: Pet target invalid, resetting");
+		if (entity instanceof Stoner && assaulting instanceof Stoner) {
+			Stoner targetStoner = (Stoner) assaulting;
+			if (targetStoner.isPetStoner()) {
+				System.out.println("CRITICAL: Stoner attempting to assault pet - aborting and resetting combat");
 				reset();
 				return;
 			}
-
-			// Skip distance check for now - force attack
-			System.out.println("EMERGENCY: Forcing pet combat execution");
-			entity.face(assaulting);
-			entity.onCombatProcess(assaulting);
-			executePetNpcCombat((Stoner)entity, assaulting);
-			entity.afterCombatProcess(assaulting);
-			return;
 		}
+
 		if ((!assaulting.isActive())
 			|| (assaulting.isDead())
 			|| (entity.isDead())
@@ -176,18 +168,10 @@ public class Combat {
 			return;
 		}
 
-		// Face the target when assault timer is 0 (actually attacking)
-		if (assaultTimer == 0) {
-			entity.face(assaulting);
-		}
+		if (!entity.getMovementHandler().moving()) entity.face(assaulting);
 
 		entity.onCombatProcess(assaulting);
 
-		// CRITICAL FIX: Handle pets as NPCs with special combat
-		if (entity instanceof Stoner && ((Stoner)entity).isPetStoner()) {
-			// Pets are NPCs but need special damage calculation
-			executePetNpcCombat((Stoner)entity, assaulting);
-		} else {
 			// Regular combat execution for players and NPCs
 			switch (combatType) {
 				case MELEE:
@@ -206,207 +190,9 @@ public class Combat {
 				case NONE:
 					break;
 			}
-		}
+
 
 		entity.afterCombatProcess(assaulting);
-	}
-
-	private void executePetNpcCombat(Stoner pet, Entity target) {
-		System.out.println("DEBUG: Pet NPC " + pet.getUsername() + " executing combat against " +
-			(target.isNpc() ? "NPC" : "Player"));
-
-		// Get combat type for this attack
-		CombatTypes combatType = determinePetCombatType(pet, target);
-
-		// Get proper animation and timing based on combat type
-		Animation attackAnimation = null;
-		com.bestbudz.rs2.content.combat.impl.Assault assault = null;
-		int maxHit = 0;
-
-		switch (combatType) {
-			case MELEE:
-				attackAnimation = (Animation) pet.getAttributes().get("PET_MELEE_ANIMATION");
-				assault = (com.bestbudz.rs2.content.combat.impl.Assault) pet.getAttributes().get("PET_MELEE_ASSAULT");
-				Integer meleeMax = (Integer) pet.getAttributes().get("PET_MELEE_MAX_HIT");
-				maxHit = meleeMax != null ? meleeMax : 50;
-				System.out.println("DEBUG: Pet using MELEE attack");
-				break;
-
-			case MAGE:
-				attackAnimation = (Animation) pet.getAttributes().get("PET_MAGE_ANIMATION");
-				assault = (com.bestbudz.rs2.content.combat.impl.Assault) pet.getAttributes().get("PET_MAGE_ASSAULT");
-				Integer mageMax = (Integer) pet.getAttributes().get("PET_MAGE_MAX_HIT");
-				maxHit = mageMax != null ? mageMax : 50;
-
-				// Handle mage graphics and projectiles
-				Graphic startGraphic = (Graphic) pet.getAttributes().get("PET_MAGE_START");
-				Projectile projectile = (Projectile) pet.getAttributes().get("PET_MAGE_PROJECTILE");
-				Graphic endGraphic = (Graphic) pet.getAttributes().get("PET_MAGE_END");
-
-				if (startGraphic != null) {
-					pet.getUpdateFlags().sendGraphic(startGraphic);
-				}
-				if (projectile != null) {
-					World.sendProjectile(projectile, pet, target);
-				}
-				// End graphic will be handled when hit lands
-
-				System.out.println("DEBUG: Pet using MAGE attack with graphics");
-				break;
-
-			case SAGITTARIUS:
-				attackAnimation = (Animation) pet.getAttributes().get("PET_SAGITTARIUS_ANIMATION");
-				assault = (com.bestbudz.rs2.content.combat.impl.Assault) pet.getAttributes().get("PET_SAGITTARIUS_ASSAULT");
-				Integer sagittariusMax = (Integer) pet.getAttributes().get("PET_SAGITTARIUS_MAX_HIT");
-				maxHit = sagittariusMax != null ? sagittariusMax : 50;
-
-				// Handle sagittarius graphics and projectiles
-				Graphic startGraphic2 = (Graphic) pet.getAttributes().get("PET_SAGITTARIUS_START");
-				Projectile projectile2 = (Projectile) pet.getAttributes().get("PET_SAGITTARIUS_PROJECTILE");
-
-				if (startGraphic2 != null) {
-					pet.getUpdateFlags().sendGraphic(startGraphic2);
-				}
-				if (projectile2 != null) {
-					World.sendProjectile(projectile2, pet, target);
-				}
-
-				System.out.println("DEBUG: Pet using SAGITTARIUS attack with projectile");
-				break;
-
-			default:
-				// Fallback to basic melee
-				attackAnimation = new Animation(422, 0);
-				maxHit = getPetMaxHit(pet);
-				System.out.println("DEBUG: Pet using FALLBACK melee attack");
-				break;
-		}
-
-		// Use the stored assault data for proper timing
-		int hitDelay = 2;
-		int attackSpeed = 4;
-
-		if (assault != null) {
-			hitDelay = assault.getHitDelay();
-			attackSpeed = assault.getAssaultDelay();
-		}
-
-		// Calculate damage using pet's custom system
-		int damage = com.bestbudz.core.util.Utility.randomNumber(maxHit + 1);
-
-		// CRITICAL: Play the correct NPC animation
-		if (attackAnimation != null) {
-			pet.getUpdateFlags().sendAnimation(attackAnimation);
-			System.out.println("DEBUG: Pet played animation: " + attackAnimation.getId());
-		} else {
-			System.out.println("ERROR: No animation found for pet combat type: " + combatType);
-			pet.getUpdateFlags().sendAnimation(new Animation(422, 0)); // Fallback
-		}
-
-		// Set combat timer for next attack
-		updateTimers(attackSpeed);
-
-		// Create and schedule the hit
-		Hit hit = new Hit(pet, damage, getHitTypeForCombatType(combatType));
-
-		com.bestbudz.core.task.TaskQueue.queue(
-			new com.bestbudz.core.task.impl.HitTask(hitDelay, false, hit, target)
-		);
-
-		System.out.println("DEBUG: Pet dealt " + damage + " damage (max: " + maxHit +
-			") with " + hitDelay + " hit delay, " + attackSpeed + " attack speed, animation: " +
-			(attackAnimation != null ? attackAnimation.getId() : "null"));
-	}
-
-	// Helper method to determine combat type for pets
-	private static CombatTypes determinePetCombatType(Stoner pet, Entity target) {
-		// Get the pet's NPC combat type configuration
-		Object combatTypeObj = pet.getAttributes().get("PET_COMBAT_TYPE");
-
-		if (combatTypeObj instanceof NpcCombatDefinition.CombatTypes) {
-			NpcCombatDefinition.CombatTypes npcCombatType = (NpcCombatDefinition.CombatTypes) combatTypeObj;
-
-			// Determine which attack to use based on NPC combat type and distance
-			double distance = pet.getCombat().getDistanceFromTarget();
-
-			switch (npcCombatType) {
-				case MELEE:
-					return CombatTypes.MELEE;
-
-				case MAGE:
-					return CombatTypes.MAGE;
-
-				case SAGITTARIUS:
-					return CombatTypes.SAGITTARIUS;
-
-				case MELEE_AND_MAGE:
-					// Use melee if close, mage if far or random
-					if (distance <= 1 && com.bestbudz.core.util.Utility.randomNumber(2) == 0) {
-						return CombatTypes.MELEE;
-					} else {
-						return CombatTypes.MAGE;
-					}
-
-				case MELEE_AND_SAGITTARIUS:
-					// Use melee if close, sagittarius if far
-					if (distance <= 1 && com.bestbudz.core.util.Utility.randomNumber(2) == 0) {
-						return CombatTypes.MELEE;
-					} else {
-						return CombatTypes.SAGITTARIUS;
-					}
-
-				case SAGITTARIUS_AND_MAGE:
-					// Random between sagittarius and mage
-					return com.bestbudz.core.util.Utility.randomNumber(2) == 0 ?
-						CombatTypes.SAGITTARIUS : CombatTypes.MAGE;
-
-				case ALL:
-					// Random between all three
-					int roll = com.bestbudz.core.util.Utility.randomNumber(3);
-					if (roll == 0) return CombatTypes.MELEE;
-					else if (roll == 1) return CombatTypes.MAGE;
-					else return CombatTypes.SAGITTARIUS;
-
-				default:
-					return CombatTypes.MELEE;
-			}
-		}
-
-		// Default to melee if no combat type configured
-		return CombatTypes.MELEE;
-	}
-
-	// Helper method to get hit type for combat type
-	public static Hit.HitTypes getHitTypeForCombatType(CombatTypes combatType) {
-		switch (combatType) {
-			case MELEE:
-				return Hit.HitTypes.MELEE;
-			case MAGE:
-				return Hit.HitTypes.MAGE;
-			case SAGITTARIUS:
-				return Hit.HitTypes.SAGITTARIUS;
-			default:
-				return Hit.HitTypes.MELEE;
-		}
-	}
-
-
-	// 5. NEW: Get max hit for pets using their attributes
-	private int getPetMaxHit(Stoner pet) {
-		Integer petBaseDamage = (Integer) pet.getAttributes().get("PET_BASE_DAMAGE");
-		if (petBaseDamage != null) {
-			// Calculate pet damage based on their grades and base damage
-			long attackGrade = pet.getGrades()[0]; // Attack
-			long strengthGrade = pet.getGrades()[1]; // Strength
-
-			// Pet damage formula: base damage + grade bonuses
-			int maxHit = petBaseDamage + (int)(attackGrade / 50) + (int)(strengthGrade / 50);
-
-			return Math.max(1, maxHit); // Ensure at least 1 damage
-		} else {
-			// Fallback if no base damage set
-			return 50; // Default pet damage
-		}
 	}
 
   public void forRespawn() {
@@ -471,19 +257,6 @@ public class Combat {
     return damageMap;
   }
 
-	public double getDistanceFromTarget() {
-		if (assaulting == null) {
-			return -1.0D;
-		}
-
-		// FIXED: Use proper tile distance (Chebyshev distance) instead of Manhattan
-		int deltaX = Math.abs(entity.getLocation().getX() - assaulting.getLocation().getX());
-		int deltaY = Math.abs(entity.getLocation().getY() - assaulting.getLocation().getY());
-
-		// Return the maximum of the two deltas (proper tile distance)
-		return Math.max(deltaX, deltaY);
-	}
-
   public Entity getLastAssaultedBy() {
     return lastAssaultedBy;
   }
@@ -545,32 +318,11 @@ public class Combat {
 	}
 
 	public void process() {
-		// Debug for pets specifically
-		if (entity instanceof Stoner && ((Stoner)entity).isPetStoner()) {
-			Stoner pet = (Stoner)entity;
-			System.out.println("=== PET COMBAT PROCESS DEBUG: " + pet.getUsername() + " ===");
-			System.out.println("assaultTimer: " + assaultTimer);
-			System.out.println("assaulting: " + (assaulting != null ? (assaulting.isNpc() ? "NPC" : "Player") : "null"));
-			System.out.println("inCombat: " + inCombat());
-			System.out.println("canAssault: " + entity.canAssault());
-			if (assaulting != null) {
-				System.out.println("target active: " + assaulting.isActive());
-				System.out.println("target dead: " + assaulting.isDead());
-				System.out.println("distance: " + getDistanceFromTarget());
-				System.out.println("within distance: " + withinDistanceForAssault(combatType, false));
-			}
-			System.out.println("====================================================");
-		}
-
 		if (assaultTimer > 0) {
 			assaultTimer -= 1;
 		}
 
 		if ((assaulting != null) && (assaultTimer == 0)) {
-			// DEBUG: This should trigger for pets
-			if (entity instanceof Stoner && ((Stoner)entity).isPetStoner()) {
-				System.out.println("DEBUG: Pet " + ((Stoner)entity).getUsername() + " CALLING ASSAULT!");
-			}
 			assault();
 		}
 
@@ -579,7 +331,16 @@ public class Combat {
 
   public void reset() {
     assaulting = null;
+	entity.clearAnimationLock();
     entity.getFollowing().reset();
+	  if (entity instanceof Stoner && ((Stoner) entity).isPetStoner()) {
+		  Stoner owner = (Stoner) entity.getAttributes().get("PET_OWNER");
+		  if (owner != null && owner.isActive()) {
+			  entity.getFollowing().setFollow(owner);
+		  }
+	  }
+	int direction = entity.getFaceDirection();
+	entity.faceDirection(direction);
   }
 
   public void resetCombatTimer() {
@@ -615,22 +376,12 @@ public class Combat {
 
     int dist = CombatConstants.getDistanceForCombatType(type);
 
-    boolean ignoreClipping = false;
-
-	  if (entity instanceof Stoner && ((Stoner)entity).isPetStoner()) {
-		  // Pets should use simple distance checking like NPCs
-		  // Don't apply the complex NPC-specific distance modifications
-		  dist = 1; // Melee distance for pets
-		  ignoreClipping = true; // Simplify pathfinding for pets
-
-		  if (!isWithinDistance(dist)) {
-			  System.out.println("DEBUG: Pet not within distance " + dist + " (actual: " + getDistanceFromTarget() + ")");
-			  return false;
-		  }
-
-		  System.out.println("DEBUG: Pet IS within distance, allowing assault");
-		  return true; // Skip complex clipping checks for pets
+	  if (type == CombatTypes.MELEE) {
+		  dist = 1; // Allow adjacent tiles AND same tile
 	  }
+
+
+	  boolean ignoreClipping = false;
 
     if (entity.isNpc()) {
       Mob m = World.getNpcs()[entity.getIndex()];
@@ -695,51 +446,55 @@ public class Combat {
       return false;
     }
 
-    if (!ignoreClipping) {
-      boolean blocked = true;
-
-      if (type == CombatTypes.MAGE || combatType == CombatTypes.SAGITTARIUS) {
-        for (Location i :
-            GameConstants.getEdges(
-                entity.getLocation().getX(), entity.getLocation().getY(), entity.getSize())) {
-          if (entity.inGodwars()) {
-            if (StraightPathFinder.isProjectilePathClear(i, assaulting.getLocation())
-                && StraightPathFinder.isProjectilePathClear(assaulting.getLocation(), i)) {
-              blocked = false;
-              break;
-            }
-          } else {
-            if (StraightPathFinder.isProjectilePathClear(i, assaulting.getLocation())
-                || StraightPathFinder.isProjectilePathClear(assaulting.getLocation(), i)) {
-              blocked = false;
-              break;
-            }
-          }
-        }
-      } else if (type == CombatTypes.MELEE) {
-        for (Location i :
-            GameConstants.getEdges(
-                entity.getLocation().getX(), entity.getLocation().getY(), entity.getSize())) {
-          if (entity.inGodwars()) {
-            if (StraightPathFinder.isInteractionPathClear(i, assaulting.getLocation())
-                && StraightPathFinder.isInteractionPathClear(assaulting.getLocation(), i)) {
-              blocked = false;
-              break;
-            }
-          } else {
-            if (StraightPathFinder.isInteractionPathClear(i, assaulting.getLocation())
-                || StraightPathFinder.isInteractionPathClear(assaulting.getLocation(), i)) {
-              blocked = false;
-              break;
-            }
-          }
-        }
-      }
-
-      return !blocked;
-    }
+	  if (!ignoreClipping && type == CombatTypes.MELEE) {
+		  // For melee, be much more lenient about clipping
+		  // Allow attack if ANY edge can reach target
+		  for (Location i : GameConstants.getEdges(
+			  entity.getLocation().getX(), entity.getLocation().getY(), entity.getSize())) {
+			  if (StraightPathFinder.isInteractionPathClear(i, assaulting.getLocation())) {
+				  return true; // Found one clear path, allow attack
+			  }
+		  }
+		  return false;
+	  }
     return true;
   }
+
+	/**
+	 * Checks if the entity is currently performing a combat action
+	 */
+	public boolean isPerformingCombatAction() {
+		// You might track this with a flag that gets set during combat execution
+		// and cleared when the action completes
+		return isInCombat() && hasRecentCombatAction();
+	}
+
+	private boolean hasRecentCombatAction() {
+		// Check if a combat action was performed recently (within the last few ticks)
+		return (System.currentTimeMillis() - lastCombatActionTime) < 1800; // 3 ticks
+	}
+
+	/**
+	 * Checks if the entity is currently in combat (wrapper for existing inCombat method)
+	 */
+	public boolean isInCombat() {
+		return inCombat();
+	}
+
+	/**
+	 * Sets the timestamp when a combat action was performed
+	 */
+	public void setLastCombatActionTime(long time) {
+		this.lastCombatActionTime = time;
+	}
+
+	/**
+	 * Gets the last combat action timestamp
+	 */
+	public long getLastCombatActionTime() {
+		return lastCombatActionTime;
+	}
+
 
   public enum CombatTypes {
     MELEE,

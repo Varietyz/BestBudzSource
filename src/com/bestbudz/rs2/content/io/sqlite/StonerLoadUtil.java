@@ -113,8 +113,8 @@ public final class StonerLoadUtil {
 				stoner.setTransparentPanel((byte) rs.getInt(idx++));
 				stoner.setTransparentChatbox((byte) rs.getInt(idx++));
 				stoner.setSideStones((byte) rs.getInt(idx++));
-				stoner.getSkulling().setLeft(rs.getLong(idx++));
-				stoner.getSkulling().setSkullIcon(stoner, rs.getInt(idx++));
+				stoner.getSkulling(rs.getLong(idx++));
+				stoner.getSkulling(rs.getInt(idx++));
 				stoner.getSpecialAssault().setSpecialAmount(rs.getInt(idx++));
 				String assaultStyle = rs.getString(idx++);
 				if (assaultStyle != null) stoner.getEquipment().setAssaultStyle(com.bestbudz.rs2.entity.item.Equipment.AssaultStyles.valueOf(assaultStyle));

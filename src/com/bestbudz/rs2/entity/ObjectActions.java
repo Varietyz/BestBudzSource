@@ -36,7 +36,6 @@ import com.bestbudz.rs2.content.dialogue.impl.BestBudzDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.ConsumerTeleport;
 import com.bestbudz.rs2.content.dialogue.impl.DecantingDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.DunceDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.EmblemDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.GenieResetDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.HariDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.KamfreeDialogue;
@@ -70,8 +69,7 @@ import com.bestbudz.rs2.content.minigames.warriorsguild.CyclopsRoom;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameStore;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.accomplisher.HomeStalls;
-import com.bestbudz.rs2.content.profession.accomplisher.WallSafes;
+import com.bestbudz.rs2.content.profession.petmaster.PetMaster;
 import com.bestbudz.rs2.content.profession.foodie.Foodie;
 import com.bestbudz.rs2.content.profession.foodie.FoodieData;
 import com.bestbudz.rs2.content.profession.forging.Forging;
@@ -352,10 +350,6 @@ public class ObjectActions
   public static final void finishClickNpc(Stoner stoner, int option, Mob mob) {
     int id = mob.getId();
 
-    if (stoner.getSummoning().interact(mob, option)) {
-      return;
-    }
-
     if (Implings.implings.containsKey(mob.getId())) {
       Implings.catchImp(stoner, mob);
     }
@@ -477,8 +471,7 @@ public class ObjectActions
           case 1306:
             stoner.start(new MakeoverMage(stoner));
             break;
-          case 315:
-            stoner.start(new EmblemDialogue(stoner));
+          case 315://FREE
             break;
           case 4936:
             stoner.start(new ConsumerTeleport(stoner, mob));
@@ -702,13 +695,7 @@ public class ObjectActions
             Advance.update(stoner);
             stoner.send(new SendInterface(51000));
             break;
-          case 315:
-            if (stoner.getSkulling().isSkulled()) {
-				stoner.send(new SendMessage("You already have a wilderness skull!"));
-              return;
-            }
-            stoner.getSkulling().skull(stoner, stoner);
-			  stoner.send(new SendMessage("You have been skulled."));
+          case 315: //FREE
             break;
           case 6524:
             PotionDecanting.decantAll(stoner);
@@ -723,14 +710,7 @@ public class ObjectActions
 
       case 4:
         switch (id) {
-          case 315:
-            if (stoner.getSkulling().isSkulled()) {
-				stoner.send(new SendMessage("You already have a wilderness skull!"));
-              return;
-            }
-
-            stoner.getSkulling().skull(stoner, stoner);
-			  stoner.send(new SendMessage("You have been skulled."));
+          case 315://FREE
             break;
         }
 
@@ -1185,8 +1165,7 @@ public class ObjectActions
             stoner.teleport(new Location(2841, 3538, 0));
             stoner.send(new SendMessage("You climb down the stairs to the previous floor."));
             break;
-          case 7236:
-            WallSafes.crack(stoner);
+          case 7236: // FREE
             break;
           case 18987:
             stoner.send(new SendMessage("You have climbed down the ladder."));
@@ -2099,8 +2078,6 @@ public class ObjectActions
           return;
         }
 
-        Location location = new Location(x, y, z);
-        HomeStalls.attempt(stoner, id, location);
         if (DwarfMultiCannon.hasCannon(stoner)) {
           DwarfMultiCannon.getCannon(stoner).pickup(stoner, x, y);
           return;
@@ -2139,7 +2116,7 @@ public class ObjectActions
                   .getClient()
                   .queueOutgoingPacket(
                       new SendMessage(
-                          "You need a accomplisher grade of 52 to pick the lock on this door."));
+                          "You need a petmaster grade of 52 to pick the lock on this door."));
               return;
             }
 

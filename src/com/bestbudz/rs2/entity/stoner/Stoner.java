@@ -1,57 +1,29 @@
 package com.bestbudz.rs2.entity.stoner;
 
-import com.bestbudz.BestbudzConstants;
 import com.bestbudz.Server;
-import com.bestbudz.core.cache.map.Region;
-import com.bestbudz.core.discord.DiscordManager;
-import com.bestbudz.core.network.StreamBuffer;
-import com.bestbudz.core.task.Task;
-import com.bestbudz.core.task.TaskQueue;
-import com.bestbudz.core.task.impl.FinishTeleportingTask;
-import com.bestbudz.core.util.NameUtil;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.Utility.Stopwatch;
 import com.bestbudz.rs2.auto.combat.AutoCombat;
 import com.bestbudz.rs2.content.Box;
-import com.bestbudz.rs2.content.Emotes;
-import com.bestbudz.rs2.content.LoyaltyShop;
 import com.bestbudz.rs2.content.MoneyPouch;
 import com.bestbudz.rs2.content.PriceChecker;
 import com.bestbudz.rs2.content.PrivateMessaging;
 import com.bestbudz.rs2.content.RunEnergy;
-import com.bestbudz.rs2.content.StarterKit;
 import com.bestbudz.rs2.content.StonerProperties;
 import com.bestbudz.rs2.content.StonerTitle;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.bank.Bank;
 import com.bestbudz.rs2.content.clanchat.Clan;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
-import com.bestbudz.rs2.content.combat.CombatInterface;
 import com.bestbudz.rs2.content.combat.Hit;
-import com.bestbudz.rs2.content.combat.StonerCombatInterface;
-import com.bestbudz.rs2.content.combat.formula.FormulaData;
-import com.bestbudz.rs2.content.combat.impl.Skulling;
 import com.bestbudz.rs2.content.combat.impl.SpecialAssault;
 import com.bestbudz.rs2.content.consumables.Consumables;
 import com.bestbudz.rs2.content.dialogue.Dialogue;
-import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
-import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
-import com.bestbudz.rs2.content.interfaces.impl.CreditTab;
-import com.bestbudz.rs2.content.interfaces.impl.MiscInterfaces;
-import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
-import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
-import com.bestbudz.rs2.content.io.sqlite.StonerSave;
 import com.bestbudz.rs2.content.membership.CreditPurchase;
 import com.bestbudz.rs2.content.minigames.StonerMinigames;
-import com.bestbudz.rs2.content.minigames.barrows.Barrows.Brother;
 import com.bestbudz.rs2.content.minigames.duelarena.Dueling;
 import com.bestbudz.rs2.content.minigames.fightcave.TzharrDetails;
-import com.bestbudz.rs2.content.minigames.fightcave.TzharrGame;
-import com.bestbudz.rs2.content.minigames.godwars.GodWarsData;
-import com.bestbudz.rs2.content.minigames.godwars.GodWarsData.GodWarsNpc;
-import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
 import com.bestbudz.rs2.content.profession.Profession;
-import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.bankstanding.BankStanding;
 import com.bestbudz.rs2.content.profession.fisher.Fisher;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
@@ -63,7 +35,6 @@ import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
 import com.bestbudz.rs2.content.profession.resonance.Resonance;
 import com.bestbudz.rs2.content.profession.sagittarius.SagittariusProfession;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
-import com.bestbudz.rs2.content.profession.summoning.Summoning;
 import com.bestbudz.rs2.content.shopping.Shopping;
 import com.bestbudz.rs2.content.trading.Trade;
 import com.bestbudz.rs2.entity.Entity;
@@ -71,45 +42,25 @@ import com.bestbudz.rs2.entity.InterfaceManager;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.following.Following;
-import com.bestbudz.rs2.entity.following.StonerFollowing;
 import com.bestbudz.rs2.entity.item.Equipment;
-import com.bestbudz.rs2.entity.item.EquipmentConstants;
 import com.bestbudz.rs2.entity.item.ItemDegrading;
 import com.bestbudz.rs2.entity.item.impl.LocalGroundItems;
 import com.bestbudz.rs2.entity.mob.Mob;
-import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.mob.RareDropEP;
 import com.bestbudz.rs2.entity.movement.MovementHandler;
-import com.bestbudz.rs2.entity.movement.StonerMovementHandler;
 import com.bestbudz.rs2.entity.object.LocalObjects;
 import com.bestbudz.rs2.entity.pets.Pet;
-import com.bestbudz.rs2.entity.pets.PetData;
-import com.bestbudz.rs2.entity.pets.PetManager;
+import com.bestbudz.rs2.entity.pets.PetCombatSystem;
 import com.bestbudz.rs2.entity.stoner.controllers.Controller;
-import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.Client;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ChangeAppearancePacket;
-import com.bestbudz.rs2.entity.stoner.net.in.impl.ChatBridgeManager;
 import com.bestbudz.rs2.entity.stoner.net.out.OutgoingPacket;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendExpCounter;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendLoginResponse;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendLogout;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMapRegion;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendProfessionGoal;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSidebarInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStonerOption;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendWalkableInterface;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 /**
@@ -259,50 +210,42 @@ public class Stoner extends Entity {
 
 	@Override
 	public void process() throws Exception {
+
 		if (isPetStoner()) {
-			// Minimal processing for pets - only movement and following
-			if (getClient() != null) {
-				getClient().resetLastPacketReceived();
-			}
+			getClient().resetLastPacketReceived();
 
-			// Only process following behavior for pets
-			if (getFollowing() != null) {
-				getFollowing().process();
-			}
-			if (getCombat() != null) {
-				getCombat().process();
-			}
-
-			// Allow pets to check for aggression (so they can defend owner)
-			doAgressionCheck();
-			return; // Skip all other processing for pets
-		}
-
-		if (Math.abs(World.getCycles() - client.getLastPacketTime()) >= 9) {
+		} else {
+		  if (Math.abs(World.getCycles() - client.getLastPacketTime()) >= 9) {
 			if (getCombat().inCombat() && !getCombat().getLastAssaultedBy().isNpc()) {
-				if (timeout == 0) {
-					timeout = System.currentTimeMillis() + 180000;
-				} else if (timeout <= System.currentTimeMillis() || !getCombat().inCombat()) {
-					logout(false);
-					System.out.println("Stoner timed out: " + getUsername());
-				}
-			} else {
-				System.out.println("Stoner timed out: " + getUsername());
+			  if (timeout == 0) {
+				timeout = System.currentTimeMillis() + 180000;
+			  } else if (timeout <= System.currentTimeMillis() || !getCombat().inCombat()) {
 				logout(false);
+				System.out.println("Stoner timed out: " + getUsername());
+			  }
+			} else {
+			  System.out.println("Stoner timed out: " + getUsername());
+			  logout(false);
 			}
+		  }
 		}
 
 		if (getController() != null) {
 			getController().tick(this);
 		}
 
-		getShopping().update();
-		getResonance().drain();
+    	if (!isPetStoner()) {
+		  getShopping().update();
+		  getResonance().drain();
+		  getBankStanding().process();
+		  getCombat().process();
+		  doAgressionCheck();
+		  getAutoCombat().process();
+		} else if (isPetStoner()) {
+			getCombat().process();
+			PetCombatSystem.processPetCombat(this);
+		}
 		getFollowing().process();
-		getCombat().process();
-		doAgressionCheck();
-		getAutoCombat().process();
-		getBankStanding().process();
 	}
 
 	@Override
@@ -505,16 +448,11 @@ public class Stoner extends Entity {
 
 	public String getUsername() { return username; }
 
-	private int IDX_PET = 0;
 	public void setUsername(String username) {
 		this.username = username;
-		if (isPet()){
-			IDX_PET++;
-			this.usernameToLong = Utility.nameToLong(username.toLowerCase() + IDX_PET);
-		} else {
-			// CRITICAL FIX: Always recalculate usernameToLong when username changes
-			this.usernameToLong = Utility.nameToLong(username.toLowerCase());
-		}
+		// REMOVE THE PET SPECIAL CASE - just use the username as-is
+		this.usernameToLong = Utility.nameToLong(username.toLowerCase());
+
 		// Debug output for verification
 		if (isPet() || username.equals("BestBud")) {
 			System.out.println("Set username for " + username + " -> usernameToLong: " + this.usernameToLong);
@@ -571,7 +509,6 @@ public class Stoner extends Entity {
 	public Melee getMelee() { return professions.getMelee(); }
 	public Fisher getFisher() { return professions.getFisher(); }
 	public Mercenary getMercenary() { return professions.getMercenary(); }
-	public Summoning getSummoning() { return professions.getSummoning(); }
 	public Resonance getResonance() { return professions.getResonance(); }
 	public BankStanding getBankStanding() { return professions.getBankStanding(); }
 
@@ -600,7 +537,6 @@ public class Stoner extends Entity {
 
 	// Combat delegation - CRITICAL legacy methods
 	public SpecialAssault getSpecialAssault() { return combat.getSpecialAssault(); }
-	public Skulling getSkulling() { return combat.getSkulling(); }
 	public RareDropEP getRareDropEP() { return combat.getRareDropEP(); }
 	public AutoCombat getAutoCombat() { return combat.getAutoCombat(); }
 
@@ -837,8 +773,6 @@ public class Stoner extends Entity {
 		getRunEnergy().tick();
 		startRegeneration();
 		getSpecialAssault().tick();
-		getSummoning().onLogin();
-		getSkulling().tick(this);
 		minigames.start();
 		if (getTeleblockTime() > 0) {
 			tickTeleblock();
@@ -880,5 +814,9 @@ public class Stoner extends Entity {
 	@Override
 	public String toString() {
 		return "Stoner(" + getUsername() + ":" + getPassword() + " - " + client.getHost() + ")";
+	}
+
+	public void getSkulling(long idx)
+	{
 	}
 }

@@ -7079,9 +7079,9 @@ public class ItemNames {
   public static final int OPENID_TOME = 7782;
   public static final int OPENID_TOME_1 = 7783;
   public static final int OPENID_TOME_2 = 7784;
-  public static final int ACCOMPLISHER_TOME = 7785;
-  public static final int ACCOMPLISHER_TOME_1 = 7786;
-  public static final int ACCOMPLISHER_TOME_2 = 7787;
+  public static final int STARTER_TOME = 7785;
+  public static final int STARTER_TOME_1 = 7786;
+  public static final int STARTER_TOME_2 = 7787;
   public static final int MERCENARY_TOME = 7788;
   public static final int MERCENARY_TOME_1 = 7789;
   public static final int MERCENARY_TOME_2 = 7790;
@@ -8655,9 +8655,9 @@ public class ItemNames {
   public static final int THCHEMPISTRY_CAPE = 9774;
   public static final int THCHEMPISTRY_CAPE__T = 9775;
   public static final int THCHEMPISTRY_HOOD = 9776;
-  public static final int ACCOMPLISHER_CAPE = 9777;
-  public static final int ACCOMPLISHER_CAPE__T = 9778;
-  public static final int ACCOMPLISHER_HOOD = 9779;
+  public static final int STARTER_CAPE = 9777;
+  public static final int STARTER_CAPE__T = 9778;
+  public static final int STARTER_HOOD = 9779;
   public static final int HANDINESS_CAPE = 9780;
   public static final int HANDINESS_CAPE__T = 9781;
   public static final int HANDINESS_HOOD = 9782;
@@ -9491,7 +9491,7 @@ public class ItemNames {
   public static final int CONSTITUTION_CAPE_1 = 10647;
   public static final int WEEDSMOKING_CAPE_1 = 10648;
   public static final int THCHEMPISTRY_CAPE_1 = 10649;
-  public static final int ACCOMPLISHER_CAPE_1 = 10650;
+  public static final int STARTER_CAPE_1 = 10650;
   public static final int HANDINESS_CAPE_1 = 10651;
   public static final int WOODCARVING_CAPE_1 = 10652;
   public static final int MERCENARY_CAPE_1 = 10653;
@@ -11023,7 +11023,7 @@ public class ItemNames {
   public static final int FRUITFALL_SCROLL = 12423;
   public static final int FISH_RAIN_SCROLL = 12424;
   public static final int HOWL_SCROLL = 12425;
-  public static final int ACCOMPLISHER_FINGERS_SCROLL = 12426;
+  public static final int STARTER_FINGERS_SCROLL = 12426;
   public static final int ABYSSAL_STEALTH_SCROLL = 12427;
   public static final int EGG_SPAWN_SCROLL = 12428;
   public static final int MULTICHOP_SCROLL = 12429;
@@ -11790,7 +11790,7 @@ public class ItemNames {
   public static final int QUARRYING_MASTER_CAPE = 13214;
   public static final int THCHEMPISTRY_MASTER_CAPE = 13215;
   public static final int WEEDSMOKING_MASTER_CAPE = 13216;
-  public static final int ACCOMPLISHER_MASTER_CAPE = 13217;
+  public static final int STARTER_MASTER_CAPE = 13217;
   public static final int MERCENARY_MASTER_CAPE = 13218;
   public static final int CULTIVATION_MASTER_CAPE = 13219;
   public static final int CONSUMER_MASTER_CAPE = 13220;
@@ -12374,7 +12374,7 @@ public class ItemNames {
   public static final int BRAWLING_GLOVES__FM = 13851;
   public static final int BRAWLING_GLOVES__QUARRYING = 13852;
   public static final int BRAWLING_GLOVES__HUNTER = 13853;
-  public static final int BRAWLING_GLOVES__ACCOMPLISHER = 13854;
+  public static final int BRAWLING_GLOVES__STARTER = 13854;
   public static final int BRAWLING_GLOVES__FORGING = 13855;
   public static final int BRAWLING_GLOVES__FISHER = 13856;
   public static final int BRAWLING_GLOVES__FOODIE = 13857;

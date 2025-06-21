@@ -1,5 +1,6 @@
 package com.bestbudz.rs2.entity.pets.abilities;
 
+import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
@@ -13,7 +14,6 @@ public class PoisonStingAbility extends PetAbility {
 
 	@Override
 	protected void performAbility(Stoner pet, Entity target) {
-		pet.getUpdateFlags().sendAnimation(new Animation(6260));
 		pet.getUpdateFlags().sendForceMessage("*stings venomously*");
 
 		if (target != null && !target.isDead()) {
@@ -22,10 +22,10 @@ public class PoisonStingAbility extends PetAbility {
 			// Use existing poison system
 			target.poison(15);
 
-			// Immediate damage
+			// Immediate damage using proper Hit system
 			int damage = 5 + (int)(Math.random() * 10);
-			target.getGrades()[3] = Math.max(0, target.getGrades()[3] - damage);
-			target.getUpdateFlags().sendHit(damage, (byte)0, (byte)0);
+			Hit hit = new Hit(pet, damage, Hit.HitTypes.POISON); // Poison damage type
+			target.hit(hit);
 		}
 	}
 }

@@ -17,16 +17,15 @@ import com.bestbudz.rs2.content.minigames.fightcave.TzharrGame;
 import com.bestbudz.rs2.content.minigames.godwars.GodWars;
 import com.bestbudz.rs2.content.minigames.warriorsguild.ArmourAnimator;
 import com.bestbudz.rs2.content.minigames.warriorsguild.CyclopsRoom;
-import com.bestbudz.rs2.content.profession.summoning.FamiliarMob;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.impl.GroundItemHandler;
-import com.bestbudz.rs2.entity.mob.impl.GiantMole;
-import com.bestbudz.rs2.entity.mob.impl.Kraken;
-import com.bestbudz.rs2.entity.mob.impl.SeaTrollQueen;
-import com.bestbudz.rs2.entity.mob.impl.Zulrah;
+import com.bestbudz.rs2.entity.mob.bosses.GiantMole;
+import com.bestbudz.rs2.entity.mob.bosses.Kraken;
+import com.bestbudz.rs2.entity.mob.bosses.SeaTrollQueen;
+import com.bestbudz.rs2.entity.mob.bosses.Zulrah;
 import com.bestbudz.rs2.entity.pets.PetData;
 import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -339,13 +338,6 @@ public class MobDrops {
         break;
     }
 
-    if ((entity instanceof FamiliarMob)) {
-      Mob m = World.getNpcs()[entity.getIndex()];
-
-      if (m != null) {
-        entity = m.getOwner();
-      }
-    }
 
     Location dropLocation = mob != null ? mob.getLocation() : null;
 

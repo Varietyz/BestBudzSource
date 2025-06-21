@@ -59,14 +59,14 @@ public abstract class PetAbility {
 	/**
 	 * Called when the pet takes damage - override for defensive abilities
 	 */
-	public void onTakeDamage(Stoner pet, int damage) {
+	public void onTakeDamage(Stoner pet, long damage) {
 		// Default: do nothing
 	}
 
 	/**
 	 * Called when the pet deals damage - override for offensive triggers
 	 */
-	public void onDealDamage(Stoner pet, Entity target, int damage) {
+	public void onDealDamage(Stoner pet, Entity target, long damage) {
 		// Default: do nothing
 	}
 
@@ -74,11 +74,4 @@ public abstract class PetAbility {
 		return name;
 	}
 
-	public int getCooldownTicks() {
-		return cooldownTicks;
-	}
-
-	public double getActivationChance() {
-		return activationChance;
-	}
 }

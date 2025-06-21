@@ -4,6 +4,7 @@ import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.RegenerateProfessionTask;
 import com.bestbudz.rs2.content.combat.Combat;
+import static com.bestbudz.rs2.content.combat.Combat.CombatTypes.MELEE;
 import com.bestbudz.rs2.content.combat.CombatInterface;
 import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.content.minigames.pestcontrol.PestControlGame;
@@ -50,6 +51,8 @@ public abstract class Entity implements CombatInterface {
   private long fireImmunity = 0;
   private AssaultType assaultType = AssaultType.CRUSH;
 	private int faceDirection = -1;
+	private long animationLockEnd = 0;
+	private Animation currentAnimation = null;
 
 
   public AssaultType getAssaultType() {
@@ -110,13 +113,26 @@ public abstract class Entity implements CombatInterface {
 			return;
 		}
 
-		// FIXED: Only face entities when in combat
-		if (!getCombat().inCombat()) {
+		// PRIORITY 1: If entity is moving, don't override movement direction
+		if (getMovementHandler().moving()) {
+			return; // Let movement handler control facing direction
+		}
+
+		// PRIORITY 2: Only face target when actually attacking (not just having a target)
+		boolean isActuallyAttacking = (getCombat().getAssaulting() != null &&
+			getCombat().getAssaultTimer() == 0 &&
+			getCombat().withinDistanceForAssault(getCombat().getCombatType(), false));
+
+		if (!isActuallyAttacking) {
 			return;
 		}
 
-		if (!entity.isNpc()) updateFlags.faceEntity(entity.getIndex() + 32768);
-		else updateFlags.faceEntity(entity.getIndex());
+		// PRIORITY 3: Face the target only when not moving and actually attacking
+		if (!entity.isNpc()) {
+			updateFlags.faceEntity(entity.getIndex() + 32768);
+		} else {
+			updateFlags.faceEntity(entity.getIndex());
+		}
 	}
 
   public void freeze(double time, int immunity) {
@@ -413,6 +429,9 @@ public abstract class Entity implements CombatInterface {
 
   public void setDead(boolean dead) {
     this.dead = dead;
+	  if (dead) {
+		  clearAnimationLock(); // Clear locks when entity dies
+	  }
   }
 
   public boolean isFrozen() {
@@ -519,6 +538,70 @@ public abstract class Entity implements CombatInterface {
       }
     }
   }
+
+	/**
+	 * Sets an animation lock for the specified duration (in game ticks)
+	 */
+	public void setAnimationLock(int ticks) {
+		this.animationLockEnd = System.currentTimeMillis() + (ticks * 600); // 600ms per tick
+	}
+
+	/**
+	 * Checks if the entity is currently animation locked
+	 */
+	public boolean hasAnimationLock() {
+		return System.currentTimeMillis() < animationLockEnd;
+	}
+
+	/**
+	 * Clears the animation lock
+	 */
+	public void clearAnimationLock() {
+		this.animationLockEnd = 0;
+	}
+
+	/**
+	 * Gets the current animation
+	 */
+	public Animation getAnimation() {
+		return currentAnimation;
+	}
+
+	/**
+	 * Sets the current animation (without automatic movement locking)
+	 */
+	public void setAnimation(Animation animation) {
+		this.currentAnimation = animation;
+	}
+
+	/**
+	 * Sets animation and locks movement based on combat type and assault definitions
+	 */
+	public void setAnimationWithCombatLock(Animation animation, Combat.CombatTypes combatType) {
+		this.currentAnimation = animation;
+		if (animation != null) {
+			// Get duration from combat definitions based on combat type
+			int lockDuration = getCombatAnimationDuration(combatType);
+			setAnimationLock(lockDuration);
+		}
+	}
+
+	/**
+	 * Gets the animation lock duration based on combat type
+	 */
+	private int getCombatAnimationDuration(Combat.CombatTypes combatType) {
+		switch (combatType) {
+			case MELEE:
+				return getCombat().getMelee().getAssault().getAssaultDelay();
+			case MAGE:
+				return getCombat().getMage().getAssault().getAssaultDelay();
+			case SAGITTARIUS:
+				return getCombat().getSagittarius().getAssault() != null ?
+					getCombat().getSagittarius().getAssault().getAssaultDelay() : 2;
+			default:
+				return 2; // Default 2 ticks
+		}
+	}
 
   public abstract void retaliate(Entity assaulted);
 

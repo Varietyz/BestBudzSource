@@ -120,13 +120,15 @@ public class ProfessioncapeShop extends Shop {
     for (int index = 0; index < Professions.PROFESSION_COUNT; index++) {
 
       long grade = stoner.getMaxGrades()[index];
-
+		add(new Item(9777), false);
+		add(new Item(9778), false);
       if (grade >= 420) {
         if (stoner.getTotalAdvances() >= 10) {
           add(new Item(Professioncape.HUNTER.getTrimmedCape()), false);
 			add(new Item(Professioncape.HUNTER.getCape()), false);
           add(new Item(Professioncape.CONSTRUCTION.getCape()), false);
 			add(new Item(Professioncape.CONSTRUCTION.getTrimmedCape()), false);
+
         } else {
           add(
               new Item(
@@ -207,10 +209,6 @@ public class ProfessioncapeShop extends Shop {
     WEEDSMOKING(
         new int[] {
           9771, 9772, 9773,
-        }),
-    ACCOMPLISHER(
-        new int[] {
-          9777, 9778, 9779,
         }),
     MERCENARY(
         new int[] {

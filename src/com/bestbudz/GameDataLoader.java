@@ -52,7 +52,7 @@ import com.bestbudz.rs2.content.profession.woodcarving.fletchable.impl.Stringabl
 import com.bestbudz.rs2.entity.item.EquipmentConstants;
 import com.bestbudz.rs2.entity.item.impl.GlobalItemHandler;
 import com.bestbudz.rs2.entity.mob.Mob;
-import com.bestbudz.rs2.entity.mob.MobAbilities;
+import com.bestbudz.rs2.entity.mob.abilities.MobAbilities;
 import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.object.ObjectConstants;
 import com.bestbudz.rs2.entity.object.ObjectManager;

@@ -1,7 +1,6 @@
 package com.bestbudz;
 
 public class BestbudzConstants {
-  public static final double VERSION = 1;
   public static final boolean doubleExperience = true;
   public static final String[] BAD_STRINGS = {
     "fag",
@@ -68,7 +67,7 @@ public class BestbudzConstants {
     "twat",
     "titty",
     "whore",
-    "b1tch"
+    "b1tch",
   };
   public static final String[] BAD_TITLES = {
     "owner",
@@ -83,14 +82,13 @@ public class BestbudzConstants {
     "m0d",
     "moderator",
     "m0derator",
+	  "pet",
+	  "jaybane"
   };
   public static final String[] STAFF_MEMBERS = {
     "jaybane", "bestbudz",
   };
-  public static final String[] LOGIN_MESSAGES = {
-    "There are currently /s/ </col> Stoners chillin on the server.",
-    "Be sure to spark one up at 4:20!",
-  };
+
   public static final String[] ITEM_IDENTIFICATION_MESSAGES = {
     "Dis /s/ i like, man!",
   };
@@ -104,6 +102,5 @@ public class BestbudzConstants {
     26502, 26503, 26504, 26505, 24306, 24309, 26760, 2104, 2102, 2100, 26461, 4799, 7129
   };
   public static boolean DEV_MODE = false;
-  public static boolean WALK_CHECK = true;
   public static boolean STAFF_ONLY = false;
 }

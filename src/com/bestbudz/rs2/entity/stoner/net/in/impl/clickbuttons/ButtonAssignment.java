@@ -19,8 +19,6 @@ import com.bestbudz.rs2.content.profession.handiness.HideTanning;
 import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
 import com.bestbudz.rs2.content.profession.mage.spells.BoltEnchanting;
 import com.bestbudz.rs2.content.profession.thchempistry.PotionDecanting;
-import com.bestbudz.rs2.content.profiles.ProfileLeaderboard;
-import com.bestbudz.rs2.content.profiles.StonerProfiler;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.ReportHandler;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
@@ -162,23 +160,23 @@ public class ButtonAssignment extends ClickButtonPacket {
 		// 33230 - Run toggle 3
 		BUTTON_HANDLERS.put(ButtonIds.RUN_TOGGLE_3, ClickButtonPacket::toggleRunning);
 
-		// 50235 - Training interface 1
-		//BUTTON_HANDLERS.put(ButtonIds.TRAINING_INTERFACE_1, ClickButtonPacket::openTrainingInterface);
+		// 50235 - FREE
+		BUTTON_HANDLERS.put(52035, null);
 
-		// 50245 - Profession interface 1
-		//BUTTON_HANDLERS.put(ButtonIds.PROFESSING_INTERFACE_1, ClickButtonPacket::openProfessionInterface);
+		// 50245 - FREE
+		BUTTON_HANDLERS.put(50245, null);
 
-		// 50253 - PvP interface 1
-		//BUTTON_HANDLERS.put(ButtonIds.PVP_INTERFACE_1, ClickButtonPacket::openPvPInterface);
+		// 50253 - FREE
+		BUTTON_HANDLERS.put(50253, null);
 
-		// 51005 - Boss interface 1
-		//BUTTON_HANDLERS.put(ButtonIds.BOSS_INTERFACE_1, ClickButtonPacket::openBossInterface);
+		// 51005 - FREE
+		BUTTON_HANDLERS.put(51005, null);
 
-		// 51013 - Minigame interface 1
-		//BUTTON_HANDLERS.put(ButtonIds.MINIGAME_INTERFACE_1, ClickButtonPacket::openMinigameInterface);
+		// 51013 - FREE
+		BUTTON_HANDLERS.put(51013, null);
 
-		// 51023 - Other interface 1
-		//BUTTON_HANDLERS.put(ButtonIds.OTHER_INTERFACE_1, ClickButtonPacket::openOtherInterface);
+		// 51023 - FREE
+		BUTTON_HANDLERS.put(51023, null);
 
 		// 55095 - Weapon unload
 		BUTTON_HANDLERS.put(55095, ClickButtonPacket::handleWeaponUnload);
@@ -189,17 +187,17 @@ public class ButtonAssignment extends ClickButtonPacket {
 		// 59097 - Combat formulas
 		BUTTON_HANDLERS.put(ButtonIds.COMBAT_FORMULAS, ClickButtonPacket::displayCombatFormulas);
 
-		// 59100 - Items kept on death
-		BUTTON_HANDLERS.put(ButtonIds.ITEMS_KEPT_ON_DEATH, ClickButtonPacket::displayItemsKeptOnDeath);
+		// 59100 - FREE
+		BUTTON_HANDLERS.put(59100, null);
 
 		// 59103 - Price checker open
 		BUTTON_HANDLERS.put(ButtonIds.PRICE_CHECKER_OPEN, stoner -> stoner.getPriceChecker().open());
 
-		// 59206 - Experience lock
-		BUTTON_HANDLERS.put(59206, ClickButtonPacket::handleExperienceLock);
+		// 59206 - FREE
+		BUTTON_HANDLERS.put(59206, null);
 
-		// 66108 - Mystery box
-		BUTTON_HANDLERS.put(ButtonIds.MYSTERY_BOX, MysteryBoxMinigame::play);
+		// 66108 - FREE
+		BUTTON_HANDLERS.put(66108, null);
 
 		// 70209 - Enter X interface
 		BUTTON_HANDLERS.put(70209, stoner -> stoner.setEnterXInterfaceId(6969));
@@ -411,11 +409,11 @@ public class ButtonAssignment extends ClickButtonPacket {
 		// 201054 - Profile privacy (false)
 		BUTTON_HANDLERS.put(201054, stoner -> setProfilePrivacy(stoner, false));
 
-		// 201055 - My profile
-		BUTTON_HANDLERS.put(201055, StonerProfiler::myProfile);
+		// 201055 - FREE
+		BUTTON_HANDLERS.put(201055, null);
 
-		// 201059 - Profile leaderboard
-		BUTTON_HANDLERS.put(201059, stoner -> ProfileLeaderboard.open(stoner, "Look at man"));
+		// 201059 - FREE
+		BUTTON_HANDLERS.put(201059, null);
 
 		// 209002 - Handle search options
 		BUTTON_HANDLERS.put(209002, ClickButtonPacket::handleSearchOptions);
@@ -476,7 +474,7 @@ public class ButtonAssignment extends ClickButtonPacket {
 		TELEPORT_LOCATIONS.put(115152, new Location(3202, 3860, 0)); // LAVA_DRAGONS
 		TELEPORT_LOCATIONS.put(115153, new Location(1747, 5324, 0)); // MITHRIL_DRAGONS
 		TELEPORT_LOCATIONS.put(115154, new Location(3184, 3947, 0)); // WILD_RESOURCE
-		TELEPORT_LOCATIONS.put(115155, new Location(3047, 4976, 1)); // ACCOMPLISHER
+		TELEPORT_LOCATIONS.put(115155, new Location(3047, 4976, 1)); // STARTER
 		TELEPORT_LOCATIONS.put(115156, new Location(2747, 3444, 0)); // HANDINESS
 		TELEPORT_LOCATIONS.put(115157, new Location(3044, 9785, 0)); // QUARRYING
 		TELEPORT_LOCATIONS.put(115158, new Location(3186, 3425, 0)); // FORGING

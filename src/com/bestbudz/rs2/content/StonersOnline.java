@@ -1,7 +1,9 @@
 package com.bestbudz.rs2.content;
 
+import com.bestbudz.core.discord.stonerbot.config.DiscordBotPrivileges;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.World;
+import com.bestbudz.rs2.entity.WorldEntityManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
@@ -59,7 +61,7 @@ public class StonersOnline {
 
     for (Stoner p : World.getStoners()) {
 
-      if (p == null || !p.isActive()) {
+      if (p == null || !p.isActive() || p.isPet() || p.isPetStoner()) {
         continue;
       }
 

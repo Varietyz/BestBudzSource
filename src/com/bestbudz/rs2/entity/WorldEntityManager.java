@@ -4,8 +4,6 @@ import static com.bestbudz.core.discord.stonerbot.config.DiscordBotDefaults.DEFA
 import com.bestbudz.core.util.MobUpdateList;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.mob.Mob;
-import com.bestbudz.rs2.entity.pets.PetData;
-import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendGameUpdateTimer;
 
@@ -27,22 +25,22 @@ public class WorldEntityManager {
 	 * Get count of active stoners
 	 */
 	public int getActiveStoners() {
-		int r = 0;
-		for (Stoner p : stoners) {
-			if (p != null && p.isActive()) {
-				r++;
+		int count = 0;
+		for (Stoner stoner : stoners) {
+			if (stoner != null && stoner.isActive() && !stoner.isPetStoner()) {
+				count++;
 			}
 		}
-		return r;
+		return count;
 	}
 
 	/**
-	 * Get count of real players (excluding bots)
+	 * Get count of real players (excluding bots and pets, only active players)
 	 */
 	public int getRealStonerCount() {
 		int count = 0;
-		for (Stoner p : stoners) {
-			if (p != null && p.isActive() && !p.getUsername().equals(DEFAULT_USERNAME)) {
+		for (Stoner stoner : stoners) {
+			if (stoner != null && stoner.isActive() && !stoner.isPetStoner() && !isDiscordBot(stoner) && !stoner.isPet()) {
 				count++;
 			}
 		}
@@ -54,13 +52,14 @@ public class WorldEntityManager {
 	 */
 	public int getStonerCount() {
 		int count = 0;
-		for (Stoner p : stoners) {
-			if (p != null) {
+		for (Stoner stoner : stoners) {
+			if (stoner != null && stoner.isActive() && !stoner.isPetStoner()) {
 				count++;
 			}
 		}
 		return count;
 	}
+
 
 	/**
 	 * Check if a player is the Discord bot
@@ -76,36 +75,7 @@ public class WorldEntityManager {
 		return stoner != null && stoner.isPetStoner();
 	}
 
-	/**
-	 * Check if a stoner is a pet by username
-	 */
-	public boolean isPetByUsername(Stoner stoner) {
-		return stoner != null && PetManager.isPetUsername(stoner.getUsername());
-	}
 
-	/**
-	 * Get pet display name safely
-	 */
-	public String getPetDisplayName(Stoner stoner) {
-		if (!isPetByUsername(stoner)) {
-			return stoner.getDisplay();
-		}
-
-		PetData petData = PetManager.getPetDataFromUsername(stoner.getUsername());
-		return petData != null ? PetManager.formatPetDisplayName(petData) : "Pet Unknown";
-	}
-
-	/**
-	 * Get the Discord bot player if it exists
-	 */
-	public Stoner getDiscordBot(Stoner[] stoners) {
-		for (Stoner p : stoners) {
-			if (p != null && p.isActive() && DEFAULT_USERNAME.equals(p.getUsername())) {
-				return p;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * Get stoner by username hash

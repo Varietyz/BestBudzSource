@@ -45,7 +45,7 @@ import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemCreating;
-import com.bestbudz.rs2.entity.mob.impl.Zulrah;
+import com.bestbudz.rs2.entity.mob.bosses.Zulrah;
 import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
@@ -72,26 +72,35 @@ public class ItemPackets extends IncomingPacket {
 
     switch (opcode) {
       case 145:
-        int interfaceId = in.readShort(StreamBuffer.ValueType.A);
-        int slot = in.readShort(StreamBuffer.ValueType.A);
-        int itemId = in.readShort(StreamBuffer.ValueType.A);
+			  // Add detailed logging for packet parsing
+			  System.out.println("=== PACKET 145 DEBUG START ===");
+			  System.out.println("Packet size: " + length);
 
-        if (BestbudzConstants.DEV_MODE) {
-          stoner.send(
-              new SendMessage(
-                  "InterfaceId: "
-                      + interfaceId
-                      + " | Interface Manager: "
-                      + stoner.getInterfaceManager().getMain()));
-        }
 
-        if ((interfaceId != 1688 && interfaceId != 59813 && interfaceId != 56503)
-            && (!stoner.getInterfaceManager().verify(interfaceId))) {
-          return;
-        }
-        if (stoner.getMage().isTeleporting()) {
-          return;
-        }
+			  int interfaceId = in.readShort(StreamBuffer.ValueType.A);
+			  System.out.println("Read interfaceId: " + interfaceId);
+
+			  int slot = in.readShort(StreamBuffer.ValueType.A);
+			  System.out.println("Read slot: " + slot);
+
+			  int itemId = in.readShort(StreamBuffer.ValueType.A);
+			  System.out.println("Read itemId: " + itemId);
+
+			  System.out.println("Interface Manager Main: " + stoner.getInterfaceManager().getMain());
+
+			  if (BestbudzConstants.DEV_MODE) {
+				  stoner.send(
+					  new SendMessage(
+						  "InterfaceId: "
+							  + interfaceId
+							  + " | Interface Manager: "
+							  + stoner.getInterfaceManager().getMain()));
+			  }
+
+			  if (stoner.getMage().isTeleporting()) {
+				  System.out.println("Player is teleporting - blocking action");
+				  return;
+			  }
 
         switch (interfaceId) {
           case 56503:
@@ -132,12 +141,34 @@ public class ItemPackets extends IncomingPacket {
             ForgingTask.start(stoner, itemId, 1, interfaceId, slot);
             break;
 
-          case 1688:
-            if (!stoner.getEquipment().slotHasItem(slot)) {
-              return;
-            }
-            stoner.getEquipment().unequip(slot);
-            break;
+			case 1688:
+				System.out.println("=== EQUIPMENT UNEQUIP DEBUG ===");
+				System.out.println("Equipment interface detected");
+				System.out.println("Checking slot " + slot + " for item presence");
+
+				// Log current equipment state
+				System.out.println("Current equipment array:");
+				for (int i = 0; i < stoner.getEquipment().getItems().length; i++) {
+					Item equipItem = stoner.getEquipment().getItems()[i];
+					if (equipItem != null && equipItem.getId() > 0) {
+						System.out.println("  Slot " + i + ": " + equipItem.getId() + " x" + equipItem.getAmount());
+					}
+				}
+
+				if (!stoner.getEquipment().slotHasItem(slot)) {
+					System.out.println("ERROR: No item in slot " + slot + " - cannot unequip");
+					stoner.send(new SendMessage("No item to unequip in that slot."));
+					return;
+				}
+
+				Item itemToUnequip = stoner.getEquipment().getItems()[slot];
+				System.out.println("Item to unequip: " + (itemToUnequip != null ? itemToUnequip.getId() + " x" + itemToUnequip.getAmount() : "null"));
+
+
+				System.out.println("Calling stoner.getEquipment().unequip(" + slot + ")");
+				stoner.getEquipment().unequip(slot);
+				System.out.println("Unequip call completed successfully");
+				break;
 
           case 4233:
           case 4239:
@@ -233,9 +264,6 @@ public class ItemPackets extends IncomingPacket {
             }
             break;
           case 2700:
-            if (stoner.getSummoning().isFamilarBOB()) {
-              stoner.getSummoning().getContainer().withdraw(slot, 5);
-            }
             break;
           case 1688:
             if (itemId == 1712 || itemId == 1710 || itemId == 1708 || itemId == 1706) {
@@ -349,9 +377,6 @@ public class ItemPackets extends IncomingPacket {
             stoner.getPriceChecker().withdraw(itemId, slot, 10);
             break;
           case 2700:
-            if (stoner.getSummoning().isFamilarBOB()) {
-              stoner.getSummoning().getContainer().withdraw(slot, 10);
-            }
             break;
           case 1119:
           case 1120:
@@ -376,9 +401,6 @@ public class ItemPackets extends IncomingPacket {
             }
 
             if (stoner.getInterfaceManager().hasBankOpen()) bankItem(stoner, slot, itemId, 10);
-            else if (stoner.getSummoning().isFamilarBOB()) {
-              stoner.getSummoning().getContainer().store(itemId, 10, slot);
-            }
 
             break;
           case 5382:
@@ -431,9 +453,6 @@ public class ItemPackets extends IncomingPacket {
                 .withdraw(itemId, slot, stoner.getPriceChecker().getItemAmount(itemId));
             break;
           case 2700:
-            if (stoner.getSummoning().isFamilarBOB()) {
-              stoner.getSummoning().getContainer().withdraw(slot, 2147483647);
-            }
             break;
           case 5064:
             if (!stoner.getBox().slotContainsItem(slot, itemId)) {
@@ -447,9 +466,6 @@ public class ItemPackets extends IncomingPacket {
 
             if (stoner.getInterfaceManager().hasBankOpen())
               bankItem(stoner, slot, itemId, 2147483647);
-            else if (stoner.getSummoning().isFamilarBOB()) {
-              stoner.getSummoning().getContainer().store(itemId, 2147483647, slot);
-            }
             break;
           case 5382:
             withdrawBankItem(stoner, slot, itemId, 2147483647);

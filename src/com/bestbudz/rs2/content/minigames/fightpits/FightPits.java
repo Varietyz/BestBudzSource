@@ -72,7 +72,6 @@ public class FightPits {
       }
 
       champion = winner.getUsername();
-      winner.getSkulling().setSkullIcon(winner, 1);
     }
   }
 
@@ -104,10 +103,6 @@ public class FightPits {
     waiting.remove(p);
     p.teleport(FightPitsConstants.OUT_OF_WAITING_LOCATION);
     p.setController(ControllerManager.DEFAULT_CONTROLLER);
-    if (p.getSkulling().getSkullIcon() == 1) {
-      if (p.getSkulling().isSkulled()) p.getSkulling().setSkullIcon(p, 0);
-      else p.getSkulling().setSkullIcon(p, -1);
-    }
   }
 
   public static final void sendStartFailure() {

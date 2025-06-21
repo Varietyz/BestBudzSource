@@ -10,7 +10,7 @@ import com.bestbudz.rs2.entity.Projectile;
 import com.bestbudz.rs2.entity.item.BasicItemContainer;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemContainer;
-import com.bestbudz.rs2.entity.mob.impl.SeaTrollQueen;
+import com.bestbudz.rs2.entity.mob.bosses.SeaTrollQueen;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
@@ -99,6 +99,9 @@ public class SagittariusProfession {
 
   public void doActionsForChinchompa(Entity assaulting) {
     Item weapon = stoner.getEquipment().getItems()[3];
+	  if (weapon == null) {
+		  return; // Skip chinchompa logic for pets (no equipment)
+	  }
     if (weapon != null && weapon.getId() == 10034 || weapon.getId() == 10033) {
       assaulting.getUpdateFlags().sendGraphic(Graphic.highGraphic(157, 0));
     } else {

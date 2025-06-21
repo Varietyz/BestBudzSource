@@ -93420,7 +93420,7 @@
 		<generalPrice>3000</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Accomplisher tome</name>
+		<name>Starter tome</name>
 		<id>7785</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -93432,7 +93432,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Accomplisher tome</name>
+		<name>Starter tome</name>
 		<id>7786</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -93444,7 +93444,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Accomplisher tome</name>
+		<name>Starter tome</name>
 		<id>7787</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -117324,7 +117324,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Accomplisher cape</name>
+		<name>Starter cape</name>
 		<id>9777</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -117336,7 +117336,7 @@
 		<generalPrice>59400</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Accomplisher cape(t)</name>
+		<name>Starter cape(t)</name>
 		<id>9778</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -117348,7 +117348,7 @@
 		<generalPrice>0</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Accomplisher hood</name>
+		<name>Starter hood</name>
 		<id>9779</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -127800,7 +127800,7 @@
 		<generalPrice>59400</generalPrice>
 	</ItemDefinition>
 	<ItemDefinition>
-		<name>Accomplisher cape</name>
+		<name>Starter cape</name>
 		<id>10650</id>
 		<members>true</members>
 		<tradable>true</tradable>
@@ -158592,7 +158592,7 @@
 		<generalPrice>2000000</generalPrice>
 	</ItemDefinition>	
 			<ItemDefinition>
-		<name>Accomplisher Master Cape</name>
+		<name>Starter Master Cape</name>
 			<id>13217</id>
 		<members>false</members>
 		<tradable>false</tradable>
@@ -158674,5 +158674,265 @@
 		<highAlch>2000000</highAlch>
 		<lowAlch>2000000</lowAlch>
 		<generalPrice>2000000</generalPrice>
-	</ItemDefinition>	
+	</ItemDefinition>
+
+	<ItemDefinition>
+		<name>Pet Jad</name>
+			<id>13224</id>
+		<members>false</members>
+		<tradable>false</tradable>
+		<stackable>false</stackable>
+		<note>false</note>
+		<noteId>-1</noteId>
+		<highAlch>2000000</highAlch>
+		<lowAlch>2000000</lowAlch>
+		<generalPrice>2000000</generalPrice>
+	</ItemDefinition>
+
+	<ItemDefinition>
+    <name>Pet Toy Jad</name>
+    <id>13225</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Infant Jad</name>
+    <id>13226</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Hatchling Jad</name>
+    <id>13227</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Cub Jad</name>
+    <id>13228</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Youth Jad</name>
+    <id>13229</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Teen Jad</name>
+    <id>13230</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Young Adult Jad</name>
+    <id>13231</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Adult Jad</name>
+    <id>13232</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Prime Jad</name>
+    <id>13233</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Corp</name>
+    <id>13264</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Toy Corp</name>
+    <id>13265</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Infant Corp</name>
+    <id>13266</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Hatchling Corp</name>
+    <id>13267</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Cub Corp</name>
+    <id>13268</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Youth Corp</name>
+    <id>13269</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Teen Corp</name>
+    <id>13270</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Young Adult Corp</name>
+    <id>13271</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Adult Corp</name>
+    <id>13272</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Prime Corp</name>
+    <id>13273</id>
+    <members>false</members>
+    <tradable>false</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
 </list>

@@ -98,31 +98,4 @@ public class PetDefinition {
 				return Math.max(1, originalSize);
 		}
 	}
-
-	/**
-	 * Check if a pet should be considered "large" (2x2 or bigger)
-	 */
-	public static boolean isLargePet(int npcId) {
-		return getPetSize(npcId) >= 2;
-	}
-
-	/**
-	 * Get pet name from NPC definition
-	 */
-	public static String getPetName(int npcId) {
-		NpcDefinition npcDef = GameDefinitionLoader.getNpcDefinition(npcId);
-
-		if (npcDef == null) {
-			return "Unknown Pet";
-		}
-
-		return npcDef.getName();
-	}
-
-	/**
-	 * Get combat animations from NPC combat definition (for future use)
-	 */
-	public static NpcCombatDefinition getPetCombatDefinition(int npcId) {
-		return GameDefinitionLoader.getNpcCombatDefinition(npcId);
-	}
 }

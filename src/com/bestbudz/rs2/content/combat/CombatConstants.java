@@ -22,9 +22,9 @@ public class CombatConstants {
   public static int getDistanceForCombatType(CombatTypes type) {
     switch (type) {
       case SAGITTARIUS:
-        return 8;
+        return 15;
       case MAGE:
-        return 11;
+        return 18;
       case MELEE:
         break;
       case NONE:

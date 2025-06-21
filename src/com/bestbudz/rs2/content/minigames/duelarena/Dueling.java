@@ -329,10 +329,6 @@ public class Dueling {
       return false;
     }
 
-    if (p.getSummoning().hasFamiliar()) {
-      p.getClient().queueOutgoingPacket(new SendMessage("You must dismiss your familiar to duel."));
-      return false;
-    }
 
     if ((ruleToggle[3]) && (ruleToggle[2]) && (ruleToggle[4])) {
       p.getClient()

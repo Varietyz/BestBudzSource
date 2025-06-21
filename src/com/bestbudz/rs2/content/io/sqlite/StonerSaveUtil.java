@@ -96,14 +96,14 @@ public final class StonerSaveUtil {
 				ps.setInt     (idx++, stoner.getTransparentPanel());
 				ps.setInt     (idx++, stoner.getTransparentChatbox());
 				ps.setInt     (idx++, stoner.getSideStones());
-				ps.setLong(idx++, stoner.getSkulling().getLeft());
-				ps.setInt(idx++, stoner.getSkulling().getSkullIcon());
+				ps.setLong(idx++, 0); // Used to be skulling now FREE
+				ps.setInt(idx++, 0); // Used to be skulling now FREE
 				ps.setInt(idx++, stoner.getSpecialAssault().getAmount());
 				ps.setString(idx++, (stoner.getEquipment().getAssaultStyle() != null ? stoner.getEquipment().getAssaultStyle().name() : null));
 				ps.setString(idx++, (stoner.getAssaultType() != null ? stoner.getAssaultType().name() : null));
 				ps.setInt(idx++, stoner.getChillPoints());
 				ps.setInt(idx++, stoner.getTeleblockTime());
-				ps.setInt(idx++, (stoner.getSummoning().getFamiliarData() != null ? stoner.getSummoning().getFamiliarData().mob : -1));
+				ps.setInt(idx++, -1); // FREE WAS SUMMONING
 				ps.setBoolean(idx++, stoner.getClient().isLogStoner());
 				ps.setInt(idx++, stoner.getPestPoints());
 				ps.setInt(idx++, stoner.getArenaPoints());

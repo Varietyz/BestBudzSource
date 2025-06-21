@@ -8,8 +8,6 @@ import com.bestbudz.rs2.content.profession.melee.Melee;
 import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
 import com.bestbudz.rs2.content.profession.resonance.Resonance;
 import com.bestbudz.rs2.content.profession.sagittarius.SagittariusProfession;
-import com.bestbudz.rs2.content.profession.summoning.Summoning;
-import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 /**
@@ -25,7 +23,6 @@ public class StonerProfessions {
 	private final Melee melee;
 	private final Fisher fisher;
 	private final Mercenary mercenary;
-	private final Summoning summoning;
 	private final Resonance resonance;
 	private final BankStanding bankStanding;
 
@@ -37,7 +34,6 @@ public class StonerProfessions {
 		this.melee = new Melee();
 		this.fisher = new Fisher(stoner);
 		this.mercenary = new Mercenary(stoner);
-		this.summoning = new Summoning(stoner);
 		this.resonance = new Resonance(stoner);
 		this.bankStanding = new BankStanding(stoner);
 	}
@@ -66,7 +62,6 @@ public class StonerProfessions {
 	public Melee getMelee() { return melee; }
 	public Fisher getFisher() { return fisher; }
 	public Mercenary getMercenary() { return mercenary; }
-	public Summoning getSummoning() { return summoning; }
 	public Resonance getResonance() { return resonance; }
 	public BankStanding getBankStanding() { return bankStanding; }
 }

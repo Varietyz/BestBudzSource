@@ -748,7 +748,7 @@ public final class RSInterface {
     "Petrifying gaze",
     "Iron Bull Rush",
     "Immense Heat",
-    "Accomplisher Fingers",
+    "Starter Fingers",
     "Blood Drain",
     "Tireless Run",
     "Abyssal Drain",

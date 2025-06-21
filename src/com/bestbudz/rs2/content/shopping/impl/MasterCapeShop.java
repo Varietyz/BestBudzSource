@@ -197,7 +197,7 @@ public class MasterCapeShop extends Shop {
         new int[] {
           13216,
         }),
-    ACCOMPLISHER(
+    STARTER(
         new int[] {
           13217,
         }),

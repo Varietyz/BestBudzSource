@@ -45,7 +45,6 @@ public final class StonerUpdateFlags {
 	private final short runEmote;
 	private final String username;
 	private final int combatGrade;
-	private final byte skullIcon;
 	private final String forceChatMessage;
 	private final short animationId;
 	private final byte animationDelay;
@@ -244,8 +243,6 @@ public final class StonerUpdateFlags {
 			username = stoner.getUsername();
 		}
 
-		skullIcon = ((byte) stoner.getSkulling().getSkullIcon());
-
 		gender = stoner.getGender();
 
 		colors = new byte[stoner.getColors().length];
@@ -412,10 +409,6 @@ public final class StonerUpdateFlags {
 
 	public BitSet getSet() {
 		return set;
-	}
-
-	public int getSkullIcon() {
-		return skullIcon;
 	}
 
 	public int getStandEmote() {

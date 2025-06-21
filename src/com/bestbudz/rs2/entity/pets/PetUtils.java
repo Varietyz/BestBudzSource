@@ -23,12 +23,7 @@ public class PetUtils {
 			.collect(Collectors.joining(" "));
 	}
 
-	/**
-	 * Generate unique pet username for internal systems
-	 */
-	public static String generatePetUsername(Stoner owner, PetData petData) {
-		return "Pet_" + owner.getUsernameToLong() + "_" + petData.name();
-	}
+
 
 	/**
 	 * Check if a username belongs to a pet

@@ -37,7 +37,7 @@ import com.bestbudz.rs2.entity.item.ItemContainer;
 import com.bestbudz.rs2.entity.item.ItemContainer.ContainerTypes;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobDrops;
-import com.bestbudz.rs2.entity.mob.impl.Zulrah;
+import com.bestbudz.rs2.entity.mob.bosses.Zulrah;
 import com.bestbudz.rs2.entity.object.GameObject;
 import com.bestbudz.rs2.entity.object.ObjectManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;

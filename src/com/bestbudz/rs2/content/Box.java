@@ -86,7 +86,6 @@ public class Box extends ItemContainer {
       }
     }
 
-    stoner.getSummoning().onUpdateBox();
     stoner.getClient().queueOutgoingPacket(new SendBox(getItems()));
   }
 

@@ -13,7 +13,6 @@ import com.bestbudz.rs2.content.interfaces.impl.CommandInterface;
 import com.bestbudz.rs2.content.interfaces.impl.TrainingInterface;
 import com.bestbudz.rs2.content.profession.Profession;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
-import com.bestbudz.rs2.content.profiles.StonerProfiler;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.World;
@@ -54,19 +53,6 @@ public class StonerCommand implements Command {
       case "discord":
         stoner.send(
             new SendMessage("Please press 'BestBudz' in the top left corner and select discord!"));
-        return true;
-      case "find":
-        if (parser.hasNext()) {
-          String name = parser.nextString();
-
-          while (parser.hasNext()) {
-            name += " " + parser.nextString();
-          }
-
-          name = name.trim();
-
-          StonerProfiler.search(stoner, name);
-        }
         return true;
       case "smokeweed":
         stoner.getUpdateFlags().sendGraphic(new Graphic(354, true));

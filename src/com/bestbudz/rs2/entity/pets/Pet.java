@@ -4,11 +4,10 @@ import com.bestbudz.core.definitions.NpcCombatDefinition;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerAnimations;
-import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ChangeAppearancePacket;
-import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.core.definitions.NpcDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
+import java.util.Random;
 
 /**
  * Represents an individual pet instance
@@ -24,7 +23,6 @@ public class Pet {
 		this.petStoner = createPetStoner(owner, data);
 	}
 
-// Add this method to Pet.java to ensure proper username generation
 private static Stoner createPetStoner(Stoner owner, PetData data) {
 	// Create pet with isolated client
 	Stoner pet = new Stoner(new PetIsolatedClient(owner));
@@ -35,10 +33,9 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 
 	ChangeAppearancePacket.setToDefault(pet);
 
-	// CRITICAL FIX: Generate ABSOLUTELY unique username using index + nano time
-	// This ensures no two pets can ever have the same username
-	int tempIndex = World.getNextAvailableIndex(); // We'll need to add this method
-	String uniqueUsername = "Pet_" + data.name() + "_" + owner.getUsername() + "_" + tempIndex + "_" + System.nanoTime();
+	long randomId = Math.abs(new Random().nextLong() % 1000000000000L); // 12 digits max
+
+	String uniqueUsername = "Pet_" + randomId +  data.name() + "_" + owner.getUsername();
 
 	pet.setUsername(uniqueUsername);
 	pet.setPassword("");
@@ -80,20 +77,11 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 		return null;
 	}
 
-	// Verification debug
-	System.out.println("=== PET CREATION DEBUG ===");
-	System.out.println("Created pet: " + uniqueUsername);
-	System.out.println("  Pet usernameToLong: " + pet.getUsernameToLong());
-	System.out.println("  Owner usernameToLong: " + owner.getUsernameToLong());
-	System.out.println("  Pet index: " + petIndex);
-	System.out.println("  Pet display: " + pet.getDisplay());
-	System.out.println("==========================");
-
 	pet.getUpdateFlags().setUpdateRequired(true);
 	pet.setAppearanceUpdateRequired(true);
 	pet.setNeedsPlacement(true);
 
-	PetCombat.initializePetCombat(pet, data, owner);
+	PetCombatUtils.initializePetCombat(pet, data, owner);
 	setupPetCombatAnimations(pet, data);
 	return pet;
 }

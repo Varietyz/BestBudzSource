@@ -15,206 +15,318 @@ import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.Projectile;
 import com.bestbudz.rs2.entity.World;
+import com.bestbudz.rs2.entity.pets.PetCombatHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class Sagittarius {
 
-  private final Entity entity;
-  private Assault assault = null;
-  private Animation animation = null;
-  private Graphic start = null;
-  private Graphic end = null;
-  private Projectile projectile = null;
+	private final Entity entity;
+	private Assault assault = null;
+	private Animation animation = null;
+	private Graphic start = null;
+	private Graphic end = null;
+	private Projectile projectile = null;
 
-  private int pOffset = 0;
-  private byte gOffset = 0;
+	private int pOffset = 0;
+	private byte gOffset = 0;
 
-  public Sagittarius(Entity entity) {
-    this.entity = entity;
-  }
+	public Sagittarius(Entity entity) {
+		this.entity = entity;
+	}
 
-  public void execute(Entity assaulting) {
-    if ((assault == null) || (assaulting == null) || (assaulting.isDead())) {
-      return;
-    }
+	public void execute(Entity assaulting) {
+		if ((assault == null) || (assaulting == null) || (assaulting.isDead())) {
+			return;
+		}
 
-    boolean success;
+		boolean success;
 
-	  double accuracy = RangeFormulas.calculateRangeAssault(entity);
-	  double aegis = RangeFormulas.calculateRangeAegis(entity.getCombat().getAssaulting());
-	  double chance = FormulaData.getChance(accuracy, aegis, entity, entity.getCombat().getAssaulting());
-	  success = FormulaData.isAccurateHit(chance, entity, entity.getCombat().getAssaulting());
+		double accuracy = RangeFormulas.calculateRangeAssault(entity);
+		double aegis = RangeFormulas.calculateRangeAegis(entity.getCombat().getAssaulting());
+		double chance = FormulaData.getChance(accuracy, aegis, entity, entity.getCombat().getAssaulting());
+		success = FormulaData.isAccurateHit(chance, entity, entity.getCombat().getAssaulting());
 
-	  int baseDamage = entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.SAGITTARIUS) + 1));
-	  int damage = (int)FormulaData.applyEmergentScaling(entity, baseDamage);
+		int baseDamage = entity.getCorrectedDamage(Combat.next(entity.getMaxHit(CombatTypes.SAGITTARIUS) + 1));
+		int damage = (int)FormulaData.applyEmergentScaling(entity, baseDamage);
 
-    Hit hit =
-        new Hit(
-            entity,
-            (success) || (entity.isIgnoreHitSuccess()) ? damage : 0,
-            Hit.HitTypes.SAGITTARIUS);
+		Hit hit = new Hit(
+			entity,
+			(success) || (entity.isIgnoreHitSuccess()) ? damage : 0,
+			Hit.HitTypes.SAGITTARIUS);
 
-    entity.getCombat().updateHitChain(hit.getDamage());
+		entity.getCombat().updateHitChain(hit.getDamage());
+		entity.setLastHitSuccess((success) || (entity.isIgnoreHitSuccess()));
+		entity.getCombat().updateTimers(assault.getAssaultDelay());
 
-    entity.setLastHitSuccess((success) || (entity.isIgnoreHitSuccess()));
+		// Handle combat visuals based on entity type
+		handleCombatVisuals(assaulting);
 
-    entity.getCombat().updateTimers(assault.getAssaultDelay());
+		TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
 
-    if (animation != null) {
-      entity.getUpdateFlags().sendAnimation(animation);
-    }
+		// Handle double hit
+		if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
+			handleDoubleHit(hit, assaulting);
+		}
 
-    if (start != null) {
-      executeStartGraphic();
-    }
+		// Handle end graphics
+		handleEndGraphic(assaulting);
 
-    if (projectile != null) {
-      executeProjectile(assaulting);
-    }
+		assaulting.getCombat().setInCombat(entity);
+		entity.doConsecutiveAssaults(assaulting);
+		entity.onAssault(assaulting, hit.getDamage(), CombatTypes.SAGITTARIUS, success);
+	}
 
-    TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
-	  if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
-      long secondHitDamage = hit.getDamage() / 2;
+	private void handleCombatVisuals(Entity assaulting) {
+		if (entity instanceof Stoner && ((Stoner) entity).isPetStoner()) {
+			handlePetVisuals(assaulting);
+		} else {
+			handleRegularVisuals(assaulting);
+		}
+	}
 
-      if (secondHitDamage > 0) {
-        Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
+	private void handlePetVisuals(Entity assaulting) {
+		// Handle pet-specific animation
+		Animation petAnimation = (Animation) entity.getAttributes().get("PET_SAGITTARIUS_ANIMATION");
+		if (petAnimation != null) {
+			entity.getUpdateFlags().sendAnimation(petAnimation);
+			entity.setAnimationWithCombatLock(petAnimation, Combat.CombatTypes.SAGITTARIUS);
+			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
+		}
 
-        // Copy of 'assaulting' must be made effectively final for the inner class
-        final Entity target = assaulting;
+		// Handle pet-specific start graphic
+		Graphic petStartGraphic = (Graphic) entity.getAttributes().get("PET_SAGITTARIUS_START");
+		Graphic petEndGraphic = (Graphic) entity.getAttributes().get("PET_SAGITTARIUS_END");
+		if (petStartGraphic != null) {
+			if (petStartGraphic.getId() == 451 || petEndGraphic == null) {
+				executeStartGraphic(assaulting, petStartGraphic);
+			} else {
+				executeStartGraphic(petStartGraphic);
+			}
+		}
 
-        TaskQueue.queue(
-            new Task(2) { // 1 tick = 300ms
-              @Override
-              public void execute() {
-                Combat.applyHit(target, secondHit);
-                if (entity instanceof Stoner) {
-                  ((Stoner) entity)
-                      .getClient()
-                      .queueOutgoingPacket(
-                          new SendMessage("@gre@Double strike landed! Bonus: " + secondHitDamage));
-                }
-				  FormulaData.updateCombatEvolution(entity, assaulting, hit.getDamage() > 0, (int)hit.getDamage());
-				  if (entity instanceof Stoner) {
-					  ((Stoner) entity).getResonance().updateResonance(
-						  hit.getDamage() > 0,
-						  (int)hit.getDamage(),
-						  Combat.CombatTypes.SAGITTARIUS
-					  );
-				  }
-                entity.getCombat().resetHitChain();
-                stop();
-              }
+		// Handle pet-specific projectile
+		Projectile petProjectile = (Projectile) entity.getAttributes().get("PET_SAGITTARIUS_PROJECTILE");
+		if (petProjectile != null) {
+			executeProjectile(assaulting, petProjectile);
+		}
+	}
 
-              @Override
-              public void onStop() {}
-            });
-      }
-    }
+	private void handleRegularVisuals(Entity assaulting) {
+		// Handle regular animation (for stoners and other entities)
+		if (animation != null) {
+			entity.getUpdateFlags().sendAnimation(animation);
+			entity.setAnimationWithCombatLock(animation, Combat.CombatTypes.SAGITTARIUS);
+			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
+		}
 
-    if (end != null) {
-      TaskQueue.queue(new GraphicTask(assault.getHitDelay(), false, end, assaulting));
-    }
+		// Handle regular start graphic
+		if (start != null) {
+			executeStartGraphic();
+		}
 
-    assaulting.getCombat().setInCombat(entity);
-    entity.doConsecutiveAssaults(assaulting);
-    entity.onAssault(assaulting, hit.getDamage(), CombatTypes.SAGITTARIUS, success);
-  }
+		// Handle regular projectile
+		if (projectile != null) {
+			executeProjectile(assaulting);
+		}
+	}
 
-  public void executeProjectile(Entity target) {
-    final int lockon = target.isNpc() ? target.getIndex() + 1 : -target.getIndex() - 1;
-    final byte offsetX = (byte) ((entity.getLocation().getY() - target.getLocation().getY()) * -1);
-    final byte offsetY = (byte) ((entity.getLocation().getX() - target.getLocation().getX()) * -1);
+	private void handleEndGraphic(Entity assaulting) {
+		Graphic endGraphic = null;
 
-    if (pOffset > 0) {
-      final Projectile p = new Projectile(projectile);
-      TaskQueue.queue(
-          new Task(pOffset) {
-            @Override
-            public void execute() {
+		if (entity instanceof Stoner && ((Stoner) entity).isPetStoner()) {
+			// Pet-specific end graphic
+			endGraphic = (Graphic) entity.getAttributes().get("PET_SAGITTARIUS_END");
+		} else {
+			// Regular end graphic (for stoners and other entities)
+			endGraphic = this.end;
+		}
 
-              World.sendProjectile(p, entity.getLocation(), lockon, offsetX, offsetY);
-              stop();
-            }
+		if (endGraphic != null) {
+			TaskQueue.queue(new GraphicTask(assault.getHitDelay(), false, endGraphic, assaulting));
+		}
+	}
 
-            @Override
-            public void onStop() {}
-          });
-    } else {
-      World.sendProjectile(projectile, entity.getLocation(), lockon, offsetX, offsetY);
-    }
-  }
+	private void handleDoubleHit(Hit originalHit, Entity assaulting) {
+		long secondHitDamage = originalHit.getDamage() / 2;
 
-  public void executeStartGraphic() {
-    if (gOffset > 0) {
-      final Graphic g = new Graphic(start);
+		if (secondHitDamage > 0) {
+			Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
+			final Entity target = assaulting;
 
-      TaskQueue.queue(
-          new Task(gOffset) {
-            @Override
-            public void execute() {
-              entity.getUpdateFlags().sendGraphic(g);
-              stop();
-            }
+			TaskQueue.queue(new Task(2) { // 1 tick = 300ms
+				@Override
+				public void execute() {
+					Combat.applyHit(target, secondHit);
+					if (entity instanceof Stoner) {
+						((Stoner) entity).getClient().queueOutgoingPacket(
+							new SendMessage("@gre@Double strike landed! Bonus: " + secondHitDamage));
+					}
+					FormulaData.updateCombatEvolution(entity, assaulting, originalHit.getDamage() > 0, (int)originalHit.getDamage());
+					if (entity instanceof Stoner) {
+						((Stoner) entity).getResonance().updateResonance(
+							originalHit.getDamage() > 0,
+							(int)originalHit.getDamage(),
+							Combat.CombatTypes.SAGITTARIUS);
+					}
+					entity.getCombat().resetHitChain();
+					stop();
+				}
 
-            @Override
-            public void onStop() {}
-          });
-    } else {
-      entity.getUpdateFlags().sendGraphic(start);
-    }
-  }
+				@Override
+				public void onStop() {}
+			});
+		}
+	}
 
-  public Animation getAnimation() {
-    return animation;
-  }
+	public void executeProjectile(Entity target) {
+		final int lockon = target.isNpc() ? target.getIndex() + 1 : -target.getIndex() - 1;
+		final byte offsetX = (byte) ((entity.getLocation().getY() - target.getLocation().getY()) * -1);
+		final byte offsetY = (byte) ((entity.getLocation().getX() - target.getLocation().getX()) * -1);
 
-  public void setAnimation(Animation animation) {
-    this.animation = animation;
-  }
+		if (pOffset > 0) {
+			final Projectile p = new Projectile(projectile);
+			TaskQueue.queue(new Task(pOffset) {
+				@Override
+				public void execute() {
+					World.sendProjectile(p, entity.getLocation(), lockon, offsetX, offsetY);
+					stop();
+				}
 
-  public Assault getAssault() {
-    return assault;
-  }
+				@Override
+				public void onStop() {}
+			});
+		} else {
+			World.sendProjectile(projectile, entity.getLocation(), lockon, offsetX, offsetY);
+		}
+	}
 
-  public void setAssault(Assault assault) {
-    this.assault = assault;
-  }
+	public void executeStartGraphic() {
+		if (gOffset > 0) {
+			final Graphic g = new Graphic(start);
+			TaskQueue.queue(new Task(gOffset) {
+				@Override
+				public void execute() {
+					entity.getUpdateFlags().sendGraphic(g);
+					stop();
+				}
 
-  public Projectile getProjectile() {
-    return projectile;
-  }
+				@Override
+				public void onStop() {}
+			});
+		} else {
+			entity.getUpdateFlags().sendGraphic(start);
+		}
+	}
 
-  public void setProjectile(Projectile projectile) {
-    this.projectile = projectile;
-  }
+	private void executeProjectile(Entity target, Projectile petProjectile) {
+		final int lockon = target.isNpc() ? target.getIndex() + 1 : -target.getIndex() - 1;
+		final byte offsetX = (byte) ((entity.getLocation().getY() - target.getLocation().getY()) * -1);
+		final byte offsetY = (byte) ((entity.getLocation().getX() - target.getLocation().getX()) * -1);
 
-  public int getProjectileOffset() {
-    return pOffset;
-  }
+		if (pOffset > 0) {
+			final Projectile p = new Projectile(petProjectile);
+			TaskQueue.queue(new Task(pOffset) {
+				@Override
+				public void execute() {
+					World.sendProjectile(p, entity.getLocation(), lockon, offsetX, offsetY);
+					stop();
+				}
+				@Override
+				public void onStop() {}
+			});
+		} else {
+			World.sendProjectile(petProjectile, entity.getLocation(), lockon, offsetX, offsetY);
+		}
+	}
 
-  public void setProjectileOffset(int pOffset) {
-    this.pOffset = pOffset;
-  }
+	private void executeStartGraphic(Graphic petStartGraphic) {
+		if (gOffset > 0) {
+			final Graphic g = new Graphic(petStartGraphic);
+			TaskQueue.queue(new Task(gOffset) {
+				@Override
+				public void execute() {
+					entity.getUpdateFlags().sendGraphic(g);
+					stop();
+				}
+				@Override
+				public void onStop() {}
+			});
+		} else {
+			entity.getUpdateFlags().sendGraphic(petStartGraphic);
+		}
+	}
 
-  public void setAssault(
-      Assault assault, Animation animation, Graphic start, Graphic end, Projectile projectile) {
-    this.assault = assault;
-    this.animation = animation;
-    this.start = start;
-    this.end = end;
-    this.projectile = projectile;
-  }
+	private void executeStartGraphic(Entity target, Graphic petStartGraphic) {
+		if (gOffset > 0) {
+			final Graphic g = new Graphic(petStartGraphic);
+			TaskQueue.queue(new Task(gOffset) {
+				@Override
+				public void execute() {
+					target.getUpdateFlags().sendGraphic(new Graphic(
+						petStartGraphic.getId(),
+						petStartGraphic.getDelay(),
+						petStartGraphic.getHeight()));
+					stop();
+				}
+				@Override
+				public void onStop() {}
+			});
+		} else {
+			target.getUpdateFlags().sendGraphic(petStartGraphic);
+		}
+	}
 
-  public void setEnd(Graphic end) {
-    this.end = end;
-  }
+	public Animation getAnimation() {
+		return animation;
+	}
 
-  public void setStart(Graphic start) {
-    this.start = start;
-  }
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
+	}
 
-  public void setStartGfxOffset(byte gOffset) {
-    this.gOffset = gOffset;
-  }
+	public Assault getAssault() {
+		return assault;
+	}
+
+	public void setAssault(Assault assault) {
+		this.assault = assault;
+	}
+
+	public Projectile getProjectile() {
+		return projectile;
+	}
+
+	public void setProjectile(Projectile projectile) {
+		this.projectile = projectile;
+	}
+
+	public int getProjectileOffset() {
+		return pOffset;
+	}
+
+	public void setProjectileOffset(int pOffset) {
+		this.pOffset = pOffset;
+	}
+
+	public void setAssault(
+		Assault assault, Animation animation, Graphic start, Graphic end, Projectile projectile) {
+		this.assault = assault;
+		this.animation = animation;
+		this.start = start;
+		this.end = end;
+		this.projectile = projectile;
+	}
+
+	public void setEnd(Graphic end) {
+		this.end = end;
+	}
+
+	public void setStart(Graphic start) {
+		this.start = start;
+	}
+
+	public void setStartGfxOffset(byte gOffset) {
+		this.gOffset = gOffset;
+	}
 }

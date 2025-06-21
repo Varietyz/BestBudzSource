@@ -10,139 +10,139 @@ import com.bestbudz.rs2.entity.pathfinding.SimplePathWalker;
 
 public class MobFollowing extends Following {
 
-  public static final String NEXT_DIR_KEY = "nextfollowdir";
-  private final Mob mob;
+	public static final String NEXT_DIR_KEY = "nextfollowdir";
+	private final Mob mob;
 
-  public MobFollowing(Mob mob) {
-    super(mob);
-    this.mob = mob;
-  }
+	public MobFollowing(Mob mob) {
+		super(mob);
+		this.mob = mob;
+	}
 
-  @Override
-  public void findPath(Location location) {
-    if ((mob.isLockFollow())
-        && (Utility.getManhattanDistance(mob.getLocation(), mob.getOwner().getLocation()) > 10)) {
-      onCannotReach();
-    } else if (type == FollowType.DEFAULT
-        && GameConstants.withinBlock(
-            following.getX(),
-            following.getY(),
-            following.getSize(),
-            mob.getX(),
-            mob.getY(),
-            mob.getSize())) {
-      if (mob.getAttributes().get("nextfollowdir") == null) {
-        Location l = GameConstants.getClearAdjacentLocation(following.getLocation(), mob.getSize());
+	@Override
+	public void findPath(Location location) {
+		if ((mob.isLockFollow())
+			&& (Utility.getManhattanDistance(mob.getLocation(), mob.getOwner().getLocation()) > 10)) {
+			onCannotReach();
+		} else if (type == FollowType.DEFAULT
+			&& GameConstants.withinBlock(
+			following.getX(),
+			following.getY(),
+			following.getSize(),
+			mob.getX(),
+			mob.getY(),
+			mob.getSize())) {
+			if (mob.getAttributes().get("nextfollowdir") == null) {
+				Location l = GameConstants.getClearAdjacentLocation(following.getLocation(), mob.getSize());
 
-        if (l != null) {
-          SimplePathWalker.walkToNextTile(mob, l);
-          if (mob.getMovementHandler().getPrimaryDirection() != -1)
-            mob.getAttributes()
-                .set(
-                    "nextfollowdir",
-                    Integer.valueOf(mob.getMovementHandler().getPrimaryDirection()));
-        }
-      } else {
-        int dir = mob.getAttributes().getInt("nextfollowdir");
-        SimplePathWalker.walkToNextTile(
-            mob,
-            new Location(
-                mob.getX() + GameConstants.DIR[dir][0],
-                mob.getY() + GameConstants.DIR[dir][1],
-                mob.getZ()));
-      }
-    } else {
-      if (mob.getAttributes().get("nextfollowdir") != null) {
-        mob.getAttributes().remove("nextfollowdir");
-      }
+				if (l != null) {
+					SimplePathWalker.walkToNextTile(mob, l);
+					if (mob.getMovementHandler().getPrimaryDirection() != -1)
+						mob.getAttributes()
+							.set(
+								"nextfollowdir",
+								Integer.valueOf(mob.getMovementHandler().getPrimaryDirection()));
+				}
+			} else {
+				int dir = mob.getAttributes().getInt("nextfollowdir");
+				SimplePathWalker.walkToNextTile(
+					mob,
+					new Location(
+						mob.getX() + GameConstants.DIR[dir][0],
+						mob.getY() + GameConstants.DIR[dir][1],
+						mob.getZ()));
+			}
+		} else {
+			if (mob.getAttributes().get("nextfollowdir") != null) {
+				mob.getAttributes().remove("nextfollowdir");
+			}
 
-      SimplePathWalker.walkToNextTile(mob, location);
-    }
-  }
+			SimplePathWalker.walkToNextTile(mob, location);
+		}
+	}
 
-  @Override
-  public void onCannotReach() {
-    if (mob.isLockFollow()) {
-      Location l =
-          GameConstants.getClearAdjacentLocation(mob.getOwner().getLocation(), mob.getSize());
+	@Override
+	public void onCannotReach() {
+		if (mob.isLockFollow()) {
+			Location l =
+				GameConstants.getClearAdjacentLocation(mob.getOwner().getLocation(), mob.getSize());
 
-      if (l != null) {
-        mob.teleport(l);
-      }
+			if (l != null) {
+				mob.teleport(l);
+			}
 
-      setFollow(mob.getOwner(), Following.FollowType.DEFAULT);
-    } else if (mob.getOwner() != null) {
-      mob.remove();
-    } else {
-      reset();
-      if (type == Following.FollowType.COMBAT) mob.getCombat().reset();
-    }
-  }
+			setFollow(mob.getOwner(), Following.FollowType.DEFAULT);
+		} else if (mob.getOwner() != null) {
+			mob.remove();
+		} else {
+			reset();
+			if (type == Following.FollowType.COMBAT) mob.getCombat().reset();
+		}
+	}
 
-  @Override
-  public boolean outOfRange() {
-    if (ignoreDistance) {
-      return false;
-    }
+	@Override
+	public boolean outOfRange() {
+		if (ignoreDistance) {
+			return false;
+		}
 
-    if ((!mob.getCombat().inCombat()) && (mob.isWalkToHome())) {
-      return true;
-    }
+		if ((!mob.getCombat().inCombat()) && (mob.isWalkToHome())) {
+			return true;
+		}
 
-    return !isWithinDistance();
-  }
+		return !isWithinDistance();
+	}
 
-  @Override
-  public boolean pause() {
-    if (GameConstants.withinBlock(
-        following.getX(),
-        following.getY(),
-        following.getSize(),
-        mob.getX(),
-        mob.getY(),
-        mob.getSize())) {
-      return false;
-    }
+	@Override
+	public boolean pause() {
+		if (GameConstants.withinBlock(
+			following.getX(),
+			following.getY(),
+			following.getSize(),
+			mob.getX(),
+			mob.getY(),
+			mob.getSize())) {
+			return false;
+		}
 
-    if (this.type == Following.FollowType.COMBAT) {
-      if (mob.getCombatDefinition() != null) {
-        NpcCombatDefinition.CombatTypes type = mob.getCombatDefinition().getCombatType();
+		if (this.type == Following.FollowType.COMBAT) {
+			if (mob.getCombatDefinition() != null) {
+				NpcCombatDefinition.CombatTypes type = mob.getCombatDefinition().getCombatType();
 
-        if (type == NpcCombatDefinition.CombatTypes.MELEE)
-          return mob.getCombat().withinDistanceForAssault(Combat.CombatTypes.MELEE, false);
-        if (type == NpcCombatDefinition.CombatTypes.SAGITTARIUS) {
-          return mob.getCombat().withinDistanceForAssault(Combat.CombatTypes.SAGITTARIUS, false);
-        }
+				if (type == NpcCombatDefinition.CombatTypes.MELEE)
+					return mob.getCombat().withinDistanceForAssault(Combat.CombatTypes.MELEE, false);
+				if (type == NpcCombatDefinition.CombatTypes.SAGITTARIUS) {
+					return mob.getCombat().withinDistanceForAssault(Combat.CombatTypes.SAGITTARIUS, false);
+				}
 
-        return mob.getCombat().withinDistanceForAssault(Combat.CombatTypes.MAGE, false);
-      } else {
-        return mob.getCombat().withinDistanceForAssault(mob.getCombat().getCombatType(), false);
-      }
-    }
+				return mob.getCombat().withinDistanceForAssault(Combat.CombatTypes.MAGE, false);
+			} else {
+				return mob.getCombat().withinDistanceForAssault(mob.getCombat().getCombatType(), false);
+			}
+		}
 
-    int x = entity.getLocation().getX();
-    int y = entity.getLocation().getY();
-    int x2 = following.getLocation().getX();
-    int y2 = following.getLocation().getY();
+		int x = entity.getLocation().getX();
+		int y = entity.getLocation().getY();
+		int x2 = following.getLocation().getX();
+		int y2 = following.getLocation().getY();
 
-    Location[] a = GameConstants.getBorder(x, y, entity.getSize());
-    Location[] b = GameConstants.getBorder(x2, y2, following.getSize());
+		Location[] a = GameConstants.getBorder(x, y, entity.getSize());
+		Location[] b = GameConstants.getBorder(x2, y2, following.getSize());
 
-    for (Location i : a) {
-      for (Location k : b) {
-        if ((Math.abs(i.getX() - k.getX()) < 2) && (Math.abs(i.getY() - k.getY()) < 2)) {
-          return true;
-        }
-      }
-    }
+		for (Location i : a) {
+			for (Location k : b) {
+				if ((Math.abs(i.getX() - k.getX()) < 2) && (Math.abs(i.getY() - k.getY()) < 2)) {
+					return true;
+				}
+			}
+		}
 
-    return false;
-  }
+		return false;
+	}
 
-  @Override
-  public void process() {
-    if (following != null)
-      if (mob.isNoFollow()) reset();
-      else follow();
-  }
+	@Override
+	public void process() {
+		if (following != null)
+			if (mob.isNoFollow()) reset();
+			else follow();
+	}
 }

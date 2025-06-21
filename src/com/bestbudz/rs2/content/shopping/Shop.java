@@ -3,7 +3,6 @@ package com.bestbudz.rs2.content.shopping;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.GameDefinitionLoader;
-import com.bestbudz.rs2.content.profession.summoning.Pouch;
 import com.bestbudz.rs2.content.shopping.Shopping.ShopType;
 import com.bestbudz.rs2.content.shopping.impl.AchievementShop;
 import com.bestbudz.rs2.content.shopping.impl.AdvanceShop;
@@ -99,43 +98,10 @@ public class Shop extends ItemContainer {
     shops[91] = new ExerciseShop();
 
     Item[] stock = new Item[SHOP_SIZE];
-    Item[] stock2 = new Item[SHOP_SIZE];
 
     stock[0] = new Item(18016, 800000);
     stock[1] = new Item(12525, 100000);
 
-    for (int i = 2; i < stock.length; i++) {
-      int id = Pouch.values()[(i - 2)].secondIngredientId;
-
-      if ((id != 1635)
-          && (id != 440)
-          && (id != 1519)
-          && (id != 2349)
-          && (id != 249)
-          && (id != 590)
-          && (id != 2351)
-          && (id != 3095)) {
-        stock[i] = new Item(Pouch.values()[(i - 2)].secondIngredientId, 50000);
-      }
-    }
-    for (int i = 0; i < stock.length; i++) {
-      if (i + 50 >= Pouch.values().length) {
-        break;
-      }
-      int id = Pouch.values()[(i + 50)].secondIngredientId;
-
-      if ((id != 383)
-          && (id != 2363)
-          && (id != 2361)
-          && (id != 1635)
-          && (id != 6155)
-          && (id != 1119)
-          && (id != 1115)) {
-        stock2[i] = new Item(id, 50000);
-      }
-    }
-    new Shop(50, stock, false, "Summoning Shop");
-    new Shop(51, stock2, false, "Summoning Shop");
   }
 
   public static Shop[] getShops() {

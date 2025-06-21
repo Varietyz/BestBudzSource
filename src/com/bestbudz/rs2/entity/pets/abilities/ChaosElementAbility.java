@@ -1,5 +1,6 @@
 package com.bestbudz.rs2.entity.pets.abilities;
 
+import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
@@ -24,10 +25,10 @@ public class ChaosElementAbility extends PetAbility {
 
 			target.getUpdateFlags().sendGraphic(new Graphic(343, true));
 
-			// Deal damage
+			// Deal damage using proper Hit system
 			int damage = 10 + (int)(Math.random() * 15);
-			target.getGrades()[3] = Math.max(0, target.getGrades()[3] - damage);
-			target.getUpdateFlags().sendHit(damage, (byte)0, (byte)0);
+			Hit hit = new Hit(pet, damage, Hit.HitTypes.MAGE); // Chaos is magical
+			target.hit(hit);
 		}
 	}
 }

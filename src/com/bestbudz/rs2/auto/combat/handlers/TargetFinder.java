@@ -22,6 +22,9 @@ public class TargetFinder {
 	}
 
 	public Mob findNearestTarget() {
+		if (stoner.isPetStoner()) {
+			return findNearestTargetForPet();
+		}
 		// Check if we're being attacked but not fighting back effectively
 		if (stoner.getCombat().inCombat()) {
 			Entity currentTarget = stoner.getCombat().getAssaulting();
@@ -102,6 +105,60 @@ public class TargetFinder {
 		}*/
 
 		return closest;
+	}
+
+	private Mob findNearestTargetForPet() {
+		try {
+			// FIXED: Get owner's NPC list instead of pet's empty list
+			Stoner owner = (Stoner) stoner.getAttributes().get("PET_OWNER");
+			if (owner == null) {
+				System.out.println("Pet has no owner reference");
+				return null;
+			}
+
+			java.util.List<com.bestbudz.rs2.entity.mob.Mob> clientNpcs = owner.getClient().getNpcs();
+
+			if (clientNpcs == null || clientNpcs.isEmpty()) {
+				System.out.println("Owner client NPCs is empty - client population failed");
+				return null;
+			}
+
+			Mob closestTarget = null;
+			int closestDistance = Integer.MAX_VALUE;
+			Location petLocation = stoner.getLocation();
+
+			for (com.bestbudz.rs2.entity.mob.Mob npc : clientNpcs) {
+				if (npc == null || npc.isDead() || !npc.isActive()) continue;
+				if (npc.getLocation().getZ() != petLocation.getZ()) continue;
+				if (npc.getCombatDefinition() == null) continue;
+				if (npc.isWalkToHome()) continue;
+
+				int distance = Math.abs(petLocation.getX() - npc.getLocation().getX()) +
+					Math.abs(petLocation.getY() - npc.getLocation().getY());
+
+				// Check within auto-combat range (DEFAULT_RADIUS = 10)
+				if (distance <= 10 && distance < closestDistance) {
+					closestDistance = distance;
+					closestTarget = npc;
+					System.out.println("Pet found combat target: NPC " + npc.getId() +
+						" at " + npc.getLocation() + " (distance: " + distance + ")");
+				}
+			}
+
+			if (closestTarget != null) {
+				System.out.println("Pet selected closest target: NPC " + closestTarget.getId() +
+					" at distance " + closestDistance);
+			} else {
+				System.out.println("Pet found no valid targets in range");
+			}
+
+			return closestTarget;
+
+		} catch (Exception e) {
+			System.out.println("Error finding pet targets: " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
@@ -241,7 +298,7 @@ public class TargetFinder {
 		if (npc == null || npc.isDead() || !npc.isActive()) return false;
 		if (npc.getLocation().getZ() != stoner.getLocation().getZ()) return false;
 		if (npc.getCombatDefinition() == null) return false;
-		if (stoner.isPet() || npc.isWalkToHome()) return false;
+		if (stoner.isPet() || stoner.isPetStoner() || npc.isWalkToHome()) return false;
 		if (!stoner.inMultiArea()) return false;
 		return true;
 	}

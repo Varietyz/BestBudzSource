@@ -2,14 +2,13 @@ package com.bestbudz.core.task.impl;
 
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
-import com.bestbudz.rs2.content.profession.resonance.Resonance;
 import com.bestbudz.rs2.content.sounds.MobSounds;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.mob.MobDrops;
 import com.bestbudz.rs2.entity.mob.Walking;
-import com.bestbudz.rs2.entity.mob.impl.KalphiteQueen;
+import com.bestbudz.rs2.entity.mob.bosses.KalphiteQueen;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class MobDeathTask extends Task {

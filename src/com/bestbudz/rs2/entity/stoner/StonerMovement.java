@@ -10,6 +10,7 @@ import com.bestbudz.rs2.entity.movement.MovementHandler;
 import com.bestbudz.rs2.entity.movement.StonerMovementHandler;
 import com.bestbudz.rs2.entity.following.Following;
 import com.bestbudz.rs2.entity.following.StonerFollowing;
+import com.bestbudz.rs2.entity.pets.PetFormation;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMapRegion;
@@ -50,46 +51,12 @@ public class StonerMovement {
 	}
 
 	public void process() {
-		if (stoner.isPetStoner()) {
-			// Only process following behavior for pets
-			if (following != null) {
-				following.process();
-			}
-			return;
-		}
-
 		following.process();
 	}
 
 	public void reset() {
 		following.updateWaypoint();
 		movementHandler.resetMoveDirections();
-	}
-
-	/**
-	 * Records collision at a location for path memory
-	 */
-	public static void recordCollision(Location loc) {
-		pathMemory.put(loc, pathMemory.getOrDefault(loc, 0) + 1);
-	}
-
-	/**
-	 * Decays path memory over time
-	 */
-	public void decayPathMemory() {
-		pathMemory.entrySet().removeIf(e -> {
-			int newVal = e.getValue() - 1;
-			if (newVal <= 0) return true;
-			e.setValue(newVal);
-			return false;
-		});
-	}
-
-	/**
-	 * Gets memory penalty for a location
-	 */
-	public int getMemoryPenalty(Location loc) {
-		return pathMemory.getOrDefault(loc, 0);
 	}
 
 	/**
@@ -121,6 +88,8 @@ public class StonerMovement {
 			.getLastLocation()
 			.setAs(new Location(stoner.getLocation().getX(), stoner.getLocation().getY() + 1));
 		stoner.getAttributes().remove("combatsongdelay");
+
+		stoner.clearAnimationLock();
 
 		stoner.send(new SendRemoveInterfaces());
 		stoner.send(new SendWalkableInterface(-1));
@@ -154,10 +123,27 @@ public class StonerMovement {
 			TaskQueue.queue(new Task(stoner, 2, true) {
 				@Override
 				public void execute() {
-					// Recreate pets at new location
-					for (PetData petData : activePetData) {
+					// FIXED: Recreate pets with proper formation
+					for (int i = 0; i < activePetData.size(); i++) {
+						PetData petData = activePetData.get(i);
 						Pet newPet = new Pet(teleportedStoner, petData);
 						teleportedStoner.getActivePets().add(newPet);
+
+						// CRITICAL FIX: Set formation position immediately
+						Location formationPos = PetFormation.getFormationPosition(
+							teleportedStoner, i, activePetData.size());
+
+						// Teleport pet to formation position
+						newPet.getPetStoner().teleport(formationPos);
+
+						// IMPORTANT: Set formation offset in the following system
+						Following following = newPet.getPetStoner().getFollowing();
+						if (following instanceof StonerFollowing) {
+							StonerFollowing stonerFollowing = (StonerFollowing) following;
+							int offsetX = formationPos.getX() - teleportedStoner.getLocation().getX();
+							int offsetY = formationPos.getY() - teleportedStoner.getLocation().getY();
+							stonerFollowing.setFormationOffset(offsetX, offsetY);
+						}
 					}
 					stop();
 				}

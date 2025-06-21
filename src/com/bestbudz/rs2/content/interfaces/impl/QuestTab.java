@@ -104,7 +104,7 @@ public class QuestTab extends InterfaceHandler {
 	  "LAVA DRAGONS", // 115152
 	  "MITHRIL DRAGONS", // 115153
 	  "WILD RESOURCE", // 115154
-	  "ACCOMPLISHER", // 115155
+	  "PET_MASTER", // 115155
 	  "HANDINESS", // 115156
 	  "QUARRYING", // 115157
 	  "FORGING", // 115158

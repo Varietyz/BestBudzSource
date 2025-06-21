@@ -4,15 +4,11 @@ import static com.bestbudz.core.discord.stonerbot.config.DiscordBotDefaults.DEFA
 import com.bestbudz.rs2.content.dwarfcannon.DwarfCannon;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobUpdateFlags;
-import com.bestbudz.rs2.entity.pets.Pet;
-import com.bestbudz.rs2.entity.pets.PetCombat;
-import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerUpdateFlags;
 import com.bestbudz.rs2.entity.stoner.net.Client;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendNPCUpdate;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendStonerUpdate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,20 +40,16 @@ public class WorldUpdateManager {
 					}
 				}
 
-				// FIXED: Process Discord bot properly but efficiently
 				if (isDiscordBot(stoner)) {
 					processDiscordBotEfficiently(stoner);
+
 				} else if (isPet(stoner)) {
-					// CRITICAL FIX: Full processing for pets including combat
-					processPetWithFullCombat(stoner);
+					processPetEfficiently(stoner);
+
 				} else {
 					// Full processing for real players
 					stoner.getClient().processIncomingPackets();
 					stoner.process();
-					if (!isDiscordBot(stoner) && !isPet(stoner) &&
-						stoner.getActivePets() != null && !stoner.getActivePets().isEmpty()) {
-						processPetCombat(stoner);
-					}
 					stoner.getClient().reset();
 
 					// Cannon rotation only for real players
@@ -167,41 +159,14 @@ public class WorldUpdateManager {
 	}
 
 	/**
-	 * Process pet combat for all active pets of an owner
-	 */
-	public void processPetCombat(Stoner owner) {
-		List<Pet> activePets = PetManager.getActivePets(owner);
-		for (Pet pet : activePets) {
-			if (pet != null && pet.getPetStoner().isActive()) {
-				PetCombat.processPetCombat(pet);
-			}
-		}
-	}
-
-	/**
 	 * NEW: Full combat processing for pets
 	 */
-	private void processPetWithFullCombat(Stoner pet) {
+	private void processPetEfficiently(Stoner pet) {
 		try {
 			pet.getClient().resetLastPacketReceived();
-
-			// CRITICAL: Process packets (minimal for pets)
 			pet.getClient().processIncomingPackets();
-
-			// CRITICAL: Full process() call for pets to get proper combat
-			pet.process(); // This will call pet.getStonerCombat().process()
-
-			// Reset client state
+			pet.process();
 			pet.getClient().reset();
-
-			// DEBUG: Check if pet is trying to attack
-			if (pet.getCombat().getAssaulting() != null) {
-				System.out.println("DEBUG: Pet NPC " + pet.getUsername() +
-					" has target: " + (pet.getCombat().getAssaulting().isNpc() ? "NPC" : "Player") +
-					", assault timer: " + pet.getCombat().getAssaultTimer() +
-					", in combat: " + pet.getCombat().inCombat() +
-					", NPC appearance ID: " + pet.getNpcAppearanceId());
-			}
 
 		} catch (Exception e) {
 			System.err.println("Pet full combat processing error for " + pet.getUsername() + ": " + e.getMessage());
@@ -226,27 +191,10 @@ public class WorldUpdateManager {
 	 */
 	private void processDiscordBotEfficiently(Stoner bot) {
 		try {
-			// CRITICAL FIX: Full processing for Discord bot to ensure proper combat
 			bot.getClient().resetLastPacketReceived();
-
-			// Process packets (minimal for bot)
 			bot.getClient().processIncomingPackets();
-
-			// CRITICAL: Full process() call for proper aggression and combat
 			bot.process();
-
-			// Reset client state
 			bot.getClient().reset();
-
-			// Debug output every 10 seconds for Discord bot status
-			if (World.getCycles() % 100 == 0) { // Every ~30 seconds
-				System.out.println("Discord bot status - " +
-					"Active: " + bot.isActive() +
-					", Location: " + bot.getLocation() +
-					", In Combat: " + bot.getCombat().inCombat() +
-					", Current Target: " + (bot.getCombat().getAssaulting() != null ?
-					("NPC " + bot.getCombat().getAssaulting().getIndex()) : "none"));
-			}
 
 		} catch (Exception e) {
 			System.err.println("Discord bot processing error: " + e.getMessage());

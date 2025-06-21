@@ -78754,4 +78754,238 @@
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10001</id>
+		<name>Toy Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10002</id>
+		<name>Infant Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10003</id>
+		<name>Hatchling Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10004</id>
+		<name>Cub Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10005</id>
+		<name>Youth Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10006</id>
+		<name>Teen Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10007</id>
+		<name>Young Adult Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10008</id>
+		<name>Adult Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10009</id>
+		<name>Prime Jad</name>
+		<walkAnimation>2651</walkAnimation>
+		<standAnimation>2650</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10041</id>
+		<name>Toy Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10042</id>
+		<name>Infant Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10043</id>
+		<name>Hatchling Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10044</id>
+		<name>Cub Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10045</id>
+		<name>Youth Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10046</id>
+		<name>Teen Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10047</id>
+		<name>Young Adult Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10048</id>
+		<name>Adult Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10049</id>
+		<name>Prime Corp</name>
+		<walkAnimation>1684</walkAnimation>
+		<standAnimation>1678</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>0</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
 </list>

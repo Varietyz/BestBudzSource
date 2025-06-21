@@ -1,10 +1,11 @@
 package com.bestbudz.rs2.entity.pets.abilities;
 
+import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
+import com.bestbudz.rs2.entity.pets.PetCombatUtils;
 import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.pets.PetCombat;
 
 public class KalphiteQueenAbility extends PetAbility {
 
@@ -19,14 +20,14 @@ public class KalphiteQueenAbility extends PetAbility {
 		pet.getUpdateFlags().sendGraphic(new Graphic(1055, true));
 		pet.getUpdateFlags().sendForceMessage("*chittering angrily*");
 
-		// Apply temporary attack boost using PetCombat utility
-		PetCombat.applyTemporaryBonus(pet, "ATTACK", 15, 30000); // 30 seconds
+		// Apply temporary attack boost using PetCombatUtils utility
+		PetCombatUtils.applyTemporaryBonus(pet, "ATTACK", 15, 30000); // 30 seconds
 
-		// Deal extra damage using existing damage system
+		// Deal extra damage using proper Hit system
 		if (target != null && !target.isDead()) {
 			int extraDamage = 15 + (int)(Math.random() * 15);
-			target.getGrades()[3] = Math.max(0, target.getGrades()[3] - extraDamage);
-			target.getUpdateFlags().sendHit(extraDamage, (byte)0, (byte)0);
+			Hit hit = new Hit(pet, extraDamage, Hit.HitTypes.MELEE); // Physical rage attack
+			target.hit(hit);
 		}
 	}
 }

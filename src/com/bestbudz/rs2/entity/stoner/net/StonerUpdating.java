@@ -43,7 +43,7 @@ public final class StonerUpdating {
 
 		block.writeByte(flags.getGender());
 		block.writeByte(flags.getHeadicon());
-		block.writeByte(flags.getSkullIcon());
+		block.writeByte(flags.getHeadicon());
 		block.writeByte(flags.getRights());
 
 		short[] equip = flags.getEquipment();
@@ -127,27 +127,6 @@ public final class StonerUpdating {
 		out.writeBytes(block.getBuffer());
 	}
 
-	/**
-	 * CRITICAL FIX: Get proper display name for appearance block
-	 * This determines what name players actually see
-	 */
-	private static String getDisplayNameForAppearance(StonerUpdateFlags flags) {
-		String username = flags.getUsername();
-
-		// Check if this is a pet by username format
-		if (PetManager.isPetUsername(username)) {
-			// For pets, extract and format the display name
-			com.bestbudz.rs2.entity.pets.PetData petData = PetManager.getPetDataFromUsername(username);
-			if (petData != null) {
-				return PetManager.formatPetDisplayName(petData);
-			}
-			return "Unknown Pet";
-		}
-
-		// For regular players and Discord bot, use the username as-is
-		return username;
-	}
-
 	private static void writeLookSlot(OutBuffer block, int itemId, int base, int fallback) {
 		if (itemId != 0) {
 			block.writeShort(base + itemId);
@@ -204,23 +183,6 @@ public final class StonerUpdating {
 		out.writeBits(2, 1); // Walk update
 		out.writeBits(3, direction);
 		out.writeBit(attributesUpdate);
-	}
-
-	/**
-	 * CRITICAL FIX: Check if local list contains stoner using UNIQUE username comparison
-	 * This ensures proper identification of each entity (pets, Discord bot, regular players)
-	 */
-	public static boolean doesLocalListContainStoner(Stoner local, long usernameToLong) {
-		if (local == null || local.getStoners() == null) {
-			return false;
-		}
-
-		for (Stoner p : local.getStoners()) {
-			if (p != null && p.getUsernameToLong() == usernameToLong) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public static void update(Stoner stoner, StonerUpdateFlags[] pFlags) {

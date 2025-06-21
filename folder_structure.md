@@ -505,7 +505,7 @@ Server Folder Architecture
         │   │   │   ├─ 📄 PriceChecker.java
         │   │   │   ├─ 📄 PrivateMessaging.java
         │   │   │   ├─ 📂 profession
-        │   │   │   │   ├─ 📂 accomplisher
+        │   │   │   │   ├─ 📂 petmaster
         │   │   │   │   │   ├─ 📄 HomeStalls.java
         │   │   │   │   │   └─ 📄 WallSafes.java
         │   │   │   │   ├─ 📂 bankstanding

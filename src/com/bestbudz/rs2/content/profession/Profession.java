@@ -12,6 +12,8 @@ import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.mob.Mob;
+import com.bestbudz.rs2.entity.pets.PetData;
+import com.bestbudz.rs2.entity.pets.PetUtils;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ChatBridgeManager;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendColor;
@@ -144,6 +146,11 @@ public class Profession {
 			return;
 		}
 
+		if (stoner.isPetStoner()) {
+			handlePetOwnerExperience(type, hit);
+			return; // Exit early - pets don't gain their own experience
+		}
+
 		double exp = hit * 3.0D;
 
 		switch (type) {
@@ -189,7 +196,81 @@ public class Profession {
 		addExperience(3, exp * meleeExp * 1.33D);
 	}
 
-// In Profession.java - Replace the addExperience method with this enhanced version:
+	/**
+	 * Handle experience and messaging for pet owners
+	 */
+	private void handlePetOwnerExperience(CombatTypes type, long hit) {
+		Stoner owner = (Stoner) stoner.getAttributes().get("PET_OWNER");
+		if (owner == null || !owner.isActive()) {
+			return;
+		}
+
+		// Apply advancement multiplier if owner has 2+ advances in Pet Master
+		long experienceHit = hit;
+		if (owner.getProfessionAdvances()[17] >= 2) {
+			experienceHit = hit * owner.getProfessionAdvances()[17];
+		}
+
+		// Calculate base experience (same formula as regular combat)
+		double exp = experienceHit;
+		double totalExpGained = 0;
+
+		// Award experience to owner based on combat type
+		switch (type) {
+			case MELEE:
+				// Use owner's assault style for melee experience distribution
+				switch (owner.getEquipment().getAssaultStyle()) {
+					case ACCURATE:
+						totalExpGained += owner.getProfession().addExperience(0, exp * meleeExp);
+						break;
+					case AGGRESSIVE:
+						totalExpGained += owner.getProfession().addExperience(2, exp * meleeExp);
+						break;
+					case CONTROLLED:
+						totalExpGained += owner.getProfession().addExperience(0, (exp / 3.0D) * meleeExp);
+						totalExpGained += owner.getProfession().addExperience(2, (exp / 3.0D) * meleeExp);
+						totalExpGained += owner.getProfession().addExperience(1, (exp / 3.0D) * meleeExp);
+						break;
+					case DEFENSIVE:
+						totalExpGained += owner.getProfession().addExperience(1, exp * meleeExp);
+						break;
+				}
+				break;
+			case MAGE:
+				totalExpGained += owner.getProfession().addExperience(6, exp * mageExp);
+				break;
+			case SAGITTARIUS:
+				totalExpGained += owner.getProfession().addExperience(4, exp * sagittariusExp);
+				switch (owner.getEquipment().getAssaultStyle()) {
+					case ACCURATE:
+					case AGGRESSIVE:
+					case CONTROLLED:
+						totalExpGained += owner.getProfession().addExperience(4, exp * sagittariusExp);
+						break;
+					case DEFENSIVE:
+						totalExpGained += owner.getProfession().addExperience(4, (exp / 2.0D) * sagittariusExp);
+						totalExpGained += owner.getProfession().addExperience(1, (exp / 2.0D) * sagittariusExp);
+						break;
+				}
+				break;
+		}
+
+		// Always add hitpoints experience
+		totalExpGained += owner.getProfession().addExperience(3, exp * meleeExp * 1.33D);
+
+		// Send message to owner for significant hits
+		if (hit > 50 && totalExpGained > 0) {
+			String petName = PetUtils.formatPetDisplayName(
+				(PetData) stoner.getAttributes().get("PET_DATA")
+			);
+
+			StringBuilder message = new StringBuilder();
+			message.append("@gre@Pet ").append(petName).append(" dealt ").append(hit).append(" dmg");
+			message.append(" (+").append((int)totalExpGained).append(" XP)");
+
+			owner.send(new SendMessage(message.toString()));
+		}
+	}
 
 	public double addExperience(int id, double experience) {
 		if ((expLock) && (id <= 6)) {
@@ -520,7 +601,7 @@ public class Profession {
 			case Professions.RESONANCE: return 94159;
 			case Professions.WEEDSMOKING: return 94151;
 			case Professions.THCHEMPISTRY: return 94154;
-			case Professions.ACCOMPLISHER: return 94157;
+			case Professions.PET_MASTER: return 94157;
 			case Professions.HANDINESS: return 94160;
 			case Professions.CONSUMER: return 94165;
 			case Professions.MERCENARY: return 94166;
@@ -633,7 +714,16 @@ public class Profession {
 		totalGrade = 0;
 
 		for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
-			totalGrade += stoner.getMaxGrades()[i];
+			// Base grade from current max grade
+			long baseGrade = stoner.getMaxGrades()[i];
+
+			// Additional grades from advancements (1 advance = 420 grades)
+			long advancementGrades = stoner.getProfessionAdvances()[i] * 420L;
+
+			// Total effective grade for this profession
+			long effectiveGrade = baseGrade + advancementGrades;
+
+			totalGrade += effectiveGrade;
 		}
 	}
 }

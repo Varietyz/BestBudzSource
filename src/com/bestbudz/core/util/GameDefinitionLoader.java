@@ -448,7 +448,7 @@ public class GameDefinitionLoader {
             name = "WEEDSMOKING";
             break;
           case 17:
-            name = "ACCOMPLISHER";
+            name = "PET_MASTER";
             break;
           case 18:
             name = "MERCENARY";

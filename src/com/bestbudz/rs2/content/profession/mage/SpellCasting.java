@@ -153,6 +153,7 @@ public class SpellCasting {
 			//Autocast.resetAutoCastInterface(stoner);  // ← Add this to update the interface
 			stoner.getFollowing().setFollow(other, Following.FollowType.COMBAT);
 			stoner.getCombat().setAssaulting(other);
+			stoner.face(other);
 		} else {
 			stoner.getCombat().reset();
 		}

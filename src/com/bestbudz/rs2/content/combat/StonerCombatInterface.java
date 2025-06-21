@@ -20,7 +20,6 @@ import com.bestbudz.rs2.content.profession.melee.BarrowsSpecials;
 import com.bestbudz.rs2.content.profession.mercenary.MercenaryMonsters;
 import com.bestbudz.rs2.content.profession.sagittarius.BoltSpecials;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
-import com.bestbudz.rs2.content.profession.summoning.FamiliarMob;
 import com.bestbudz.rs2.content.sounds.StonerSounds;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.World;
@@ -29,6 +28,7 @@ import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemCheck;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobConstants;
+import com.bestbudz.rs2.entity.pets.PetCombatHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
@@ -60,6 +60,12 @@ public class StonerCombatInterface implements CombatInterface {
 
   @Override
   public boolean canAssault() {
+	  if (stoner.isPetStoner()) {
+		  Entity target = stoner.getCombat().getAssaulting();
+		  return target != null && !target.isDead() && target.isActive() &&
+			  Boolean.TRUE.equals(stoner.getAttributes().get("PET_COMBAT_READY"));
+	  }
+
     if (!stoner.getController().canUseCombatType(stoner, stoner.getCombat().getCombatType())) {
       return false;
     }
@@ -129,23 +135,6 @@ public class StonerCombatInterface implements CombatInterface {
       }
     }
 
-    // if (!stoner.inMultiArea() || !assaulting.inMultiArea()) {
-    //	if (stoner.getCombat().inCombat() && stoner.getCombat().getLastAssaultedBy() !=
-    // stoner.getCombat().getAssaulting()) {
-    //		stoner.getClient().queueOutgoingPacket(new SendMessage("You are already under assault."));
-    //		return false;
-    //	}
-    //
-    //		if (assaulting.getCombat().inCombat() && assaulting.getCombat().getLastAssaultedBy() !=
-    // stoner && !stoner.getSummoning().isFamiliar(assaulting.getCombat().getLastAssaultedBy())) {
-    //			stoner.getClient().queueOutgoingPacket(new SendMessage("This " +
-    // (stoner.getCombat().getAssaulting().isNpc() ? "monster" : "stoner") + " is already under
-    // assault."));
-    //			return false;
-    //		}
-
-    //	}
-
     if (!assaulting.isNpc()) {
       Stoner other = World.getStoners()[assaulting.getIndex()];
 
@@ -154,15 +143,6 @@ public class StonerCombatInterface implements CombatInterface {
       Mob mob = World.getNpcs()[assaulting.getIndex()];
 
       if (mob != null) {
-        if (mob instanceof FamiliarMob) {
-          if (!mob.inWilderness()) return false;
-          if (mob.getOwner().equals(stoner)) {
-            stoner
-                .getClient()
-                .queueOutgoingPacket(new SendMessage("You cannot assault your own familiar!"));
-            return false;
-          }
-        }
 
         if (!stoner.getController().canAssaultNPC()) {
           stoner.getClient().queueOutgoingPacket(new SendMessage("You can't assault NPCs here."));
@@ -224,6 +204,10 @@ public class StonerCombatInterface implements CombatInterface {
 
   @Override
   public int getMaxHit(CombatTypes type) {
+	  if (stoner.isPetStoner()) {
+		  return PetCombatHandler.getPetMaxHit(stoner, type);
+	  }
+
     switch (type) {
       case MAGE:
         return (MageFormulas.mageMaxHit(stoner));
@@ -312,6 +296,10 @@ public class StonerCombatInterface implements CombatInterface {
 
     stoner.getGrades()[3] = (short) (stoner.getGrades()[3] - hit.getDamage());
 
+	  if (stoner.isPetStoner() && hit.getDamage() > 0) {
+		  PetCombatHandler.onPetTakeDamage(stoner, hit.getDamage());
+	  }
+
     if (!stoner.getUpdateFlags().isHitUpdate()) {
       stoner.getUpdateFlags().sendHit(hit.getDamage(), hit.getHitType(), hit.getCombatHitType());
     } else {
@@ -367,11 +355,11 @@ public class StonerCombatInterface implements CombatInterface {
         }
       }
 
-      if (stoner.isRetaliate()
-          && stoner.getCombat().getAssaulting() == null
-          && !stoner.getMovementHandler().moving()) {
-        stoner.getCombat().setAssault(hit.getAssaulter());
-      }
+		if (stoner.isRetaliate()
+			&& stoner.getCombat().getAssaulting() == null
+			&& !stoner.getMovementHandler().moving()) {
+			stoner.getCombat().setAssault(hit.getAssaulter());
+		}
 
       stoner.getCombat().getDamageTracker().addDamage(hit.getAssaulter(), hit.getDamage());
 
@@ -406,9 +394,6 @@ public class StonerCombatInterface implements CombatInterface {
     if (!assault.isNpc()) {
       Stoner p = World.getStoners()[assault.getIndex()];
 
-      if (p != null) {
-        stoner.getSkulling().checkForSkulling(stoner, p);
-      }
     }
 
     switch (type) {
@@ -435,6 +420,9 @@ public class StonerCombatInterface implements CombatInterface {
 
   @Override
   public void onCombatProcess(Entity entity) {
+	  if (stoner.isPetStoner()) {
+		  return;
+	  }
     if (stoner.getSpecialAssault().isInitialized()
         && stoner.getCombat().getCombatType() != CombatTypes.MAGE) {
       SpecialAssaultHandler.handleSpecialAssault(stoner);
@@ -493,6 +481,10 @@ public class StonerCombatInterface implements CombatInterface {
                   ? stoner.getAttributes().getInt(PestControlGame.PEST_DAMAGE_KEY) + hit.getDamage()
                   : hit.getDamage());
     }
+
+	  if (stoner.isPetStoner() && hit.getDamage() > 0) {
+		  PetCombatHandler.onPetDealDamage(stoner, entity, hit.getDamage());
+	  }
 
     if (stoner.getCombat().getCombatType() == CombatTypes.SAGITTARIUS) {
       stoner.getSagittarius().dropArrowAfterHit();

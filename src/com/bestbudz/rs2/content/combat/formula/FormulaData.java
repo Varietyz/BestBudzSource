@@ -267,8 +267,7 @@ public class FormulaData {
 		attackerRes.updateResonance(hit, timeDelta, attacker);
 		defenderRes.updateResonance(!hit, timeDelta, defender); // Defender "succeeds" when attacker misses
 
-		if (attacker instanceof Stoner) {
-			Stoner stoner = (Stoner) attacker;
+		if (attacker instanceof Stoner stoner) {
 			Combat.CombatTypes combatType = stoner.getCombat().getCombatType();
 			stoner.getResonance().updateResonance(hit, damage, combatType);
 		}

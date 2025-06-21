@@ -256,6 +256,7 @@ public class StonerSession {
 		if (stoner.isActive()) {
 			stoner.getBankStanding().forceStop();
 			stoner.getBankStanding().cleanup();
+			stoner.clearAnimationLock();
 
 			if (force) {
 				ControllerManager.onForceLogout(stoner);
@@ -283,10 +284,6 @@ public class StonerSession {
 
 			if (stoner.getDueling().isStaking()) {
 				stoner.getDueling().decline();
-			}
-
-			if (stoner.getSummoning().hasFamiliar()) {
-				stoner.getSummoning().removeForLogout();
 			}
 
 			PetManager.handleLogout(stoner);

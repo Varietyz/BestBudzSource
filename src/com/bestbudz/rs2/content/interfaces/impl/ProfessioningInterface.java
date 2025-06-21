@@ -7,7 +7,7 @@ public class ProfessioningInterface extends InterfaceHandler {
 
   private final String[] text = {
     "Wilderness Resource",
-    "Accomplisher",
+    "Pet Master",
     "Handiness",
     "Weedsmoking",
     "Quarrying",

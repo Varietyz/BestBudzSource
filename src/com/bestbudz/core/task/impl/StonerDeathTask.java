@@ -83,10 +83,6 @@ public class StonerDeathTask extends Task {
       stoner.curePoison(0);
     }
 
-    if (stoner.getSkulling().isSkulled()) {
-      stoner.getSkulling().unskull(stoner);
-    }
-
     stoner.getResonance().disable();
 
     stoner.getRunEnergy().setEnergy(100);

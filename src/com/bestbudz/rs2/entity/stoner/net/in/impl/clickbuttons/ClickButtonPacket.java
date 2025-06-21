@@ -24,7 +24,6 @@ import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryFinishedPotionTask;
 import com.bestbudz.rs2.content.profession.thchempistry.THChempistryUnfinishedPotionTask;
-import com.bestbudz.rs2.content.profiles.ProfileLeaderboard;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.Location;
@@ -134,20 +133,25 @@ public class ClickButtonPacket extends IncomingPacket {
 	}
 
 	public static void handlePaymentOption(Stoner stoner) {
-		stoner.start(new OptionDialogue(
-			"Pay by Cash",
-			p -> {
-				stoner.setPouchPayment(false);
-				stoner.send(new SendRemoveInterfaces());
-				stoner.send(new SendMessage("You will now be paying with your Cash."));
-			},
-			"Pay by Debit",
-			p -> {
+		enum PaymentMethod {
+			CASH, DEBIT
+		}
+
+		PaymentMethod currentMethod = stoner.isPouchPayment() ? PaymentMethod.DEBIT : PaymentMethod.CASH;
+
+		switch (currentMethod) {
+			case CASH:
+				// Currently cash, switch to debit
 				stoner.setPouchPayment(true);
-				stoner.send(new SendRemoveInterfaces());
 				stoner.send(new SendMessage("You will now be paying with your Debit Card."));
-			}
-		));
+				break;
+
+			case DEBIT:
+				// Currently debit, switch to cash
+				stoner.setPouchPayment(false);
+				stoner.send(new SendMessage("You will now be paying with your Cash."));
+				break;
+		}
 	}
 
 	public static void handleWeaponUnload(Stoner stoner) {
@@ -330,14 +334,9 @@ public class ClickButtonPacket extends IncomingPacket {
 	}
 
 	public static void handleSkulling(Stoner stoner) {
-		if (stoner.getSkulling().isSkulled()) {
-			DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You already have a wilderness skull!");
-		} else {
-			stoner.getSkulling().skull(stoner, stoner);
-			DialogueManager.sendNpcChat(stoner, 315, Emotion.DEFAULT, "You have been skulled.");
+		stoner.send(new SendMessage("You received an overhead weedskull (visual only!."));
 			stoner.getUpdateFlags().sendAnimation(new Animation(5315));
 			stoner.getUpdateFlags().sendGraphic(new Graphic(1061));
-		}
 	}
 
 	public static void showOnlineStoners(Stoner stoner) {
@@ -378,133 +377,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.getUpdateFlags().sendForceMessage("Raarrrrrgggggghhhhhhh!");
 	}
 
-	public static void displayItemsKeptOnDeath(Stoner stoner) {
-		int kept = 3;
-
-		if (stoner.getSkulling().isSkulled()) {
-			kept = 0;
-		}
-
-		Queue<Item> dropItems = new PriorityQueue<>(42);
-
-		// Add items from inventory and equipment
-		for (Item i : stoner.getBox().getItems()) {
-			if (i != null) {
-				dropItems.add(new Item(i.getId(), i.getAmount()));
-			}
-		}
-
-		for (Item i : stoner.getEquipment().getItems()) {
-			if (i != null) {
-				dropItems.add(new Item(i.getId(), i.getAmount()));
-			}
-		}
-
-		// Determine items to keep
-		Item[] toKeep = new Item[kept];
-		int keepIndex = 0;
-
-		for (int i = 0; i < kept; i++) {
-			Item keep = dropItems.poll();
-			if (keep != null) {
-				if (keep.getAmount() == 1) {
-					toKeep[keepIndex++] = keep;
-				} else {
-					keep.remove(1);
-					toKeep[keepIndex++] = new Item(keep.getId(), 1);
-				}
-			}
-		}
-
-		// Determine items to drop
-		Item[] toDrop = new Item[dropItems.size()];
-		int dropIndex = 0;
-		Item dropItem;
-
-		while ((dropItem = dropItems.poll()) != null) {
-			if (dropItem.getDefinition().isTradable() || !dropItem.getDefinition().isTradable() || ItemCheck.isItemDyedWhip(dropItem)) {
-				toDrop[dropIndex++] = dropItem;
-			}
-		}
-
-		// Clear interface strings
-		for (int i = 17109; i < 17131; i++) {
-			stoner.send(new SendString("", i));
-		}
-
-		// Set up interface text
-		setupDeathInterfaceText(stoner, kept);
-
-		// Calculate wealth
-		BigInteger carrying = stoner.getBox().getContainerNet().add(stoner.getEquipment().getContainerNet());
-		BigInteger risked = calculateRiskedWealth(toDrop);
-
-		// Display wealth information
-		stoner.send(new SendString("Carried wealth:", 17121));
-		stoner.send(new SendString(carrying.equals(BigInteger.ZERO) ? "@red@Nothing!" :
-			"@red@" + NumberFormat.getNumberInstance(Locale.US).format(carrying) + "</col> bestbucks.", 17122));
-
-		stoner.send(new SendString("Risked wealth:", 17124));
-		stoner.send(new SendString(risked.equals(BigInteger.ZERO) ? "@red@Nothing!" :
-			"@red@" + NumberFormat.getNumberInstance(Locale.US).format(risked) + "</col> bestbucks.", 17125));
-
-		// Update interface
-		stoner.send(new SendUpdateItems(10494, toKeep));
-		stoner.send(new SendUpdateItems(10600, toDrop));
-		stoner.send(new SendInterface(17100));
-	}
-
-	private static void setupDeathInterfaceText(Stoner stoner, int kept) {
-		stoner.send(new SendString("Items you will keep on death:", 17104));
-		stoner.send(new SendString("Items you will lose on death:", 17105));
-		stoner.send(new SendString("Stoner Information", 17106));
-		stoner.send(new SendString("Max items kept on death:", 17107));
-		stoner.send(new SendString("~ " + kept + " ~", 17108));
-
-		switch (kept) {
-			case 0 -> {
-				stoner.send(new SendString("You're marked with a", 17111));
-				stoner.send(new SendString("@red@skull. @lre@This reduces the", 17112));
-				stoner.send(new SendString("items you keep from", 17113));
-				stoner.send(new SendString("three to zero!", 17114));
-			}
-			case 1 -> {
-				stoner.send(new SendString("You're marked with a", 17111));
-				stoner.send(new SendString("@red@skull. @lre@This reduces the", 17112));
-				stoner.send(new SendString("items you keep from", 17113));
-				stoner.send(new SendString("three to zero!", 17114));
-				stoner.send(new SendString("However, you also have", 17115));
-				stoner.send(new SendString("the @red@Protect @lre@Items resonance", 17116));
-				stoner.send(new SendString("active, which saves you", 17117));
-				stoner.send(new SendString("one extra item!", 17118));
-			}
-			case 3 -> {
-				stoner.send(new SendString("You have no factors", 17111));
-				stoner.send(new SendString("affecting the items you", 17112));
-				stoner.send(new SendString("keep.", 17113));
-			}
-			case 4 -> {
-				stoner.send(new SendString("You have the @red@Protect", 17111));
-				stoner.send(new SendString("@red@Item @lre@resonance active,", 17112));
-				stoner.send(new SendString("which saves you one", 17113));
-				stoner.send(new SendString("extra item!", 17114));
-			}
-		}
-	}
-
-	private static BigInteger calculateRiskedWealth(Item[] toDrop) {
-		BigInteger risked = BigInteger.ZERO;
-		for (Item dropping : toDrop) {
-			if (dropping == null || dropping.getDefinition() == null) {
-				continue;
-			}
-			risked = risked.add(
-				new BigInteger(String.valueOf(dropping.getDefinition().getGeneralPrice()))
-					.multiply(new BigInteger(String.valueOf(dropping.getAmount())))
-			);
-		}
-		return risked;
-	}
 
 	@Override
 	public int getMaxDuplicates() {
@@ -568,13 +440,6 @@ public class ClickButtonPacket extends IncomingPacket {
 			return;
 		}
 
-		// Handle profile leaderboards
-		if (handleProfileLeaderboards(stoner, buttonId)) {
-			if (StonerConstants.isOwner(stoner)) {
-				System.out.println("DEBUG: Button " + buttonId + " handled by profile leaderboards");
-			}
-			return;
-		}
 
 		// Handle complex cases that require additional logic
 		if (handleComplexCases(stoner, buttonId)) {
@@ -741,16 +606,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		}
 		return false;
 	}
-
-	private boolean handleProfileLeaderboards(Stoner stoner, int buttonId) {
-		String type = LEADERBOARD_TYPES.get(buttonId);
-		if (type != null) {
-			ProfileLeaderboard.open(stoner, type);
-			return true;
-		}
-		return false;
-	}
-
 
 	private void handleDefaultCases(Stoner stoner, int buttonId) {
 		// Handle plugin systems in order of priority

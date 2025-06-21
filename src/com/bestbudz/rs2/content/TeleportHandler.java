@@ -4,17 +4,14 @@ import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
 import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
-import com.bestbudz.rs2.content.membership.CreditPurchase;
 import com.bestbudz.rs2.content.minigames.clanwars.ClanWarsConstants;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameConstants;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.mob.Mob;
-import com.bestbudz.rs2.entity.mob.impl.Zulrah;
+import com.bestbudz.rs2.entity.mob.bosses.Zulrah;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -323,7 +320,7 @@ public class TeleportHandler {
     MITHRIL_DRAGONS(238132, 3000, "None", "None", 0, new Location(1747, 5324, 0), false, false),
 
     WILD_RESOURCE(242099, 3000, "54 Wild!", "None", 0, new Location(3184, 3947, 0), false, false),
-    ACCOMPLISHER(242100, 3000, "None", "None", 0, new Location(3047, 4976, 1), false, false),
+    PET_MASTER(242100, 3000, "None", "None", 0, new Location(3047, 4976, 1), false, false),
     HANDINESS(242101, 2000, "None", "None", 0, new Location(2747, 3444, 0), false, false),
     QUARRYING(242103, 3000, "None", "None", 0, new Location(3044, 9785, 0), false, false),
     FORGING(242104, 2000, "None", "None", 0, new Location(3186, 3425, 0), false, false),

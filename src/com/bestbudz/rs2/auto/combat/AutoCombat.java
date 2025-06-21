@@ -13,6 +13,7 @@ import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.entity.item.Equipment;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.mob.Mob;
+import com.bestbudz.rs2.entity.pets.PetCombatHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.List;
@@ -32,7 +33,7 @@ public class AutoCombat {
 	private final MeleeStyleManager meleeStyleManager;
 
 	public static boolean mageStyle = false;
-	private boolean enabled = true;
+	private boolean enabled = false;
 
 	public AutoCombat(Stoner stoner) {
 		this.stoner = stoner;
@@ -48,10 +49,13 @@ public class AutoCombat {
 	 * Main processing method - called from Stoner.process()
 	 */
 	public void process() {
-		if (!enabled || !stoner.getController().canAssaultNPC()) {
+		if (!isAutoCombatActive()) {
 			return;
 		}
 
+		if (!stoner.getController().canAssaultNPC()) {
+			return;
+		}
 		if (stoner.getMovementHandler().moving() ||
 			stoner.isBusy() ||
 			stoner.getDialogue() != null) {
@@ -63,6 +67,19 @@ public class AutoCombat {
 			processTargetEngagement(target);
 		}
 	}
+
+	private boolean isAutoCombatActive() {
+		// CRITICAL: Always enable AutoCombat for pets
+		if (stoner.isPetStoner()) {
+			return false;
+		}
+
+		if (DiscordBotPrivileges.isDiscordBot(stoner)) {
+			return true; // Always active for special entities
+		}
+		return enabled; // User-controlled for normal players
+	}
+
 
 	private void processTargetEngagement(Mob target) {
 		int distance = targetFinder.getDistanceToTarget(target);
@@ -82,42 +99,7 @@ public class AutoCombat {
 		engageTarget(target);
 	}
 
-	// Add method to get comprehensive timing info including melee styles:
-	public String getComprehensiveTimingInfo() {
-		StringBuilder info = new StringBuilder();
-		info.append(timingManager.getTimingInfo());
 
-		CombatTypes currentStyle = equipmentManager.getCurrentCombatStyle();
-		if (currentStyle == CombatTypes.MELEE) {
-			info.append("\n").append(meleeStyleManager.getTimingInfo());
-		}
-
-		return info.toString();
-	}
-
-	// Add method to manually force melee style:
-	public void forceMeleeStyle(String styleName) {
-		Equipment.AssaultStyles style;
-		switch (styleName.toLowerCase()) {
-			case "accurate":
-				style = Equipment.AssaultStyles.ACCURATE;
-				break;
-			case "aggressive":
-				style = Equipment.AssaultStyles.AGGRESSIVE;
-				break;
-			case "controlled":
-				style = Equipment.AssaultStyles.CONTROLLED;
-				break;
-			case "defensive":
-				style = Equipment.AssaultStyles.DEFENSIVE;
-				break;
-			default:
-				stoner.send(new SendMessage("Invalid style. Use: accurate, aggressive, controlled, or defensive"));
-				return;
-		}
-
-		meleeStyleManager.forceStyle(style);
-	}
 
 	/**
 	 * Handle gear optimization based on timing and variety
@@ -337,19 +319,12 @@ public class AutoCombat {
 	}
 
 	/**
-	 * Get comprehensive timing and status information
-	 */
-	public String getTimingInfo() {
-		return timingManager.getTimingInfo();
-	}
-
-	/**
 	 * Toggle auto combat on/off
 	 */
 	public void toggle() {
-		// Discord bot cannot disable auto-combat
-		if (DiscordBotPrivileges.isDiscordBot(stoner)) {
-			stoner.send(new SendMessage("Auto-combat is always enabled for Discord bots!"));
+    // Discord bot cannot disable auto-combat
+    if (DiscordBotPrivileges.isDiscordBot(stoner) || stoner.isPetStoner()) {
+			stoner.send(new SendMessage("Auto-combat is always enabled for Discord bots & pets!"));
 			return;
 		}
 
@@ -361,22 +336,6 @@ public class AutoCombat {
 		if (enabled) {
 			// Reset timings when re-enabling
 			timingManager.resetTimings();
-		}
-	}
-
-	/**
-	 * Manual style switch (for testing or user preference)
-	 */
-	public void forceStyleSwitch(CombatTypes style) {
-		if (equipmentManager.hasGearForStyle(style)) {
-			boolean success = equipmentManager.equipStyleGear(style);
-			if (success) {
-				String gearFingerprint = timingManager.generateGearFingerprint(equipmentManager.getEquippedItems());
-				timingManager.setCurrentStyle(style, gearFingerprint);
-				stoner.send(new SendMessage("Manually switched to " + style.name().toLowerCase() + " style"));
-			}
-		} else {
-			stoner.send(new SendMessage("No gear available for " + style.name().toLowerCase() + " style"));
 		}
 	}
 

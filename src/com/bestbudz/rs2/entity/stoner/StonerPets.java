@@ -2,7 +2,6 @@ package com.bestbudz.rs2.entity.stoner;
 
 import com.bestbudz.rs2.entity.pets.Pet;
 import com.bestbudz.rs2.entity.pets.PetManager;
-import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,47 +50,5 @@ public class StonerPets {
 	 */
 	public List<Pet> getActivePets() {
 		return activePetsNew;
-	}
-
-	/**
-	 * Sets the list of active pets
-	 */
-	public void setActivePets(List<Pet> activePets) {
-		this.activePetsNew = activePets;
-	}
-
-	/**
-	 * Adds a pet to the active pets list
-	 */
-	public void addActivePet(Pet pet) {
-		activePetsNew.add(pet);
-	}
-
-	/**
-	 * Removes a pet from the active pets list
-	 */
-	public void removeActivePet(Pet pet) {
-		activePetsNew.remove(pet);
-	}
-
-	/**
-	 * Checks if the player has any active pets
-	 */
-	public boolean hasActivePets() {
-		return !activePetsNew.isEmpty();
-	}
-
-	/**
-	 * Gets the number of active pets
-	 */
-	public int getActivePetCount() {
-		return activePetsNew.size();
-	}
-
-	/**
-	 * Clears all active pets
-	 */
-	public void clearActivePets() {
-		activePetsNew.clear();
 	}
 }

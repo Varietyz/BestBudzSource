@@ -117,10 +117,7 @@ public class ChatInterfacePacket extends IncomingPacket {
                 amount,
                 type - 1));
         break;
-      case 2700:
-        if (stoner.getSummoning().isFamilarBOB()) {
-          stoner.getSummoning().getContainer().withdraw(slot, amount);
-        }
+      case 2700: //FREE
         break;
       case 55678:
 		  break;
@@ -148,12 +145,7 @@ public class ChatInterfacePacket extends IncomingPacket {
         if (!stoner.getBox().slotContainsItem(slot, id)) {
           return;
         }
-
         if (stoner.getInterfaceManager().hasBankOpen()) stoner.getBank().deposit(id, amount, slot);
-        else if (stoner.getSummoning().isFamilarBOB()) {
-          stoner.getSummoning().getContainer().store(id, amount, slot);
-        }
-
         break;
       case 5382:
         if (stoner.getBank().hasItemId(id)) {
