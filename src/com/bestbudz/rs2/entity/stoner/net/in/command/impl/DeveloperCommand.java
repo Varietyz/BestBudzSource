@@ -22,7 +22,6 @@ import com.bestbudz.rs2.content.dialogue.OneLineDialogue;
 import com.bestbudz.rs2.content.exercisement.Exercisement;
 import com.bestbudz.rs2.content.io.sqlite.StonerSave;
 import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
-import com.bestbudz.rs2.content.membership.RankHandler;
 import com.bestbudz.rs2.content.minigames.plunder.PyramidPlunder;
 import com.bestbudz.rs2.content.profession.Profession;
 import com.bestbudz.rs2.content.profession.Professions;
@@ -246,7 +245,6 @@ public class DeveloperCommand implements Command {
           }
           stoner.send(new SendMessage("Sending map state: " + state));
           stoner.send(new SendMapState(state));
-          RankHandler.upgrade(stoner);
         }
         return true;
 

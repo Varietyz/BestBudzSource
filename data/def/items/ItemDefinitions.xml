@@ -9279,7 +9279,7 @@
 		<name>Best Budz 'JAH' ring</name>
 		<id>773</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -9291,7 +9291,7 @@
 		<name>Best Budz 'JAH' necklace</name>
 		<id>774</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -28947,7 +28947,7 @@
 		<name>Saradomin cape</name>
 		<id>2412</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -28959,7 +28959,7 @@
 		<name>Guthix cape</name>
 		<id>2413</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -28971,7 +28971,7 @@
 		<name>Zamorak cape</name>
 		<id>2414</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -35955,7 +35955,7 @@
 		<name>Exercise arena ticket</name>
 		<id>2996</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -54783,7 +54783,7 @@
 		<name>Easter basket</name>
 		<id>4565</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -54795,7 +54795,7 @@
 		<name>Rubber chicken</name>
 		<id>4566</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -66111,7 +66111,7 @@
 		<name>Small pouch</name>
 		<id>5509</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -66123,7 +66123,7 @@
 		<name>Medium pouch</name>
 		<id>5510</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -66135,7 +66135,7 @@
 		<name>Medium pouch</name>
 		<id>5511</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -66147,7 +66147,7 @@
 		<name>Large pouch</name>
 		<id>5512</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -66159,7 +66159,7 @@
 		<name>Large pouch</name>
 		<id>5513</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -66171,7 +66171,7 @@
 		<name>Giant pouch</name>
 		<id>5514</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -66183,7 +66183,7 @@
 		<name>Giant pouch</name>
 		<id>5515</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -67311,7 +67311,7 @@
 		<name>Chicken</name>
 		<id>5609</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -78843,7 +78843,7 @@
 		<name>Fire cape</name>
 		<id>6570</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89451,7 +89451,7 @@
 		<name>Bronze gloves</name>
 		<id>7454</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89463,7 +89463,7 @@
 		<name>Iron gloves</name>
 		<id>7455</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89475,7 +89475,7 @@
 		<name>Steel gloves</name>
 		<id>7456</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89487,7 +89487,7 @@
 		<name>Black gloves</name>
 		<id>7457</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89499,7 +89499,7 @@
 		<name>Mithril gloves</name>
 		<id>7458</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89511,7 +89511,7 @@
 		<name>Adamant gloves</name>
 		<id>7459</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89523,7 +89523,7 @@
 		<name>Rune gloves</name>
 		<id>7460</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89535,7 +89535,7 @@
 		<name>B gloves</name>
 		<id>7461</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -89547,7 +89547,7 @@
 		<name>Barrows gloves</name>
 		<id>7462</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106071,7 +106071,7 @@
 		<name>Void knight top</name>
 		<id>8839</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106083,7 +106083,7 @@
 		<name>Void knight robe</name>
 		<id>8840</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106095,7 +106095,7 @@
 		<name>Void knight mace</name>
 		<id>8841</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106107,7 +106107,7 @@
 		<name>Void knight gloves</name>
 		<id>8842</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106131,7 +106131,7 @@
 		<name>Bronze defender</name>
 		<id>8844</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106143,7 +106143,7 @@
 		<name>Iron defender</name>
 		<id>8845</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106155,7 +106155,7 @@
 		<name>Steel defender</name>
 		<id>8846</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106167,7 +106167,7 @@
 		<name>Black defender</name>
 		<id>8847</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106179,7 +106179,7 @@
 		<name>Mithril defender</name>
 		<id>8848</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106191,7 +106191,7 @@
 		<name>Adamant defender</name>
 		<id>8849</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106203,7 +106203,7 @@
 		<name>Rune defender</name>
 		<id>8850</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -106215,7 +106215,7 @@
 		<name>Warrior guild token</name>
 		<id>8851</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -125979,7 +125979,7 @@
 		<name>Ava's attractor</name>
 		<id>10498</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -125991,7 +125991,7 @@
 		<name>Ava's accumulator</name>
 		<id>10499</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -126615,7 +126615,7 @@
 		<name>Fighter torso</name>
 		<id>10551</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -127335,7 +127335,7 @@
 		<name>Void knight top</name>
 		<id>10611</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -139959,7 +139959,7 @@
 		<name>Void mage helm</name>
 		<id>11663</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -139971,7 +139971,7 @@
 		<name>Void sagittarius helm</name>
 		<id>11664</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -139983,7 +139983,7 @@
 		<name>Void melee helm</name>
 		<id>11665</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -139995,7 +139995,7 @@
 		<name>Void seal(8)</name>
 		<id>11666</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140007,7 +140007,7 @@
 		<name>Void seal(7)</name>
 		<id>11667</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140019,7 +140019,7 @@
 		<name>Void seal(6)</name>
 		<id>11668</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140031,7 +140031,7 @@
 		<name>Void seal(5)</name>
 		<id>11669</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140043,7 +140043,7 @@
 		<name>Void seal(4)</name>
 		<id>11670</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140055,7 +140055,7 @@
 		<name>Void seal(3)</name>
 		<id>11671</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140067,7 +140067,7 @@
 		<name>Void seal(2)</name>
 		<id>11672</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140079,7 +140079,7 @@
 		<name>Void seal(1)</name>
 		<id>11673</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140091,7 +140091,7 @@
 		<name>Void mage helm</name>
 		<id>11674</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140103,7 +140103,7 @@
 		<name>Void sagittarius helm</name>
 		<id>11675</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -140115,7 +140115,7 @@
 		<name>Void melee helm</name>
 		<id>11676</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142191,7 +142191,7 @@
 		<name>Mark of grace</name>
 		<id>11849</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142203,7 +142203,7 @@
 		<name>Graceful hood</name>
 		<id>11850</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142215,7 +142215,7 @@
 		<name>Graceful hood</name>
 		<id>11851</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142227,7 +142227,7 @@
 		<name>Graceful cape</name>
 		<id>11852</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142239,7 +142239,7 @@
 		<name>Graceful cape</name>
 		<id>11853</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142251,7 +142251,7 @@
 		<name>Graceful top</name>
 		<id>11854</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142263,7 +142263,7 @@
 		<name>Graceful top</name>
 		<id>11855</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142275,7 +142275,7 @@
 		<name>Graceful legs</name>
 		<id>11856</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142287,7 +142287,7 @@
 		<name>Graceful legs</name>
 		<id>11857</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142299,7 +142299,7 @@
 		<name>Graceful gloves</name>
 		<id>11858</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142311,7 +142311,7 @@
 		<name>Graceful gloves</name>
 		<id>11859</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -142323,7 +142323,7 @@
 		<name>Graceful boots</name>
 		<id>11860</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -143883,7 +143883,7 @@
 		<name>Fedora</name>
 		<id>11990</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>11991</noteId>
@@ -143895,7 +143895,7 @@
 		<name>Fedora</name>
 		<id>11991</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>11990</noteId>
@@ -143943,7 +143943,7 @@
 		<name>Pet chaos elemental</name>
 		<id>11995</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -147831,7 +147831,7 @@
 		<name>Crier hat</name>
 		<id>12319</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12320</noteId>
@@ -147843,7 +147843,7 @@
 		<name>Crier hat</name>
 		<id>12320</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12319</noteId>
@@ -148023,7 +148023,7 @@
 		<name>Briefcase</name>
 		<id>12335</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12336</noteId>
@@ -148035,7 +148035,7 @@
 		<name>Briefcase</name>
 		<id>12336</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12335</noteId>
@@ -148047,7 +148047,7 @@
 		<name>Sagacious spectacles</name>
 		<id>12337</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12338</noteId>
@@ -148059,7 +148059,7 @@
 		<name>Sagacious spectacles</name>
 		<id>12338</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12337</noteId>
@@ -148215,7 +148215,7 @@
 		<name>Musketeer hat</name>
 		<id>12351</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12352</noteId>
@@ -148227,7 +148227,7 @@
 		<name>Musketeer hat</name>
 		<id>12352</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12351</noteId>
@@ -148287,7 +148287,7 @@
 		<name>Katana</name>
 		<id>12357</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12358</noteId>
@@ -148359,7 +148359,7 @@
 		<name>Bronze dragon mask</name>
 		<id>12363</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12364</noteId>
@@ -148371,7 +148371,7 @@
 		<name>Bronze dragon mask</name>
 		<id>12364</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12363</noteId>
@@ -148383,7 +148383,7 @@
 		<name>Iron dragon mask</name>
 		<id>12365</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12366</noteId>
@@ -148395,7 +148395,7 @@
 		<name>Iron dragon mask</name>
 		<id>12366</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12365</noteId>
@@ -148407,7 +148407,7 @@
 		<name>Steel dragon mask</name>
 		<id>12367</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12368</noteId>
@@ -148419,7 +148419,7 @@
 		<name>Steel dragon mask</name>
 		<id>12368</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12367</noteId>
@@ -148431,7 +148431,7 @@
 		<name>Mithril dragon mask</name>
 		<id>12369</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12370</noteId>
@@ -148443,7 +148443,7 @@
 		<name>Mithril dragon mask</name>
 		<id>12370</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12369</noteId>
@@ -148455,7 +148455,7 @@
 		<name>Lava dragon mask</name>
 		<id>12371</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12372</noteId>
@@ -148467,7 +148467,7 @@
 		<name>Lava dragon mask</name>
 		<id>12372</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12371</noteId>
@@ -148479,7 +148479,7 @@
 		<name>B cane</name>
 		<id>12373</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12374</noteId>
@@ -148491,7 +148491,7 @@
 		<name>B cane</name>
 		<id>12374</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12373</noteId>
@@ -148719,7 +148719,7 @@
 		<name>Royal gown top</name>
 		<id>12393</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12394</noteId>
@@ -148731,7 +148731,7 @@
 		<name>Royal gown top</name>
 		<id>12394</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12393</noteId>
@@ -148743,7 +148743,7 @@
 		<name>Royal gown bottom</name>
 		<id>12395</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12396</noteId>
@@ -148755,7 +148755,7 @@
 		<name>Royal gown bottom</name>
 		<id>12396</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12395</noteId>
@@ -148767,7 +148767,7 @@
 		<name>Royal crown</name>
 		<id>12397</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12398</noteId>
@@ -148779,7 +148779,7 @@
 		<name>Royal crown</name>
 		<id>12398</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12397</noteId>
@@ -149163,7 +149163,7 @@
 		<name>Afro</name>
 		<id>12430</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12431</noteId>
@@ -149175,7 +149175,7 @@
 		<name>Afro</name>
 		<id>12431</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12430</noteId>
@@ -149187,7 +149187,7 @@
 		<name>Top hat</name>
 		<id>12432</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12433</noteId>
@@ -149199,7 +149199,7 @@
 		<name>Top hat</name>
 		<id>12433</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12432</noteId>
@@ -149235,7 +149235,7 @@
 		<name>Amulet of fury (or)</name>
 		<id>12436</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -149271,7 +149271,7 @@
 		<name>Royal sceptre</name>
 		<id>12439</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12440</noteId>
@@ -149283,7 +149283,7 @@
 		<name>Royal sceptre</name>
 		<id>12440</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12439</noteId>
@@ -149295,7 +149295,7 @@
 		<name>Musketeer tabard</name>
 		<id>12441</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12442</noteId>
@@ -149307,7 +149307,7 @@
 		<name>Musketeer tabard</name>
 		<id>12442</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12441</noteId>
@@ -149319,7 +149319,7 @@
 		<name>Musketeer pants</name>
 		<id>12443</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12444</noteId>
@@ -149331,7 +149331,7 @@
 		<name>Musketeer pants</name>
 		<id>12444</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12443</noteId>
@@ -151719,7 +151719,7 @@
 		<name>Pet dagannoth supreme</name>
 		<id>12643</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151731,7 +151731,7 @@
 		<name>Pet dagannoth prime</name>
 		<id>12644</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151743,7 +151743,7 @@
 		<name>Pet dagannoth rex</name>
 		<id>12645</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151755,7 +151755,7 @@
 		<name>Baby mole</name>
 		<id>12646</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151767,7 +151767,7 @@
 		<name>Kalphite princess</name>
 		<id>12647</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151779,7 +151779,7 @@
 		<name>Pet smoke devil</name>
 		<id>12648</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151791,7 +151791,7 @@
 		<name>Pet kree'arra</name>
 		<id>12649</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151803,7 +151803,7 @@
 		<name>Pet general graardor</name>
 		<id>12650</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151815,7 +151815,7 @@
 		<name>Pet zilyana</name>
 		<id>12651</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151827,7 +151827,7 @@
 		<name>Pet k'ril tsutsaroth</name>
 		<id>12652</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151839,7 +151839,7 @@
 		<name>Prince black dragon</name>
 		<id>12653</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151851,7 +151851,7 @@
 		<name>Kalphite princess</name>
 		<id>12654</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -151863,7 +151863,7 @@
 		<name>Pet kraken</name>
 		<id>12655</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -152439,7 +152439,7 @@
 		<name>Pet penance queen</name>
 		<id>12703</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153459,7 +153459,7 @@
 		<name>Mage shortbow (i)</name>
 		<id>12788</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153567,7 +153567,7 @@
 		<name>B pickaxe</name>
 		<id>12797</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153675,7 +153675,7 @@
 		<name>Malediction ward</name>
 		<id>12806</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153687,7 +153687,7 @@
 		<name>Odium ward</name>
 		<id>12807</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153723,7 +153723,7 @@
 		<name>Ironman helm</name>
 		<id>12810</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153735,7 +153735,7 @@
 		<name>Ironman platebody</name>
 		<id>12811</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153747,7 +153747,7 @@
 		<name>Ironman platelegs</name>
 		<id>12812</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153759,7 +153759,7 @@
 		<name>Ultimate ironman helm</name>
 		<id>12813</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153771,7 +153771,7 @@
 		<name>Ultimate ironman platebody</name>
 		<id>12814</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153783,7 +153783,7 @@
 		<name>Ultimate ironman platelegs</name>
 		<id>12815</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -153795,7 +153795,7 @@
 		<name>Pet dark core</name>
 		<id>12816</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -155055,7 +155055,7 @@
 		<name>Pet snakeling</name>
 		<id>12921</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -155115,7 +155115,7 @@
 		<name>Toxic blowpipe</name>
 		<id>12926</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -155235,7 +155235,7 @@
 		<name>Jar of swamp</name>
 		<id>12936</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>12937</noteId>
@@ -155247,7 +155247,7 @@
 		<name>Jar of swamp</name>
 		<id>12937</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>true</stackable>
 		<note>true</note>
 		<noteId>12936</noteId>
@@ -155271,7 +155271,7 @@
 		<name>Pet snakeling</name>
 		<id>12939</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -155283,7 +155283,7 @@
 		<name>Pet snakeling</name>
 		<id>12940</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -155451,7 +155451,7 @@
 		<name>B defender</name>
 		<id>12954</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -156867,7 +156867,7 @@
 		<name>Elite void top</name>
 		<id>13072</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -156879,7 +156879,7 @@
 		<name>Elite void robe</name>
 		<id>13073</id>
 		<members>true</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158391,7 +158391,7 @@
 		<name>Assault Master Cape</name>
 		<id>13200</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158403,7 +158403,7 @@
 		<name>Aegis Master Cape</name>
 			<id>13201</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158415,7 +158415,7 @@
 		<name>Vigour Master Cape</name>
 			<id>13202</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158427,7 +158427,7 @@
 		<name>Life Master Cape</name>
 			<id>13203</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158439,7 +158439,7 @@
 		<name>Sagittarius Master Cape</name>
 			<id>13204</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158451,7 +158451,7 @@
 		<name>Resonance Master Cape</name>
 			<id>13205</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158463,7 +158463,7 @@
 		<name>Mage Master Cape</name>
 			<id>13206</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158475,7 +158475,7 @@
 		<name>Foodie Master Cape</name>
 			<id>13207</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158487,7 +158487,7 @@
 		<name>Lumbering Master Cape</name>
 			<id>13208</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158499,7 +158499,7 @@
 		<name>Woodcarving Master Cape</name>
 			<id>13209</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158511,7 +158511,7 @@
 		<name>Fisher Master Cape</name>
 			<id>13210</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158523,7 +158523,7 @@
 		<name>Pyromaniac Master Cape</name>
 			<id>13211</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158535,7 +158535,7 @@
 		<name>Handiness Master Cape</name>
 			<id>13212</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158547,7 +158547,7 @@
 		<name>Forging Master Cape</name>
 			<id>13213</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158559,7 +158559,7 @@
 		<name>Quarrying Master Cape</name>
 			<id>13214</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158571,7 +158571,7 @@
 		<name>THC-hempistry Master Cape</name>
 			<id>13215</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158583,7 +158583,7 @@
 		<name>Weedsmoking Master Cape</name>
 			<id>13216</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158595,7 +158595,7 @@
 		<name>Starter Master Cape</name>
 			<id>13217</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158607,7 +158607,7 @@
 		<name>Mercenary Master Cape</name>
 			<id>13218</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158619,7 +158619,7 @@
 		<name>BankStanding Master Cape</name>
 			<id>13219</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158631,7 +158631,7 @@
 		<name>Consumer Master Cape</name>
 			<id>13220</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158643,7 +158643,7 @@
 		<name>Construction Master Cape</name>
 			<id>13221</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158655,7 +158655,7 @@
 		<name>Hunter Master Cape</name>
 			<id>13222</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158667,7 +158667,7 @@
 		<name>Summoning Master Cape</name>
 			<id>13223</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158680,7 +158680,7 @@
 		<name>Pet Jad</name>
 			<id>13224</id>
 		<members>false</members>
-		<tradable>false</tradable>
+		<tradable>true</tradable>
 		<stackable>false</stackable>
 		<note>false</note>
 		<noteId>-1</noteId>
@@ -158693,7 +158693,7 @@
     <name>Pet Toy Jad</name>
     <id>13225</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158706,7 +158706,7 @@
     <name>Pet Infant Jad</name>
     <id>13226</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158719,7 +158719,7 @@
     <name>Pet Hatchling Jad</name>
     <id>13227</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158732,7 +158732,7 @@
     <name>Pet Cub Jad</name>
     <id>13228</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158745,7 +158745,7 @@
     <name>Pet Youth Jad</name>
     <id>13229</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158758,7 +158758,7 @@
     <name>Pet Teen Jad</name>
     <id>13230</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158771,7 +158771,7 @@
     <name>Pet Young Adult Jad</name>
     <id>13231</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158784,7 +158784,7 @@
     <name>Pet Adult Jad</name>
     <id>13232</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158797,7 +158797,7 @@
     <name>Pet Prime Jad</name>
     <id>13233</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158810,7 +158810,7 @@
     <name>Pet Corp</name>
     <id>13264</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158823,7 +158823,7 @@
     <name>Pet Toy Corp</name>
     <id>13265</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158836,7 +158836,7 @@
     <name>Pet Infant Corp</name>
     <id>13266</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158849,7 +158849,7 @@
     <name>Pet Hatchling Corp</name>
     <id>13267</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158862,7 +158862,7 @@
     <name>Pet Cub Corp</name>
     <id>13268</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158875,7 +158875,7 @@
     <name>Pet Youth Corp</name>
     <id>13269</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158888,7 +158888,7 @@
     <name>Pet Teen Corp</name>
     <id>13270</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158901,7 +158901,7 @@
     <name>Pet Young Adult Corp</name>
     <id>13271</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158914,7 +158914,7 @@
     <name>Pet Adult Corp</name>
     <id>13272</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158927,7 +158927,7 @@
     <name>Pet Prime Corp</name>
     <id>13273</id>
     <members>false</members>
-    <tradable>false</tradable>
+    <tradable>true</tradable>
     <stackable>false</stackable>
     <note>false</note>
     <noteId>-1</noteId>
@@ -158935,4 +158935,18 @@
     <lowAlch>2000000</lowAlch>
     <generalPrice>2000000</generalPrice>
 </ItemDefinition>
+
+<ItemDefinition>
+    <name>Pet Dark Beast</name>
+    <id>13274</id>
+    <members>false</members>
+    <tradable>true</tradable>
+    <stackable>false</stackable>
+    <note>false</note>
+    <noteId>-1</noteId>
+    <highAlch>2000000</highAlch>
+    <lowAlch>2000000</lowAlch>
+    <generalPrice>2000000</generalPrice>
+</ItemDefinition>
+
 </list>

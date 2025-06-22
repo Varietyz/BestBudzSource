@@ -23,29 +23,30 @@ public class AchievementDialogue extends Dialogue {
 
   @Override
   public void execute() {
-    switch (next) {
-      case 0:
+	  if (next == 0)
+	  {
 		  boolean completed = true;
-		  for (AchievementList achievement : stoner.getStonerAchievements().keySet()) {
+		  for (AchievementList achievement : stoner.getStonerAchievements().keySet())
+		  {
 			  if (achievement != null
 				  && stoner.getStonerAchievements().get(achievement)
-				  != achievement.getCompleteAmount()) {
+				  != achievement.getCompleteAmount())
+			  {
 				  completed = false;
 				  break;
 			  }
 		  }
 
-		  if (completed) {
+		  if (completed)
+		  {
 			  stoner.getBox().addOrCreateGroundItem(13069, 1, true);
 			  stoner.getBox().addOrCreateGroundItem(13070, 1, true);
 			  stoner.send(new SendMessage("[ACHIEVEMENTS] You have been given an achievement cape and hood."));
-		  } else {
+		  }
+		  else
+		  {
 			  stoner.send(new SendMessage("[ACHIEVEMENTS] You have not completed all the achievements!"));
 		  }
-		  stoner.send(new SendRemoveInterfaces());
-
-        next++;
-        break;
-    }
+	  }
   }
 }

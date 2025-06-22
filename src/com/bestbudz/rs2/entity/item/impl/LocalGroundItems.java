@@ -133,6 +133,7 @@ public class LocalGroundItems {
                   .getClient()
                   .queueOutgoingPacket(
                       new SendMessage("You do not have enough box space to pick that up."));
+				stoner.getBank().add(g.getItem());
             }
           }
         });

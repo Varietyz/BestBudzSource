@@ -20708,4 +20708,74 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
+
+	<NpcCombatDefinition>
+		<!-- Pet dark beast -->
+		<id>10050</id>
+		<combatType>MELEE</combatType>
+		<respawnTime>75</respawnTime>
+		<block>
+			<id>2732</id>
+			<delay>0</delay>
+		</block>
+		<death>
+			<id>2733</id>
+			<delay>0</delay>
+		</death>
+		<professions>
+			<profession>
+				<id>0</id>
+				<grade>125</grade>
+			</profession>
+			<profession>
+				<id>1</id>
+				<grade>125</grade>
+			</profession>
+			<profession>
+				<id>1</id>
+				<grade>125</grade>
+			</profession>
+			<profession><id>3</id><grade>2000</grade></profession>
+			<profession>
+				<id>4</id>
+				<grade>125</grade>
+			</profession>
+			<profession>
+				<id>5</id>
+				<grade>125</grade>
+			</profession>
+			<profession>
+				<id>6</id>
+				<grade>125</grade>
+			</profession>
+		</professions>
+		<bonuses>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+			<int>75</int>
+		</bonuses>
+		<melee>
+			<melee>
+				<assault>
+					<hitDelay>0</hitDelay>
+					<assaultDelay>6</assaultDelay>
+				</assault>
+				<animation>
+					<id>2731</id>
+					<delay>0</delay>
+				</animation>
+				<max>15</max>
+			</melee>
+		</melee>
+	</NpcCombatDefinition>
+
 </list>

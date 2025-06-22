@@ -48048,13 +48048,13 @@
 	</NpcDefinition>
 	<NpcDefinition>
 		<id>4002</id>
-		<name>Pet corporeal beast</name>
+		<name>Pet Corp</name>
 		<walkAnimation>1684</walkAnimation>
 		<standAnimation>1678</standAnimation>
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>785</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
@@ -78893,7 +78893,7 @@
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>85</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
@@ -78906,7 +78906,7 @@
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>185</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
@@ -78919,7 +78919,7 @@
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>185</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
@@ -78932,7 +78932,7 @@
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>285</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
@@ -78945,7 +78945,7 @@
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>385</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
@@ -78958,7 +78958,7 @@
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>485</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
@@ -78971,7 +78971,7 @@
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>585</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>
@@ -78984,7 +78984,20 @@
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>0</grade>
+		<grade>685</grade>
+		<size>1</size>
+		<assaultable>false</assaultable>
+	</NpcDefinition>
+
+	<NpcDefinition>
+		<id>10050</id>
+		<name>Dark beast</name>
+		<walkAnimation>6965</walkAnimation>
+		<standAnimation>6966</standAnimation>
+		<turn180Animation>65535</turn180Animation>
+		<turn90CWAnimation>65535</turn90CWAnimation>
+		<turn90CCWAnimation>65535</turn90CCWAnimation>
+		<grade>182</grade>
 		<size>1</size>
 		<assaultable>false</assaultable>
 	</NpcDefinition>

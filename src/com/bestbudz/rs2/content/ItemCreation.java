@@ -3,125 +3,72 @@ package com.bestbudz.rs2.content;
 import com.bestbudz.core.definitions.ItemDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.impl.ConfirmDialogue;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 import java.util.HashMap;
 
 public enum ItemCreation {
   ABYSSAL_TENTACLE(
       new int[] {12004, 4151},
       12006,
-      new CreationHandle() {
-        @Override
-        public void handle(Stoner stoner, ItemCreation data) {
-          if (meetsRequirements(stoner, data)) {
-            stoner.start(
-                new ConfirmDialogue(stoner) {
-                  @Override
-                  public void onConfirm() {
-                    if (meetsRequirements(stoner, data)) {
-                      ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
-                      DialogueManager.sendItem1(
-                          stoner,
-                          "You have created a " + item.getName() + "</col>.",
-                          data.getNewItem());
-                      stoner.getBox().remove(new Item(data.getItem()[0]));
-                      stoner.getBox().remove(new Item(data.getItem()[1]));
-                      stoner.getBox().add(new Item(data.getNewItem(), 1));
-                    }
-                  }
-                });
-          }
-        }
-      }),
+	  (stoner, data) -> {
+		if (meetsRequirements(stoner, data)) {
+
+					ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
+			stoner.getClient().queueOutgoingPacket(new SendMessage("You have created a " + item.getName()));
+					stoner.getBox().remove(new Item(data.getItem()[0]));
+					stoner.getBox().remove(new Item(data.getItem()[1]));
+					stoner.getBox().add(new Item(data.getNewItem(), 1));
+
+		}
+	  }),
   BLOWPIPE(
       new int[] {12922, 1755},
       12924,
-      new CreationHandle() {
-        @Override
-        public void handle(Stoner stoner, ItemCreation data) {
-          if (meetsRequirements(stoner, data)) {
-            stoner.start(
-                new ConfirmDialogue(stoner) {
-                  @Override
-                  public void onConfirm() {
-                    if (meetsRequirements(stoner, data)) {
-                      if (!professionRequired(stoner, Professions.WOODCARVING, 33)) {
-                        return;
-                      }
-                      ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
-                      DialogueManager.sendItem1(
-                          stoner,
-                          "You have created a " + item.getName() + "</col>.",
-                          data.getNewItem());
-                      stoner.getBox().remove(new Item(data.getItem()[0]));
-                      stoner.getBox().add(new Item(data.getNewItem(), 1));
-                    }
-                  }
-                });
-          }
-        }
-      }),
+	  (stoner, data) -> {
+				  if (meetsRequirements(stoner, data)) {
+					if (!professionRequired(stoner, Professions.WOODCARVING, 1)) {
+					  return;
+					}
+					ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
+					  stoner.getClient().queueOutgoingPacket(new SendMessage("You have created a " + item.getName()));
+					stoner.getBox().remove(new Item(data.getItem()[0]));
+					stoner.getBox().add(new Item(data.getNewItem(), 1));
+		}
+	  }),
   SARADOMIN_BLESSED_SWORD(
       new int[] {12804, 11838},
       12809,
-      new CreationHandle() {
-        @Override
-        public void handle(Stoner stoner, ItemCreation data) {
-          if (meetsRequirements(stoner, data)) {
-            stoner.start(
-                new ConfirmDialogue(stoner) {
-                  @Override
-                  public void onConfirm() {
-                    if (meetsRequirements(stoner, data)) {
-                      ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
-                      DialogueManager.sendItem1(
-                          stoner,
-                          "You have created a " + item.getName() + "</col>.",
-                          data.getNewItem());
-                      stoner.getBox().remove(new Item(data.getItem()[0]));
-                      stoner.getBox().remove(new Item(data.getItem()[1]));
-                      stoner.getBox().add(new Item(data.getNewItem(), 1));
-                    }
-                  }
-                });
-          }
-        }
-      }),
+	  (stoner, data) -> {
+		if (meetsRequirements(stoner, data)) {
+
+					ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
+			stoner.getClient().queueOutgoingPacket(new SendMessage("You have created a " + item.getName()));
+					stoner.getBox().remove(new Item(data.getItem()[0]));
+					stoner.getBox().remove(new Item(data.getItem()[1]));
+					stoner.getBox().add(new Item(data.getNewItem(), 1));
+
+		}
+	  }),
   DRAGONFIRE_SHIELD(
       new int[] {1540, 11286},
       11283,
-      new CreationHandle() {
-        @Override
-        public void handle(Stoner stoner, ItemCreation data) {
-          if (meetsRequirements(stoner, data)) {
-            stoner.start(
-                new ConfirmDialogue(stoner) {
-                  @Override
-                  public void onConfirm() {
-                    if (meetsRequirements(stoner, data)) {
-                      if (!professionRequired(stoner, Professions.FORGING, 90)) {
-                        return;
-                      }
-                      ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
-                      DialogueManager.sendItem1(
-                          stoner,
-                          "You have created a " + item.getName() + "</col>.",
-                          data.getNewItem());
-                      stoner.getBox().remove(new Item(data.getItem()[0]));
-                      stoner.getBox().remove(new Item(data.getItem()[1]));
-                      stoner.getBox().add(new Item(data.getNewItem(), 1));
-                    }
-                  }
-                });
-          }
-        }
-      }),
+	  (stoner, data) -> {
+
+				  if (meetsRequirements(stoner, data)) {
+					if (!professionRequired(stoner, Professions.FORGING, 1)) {
+					  return;
+					}
+					ItemDefinition item = GameDefinitionLoader.getItemDef(data.getNewItem());
+					  stoner.getClient().queueOutgoingPacket(new SendMessage("You have created a " + item.getName()));
+					stoner.getBox().remove(new Item(data.getItem()[0]));
+					stoner.getBox().remove(new Item(data.getItem()[1]));
+					stoner.getBox().add(new Item(data.getNewItem(), 1));
+
+		}
+	  }),
   ;
 
   public static HashMap<Integer, ItemCreation> creation = new HashMap<>();
@@ -153,17 +100,6 @@ public enum ItemCreation {
   }
 
   public static boolean professionRequired(Stoner stoner, int profession, int grade) {
-    if (stoner.getProfession().getGrades()[profession] < grade) {
-      stoner.send(new SendRemoveInterfaces());
-      DialogueManager.sendStatement(
-          stoner,
-          "You need a "
-              + Advance.getProfessionName(profession)
-              + " grade of "
-              + grade
-              + " to do this!");
-      return false;
-    }
     return true;
   }
 
@@ -216,26 +152,13 @@ public enum ItemCreation {
       product = new Item(11808);
     }
     if (forging) {
-      if (stoner.getGrades()[Professions.FORGING] < 80) {
-        DialogueManager.sendStatement(
-            stoner,
-            "<col=369>You need a forging grade of 80<col=369> to create godsword blades.");
-        return true;
-      }
       stoner.getProfession().addExperience(Professions.FORGING, 100.0);
     }
     if (product != null) {
       stoner.getBox().remove(use, 1);
       stoner.getBox().remove(with, 1);
       stoner.getBox().add(product);
-      DialogueManager.sendItem1(
-          stoner,
-          "You have created "
-              + Utility.getAOrAn(product.getDefinition().getName().toLowerCase())
-              + " "
-              + product.getDefinition().getName()
-              + ".",
-          product.getId());
+		stoner.getClient().queueOutgoingPacket(new SendMessage("You have created " + Utility.getAOrAn(product.getDefinition().getName().toLowerCase()) + " " + product.getDefinition().getName() + "."));
     }
     return product != null;
   }

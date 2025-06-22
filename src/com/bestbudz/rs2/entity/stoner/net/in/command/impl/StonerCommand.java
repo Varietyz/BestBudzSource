@@ -7,10 +7,8 @@ import com.bestbudz.rs2.content.StonersOnline;
 import com.bestbudz.rs2.content.Yelling;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.ChangePasswordDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.CommandInterface;
-import com.bestbudz.rs2.content.interfaces.impl.TrainingInterface;
 import com.bestbudz.rs2.content.profession.Profession;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
 import com.bestbudz.rs2.entity.Animation;
@@ -85,24 +83,6 @@ public class StonerCommand implements Command {
           } catch (Exception e) {
             stoner.send(new SendMessage("Something went wrong!"));
             e.printStackTrace();
-          }
-        }
-        return true;
-      case "changepassword":
-      case "changepass":
-        if (parser.hasNext()) {
-          try {
-            String password = parser.nextString();
-            if ((password.length() > 4) && (password.length() < 15))
-              stoner.start(new ChangePasswordDialogue(stoner, password));
-            else
-              DialogueManager.sendStatement(
-                  stoner, "Your password must be between 4 and 15 characters.");
-          } catch (Exception e) {
-            stoner
-                .getClient()
-                .queueOutgoingPacket(
-                    new SendMessage("Invalid password format, syntax: ::changepass password here"));
           }
         }
         return true;

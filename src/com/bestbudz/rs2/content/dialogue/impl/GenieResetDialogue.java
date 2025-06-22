@@ -15,33 +15,14 @@ public class GenieResetDialogue extends Dialogue {
 
   @Override
   public boolean clickButton(int id) {
-    switch (id) {
-      case 9157:
-        stoner.send(new SendInterface(59500));
-        break;
-      case 9158:
-        stoner.send(new SendRemoveInterfaces());
-        break;
-    }
     return false;
   }
 
   @Override
   public void execute() {
-    switch (next) {
-      case 0:
-        DialogueManager.sendNpcChat(
-            stoner,
-            326,
-            Emotion.HAPPY_TALK,
-            "Waddup stoner.",
-            "Wanne go back on those combat professions?",
-            "Are you interested?");
-        next++;
-        break;
-      case 1:
-        DialogueManager.sendOption(stoner, "Ya man", "No man");
-        break;
-    }
+	  if (next == 0)
+	  {
+		  stoner.send(new SendInterface(59500));
+	  }
   }
 }

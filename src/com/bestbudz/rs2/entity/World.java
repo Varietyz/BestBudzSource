@@ -1,6 +1,7 @@
 package com.bestbudz.rs2.entity;
 
 import static com.bestbudz.Server.logger;
+import com.bestbudz.core.discord.messaging.DiscordMessageManager;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.MobUpdateList;
@@ -217,14 +218,17 @@ public class World {
 	// Delegate messaging methods
 	public static void sendGlobalMessage(String message, boolean format) {
 		messageManager.sendGlobalMessage(stoners, message, format);
+		DiscordMessageManager.announceGameMessage(message);
 	}
 
 	public static void sendGlobalMessage(String message) {
 		messageManager.sendGlobalMessage(stoners, message);
+		DiscordMessageManager.announceGameMessage(message);
 	}
 
 	public static void sendGlobalMessage(String message, Stoner exceptions) {
 		messageManager.sendGlobalMessage(stoners, message, exceptions);
+		DiscordMessageManager.announceGameMessage(message);
 	}
 
 	public static void sendProjectile(Projectile p, Entity e1, Entity e2) {

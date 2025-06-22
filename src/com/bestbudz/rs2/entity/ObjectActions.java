@@ -22,7 +22,6 @@ import com.bestbudz.core.task.impl.WalkThroughDoubleDoorTask;
 import com.bestbudz.core.task.impl.WalkToTask;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.content.Advance;
 import com.bestbudz.rs2.content.CrystalChest;
 import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.FountainOfRune;
@@ -31,27 +30,13 @@ import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.dialogue.OneLineDialogue;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.AchievementDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.AdvanceDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.BestBudzDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.ConsumerTeleport;
 import com.bestbudz.rs2.content.dialogue.impl.DecantingDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.DunceDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.GenieResetDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.HariDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.KamfreeDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.KolodionDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.MakeoverMage;
-import com.bestbudz.rs2.content.dialogue.impl.MembershipDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.NeiveDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.OttoGodblessed;
 import com.bestbudz.rs2.content.dialogue.impl.OziachDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.PilesDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.SailorDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.StaffTitleDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.TzhaarMejKahDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.VannakaDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.WeaponGameDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.teleport.SpiritTree;
 import com.bestbudz.rs2.content.dialogue.impl.teleport.WildernessLever;
 import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
 import com.bestbudz.rs2.content.exercisement.Exercisement;
@@ -69,7 +54,6 @@ import com.bestbudz.rs2.content.minigames.warriorsguild.CyclopsRoom;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameStore;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.profession.petmaster.PetMaster;
 import com.bestbudz.rs2.content.profession.foodie.Foodie;
 import com.bestbudz.rs2.content.profession.foodie.FoodieData;
 import com.bestbudz.rs2.content.profession.forging.Forging;
@@ -372,7 +356,6 @@ public class ObjectActions
 
         switch (id) {
           case 3936:
-            stoner.start(new SailorDialogue(stoner));
             break;
           case 2914:
             stoner.start(new OttoGodblessed(stoner));
@@ -397,7 +380,6 @@ public class ObjectActions
             break;
           case 1011:
           case 1103:
-            stoner.start(new WeaponGameDialogue(stoner));
             break;
           case 534:
             stoner.start(
@@ -412,11 +394,6 @@ public class ObjectActions
                     }));
             break;
           case 6749:
-            if (stoner.inMemberZone()) {
-              stoner.start(new DunceDialogue(stoner));
-            } else {
-              stoner.start(new StaffTitleDialogue(stoner));
-            }
             break;
           case 2181:
             stoner.start(new TzhaarMejKahDialogue(stoner));
@@ -428,7 +405,6 @@ public class ObjectActions
             stoner.start(new NeiveDialogue(stoner));
             break;
           case 1603:
-            stoner.start(new KolodionDialogue(stoner));
             break;
 
           case 5811:
@@ -449,7 +425,6 @@ public class ObjectActions
                       stoner.getShopping().open(33);
             break;
           case 5523:
-            stoner.start(new MembershipDialogue(stoner));
             break;
           case 3231:
             HideTanning.sendTanningInterface(stoner);
@@ -463,31 +438,24 @@ public class ObjectActions
             stoner.start(new BestBudzDialogue(stoner));
             break;
           case 13:
-            stoner.start(new PilesDialogue(stoner));
             break;
           case 403:
-            stoner.start(new VannakaDialogue(stoner));
             break;
           case 1306:
-            stoner.start(new MakeoverMage(stoner));
             break;
           case 315://FREE
             break;
           case 4936:
-            stoner.start(new ConsumerTeleport(stoner, mob));
             break;
           case 5419:
           case 326:
             stoner.start(new GenieResetDialogue(stoner));
             break;
           case 1325:
-            stoner.start(new HariDialogue(stoner));
             break;
           case 606:
-            stoner.start(new AdvanceDialogue(stoner));
             break;
           case 2461:
-            stoner.start(new KamfreeDialogue());
             break;
           case 1756:
 			  stoner.send(new SendMessage("HABALALAAAAAA SHAAAHAAAABBAAALLAAAA!"));
@@ -692,8 +660,6 @@ public class ObjectActions
             DropTable.open(stoner);
             break;
           case 606:
-            Advance.update(stoner);
-            stoner.send(new SendInterface(51000));
             break;
           case 315: //FREE
             break;
@@ -1851,7 +1817,6 @@ public class ObjectActions
 
             break;
           case 1293:
-            stoner.start(new SpiritTree(stoner));
             break;
           case 2640:
           case 4859:

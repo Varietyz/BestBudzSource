@@ -3,13 +3,9 @@ package com.bestbudz.rs2.entity.stoner.net.in.impl.clickbuttons;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.dialogue.impl.AchievementDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.DunceDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.GenieResetDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.NeiveDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.OziachDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.SailorDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.StaffTitleDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.VannakaDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
 import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
@@ -295,8 +291,8 @@ public class ButtonAssignment extends ClickButtonPacket {
 		// 115076 - Drop table open
 		BUTTON_HANDLERS.put(115076, DropTable::open);
 
-		// 115077 - Open advance interface
-		BUTTON_HANDLERS.put(115077, ClickButtonPacket::openAdvanceInterface);
+		// 115077 - FREE
+		BUTTON_HANDLERS.put(115077, null);
 
 		// 115107 - Oziach dialogue
 		BUTTON_HANDLERS.put(115107, stoner -> stoner.start(new OziachDialogue(stoner)));
@@ -310,14 +306,8 @@ public class ButtonAssignment extends ClickButtonPacket {
 		// 115110 - Potion decanting
 		BUTTON_HANDLERS.put(115110, PotionDecanting::decantAll);
 
-		// 115114 - Dunce/Staff title dialogue
-		BUTTON_HANDLERS.put(115114, stoner -> {
-			if (stoner.inMemberZone()) {
-				stoner.start(new DunceDialogue(stoner));
-			} else {
-				stoner.start(new StaffTitleDialogue(stoner));
-			}
-		});
+		// 115114 - FREE
+		BUTTON_HANDLERS.put(115114, null);
 
 		// 115115 - Genie reset dialogue
 		BUTTON_HANDLERS.put(115115, stoner -> stoner.start(new GenieResetDialogue(stoner)));
@@ -332,13 +322,13 @@ public class ButtonAssignment extends ClickButtonPacket {
 		BUTTON_HANDLERS.put(115118, ClickButtonPacket::handleSkulling);
 
 		// 115122 - Vannaka dialogue
-		BUTTON_HANDLERS.put(115122, stoner -> stoner.start(new VannakaDialogue(stoner)));
+		BUTTON_HANDLERS.put(115122, null);
 
 		// 115123 - Neive dialogue
-		BUTTON_HANDLERS.put(115123, stoner -> stoner.start(new NeiveDialogue(stoner)));
+		BUTTON_HANDLERS.put(115123, null);
 
 		// 115127 - Sailor dialogue
-		BUTTON_HANDLERS.put(115127, stoner -> stoner.start(new SailorDialogue(stoner)));
+		BUTTON_HANDLERS.put(115127, null);
 
 		// 115128 - Mystery box minigame
 		BUTTON_HANDLERS.put(115128, MysteryBoxMinigame::open);

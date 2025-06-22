@@ -220,7 +220,11 @@ public class MasterCapeShop extends Shop {
     HUNTER(
         new int[] {
           13222,
-        });
+        }),
+	  PET_MASTER(
+		  new int[] {
+			  13223,
+		  });
 
     private final int[] items;
 

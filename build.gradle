@@ -31,8 +31,8 @@ dependencies {
     implementation name: 'xpp3_min-1.1.4c'
 
     // Other dependencies
-    implementation 'com.thoughtworks.xstream:xstream:1.4.20'
-    implementation 'org.xerial:sqlite-jdbc:3.41.2.1'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.21'
+    implementation 'org.xerial:sqlite-jdbc:3.50.1.0'
 
     // Use stable JDA 4.4.0 that works reliably
     implementation('net.dv8tion:JDA:5.0.1') {

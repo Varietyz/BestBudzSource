@@ -333,6 +333,9 @@ public class Profession {
 
 		stoner.send(new SendExpCounter(id, (int) experience));
 		SaveCache.markDirty(stoner);
+
+		Advance.checkAutoAdvancement(stoner, id);
+
 		update(id);
 
 		return experience;
@@ -359,17 +362,18 @@ public class Profession {
 		long str = stoner.getMaxGrades()[Professions.VIGOUR];
 		long def = stoner.getMaxGrades()[Professions.AEGIS];
 		long hit = stoner.getMaxGrades()[Professions.LIFE];
-		long pray = stoner.getMaxGrades()[Professions.RESONANCE];
+		long resonant = stoner.getMaxGrades()[Professions.RESONANCE];
 		long slay = stoner.getMaxGrades()[Professions.MERCENARY];
+		long pet = stoner.getMaxGrades()[Professions.PET_MASTER];
 		int adv = stoner.getTotalAdvances();
 
 		// Core contributions
-		double tankFactor = def * 0.30 + hit * 0.30 + pray * 0.20 + slay * 0.10;
-		double hybridBias = (att + str + ran + mag) / 4.0;
+		double tankFactor = def * 0.30 + hit * 0.30 + resonant * 0.20 + slay * 0.10 + pet * 0.10;
+		double hybridBias = (att + str + ran + mag + resonant + pet) / 4.0;
 
-		double offensiveMelee = att * 0.30 + str * 0.30 + slay * 0.15 + pray * 0.10;
-		double offensiveRange = ran * 0.50 + slay * 0.15 + pray * 0.10;
-		double offensiveMage = mag * 0.50 + slay * 0.15 + pray * 0.10;
+		double offensiveMelee = att * 0.30 + str * 0.30 + slay * 0.15 + resonant * 0.10 + pet * 0.10;
+		double offensiveRange = ran * 0.50 + slay * 0.15 + resonant * 0.10 + pet * 0.10;
+		double offensiveMage = mag * 0.50 + slay * 0.15 + resonant * 0.10 + pet * 0.10;
 
 		// Determine dominant style
 		double offensiveFactor;
@@ -382,7 +386,7 @@ public class Profession {
 		}
 
 		// Composite score
-		double totalScore = hybridBias * 0.10 + tankFactor + offensiveFactor + adv * 0.10;
+		double totalScore = hybridBias * 0.10 + tankFactor + offensiveFactor + adv * 0.20;
 
 		return (int) totalScore;
 	}

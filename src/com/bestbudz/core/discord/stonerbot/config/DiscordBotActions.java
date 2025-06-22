@@ -149,7 +149,7 @@ public class DiscordBotActions {
 	public void notifySkillProgress(String skillName, int newLevel) {
 		if (DiscordMessageManager.isAvailable()) {
 			DiscordMessageManager.announceLevelUp(bot.getUsername(), skillName, newLevel);
-			logger.info("Skill progress notification sent: " + bot.getUsername() + " reached level " + newLevel + " in " + skillName);
+			logger.info("Skill progress notification sent: " + bot.getUsername() + " reached grade " + newLevel + " in " + skillName);
 		} else {
 			// Fallback to old method
 			chat.sendSkillProgressUpdate(skillName, newLevel);

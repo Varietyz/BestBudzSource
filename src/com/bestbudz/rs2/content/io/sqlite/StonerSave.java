@@ -19,6 +19,10 @@ public final class StonerSave {
 
 		if (!SaveCache.isDirty(stoner)) return; // 🚫 Skip unnecessary saves
 
+		if (stoner.getProfessions() != null) {
+			stoner.getProfessions().save();
+		}
+
 		SaveCache.clear(stoner);                // ✅ Clear dirty after queue
 		SaveWorker.enqueueSave(stoner);         // 🧵 Async write
 	}

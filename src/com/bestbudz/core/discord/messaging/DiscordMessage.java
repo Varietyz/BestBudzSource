@@ -14,7 +14,8 @@ public class DiscordMessage {
 		ADVANCEMENT,       // Quest/achievement completions
 		ACHIEVEMENT,       // Special achievements
 		STAFF_ALERT,       // Staff notifications
-		ADMIN_MESSAGE      // Administrative messages
+		ADMIN_MESSAGE,      // Administrative messages
+		GAME_MESSAGE
 	}
 
 	private final Type type;

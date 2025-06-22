@@ -159,6 +159,9 @@ public class ObjectManager {
 		spawnWithObject(11744, 2662, 3375, 0, 10, 0);
 		spawnWithObject(11744, 2930, 4821, 0, 10, 0);
 
+		// HOME
+		spawnWithObject(26149, 3425, 2915, 0, 10, 0);
+
 		// Legacy cleanup - wilderness/legacy tiles
 		delete(3079, 3501, 0);
 		delete(3080, 3501, 0);

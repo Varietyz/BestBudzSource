@@ -17,10 +17,7 @@ import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.content.consumables.ConsumableType;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.teleport.GloryDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.teleport.RingOfDuelingDialogue;
 import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
-import com.bestbudz.rs2.content.membership.AdvancementBonds;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameStore;
 import com.bestbudz.rs2.content.profession.forging.ForgingTask;
 import com.bestbudz.rs2.content.profession.handiness.AmuletStringing;
@@ -266,21 +263,6 @@ public class ItemPackets extends IncomingPacket {
           case 2700:
             break;
           case 1688:
-            if (itemId == 1712 || itemId == 1710 || itemId == 1708 || itemId == 1706) {
-              stoner.start(new GloryDialogue(stoner, true, itemId));
-              return;
-            }
-            if (itemId == 2552
-                || itemId == 2554
-                || itemId == 2556
-                || itemId == 2558
-                || itemId == 2560
-                || itemId == 2562
-                || itemId == 2564
-                || itemId == 2566) {
-              stoner.start(new RingOfDuelingDialogue(stoner, true, itemId));
-              return;
-            }
             if (itemId == 1704) {
               stoner
                   .getClient()
@@ -827,10 +809,6 @@ public class ItemPackets extends IncomingPacket {
           return;
         }
 
-        if (AdvancementBonds.handle(stoner, itemId)) {
-          return;
-        }
-
         if (Pyromaniac.burnin(stoner, itemId, slot, interfaceId)) {
           return;
         }
@@ -1023,21 +1001,6 @@ public class ItemPackets extends IncomingPacket {
           return;
         }
 
-        if (itemId == 1712 || itemId == 1710 || itemId == 1708 || itemId == 1706) {
-          stoner.start(new GloryDialogue(stoner, false, itemId));
-          return;
-        }
-        if (itemId == 2552
-            || itemId == 2554
-            || itemId == 2556
-            || itemId == 2558
-            || itemId == 2560
-            || itemId == 2562
-            || itemId == 2564
-            || itemId == 2566) {
-          stoner.start(new RingOfDuelingDialogue(stoner, false, itemId));
-          return;
-        }
         if (itemId == 1704) {
           stoner
               .getClient()

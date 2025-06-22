@@ -32,6 +32,7 @@ import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSwamp;
 import com.bestbudz.rs2.content.profession.melee.Melee;
 import com.bestbudz.rs2.content.profession.melee.SerpentineHelmet;
 import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
+import com.bestbudz.rs2.content.profession.petmaster.PetMaster;
 import com.bestbudz.rs2.content.profession.resonance.Resonance;
 import com.bestbudz.rs2.content.profession.sagittarius.SagittariusProfession;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
@@ -768,6 +769,8 @@ public class Stoner extends Entity {
 	public Stopwatch getDelay() { return delay; }
 	public void setDelay(Stopwatch delay) { this.delay = delay; }
 
+	//PET SKILL
+	public PetMaster getPetMaster() { return professions.getPetMaster(); }
 	// Additional lifecycle methods that external code expects
 	public void start() {
 		getRunEnergy().tick();

@@ -19,6 +19,7 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.pathfinding.StraightPathFinder;
 import com.bestbudz.rs2.entity.pets.Pet;
+import static com.bestbudz.rs2.entity.pets.PetCombatSystem.findPetObjectFromStoner;
 import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -191,10 +192,24 @@ public class Combat {
 					break;
 			}
 
+		if (entity instanceof Stoner && ((Stoner) entity).isPetStoner()) {
+			Stoner petStoner = (Stoner) entity;
 
+			// Find the Pet object and notify PetMaster
+			Pet petObject = findPetObjectFromStoner(petStoner);
+			if (petObject != null) {
+				// This could be called after successful hit/damage
+				onPetCombatActivity(petObject);
+			}
+		}
 		entity.afterCombatProcess(assaulting);
 	}
 
+	private void onPetCombatActivity(Pet pet) {
+		if (pet.getOwner() != null && pet.getOwner().getPetMaster() != null) {
+			pet.getOwner().getPetMaster().onPetCombat(pet);
+		}
+	}
   public void forRespawn() {
     combatTimer = 0L;
     damageMap.clear();

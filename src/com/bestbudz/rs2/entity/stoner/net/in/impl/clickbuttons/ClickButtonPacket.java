@@ -7,12 +7,9 @@ import com.bestbudz.rs2.content.achievements.AchievementButtons;
 import com.bestbudz.rs2.content.combat.formula.MageFormulas;
 import com.bestbudz.rs2.content.combat.formula.MeleeFormulas;
 import com.bestbudz.rs2.content.combat.formula.RangeFormulas;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.*;
-import com.bestbudz.rs2.content.membership.CreditHandler;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelingConstants;
 import com.bestbudz.rs2.content.profession.ProfessionGoal;
 import com.bestbudz.rs2.content.profession.Professions;
@@ -30,15 +27,13 @@ import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.ReportHandler.ReportData;
 import com.bestbudz.rs2.entity.item.EquipmentConstants;
 import com.bestbudz.rs2.entity.item.Item;
-import com.bestbudz.rs2.entity.item.ItemCheck;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.Client;
 import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
 import static com.bestbudz.rs2.entity.stoner.net.in.impl.clickbuttons.ButtonAssignment.*;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.*;
-import java.math.BigInteger;
-import java.text.NumberFormat;
+
 import java.util.*;
 
 public class ClickButtonPacket extends IncomingPacket {
@@ -318,10 +313,6 @@ public class ClickButtonPacket extends IncomingPacket {
 				stoner.send(new SendRemoveInterfaces());
 	}
 
-	public static void openAdvanceInterface(Stoner stoner) {
-		Advance.update(stoner);
-		stoner.send(new SendInterface(51000));
-	}
 
 	public static void rechargeResonance(Stoner stoner) {
 		if (stoner.getProfession().getGrades()[Professions.RESONANCE] < stoner.getMaxGrades()[Professions.RESONANCE]) {
@@ -499,8 +490,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		// Handle various content systems
 		if (LoyaltyShop.handleButtons(stoner, buttonId)) return true;
 		if (TeleportHandler.selection(stoner, buttonId)) return true;
-		if (ProfessionGoal.handle(stoner, buttonId)) return true;
-		return Advance.handleActionButtons(stoner, buttonId);
+		return ProfessionGoal.handle(stoner, buttonId);
 	}
 
 	private boolean handleDropTableSearch(Stoner stoner, int buttonId) {
@@ -609,7 +599,6 @@ public class ClickButtonPacket extends IncomingPacket {
 
 	private void handleDefaultCases(Stoner stoner, int buttonId) {
 		// Handle plugin systems in order of priority
-		if (CreditHandler.handleClicking(stoner, buttonId)) return;
 		if (GenieLamp.handle(stoner, buttonId)) return;
 		if (GenieReset.handle(stoner, buttonId)) return;
 		if (AchievementButtons.handleButtons(stoner, buttonId)) return;

@@ -38,6 +38,7 @@ public class DiscordMessageService implements Runnable {
 	private volatile TextChannel levelsChannel;
 	private volatile TextChannel advancementsChannel;
 	private volatile TextChannel staffChannel;
+	private volatile TextChannel gameMessageChannel;
 
 	private DiscordMessageService() {
 		// Private constructor for singleton
@@ -79,9 +80,10 @@ public class DiscordMessageService implements Runnable {
 			levelsChannel = discordBot.getJDA().getTextChannelById(DiscordConfig.LEVELS_CHANNEL_ID);
 			advancementsChannel = discordBot.getJDA().getTextChannelById(DiscordConfig.ADVANCEMENTS_CHANNEL_ID);
 			staffChannel = discordBot.getJDA().getTextChannelById(DiscordConfig.STAFF_CHANNEL_ID);
+			gameMessageChannel = discordBot.getJDA().getTextChannelById(DiscordConfig.GAME_MESSAGES_CHANNEL_ID);
 
 			isConnected = (chatChannel != null || statusChannel != null || levelsChannel != null ||
-				advancementsChannel != null || staffChannel != null);
+				advancementsChannel != null || staffChannel != null || gameMessageChannel != null);
 
 			if (isConnected) {
 				logger.info("Discord channels initialized successfully");
@@ -178,6 +180,8 @@ public class DiscordMessageService implements Runnable {
 			case STAFF_ALERT:
 			case ADMIN_MESSAGE:
 				return staffChannel;
+			case GAME_MESSAGE:
+				return gameMessageChannel;
 			default:
 				return statusChannel; // Default fallback
 		}
@@ -203,6 +207,8 @@ public class DiscordMessageService implements Runnable {
 			case STAFF_ALERT:
 			case ADMIN_MESSAGE:
 				return formatStaffMessage(message);
+			case GAME_MESSAGE:
+				return formatGameMessage(message);
 			default:
 				return message.getContent();
 		}
@@ -237,6 +243,9 @@ public class DiscordMessageService implements Runnable {
 		return "🚨 **STAFF ALERT**: " + message.getContent();
 	}
 
+	private String formatGameMessage(DiscordMessage message) {
+		return "🖥️ **GAME MESSAGE**: " + message.getContent();
+	}
 	// Public API methods for sending different types of messages
 
 	/**
@@ -264,16 +273,15 @@ public class DiscordMessageService implements Runnable {
 	 * Send level up notification
 	 */
 	public void sendLevelUp(String username, String skill, int level) {
-		String message = username + " reached level " + level + " in " + skill + "!";
+		String message = username + " reached grade " + level + " in " + skill + "!";
 		queueMessage(new DiscordMessage(DiscordMessage.Type.LEVEL_UP, message, username));
 	}
 
 	/**
-	 * Send skill progress update
+	 * Send system announcement
 	 */
-	public void sendSkillProgress(String username, String skill, String progress) {
-		String message = username + " - " + skill + ": " + progress;
-		queueMessage(new DiscordMessage(DiscordMessage.Type.SKILL_PROGRESS, message, username));
+	public void sendGameMessage(String message) {
+		queueMessage(new DiscordMessage(DiscordMessage.Type.GAME_MESSAGE, message));
 	}
 
 	/**

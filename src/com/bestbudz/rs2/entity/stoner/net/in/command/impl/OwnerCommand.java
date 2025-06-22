@@ -10,7 +10,6 @@ import com.bestbudz.rs2.content.combat.Hit.HitTypes;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
-import com.bestbudz.rs2.content.membership.RankHandler;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.Item;
@@ -226,39 +225,6 @@ public class OwnerCommand implements Command {
       case "droptable":
       case "table":
         DropTable.open(stoner);
-        return true;
-      case "sendpackage":
-      case "sendpack":
-      case "givepackage":
-      case "givepack":
-        if (parser.hasNext(2)) {
-          try {
-            String name = parser.nextString();
-            int pack = parser.nextInt();
-            Stoner p = World.getStonerByName(name);
-            if (p == null) {
-              stoner.send(new SendMessage("Stoner not found."));
-              return true;
-            }
-            p.setMember(true);
-            p.setCredits(p.getCredits() + pack);
-            p.send(new SendMessage("Thank you for your purchase!"));
-            RankHandler.upgrade(p);
-            World.sendGlobalMessage(
-                "</col>[ BestBudz </col>] "
-                    + p.deterquarryIcon(p)
-                    + " "
-                    + Utility.formatStonerName(p.getUsername())
-                    + "</col> has just reedemed a "
-                    + pack
-                    + "</col> credit voucher!");
-            InterfaceHandler.writeText(new QuestTab(p));
-            stoner.send(new SendMessage("Success"));
-
-          } catch (Exception e) {
-            stoner.getClient().queueOutgoingPacket(new SendMessage("Invalid format"));
-          }
-        }
         return true;
       case "sw":
         if (parser.hasNext()) {

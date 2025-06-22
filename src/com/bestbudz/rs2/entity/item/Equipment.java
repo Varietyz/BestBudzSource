@@ -320,9 +320,11 @@ public class Equipment {
       stoner
           .getClient()
           .queueOutgoingPacket(
-              new SendMessage("You do not have enough box space to unequip that."));
+              new SendMessage("You lacked box space to unequip that, it has been sent to the bank instead!"));
+		stoner.getBank().add(items[slot]);
       return false;
     }
+
 
     stoner.getBox().add(items[slot]);
 

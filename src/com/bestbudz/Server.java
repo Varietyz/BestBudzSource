@@ -6,6 +6,7 @@ import com.bestbudz.rs2.content.io.sqlite.AntiRollbackManager;
 import com.bestbudz.rs2.content.io.sqlite.GracefulShutdownHook;
 
 import com.bestbudz.rs2.content.io.sqlite.SQLiteDB;
+import com.bestbudz.rs2.content.profession.petmaster.db.PetMasterDatabase;
 import io.netty.channel.EventLoopGroup;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class Server {
 	{
 		System.out.println(">>> [DEBUG] Server.main() has started");
 		SQLiteDB.init(); // must run before any save/load
+		PetMasterDatabase.getInstance();
 		AntiRollbackManager.readSnapshot(); // ✅ Load rollback token cache before anything else
 		Runtime.getRuntime().addShutdownHook(new GracefulShutdownHook());
 

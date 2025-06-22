@@ -6,6 +6,7 @@ import com.bestbudz.rs2.content.profession.fisher.Fisher;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
 import com.bestbudz.rs2.content.profession.melee.Melee;
 import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
+import com.bestbudz.rs2.content.profession.petmaster.PetMaster; // ADD THIS
 import com.bestbudz.rs2.content.profession.resonance.Resonance;
 import com.bestbudz.rs2.content.profession.sagittarius.SagittariusProfession;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -25,6 +26,7 @@ public class StonerProfessions {
 	private final Mercenary mercenary;
 	private final Resonance resonance;
 	private final BankStanding bankStanding;
+	private final PetMaster petMaster; // ADD THIS
 
 	public StonerProfessions(Stoner stoner) {
 		this.stoner = stoner;
@@ -36,6 +38,7 @@ public class StonerProfessions {
 		this.mercenary = new Mercenary(stoner);
 		this.resonance = new Resonance(stoner);
 		this.bankStanding = new BankStanding(stoner);
+		this.petMaster = new PetMaster(stoner); // ADD THIS
 	}
 
 	public void process() {
@@ -45,6 +48,14 @@ public class StonerProfessions {
 
 		resonance.drain();
 		bankStanding.process();
+		petMaster.process(); // ADD THIS - Process PetMaster every cycle
+	}
+
+	/**
+	 * Save all profession data
+	 */
+	public void save() {
+		petMaster.save(); // ADD THIS
 	}
 
 	/**
@@ -64,4 +75,5 @@ public class StonerProfessions {
 	public Mercenary getMercenary() { return mercenary; }
 	public Resonance getResonance() { return resonance; }
 	public BankStanding getBankStanding() { return bankStanding; }
+	public PetMaster getPetMaster() { return petMaster; } // ADD THIS
 }

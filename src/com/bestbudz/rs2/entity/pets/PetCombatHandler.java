@@ -4,6 +4,7 @@ import com.bestbudz.core.definitions.NpcCombatDefinition;
 import com.bestbudz.rs2.content.combat.Combat;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.entity.Entity;
+import static com.bestbudz.rs2.entity.pets.PetCombatSystem.findPetObjectFromStoner;
 import com.bestbudz.rs2.entity.pets.abilities.PetAbility;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
@@ -45,6 +46,12 @@ public class PetCombatHandler {
 		if (ability != null) {
 			ability.onDealDamage(pet, target, damage);
 		}
+
+		// ===== FIXED: Find Pet object from pet stoner =====
+		Pet petObject = findPetObjectFromStoner(pet);
+		if (petObject != null) {
+			processPetDamage(petObject, (int)damage);
+		}
 	}
 
 	/**
@@ -54,6 +61,13 @@ public class PetCombatHandler {
 		PetAbility ability = (PetAbility) pet.getAttributes().get("PET_ABILITY");
 		if (ability != null) {
 			ability.onTakeDamage(pet, damage);
+		}
+	}
+
+	public static void processPetDamage(Pet pet, int damage) {
+		// Notify PetMaster of combat activity
+		if (pet.getOwner() != null && pet.getOwner().getPetMaster() != null) {
+			pet.getOwner().getPetMaster().onPetCombat(pet);
 		}
 	}
 }

@@ -23,7 +23,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.*;
 import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
 import com.bestbudz.rs2.content.io.sqlite.StonerSave;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
-import com.bestbudz.rs2.content.interfaces.impl.CreditTab;
 import com.bestbudz.rs2.content.interfaces.impl.MiscInterfaces;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
@@ -178,7 +177,6 @@ public class StonerSession {
 		Emotes.onLogin(stoner);
 
 		InterfaceHandler.writeText(new QuestTab(stoner));
-		InterfaceHandler.writeText(new CreditTab(stoner));
 		stoner.send(new SendString("</col>CannaCredits: @gre@" + Utility.format(stoner.getCredits()), 52504));
 
 		stoner.getBox().update();
@@ -287,6 +285,10 @@ public class StonerSession {
 			}
 
 			PetManager.handleLogout(stoner);
+
+			if (stoner.getProfessions() != null) {
+				stoner.getProfessions().save();
+			}
 
 			if (DwarfMultiCannon.hasCannon(stoner)) {
 				DwarfMultiCannon.getCannon(stoner).onLogout();

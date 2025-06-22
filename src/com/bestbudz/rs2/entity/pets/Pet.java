@@ -21,6 +21,10 @@ public class Pet {
 		this.owner = owner;
 		this.data = data;
 		this.petStoner = createPetStoner(owner, data);
+
+		if (owner.getPetMaster() != null) {
+			owner.getPetMaster().onPetFirstSummoned(data);
+		}
 	}
 
 private static Stoner createPetStoner(Stoner owner, PetData data) {

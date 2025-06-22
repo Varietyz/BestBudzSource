@@ -68,4 +68,8 @@ public class DiscordMessageManager {
 	public static String getStatus() {
 		return DiscordMessageService.getInstance().getStatus();
 	}
+
+	public static void announceGameMessage (String message){
+		DiscordMessageService.getInstance().sendGameMessage(message);
+	}
 }

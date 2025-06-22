@@ -150,7 +150,7 @@ public class MysteryBoxMinigame {
         new SendString("</col>CannaCredits: @gre@" + Utility.format(stoner.getCredits()), 17006));
     stoner.send(
         new SendString(
-            "Misery Box is a game where you can bet @gre@"
+            "Misery Box is a game where you can offer @gre@"
                 + CREDITS_REQUIRED
                 + " </col>CannaCredits.",
             17008));

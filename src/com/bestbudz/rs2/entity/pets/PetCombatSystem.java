@@ -33,6 +33,12 @@ public class PetCombatSystem {
 			Entity actualTarget = pet.getCombat().getAssaulting();
 			if (actualTarget != null) {
 				System.out.println("DEBUG: Pet " + pet.getIndex() + " actually assaulting " + actualTarget.getIndex());
+
+				// ===== FIXED: Find Pet object from pet stoner and notify PetMaster =====
+				Pet petObject = findPetObjectFromStoner(pet);
+				if (petObject != null) {
+					onPetCombatHit(petObject);
+				}
 			}
 		}
 
@@ -40,6 +46,30 @@ public class PetCombatSystem {
 		Entity currentTarget = pet.getCombat().getAssaulting();
 		if (currentTarget != null && !currentTarget.isDead()) {
 			processPetAbilities(pet, currentTarget);
+		}
+	}
+
+	public static Pet findPetObjectFromStoner(Stoner petStoner) {
+		// Get the owner from the pet stoner's attributes
+		Stoner owner = (Stoner) petStoner.getAttributes().get("PET_OWNER");
+		if (owner == null || !owner.isActive()) {
+			return null;
+		}
+
+		// Search through the owner's active pets to find the matching one
+		for (Pet pet : owner.getActivePets()) {
+			if (pet.getPetStoner() == petStoner) {
+				return pet;
+			}
+		}
+
+		return null;
+	}
+
+	public static void onPetCombatHit(Pet pet) {
+		Stoner owner = pet.getOwner();
+		if (owner != null && owner.getPetMaster() != null) {
+			owner.getPetMaster().onPetCombat(pet);
 		}
 	}
 

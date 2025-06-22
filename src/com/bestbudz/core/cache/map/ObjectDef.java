@@ -314,6 +314,14 @@ public final class ObjectDef {
 			class46.hasActions = true;
 			break;
 
+		case 26149:
+			class46.name = "Budz Core";
+			class46.description = "The BestBudz core, essence of all magic in the game.".getBytes();
+			class46.actions = new String[5];
+			class46.actions[0] = "Offer to";
+			class46.hasActions = true;
+			break;
+
 		case 10376:
 			class46.name = "Cocaïne Stall";
 			class46.description = "You look and wonder.. Where are the topless women?".getBytes();

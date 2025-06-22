@@ -46,12 +46,12 @@ public class MoneyPouch {
       stoner.send(new SendMessage("You can't do this right now!"));
       return;
     }
-    if (stoner.getMoneyPouch() == Long.MAX_VALUE) {
+    if (stoner.getMoneyPouch() == Long.MAX_VALUE - Integer.MAX_VALUE) {
       stoner.send(new SendMessage("Your debit card is at maximum capacity!"));
       return;
     }
     int amount = stoner.getBox().getItemAmount(995);
-    if (stoner.getMoneyPouch() + amount >= Long.MAX_VALUE) {
+    if (stoner.getMoneyPouch() + amount >= Long.MAX_VALUE - Integer.MAX_VALUE) {
       stoner.send(new SendMessage("Unable to exceed debit card upload limit!"));
       return;
     }
