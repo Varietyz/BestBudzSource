@@ -2,7 +2,6 @@ package com.bestbudz.rs2.content.bank;
 
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
 import com.bestbudz.rs2.content.io.sqlite.SaveCache;
 
 /**
@@ -305,8 +304,6 @@ public class DockBank {
 		bank.stoner.send(new SendMessage("Switched to bank tab " + tabIndex));
 	}
 
-
-
 	/**
 	 * Get combined grid items (inventory first, then bank) - SERVER SIDE
 	 */
@@ -592,7 +589,6 @@ public class DockBank {
 		return false;
 	}
 
-
 	/**
 	 * Safe add to bank without interface dependencies
 	 */
@@ -688,7 +684,6 @@ public class DockBank {
 			);
 		}
 	}
-
 
 	// =================== UTILITY METHODS ===================
 

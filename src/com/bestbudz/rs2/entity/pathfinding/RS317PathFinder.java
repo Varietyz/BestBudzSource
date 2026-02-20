@@ -2,9 +2,7 @@ package com.bestbudz.rs2.entity.pathfinding;
 
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.util.Benchmarker;
-import com.bestbudz.rs2.GameConstants;
 import com.bestbudz.rs2.entity.Location;
-import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.ArrayList;
@@ -450,7 +448,6 @@ public class RS317PathFinder {
 		result.add(rawPath.get(rawPath.size() - 1));
 		return result;
 	}
-
 
 	public int localize(int x, int mapRegion) {
     return x - (mapRegion << 3);

@@ -2,7 +2,6 @@ package com.bestbudz.rs2.entity.mob.abilities;
 
 import com.bestbudz.rs2.content.combat.CombatEffect;
 import com.bestbudz.rs2.entity.Entity;
-import com.bestbudz.rs2.entity.mob.Mob;
 import java.util.HashMap;
 import java.util.Map;
 

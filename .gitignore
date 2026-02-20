@@ -38,3 +38,4 @@ DiscordConfig.java
 PasswordEncryption.java
 src/com/bestbudz/core/discord/core/DiscordConfig.java
 *.bak
+/.claude

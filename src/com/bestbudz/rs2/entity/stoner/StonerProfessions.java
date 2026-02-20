@@ -26,7 +26,9 @@ public class StonerProfessions {
 	private final Mercenary mercenary;
 	private final Resonance resonance;
 	private final BankStanding bankStanding;
-	private final PetMaster petMaster; // ADD THIS
+
+	private PetMaster petMaster;
+	private boolean petMasterInitialized = false;
 
 	public StonerProfessions(Stoner stoner) {
 		this.stoner = stoner;
@@ -38,7 +40,23 @@ public class StonerProfessions {
 		this.mercenary = new Mercenary(stoner);
 		this.resonance = new Resonance(stoner);
 		this.bankStanding = new BankStanding(stoner);
-		this.petMaster = new PetMaster(stoner); // ADD THIS
+	}
+
+	/**
+	 * Initialize PetMaster when stoner is fully loaded
+	 */
+	private void ensurePetMasterInitialized() {
+		if (!petMasterInitialized && stoner != null &&
+			stoner.getUsername() != null && !stoner.getUsername().trim().isEmpty()) {
+			try {
+				this.petMaster = new PetMaster(stoner);
+				this.petMasterInitialized = true;
+				System.out.println("PetMaster initialized for user: " + stoner.getUsername());
+			} catch (Exception e) {
+				System.err.println("Failed to initialize PetMaster for " + stoner.getUsername() + ": " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void process() {
@@ -48,14 +66,19 @@ public class StonerProfessions {
 
 		resonance.drain();
 		bankStanding.process();
-		petMaster.process(); // ADD THIS - Process PetMaster every cycle
+		ensurePetMasterInitialized();
+		if (petMaster != null) {
+			petMaster.process();
+		}
 	}
 
 	/**
 	 * Save all profession data
 	 */
 	public void save() {
-		petMaster.save(); // ADD THIS
+		if (petMaster != null) {
+			petMaster.save();
+		}
 	}
 
 	/**
@@ -67,6 +90,10 @@ public class StonerProfessions {
 	}
 
 	// Getters for all professions
+	/**
+	 * Get PetMaster with lazy initialization
+	 */
+	public PetMaster getPetMaster() {ensurePetMasterInitialized();return petMaster;}
 	public Profession getProfession() { return profession; }
 	public MageProfession getMage() { return mage; }
 	public SagittariusProfession getSagittarius() { return sagittarius; }
@@ -75,5 +102,5 @@ public class StonerProfessions {
 	public Mercenary getMercenary() { return mercenary; }
 	public Resonance getResonance() { return resonance; }
 	public BankStanding getBankStanding() { return bankStanding; }
-	public PetMaster getPetMaster() { return petMaster; } // ADD THIS
+
 }

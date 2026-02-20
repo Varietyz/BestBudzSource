@@ -103,7 +103,7 @@ public class Weedsmoker {
 			}
 
 			if (weed == null || weedItem == null) {
-				stoner.send(new SendMessage("You finish smoking all your weed."));
+				stoner.send(new SendMessage("You finishedBloodTrial smoking all your weed."));
 				stop();
 				return;
 			}

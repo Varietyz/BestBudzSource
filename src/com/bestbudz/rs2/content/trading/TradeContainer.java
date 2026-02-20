@@ -112,15 +112,6 @@ public class TradeContainer extends ItemContainer {
   }
 
   public void offer(int id, int amount, int slot) {
-    if (!Item.getDefinition(id).isTradable()
-        || Item.getDefinition(id).getName().contains("Clue scroll")) {
-      trade
-          .stoner
-          .getClient()
-          .queueOutgoingPacket(new SendMessage("hmmmm, try again.. it might work"));
-      return;
-    }
-
     if (!trade.canAppendTrade()) {
       return;
     }

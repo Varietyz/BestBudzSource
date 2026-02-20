@@ -37,7 +37,6 @@ public class DuelArenaForfeit extends Dialogue {
         setNext(1);
         break;
       case 1:
-        DialogueManager.sendOption(getStoner(), "Yes", "No");
         end();
     }
   }

@@ -1,6 +1,5 @@
 package com.bestbudz.rs2.entity.pets.abilities;
 
-import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 

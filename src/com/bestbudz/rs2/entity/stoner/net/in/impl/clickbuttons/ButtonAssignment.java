@@ -4,12 +4,10 @@ import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.dialogue.impl.AchievementDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.GenieResetDialogue;
-import com.bestbudz.rs2.content.dialogue.impl.NeiveDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.OziachDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
-import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
-import com.bestbudz.rs2.content.minigames.clanwars.ClanWarsConstants;
+import com.bestbudz.rs2.content.cannacredits.MysteryBoxMinigame;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameConstants;
 import com.bestbudz.rs2.content.profession.handiness.HideTanning;
 import com.bestbudz.rs2.content.profession.handiness.JewelryCreationTask;
@@ -497,7 +495,7 @@ public class ButtonAssignment extends ClickButtonPacket {
 		TELEPORT_LOCATIONS.put(115185, new Location(2662, 2655, 0)); // PEST_CONTROL
 		TELEPORT_LOCATIONS.put(115186, new Location(2439, 5171, 0)); // FIGHT_CAVES
 		TELEPORT_LOCATIONS.put(115187, WeaponGameConstants.LOBBY_COODINATES); // WEAPON_GAME
-		TELEPORT_LOCATIONS.put(115188, ClanWarsConstants.CLAN_WARS_ARENA); // CLAN_WARS
+		//TELEPORT_LOCATIONS.put(115188, null); // FREE
 		TELEPORT_LOCATIONS.put(115189, StonerConstants.MEMEBER_AREA); // MEMBERSHIP
 		TELEPORT_LOCATIONS.put(115190, StonerConstants.STAFF_AREA); // STAFFZONE
 		TELEPORT_LOCATIONS.put(115191, new Location(3039, 4834, 0)); // ABYSS

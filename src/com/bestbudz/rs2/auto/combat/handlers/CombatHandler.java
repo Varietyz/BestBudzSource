@@ -1,10 +1,8 @@
 package com.bestbudz.rs2.auto.combat.handlers;
 
 import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.auto.combat.AutoCombat;
 import com.bestbudz.rs2.auto.combat.config.AutoCombatConfig;
 import com.bestbudz.rs2.auto.combat.equipment.EquipmentManager;
-import com.bestbudz.rs2.auto.combat.equipment.WeaponSelector;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;

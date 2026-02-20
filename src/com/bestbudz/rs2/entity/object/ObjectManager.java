@@ -1,7 +1,6 @@
 package com.bestbudz.rs2.entity.object;
 
 import java.util.Deque;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -183,8 +182,47 @@ public class ObjectManager {
 		deleteWithObject(3444, 2901, 0);
 		deleteWithObject(3444, 2904, 0);
 		deleteWithObject(3444, 2905, 0);
-	}
 
+		//BLOOD TRIAL
+		remove(2037, 4529, 0); // Center Table
+		remove(2037, 4527, 0); // Center Table
+		remove(2035, 4529, 0); // Center Table
+		remove(2035, 4527, 0); // Center Table
+
+		remove(2036, 4521, 0); // Throne
+
+		remove(2039, 4535, 0); // Pillar
+		remove(2039, 4521, 0); // Pillar
+		remove(2034, 4535, 0); // Pillar
+		remove(2034, 4521, 0); // Pillar
+
+		remove(2044, 4539, 0); // Chair
+		remove(2044, 4537, 0); // Table
+		remove(2044, 4536, 0); // Chair
+		remove(2044, 4535, 0); // Chair
+		remove(2044, 4533, 0); // Table
+		remove(2044, 4532, 0); // Chair
+		remove(2044, 4526, 0); // Chair
+		remove(2044, 4524, 0); // Table
+		remove(2044, 4523, 0); // Chair
+		remove(2044, 4522, 0); // Chair
+		remove(2044, 4520, 0); // Table
+		remove(2044, 4519, 0); // Chair
+
+		remove(2029, 4539, 0); // Chair
+		remove(2029, 4537, 0); // Table
+		remove(2029, 4536, 0); // Chair
+		remove(2029, 4535, 0); // Chair
+		remove(2029, 4533, 0); // Table
+		remove(2029, 4532, 0); // Chair
+		remove(2029, 4526, 0); // Chair
+		remove(2029, 4524, 0); // Table
+		remove(2029, 4523, 0); // Chair
+		remove(2029, 4522, 0); // Chair
+		remove(2029, 4520, 0); // Table
+		remove(2029, 4519, 0); // Chair
+
+	}
 
   private static final void delete(int x, int y, int z) {
     RSObject object = Region.getObject(x, y, z);

@@ -1,12 +1,10 @@
 package com.bestbudz;
 
 import com.bestbudz.core.GameThread;
-import com.bestbudz.rs2.content.clanchat.ClanManager;
 import com.bestbudz.rs2.content.io.sqlite.AntiRollbackManager;
 import com.bestbudz.rs2.content.io.sqlite.GracefulShutdownHook;
 
 import com.bestbudz.rs2.content.io.sqlite.SQLiteDB;
-import com.bestbudz.rs2.content.profession.petmaster.db.PetMasterDatabase;
 import io.netty.channel.EventLoopGroup;
 
 import java.io.IOException;
@@ -20,7 +18,6 @@ public class Server {
 	public static final Logger logger = Logger.getLogger(Server.class.getSimpleName());
 	public static EventLoopGroup bossGroup;
 	public static EventLoopGroup workerGroup;
-	public static final ClanManager clanManager = new ClanManager();
 
 	public static String bestbudzDate() {
 		return new SimpleDateFormat("EEEE MMM dd yyyy ").format(new Date());
@@ -30,7 +27,6 @@ public class Server {
 	{
 		System.out.println(">>> [DEBUG] Server.main() has started");
 		SQLiteDB.init(); // must run before any save/load
-		PetMasterDatabase.getInstance();
 		AntiRollbackManager.readSnapshot(); // ✅ Load rollback token cache before anything else
 		Runtime.getRuntime().addShutdownHook(new GracefulShutdownHook());
 

@@ -2,8 +2,6 @@ package com.bestbudz.rs2.content;
 
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
@@ -30,15 +28,11 @@ public class GenieReset {
       stoner.getProfession().update(genie.getProfessionId());
     }
     stoner.getProfession().update();
-    DialogueManager.sendNpcChat(
-        stoner,
-        326,
-        Emotion.HAPPY,
-        "You have successfully reset your "
+	  stoner.send(new SendMessage("You have successfully reset your "
             + genie.getProfessionName()
             + " to "
             + stoner.getProfession().getGrades()[genie.getProfessionId()]
-            + "!");
+            + "!"));
     stoner.getDialogue().setNext(-1);
     AchievementHandler.activateAchievement(stoner, AchievementList.RESET_5_STATISTICS, 1);
     stoner.send(new SendMessage("Yes"));

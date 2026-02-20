@@ -1,6 +1,6 @@
 package com.bestbudz.rs2.content.profession.petmaster.bond;
 
-import com.bestbudz.rs2.content.profession.petmaster.db.PetDataManager;
+import com.bestbudz.rs2.content.profession.petmaster.PetDataManager;
 import com.bestbudz.rs2.entity.pets.Pet;
 import com.bestbudz.rs2.entity.pets.PetData;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 /**
- * OPTIMIZED: Async bond manager with reduced database calls
+ * SIMPLE: Bond manager for timer-based system
  */
 public class PetBondManager {
 
@@ -20,15 +20,8 @@ public class PetBondManager {
 
 	private final Stoner stoner;
 	private final PetDataManager dataManager;
-
-	// OPTIMIZATION: Use ConcurrentHashMap for thread safety
 	private final Map<PetData, PetBond> petBonds = new ConcurrentHashMap<>();
-
-	// Callback for growth checking
 	private GrowthCheckCallback growthCallback;
-
-	// OPTIMIZATION: Track when bonds were last saved to database
-	private volatile long lastDatabaseSave = System.currentTimeMillis();
 
 	public PetBondManager(Stoner stoner, PetDataManager dataManager) {
 		this.stoner = stoner;
@@ -36,16 +29,28 @@ public class PetBondManager {
 	}
 
 	/**
-	 * Set growth callback for when bonds need growth checking
+	 * Set growth callback
 	 */
 	public void setGrowthCallback(GrowthCheckCallback callback) {
 		this.growthCallback = callback;
 	}
 
 	/**
-	 * OPTIMIZED: Update individual pet bond with reduced database calls
+	 * Get or create pet bond - PUBLIC method for timer system
 	 */
-	public void updatePetBond(Pet pet, double experience) {
+	public PetBond getOrCreateBond(PetData petData) {
+		return petBonds.computeIfAbsent(petData, key -> {
+			PetBond bond = new PetBond();
+			bond.setFirstSummoned(System.currentTimeMillis());
+			logger.info("Created new bond for " + stoner.getUsername() + " - " + petData.name());
+			return bond;
+		});
+	}
+
+	/**
+	 * Update pet bond (legacy method for compatibility)
+	 */
+	public void updatePetBond(Pet pet, double experience, long actualTimeElapsed) {
 		try {
 			if (pet == null || pet.getData() == null) return;
 
@@ -54,40 +59,19 @@ public class PetBondManager {
 
 			int oldGrade = bond.getBondGrade();
 			bond.addExperience(experience);
-			bond.addActiveTime(300000); // 5 minutes instead of 1 minute
+			bond.addActiveTime(actualTimeElapsed);
 
 			// Check for grade up
 			if (bond.getBondGrade() > oldGrade) {
 				handleBondGradeUp(pet, bond);
 			}
 
-			// Check for growth after bond update
+			// Check for growth
 			checkForGrowth(pet, bond);
 
-			// OPTIMIZATION: Only save to database every 10 minutes or on significant events
-			long currentTime = System.currentTimeMillis();
-			if (currentTime - lastDatabaseSave > 600000 || bond.getBondGrade() > oldGrade) {
-				dataManager.savePetBond(petData, bond);
-				lastDatabaseSave = currentTime;
-			}
-
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Error updating pet bond for " + stoner.getUsername() +
-				" with pet: " + (pet != null && pet.getData() != null ? pet.getData().name() : "null"), e);
+			logger.log(Level.SEVERE, "Error updating pet bond", e);
 		}
-	}
-
-	/**
-	 * Get or create pet bond for given pet data
-	 */
-	private PetBond getOrCreateBond(PetData petData) {
-		return petBonds.computeIfAbsent(petData, key -> {
-			PetBond bond = new PetBond();
-			bond.setFirstSummoned(System.currentTimeMillis());
-			logger.info("Created new pet bond for " + stoner.getUsername() +
-				" with pet: " + petData.name());
-			return bond;
-		});
 	}
 
 	/**
@@ -121,26 +105,36 @@ public class PetBondManager {
 				pet.getPetStoner().getUpdateFlags().sendForceMessage("*feels closer to master*");
 			}
 
-			logger.info("Bond grade increased for " + stoner.getUsername() +
-				" with pet " + pet.getData().name() + " to grade " + bond.getBondGrade());
+			logger.info("Bond grade up: " + stoner.getUsername() + " - " + pet.getData().name() +
+				" - Grade " + bond.getBondGrade());
 
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Error handling bond grade up for " + stoner.getUsername(), e);
+			logger.log(Level.SEVERE, "Error handling bond grade up", e);
 		}
 	}
 
 	/**
-	 * Record first summon for a pet
+	 * Record first summon
 	 */
 	public void recordFirstSummon(PetData petData) {
 		if (petData == null) return;
 
-		PetBond bond = petBonds.computeIfAbsent(petData, key -> new PetBond());
+		PetBond bond = petBonds.get(petData);
 
-		if (bond.getFirstSummoned() == 0) {
+		if (bond == null) {
+			// Truly first summon
+			bond = new PetBond();
 			bond.setFirstSummoned(System.currentTimeMillis());
-			logger.info("First summon recorded for " + stoner.getUsername() +
-				" with pet: " + petData.name());
+			petBonds.put(petData, bond);
+			logger.info("First summon: " + stoner.getUsername() + " - " + petData.name());
+		} else {
+			// Bond exists from save data
+			if (bond.getFirstSummoned() == 0) {
+				bond.setFirstSummoned(System.currentTimeMillis());
+			}
+			logger.info("Restored bond: " + stoner.getUsername() + " - " + petData.name() +
+				" - Grade " + bond.getBondGrade() +
+				" - " + (bond.getActiveTime() / 60000) + " minutes");
 		}
 	}
 
@@ -152,18 +146,9 @@ public class PetBondManager {
 			PetBond bond = petBonds.get(petData);
 			return bond != null ? bond.getBondGrade() : 1;
 		} catch (Exception e) {
-			logger.log(Level.WARNING, "Error getting bond grade for " +
-				(stoner != null ? stoner.getUsername() : "null") +
-				" with pet: " + petData.name(), e);
+			logger.log(Level.WARNING, "Error getting bond grade", e);
 			return 1;
 		}
-	}
-
-	/**
-	 * Get pet bond for specific pet data
-	 */
-	public PetBond getPetBond(PetData petData) {
-		return petBonds.get(petData);
 	}
 
 	/**
@@ -176,13 +161,17 @@ public class PetBondManager {
 		newBond.setActiveTime(fromBond.getActiveTime());
 		newBond.setFirstSummoned(fromBond.getFirstSummoned());
 
-		// Update bond mapping - remove old, add new
+		logger.info("Transferring bond: " + fromPet.name() + " -> " + toPet.name() +
+			" - " + (newBond.getActiveTime() / 60000) + " minutes");
+
+		// Update bond mapping
 		petBonds.remove(fromPet);
+		dataManager.deletePetBond(fromPet);
 		petBonds.put(toPet, newBond);
 	}
 
 	/**
-	 * Get all pet bonds for saving
+	 * Get all pet bonds
 	 */
 	public Map<PetData, PetBond> getAllBonds() {
 		return new HashMap<>(petBonds);
@@ -192,21 +181,29 @@ public class PetBondManager {
 	 * Load bonds from data manager
 	 */
 	public void loadBonds(Map<PetData, PetBond> bonds) {
+		logger.info("Loading " + bonds.size() + " bonds for " + stoner.getUsername());
 		petBonds.clear();
 		petBonds.putAll(bonds);
+
+		for (Map.Entry<PetData, PetBond> entry : petBonds.entrySet()) {
+			PetBond bond = entry.getValue();
+			logger.info("Loaded: " + entry.getKey().name() +
+				" - Grade " + bond.getBondGrade() +
+				" - " + (bond.getActiveTime() / 60000) + " minutes");
+		}
 	}
 
 	/**
-	 * OPTIMIZATION: Force save all bonds to database
+	 * Force save all bonds
 	 */
 	public void forceSaveAllBonds() {
 		try {
 			for (Map.Entry<PetData, PetBond> entry : petBonds.entrySet()) {
 				dataManager.savePetBond(entry.getKey(), entry.getValue());
 			}
-			lastDatabaseSave = System.currentTimeMillis();
+			logger.info("Saved all " + petBonds.size() + " bonds for " + stoner.getUsername());
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Error force saving all bonds for " + stoner.getUsername(), e);
+			logger.log(Level.SEVERE, "Error saving all bonds", e);
 		}
 	}
 }

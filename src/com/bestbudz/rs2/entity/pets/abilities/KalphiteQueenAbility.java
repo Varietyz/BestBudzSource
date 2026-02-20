@@ -1,9 +1,7 @@
 package com.bestbudz.rs2.entity.pets.abilities;
 
 import com.bestbudz.rs2.content.combat.Hit;
-import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
-import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.pets.PetCombatUtils;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
@@ -16,8 +14,6 @@ public class KalphiteQueenAbility extends PetAbility {
 	@Override
 	protected void performAbility(Stoner pet, Entity target) {
 		// Use existing animation/graphic system
-		pet.getUpdateFlags().sendAnimation(new Animation(6240));
-		pet.getUpdateFlags().sendGraphic(new Graphic(1055, true));
 		pet.getUpdateFlags().sendForceMessage("*chittering angrily*");
 
 		// Apply temporary attack boost using PetCombatUtils utility

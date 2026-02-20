@@ -3,9 +3,6 @@ package com.bestbudz.rs2.content;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
-import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.content.dialogue.OptionDialogue;
-import com.bestbudz.rs2.content.minigames.clanwars.ClanWarsConstants;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameConstants;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
 import com.bestbudz.rs2.entity.Animation;
@@ -15,7 +12,6 @@ import com.bestbudz.rs2.entity.mob.bosses.Zulrah;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.text.NumberFormat;
 import java.util.HashMap;
 
@@ -83,81 +79,9 @@ public class TeleportHandler {
         return true;
 
       case 242107:
-        stoner.start(
-            new OptionDialogue(
-                "Catweedy",
-                p -> {
-                  p.teleport(new Location(2805, 3464, 0));
-                  p.send(
-                      new SendMessage(
-                          "<col=482CB8>You have teleported to the Catweedy bankstanding area."));
-                },
-                "Ardougne",
-                p -> {
-                  p.teleport(new Location(2662, 3375, 0));
-                  p.send(
-                      new SendMessage(
-                          "<col=482CB8>You have teleported to the Ardougne bankstanding area."));
-                },
-                "Falador",
-                p -> {
-                  p.teleport(new Location(3056, 3310, 0));
-                  p.send(
-                      new SendMessage(
-                          "<col=482CB8>You have teleported to the Falador bankstanding area."));
-                },
-                "Phasmatys",
-                p -> {
-                  p.teleport(new Location(3600, 3524, 0));
-                  p.send(
-                      new SendMessage(
-                          "<col=482CB8>You have teleported to the Phasmatys bankstanding area."));
-                }));
         return false;
 
       case 242102:
-        stoner.start(
-            new OptionDialogue(
-                "Gnome exercisement course",
-                p -> {
-                  p.teleport(new Location(2480, 3437, 0));
-                  p.send(
-                      new SendMessage(
-                          "<col=482CB8>You have teleported to the Gnome exercisement course."));
-                },
-                "Barbarian exercisement course",
-                p -> {
-                  p.teleport(new Location(2546, 3551, 0));
-                  p.send(
-                      new SendMessage(
-                          "<col=482CB8>You have teleported to the Barbarian exercisement course."));
-                },
-                "Wilderness exercisement course (50+ wild)",
-                p -> {
-                  p.teleport(new Location(2998, 3915, 0));
-                  p.send(
-                      new SendMessage(
-                          "<col=482CB8>You have teleported to the Wilderness exercisement course."));
-                },
-                "Rooftop courses",
-                p -> {
-                  stoner.start(
-                      new OptionDialogue(
-                          "Seer's course",
-                          p2 -> {
-                            p.teleport(new Location(2729, 3488, 0));
-                            p.send(
-                                new SendMessage(
-                                    "<col=482CB8>You have teleported to the Seer's Village rooftop exercisement course."));
-                          },
-                          "Ardougne course",
-                          p2 -> {
-                            p.teleport(new Location(2674, 3297, 0));
-                            p.send(
-                                new SendMessage(
-                                    "<col=482CB8>You have teleported to the Ardougne rooftop exercisement course."));
-                          }));
-                }));
         return false;
 
       case 250058:
@@ -223,81 +147,7 @@ public class TeleportHandler {
   }
 
   public static boolean selection(Stoner stoner, int buttonId) {
-    TeleportationData teleportation = TeleportationData.teleportation.get(buttonId);
-
-    if (teleportation == null) {
-      return false;
-    }
-
-    stoner.setTeleportTo(buttonId);
-    stoner.send(new SendString("Grade: @red@0", 64039));
-    switch (stoner.getInterfaceManager().getMain()) {
-      case 61000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                61031));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 61033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 61034));
-        break;
-      case 62000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                62031));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 62033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 62034));
-        break;
-      case 63000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                63031));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 63033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 63034));
-        break;
-      case 64000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                64031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 64032));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 64033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 64034));
-        stoner.send(new SendString("Grade: @red@" + teleportation.getGrade(), 64039));
-        break;
-      case 65000:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                65031));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 65032));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 65033));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 65034));
-        break;
-      case 61500:
-        stoner.send(
-            new SendString(
-                "Selected: @red@"
-                    + Utility.formatStonerName(
-                        teleportation.name().replaceAll("_", " ").toLowerCase()),
-                61531));
-        stoner.send(new SendString("Cost: @red@" + format(teleportation.getCost()), 61532));
-        stoner.send(new SendString("Requirement: @red@" + teleportation.getRequirement(), 61533));
-        stoner.send(new SendString("Other: @red@" + teleportation.getOther(), 61534));
-        break;
-    }
-    return true;
+ 	return false;
   }
 
   public static String format(long num) {
@@ -367,8 +217,6 @@ public class TeleportHandler {
     PEST_CONTROL(254030, 0, "None", "None", 0, new Location(2662, 2655, 0), false, false),
     FIGHT_CAVES(254031, 0, "None", "None", 0, new Location(2439, 5171, 0), false, false),
     WEAPON_GAME(254032, 0, "None", "None", 0, WeaponGameConstants.LOBBY_COODINATES, false, false),
-    CLAN_WARS(254033, 0, "None", "None", 0, ClanWarsConstants.CLAN_WARS_ARENA, false, true),
-
     MEMBERSHIP(240111, 0, "Members only", "None", 0, StonerConstants.MEMEBER_AREA, false, true),
     STAFFZONE(240112, 0, "Staff only", "None", 0, StonerConstants.STAFF_AREA, false, true);
 

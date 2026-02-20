@@ -123,19 +123,19 @@ public class ProfessioncapeShop extends Shop {
 		add(new Item(9777), false);
 		add(new Item(9778), false);
       if (grade >= 420) {
+		  add(
+			  new Item(
+				  trimmed
+					  ? Professioncape.values()[index].getTrimmedCape()
+					  : Professioncape.values()[index].getCape()),
+			  false);
+
         if (stoner.getTotalAdvances() >= 10) {
           add(new Item(Professioncape.HUNTER.getTrimmedCape()), false);
 			add(new Item(Professioncape.HUNTER.getCape()), false);
           add(new Item(Professioncape.CONSTRUCTION.getCape()), false);
 			add(new Item(Professioncape.CONSTRUCTION.getTrimmedCape()), false);
 
-        } else {
-          add(
-              new Item(
-                  trimmed
-                      ? Professioncape.values()[index].getTrimmedCape()
-                      : Professioncape.values()[index].getCape()),
-              false);
         }
       }
     }

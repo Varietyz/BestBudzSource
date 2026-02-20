@@ -3,7 +3,6 @@ package com.bestbudz.rs2.auto.combat.handlers;
 import com.bestbudz.rs2.entity.item.Equipment;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 
 /**
  * Manages melee combat style rotation for balanced profession training

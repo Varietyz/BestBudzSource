@@ -143,7 +143,7 @@ public class Foodie extends Task {
 
 			// No more cookable items
 			if (cookingData == null || rawFood == null) {
-				stoner.send(new SendMessage("You finish cooking."));
+				stoner.send(new SendMessage("You finishedBloodTrial cooking."));
 				stop();
 				return;
 			}
@@ -166,7 +166,7 @@ public class Foodie extends Task {
 				// Burned the food
 				stoner.getBox().add(new Item(cookingData.getBurnt(), 1), true);
 				stoner.send(new SendMessage("You burn the " + rawFood.getDefinition().getName() + "."));
-				stoner.send(new SendMessage("You have messed the fish up and got a BestBucks."));
+				stoner.send(new SendMessage("You have messed the fish up and got BestBucks."));
 			}
 
 			stoner.getBox().update();

@@ -8,10 +8,8 @@ import com.bestbudz.rs2.content.io.sqlite.SaveCache;
 import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
 import com.bestbudz.rs2.content.profession.bankstanding.BankStanding;
 import com.bestbudz.rs2.entity.Animation;
-import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.World;
-import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.pets.PetData;
 import com.bestbudz.rs2.entity.pets.PetUtils;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -116,23 +114,6 @@ public class Profession {
 			}
 	}
 
-	private static long binarySearch(double experience, int min, int max) {
-		while (min <= max) {
-			int mid = (min + max) / 2;
-			double value = EXP_FOR_GRADE[mid];
-
-			if (value > experience) {
-				max = mid - 1;
-			} else if (mid + 1 >= EXP_FOR_GRADE.length || EXP_FOR_GRADE[mid + 1] > experience) {
-				return mid;
-			} else {
-				min = mid + 1;
-			}
-		}
-		return 0;
-	}
-
-
 	public void addCombatExperience(CombatTypes type, long hit) {
 		if ((expLock) || (stoner.getMage().isDFireShieldEffect())) {
 			return;
@@ -151,7 +132,7 @@ public class Profession {
 			return; // Exit early - pets don't gain their own experience
 		}
 
-		double exp = hit * 3.0D;
+		double exp = hit * 1.5D;
 
 		switch (type) {
 			case NONE:
@@ -291,8 +272,8 @@ public class Profession {
 		if (isDiscordBot) {
 			// REMOVED: Auto-banking during XP gains to prevent conflicts
 			// The quarrying system already handles banking separately
-			System.out.println("Discord bot gained XP: " + (int)experience + " in skill " + id + " (" +
-				Professions.PROFESSION_NAMES[id] + ")");
+			//System.out.println("Discord bot gained XP: " + (int)experience + " in skill " + id + " (" +
+			//	Professions.PROFESSION_NAMES[id] + ")");
 		}
 
 		// Apply bank standing XP bonus to other skills (not to bank standing itself)
@@ -625,6 +606,10 @@ public class Profession {
 		updateGradesForExperience();
 		updateTotalGrade();
 
+		if (stoner.getAllergySystem() != null) {
+			stoner.getAllergySystem().onLogin();
+		}
+
 		for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
 			update(i);
 		}
@@ -712,7 +697,6 @@ public class Profession {
 			}
 		}
 	}
-
 
 	public void updateTotalGrade() {
 		totalGrade = 0;

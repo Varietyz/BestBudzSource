@@ -11,12 +11,6 @@
 				<amount>100</amount>
 			</item>
 
-			//lockpick
-			<item>
-				<id>1523</id>
-				<amount>3000</amount>
-			</item>
-
 			//Spade
 			<item>
 				<id>952</id>
@@ -372,46 +366,6 @@
 		</items>
 	</ShopDefinition>
 
-	//OPEN
-	<ShopDefinition>
-		<id>18</id>
-		<name>BEING REWORKED</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>20</id>
-		<name>BEING REWORKED</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>45</id>
-		<name>BEING REWORKED</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>25</id>
-		<name>BEING REWORKED</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
 	//Mage store
 	<ShopDefinition>
 		<id>26</id>
@@ -592,13 +546,49 @@
 		</items>
 	</ShopDefinition>
 
-	//Fashion store
+	//Packs store
 	<ShopDefinition>
-		<id>28</id>
-		<name>Fashionscape</name>
+		<id>31</id>
+		<name>Packs store</name>
 		<general>false</general>
 		<items>
+			//Vial of water
+			<item>
+				<id>11879</id>
+				<amount>100</amount>
+			</item>
 
+			//Feather
+			<item>
+				<id>11881</id>
+				<amount>100</amount>
+			</item>
+
+			//Broad tips
+			<item>
+				<id>11885</id>
+				<amount>100</amount>
+			</item>
+
+			//Softclay
+			<item>
+				<id>12009</id>
+				<amount>100</amount>
+			</item>
+			//Eye of newt
+			<item>
+				<id>12859</id>
+				<amount>100</amount>
+			</item>
+		</items>
+	</ShopDefinition>
+
+	//BankStanding store
+	<ShopDefinition>
+		<id>32</id>
+		<name>BankStanding store</name>
+		<general>false</general>
+		<items>
 			//Rouge mask
 			<item>
 				<id>5554</id>
@@ -803,216 +793,119 @@
 				<amount>100</amount>
 			</item>
 
-		</items>
-	</ShopDefinition>
-
-	//Pawn shop
-	<ShopDefinition>
-		<id>29</id>
-		<name>Merchant store</name>
-		<general>true</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//Consumer store
-	<ShopDefinition>
-		<id>30</id>
-		<name>Consumer BEING REWORKED</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//Packs store
-	<ShopDefinition>
-		<id>31</id>
-		<name>Packs store</name>
-		<general>false</general>
-		<items>
-			//Vial of water
+			//Red phat
 			<item>
-				<id>11879</id>
-				<amount>100</amount>
+				<id>1038</id>
+				<amount>10</amount>
 			</item>
 
-			//Feather
+			//Yellow phat
 			<item>
-				<id>11881</id>
-				<amount>100</amount>
+				<id>1040</id>
+				<amount>10</amount>
 			</item>
 
-			//Broad tips
+			//Blue phat
 			<item>
-				<id>11885</id>
-				<amount>100</amount>
+				<id>1042</id>
+				<amount>10</amount>
 			</item>
 
-			//Softclay
+			//Green phat
 			<item>
-				<id>12009</id>
-				<amount>100</amount>
-			</item>
-			//Eye of newt
-			<item>
-				<id>12859</id>
-				<amount>100</amount>
-			</item>
-		</items>
-	</ShopDefinition>
-
-	//BankStanding store
-	<ShopDefinition>
-		<id>32</id>
-		<name>BankStanding store</name>
-		<general>false</general>
-		<items>
-			//Rake
-			<item>
-				<id>5341</id>
-				<amount>1000</amount>
+				<id>1044</id>
+				<amount>10</amount>
 			</item>
 
-			//spade
+			//Purple phat
 			<item>
-				<id>952</id>
-				<amount>1000</amount>
+				<id>1046</id>
+				<amount>10</amount>
 			</item>
 
-			//watering can
+			//White phat
 			<item>
-				<id>5331</id>
-				<amount>1000</amount>
+				<id>1048</id>
+				<amount>10</amount>
 			</item>
 
-			//Seed dipper
+			//Black Phat
 			<item>
-				<id>5343</id>
-				<amount>1000</amount>
+				<id>11862</id>
+				<amount>10</amount>
 			</item>
 
-			//trowel
+			//Rainbow phat
 			<item>
-				<id>5325</id>
-				<amount>1000</amount>
+				<id>11863</id>
+				<amount>10</amount>
 			</item>
 
-			//Potato seed
+			//Goggles and phat
 			<item>
-				<id>5318</id>
-				<amount>1000</amount>
+				<id>12399</id>
+				<amount>10</amount>
 			</item>
 
-			//Cabbage Seed
+			//Santa hat
 			<item>
-				<id>5324</id>
-				<amount>1000</amount>
+				<id>1050</id>
+				<amount>10</amount>
 			</item>
 
-			//Strawberry seed
+			//Green hween
 			<item>
-				<id>5323</id>
-				<amount>1000</amount>
+				<id>1053</id>
+				<amount>10</amount>
 			</item>
 
-			//Watermelon seed
+			//Blue Hween
 			<item>
-				<id>5321</id>
-				<amount>1000</amount>
+				<id>1055</id>
+				<amount>10</amount>
 			</item>
 
-			//Kush seed
+			//Red Hween
 			<item>
-				<id>5291</id>
-				<amount>1000</amount>
+				<id>1057</id>
+				<amount>10</amount>
 			</item>
 
-			//Haze seed
+			//Black Hween
 			<item>
-				<id>5292</id>
-				<amount>1000</amount>
+				<id>11847</id>
+				<amount>10</amount>
 			</item>
 
-			//Og Kush seed
+			//Foodie gauntlets
 			<item>
-				<id>5293</id>
-				<amount>1000</amount>
+				<id>775</id>
+				<amount>10</amount>
 			</item>
 
-			//Powerplant seed
+			//Desert Boots
 			<item>
-				<id>5294</id>
-				<amount>1000</amount>
+				<id>1837</id>
+				<amount>10</amount>
 			</item>
 
-			//Cheese Haze seed
+			//Kalph princess pet
 			<item>
-				<id>5295</id>
-				<amount>1000</amount>
+				<id>12647</id>
+				<amount>1</amount>
 			</item>
 
-			//Bubba Kush seed
+			//Kalph princess pet2
 			<item>
-				<id>5296</id>
-				<amount>1000</amount>
+				<id>12654</id>
+				<amount>1</amount>
 			</item>
 
-			//Chocolope seed
+			//Devil pet
 			<item>
-				<id>5297</id>
-				<amount>1000</amount>
+				<id>12648</id>
+				<amount>1</amount>
 			</item>
-
-			//Gorilla Glue seed
-			<item>
-				<id>5298</id>
-				<amount>1000</amount>
-			</item>
-
-			//Jack Herer seed
-			<item>
-				<id>5299</id>
-				<amount>1000</amount>
-			</item>
-
-			//Durban Poison seed
-			<item>
-				<id>5300</id>
-				<amount>1000</amount>
-			</item>
-
-			//Amnesia seed
-			<item>
-				<id>5301</id>
-				<amount>1000</amount>
-			</item>
-
-			//Super Silver Haze seed
-			<item>
-				<id>5302</id>
-				<amount>1000</amount>
-			</item>
-
-			//Girl Scout Cookies seed
-			<item>
-				<id>5303</id>
-				<amount>1000</amount>
-			</item>
-
-			//Khalifa Kush seed
-			<item>
-				<id>5304</id>
-				<amount>1000</amount>
-			</item>
-
-			//PK 13-14
-			<item>
-				<id>6036</id>
-				<amount>1000</amount>
-			</item>
-
 		</items>
 	</ShopDefinition>
 
@@ -1144,188 +1037,6 @@
 				<id>1135</id>
 				<amount>10</amount>
 			</item>
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>35</id>
-		<name>BEING REWORKED</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>36</id>
-		<name>BEING REWORKED</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>37</id>
-		<name>BEING REWORKED</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>38</id>
-		<name>BEING REWORKED DIFF RIGHTS</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>39</id>
-		<name>BEING REWORKED DIFF RIGHTS</name>
-		<general>false</general>
-		<items>
-
-		</items>
-	</ShopDefinition>
-
-	// Fashion Store
-	<ShopDefinition>
-		<id>40</id>
-		<name>Fashionscaper</name>
-		<general>false</general>
-		<items>
-			//Red phat
-			<item>
-				<id>1038</id>
-				<amount>10</amount>
-			</item>
-
-			//Yellow phat
-			<item>
-				<id>1040</id>
-				<amount>10</amount>
-			</item>
-
-			//Blue phat
-			<item>
-				<id>1042</id>
-				<amount>10</amount>
-			</item>
-
-			//Green phat
-			<item>
-				<id>1044</id>
-				<amount>10</amount>
-			</item>
-
-			//Purple phat
-			<item>
-				<id>1046</id>
-				<amount>10</amount>
-			</item>
-
-			//White phat
-			<item>
-				<id>1048</id>
-				<amount>10</amount>
-			</item>
-
-			//Black Phat
-			<item>
-				<id>11862</id>
-				<amount>10</amount>
-			</item>
-
-			//Rainbow phat
-			<item>
-				<id>11863</id>
-				<amount>10</amount>
-			</item>
-
-			//Goggles and phat
-			<item>
-				<id>12399</id>
-				<amount>10</amount>
-			</item>
-
-			//Santa hat
-			<item>
-				<id>1050</id>
-				<amount>10</amount>
-			</item>
-
-			//Green hween
-			<item>
-				<id>1053</id>
-				<amount>10</amount>
-			</item>
-
-			//Blue Hween
-			<item>
-				<id>1055</id>
-				<amount>10</amount>
-			</item>
-
-			//Red Hween
-			<item>
-				<id>1057</id>
-				<amount>10</amount>
-			</item>
-
-			//Black Hween
-			<item>
-				<id>11847</id>
-				<amount>10</amount>
-			</item>
-
-			//Foodie gauntlets
-			<item>
-				<id>775</id>
-				<amount>10</amount>
-			</item>
-
-			//Desert Boots
-			<item>
-				<id>1837</id>
-				<amount>10</amount>
-			</item>
-
-			//Kalph princess pet
-			<item>
-				<id>12647</id>
-				<amount>1</amount>
-			</item>
-
-			//Kalph princess pet2
-			<item>
-				<id>12654</id>
-				<amount>1</amount>
-			</item>
-
-			//Devil pet
-			<item>
-				<id>12648</id>
-				<amount>1</amount>
-			</item>
-		</items>
-	</ShopDefinition>
-
-	//OPEN
-	<ShopDefinition>
-		<id>41</id>
-		<name>BEING REWORKED DIFF RIGHTS</name>
-		<general>false</general>
-		<items>
-
 		</items>
 	</ShopDefinition>
 

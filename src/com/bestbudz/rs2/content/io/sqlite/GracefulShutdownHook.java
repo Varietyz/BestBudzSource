@@ -7,7 +7,6 @@ import com.bestbudz.core.discord.DiscordManager;
 import com.bestbudz.core.discord.core.DiscordServerIntegration;
 import com.bestbudz.core.discord.messaging.DiscordMessageManager;
 import com.bestbudz.core.util.logger.StonerLogger;
-import com.bestbudz.rs2.content.profession.petmaster.db.PetMasterDatabase;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.World;
 
@@ -52,7 +51,6 @@ public final class GracefulShutdownHook extends Thread {
 		if (!SQLiteDB.isClosed()) {
 			AntiRollbackManager.writeSnapshot();
 			SQLiteDB.close();
-			PetMasterDatabase.getInstance().shutdown();
 		}
 
 		StonerLogger.SHUTDOWN_LOGGER.log("Logs", String.format(

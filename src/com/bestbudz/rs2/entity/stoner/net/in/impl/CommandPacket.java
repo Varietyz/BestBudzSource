@@ -34,26 +34,7 @@ public class CommandPacket extends IncomingPacket {
     CommandParser parser = CommandParser.create(in.readString().toLowerCase().trim());
 
     if (parser.getCommand().startsWith("/")) {
-      if (stoner.clan != null) {
-        parser = CommandParser.create(" " + parser.toString().substring(1));
-        if (parser.hasNext()) {
-          String message = "";
-          while (parser.hasNext()) {
-            message += parser.nextString() + " ";
-          }
-          if (message.contains("<img") || message.contains("<col")) {
-            stoner.send(new SendMessage("Those symbols have been disabled."));
-            return;
-          }
-          stoner.clan.sendChat(stoner, message);
-        }
         return;
-      } else if (stoner.clan == null) {
-        stoner
-            .getClient()
-            .queueOutgoingPacket(new SendMessage("You can only do this while in a clan chat."));
-        return;
-      }
     }
 
     try {

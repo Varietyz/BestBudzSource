@@ -3,7 +3,6 @@ package com.bestbudz.core.task;
 import com.bestbudz.core.task.impl.HitTask;
 import com.bestbudz.core.task.Task.BreakType;
 import com.bestbudz.core.task.Task.StackType;
-import com.bestbudz.core.task.impl.TaskIdentifier;
 import com.bestbudz.rs2.entity.Entity;
 
 import java.util.*;

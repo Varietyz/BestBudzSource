@@ -4,7 +4,6 @@ import com.bestbudz.BestbudzConstants;
 import com.bestbudz.core.network.ISAACCipher;
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.core.security.PasswordEncryption;
-import com.bestbudz.core.security.PasswordMigrationUtil;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;

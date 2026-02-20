@@ -1,12 +1,10 @@
 package com.bestbudz.rs2.entity.stoner.controllers;
 
 import com.bestbudz.core.task.impl.ForceMovementController;
-import com.bestbudz.rs2.content.minigames.clanwars.ClanWarsFFAController;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelArenaController;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelStakeController;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelingController;
-import com.bestbudz.rs2.content.minigames.f2parena.F2PArenaController;
-import com.bestbudz.rs2.content.minigames.fightcave.TzharrController;
+import com.bestbudz.rs2.content.minigames.bloodtrial.core.BloodTrialController;
 import com.bestbudz.rs2.content.minigames.fightpits.FightPits;
 import com.bestbudz.rs2.content.minigames.fightpits.FightPitsController;
 import com.bestbudz.rs2.content.minigames.fightpits.FightPitsWaitingController;
@@ -31,7 +29,7 @@ public class ControllerManager {
   public static final FightPitsController FIGHT_PITS_CONTROLLER = new FightPitsController();
   public static final FightPitsWaitingController FIGHT_PITS_WAITING_CONTROLLER =
       new FightPitsWaitingController();
-  public static final TzharrController TZHARR_CAVES_CONTROLLER = new TzharrController();
+  public static final BloodTrialController TZHARR_CAVES_CONTROLLER = new BloodTrialController();
   public static final PestWaitingRoomController PEST_WAITING_ROOM_CONTROLLER =
       new PestWaitingRoomController();
   public static final ForceMovementController FORCE_MOVEMENT_CONTROLLER =
@@ -41,8 +39,6 @@ public class ControllerManager {
   public static final PlunderController PLUNDER_CONTROLLER = new PlunderController();
   public static final WeaponGameController WEAPON_GAME_CONTROLLER = new WeaponGameController();
   public static final WeaponLobbyController WEAPON_LOBBY_CONTROLLER = new WeaponLobbyController();
-  public static final F2PArenaController F2P_ARENA_CONTROLLER = new F2PArenaController();
-  public static final ClanWarsFFAController CLAN_WARS_FFA_CONTROLLER = new ClanWarsFFAController();
 
   public static void onForceLogout(Stoner stoner) {
     Controller c = stoner.getController();

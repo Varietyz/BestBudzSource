@@ -6,7 +6,6 @@ import com.bestbudz.rs2.content.StonerTitle;
 import com.bestbudz.rs2.content.StonersOnline;
 import com.bestbudz.rs2.content.Yelling;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.CommandInterface;
 import com.bestbudz.rs2.content.profession.Profession;
@@ -142,16 +141,10 @@ public class StonerCommand implements Command {
           return true;
         }
 
-        stoner.start(
-            new OptionDialogue(
-                "Yes, empty my box.",
-                p -> {
-                  p.getBox().clear();
-                  p.send(new SendMessage("You have emptied your box."));
-                  p.send(new SendRemoveInterfaces());
-                },
-                "Wait, nevermind!",
-                p -> p.send(new SendRemoveInterfaces())));
+
+                  stoner.getBox().clear();
+                  stoner.send(new SendMessage("You have emptied your box."));
+                  stoner.send(new SendRemoveInterfaces());
         return true;
       case "home":
         if (stoner.inWilderness()) {

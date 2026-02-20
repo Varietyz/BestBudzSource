@@ -10,10 +10,7 @@ import com.bestbudz.rs2.auto.combat.handlers.MeleeStyleManager;
 import com.bestbudz.rs2.auto.combat.handlers.StyleSelector;
 import com.bestbudz.rs2.auto.combat.handlers.TargetFinder;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
-import com.bestbudz.rs2.entity.item.Equipment;
-import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.mob.Mob;
-import com.bestbudz.rs2.entity.pets.PetCombatHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.List;
@@ -80,7 +77,6 @@ public class AutoCombat {
 		return enabled; // User-controlled for normal players
 	}
 
-
 	private void processTargetEngagement(Mob target) {
 		int distance = targetFinder.getDistanceToTarget(target);
 
@@ -98,8 +94,6 @@ public class AutoCombat {
 		// Always attack regardless of gear optimization
 		engageTarget(target);
 	}
-
-
 
 	/**
 	 * Handle gear optimization based on timing and variety

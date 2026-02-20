@@ -78991,14 +78991,14 @@
 
 	<NpcDefinition>
 		<id>10050</id>
-		<name>Dark beast</name>
-		<walkAnimation>6965</walkAnimation>
-		<standAnimation>6966</standAnimation>
+		<name>Abyssal demon</name>
+		<walkAnimation>1534</walkAnimation>
+		<standAnimation>1536</standAnimation>
 		<turn180Animation>65535</turn180Animation>
 		<turn90CWAnimation>65535</turn90CWAnimation>
 		<turn90CCWAnimation>65535</turn90CCWAnimation>
-		<grade>182</grade>
+		<grade>124</grade>
 		<size>1</size>
-		<assaultable>false</assaultable>
+		<assaultable>true</assaultable>
 	</NpcDefinition>
 </list>

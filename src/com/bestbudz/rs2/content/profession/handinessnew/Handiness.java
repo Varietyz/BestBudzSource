@@ -5,10 +5,8 @@ import com.bestbudz.core.task.Task.BreakType;
 import com.bestbudz.core.task.Task.StackType;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.handinessnew.craftable.Craftable;
 import com.bestbudz.rs2.content.profession.handinessnew.craftable.CraftableItem;
@@ -38,7 +36,6 @@ public enum Handiness {
 			stoner.send(new SendMessage("@red@This combination requires the old crafting interface."));
 			return true;
 		}
-
 
 		final Craftable craftable = getCraftable(use.getId(), with.getId());
 		if (craftable == null) {

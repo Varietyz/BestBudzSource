@@ -1,6 +1,5 @@
 package com.bestbudz.rs2.entity.mob.abilities;
 
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.combat.CombatEffect;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.World;

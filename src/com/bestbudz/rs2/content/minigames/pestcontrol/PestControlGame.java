@@ -1,8 +1,6 @@
 package com.bestbudz.rs2.content.minigames.pestcontrol;
 
 import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.content.minigames.pestcontrol.monsters.Portal;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.Location;
@@ -11,6 +9,7 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.VirtualMobRegion;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.util.List;
 
@@ -98,27 +97,15 @@ public class PestControlGame {
       if (success) {
         if (p.getAttributes().get(PEST_DAMAGE_KEY) != null
             && p.getAttributes().getInt(PEST_DAMAGE_KEY) >= 80) {
-          DialogueManager.sendNpcChat(
-              p,
-              1756,
-              Emotion.HAPPY_TALK,
-              "You have managed to protect our weed!",
-              "You got some points and Khalifa Kush,",
-              "get smoking fam.");
+			p.send(new SendMessage("You have managed to protect our weed! You got some points and Khalifa Kush. Get smoking fam."));
           p.getBox()
               .addOrCreateGroundItem(269, p.getAttributes().getInt(PEST_DAMAGE_KEY) * 6, true);
           p.setPestPoints(p.getPestPoints() + (10));
         } else {
-          DialogueManager.sendNpcChat(
-              p,
-              1756,
-              Emotion.CALM,
-              "Fellow stoners protected the weed,",
-              " but u didnt seem to care much.");
+			p.send(new SendMessage("Fellow stoners protected the weed, but u didnt seem to care much."));
         }
       } else {
-        DialogueManager.sendNpcChat(
-            p, 1756, Emotion.ANGRY_3, "SHIT! FUCK! STUPID!", "THEY TOOK OUR WEED!!");
+		  p.send(new SendMessage("SHIT! FUCK! STUPID! THEY TOOK OUR WEED!!"));
       }
 
       p.getAttributes().remove(PEST_DAMAGE_KEY);
@@ -175,8 +162,7 @@ public class PestControlGame {
       p.getAttributes().set(PEST_GAME_KEY, this);
       p.setController(ControllerManager.PEST_CONTROLLER);
 
-      DialogueManager.sendNpcChat(
-          p, 1756, Emotion.CALM, "SAVE THE WEED!", "Get these portals down!", "Get! Get! Get!");
+		p.send(new SendMessage("SAVE THE WEED! Get these portals down! Get! Get! Get!"));
     }
 
     time = 300;

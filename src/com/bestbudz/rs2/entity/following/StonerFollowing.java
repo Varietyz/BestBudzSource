@@ -6,7 +6,6 @@ import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.pathfinding.RS317PathFinder;
 import com.bestbudz.rs2.entity.pets.PetFormation;
-import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.Random;

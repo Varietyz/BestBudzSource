@@ -21,7 +21,7 @@ import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.dialogue.OneLineDialogue;
 import com.bestbudz.rs2.content.exercisement.Exercisement;
 import com.bestbudz.rs2.content.io.sqlite.StonerSave;
-import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
+import com.bestbudz.rs2.content.cannacredits.MysteryBoxMinigame;
 import com.bestbudz.rs2.content.minigames.plunder.PyramidPlunder;
 import com.bestbudz.rs2.content.profession.Profession;
 import com.bestbudz.rs2.content.profession.Professions;

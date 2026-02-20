@@ -8,7 +8,6 @@ import com.bestbudz.core.task.impl.TaskIdentifier;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.item.Item;

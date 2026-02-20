@@ -283,7 +283,7 @@ public class THChempistryMasterProcessor {
 					stoner.getProfession().addExperience(15, data.getExpGained());
 
 					Item finishedPotion = new Item(data.getFinishedPotion(), 1);
-					stoner.send(new SendMessage("You finish making the " + finishedPotion.getDefinition().getName() + "."));
+					stoner.send(new SendMessage("You finishedBloodTrial making the " + finishedPotion.getDefinition().getName() + "."));
 					stoner.getBox().update();
 					return true; // Still making finished
 				}

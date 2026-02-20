@@ -3,7 +3,6 @@ package com.bestbudz.rs2.content.profession.thchempistry;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
@@ -120,7 +119,6 @@ public class CleanWeedTask extends Task {
 				return;
 			}
 
-
 			// Find next untrimmed weed
 			UntrimmedWeedData data = null;
 			Item weedItem = null;
@@ -137,7 +135,7 @@ public class CleanWeedTask extends Task {
 			}
 
 			if (data == null || weedItem == null) {
-				stoner.send(new SendMessage("You finish cleaning all your weed."));
+				stoner.send(new SendMessage("You finishedBloodTrial cleaning all your weed."));
 				stop();
 				return;
 			}

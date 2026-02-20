@@ -5,7 +5,7 @@ import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.content.minigames.godwars.GodWarsData;
 import com.bestbudz.rs2.content.minigames.godwars.GodWarsData.Allegiance;
 import com.bestbudz.rs2.content.minigames.pestcontrol.PestControlGame;
-import com.bestbudz.rs2.content.profession.fisher.Fisher;
+import com.bestbudz.rs2.content.profession.fisher.FisherSpots;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,7 +109,7 @@ public final class MobConstants {
   }
 
   public static boolean face(int id) {
-    return (id != 3636) && (Fisher.FisherSpots.forId(id) == null);
+    return (id != 3636) && (FisherSpots.forId(id) == null);
   }
 
   public static boolean isAggressive(int id) {

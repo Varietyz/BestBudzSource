@@ -3,7 +3,6 @@ package com.bestbudz.rs2.content.profession.thchempistry;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -216,7 +215,7 @@ public class THChempistryUnfinishedPotionTask extends Task {
 			}
 
 			if (!stoner.getBox().hasItemId(227) || !stoner.getBox().hasItemId(data.getWeedNeeded())) {
-				stoner.send(new SendMessage("You finish making all possible unfinished potions."));
+				stoner.send(new SendMessage("You finishedBloodTrial making all possible unfinished potions."));
 				stop();
 				return;
 			}

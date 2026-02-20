@@ -3,15 +3,11 @@ package com.bestbudz.rs2.content.dialogue.impl;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.dialogue.Dialogue;
-import com.bestbudz.rs2.content.dialogue.DialogueConstants;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.Emotion;
 import com.bestbudz.rs2.entity.pets.PetData;
 import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 
 public class TzhaarMejKahDialogue extends Dialogue {
 
@@ -27,13 +23,13 @@ public class TzhaarMejKahDialogue extends Dialogue {
 		  PetManager.spawnPet(stoner, petDrop.getItem(), true);
         stoner.send(
             new SendMessage(
-                "You feel a pressence following you; "
+                "You caught a pokem... I mean pet!; "
                     + Utility.formatStonerName(
                         GameDefinitionLoader.getNpcDefinition(petDrop.getNPC()).getName())
                     + " starts to follow you."));
       } else {
         stoner.getBank().depositFromNoting(petDrop.getItem(), 1, 0, false);
-        stoner.send(new SendMessage("You feel a pressence added to your bank."));
+        stoner.send(new SendMessage("Ur new pet went to the poke cente... To the bank!."));
       }
     }
   }

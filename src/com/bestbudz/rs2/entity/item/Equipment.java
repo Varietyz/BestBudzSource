@@ -517,7 +517,7 @@ public class Equipment {
   public void updateStonerAnimations() {
     int stand = 808;
     int walk = 2769;
-    int run = 2769;
+    int run = 2764;
     int standTurn = 823;
     int turn180 = 820;
     int turn90CW = 821;

@@ -1,7 +1,6 @@
 package com.bestbudz.rs2.entity;
 
 import static com.bestbudz.core.discord.stonerbot.config.DiscordBotDefaults.DEFAULT_USERNAME;
-import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.util.ArrayList;
 import java.util.HashMap;

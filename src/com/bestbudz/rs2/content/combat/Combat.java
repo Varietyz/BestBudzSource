@@ -1,18 +1,14 @@
 package com.bestbudz.rs2.content.combat;
 
-import com.bestbudz.core.definitions.NpcCombatDefinition;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.GameConstants;
 import com.bestbudz.rs2.content.combat.impl.DamageMap;
 import com.bestbudz.rs2.content.combat.impl.Mage;
 import com.bestbudz.rs2.content.combat.impl.Melee;
 import com.bestbudz.rs2.content.combat.impl.Sagittarius;
-import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Entity;
-import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.Location;
-import com.bestbudz.rs2.entity.Projectile;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.following.Following;
 import com.bestbudz.rs2.entity.mob.Mob;
@@ -20,11 +16,9 @@ import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.pathfinding.StraightPathFinder;
 import com.bestbudz.rs2.entity.pets.Pet;
 import static com.bestbudz.rs2.entity.pets.PetCombatSystem.findPetObjectFromStoner;
-import com.bestbudz.rs2.entity.pets.PetManager;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.security.SecureRandom;
-import java.util.Arrays;
 
 public class Combat {
 
@@ -169,8 +163,21 @@ public class Combat {
 			return;
 		}
 
-		if (!entity.getMovementHandler().moving()) entity.face(assaulting);
-
+		if (entity.isNpc()) {
+			// Force mobs to face their target regardless of movement state
+			if (assaulting != null) {
+				if (!assaulting.isNpc()) {
+					entity.getUpdateFlags().faceEntity(assaulting.getIndex() + 32768);
+				} else {
+					entity.getUpdateFlags().faceEntity(assaulting.getIndex());
+				}
+			}
+		} else {
+			// Players use the existing face() method
+			if (!entity.getMovementHandler().moving()) {
+				entity.face(assaulting);
+			}
+		}
 		entity.onCombatProcess(assaulting);
 
 			// Regular combat execution for players and NPCs
@@ -395,7 +402,6 @@ public class Combat {
 		  dist = 1; // Allow adjacent tiles AND same tile
 	  }
 
-
 	  boolean ignoreClipping = false;
 
     if (entity.isNpc()) {
@@ -509,7 +515,6 @@ public class Combat {
 	public long getLastCombatActionTime() {
 		return lastCombatActionTime;
 	}
-
 
   public enum CombatTypes {
     MELEE,

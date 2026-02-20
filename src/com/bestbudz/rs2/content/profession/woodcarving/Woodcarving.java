@@ -5,19 +5,13 @@ import com.bestbudz.core.task.Task.BreakType;
 import com.bestbudz.core.task.Task.StackType;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
-import com.bestbudz.core.util.Utility;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.profession.woodcarving.fletchable.Fletchable;
 import com.bestbudz.rs2.content.profession.woodcarving.fletchable.FletchableItem;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendChatBoxInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendItemOnInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +33,6 @@ public enum Woodcarving {
 		if (fletchable == null || use.getId() == 590 || with.getId() == 590) {
 			return false;
 		}
-
 
 		// Auto-craft all available woodcarving items
 		return autoCraftAllAvailableItems(stoner);

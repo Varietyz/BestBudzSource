@@ -1,7 +1,6 @@
 package com.bestbudz.rs2.entity.stoner.controllers;
 
 import com.bestbudz.core.task.Task;
-import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Location;

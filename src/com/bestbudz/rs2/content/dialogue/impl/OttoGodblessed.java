@@ -1,14 +1,8 @@
 package com.bestbudz.rs2.content.dialogue.impl;
 
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.dialogue.Dialogue;
-import com.bestbudz.rs2.content.dialogue.DialogueConstants;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.Emotion;
-import com.bestbudz.rs2.content.shopping.ShopConstants;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 
 public class OttoGodblessed extends Dialogue {
 

@@ -1,6 +1,5 @@
 package com.bestbudz.rs2.entity.pets;
 
-import com.bestbudz.core.definitions.NpcCombatDefinition;
 import com.bestbudz.core.definitions.NpcDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.entity.stoner.StonerAnimations;

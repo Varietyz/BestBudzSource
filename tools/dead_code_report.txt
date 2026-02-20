@@ -1,0 +1,1120 @@
+════════════════════════════════════════════════════════════
+  BESTBUDZ DEAD CODE REPORT
+  Scanned 800 files | 133359 total lines
+  Generated: 2026-02-20T16:44:30.325Z
+════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────
+  UNREFERENCED TYPES: 87 types, 4189 total lines
+  Never imported, instantiated, or referenced outside their own file.
+────────────────────────────────────────────────────────────
+
+  [409 lines] BulkPlayerImporter
+    com\bestbudz\rs2\content\io\sqlite\BulkPlayerImporter.java:13
+  [193 lines] DropParser
+    com\bestbudz\tools\DropParser.java:10
+  [148 lines] DockBox
+    com\bestbudz\rs2\content\bank\DockBox.java:16
+  [127 lines] SpellBookTeleporting
+    com\bestbudz\rs2\content\profession\mage\SpellBookTeleporting.java:10
+  [123 lines] ArmourCreation
+    com\bestbudz\rs2\content\profession\handiness\ArmourCreation.java:13
+  [119 lines] THChempistryGrindingTask
+    com\bestbudz\rs2\content\profession\thchempistry\THChempistryGrindingTask.java:11
+  [117 lines] GelatinnothMother
+    com\bestbudz\rs2\entity\mob\bosses\GelatinnothMother.java:16
+  [106 lines] WheelSpinning
+    com\bestbudz\rs2\content\profession\handiness\WheelSpinning.java:12
+  [103 lines] GlassBlowing
+    com\bestbudz\rs2\content\profession\handiness\GlassBlowing.java:13
+  [99 lines] GlassMelting
+    com\bestbudz\rs2\content\profession\handiness\GlassMelting.java:11
+  [97 lines] NpcGuide
+    com\bestbudz\rs2\content\NpcGuide.java:16
+  [88 lines] RareDropTable
+    com\bestbudz\rs2\entity\mob\RareDropTable.java:6
+  [85 lines] GenericWaitingRoomController
+    com\bestbudz\rs2\entity\stoner\controllers\GenericWaitingRoomController.java:7
+  [77 lines] ArmourSets
+    com\bestbudz\rs2\content\ArmourSets.java:9
+  [70 lines] Leather
+    com\bestbudz\rs2\content\profession\handinessnew\craftable\impl\Leather.java:7
+  [54 lines] Spawns
+    com\bestbudz\rs2\content\Spawns.java:9
+  [51 lines] SendClanChatUpdate
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendClanChatUpdate.java:10
+  [48 lines] CrossGangPlankTask
+    com\bestbudz\core\task\impl\CrossGangPlankTask.java:7
+  [48 lines] OpenChestTask
+    com\bestbudz\core\task\impl\OpenChestTask.java:11
+  [48 lines] StumpTask
+    com\bestbudz\rs2\content\profession\lumbering\StumpTask.java:10
+  [47 lines] SeersWallClimbInteraction
+    com\bestbudz\rs2\content\exercisement\obstacle\interaction\rooftop\seers\SeersWallClimbInteraction.java:10
+  [46 lines] Wave09
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave09.java:8
+  [46 lines] SendGlobalSound
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendGlobalSound.java:10
+  [46 lines] SendMoveCamera
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendMoveCamera.java:8
+  [45 lines] ArdougneSteepRoofInteraction
+    com\bestbudz\rs2\content\exercisement\obstacle\interaction\rooftop\ardougne\ArdougneSteepRoofInteraction.java:10
+  [44 lines] Cooldown
+    com\bestbudz\rs2\util\Cooldown.java:3
+  [43 lines] ChanceTester
+    com\bestbudz\core\util\chance\ChanceTester.java:5
+  [43 lines] SQLiteUtils
+    com\bestbudz\rs2\content\io\sqlite\SQLiteUtils.java:5
+  [41 lines] SendClanMessage
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendClanMessage.java:8
+  [41 lines] SendTurnCamera
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendTurnCamera.java:7
+  [40 lines] SendStillCamera
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendStillCamera.java:8
+  [39 lines] SendShakeScreen
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendShakeScreen.java:7
+  [38 lines] Wave16
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave16.java:8
+  [37 lines] SendForgingItem
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendForgingItem.java:7
+  [36 lines] SendObjectHint
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendObjectHint.java:8
+  [35 lines] MemoryArchive
+    com\bestbudz\core\cache\MemoryArchive.java:3
+  [35 lines] JumpObjectTask
+    com\bestbudz\core\task\impl\JumpObjectTask.java:9
+  [35 lines] Wave17
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave17.java:8
+  [35 lines] Wave18
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave18.java:8
+  [34 lines] Wave03
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave03.java:8
+  [34 lines] Wave19
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave19.java:8
+  [33 lines] ReplaceObjectTask
+    com\bestbudz\core\task\impl\ReplaceObjectTask.java:7
+  [33 lines] Wave02
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave02.java:8
+  [33 lines] SendModelAnimation
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendModelAnimation.java:7
+  [33 lines] SendNPCDialogueHead
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendNPCDialogueHead.java:7
+  [33 lines] SendQuickSong
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendQuickSong.java:7
+  [33 lines] SendScrollInterface
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendScrollInterface.java:7
+  [32 lines] SendAltConfig
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendAltConfig.java:7
+  [31 lines] HobgoblinGeomancerAbility
+    com\bestbudz\rs2\entity\mob\abilities\HobgoblinGeomancerAbility.java:8
+  [31 lines] SendSong
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendSong.java:7
+  [30 lines] EntityInteractionTask
+    com\bestbudz\core\task\impl\EntityInteractionTask.java:8
+  [30 lines] Wave05
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave05.java:8
+  [29 lines] CustomInterfaces
+    com\bestbudz\core\cache\CustomInterfaces.java:5
+  [29 lines] Wave14
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave14.java:8
+  [29 lines] SendEnergy
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendEnergy.java:7
+  [29 lines] SendFlashSidebarIcon
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendFlashSidebarIcon.java:7
+  [29 lines] SendStonerDialogueHead
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendStonerDialogueHead.java:7
+  [29 lines] SendUpdateFlashingSidebarIcon
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendUpdateFlashingSidebarIcon.java:7
+  [29 lines] SendWeight
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendWeight.java:7
+  [28 lines] SendStonerProfilerIndex
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendStonerProfilerIndex.java:7
+  [27 lines] RandomTalkTask
+    com\bestbudz\core\task\impl\RandomTalkTask.java:6
+  [27 lines] TimeStamp
+    com\bestbudz\core\util\TimeStamp.java:5
+  [27 lines] ConstructMap
+    com\bestbudz\rs2\entity\stoner\net\out\impl\ConstructMap.java:7
+  [26 lines] Wave07
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave07.java:7
+  [26 lines] Wave25
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave25.java:7
+  [25 lines] StaffOfDeadSpecialAssault
+    com\bestbudz\rs2\content\combat\special\specials\StaffOfDeadSpecialAssault.java:8
+  [24 lines] Wave06
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave06.java:7
+  [23 lines] Wave08
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave08.java:7
+  [22 lines] Wave04
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave04.java:8
+  [22 lines] Wave15
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave15.java:7
+  [22 lines] Wave22
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave22.java:7
+  [21 lines] DiscordUtil
+    com\bestbudz\core\discord\util\DiscordUtil.java:3
+  [21 lines] Wave21
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave21.java:8
+  [21 lines] SendResetCamera
+    com\bestbudz\rs2\entity\stoner\net\out\impl\SendResetCamera.java:7
+  [20 lines] Wave01
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave01.java:7
+  [20 lines] Wave12
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave12.java:7
+  [20 lines] IcyBonesAbility
+    com\bestbudz\rs2\entity\mob\abilities\IcyBonesAbility.java:11
+  [19 lines] Wave10
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave10.java:7
+  [19 lines] Wave11
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave11.java:7
+  [19 lines] Wave23
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave23.java:7
+  [18 lines] Wave13
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave13.java:7
+  [18 lines] Wave20
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave20.java:8
+  [18 lines] Wave24
+    com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave24.java:7
+  [18 lines] BoltTipData
+    com\bestbudz\rs2\content\profession\handiness\BoltTipData.java:3
+  [16 lines] SagittariusDefinition
+    com\bestbudz\core\definitions\SagittariusDefinition.java:3
+  [13 lines] DiscordEvent
+    com\bestbudz\core\discord\events\DiscordEvent.java:3
+  [4 lines] CombatCurse
+    com\bestbudz\rs2\content\combat\impl\CombatCurse.java:3
+
+────────────────────────────────────────────────────────────
+  UNREFERENCED METHODS: 357
+  Public/protected methods never called outside their own file.
+  (Excludes: getters/setters, @Override, framework callbacks)
+────────────────────────────────────────────────────────────
+
+  com\bestbudz\core\NetworkThread.java
+    :28  createLog()
+  com\bestbudz\core\cache\ByteStreamExt.java
+    :39  read3Bytes()
+    :46  readR3Bytes()
+    :61  readQWord()
+    :74  readNewString()
+  com\bestbudz\core\cache\MemoryArchive.java
+    :31  contentSize()
+  com\bestbudz\core\cache\map\MapConstants.java
+    :14  addSpiralStaircase()
+    :107  writeAlternateIds()
+  com\bestbudz\core\cache\map\MapLoading.java
+    :249  removeClippingForVariableObject()
+    :314  addClippingForVariableObject()
+    :379  addProjectileClippingForVariableObject()
+  com\bestbudz\core\cache\map\RSInterface.java
+    :956  addBobStorage()
+    :989  addButton()
+    :1003  addButton()
+    :1025  addChar()
+    :1043  addHDHoverButton()
+    :1067  addHDHoveredButton()
+    :1084  addHDHoverImage()
+    :1097  addHDSprite()
+    :1112  addHover()
+    :1125  addHovered()
+    :1129  addHoveredButton()
+    :1146  addHoverImage()
+    :1159  addInAreaHover()
+    :1182  addLunar2RunesSmallBox()
+    :1247  addLunar3RunesBigBox()
+    :1325  addLunar3RunesLargeBox()
+    :1403  addLunar3RunesSmallBox()
+    :1481  addRuneText()
+    :1508  addScreenInterface()
+    :1536  bobInterface()
+    :1549  configureLunar()
+    :2160  constructLunar()
+    :2245  drawRune()
+    :2256  equipmentScreen()
+    :2392  homeTeleport()
+    :2418  achievementTab()
+    :2487  addActionButton()
+    :2501  addAssaultStyleButton2()
+    :2537  addBankHover()
+    :2593  addBankHover1()
+    :2636  addBox()
+    :2683  addButton()
+    :2697  addButton()
+    :2709  addButton()
+    :2723  addCacheSprite()
+    :2730  addClickableText()
+    :2760  addClickableText()
+    :2790  addConfigButton()
+    :2835  addHoverBox()
+    :2853  addHoverBox()
+    :2862  addHoverButton()
+    :2888  addHoverButton()
+    :2911  addInterface()
+    :2934  addPActionButton()
+    :3000  addResonance()
+    :3046  addResonanceWithTooltip()
+    :3092  addScroll()
+    :3139  addSprite()
+    :3152  addSprite()
+    :3166  addSprite()
+    :3194  addSprite()
+    :3198  addSprite()
+    :3218  addSpriteWithHover()
+    :3231  addTab2()
+    :3246  addToggleButton()
+    :3267  addToItemGroup()
+    :3291  addTooltip()
+    :3302  addTooltip()
+    :3315  addTooltipBox()
+    :3323  addTransparentSprite()
+    :3337  ancientMageTab()
+    :3816  clanChatTab()
+    :3861  collectBuy()
+    :3908  collectSell()
+    :4349  customStrings()
+    :4360  drawBlackBox()
+    :4384  drawWelcomeInterface()
+    :4394  editClan()
+    :4500  emoteTab()
+    :4586  friendsTab()
+    :4681  ignoreTab()
+    :4720  itemsOnDeath()
+    :4769  itemsOnDeathDATA()
+    :4846  mageTab()
+    :4969  newTrade()
+    :5021  optionTab()
+    :5156  passwordChanger()
+    :5216  pestPointExchange()
+    :5486  plotSongList()
+    :5562  pouchCreation()
+    :5613  resonanceMenu()
+    :5854  questTab()
+    :5919  quickCurses()
+    :5981  quickResonances()
+    :6057  removeSomething()
+    :6148  scrollCreation()
+    :6309  settingsInterface()
+    :6782  professionInterface()
+    :6994  professionInterface()
+    :7007  sprite1()
+    :7009  summoningUpGrade()
+    :7118  textColor()
+    :7123  textSize()
+    :7309  unpackCustom()
+    :7441  child()
+    :7447  specialBar()
+    :7481  swapBoxItems()
+    :7490  totalChildren()
+    :7496  totalChildren()
+  com\bestbudz\core\cache\map\RSObject.java
+    :29  fromRSObject()
+  com\bestbudz\core\cache\map\Region.java
+    :261  createLadders()
+    :523  blockedNorth()
+    :527  blockedEast()
+    :531  blockedSouth()
+    :539  blockedNorthEast()
+    :543  blockedNorthWest()
+    :547  blockedSouthEast()
+    :551  blockedSouthWest()
+    :582  shotBlockedNorth()
+    :586  shotBlockedEast()
+    :590  shotBlockedSouth()
+    :594  shotBlockedWest()
+    :598  shotBlockedNorthEast()
+    :602  shotBlockedNorthWest()
+    :606  shotBlockedSouthEast()
+    :610  shotBlockedSouthWest()
+  com\bestbudz\core\discord\DiscordManager.java
+    :287  sendGameMessageToDiscord()
+  com\bestbudz\core\discord\PluginManager.java
+    :36  registerPlugin()
+  com\bestbudz\core\discord\messaging\DiscordMessageService.java
+    :305  sendAdminMessage()
+    :321  sendImmediate()
+    :325  sendImmediate()
+  com\bestbudz\core\discord\stonerbot\automations\DiscordBotChat.java
+    :73  broadcastToPlayers()
+    :130  sendLocationUpdate()
+  com\bestbudz\core\discord\stonerbot\automations\DiscordBotEmotes.java
+    :252  areEmotesEnabled()
+  com\bestbudz\core\discord\stonerbot\automations\banking\DiscordBotBankingManager.java
+    :193  clearInventory()
+    :220  needsBanking()
+    :257  forceBanking()
+  com\bestbudz\core\discord\stonerbot\config\DiscordBotActions.java
+    :108  makeAutonomousMove()
+    :149  notifySkillProgress()
+    :163  notifyEquipmentChange()
+    :208  notifyBotStateChange()
+  com\bestbudz\core\discord\stonerbot\config\DiscordBotPrivileges.java
+    :285  needsFood()
+  com\bestbudz\core\discord\stonerbot\handling\DiscordBotMovementManager.java
+    :78  resetMovementTimers()
+  com\bestbudz\core\discord\stonerbot\handling\decisions\DecisionEvaluator.java
+    :218  chooseMovementType()
+  com\bestbudz\core\discord\stonerbot\state\DiscordBotGrades.java
+    :126  updateProfession()
+    :224  areGradesAtInitialValues()
+    :247  validateArrayConsistency()
+  com\bestbudz\core\discord\stonerbot\state\DiscordBotLocation.java
+    :272  moveToCombatArea()
+  com\bestbudz\core\discord\stonerbot\state\DiscordBotPersistence.java
+    :62  saveBotState()
+    :107  onBotInventoryChange()
+    :128  onBotLocationChange()
+    :149  onBotAdvancesChange()
+    :156  onBotSettingsChange()
+    :163  onBotStateChange()
+  com\bestbudz\core\discord\stonerbot\state\DiscordBotStationaryManager.java
+    :73  startStationaryPeriod()
+    :90  endStationaryPeriod()
+    :102  forceEndStationaryPeriod()
+    :138  performIdleEmote()
+  com\bestbudz\core\discord\util\DiscordUtil.java
+    :7  escapeMarkdown()
+    :14  formatUsername()
+  com\bestbudz\core\network\ISAACCipher.java
+    :156  isaac()
+  com\bestbudz\core\network\login\LoginDecoder.java
+    :32  sendReturnCode()
+  com\bestbudz\core\security\PasswordEncryption.java
+    :193  testEncryption()
+  com\bestbudz\core\security\ServerStartupMigration.java
+    :107  generateNewEncryptionKey()
+  com\bestbudz\core\task\impl\HitTask.java
+    :57  sendBlockAnimation()
+  com\bestbudz\core\task\impl\StonerBackupTask.java
+    :96  copyFile()
+  com\bestbudz\core\util\GameDefinitionLoader.java
+    :159  dumpSizes()
+    :318  getxStream()
+    :860  writeDropPreference()
+  com\bestbudz\core\util\LineCounter.java
+    :14  lineCount()
+    :30  listRecursive()
+  com\bestbudz\core\util\MobUpdateList.java
+    :18  decr()
+  com\bestbudz\rs2\auto\combat\config\TimingManager.java
+    :147  wasGearRecentlyUsed()
+  com\bestbudz\rs2\auto\combat\equipment\AmmoManager.java
+    :34  requiresAmmo()
+    :48  findBestAmmo()
+    :73  calculateAmmoScore()
+  com\bestbudz\rs2\auto\combat\equipment\ArmorOptimizer.java
+    :132  calculateArmorScoreForStyle()
+  com\bestbudz\rs2\auto\combat\equipment\WeaponSelector.java
+    :101  calculateWeaponScore()
+  com\bestbudz\rs2\auto\combat\handlers\CombatHandler.java
+    :186  forceMovementToTarget()
+  com\bestbudz\rs2\auto\combat\handlers\MeleeStyleManager.java
+    :70  forceStyle()
+    :121  resetTiming()
+  com\bestbudz\rs2\content\Advance.java
+    :233  forProfession()
+  com\bestbudz\rs2\content\CrystalChest.java
+    :94  createKey()
+  com\bestbudz\rs2\content\Emotes.java
+    :129  handleProfessionCapeEmote()
+    :237  stopEmoteTracking()
+  com\bestbudz\rs2\content\ItemCreation.java
+    :102  professionRequired()
+    :127  handleGodsword()
+  com\bestbudz\rs2\content\LoyaltyShop.java
+    :169  forButton()
+  com\bestbudz\rs2\content\ProfessionsChat.java
+    :105  forprofession()
+  com\bestbudz\rs2\content\TeleportHandler.java
+    :49  specialCase()
+  com\bestbudz\rs2\content\bank\DockBank.java
+    :150  handleParameterizedWithdraw()
+    :166  handleParameterizedDeposit()
+    :185  dockDepositAllInventory()
+    :217  dockDepositAllEquipment()
+    :269  dockToggleSearch()
+    :290  dockSwitchTab()
+    :445  dockCycleWithdrawAmount()
+    :466  dockCycleDepositAmount()
+    :487  dockWithdrawSpecificItem()
+    :545  dockDepositSpecificItem()
+    :675  debugGridState()
+  com\bestbudz\rs2\content\combat\Combat.java
+    :94  advanceHitChain()
+  com\bestbudz\rs2\content\combat\formula\FormulaData.java
+    :408  resetCombatResonance()
+  com\bestbudz\rs2\content\combat\formula\MageFormulas.java
+    :36  attuneTo()
+    :161  buildResonance()
+    :342  enhancedMageMaxHit()
+    :539  updateMagicCombat()
+  com\bestbudz\rs2\content\combat\formula\MeleeFormulas.java
+    :40  buildRage()
+    :102  gainProficiency()
+    :192  calculateEnhancedMeleeDamage()
+    :656  updateMeleeCombat()
+  com\bestbudz\rs2\content\combat\formula\RangeFormulas.java
+    :40  updateWind()
+    :72  recordHit()
+    :79  recordMiss()
+    :293  enhancedSagittariusMaxHit()
+    :540  updateRangedCombat()
+  com\bestbudz\rs2\content\combat\impl\Mage.java
+    :238  getpDelay()
+  com\bestbudz\rs2\content\combat\impl\RingOfRecoil.java
+    :33  onRecoil()
+  com\bestbudz\rs2\content\combat\impl\Sagittarius.java
+    :182  executeProjectile()
+    :204  executeStartGraphic()
+  com\bestbudz\rs2\content\combat\impl\SpecialAssault.java
+    :42  doInstantGraniteMaulSpecial()
+    :131  updateSpecialBar()
+  com\bestbudz\rs2\content\dialogue\impl\OziachDialogue.java
+    :14  makeShield()
+  com\bestbudz\rs2\content\exercisement\Exercisement.java
+    :62  exportObstacles()
+  com\bestbudz\rs2\content\minigames\barrows\Barrows.java
+    :68  replaceBrokenItem()
+  com\bestbudz\rs2\content\minigames\bloodtrial\core\BloodTrialDetails.java
+    :79  forceCheckWaveComplete()
+    :137  forceRemoveNpc()
+  com\bestbudz\rs2\content\minigames\bloodtrial\waves\WaveDefinition.java
+    :112  spawnNpcAt()
+  com\bestbudz\rs2\content\minigames\bloodtrial\waves\WaveRegistry.java
+    :134  printRegisteredWaves()
+  com\bestbudz\rs2\content\minigames\duelarena\Dueling.java
+    :48  beginDuel()
+    :112  beginStake()
+    :166  buildItemArray()
+    :201  onDecline()
+    :233  sendDuelEquipment()
+    :240  sendScreen2()
+    :542  onVictory()
+    :632  removeEquipmentForDuel()
+    :676  resetForStake()
+  com\bestbudz\rs2\content\minigames\duelarena\DuelingConstants.java
+    :157  formatAmount()
+  com\bestbudz\rs2\content\minigames\fightpits\FightPits.java
+    :108  sendStartFailure()
+    :215  updateStonerForGame()
+  com\bestbudz\rs2\content\minigames\pestcontrol\PestControl.java
+    :57  sendMessageToWaiting()
+  com\bestbudz\rs2\content\minigames\plunder\PyramidPlunder.java
+    :151  openChest()
+    :155  openSarcophogus()
+  com\bestbudz\rs2\content\minigames\warriorsguild\CyclopsRoom.java
+    :100  executeTimer()
+  com\bestbudz\rs2\content\minigames\weapongame\WeaponGame.java
+    :34  joinLobby()
+    :109  meteors()
+    :135  spawnCrates()
+    :147  handleCrate()
+    :165  crateLoot()
+    :300  messageStoners()
+  com\bestbudz\rs2\content\moderation\DockStaff.java
+    :76  handleStaffButton()
+    :143  banPlayer()
+    :174  unbanPlayer()
+    :191  selectTarget()
+    :215  clearTarget()
+    :286  requiresAdmin()
+    :298  requiresOwner()
+  com\bestbudz\rs2\content\moderation\StaffDBUtils.java
+    :559  updatePlayerField()
+    :576  backupPlayerData()
+  com\bestbudz\rs2\content\moderation\StaffTab.java
+    :91  createTarget()
+  com\bestbudz\rs2\content\profession\Profession.java
+    :515  onUpgrade()
+    :693  updateGradesForExperience()
+  com\bestbudz\rs2\content\profession\bankstanding\BankStanding.java
+    :223  recordActivity()
+  com\bestbudz\rs2\content\profession\consumer\allergies\AllergySystem.java
+    :98  saveProgress()
+  com\bestbudz\rs2\content\profession\consumer\io\ConsumerSaveManager.java
+    :112  deleteConsumerData()
+  com\bestbudz\rs2\content\profession\handinessnew\Handiness.java
+    :130  registerCraftable()
+    :145  registerCraftables()
+  com\bestbudz\rs2\content\profession\hunter\Impling.java
+    :76  appendImpling()
+  com\bestbudz\rs2\content\profession\mage\Autocast.java
+    :148  sendSelectionInterface()
+  com\bestbudz\rs2\content\profession\mage\MageConstants.java
+    :90  spellTypeToString()
+  com\bestbudz\rs2\content\profession\mage\MageProfession.java
+    :723  enchantItem()
+  com\bestbudz\rs2\content\profession\mage\SpellCasting.java
+    :162  createArray()
+  com\bestbudz\rs2\content\profession\mercenary\Mercenary.java
+    :45  addMercenaryExperience()
+  com\bestbudz\rs2\content\profession\petmaster\gain\PetExperienceManager.java
+    :30  processPassiveExperience()
+    :97  applyCombatBonus()
+  com\bestbudz\rs2\content\profession\thchempistry\CleanWeedTask.java
+    :45  autoCleanAllWeed()
+  com\bestbudz\rs2\content\profession\thchempistry\THChempistryFinishedPotionTask.java
+    :74  autoCreateFinishedPotions()
+  com\bestbudz\rs2\content\profession\thchempistry\THChempistryGrindingTask.java
+    :27  handleGrindingIngredients()
+  com\bestbudz\rs2\content\profession\thchempistry\THChempistryUnfinishedPotionTask.java
+    :71  autoCreateUnfinishedPotions()
+  com\bestbudz\rs2\content\profession\woodcarving\Woodcarving.java
+    :190  fletch()
+  com\bestbudz\rs2\content\shopping\Shop.java
+    :314  refreshContainers()
+  com\bestbudz\rs2\content\shopping\Shopping.java
+    :99  doShopPriceUpdate()
+  com\bestbudz\rs2\content\shopping\impl\ProfessioncapeShop.java
+    :240  forCape()
+  com\bestbudz\rs2\content\trading\Trade.java
+    :45  sendItemText()
+  com\bestbudz\rs2\entity\Area.java
+    :21  areaFromCenter()
+  com\bestbudz\rs2\entity\Entity.java
+    :66  addBonus()
+    :97  doFireImmunity()
+    :323  inArea()
+    :365  nearElemental()
+    :389  inCorp()
+    :396  inMemberZone()
+    :655  wasLastHitSuccess()
+  com\bestbudz\rs2\entity\InterfaceManager.java
+    :99  verifyButton()
+  com\bestbudz\rs2\entity\Location.java
+    :128  inKingBlackDragonArea()
+    :133  inBounds()
+  com\bestbudz\rs2\entity\ObjectActions.java
+    :332  finishClickNpc()
+    :656  finishItemOnNpc()
+    :714  finishObjectClick()
+  com\bestbudz\rs2\entity\Projectile.java
+    :50  createPetProjectile()
+  com\bestbudz\rs2\entity\ReportHandler.java
+    :148  writeReport()
+    :171  writeLog()
+  com\bestbudz\rs2\entity\item\Equipment.java
+    :34  ignoreShieldEmote()
+    :296  removeAll()
+    :466  updateBlockAnimation()
+    :480  updateBonusInterface()
+    :595  updateSidebar()
+  com\bestbudz\rs2\entity\item\ItemCheck.java
+    :190  wearingFullVoidMage()
+  com\bestbudz\rs2\entity\item\ItemDegrading.java
+    :215  removeDegradingReference()
+  com\bestbudz\rs2\entity\item\impl\GroundItem.java
+    :122  resetTime()
+  com\bestbudz\rs2\entity\mob\MobDrops.java
+    :48  calculateAmount()
+    :162  dropConstants()
+    :219  dropClues()
+    :640  rollRareDrop()
+  com\bestbudz\rs2\entity\mob\Walking.java
+    :382  withinMaxDistance()
+  com\bestbudz\rs2\entity\mob\ai\MobCombatHandler.java
+    :165  manageCombatants()
+  com\bestbudz\rs2\entity\mob\ai\MobCommunication.java
+    :92  sendDamageMessage()
+  com\bestbudz\rs2\entity\mob\ai\MobMovementController.java
+    :66  handleRandomWalk()
+  com\bestbudz\rs2\entity\mob\bosses\CorporealBeast.java
+    :15  areCoresDead()
+  com\bestbudz\rs2\entity\mob\bosses\DarkEnergyCore.java
+    :91  travel()
+  com\bestbudz\rs2\entity\mob\bosses\Kreearra.java
+    :26  checkForDamage()
+    :42  initTornados()
+  com\bestbudz\rs2\entity\pathfinding\RS317PathFinder.java
+    :455  localize()
+  com\bestbudz\rs2\entity\pets\PetCombatHandler.java
+    :67  processPetDamage()
+  com\bestbudz\rs2\entity\pets\PetCombatSystem.java
+    :69  onPetCombatHit()
+  com\bestbudz\rs2\entity\stoner\StonerConstants.java
+    :29  doStarter()
+  com\bestbudz\rs2\entity\stoner\StonerSession.java
+    :343  updateTimeout()
+  com\bestbudz\rs2\entity\stoner\StonerStats.java
+    :106  updateAchievement()
+    :123  addKill()
+    :128  addDeath()
+  com\bestbudz\rs2\entity\stoner\controllers\Controller.java
+    :62  throwException()
+  com\bestbudz\rs2\entity\stoner\net\NPCUpdating.java
+    :16  addNewNpc()
+    :26  appendState()
+    :174  updateNpcMovement()
+  com\bestbudz\rs2\entity\stoner\net\StonerUpdating.java
+    :30  addStoner()
+    :41  appendAppearance()
+    :138  appendChat()
+    :154  appendPlacement()
+    :170  appendRun()
+    :178  appendStand()
+    :182  appendWalk()
+    :347  updateLocalStonerMovement()
+    :378  updateOtherStonerMovement()
+    :405  updateState()
+  com\bestbudz\rs2\entity\stoner\net\in\impl\ChatBridgeManager.java
+    :69  broadcastSystemMessage()
+    :131  notifyPlayerDeath()
+    :287  testBridge()
+    :299  testAllMessageTypes()
+  com\bestbudz\rs2\entity\stoner\net\in\impl\ChatInterfacePacket.java
+    :35  handleDialogue()
+    :41  handleEnterX()
+    :178  showEnterX()
+  com\bestbudz\rs2\entity\stoner\net\in\impl\ItemPackets.java
+    :1004  handleTradeOffer()
+    :1008  handleTradeRemove()
+    :1012  withdrawBankItem()
+    :1016  bankItem()
+  com\bestbudz\rs2\util\Cooldown.java
+    :23  cooldownMs()
+
+────────────────────────────────────────────────────────────
+  UNUSED IMPORTS: 125 across 73 files
+────────────────────────────────────────────────────────────
+
+  com\bestbudz\core\network\login\LoginDecoder.java
+    :7  PasswordMigrationUtil
+  com\bestbudz\core\task\TaskQueue.java
+    :6  TaskIdentifier
+  com\bestbudz\core\task\impl\StonerBackupTask.java
+    :15  TimeUnit
+  com\bestbudz\rs2\GameConstants.java
+    :4  Utility
+  com\bestbudz\rs2\auto\combat\AutoCombat.java
+    :13  Equipment
+    :14  Item
+    :16  PetCombatHandler
+  com\bestbudz\rs2\auto\combat\handlers\CombatHandler.java
+    :4  AutoCombat
+    :7  WeaponSelector
+  com\bestbudz\rs2\auto\combat\handlers\MeleeStyleManager.java
+    :6  CombatTypes
+  com\bestbudz\rs2\content\Box.java
+    :4  SaveWorker
+  com\bestbudz\rs2\content\GenieReset.java
+    :5  DialogueManager
+  com\bestbudz\rs2\content\PrivateMessaging.java
+    :15  Iterator
+    :16  LinkedList
+  com\bestbudz\rs2\content\StarterKit.java
+    :4  HashMap
+    :6  Utility
+    :11  SendInterface
+  com\bestbudz\rs2\content\StonersOnline.java
+    :3  DiscordBotPrivileges
+    :6  WorldEntityManager
+  com\bestbudz\rs2\content\bank\DockBank.java
+    :5  SendConfig
+  com\bestbudz\rs2\content\combat\Combat.java
+    :3  NpcCombatDefinition
+    :10  Professions
+    :13  Graphic
+    :15  Projectile
+    :23  PetManager
+    :27  Arrays
+  com\bestbudz\rs2\content\combat\impl\Mage.java
+    :19  PetCombatHandler
+  com\bestbudz\rs2\content\combat\impl\Melee.java
+    :15  PetCombatHandler
+  com\bestbudz\rs2\content\combat\impl\Sagittarius.java
+    :7  Utility
+    :18  PetCombatHandler
+  com\bestbudz\rs2\content\combat\impl\StonerDrops.java
+    :5  StonerLogger
+    :11  StonerConstants
+  com\bestbudz\rs2\content\combat\special\effects\ToxicBlowpipeEffect.java
+    :5  Professions
+  com\bestbudz\rs2\content\dialogue\DialogueManager.java
+    :3  GameDefinitionLoader
+  com\bestbudz\rs2\content\dialogue\impl\teleport\WildernessLever.java
+    :4  DialogueManager
+  com\bestbudz\rs2\content\interfaces\impl\AchievementTab.java
+    :8  SendColor
+  com\bestbudz\rs2\content\minigames\bloodtrial\core\BloodTrialController.java
+    :8  Mob
+  com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave04.java
+    :5  Mob
+  com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave20.java
+    :5  Mob
+  com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave21.java
+    :5  Mob
+  com\bestbudz\rs2\content\minigames\pestcontrol\PestControlGame.java
+    :4  DialogueManager
+  com\bestbudz\rs2\content\moderation\DockStaff.java
+    :7  SaveCache
+    :8  SQLiteDB
+  com\bestbudz\rs2\content\moderation\StaffDBUtils.java
+    :6  StonerSave
+    :9  List
+    :10  ArrayList
+  com\bestbudz\rs2\content\profession\Profession.java
+    :11  Entity
+    :14  Mob
+  com\bestbudz\rs2\content\profession\consumer\allergies\AllergySystem.java
+    :3  Animation
+    :9  Collectors
+  com\bestbudz\rs2\content\profession\fisher\Fisher.java
+    :14  HashMap
+    :15  Map
+  com\bestbudz\rs2\content\profession\forging\ForgingConstants.java
+    :3  TaskQueue
+    :4  Professions
+    :5  Item
+    :6  Stoner
+    :7  SendChatBoxInterface
+    :8  SendConfig
+    :9  SendInterface
+    :10  SendItemOnInterface
+    :11  SendMessage
+    :12  SendString
+    :13  SendUpdateItems
+  com\bestbudz\rs2\content\profession\forging\ForgingTask.java
+    :7  DialogueManager
+  com\bestbudz\rs2\content\profession\handinessnew\Handiness.java
+    :8  Utility
+    :11  DialogueManager
+  com\bestbudz\rs2\content\profession\lumbering\LumberingTask.java
+    :11  DialogueManager
+  com\bestbudz\rs2\content\profession\mage\Autocast.java
+    :3  GameDefinitionLoader
+    :4  Utility
+    :8  SendMessage
+  com\bestbudz\rs2\content\profession\mage\MageProfession.java
+    :13  Entity
+    :20  PetManager
+  com\bestbudz\rs2\content\profession\mage\SpellCasting.java
+    :7  TridentOfTheSeas
+    :8  TridentOfTheSwamp
+  com\bestbudz\rs2\content\profession\mercenary\Mercenary.java
+    :4  Utility
+    :7  DialogueManager
+    :8  World
+  com\bestbudz\rs2\content\profession\mercenary\MercenaryMonsters.java
+    :6  SendMessage
+  com\bestbudz\rs2\content\profession\petmaster\PetDataManager.java
+    :4  Pet
+  com\bestbudz\rs2\content\profession\petmaster\PetMaster.java
+    :6  PetExperienceManager
+  com\bestbudz\rs2\content\profession\pyromaniac\Pyromaniac.java
+    :8  SendMessage
+  com\bestbudz\rs2\content\profession\thchempistry\CleanWeedTask.java
+    :6  DialogueManager
+  com\bestbudz\rs2\content\profession\thchempistry\THChempistryFinishedPotionTask.java
+    :6  DialogueManager
+  com\bestbudz\rs2\content\profession\thchempistry\THChempistryUnfinishedPotionTask.java
+    :6  DialogueManager
+  com\bestbudz\rs2\content\profession\woodcarving\Woodcarving.java
+    :8  Utility
+    :9  DialogueManager
+    :16  SendChatBoxInterface
+    :17  SendItemOnInterface
+    :19  SendRemoveInterfaces
+    :20  SendString
+  com\bestbudz\rs2\content\shopping\Shopping.java
+    :3  DialogueManager
+  com\bestbudz\rs2\entity\Entity.java
+    :10  PestControlGame
+  com\bestbudz\rs2\entity\World.java
+    :3  logger
+    :19  Client
+    :21  File
+    :22  IOException
+  com\bestbudz\rs2\entity\WorldDebugManager.java
+    :4  PetManager
+  com\bestbudz\rs2\entity\following\StonerFollowing.java
+    :9  PetManager
+  com\bestbudz\rs2\entity\mob\MobConstants.java
+    :8  Fisher
+  com\bestbudz\rs2\entity\mob\MobDrops.java
+    :17  BloodTrial
+  com\bestbudz\rs2\entity\mob\abilities\BarrelchestAbility.java
+    :3  Utility
+  com\bestbudz\rs2\entity\mob\abilities\MobAbilities.java
+    :5  Mob
+  com\bestbudz\rs2\entity\movement\MobMovementHandler.java
+    :5  Location
+  com\bestbudz\rs2\entity\movement\StonerMovementHandler.java
+    :3  BestbudzConstants
+  com\bestbudz\rs2\entity\object\ObjectManager.java
+    :4  Iterator
+  com\bestbudz\rs2\entity\pathfinding\RS317PathFinder.java
+    :5  GameConstants
+    :7  Mob
+  com\bestbudz\rs2\entity\pets\PetCombatHandler.java
+    :3  NpcCombatDefinition
+    :4  Combat
+  com\bestbudz\rs2\entity\pets\PetDefinition.java
+    :3  NpcCombatDefinition
+  com\bestbudz\rs2\entity\pets\abilities\KalphiteQueenAbility.java
+    :4  Animation
+    :6  Graphic
+  com\bestbudz\rs2\entity\pets\abilities\PetAbility.java
+    :3  Hit
+  com\bestbudz\rs2\entity\pets\abilities\PoisonStingAbility.java
+    :4  Animation
+  com\bestbudz\rs2\entity\stoner\StonerMovement.java
+    :3  Region
+  com\bestbudz\rs2\entity\stoner\StonerSession.java
+    :12  PetDataManager
+  com\bestbudz\rs2\entity\stoner\StonerSocial.java
+    :3  Server
+    :4  Utility
+    :7  SendMessage
+  com\bestbudz\rs2\entity\stoner\controllers\WildernessController.java
+    :4  TaskQueue
+  com\bestbudz\rs2\entity\stoner\net\StonerUpdating.java
+    :26  Objects
+  com\bestbudz\rs2\entity\stoner\net\in\command\impl\OwnerCommand.java
+    :11  InterfaceHandler
+    :12  QuestTab
+  com\bestbudz\rs2\entity\stoner\net\in\impl\PublicChatPacket.java
+    :4  Utility
+    :6  World
+
+────────────────────────────────────────────────────────────
+  STUB / NEAR-EMPTY FILES: 41 (< 8 lines of actual code)
+────────────────────────────────────────────────────────────
+
+  [0 code lines / 2 total] com\bestbudz\rs2\entity\stoner\net\in\impl\JoinChat.java
+  [1 code lines / 4 total] com\bestbudz\rs2\content\combat\impl\CombatCurse.java
+  [1 code lines / 4 total] com\bestbudz\rs2\content\profession\consumer\Consumer.java
+  [1 code lines / 4 total] com\bestbudz\rs2\entity\stoner\net\in\command\impl\Hit.java
+  [2 code lines / 6 total] com\bestbudz\core\task\TaskIdentifier.java
+  [2 code lines / 7 total] com\bestbudz\rs2\content\cannacredits\CannaCreditUnlocks.java
+  [2 code lines / 9 total] com\bestbudz\rs2\content\combat\CombatEffect.java
+  [2 code lines / 10 total] com\bestbudz\rs2\content\combat\impl\CombatEffect.java
+  [2 code lines / 9 total] com\bestbudz\rs2\content\CreationHandle.java
+  [3 code lines / 11 total] com\bestbudz\core\discord\events\EventHandler.java
+  [3 code lines / 7 total] com\bestbudz\rs2\content\profession\consumer\consumables\ConsumableType.java
+  [3 code lines / 7 total] com\bestbudz\rs2\content\profession\handiness\HandinessType.java
+  [3 code lines / 12 total] com\bestbudz\rs2\entity\mob\bosses\wild\Venenatis.java
+  [3 code lines / 11 total] com\bestbudz\rs2\entity\stoner\net\in\command\Command.java
+  [4 code lines / 15 total] com\bestbudz\core\network\login\Encoder.java
+  [4 code lines / 13 total] com\bestbudz\rs2\content\combat\special\Special.java
+  [4 code lines / 13 total] com\bestbudz\rs2\content\profession\mage\effects\BindEffect.java
+  [4 code lines / 13 total] com\bestbudz\rs2\content\profession\mage\effects\EntangleEffect.java
+  [4 code lines / 14 total] com\bestbudz\rs2\content\profession\mage\effects\SmokeBarrageEffect.java
+  [4 code lines / 14 total] com\bestbudz\rs2\content\profession\mage\effects\SmokeBlitzEffect.java
+  [4 code lines / 14 total] com\bestbudz\rs2\content\profession\mage\effects\SmokeBurstEffect.java
+  [4 code lines / 14 total] com\bestbudz\rs2\content\profession\mage\effects\SmokeRushEffect.java
+  [4 code lines / 13 total] com\bestbudz\rs2\content\profession\mage\effects\SnareEffect.java
+  [4 code lines / 13 total] com\bestbudz\rs2\entity\stoner\net\in\IncomingPacket.java
+  [5 code lines / 12 total] com\bestbudz\core\util\chance\WeightedObject.java
+  [5 code lines / 13 total] com\bestbudz\rs2\content\io\sqlite\SaveConstants.java
+  [5 code lines / 15 total] com\bestbudz\rs2\content\profession\mage\Spell.java
+  [5 code lines / 16 total] com\bestbudz\rs2\entity\mob\abilities\JadAbility.java
+  [6 code lines / 13 total] com\bestbudz\core\discord\events\DiscordEvent.java
+  [6 code lines / 15 total] com\bestbudz\rs2\content\combat\impl\PoisonData.java
+  [6 code lines / 18 total] com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave20.java
+  [6 code lines / 19 total] com\bestbudz\rs2\content\minigames\godwars\GodWarsController.java
+  [6 code lines / 20 total] com\bestbudz\rs2\entity\mob\abilities\IcyBonesAbility.java
+  [6 code lines / 17 total] com\bestbudz\rs2\entity\stoner\net\in\impl\FlashingSideIconPacket.java
+  [6 code lines / 16 total] com\bestbudz\rs2\entity\stoner\net\out\impl\SendCharacterDetail.java
+  [7 code lines / 16 total] com\bestbudz\core\definitions\SagittariusDefinition.java
+  [7 code lines / 17 total] com\bestbudz\core\definitions\SagittariusVigourDefinition.java
+  [7 code lines / 18 total] com\bestbudz\core\network\PipelineFactory.java
+  [7 code lines / 18 total] com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave13.java
+  [7 code lines / 18 total] com\bestbudz\rs2\content\minigames\bloodtrial\waves\impl\Wave24.java
+  [7 code lines / 19 total] com\bestbudz\rs2\content\profession\woodcarving\fletchable\Fletchable.java
+
+────────────────────────────────────────────────────────────
+  UNUSED PRIVATE FIELDS: 0
+────────────────────────────────────────────────────────────
+
+
+════════════════════════════════════════════════════════════
+  SUMMARY
+════════════════════════════════════════════════════════════
+  Dead types:      87 (4189 lines removable)
+  Dead methods:    357
+  Unused imports:  125
+  Stub files:      41
+  Unused fields:   0
+════════════════════════════════════════════════════════════  DEAD TYPE: THChempistryGrindingTask
+    File: src/com/bestbudz/rs2/content/profession/thchempistry/THChempistryGrindingTask.java
+    Lines: 118
+
+  DEAD TYPE: Spawns
+    File: src/com/bestbudz/rs2/content/Spawns.java
+    Lines: 53
+
+  DEAD TYPE: HobgoblinGeomancerAbility
+    File: src/com/bestbudz/rs2/entity/mob/abilities/HobgoblinGeomancerAbility.java
+    Lines: 30
+
+  DEAD TYPE: IcyBonesAbility
+    File: src/com/bestbudz/rs2/entity/mob/abilities/IcyBonesAbility.java
+    Lines: 19
+
+  DEAD TYPE: GelatinnothMother
+    File: src/com/bestbudz/rs2/entity/mob/bosses/GelatinnothMother.java
+    Lines: 116
+
+  DEAD TYPE: RareDropTable
+    File: src/com/bestbudz/rs2/entity/mob/RareDropTable.java
+    Lines: 87
+
+  DEAD TYPE: GenericWaitingRoomController
+    File: src/com/bestbudz/rs2/entity/stoner/controllers/GenericWaitingRoomController.java
+    Lines: 84
+
+  DEAD TYPE: SendAltConfig
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendAltConfig.java
+    Lines: 31
+
+  DEAD TYPE: SendClanChatUpdate
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendClanChatUpdate.java
+    Lines: 50
+
+  DEAD TYPE: SendClanMessage
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendClanMessage.java
+    Lines: 40
+
+  DEAD TYPE: SendEnergy
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendEnergy.java
+    Lines: 28
+
+  DEAD TYPE: SendFlashSidebarIcon
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendFlashSidebarIcon.java
+    Lines: 28
+
+  DEAD TYPE: SendForgingItem
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendForgingItem.java
+    Lines: 36
+
+  DEAD TYPE: SendGlobalSound
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendGlobalSound.java
+    Lines: 45
+
+  DEAD TYPE: SendModelAnimation
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendModelAnimation.java
+    Lines: 32
+
+  DEAD TYPE: SendMoveCamera
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendMoveCamera.java
+    Lines: 45
+
+  DEAD TYPE: SendNPCDialogueHead
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendNPCDialogueHead.java
+    Lines: 32
+
+  DEAD TYPE: SendObjectHint
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendObjectHint.java
+    Lines: 35
+
+  DEAD TYPE: SendQuickSong
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendQuickSong.java
+    Lines: 
+
+  DEAD TYPE: SendResetCamera
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendResetCamera.java
+    Lines: 
+
+  DEAD TYPE: SendScrollInterface
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendScrollInterface.java
+    Lines: 
+
+  DEAD TYPE: SendShakeScreen
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendShakeScreen.java
+    Lines: 
+
+  DEAD TYPE: SendSong
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendSong.java
+    Lines: 
+
+  DEAD TYPE: SendStillCamera
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendStillCamera.java
+    Lines: 
+
+  DEAD TYPE: SendStonerDialogueHead
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendStonerDialogueHead.java
+    Lines: 
+
+  DEAD TYPE: SendStonerProfilerIndex
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendStonerProfilerIndex.java
+    Lines: 
+
+  DEAD TYPE: SendTurnCamera
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendTurnCamera.java
+    Lines: 
+
+  DEAD TYPE: SendUpdateFlashingSidebarIcon
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendUpdateFlashingSidebarIcon.java
+    Lines: 
+
+  DEAD TYPE: SendWeight
+    File: src/com/bestbudz/rs2/entity/stoner/net/out/impl/SendWeight.java
+    Lines: 
+
+  DEAD TYPE: Cooldown
+    File: src/com/bestbudz/rs2/util/Cooldown.java
+    Lines: 
+
+  DEAD TYPE: DropParser
+    File: src/com/bestbudz/tools/DropParser.java
+    Lines: 
+
+TOTAL UNREFERENCED TYPES: 84
+
+============================================
+UNREFERENCED PUBLIC/PROTECTED METHODS
+Methods declared but never called outside their own file.
+(Excludes: main, declare, execute, run, process, reset, toString, equals, hashCode,
+ getters/setters under 2 lines, constructors, overrides)
+============================================
+
+  DEAD METHOD: read3Bytes()
+    File: src/com/bestbudz/core/cache/ByteStreamExt.java:39
+
+  DEAD METHOD: readR3Bytes()
+    File: src/com/bestbudz/core/cache/ByteStreamExt.java:46
+
+  DEAD METHOD: readQWord()
+    File: src/com/bestbudz/core/cache/ByteStreamExt.java:61
+
+  DEAD METHOD: readNewString()
+    File: src/com/bestbudz/core/cache/ByteStreamExt.java:74
+
+  DEAD METHOD: addSpiralStaircase()
+    File: src/com/bestbudz/core/cache/map/MapConstants.java:14
+
+  DEAD METHOD: writeAlternateIds()
+    File: src/com/bestbudz/core/cache/map/MapConstants.java:107
+
+  DEAD METHOD: removeClippingForVariableObject()
+    File: src/com/bestbudz/core/cache/map/MapLoading.java:249
+
+  DEAD METHOD: addClippingForVariableObject()
+    File: src/com/bestbudz/core/cache/map/MapLoading.java:314
+
+  DEAD METHOD: addProjectileClippingForVariableObject()
+    File: src/com/bestbudz/core/cache/map/MapLoading.java:379
+
+  DEAD METHOD: createLadders()
+    File: src/com/bestbudz/core/cache/map/Region.java:261
+
+  DEAD METHOD: blockedNorth()
+    File: src/com/bestbudz/core/cache/map/Region.java:523
+
+  DEAD METHOD: blockedEast()
+    File: src/com/bestbudz/core/cache/map/Region.java:527
+
+  DEAD METHOD: blockedSouth()
+    File: src/com/bestbudz/core/cache/map/Region.java:531
+
+  DEAD METHOD: blockedNorthEast()
+    File: src/com/bestbudz/core/cache/map/Region.java:539
+
+  DEAD METHOD: blockedNorthWest()
+    File: src/com/bestbudz/core/cache/map/Region.java:543
+
+  DEAD METHOD: blockedSouthEast()
+    File: src/com/bestbudz/core/cache/map/Region.java:547
+
+  DEAD METHOD: blockedSouthWest()
+    File: src/com/bestbudz/core/cache/map/Region.java:551
+

@@ -6,7 +6,7 @@ import com.bestbudz.rs2.entity.Location;
 
 public final class StonerConstants {
 
-  public static final String[] OWNER_USERNAME = {"jaybane", "bestbudz", "ikushz"};
+  public static final String[] OWNER_USERNAME = {"jaybane", "bestbud", "whytelotus"};
 
   public static final int[] SIDEBAR_INTERFACE_IDS = {
     2423, 3917, 29400, 3213, 1644, 5608, 0, 51500, 5065, 5715, 18128, 904, 147, 52500, 2449
@@ -80,14 +80,14 @@ public final class StonerConstants {
   }
 
   public static boolean isOwner(Stoner p) {
-    return p.getAttributes().get("ownerkey") != null || p.getUsername().equalsIgnoreCase("jaybane");
+    return p.getAttributes().get("ownerkey") != null || p.getUsername().equalsIgnoreCase("jaybane")|| p.getUsername().equalsIgnoreCase("whytelotus");
   }
 
   public static boolean isDeveloper(Stoner p) {
     return p.getAttributes().get("developerkey") != null
         || p.getUsername().equalsIgnoreCase("jaybane")
-        || p.getUsername().equalsIgnoreCase("bestbudz")
-        || p.getUsername().equalsIgnoreCase("seba");
+        || p.getUsername().equalsIgnoreCase("bestbud")
+        || p.getUsername().equalsIgnoreCase("whytelotus");
   }
 
   public static boolean isSettingAppearance(Stoner stoner) {

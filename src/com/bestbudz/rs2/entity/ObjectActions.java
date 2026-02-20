@@ -24,11 +24,9 @@ import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.CrystalChest;
 import com.bestbudz.rs2.content.DropTable;
-import com.bestbudz.rs2.content.FountainOfRune;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.dialogue.OneLineDialogue;
-import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.AchievementDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.BestBudzDialogue;
 import com.bestbudz.rs2.content.dialogue.impl.DecantingDialogue;
@@ -41,10 +39,10 @@ import com.bestbudz.rs2.content.dialogue.impl.teleport.WildernessLever;
 import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
 import com.bestbudz.rs2.content.exercisement.Exercisement;
 import com.bestbudz.rs2.content.exercisement.obstacle.interaction.WalkInteraction;
-import com.bestbudz.rs2.content.membership.MysteryBoxMinigame;
+import com.bestbudz.rs2.content.cannacredits.MysteryBoxMinigame;
 import com.bestbudz.rs2.content.minigames.barrows.Barrows;
-import com.bestbudz.rs2.content.minigames.clanwars.ClanWarsFFA;
-import com.bestbudz.rs2.content.minigames.fightcave.TzharrGame;
+import com.bestbudz.rs2.content.minigames.bloodtrial.BloodTrial;
+import static com.bestbudz.rs2.content.minigames.bloodtrial.finish.BloodTrialFinish.finishedBloodTrial;
 import com.bestbudz.rs2.content.minigames.fightpits.FightPits;
 import com.bestbudz.rs2.content.minigames.godwars.GodWars;
 import com.bestbudz.rs2.content.minigames.pestcontrol.PestControl;
@@ -382,16 +380,6 @@ public class ObjectActions
           case 1103:
             break;
           case 534:
-            stoner.start(
-                new OptionDialogue(
-                    "Clothing shop 1",
-                    p -> {
-                      stoner.getShopping().open(28);
-                    },
-                    "Clothing shop 2",
-                    p -> {
-                      stoner.getShopping().open(40);
-                    }));
             break;
           case 6749:
             break;
@@ -551,12 +539,6 @@ public class ObjectActions
                         }
                   });
             }
-            stoner.start(
-                new OptionDialogue(
-                    (String) dialogues.get(0)[0],
-                    (Consumer<Stoner>) dialogues.get(0)[1],
-                    (String) dialogues.get(1)[0],
-                    (Consumer<Stoner>) dialogues.get(1)[1]));
             break;
 
           case 822:
@@ -567,21 +549,6 @@ public class ObjectActions
             stoner.send(new SendInterface(8292));
             break;
           case 5523:
-            stoner.start(
-                new OptionDialogue(
-                    "Credit Shop 1",
-                    p -> {
-                      stoner.getShopping().open(94);
-                    },
-                    "Credit Store 2",
-                    p -> {
-                      stoner.getShopping().open(90);
-                    },
-                    "Credit Store 3",
-                    p -> {
-                      stoner.getShopping().open(87);
-                    }));
-
             break;
           case 606:
             stoner.getShopping().open(93);
@@ -707,13 +674,13 @@ public class ObjectActions
 				PetManager.spawnPet(stoner, petDrop.getItem(), true);
               stoner.send(
                   new SendMessage(
-                      "You feel a pressence following you; "
+                      "You caught a pokem... I mean pet!; "
                           + Utility.formatStonerName(
                               GameDefinitionLoader.getNpcDefinition(petDrop.getNPC()).getName())
                           + " starts to follow you."));
             } else {
               stoner.getBank().depositFromNoting(petDrop.getItem(), 1, 0, false);
-              stoner.send(new SendMessage("You feel a pressence added to your bank."));
+              stoner.send(new SendMessage("Ur new pet went to the poke cente... To the bank!."));
             }
           } else {
             GroundItemHandler.add(new Item(13178, 1), stoner.getLocation(), stoner);
@@ -844,8 +811,8 @@ public class ObjectActions
       return;
     }
 
-    if (id == 11834) {
-      TzharrGame.finish(stoner, false);
+    if (id == 11834 || id == 6114) {
+      finishedBloodTrial(stoner, false); // Blood Trial
       return;
     }
 
@@ -898,9 +865,6 @@ public class ObjectActions
           return;
         }
 
-        if (ClanWarsFFA.clickObject(stoner, id)) {
-          return;
-        }
 
         if (ObjectDef.getObjectDef(id) != null
             && ObjectDef.getObjectDef(id).name != null
@@ -1842,8 +1806,8 @@ public class ObjectActions
             stoner.send(new SendString("---", 25353));
             stoner.send(new SendString("---", 25355));
             break;
-          case 11833:
-            TzharrGame.init(stoner, false);
+          case 26149:
+            BloodTrial.init(stoner, false);
             break;
           case 2114:
             stoner.teleport(new Location(3433, 3537, 1));
@@ -2189,22 +2153,17 @@ public class ObjectActions
               return;
             }
 
-            if (FountainOfRune.itemOnObject(stoner, objectId, itemId)) {
+            if (Forging.SINGLETON.itemOnObject(stoner, new Item(itemId), objectId)) {
               return;
             }
-
-			  if (Forging.SINGLETON.itemOnObject(stoner, new Item(itemId), objectId)) {
-				  return;
-			  }
-
 
             if (GodWars.useItemOnObject(stoner, itemId, objectId)) {
               return;
             }
 
             if (objectId == 3044 || objectId == 45310 || objectId == 2097) {
-					Forging.SINGLETON.handleObjectClick(stoner, objectId);
-					return;
+              Forging.SINGLETON.handleObjectClick(stoner, objectId);
+              return;
             }
 
             if (objectId == 11744) {
@@ -2215,48 +2174,29 @@ public class ObjectActions
                 return;
               }
 
-              if (!def.isTradable()) {
-                stoner.send(new SendMessage(def.getName() + " cannot be noted!"));
-                return;
-              }
-
-              if (def.getNoteId() == -1) {
-                stoner.send(
-                    new SendMessage(
-                        def.getName()
-                            + " cannot be "
-                            + (def.isNote() ? "un-noted" : "noted")
-                            + "."));
-                return;
-              }
-
-              int space = stoner.getBox().getFreeSlots();
-
+              int space = stoner.getBank().getFreeSlots();
               int amount = stoner.getBox().getItemAmount(def.getId());
 
-              if (def.isNote()) {
-
-                if (space == 0) {
-                  stoner.send(new SendMessage("You have no free box spaces to do this!"));
-                  return;
-                }
-
-                if (amount > space) {
-                  amount = space;
-                  stoner.send(new SendMessage("You can't un-note that many items!"));
-                }
+              if (space >= 1 ) {
                 stoner.getBox().remove(def.getId(), amount);
-                stoner.getBox().add(def.getNoteId(), amount);
+                stoner.getBank().add(def.getId(), amount);
                 stoner.send(
-                    new SendMessage("You have un-noted " + amount + " of " + def.getName() + "."));
+                    new SendMessage(
+                        "Sent [x" + amount + "] " + def.getName() + " to bank storage."));
                 return;
-              }
-
-              stoner.getBox().remove(def.getId(), amount);
-              stoner.getBox().add(def.getNoteId(), amount);
-              stoner.send(
-                  new SendMessage("You have noted " + amount + " of " + def.getName() + "."));
-              return;
+              } else if (stoner.getBank().hasItemId(def.getId())){
+				  stoner.getBox().remove(def.getId(), amount);
+				  stoner.getBank().add(def.getId(), amount);
+				  stoner.send(
+					  new SendMessage(
+						  "Sent [x" + amount + "] " + def.getName() + " to bank storage."));
+				  return;
+				  } else {
+				  stoner.send(
+					  new SendMessage(
+						  "Your bank is full! Fancy pants.."));
+				  return;
+			  }
             }
 
             if (objectId == 48802 && itemId == 954) {
@@ -2269,11 +2209,10 @@ public class ObjectActions
               return;
             }
 
-
             if (objectId == 4309) {
               if (Spinnable.forId(itemId) != null) {
-				  Handiness.SINGLETON.handleObjectClick(stoner, 2644);
-				  return;
+                Handiness.SINGLETON.handleObjectClick(stoner, 2644);
+                return;
               } else {
                 stoner.getClient().queueOutgoingPacket(new SendMessage("You cant spin this!"));
               }

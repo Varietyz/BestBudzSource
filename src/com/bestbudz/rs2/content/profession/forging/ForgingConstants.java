@@ -1,17 +1,5 @@
 package com.bestbudz.rs2.content.profession.forging;
 
-import com.bestbudz.core.task.TaskQueue;
-import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.entity.item.Item;
-import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendChatBoxInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendItemOnInterface;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendUpdateItems;
-
 public class ForgingConstants {
   public static final int[] BARS = {2349, 2351, 2353, 2359, 2361, 2363};
 
@@ -91,7 +79,5 @@ public class ForgingConstants {
 
     return 1;
   }
-
-
 
 }

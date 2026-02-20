@@ -7,14 +7,12 @@ import com.bestbudz.core.definitions.NpcCombatDefinition.Sagittarius;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.content.combat.Hit;
-import com.bestbudz.rs2.content.sounds.MobSounds;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.Walking;
 import com.bestbudz.rs2.entity.mob.abilities.MobAbilities;
-import com.bestbudz.rs2.entity.mob.MobConstants;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.mob.bosses.Kraken;
@@ -156,11 +154,6 @@ public class MobCombatHandler {
 		if (!assault.isNpc()) {
 			Stoner p = World.getStoners()[assault.getIndex()];
 			if (p != null) {
-				if (mob.inMultiArea()) {
-					MobSounds.sendBlockSound(p, mob.getId());
-				} else {
-					MobSounds.sendAssaultSound(p, mob.getId(), mob.getCombat().getCombatType(), mob.getLastDamageDealt() > 0);
-				}
 				addCombatant(p);
 			}
 		}
@@ -258,7 +251,6 @@ public class MobCombatHandler {
 		if (!hit.getAssaulter().isNpc()) {
 			Stoner p = World.getStoners()[hit.getAssaulter().getIndex()];
 			if (p != null) {
-				MobSounds.sendBlockSound(p, mob.getId());
 				if (mob.isAssaultable()) {
 					addCombatant(p);
 				}

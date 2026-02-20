@@ -4,7 +4,6 @@ import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.GraphicTask;
 import com.bestbudz.core.task.impl.HitTask;
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.combat.Combat;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.content.combat.Hit;
@@ -15,7 +14,6 @@ import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.Projectile;
 import com.bestbudz.rs2.entity.World;
-import com.bestbudz.rs2.entity.pets.PetCombatHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 

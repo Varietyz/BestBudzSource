@@ -1,7 +1,6 @@
 package com.bestbudz.rs2.content.dialogue.impl.teleport;
 
 import com.bestbudz.rs2.content.dialogue.Dialogue;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
 import com.bestbudz.rs2.content.profession.mage.MageProfession.TeleportTypes;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -41,7 +40,5 @@ public class WildernessLever extends Dialogue {
 
   @Override
   public void execute() {
-    DialogueManager.sendOption(
-        stoner, "Deserted Keep", "Graveyard", "East Dragons", "West Dragons");
   }
 }

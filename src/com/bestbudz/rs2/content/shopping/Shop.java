@@ -27,7 +27,7 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 
 public class Shop extends ItemContainer {
 
-  public static final int SHOP_SIZE = 36;
+  public static final int SHOP_SIZE = 100;
   private static final Shop[] shops = new Shop[100];
   private final int store;
 

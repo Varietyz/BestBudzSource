@@ -135,7 +135,7 @@ public class QuestTab extends InterfaceHandler {
 	  "WARRIORS GUILD", // 115183
 	  "DUEL ARENA", // 115184
 	  "PEST CONTROL", // 115185
-	  "FIGHT CAVES", // 115186
+	  "BLOOD TRIAL", // 115186
 	  "WEAPON GAME", // 115187
 	  "CLAN WARS", // 115188
 	  "MEMBERSHIP", // 115189

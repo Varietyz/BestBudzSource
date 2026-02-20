@@ -1,6 +1,5 @@
 package com.bestbudz.rs2.entity.stoner;
 
-import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.FinishTeleportingTask;

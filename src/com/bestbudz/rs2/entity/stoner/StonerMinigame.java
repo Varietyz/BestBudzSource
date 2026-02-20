@@ -4,8 +4,8 @@ import com.bestbudz.rs2.content.StonerProperties;
 import com.bestbudz.rs2.content.minigames.StonerMinigames;
 import com.bestbudz.rs2.content.minigames.barrows.Barrows.Brother;
 import com.bestbudz.rs2.content.minigames.duelarena.Dueling;
-import com.bestbudz.rs2.content.minigames.fightcave.TzharrDetails;
-import com.bestbudz.rs2.content.minigames.fightcave.TzharrGame;
+import com.bestbudz.rs2.content.minigames.bloodtrial.BloodTrial;
+import com.bestbudz.rs2.content.minigames.bloodtrial.core.BloodTrialDetails;
 import com.bestbudz.rs2.entity.mob.Mob;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class StonerMinigame {
 	private final Stoner stoner;
 	private final StonerMinigames stonerMinigamesContent; // Renamed to avoid conflict
 	private final Dueling dueling;
-	private final TzharrDetails jadDetails;
+	private final BloodTrialDetails jadDetails;
 	private final StonerProperties properties;
 
 	// Minigame state
@@ -37,7 +37,7 @@ public class StonerMinigame {
 		this.stoner = stoner;
 		this.stonerMinigamesContent = new StonerMinigames(stoner); // Use content class
 		this.dueling = new Dueling(stoner);
-		this.jadDetails = new TzharrDetails();
+		this.jadDetails = new BloodTrialDetails();
 		this.properties = new StonerProperties(stoner);
 	}
 
@@ -53,14 +53,14 @@ public class StonerMinigame {
 	 */
 	public void start() {
 		if (jadDetails.getStage() != 0) {
-			TzharrGame.loadGame(stoner);
+			BloodTrial.loadGame(stoner);
 		}
 	}
 
 	// Getters and setters
 	public StonerMinigames getStonerMinigames() { return stonerMinigamesContent; }
 	public Dueling getDueling() { return dueling; }
-	public TzharrDetails getJadDetails() { return jadDetails; }
+	public BloodTrialDetails getBloodTrialDetails() { return jadDetails; }
 	public StonerProperties getProperties() { return properties; }
 
 	public int getMonsterSelected() { return monsterSelected; }

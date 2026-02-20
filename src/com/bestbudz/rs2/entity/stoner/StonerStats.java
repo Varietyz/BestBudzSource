@@ -1,9 +1,8 @@
 package com.bestbudz.rs2.entity.stoner;
 
 import com.bestbudz.rs2.content.achievements.AchievementList;
+import com.bestbudz.rs2.content.cannacredits.CannaCreditUnlocks;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.content.membership.CreditPurchase;
-import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
 import java.util.ArrayList;
@@ -63,8 +62,8 @@ public class StonerStats {
 	private long shopCollection;
 
 	// Credit system
-	private Set<CreditPurchase> unlockedCredits =
-		new HashSet<CreditPurchase>(CreditPurchase.values().length);
+	private Set<CannaCreditUnlocks> unlockedCredits =
+		new HashSet<CannaCreditUnlocks>(CannaCreditUnlocks.values().length);
 
 	// Profile stats
 	private int likes, dislikes, profileViews;
@@ -142,11 +141,11 @@ public class StonerStats {
 	}
 
 	// Credit system
-	public void unlockCredit(CreditPurchase purchase) {
+	public void unlockCredit(CannaCreditUnlocks purchase) {
 		unlockedCredits.add(purchase);
 	}
 
-	public boolean isCreditUnlocked(CreditPurchase purchase) {
+	public boolean isCreditUnlocked(CannaCreditUnlocks purchase) {
 		return unlockedCredits.contains(purchase);
 	}
 
@@ -223,8 +222,8 @@ public class StonerStats {
 	public long getShopCollection() { return shopCollection; }
 	public void setShopCollection(long shopCollection) { this.shopCollection = shopCollection; }
 
-	public Set<CreditPurchase> getUnlockedCredits() { return unlockedCredits; }
-	public void setUnlockedCredits(Set<CreditPurchase> unlockedCredits) { this.unlockedCredits = unlockedCredits; }
+	public Set<CannaCreditUnlocks> getUnlockedCredits() { return unlockedCredits; }
+	public void setUnlockedCredits(Set<CannaCreditUnlocks> unlockedCredits) { this.unlockedCredits = unlockedCredits; }
 
 	public int getLikes() { return likes; }
 	public void setLikes(int likes) { this.likes = likes; }

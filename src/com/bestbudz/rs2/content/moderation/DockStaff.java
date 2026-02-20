@@ -4,8 +4,6 @@ import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
-import com.bestbudz.rs2.content.io.sqlite.SaveCache;
-import com.bestbudz.rs2.content.io.sqlite.SQLiteDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -263,7 +261,6 @@ public class DockStaff {
 		}
 		return target.trim();
 	}
-
 
 	/**
 	 * Check if player has staff access

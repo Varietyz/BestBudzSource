@@ -3,6 +3,7 @@ package com.bestbudz.rs2.entity.mob;
 import com.bestbudz.core.definitions.ItemDropDefinition;
 import com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable;
 import com.bestbudz.core.definitions.NpcDefinition;
+import com.bestbudz.core.discord.messaging.DiscordMessageManager;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.logger.StonerLogger;
@@ -13,7 +14,6 @@ import com.bestbudz.rs2.content.cluescroll.ClueScroll;
 import com.bestbudz.rs2.content.cluescroll.ClueScrollManager;
 import com.bestbudz.rs2.content.cluescroll.scroll.EmoteScroll;
 import com.bestbudz.rs2.content.minigames.barrows.Barrows;
-import com.bestbudz.rs2.content.minigames.fightcave.TzharrGame;
 import com.bestbudz.rs2.content.minigames.godwars.GodWars;
 import com.bestbudz.rs2.content.minigames.warriorsguild.ArmourAnimator;
 import com.bestbudz.rs2.content.minigames.warriorsguild.CyclopsRoom;
@@ -67,6 +67,14 @@ public class MobDrops {
 
       if (!entity.isNpc()) {
         if (item.getDefinition().getGeneralPrice() >= 1_000_000) {
+			
+			DiscordMessageManager.announceGameMessage(entity.getStoner().getUsername()
+				+ " recieved: "
+				+ Utility.format(item.getAmount())
+				+ "x "
+				+ item.getDefinition().getName()
+				+ ".");
+			
           StonerLogger.DROP_LOGGER.log(
               entity.getStoner().getUsername(),
               String.format(
@@ -75,8 +83,10 @@ public class MobDrops {
                   item.getAmount(),
                   item.getDefinition().getName(),
                   Utility.formatStonerName(mob.getDefinition().getName())));
+		  
           AchievementHandler.activateAchievement(
               entity.getStoner(), AchievementList.OBTAIN_10_RARE_DROPS, 1);
+		  
           World.sendGlobalMessage(
               "<col=1F8C26>"
                   + entity.getStoner().getUsername()
@@ -85,6 +95,7 @@ public class MobDrops {
                   + " x "
                   + item.getDefinition().getName()
                   + ".");
+		  
         } else {
           World.sendRegionMessage(
               "<col=1F8C26>"
@@ -338,7 +349,6 @@ public class MobDrops {
         break;
     }
 
-
     Location dropLocation = mob != null ? mob.getLocation() : null;
 
     if (dropLocation == null) {
@@ -410,11 +420,6 @@ public class MobDrops {
         }
         try {
           Barrows.onBarrowsDeath(p, mob);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-        try {
-          TzharrGame.checkForFightCave(p, mob);
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -685,18 +690,25 @@ public class MobDrops {
           PetData petDrop = PetData.forItem(drop.getId());
 
           if (petDrop != null) {
+			  
+			  DiscordMessageManager.announceGameMessage(e.getStoner().getUsername()
+				  + " caught a "
+				  + Utility.formatStonerName(
+				  GameDefinitionLoader.getNpcDefinition(petDrop.getNPC()).getName())
+				  + ".");
+			  
             if (e.getStoner().getActivePets().size() < 5) {
 				PetManager.spawnPet(e.getStoner(), petDrop.getItem(), true);
               e.getStoner()
                   .send(
                       new SendMessage(
-                          "You feel a pressence following you; "
+                          "You caught a pokem... I mean pet!; "
                               + Utility.formatStonerName(
                                   GameDefinitionLoader.getNpcDefinition(petDrop.getNPC()).getName())
                               + " starts to follow you."));
             } else {
               e.getStoner().getBank().depositFromNoting(petDrop.getItem(), 1, 0, false);
-              e.getStoner().send(new SendMessage("You feel a pressence added to your bank."));
+              e.getStoner().send(new SendMessage("Ur new pet went to the poke cente... To the bank!"));
               AchievementHandler.activateAchievement(
                   e.getStoner(), AchievementList.OBTAIN_1_BOSS_PET, 1);
               AchievementHandler.activateAchievement(

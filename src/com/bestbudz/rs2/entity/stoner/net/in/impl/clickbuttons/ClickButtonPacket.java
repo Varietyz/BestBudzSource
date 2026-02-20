@@ -7,7 +7,6 @@ import com.bestbudz.rs2.content.achievements.AchievementButtons;
 import com.bestbudz.rs2.content.combat.formula.MageFormulas;
 import com.bestbudz.rs2.content.combat.formula.MeleeFormulas;
 import com.bestbudz.rs2.content.combat.formula.RangeFormulas;
-import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.content.interfaces.impl.*;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelingConstants;
@@ -219,36 +218,7 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.send(new SendMessage(message));
 	}
 
-	public static void handleExperienceLock(Stoner stoner) {
-		stoner.start(new OptionDialogue(
-			"Lock experience",
-			p -> {
-				stoner.getProfession().setExpLock(true);
-				stoner.send(new SendMessage("You have @blu@locked</col> your experience."));
-				stoner.send(new SendRemoveInterfaces());
-			},
-			"Unlock experience",
-			p -> {
-				stoner.getProfession().setExpLock(false);
-				stoner.send(new SendMessage("You have @blu@unlocked</col> your experience."));
-				stoner.send(new SendRemoveInterfaces());
-			}
-		));
-	}
-
 	public static void handleSearchOptions(Stoner stoner) {
-		stoner.start(new OptionDialogue(
-			"Search name",
-			p -> {
-				stoner.setEnterXInterfaceId(55777);
-				stoner.getClient().queueOutgoingPacket(new SendEnterString());
-			},
-			"Search item",
-			p -> {
-				stoner.setEnterXInterfaceId(55778);
-				stoner.getClient().queueOutgoingPacket(new SendEnterString());
-			}
-		));
 	}
 
 	public static void openAchievementTab(Stoner stoner) {

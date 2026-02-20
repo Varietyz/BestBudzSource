@@ -38,6 +38,8 @@ public class PetManager {
 			return true;
 		}
 
+
+
 		// NEW: Check if stoner already has this type of pet active
 		Pet existingPet = getActivePetOfType(stoner, data);
 		if (existingPet != null) {
@@ -58,6 +60,10 @@ public class PetManager {
 
 		Pet pet = new Pet(stoner, data);
 		addPetToStoner(stoner, pet);
+
+		if (stoner.getPetMaster() != null) {
+			stoner.getPetMaster().onPetDeployed(pet);
+		}
 
 		performSpawnAnimation(stoner, pet);
 		handleSpawnAchievements(stoner, fromLoot, pet);
@@ -120,6 +126,10 @@ public class PetManager {
 		if (!storePetItem(stoner, pet.getData())) {
 			stoner.send(new SendMessage("You must free some box space to pick up your " + pet.getName()));
 			return false;
+		}
+
+		if (stoner.getPetMaster() != null) {
+			stoner.getPetMaster().onPetPickedUp(pet);
 		}
 
 		performPickupAnimation(stoner, pet);

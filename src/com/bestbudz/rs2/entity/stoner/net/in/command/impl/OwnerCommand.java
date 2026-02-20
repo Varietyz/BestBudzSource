@@ -8,8 +8,6 @@ import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.content.combat.Hit.HitTypes;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
-import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.Item;

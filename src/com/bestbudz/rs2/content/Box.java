@@ -1,7 +1,6 @@
 package com.bestbudz.rs2.content;
 
 import com.bestbudz.rs2.content.io.sqlite.SaveCache;
-import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.item.ItemContainer;
 import com.bestbudz.rs2.entity.stoner.Stoner;

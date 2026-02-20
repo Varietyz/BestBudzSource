@@ -4,8 +4,6 @@ import com.bestbudz.core.definitions.CombatSpellDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.content.combat.impl.Assault;
-import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSeas;
-import com.bestbudz.rs2.content.profession.mage.weapons.TridentOfTheSwamp;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.following.Following;
 import com.bestbudz.rs2.entity.item.Item;

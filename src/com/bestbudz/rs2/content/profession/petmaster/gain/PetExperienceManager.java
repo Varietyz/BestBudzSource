@@ -6,7 +6,7 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.util.logging.Logger;
 
 /**
- * OPTIMIZED: Reduced frequency experience processing
+ * FIXED: Realistic experience processing with proper timing
  */
 public class PetExperienceManager {
 
@@ -16,8 +16,8 @@ public class PetExperienceManager {
 	private final PetBondManager bondManager;
 	private long lastProcessTime = System.currentTimeMillis();
 
-	// OPTIMIZATION: Reduce processing frequency from 1 minute to 5 minutes
-	private static final long PROCESS_INTERVAL = 300000; // 5 minutes instead of 1 minute
+	// FIXED: Process every 60 seconds (1 minute) for realistic progression
+	private static final long PROCESS_INTERVAL = 60000; // 1 minute
 
 	public PetExperienceManager(Stoner stoner, PetBondManager bondManager) {
 		this.stoner = stoner;
@@ -25,7 +25,7 @@ public class PetExperienceManager {
 	}
 
 	/**
-	 * OPTIMIZED: Process passive experience every 5 minutes instead of 1 minute
+	 * FIXED: Process experience based on ACTUAL time elapsed, not arbitrary multipliers
 	 */
 	public void processPassiveExperience() {
 		if (stoner == null || stoner.getActivePets() == null || stoner.getActivePets().isEmpty()) {
@@ -33,63 +33,72 @@ public class PetExperienceManager {
 		}
 
 		long currentTime = System.currentTimeMillis();
-		if (currentTime - lastProcessTime >= PROCESS_INTERVAL) {
+		long timeElapsed = currentTime - lastProcessTime;
 
-			// OPTIMIZATION: Calculate experience for 5 minutes at once
-			double baseExp = calculateBaseExperience() * 5; // 5x since it's 5 minutes
+		// Only process if at least 1 minute has passed
+		if (timeElapsed >= PROCESS_INTERVAL) {
+
+			// FIXED: Calculate experience based on ACTUAL time elapsed, not fixed multipliers
+			double actualMinutesElapsed = timeElapsed / 60000.0; // Convert to minutes
+			double baseExpPerMinute = calculateBaseExperiencePerMinute();
+			double totalExp = baseExpPerMinute * actualMinutesElapsed;
 
 			// Award profession experience safely
 			if (stoner.getProfession() != null) {
-				stoner.getProfession().addExperience(17, baseExp);
+				stoner.getProfession().addExperience(17, totalExp);
 			}
 
-			// OPTIMIZATION: Batch update pet bonds instead of individual calls
+			// FIXED: Update pet bonds with ACTUAL time elapsed and realistic experience
 			Pet[] activePets = stoner.getActivePets().toArray(new Pet[0]);
 			for (Pet pet : activePets) {
 				if (pet != null && pet.getData() != null) {
-					bondManager.updatePetBond(pet, baseExp * 0.1);
+					// Add actual time elapsed (not arbitrary 5 minutes)
+					// Bond experience is much smaller than profession experience
+					bondManager.updatePetBond(pet, totalExp * 0.05, timeElapsed);
 				}
 			}
 
 			lastProcessTime = currentTime;
 
 			logger.fine("PetMaster processed for " + stoner.getUsername() +
-				" - awarded " + baseExp + " experience (5min batch)");
+				" - " + String.format("%.1f", actualMinutesElapsed) + " minutes elapsed, " +
+				"awarded " + String.format("%.1f", totalExp) + " experience");
 		}
 	}
 
 	/**
-	 * Calculate base experience based on current conditions
+	 * FIXED: Realistic base experience per minute (much lower values)
 	 */
-	private double calculateBaseExperience() {
-		// Base experience per minute with active pets
-		double baseExp = 2.0;
+	private double calculateBaseExperiencePerMinute() {
+		// FIXED: Much more realistic base experience values
+		double baseExp = 1.0; // 1 exp per minute base
 
-		// Bonus for multiple pets
+		// Small bonus for multiple pets
 		if (stoner.getActivePets().size() > 1) {
-			baseExp *= 1.3;
+			baseExp *= 1.2; // 20% bonus instead of 30%
 		}
 
-		// Movement bonus
+		// Small movement bonus
 		if (stoner.getMovementHandler() != null && stoner.getMovementHandler().moving()) {
-			baseExp *= 1.5;
+			baseExp *= 1.3; // 30% bonus instead of 50%
 		}
 
 		// Combat bonus
 		if (stoner.getCombat() != null && stoner.getCombat().inCombat()) {
-			baseExp *= 2.0;
+			baseExp *= 1.8; // 80% bonus instead of 100%
 		}
 
 		return baseExp;
 	}
 
 	/**
-	 * Apply combat bonus to pet
+	 * FIXED: Realistic combat bonus
 	 */
 	public void applyCombatBonus(Pet pet) {
 		if (pet == null) return;
 
-		bondManager.updatePetBond(pet, 3.0); // Bonus for combat
+		// FIXED: Much smaller combat bonus
+		bondManager.updatePetBond(pet, 0.5, 0); // Small experience bonus, no time manipulation
 		logger.fine("Pet combat bonus applied for " + stoner.getUsername() +
 			" with pet: " + pet.getData().name());
 	}

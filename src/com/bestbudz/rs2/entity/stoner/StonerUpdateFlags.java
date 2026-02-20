@@ -160,6 +160,7 @@ public final class StonerUpdateFlags {
 				chatText = stoner.getChatText();
 				chatColor = stoner.getChatColor();
 				chatEffects = stoner.getChatEffects();
+
 			} else {
 				chatText = null;
 				chatColor = 0;

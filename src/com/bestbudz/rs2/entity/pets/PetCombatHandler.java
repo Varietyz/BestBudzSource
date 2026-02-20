@@ -1,7 +1,5 @@
 package com.bestbudz.rs2.entity.pets;
 
-import com.bestbudz.core.definitions.NpcCombatDefinition;
-import com.bestbudz.rs2.content.combat.Combat;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.entity.Entity;
 import static com.bestbudz.rs2.entity.pets.PetCombatSystem.findPetObjectFromStoner;

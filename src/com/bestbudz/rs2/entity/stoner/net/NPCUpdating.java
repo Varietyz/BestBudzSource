@@ -59,8 +59,8 @@ public class NPCUpdating {
       block.writeByte(npc.getHitType(), StreamBuffer.ValueType.C);
       block.writeByte(npc.getHitUpdateType());
 
-      block.writeByte(getCurrentHP(npc.getHp(), npc.getMaxHP(), 100), StreamBuffer.ValueType.A);
-      block.writeByte(100);
+		block.writeLong(npc.getHp());      // Send actual current HP
+		block.writeLong(npc.getMaxHP());   // Send actual max HP
     }
     if (npc.isGraphicsUpdateRequired()) {
       block.writeShort(npc.getGraphicId());
@@ -77,8 +77,8 @@ public class NPCUpdating {
       block.writeByte(npc.getHitType2(), StreamBuffer.ValueType.S);
       block.writeByte(npc.getHitUpdateType2());
 
-      block.writeByte(getCurrentHP(npc.getHp(), npc.getMaxHP(), 100), StreamBuffer.ValueType.S);
-      block.writeByte(100, StreamBuffer.ValueType.C);
+		block.writeLong(npc.getHp());      // Send actual current HP
+		block.writeLong(npc.getMaxHP());   // Send actual max HP
     }
     if (npc.isTransformUpdate()) {
       if (npc.getTransformId() != -1) {

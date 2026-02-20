@@ -5,7 +5,6 @@ import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.Graphic;
 import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -83,7 +83,7 @@ public final class StonerLoadUtil {
 				stoner.setJailed(rs.getBoolean(idx++));
 				stoner.setMuteLength(rs.getLong(idx++));
 				stoner.setWeaponPoints(rs.getInt(idx++));
-				stoner.getJadDetails().setStage(rs.getInt(idx++));
+				stoner.getBloodTrialDetails().setStage(rs.getInt(idx++));
 				stoner.getMage().setMageBook(rs.getInt(idx++));
 				stoner.setResonanceInterface(rs.getInt(idx++));
 				stoner.setRetaliate(rs.getBoolean(idx++));

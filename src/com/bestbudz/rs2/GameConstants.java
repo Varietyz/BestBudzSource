@@ -1,7 +1,6 @@
 package com.bestbudz.rs2;
 
 import com.bestbudz.core.cache.map.Region;
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.mob.VirtualMobRegion;
 
@@ -166,7 +165,6 @@ public class GameConstants {
 		int dy = y2 - y;
 		return getDirection(dx, dy);
 	}
-
 
   public static Location[] getEdges(int x, int y, int size) {
     if (size <= 1) {

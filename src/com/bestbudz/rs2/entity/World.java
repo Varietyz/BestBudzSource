@@ -1,6 +1,5 @@
 package com.bestbudz.rs2.entity;
 
-import static com.bestbudz.Server.logger;
 import com.bestbudz.core.discord.messaging.DiscordMessageManager;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
@@ -16,10 +15,7 @@ import com.bestbudz.rs2.entity.mob.MobUpdateFlags;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.StonerUpdateFlags;
-import com.bestbudz.rs2.entity.stoner.net.Client;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendGameUpdateTimer;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

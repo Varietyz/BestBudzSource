@@ -1,17 +1,13 @@
 package com.bestbudz.rs2.entity.stoner.net.in.impl;
 
 import com.bestbudz.BestbudzConstants;
-import com.bestbudz.Server;
 import com.bestbudz.core.network.StreamBuffer;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.DropTable;
 import com.bestbudz.rs2.content.StonerTitle;
-import com.bestbudz.rs2.content.clanchat.Clan;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.in.IncomingPacket;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendRemoveInterfaces;
 
 public class StringInputPacket extends IncomingPacket {
@@ -57,33 +53,12 @@ public class StringInputPacket extends IncomingPacket {
       return;
     }
 
-    if (stoner.getEnterXInterfaceId() == 100) {
-      stoner.getMercenary().setSocialMercenaryPartner(input);
-      return;
-    }
-
     if (stoner.getEnterXInterfaceId() == 55777) {
       return;
     }
 
     if (stoner.getEnterXInterfaceId() == 55778) {
       return;
-    }
-
-    if (stoner.getEnterXInterfaceId() == 6969) {
-      if ((input != null) && (input.length() > 0) && (stoner.clan == null)) {
-        Clan localClan = Server.clanManager.getClan(input);
-        if (localClan != null) localClan.addMember(stoner);
-        else if (input.equalsIgnoreCase(stoner.getUsername())) Server.clanManager.create(stoner);
-        else {
-          stoner
-              .getClient()
-              .queueOutgoingPacket(
-                  new SendMessage(
-                      Utility.formatStonerName(input) + " has not created a clan yet."));
-        }
-      }
-    } else {
     }
   }
 }

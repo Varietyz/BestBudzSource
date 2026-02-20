@@ -1,11 +1,8 @@
 package com.bestbudz.rs2.content.profession.mage;
 
-import com.bestbudz.core.util.GameDefinitionLoader;
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendSidebarInterface;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 

@@ -37,15 +37,15 @@ public class PetGrowth
 		GROWTHS.put(PetData.PRIME_CORP, PetData.CORP);
 
 		// Requirements
-		REQUIREMENTS.put(PetData.TOY_JAD, new GrowthRequirement(5, 2, 30 * 60000)); // 30 min
-		REQUIREMENTS.put(PetData.INFANT_JAD, new GrowthRequirement(10, 3, 60 * 60000)); // 1 hour
-		REQUIREMENTS.put(PetData.HATCHLING_JAD, new GrowthRequirement(15, 4, 2 * 60 * 60000)); // 2 hours
-		REQUIREMENTS.put(PetData.CUB_JAD, new GrowthRequirement(20, 5, 4 * 60 * 60000)); // 4 hours
-		REQUIREMENTS.put(PetData.YOUTH_JAD, new GrowthRequirement(30, 6, 8 * 60 * 60000)); // 8 hours
-		REQUIREMENTS.put(PetData.TEEN_JAD, new GrowthRequirement(40, 7, 12 * 60 * 60000)); // 12 hours
-		REQUIREMENTS.put(PetData.YOUNG_ADULT_JAD, new GrowthRequirement(50, 8, 24 * 60 * 60000)); // 24 hours
-		REQUIREMENTS.put(PetData.ADULT_JAD, new GrowthRequirement(65, 9, 48 * 60 * 60000)); // 48 hours
-		REQUIREMENTS.put(PetData.PRIME_JAD, new GrowthRequirement(80, 10, 72 * 60 * 60000)); // 72 hours
+		REQUIREMENTS.put(PetData.TOY_JAD, new GrowthRequirement(15, 10, 30 * 60000)); // 30 min
+		REQUIREMENTS.put(PetData.INFANT_JAD, new GrowthRequirement(50, 25, 60 * 60000)); // 1 hour
+		REQUIREMENTS.put(PetData.HATCHLING_JAD, new GrowthRequirement(90, 45, 2 * 60 * 60000)); // 2 hours
+		REQUIREMENTS.put(PetData.CUB_JAD, new GrowthRequirement(130, 65, 4 * 60 * 60000)); // 4 hours
+		REQUIREMENTS.put(PetData.YOUTH_JAD, new GrowthRequirement(180, 85, 8 * 60 * 60000)); // 8 hours
+		REQUIREMENTS.put(PetData.TEEN_JAD, new GrowthRequirement(230, 105, 12 * 60 * 60000)); // 12 hours
+		REQUIREMENTS.put(PetData.YOUNG_ADULT_JAD, new GrowthRequirement(290, 130, 24 * 60 * 60000)); // 24 hours
+		REQUIREMENTS.put(PetData.ADULT_JAD, new GrowthRequirement(350, 160, 48 * 60 * 60000)); // 48 hours
+		REQUIREMENTS.put(PetData.PRIME_JAD, new GrowthRequirement(420, 195, 72 * 60 * 60000)); // 72 hours
 
 		// Similar for CORP...
 		REQUIREMENTS.put(PetData.TOY_CORP, new GrowthRequirement(8, 2, 40 * 60000));

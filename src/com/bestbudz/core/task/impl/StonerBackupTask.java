@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -92,7 +91,6 @@ public class StonerBackupTask extends Task {
 		}
 	}
 
-
 	public static void copyFile(File sourceFile, File destFile) throws IOException {
     Files.copy(
         Paths.get(sourceFile.getPath()),
@@ -107,7 +105,6 @@ public class StonerBackupTask extends Task {
 			System.out.println("Anti-Rollback Backup Task completed.");
 		}, "BackupThread").start();
 	}
-
 
   @Override
   public void onStop() {}

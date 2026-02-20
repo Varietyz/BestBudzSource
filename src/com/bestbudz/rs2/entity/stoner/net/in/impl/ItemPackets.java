@@ -14,9 +14,8 @@ import com.bestbudz.rs2.content.MysteryBox;
 import com.bestbudz.rs2.content.bank.Bank.RearrangeTypes;
 import com.bestbudz.rs2.content.cluescroll.ClueScrollManager;
 import com.bestbudz.rs2.content.combat.Hit;
-import com.bestbudz.rs2.content.consumables.ConsumableType;
+import com.bestbudz.rs2.content.profession.consumer.consumables.ConsumableType;
 import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.content.dialogue.OptionDialogue;
 import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGameStore;
 import com.bestbudz.rs2.content.profession.forging.ForgingTask;
@@ -614,27 +613,6 @@ public class ItemPackets extends IncomingPacket {
             stoner.send(new SendRemoveInterfaces());
             return;
           }
-        }
-
-        if (!Item.getDefinition(itemId).isTradable()
-            || Item.getDefinition(itemId).getName().contains("Clue scroll")) {
-          stoner.start(
-              new OptionDialogue(
-                  "</col>Drop and loose forever",
-                  p -> {
-                    stoner.getBox().remove(itemId, 1);
-                    stoner.send(
-                        new SendMessage(
-                            "Your "
-                                + GameDefinitionLoader.getItemDef(itemId).getName()
-                                + " has been dropped and lost forever."));
-                    stoner.send(new SendRemoveInterfaces());
-                  },
-                  "Keep " + GameDefinitionLoader.getItemDef(itemId).getName(),
-                  p -> {
-                    stoner.send(new SendRemoveInterfaces());
-                  }));
-          return;
         }
 
         stoner.getGroundItems().drop(itemId, slot);

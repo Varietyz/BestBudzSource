@@ -75,7 +75,7 @@ public final class StonerSaveUtil {
 				ps.setBoolean(idx++, stoner.isJailed());
 				ps.setLong(idx++, stoner.getMuteLength());
 				ps.setInt(idx++, stoner.getWeaponPoints());
-				ps.setInt(idx++, stoner.getJadDetails().getStage());
+				ps.setInt(idx++, stoner.getBloodTrialDetails().getStage());
 				ps.setInt(idx++, stoner.getMage().getMageBook());
 				ps.setInt(idx++, stoner.getResonanceInterface());
 				ps.setBoolean(idx++, stoner.isRetaliate());

@@ -1,7 +1,6 @@
 package com.bestbudz.rs2.content.profession.thchempistry;
 
-import com.bestbudz.rs2.content.consumables.Consumables;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
+import com.bestbudz.rs2.content.profession.consumer.consumables.Consumables;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;

@@ -2,13 +2,11 @@ package com.bestbudz.rs2.content.combat.impl;
 
 import com.bestbudz.core.util.ItemNames;
 import com.bestbudz.core.util.Utility;
-import com.bestbudz.core.util.logger.StonerLogger;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
 public class StonerDrops {
@@ -144,4 +142,4 @@ public class StonerDrops {
       }
     }
   }
-
+

@@ -1,6 +1,5 @@
 package com.bestbudz.rs2.entity.movement;
 
-import com.bestbudz.BestbudzConstants;
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.rs2.GameConstants;
 import com.bestbudz.rs2.content.minigames.duelarena.DuelingConstants;
@@ -97,8 +96,6 @@ public class StonerMovementHandler extends MovementHandler {
 			return;
 		}
 
-
-
 		stoner.getMovementHandler().getLastLocation().setAs(stoner.getLocation());
       stoner
           .getLocation()
@@ -135,8 +132,6 @@ public class StonerMovementHandler extends MovementHandler {
 				reset();
 				return;
 			}
-
-
 
 			stoner.getMovementHandler().getLastLocation().setAs(stoner.getLocation());
           stoner

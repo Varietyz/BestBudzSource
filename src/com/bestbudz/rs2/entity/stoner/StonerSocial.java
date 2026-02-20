@@ -1,12 +1,7 @@
 package com.bestbudz.rs2.entity.stoner;
 
-import com.bestbudz.Server;
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.PrivateMessaging;
 import com.bestbudz.rs2.content.StonerTitle;
-import com.bestbudz.rs2.content.clanchat.Clan;
-import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,16 +42,6 @@ public class StonerSocial {
 	}
 
 	/**
-	 * Gets the clan this player owns
-	 */
-	public Clan getClan() {
-		if (Server.clanManager.clanExists(stoner.getUsername())) {
-			return Server.clanManager.getClan(stoner.getUsername());
-		}
-		return null;
-	}
-
-	/**
 	 * Clears the clan chat interface
 	 */
 	public void clearClanChat() {
@@ -64,107 +49,6 @@ public class StonerSocial {
 		stoner.send(new SendString("Grower: ", 18140));
 		for (int j = 18144; j < 18244; j++) {
 			stoner.send(new SendString("", j));
-		}
-	}
-
-	/**
-	 * Sets up clan data on the interface
-	 */
-	public void setClanData() {
-		boolean exists = Server.clanManager.clanExists(stoner.getUsername());
-		if (!exists || stoner.clan == null) {
-			stoner.send(new SendString("Join Cult", 18135));
-			stoner.send(new SendString("", 18139));
-			stoner.send(new SendString("", 18140));
-		}
-		if (!exists) {
-			stoner.send(new SendString("You been excommunicated", 53706));
-			String title = "";
-			for (int id = 53707; id < 53717; id += 3) {
-				if (id == 53707) {
-					title = "Stoners";
-				} else if (id == 53710) {
-					title = "Stoners";
-				} else if (id == 53713) {
-					title = "Stoner+";
-				} else if (id == 53716) {
-					title = "Only stoner";
-				}
-				stoner.send(new SendString(title, id + 2));
-			}
-			for (int index = 0; index < 100; index++) {
-				stoner.send(new SendString("", 53723 + index));
-			}
-			for (int index = 0; index < 100; index++) {
-				stoner.send(new SendString("", 18424 + index));
-			}
-			return;
-		}
-		Clan clan = Server.clanManager.getClan(stoner.getUsername());
-		stoner.send(new SendString(clan.getTitle(), 53706));
-		String title = "";
-		for (int id = 53707; id < 53717; id += 3) {
-			if (id == 53707) {
-				title =
-					clan.getRankTitle(clan.whoCanJoin)
-						+ (clan.whoCanJoin > Clan.Rank.ANYONE && clan.whoCanJoin < Clan.Rank.OWNER
-						? "+"
-						: "");
-			} else if (id == 53710) {
-				title =
-					clan.getRankTitle(clan.whoCanTalk)
-						+ (clan.whoCanTalk > Clan.Rank.ANYONE && clan.whoCanTalk < Clan.Rank.OWNER
-						? "+"
-						: "");
-			} else if (id == 53713) {
-				title =
-					clan.getRankTitle(clan.whoCanKick)
-						+ (clan.whoCanKick > Clan.Rank.ANYONE && clan.whoCanKick < Clan.Rank.OWNER
-						? "+"
-						: "");
-			} else if (id == 53716) {
-				title =
-					clan.getRankTitle(clan.whoCanBan)
-						+ (clan.whoCanBan > Clan.Rank.ANYONE && clan.whoCanBan < Clan.Rank.OWNER
-						? "+"
-						: "");
-			}
-			stoner.send(new SendString(title, id + 2));
-		}
-		if (clan.rankedMembers != null) {
-			for (int index = 0; index < 100; index++) {
-				if (index < clan.rankedMembers.size()) {
-					stoner.send(
-						new SendString(
-							"<clan=" + clan.ranks.get(index) + ">" + clan.rankedMembers.get(index),
-							43723 + index));
-				} else {
-					stoner.send(new SendString("", 43723 + index));
-				}
-			}
-		}
-		if (clan.bannedMembers != null) {
-			for (int index = 0; index < 100; index++) {
-				if (index < clan.bannedMembers.size()) {
-					stoner.send(new SendString(clan.bannedMembers.get(index), 43824 + index));
-				} else {
-					stoner.send(new SendString("", 43824 + index));
-				}
-			}
-		}
-	}
-
-	/**
-	 * Adds the player to the default channel
-	 */
-	public void addDefaultChannel() {
-		if (stoner.clan == null) {
-			Clan localClan = Server.clanManager.getClan("bestbudz");
-			if (localClan != null) {
-				localClan.addMember(stoner);
-			} else {
-				stoner.send(new SendMessage(Utility.formatStonerName("") + " has not created a Cult yet."));
-			}
 		}
 	}
 

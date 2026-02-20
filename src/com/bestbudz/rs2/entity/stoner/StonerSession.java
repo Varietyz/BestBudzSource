@@ -1,20 +1,16 @@
 package com.bestbudz.rs2.entity.stoner;
 
 import com.bestbudz.BestbudzConstants;
-import com.bestbudz.Server;
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.core.network.StreamBuffer;
-import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.util.NameUtil;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.Emotes;
 import com.bestbudz.rs2.content.LoyaltyShop;
 import com.bestbudz.rs2.content.StarterKit;
-import com.bestbudz.rs2.content.clanchat.Clan;
+import com.bestbudz.rs2.content.profession.consumer.io.ConsumerSaveManager;
 import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.World;
-import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.StonerConstants;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 import com.bestbudz.rs2.entity.stoner.net.Client;
 import com.bestbudz.rs2.entity.stoner.net.in.impl.ChangeAppearancePacket;
@@ -23,7 +19,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.*;
 import com.bestbudz.rs2.content.io.sqlite.SaveWorker;
 import com.bestbudz.rs2.content.io.sqlite.StonerSave;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
-import com.bestbudz.rs2.content.interfaces.impl.MiscInterfaces;
 import com.bestbudz.rs2.content.interfaces.impl.QuestTab;
 import com.bestbudz.rs2.content.minigames.weapongame.WeaponGame;
 import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
@@ -171,7 +166,7 @@ public class StonerSession {
 			stoner.getEquipment().update();
 		}
 
-		stoner.getJadDetails().setStage(0);
+		stoner.getBloodTrialDetails().setStage(0);
 		stoner.getRunEnergy().setRunning(true);
 
 		Emotes.onLogin(stoner);
@@ -225,16 +220,9 @@ public class StonerSession {
 
 		stoner.clearClanChat();
 		stoner.setClanData();
-		if (stoner.lastClanChat != null && stoner.lastClanChat.length() > 0) {
-			Clan clan = Server.clanManager.getClan(stoner.lastClanChat);
-			if (clan != null) {
-				clan.addMember(stoner);
-			}
-		} else {
-			stoner.addDefaultChannel();
-		}
 
-		MiscInterfaces.startUp(stoner);
+			stoner.addDefaultChannel();
+
 		if (StonerConstants.isStaff(stoner)) {
 			stoner.send(new SendString("Staff tab", 29413));
 		} else {
@@ -244,6 +232,8 @@ public class StonerSession {
 		stoner.send(new SendConfig(1990, stoner.getTransparentPanel()));
 		stoner.send(new SendConfig(1991, stoner.getTransparentChatbox()));
 		stoner.send(new SendConfig(1992, stoner.getSideStones()));
+
+		ConsumerSaveManager.loadConsumerData(stoner);
 
 		String ts = "**" + stoner.getUsername() + " came to get high asf.**";
 
@@ -276,10 +266,6 @@ public class StonerSession {
 				stoner.getPriceChecker().withdrawAll();
 			}
 
-			if (stoner.clan != null) {
-				stoner.clan.removeMember(stoner.getUsername());
-			}
-
 			if (stoner.getDueling().isStaking()) {
 				stoner.getDueling().decline();
 			}
@@ -296,6 +282,11 @@ public class StonerSession {
 
 			SaveWorker.enqueueSave(stoner);
 			StonerSave.save(stoner);
+			ConsumerSaveManager.saveConsumerData(stoner);
+			// In your logout/disconnect handler
+			if (stoner.getPetMaster() != null) {
+				stoner.getPetMaster().save();
+			}
 
 			if (!World.isDiscordBot(stoner)) {
 				DiscordManager.getInstance().onPlayerCountChanged();

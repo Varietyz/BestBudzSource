@@ -2,7 +2,7 @@ package com.bestbudz.core.task.impl;
 
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
-import com.bestbudz.rs2.content.sounds.MobSounds;
+import com.bestbudz.rs2.content.minigames.bloodtrial.BloodTrial;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.MobConstants;
@@ -25,6 +25,11 @@ public class MobDeathTask extends Task {
         Task.BreakType.NEVER,
         TaskIdentifier.CURRENT_ACTION);
     this.mob = mob;
+	  try {
+		  BloodTrial.checkForBloodTrial(null, mob);
+	  } catch (Exception e) {
+		  e.printStackTrace();
+	  }
     mob.setDead(true);
     mob.getUpdateFlags().faceEntity(65535);
     mob.getCombat().reset();
@@ -39,13 +44,6 @@ public class MobDeathTask extends Task {
             TaskIdentifier.CURRENT_ACTION) {
           @Override
           public void execute() {
-            Entity killer = mob.getCombat().getDamageTracker().getKiller();
-
-            if ((killer != null) && (!killer.isNpc())) {
-              MobSounds.sendDeathSound(
-                  com.bestbudz.rs2.entity.World.getStoners()[killer.getIndex()], mob.getId());
-            }
-
             mob.getUpdateFlags().sendAnimation(mob.getDeathAnimation());
             stop();
           }

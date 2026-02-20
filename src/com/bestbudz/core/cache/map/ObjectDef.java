@@ -318,7 +318,15 @@ public final class ObjectDef {
 			class46.name = "Budz Core";
 			class46.description = "The BestBudz core, essence of all magic in the game.".getBytes();
 			class46.actions = new String[5];
-			class46.actions[0] = "Offer to";
+			class46.actions[0] = "Blood Trial";
+			class46.hasActions = true;
+			break;
+
+		case 6114:
+			class46.name = "Blood Trial";
+			class46.description = "Attempt to flee from the Blood Trial.".getBytes();
+			class46.actions = new String[5];
+			class46.actions[0] = "Flee";
 			class46.hasActions = true;
 			break;
 

@@ -7,7 +7,6 @@ import com.bestbudz.rs2.content.combat.Combat;
 import static com.bestbudz.rs2.content.combat.Combat.CombatTypes.MELEE;
 import com.bestbudz.rs2.content.combat.CombatInterface;
 import com.bestbudz.rs2.content.combat.Hit;
-import com.bestbudz.rs2.content.minigames.pestcontrol.PestControlGame;
 import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.following.Following;
 import com.bestbudz.rs2.entity.mob.Mob;
@@ -53,7 +52,6 @@ public abstract class Entity implements CombatInterface {
 	private int faceDirection = -1;
 	private long animationLockEnd = 0;
 	private Animation currentAnimation = null;
-
 
   public AssaultType getAssaultType() {
     return assaultType;
@@ -290,7 +288,6 @@ public abstract class Entity implements CombatInterface {
 		this.getUpdateFlags().faceDirection(direction);
 	}
 
-
   public int getX() {
     return location.getX();
   }
@@ -342,7 +339,6 @@ public abstract class Entity implements CombatInterface {
   public boolean inMultiArea() {
 	  return true;
     }
-
 
   public boolean inClanWarsFFA() {
     int x = location.getX();

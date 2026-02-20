@@ -32,7 +32,7 @@ public class PetCombatSystem {
 
 			Entity actualTarget = pet.getCombat().getAssaulting();
 			if (actualTarget != null) {
-				System.out.println("DEBUG: Pet " + pet.getIndex() + " actually assaulting " + actualTarget.getIndex());
+				//System.out.println("DEBUG: Pet " + pet.getIndex() + " actually assaulting " + actualTarget.getIndex());
 
 				// ===== FIXED: Find Pet object from pet stoner and notify PetMaster =====
 				Pet petObject = findPetObjectFromStoner(pet);

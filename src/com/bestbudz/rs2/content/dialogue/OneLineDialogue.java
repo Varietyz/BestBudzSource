@@ -1,6 +1,7 @@
 package com.bestbudz.rs2.content.dialogue;
 
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.HashMap;
 
 public class OneLineDialogue {
@@ -14,7 +15,7 @@ public class OneLineDialogue {
 
   public static boolean doOneLineChat(Stoner stoner, int id) {
     if (idsForChat.containsKey(id)) {
-      DialogueManager.sendNpcChat(stoner, id, Emotion.HAPPY, idsForChat.get(id));
+		stoner.send(new SendMessage(idsForChat.get(id)));
       return true;
     }
     return false;

@@ -149,7 +149,7 @@ public class PyroAutoBurn extends Task {
 
 			// No more logs to burn
 			if (wood == null || logItem == null) {
-				stoner.send(new SendMessage("You finish burning all your logs."));
+				stoner.send(new SendMessage("You finishedBloodTrial burning all your logs."));
 				stop();
 				return;
 			}

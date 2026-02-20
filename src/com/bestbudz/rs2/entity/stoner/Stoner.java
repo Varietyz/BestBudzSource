@@ -1,6 +1,5 @@
 package com.bestbudz.rs2.entity.stoner;
 
-import com.bestbudz.Server;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.core.util.Utility.Stopwatch;
 import com.bestbudz.rs2.auto.combat.AutoCombat;
@@ -13,16 +12,16 @@ import com.bestbudz.rs2.content.StonerProperties;
 import com.bestbudz.rs2.content.StonerTitle;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.bank.Bank;
-import com.bestbudz.rs2.content.clanchat.Clan;
 import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.content.combat.Hit;
 import com.bestbudz.rs2.content.combat.impl.SpecialAssault;
-import com.bestbudz.rs2.content.consumables.Consumables;
+import com.bestbudz.rs2.content.profession.consumer.allergies.AllergySystem;
+import com.bestbudz.rs2.content.profession.consumer.consumables.Consumables;
 import com.bestbudz.rs2.content.dialogue.Dialogue;
-import com.bestbudz.rs2.content.membership.CreditPurchase;
+import com.bestbudz.rs2.content.cannacredits.CannaCreditUnlocks;
 import com.bestbudz.rs2.content.minigames.StonerMinigames;
 import com.bestbudz.rs2.content.minigames.duelarena.Dueling;
-import com.bestbudz.rs2.content.minigames.fightcave.TzharrDetails;
+import com.bestbudz.rs2.content.minigames.bloodtrial.core.BloodTrialDetails;
 import com.bestbudz.rs2.content.profession.Profession;
 import com.bestbudz.rs2.content.profession.bankstanding.BankStanding;
 import com.bestbudz.rs2.content.profession.fisher.Fisher;
@@ -93,6 +92,8 @@ public class Stoner extends Entity {
 	private final StonerAppearance appearance;
 	private final StonerPets pets;
 
+	private AllergySystem allergySystem;
+
 	// Legacy fields that are still accessed directly by external code
 	private final HashMap<AchievementList, Integer> stonerAchievements;
 	public static final Map<Location, Integer> pathMemory = new HashMap<>();
@@ -117,7 +118,6 @@ public class Stoner extends Entity {
 	public int targetIndex;
 	public boolean enteredPin = false;
 	public boolean isCracking;
-	public Clan clan;
 	public String lastClanChat = "bestbudz";
 	public long timeout = 0L;
 	public long aggressionDelay = System.currentTimeMillis();
@@ -370,24 +370,16 @@ public class Stoner extends Entity {
 		return inventory.payment(amount);
 	}
 
-	// Clan and social methods that external code expects
-	public Clan getClan() {
-		if (Server.clanManager.clanExists(getUsername())) {
-			return Server.clanManager.getClan(getUsername());
-		}
-		return null;
-	}
 
 	public void clearClanChat() {
 		social.clearClanChat();
 	}
 
 	public void setClanData() {
-		social.setClanData();
 	}
 
 	public void addDefaultChannel() {
-		social.addDefaultChannel();
+
 	}
 
 	public String deterquarryRank(Stoner stoner) {
@@ -460,6 +452,13 @@ public class Stoner extends Entity {
 		}
 	}
 
+	public AllergySystem getAllergySystem() {
+		if (allergySystem == null) {
+			allergySystem = new AllergySystem(this);
+		}
+		return allergySystem;
+	}
+
 	public long getUsernameToLong() { return usernameToLong; }
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
@@ -516,7 +515,7 @@ public class Stoner extends Entity {
 	// Minigames delegation - CRITICAL legacy methods
 	public StonerMinigames getMinigames() { return minigames.getStonerMinigames(); }
 	public Dueling getDueling() { return minigames.getDueling(); }
-	public TzharrDetails getJadDetails() { return minigames.getJadDetails(); }
+	public BloodTrialDetails getBloodTrialDetails() { return minigames.getBloodTrialDetails(); }
 	public StonerProperties getProperties() { return minigames.getProperties(); }
 
 	// Movement and energy delegation - CRITICAL legacy methods
@@ -705,10 +704,10 @@ public class Stoner extends Entity {
 	public void setMoneySpent(int moneySpent) { stats.setMoneySpent(moneySpent); }
 	public long getShopCollection() { return stats.getShopCollection(); }
 	public void setShopCollection(long shopCollection) { stats.setShopCollection(shopCollection); }
-	public Set<CreditPurchase> getUnlockedCredits() { return stats.getUnlockedCredits(); }
-	public void setUnlockedCredits(Set<CreditPurchase> unlockedCredits) { stats.setUnlockedCredits(unlockedCredits); }
-	public void unlockCredit(CreditPurchase purchase) { stats.unlockCredit(purchase); }
-	public boolean isCreditUnlocked(CreditPurchase purchase) { return stats.isCreditUnlocked(purchase); }
+	public Set<CannaCreditUnlocks> getUnlockedCredits() { return stats.getUnlockedCredits(); }
+	public void setUnlockedCredits(Set<CannaCreditUnlocks> unlockedCredits) { stats.setUnlockedCredits(unlockedCredits); }
+	public void unlockCredit(CannaCreditUnlocks purchase) { stats.unlockCredit(purchase); }
+	public boolean isCreditUnlocked(CannaCreditUnlocks purchase) { return stats.isCreditUnlocked(purchase); }
 	public int getRogueKills() { return stats.getRogueKills(); }
 	public void setRogueKills(int rogueKills) { stats.setRogueKills(rogueKills); }
 	public int getRogueRecord() { return stats.getRogueRecord(); }
@@ -822,4 +821,6 @@ public class Stoner extends Entity {
 	public void getSkulling(long idx)
 	{
 	}
+
+
 }

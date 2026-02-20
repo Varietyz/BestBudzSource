@@ -4,7 +4,6 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public abstract class Dialogue {
   protected int next = 0;
-  protected int option;
   protected Stoner stoner;
 
   public abstract boolean clickButton(int id);
@@ -21,14 +20,6 @@ public abstract class Dialogue {
 
   public void setNext(int next) {
     this.next = next;
-  }
-
-  public int getOption() {
-    return option;
-  }
-
-  public void setOption(int option) {
-    this.option = option;
   }
 
   public Stoner getStoner() {

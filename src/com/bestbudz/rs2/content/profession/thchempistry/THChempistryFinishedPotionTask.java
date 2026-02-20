@@ -3,7 +3,6 @@ package com.bestbudz.rs2.content.profession.thchempistry;
 import com.bestbudz.core.task.Task;
 import com.bestbudz.core.task.TaskQueue;
 import com.bestbudz.core.task.impl.TaskIdentifier;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
 import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -229,7 +228,7 @@ public class THChempistryFinishedPotionTask extends Task {
 
 			if (!stoner.getBox().hasItemId(data.getUnfinishedPotion()) ||
 				!stoner.getBox().hasItemId(data.getItemNeeded())) {
-				stoner.send(new SendMessage("You finish making all possible finished potions."));
+				stoner.send(new SendMessage("You finishedBloodTrial making all possible finished potions."));
 				stop();
 				return;
 			}
@@ -244,7 +243,7 @@ public class THChempistryFinishedPotionTask extends Task {
 			stoner.getProfession().addExperience(15, data.getExpGained());
 
 			Item finishedPotion = new Item(data.getFinishedPotion(), 1);
-			stoner.send(new SendMessage("You finish making the " + finishedPotion.getDefinition().getName() + "."));
+			stoner.send(new SendMessage("You finishedBloodTrial making the " + finishedPotion.getDefinition().getName() + "."));
 			stoner.getBox().update();
 		}
 

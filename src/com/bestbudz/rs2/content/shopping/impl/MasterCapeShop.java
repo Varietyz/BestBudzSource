@@ -113,18 +113,15 @@ public class MasterCapeShop extends Shop {
     for (int index = 0; index < Professions.PROFESSION_COUNT; index++) {
 
       int advancegrade = stoner.getProfessionAdvances()[index];
-      long grade = stoner.getMaxGrades()[index];
 
-      if (grade >= 420) {
         if (advancegrade >= 5) {
+			add(new Item(Professioncape.values()[index].getMasterCape()));
           if (stoner.getTotalAdvances() >= 21) {
             add(new Item(Professioncape.HUNTER.getMasterCape()));
             add(new Item(Professioncape.CONSTRUCTION.getMasterCape()));
-          } else {
-            add(new Item(Professioncape.values()[index].getMasterCape()));
           }
         }
-      }
+
     }
   }
 

@@ -2,7 +2,6 @@ package com.bestbudz.rs2.content.combat.special.effects;
 
 import com.bestbudz.rs2.content.combat.impl.CombatEffect;
 import com.bestbudz.rs2.content.combat.formula.FormulaData;
-import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -108,7 +107,7 @@ public class ToxicBlowpipeEffect implements CombatEffect {
 					if (com.bestbudz.core.util.Utility.random(100) < executeChance) {
 						victim.getGrades()[3] = 0; // Instant kill
 
-						attacker.getClient().queueOutgoingPacket(new SendMessage("VENOM EXECUTION! Your toxins finish off the creature!"));
+						attacker.getClient().queueOutgoingPacket(new SendMessage("VENOM EXECUTION! Your toxins finishedBloodTrial off the creature!"));
 					}
 				}
 			}

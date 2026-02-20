@@ -2,7 +2,6 @@ package com.bestbudz.rs2.entity.movement;
 
 import com.bestbudz.core.cache.map.Region;
 import com.bestbudz.rs2.GameConstants;
-import com.bestbudz.rs2.entity.Location;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.mob.Walking;
 

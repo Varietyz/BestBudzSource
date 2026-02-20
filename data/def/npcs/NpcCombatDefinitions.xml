@@ -8356,6 +8356,7 @@
 			<int>0</int>
 			<int>0</int>
 			<int>0</int>
+			<int>0</int>
 		</bonuses>
 		<melee>
 			<melee>
@@ -8553,8 +8554,8 @@
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Tok-xil -->
-		<id>2170</id>
-		<combatType>MELEE_AND_SAGITTARIUS</combatType>
+		<id>2193</id>
+		<combatType>SAGITTARIUS</combatType>
 		<respawnTime>10</respawnTime>
 		<block>
 			<id>2629</id>
@@ -17630,6 +17631,84 @@
 			</sagittarius>
 		</sagittarius>
 	</NpcCombatDefinition>
+	<NpcCombatDefinition>
+		<!-- Thermonuclear Smoke Devil -->
+		<id>499</id>
+		<combatType>MAGE</combatType>
+		<respawnTime>15</respawnTime>
+		<block>
+			<id>3848</id>
+			<delay>0</delay>
+		</block>
+		<death>
+			<id>3849</id>
+			<delay>0</delay>
+		</death>
+		<professions>
+			<profession>
+				<id>0</id>
+				<grade>360</grade>
+			</profession>
+			<profession>
+				<id>1</id>
+				<grade>360</grade>
+			</profession>
+			<profession>
+				<id>2</id>
+				<grade>1</grade>
+			</profession>
+			<profession><id>3</id><grade>8100</grade></profession>
+			<profession>
+				<id>4</id>
+				<grade>360</grade>
+			</profession>
+			<profession>
+				<id>5</id>
+				<grade>360</grade>
+			</profession>
+			<profession>
+				<id>6</id>
+				<grade>93</grade>
+			</profession>
+		</professions>
+		<bonuses>
+			<int>200</int>
+			<int>200</int>
+			<int>4</int>
+			<int>9</int>
+			<int>11</int>
+			<int>800</int>
+			<int>200</int>
+			<int>200</int>
+			<int>200</int>
+			<int>200</int>
+			<int>200</int>
+			<int>200</int>
+		</bonuses>
+		<mage>
+			<mage>
+				<assault>
+					<hitDelay>3</hitDelay>
+					<assaultDelay>3</assaultDelay>
+				</assault>
+				<animation>
+					<id>3847</id>
+					<delay>0</delay>
+				</animation>
+				<projectile>
+					<id>551</id>
+					<size>1</size>
+					<delay>45</delay>
+					<duration>75</duration>
+					<startHeight>35</startHeight>
+					<endHeight>25</endHeight>
+					<curve>16</curve>
+				</projectile>
+				<max>15</max>
+			</mage>
+		</mage>
+	</NpcCombatDefinition>
+
 			<!---->
 			<!---->
 		 <!-- PETS -->
@@ -17845,7 +17924,7 @@
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Kalphite queen -->
-		<id>6637</id>
+		<id>6638</id>
 		<combatType>MELEE_AND_MAGE</combatType>
 		<respawnTime>4</respawnTime>
 		<block>
@@ -17945,7 +18024,7 @@
 	</NpcCombatDefinition>
 	<NpcCombatDefinition>
 		<!-- Kalphite queen -->
-		<id>6638</id>
+		<id>6637</id>
 		<combatType>MELEE_AND_MAGE</combatType>
 		<respawnTime>75</respawnTime>
 		<block>
@@ -18047,70 +18126,79 @@
 	<NpcCombatDefinition>
 		<!-- Smoke devil PET -->
 		<id>6655</id>
-		<combatType>SAGITTARIUS</combatType>
-		<respawnTime>30</respawnTime>
+		<combatType>MAGE</combatType>
+		<respawnTime>15</respawnTime>
 		<block>
-			<id>1555</id>
+			<id>3848</id>
 			<delay>0</delay>
 		</block>
 		<death>
-			<id>1558</id>
+			<id>3849</id>
 			<delay>0</delay>
 		</death>
 		<professions>
 			<profession>
 				<id>0</id>
-				<grade>75</grade>
+				<grade>360</grade>
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>75</grade>
+				<grade>360</grade>
 			</profession>
 			<profession>
 				<id>2</id>
-				<grade>75</grade>
+				<grade>1</grade>
 			</profession>
-			<profession><id>3</id><grade>1000</grade></profession>
+			<profession><id>3</id><grade>8100</grade></profession>
 			<profession>
 				<id>4</id>
-				<grade>75</grade>
+				<grade>360</grade>
 			</profession>
 			<profession>
 				<id>5</id>
-				<grade>75</grade>
+				<grade>360</grade>
 			</profession>
 			<profession>
 				<id>6</id>
-				<grade>75</grade>
+				<grade>93</grade>
 			</profession>
 		</professions>
 		<bonuses>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
-			<int>75</int>
+			<int>200</int>
+			<int>200</int>
+			<int>4</int>
+			<int>9</int>
+			<int>11</int>
+			<int>800</int>
+			<int>200</int>
+			<int>200</int>
+			<int>200</int>
+			<int>200</int>
+			<int>200</int>
+			<int>200</int>
 		</bonuses>
-		<sagittarius>
-			<sagittarius>
+		<mage>
+			<mage>
 				<assault>
 					<hitDelay>3</hitDelay>
 					<assaultDelay>4</assaultDelay>
 				</assault>
 				<animation>
-					<id>1557</id>
+					<id>3847</id>
 					<delay>0</delay>
 				</animation>
-				<max>13</max>
-			</sagittarius>
-		</sagittarius>
+				<projectile>
+					<id>551</id>
+					<size>1</size>
+					<delay>25</delay>
+					<duration>75</duration>
+					<startHeight>35</startHeight>
+					<endHeight>25</endHeight>
+					<curve>16</curve>
+				</projectile>
+				<max>15</max>
+			</mage>
+		</mage>
 	</NpcCombatDefinition>
 
 	<NpcCombatDefinition>
@@ -20710,43 +20798,43 @@
 	</NpcCombatDefinition>
 
 	<NpcCombatDefinition>
-		<!-- Pet dark beast -->
+		<!-- Abyssal Demon PET -->
 		<id>10050</id>
 		<combatType>MELEE</combatType>
-		<respawnTime>75</respawnTime>
+		<respawnTime>30</respawnTime>
 		<block>
-			<id>2732</id>
+			<id>-1</id>
 			<delay>0</delay>
 		</block>
 		<death>
-			<id>2733</id>
+			<id>1538</id>
 			<delay>0</delay>
 		</death>
 		<professions>
 			<profession>
 				<id>0</id>
-				<grade>125</grade>
+				<grade>75</grade>
 			</profession>
 			<profession>
 				<id>1</id>
-				<grade>125</grade>
+				<grade>75</grade>
 			</profession>
 			<profession>
-				<id>1</id>
-				<grade>125</grade>
+				<id>2</id>
+				<grade>75</grade>
 			</profession>
-			<profession><id>3</id><grade>2000</grade></profession>
+			<profession><id>3</id><grade>1250</grade></profession>
 			<profession>
 				<id>4</id>
-				<grade>125</grade>
+				<grade>75</grade>
 			</profession>
 			<profession>
 				<id>5</id>
-				<grade>125</grade>
+				<grade>75</grade>
 			</profession>
 			<profession>
 				<id>6</id>
-				<grade>125</grade>
+				<grade>75</grade>
 			</profession>
 		</professions>
 		<bonuses>
@@ -20766,11 +20854,11 @@
 		<melee>
 			<melee>
 				<assault>
-					<hitDelay>0</hitDelay>
-					<assaultDelay>6</assaultDelay>
+					<hitDelay>1</hitDelay>
+					<assaultDelay>5</assaultDelay>
 				</assault>
 				<animation>
-					<id>2731</id>
+					<id>1537</id>
 					<delay>0</delay>
 				</animation>
 				<max>15</max>

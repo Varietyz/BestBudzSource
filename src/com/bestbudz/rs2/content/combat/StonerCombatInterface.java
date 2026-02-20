@@ -20,7 +20,6 @@ import com.bestbudz.rs2.content.profession.melee.BarrowsSpecials;
 import com.bestbudz.rs2.content.profession.mercenary.MercenaryMonsters;
 import com.bestbudz.rs2.content.profession.sagittarius.BoltSpecials;
 import com.bestbudz.rs2.content.profession.sagittarius.ToxicBlowpipe;
-import com.bestbudz.rs2.content.sounds.StonerSounds;
 import com.bestbudz.rs2.entity.Entity;
 import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.item.EquipmentConstants;
@@ -440,14 +439,6 @@ public class StonerCombatInterface implements CombatInterface {
       BarrowsSpecials.checkForBarrowsSpecial(stoner);
     }
 
-    if (stoner.getCombat().getCombatType() != CombatTypes.MAGE) {
-      StonerSounds.sendSoundForId(
-          stoner,
-          stoner.getSpecialAssault().isInitialized(),
-          stoner.getEquipment().getItems()[3] != null
-              ? stoner.getEquipment().getItems()[3].getId()
-              : 0);
-    }
 
     if (stoner.getCombat().getCombatType() == CombatTypes.MAGE) {
       stoner.getMage().getSpellCasting().appendMultiSpell(stoner);

@@ -5,7 +5,6 @@ import com.bestbudz.rs2.content.achievements.AchievementHandler.AchievementDiffi
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.interfaces.InterfaceHandler;
 import com.bestbudz.rs2.entity.stoner.Stoner;
-import com.bestbudz.rs2.entity.stoner.net.out.impl.SendColor;
 
 public class AchievementTab extends InterfaceHandler {
 

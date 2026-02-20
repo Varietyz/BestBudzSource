@@ -23,7 +23,6 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.StonerUpdateFlags;
 import com.bestbudz.rs2.entity.pets.PetManager;
 import java.util.Iterator;
-import java.util.Objects;
 
 public final class StonerUpdating {
 
@@ -471,15 +470,15 @@ public final class StonerUpdating {
 			block.writeByte(flags.getDamage());
 			block.writeByte(flags.getHitType(), ValueType.A);
 			block.writeByte(flags.getHitUpdateType());
-			block.writeByte(flags.getHp(), ValueType.C);
-			block.writeByte(flags.getMaxHP());
+			block.writeLong(flags.getHp());
+			block.writeLong(flags.getMaxHP());
 		}
 		if (hit2) {
 			block.writeByte(flags.getDamage2());
 			block.writeByte(flags.getHitType2(), ValueType.S);
 			block.writeByte(flags.getHitUpdateType2());
-			block.writeByte(flags.getHp());
-			block.writeByte(flags.getMaxHP(), ValueType.C);
+			block.writeLong(flags.getHp());
+			block.writeLong(flags.getMaxHP());
 		}
 	}
 

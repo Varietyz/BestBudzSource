@@ -1,250 +1,194 @@
 package com.bestbudz.rs2.content.profession.mercenary;
 
 import com.bestbudz.core.definitions.NpcDefinition;
-import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
-import com.bestbudz.rs2.content.dialogue.DialogueManager;
-import com.bestbudz.rs2.entity.World;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Mercenary {
 
-  private final Stoner p;
-  private String task = null;
-  private byte amount = 0;
-  private MercenaryDifficulty current = null;
-  private Stoner partner = null;
+	private final Stoner p;
 
-  public Mercenary(Stoner p) {
-    this.p = p;
-  }
+	private String task = null;
+	private byte amount = 0;
+	private MercenaryDifficulty current = null;
 
-  public static boolean isMercenaryTask(Stoner p, Mob mob) {
-    return (p.getMercenary().getTask() != null)
-        && (mob.getDefinition()
-            .getName()
-            .toLowerCase()
-            .contains(p.getMercenary().getTask().toLowerCase()));
-  }
+	private final Map<String, Integer> killTracker = new HashMap<>();
+	private int totalKills = 0;
+	private String bossTask = null;
+	private int bossTaskKills = 0;
+	private static final int NORMAL_TASK_TARGET = 50;
+	private static final int BOSS_TASK_TARGET = 10;
+	private static final int KILLS_PER_POINT_REWARD = 25;
+	private static final int KILLS_PER_EXP_BONUS = 10;
 
-  public static boolean isMercenaryTask(Stoner p, String other) {
-    return (p.getMercenary().getTask() != null)
-        && (other.toLowerCase().contains(p.getMercenary().getTask().toLowerCase()));
-  }
+	public Mercenary(Stoner p) {
+		this.p = p;
+		assignAutoTasks();
+	}
 
-  public void addMercenaryExperience(double am) {
-    p.getProfession().addExperience(18, am);
-  }
+	public static boolean isMercenaryTask(Stoner p, Mob mob) {
+		String mobName = mob.getDefinition().getName().toLowerCase();
+		Mercenary merc = p.getMercenary();
 
-  public void assign(MercenaryDifficulty diff) {
-    switch (diff) {
-      case LOW:
-        MercenaryTasks.LowGrade[] lval = MercenaryTasks.LowGrade.values();
+		return (merc.task != null && mobName.contains(merc.task.toLowerCase())) ||
+			(merc.bossTask != null && mobName.contains(merc.bossTask.toLowerCase()));
+	}
 
-        MercenaryTasks.LowGrade set = lval[Utility.randomNumber(lval.length)];
+	public void addMercenaryExperience(double am) {
+		p.getProfession().addExperience(18, am);
+	}
 
-        while (p.getMaxGrades()[18] < set.lvl) {
-          set = lval[Utility.randomNumber(lval.length)];
-        }
+	public void assign(MercenaryDifficulty diff) {
+		assignAutoTasks();
+	}
 
-        task = set.name;
+	public void checkForMercenary(Mob killed) {
+		if (!isValidTarget(killed)) {
+			return;
+		}
 
-        amount = ((byte) (30 + Utility.randomNumber(25)));
-        current = MercenaryDifficulty.LOW;
-        break;
-      case MEDIUM:
-        MercenaryTasks.MediumGrade[] mval = MercenaryTasks.MediumGrade.values();
+		String mobName = killed.getDefinition().getName().toLowerCase();
+		NpcDefinition def = killed.getDefinition();
 
-        MercenaryTasks.MediumGrade set2 = mval[Utility.randomNumber(mval.length)];
+		killTracker.put(mobName, killTracker.getOrDefault(mobName, 0) + 1);
+		totalKills++;
 
-        while (p.getMaxGrades()[18] < set2.lvl) {
-          set2 = mval[Utility.randomNumber(mval.length)];
-        }
+		double baseExp = def.getGrade() * 2;
+		addMercenaryExperience(baseExp);
 
-        task = set2.name;
+		processMilestoneRewards();
 
-        amount = ((byte) (30 + Utility.randomNumber(25)));
-        current = MercenaryDifficulty.MEDIUM;
-        break;
-      case HIGH:
-        MercenaryTasks.HighGrade[] hval = MercenaryTasks.HighGrade.values();
+		processAutoTasks(killed, baseExp);
 
-        MercenaryTasks.HighGrade set3 = hval[Utility.randomNumber(hval.length)];
+	}
 
-        while (p.getMaxGrades()[18] < set3.lvl) {
-          set3 = hval[Utility.randomNumber(hval.length)];
-        }
+	private void processMilestoneRewards() {
+		if (totalKills % KILLS_PER_POINT_REWARD == 0) {
+			int points = calculatePointReward();
+			p.addMercenaryPoints(points);
+			p.getClient().queueOutgoingPacket(new SendMessage("<col=075D78>Milestone! +" + points + " points (" + totalKills + " kills)"));
+		}
 
-        task = set3.name;
+		if (totalKills % KILLS_PER_EXP_BONUS == 0) {
+			addMercenaryExperience(500);
+			p.getClient().queueOutgoingPacket(new SendMessage("<col=32CD32>Kill streak bonus: +50 exp!"));
+		}
+	}
 
-        amount = ((byte) (20 + Utility.randomNumber(25)));
-        current = MercenaryDifficulty.HIGH;
-        break;
-      case BOSS:
-        MercenaryTasks.BossGrade[] bval = MercenaryTasks.BossGrade.values();
+	private void processAutoTasks(Mob killed, double baseExp) {
+		String mobName = killed.getDefinition().getName().toLowerCase();
 
-        MercenaryTasks.BossGrade set4 = bval[Utility.randomNumber(bval.length)];
+		if (task != null && mobName.contains(task.toLowerCase())) {
+			amount++;
+			addMercenaryExperience(baseExp * 1.5);
 
-        while (p.getMaxGrades()[18] < set4.lvl) {
-          set4 = bval[Utility.randomNumber(bval.length)];
-        }
+			if (amount >= NORMAL_TASK_TARGET) {
+				completeNormalTask();
+				AchievementHandler.activateAchievement(p, AchievementList.COMPLETE_10_MERCENARY_TASKS, 1);
+				AchievementHandler.activateAchievement(p, AchievementList.COMPLETE_100_MERCENARY_TASKS, 1);
+			} else {
+				p.getClient().queueOutgoingPacket(new SendMessage("<col=FFD700>Normal task: " + amount + "/" + NORMAL_TASK_TARGET + " " + task));
+			}
+		}
 
-        task = set4.name;
+		if (bossTask != null && mobName.contains(bossTask.toLowerCase())) {
+			bossTaskKills++;
+			addMercenaryExperience(baseExp * 4.0);
 
-        amount = ((byte) (20 + Utility.randomNumber(25)));
-        current = MercenaryDifficulty.BOSS;
-        break;
-      default:
-        throw new IllegalArgumentException("(Mercenary.java) The world is going to end");
-    }
-  }
+			if (bossTaskKills >= BOSS_TASK_TARGET) {
+				completeBossTask();
+			} else {
+				p.getClient().queueOutgoingPacket(new SendMessage("<col=FF6347>Boss task: " + bossTaskKills + "/" + BOSS_TASK_TARGET + " " + bossTask));
+			}
+		}
+	}
 
-  public void checkForMercenary(Mob killed) {
-    if ((partner != null)
-        && ((task == null)
-            || ((partner.getMercenary().hasTask()) && (!isMercenaryTask(partner, task))))
-        && (partner.getLocation().isViewableFrom(p.getLocation()))
-        && (partner.getMercenary().hasTask())
-        && (isMercenaryTask(partner, killed.getDefinition().getName()))) {
-      partner.getProfession().addExperience(18, killed.getDefinition().getGrade() * 2 / 4);
-    }
+	private void assignAutoTasks() {
+		task = MercenaryTasks.getRandomNormalTask();
+		amount = 0;
+		current = MercenaryDifficulty.LOW;
 
-    if (task == null) {
-      return;
-    }
+		bossTask = MercenaryTasks.getRandomBossTask();
+		bossTaskKills = 0;
 
-    NpcDefinition def = killed.getDefinition();
+		p.getClient().queueOutgoingPacket(new SendMessage("<col=87CEEB>Auto-mercenary tasks assigned!"));
+		p.getClient().queueOutgoingPacket(new SendMessage("<col=FFD700>Normal: Kill " + NORMAL_TASK_TARGET + " " + task + "s"));
+		p.getClient().queueOutgoingPacket(new SendMessage("<col=FF6347>Boss: Kill " + BOSS_TASK_TARGET + " " + bossTask + "s"));
+	}
 
-    if (isMercenaryTask(p, killed)) {
-      amount = ((byte) (amount - 1));
-      double exp = def.getGrade() * 2;
+	private void completeNormalTask() {
+		addMercenaryExperience(200);
+		p.addMercenaryPoints(3);
+		p.getClient().queueOutgoingPacket(new SendMessage("<col=00FF00>Normal task completed! +200 exp, +3 points"));
 
-      addMercenaryExperience(exp);
-      doSocialMercenaryExperience(killed, exp);
+		task = MercenaryTasks.getRandomNormalTask();
+		amount = 0;
+		p.getClient().queueOutgoingPacket(new SendMessage("<col=FFD700>New normal task: Kill " + NORMAL_TASK_TARGET + " " + task + "s"));
+	}
 
-      if (amount == 0) {
+	private void completeBossTask() {
+		addMercenaryExperience(500);
+		p.addMercenaryPoints(10);
+		p.getClient().queueOutgoingPacket(new SendMessage("<col=00FF00>Boss task completed! +500 exp, +10 points"));
 
-        task = null;
-        addMercenaryExperience(def.getGrade() * 35);
-        p.getClient()
-            .queueOutgoingPacket(
-                new SendMessage(
-                    "<col=075D78>You have completed your Mercenary task; contact mercenary master for another."));
-        p.addMercenaryPoints(amount);
-        AchievementHandler.activateAchievement(p, AchievementList.COMPLETE_10_MERCENARY_TASKS, 1);
-        AchievementHandler.activateAchievement(p, AchievementList.COMPLETE_100_MERCENARY_TASKS, 1);
-        if (current != null) {
-          p.addMercenaryPoints(
-              current == MercenaryDifficulty.BOSS
-                  ? 20
-                  : current == MercenaryDifficulty.LOW
-                      ? 5
-                      : current == MercenaryDifficulty.MEDIUM
-                          ? 8
-                          : current == MercenaryDifficulty.HIGH ? 10 : 0);
-        }
+		bossTask = MercenaryTasks.getRandomBossTask();
+		bossTaskKills = 0;
+		p.getClient().queueOutgoingPacket(new SendMessage("<col=FF6347>New boss task: Kill " + BOSS_TASK_TARGET + " " + bossTask + "s"));
+	}
 
-      } else {
-      }
-    }
-  }
+	private int calculatePointReward() {
+		if (totalKills < 100) return 1;
+		if (totalKills < 500) return 2;
+		if (totalKills < 1000) return 3;
+		return 5;
+	}
 
-  public void doSocialMercenaryExperience(Mob killed, double am) {
-    if (partner != null) {
-      Stoner other = partner;
+	private boolean isValidTarget(Mob mob) {
+		return mob != null &&
+			mob.getDefinition() != null &&
+			mob.getDefinition().isAssaultable() &&
+			mob.getDefinition().getName() != null;
+	}
 
-      if ((other.getMercenary().getPartner() == null)
-          || (!other.getMercenary().getPartner().equals(p))) {
-        return;
-      }
+	public byte getAmount() {
+		return amount;
+	}
 
-      if (!other.isActive()) {
-        DialogueManager.sendStatement(p, "Your social mercenary partner is not online.");
-        partner = null;
-      } else if ((other.getLocation().isViewableFrom(p.getLocation()))
-          && ((other.getMercenary().hasTask()) || (isMercenaryTask(other, task)))) {
-        other.getProfession().addExperience(18, am / 2.0D);
-      }
-    }
-  }
+	public void setAmount(byte amount) {
+		this.amount = amount;
+	}
 
-  public byte getAmount() {
-    return amount;
-  }
+	public MercenaryDifficulty getCurrent() {
+		return current;
+	}
 
-  public void setAmount(byte amount) {
-    this.amount = amount;
-  }
+	public void setCurrent(MercenaryDifficulty current) {
+		this.current = current;
+	}
 
-  public MercenaryDifficulty getCurrent() {
-    return current;
-  }
+	public String getTask() {
+		return task;
+	}
 
-  public void setCurrent(MercenaryDifficulty current) {
-    this.current = current;
-  }
+	public void setTask(String task) {
+		this.task = task;
+	}
 
-  public Stoner getPartner() {
-    return partner;
-  }
+	public boolean hasTask() {
+		return task != null;
+	}
 
-  public String getPartnerName() {
-    return partner != null ? partner.getUsername() : null;
-  }
+	public void reset() {
+		assignAutoTasks();
+	}
 
-  public String getTask() {
-    return task;
-  }
-
-  public void setTask(String task) {
-    this.task = task;
-  }
-
-  public boolean hasMercenaryPartner() {
-    return partner != null;
-  }
-
-  public boolean hasTask() {
-    return (amount > 0) && (task != null);
-  }
-
-  public void reset() {
-    task = null;
-    amount = 0;
-    current = null;
-  }
-
-  public void setSocialMercenaryPartner(String name) {
-    if (name.equalsIgnoreCase(p.getUsername())) {
-      DialogueManager.sendStatement(p, "You may not set your partner as yourself!");
-      return;
-    }
-
-    Stoner other = World.getStonerByName(name);
-
-    if (other == null) {
-      DialogueManager.sendStatement(p, "It seems '" + name + "' doesn't exist or isn't online.");
-      return;
-    }
-
-    if (other.getMercenary().hasMercenaryPartner()) {
-      DialogueManager.sendStatement(p, name + " already has a mercenary partner!");
-      return;
-    }
-
-    DialogueManager.sendStatement(p, "You have successfully set " + name + " as your partner.");
-    partner = other;
-    DialogueManager.sendStatement(
-        other, "You have been set as " + p.getUsername() + "'s mercenary partner.");
-  }
-
-  public enum MercenaryDifficulty {
-    LOW,
-    MEDIUM,
-    HIGH,
-    BOSS
-  }
+	public enum MercenaryDifficulty {
+		LOW,
+		BOSS
+	}
 }
