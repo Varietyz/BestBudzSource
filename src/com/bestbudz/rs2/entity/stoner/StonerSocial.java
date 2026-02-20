@@ -6,25 +6,19 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendString;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Handles all social functionality including clan chat, private messaging, titles, and player reports
- */
 public class StonerSocial {
 	private final Stoner stoner;
 	private final PrivateMessaging privateMessaging;
 
-	// Player titles
 	private StonerTitle stonerTitle;
 	public List<StonerTitle> unlockedTitles = new ArrayList<>();
 	private String yellTitle = "Stoner";
 
-	// Reporting system
 	public long lastReport = 0;
 	public String lastReported = "";
 	public String reportName = "";
 	public int reportClicked = 0;
 
-	// Targeting system
 	public String targetName = "";
 	public int targetIndex;
 	public String viewing;
@@ -36,14 +30,11 @@ public class StonerSocial {
 
 	public void process() {
 		if (stoner.isPetStoner()) {
-			return; // Pets don't need social processing
+			return;
 		}
-		// Any periodic social processing can go here
+
 	}
 
-	/**
-	 * Clears the clan chat interface
-	 */
 	public void clearClanChat() {
 		stoner.send(new SendString("Chilling in: ", 18139));
 		stoner.send(new SendString("Grower: ", 18140));
@@ -52,9 +43,6 @@ public class StonerSocial {
 		}
 	}
 
-	/**
-	 * Determines the player's rank string for display
-	 */
 	public String deterquarryRank(Stoner stoner) {
 		switch (stoner.getRights()) {
 			case 0:
@@ -87,9 +75,6 @@ public class StonerSocial {
 		return "Unknown!";
 	}
 
-	/**
-	 * Determines the player's rank icon for display
-	 */
 	public String deterquarryIcon(Stoner stoner) {
 		switch (stoner.getRights()) {
 			case 0:
@@ -122,7 +107,6 @@ public class StonerSocial {
 		return "";
 	}
 
-	// Getters and setters
 	public PrivateMessaging getPrivateMessaging() { return privateMessaging; }
 
 	public StonerTitle getStonerTitle() { return stonerTitle; }
@@ -143,7 +127,6 @@ public class StonerSocial {
 	public String getViewing() { return viewing; }
 	public void setViewing(String viewing) { this.viewing = viewing; }
 
-	// Access to lastClanChat field
 	public String getLastClanChat() { return stoner.lastClanChat; }
 	public void setLastClanChat(String lastClanChat) { stoner.lastClanChat = lastClanChat; }
 }

@@ -325,7 +325,6 @@ public class Equipment {
       return false;
     }
 
-
     stoner.getBox().add(items[slot]);
 
     items[slot] = null;

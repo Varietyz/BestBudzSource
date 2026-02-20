@@ -114,7 +114,7 @@ public class GroundItemHandler {
 
   public static void process() {
     synchronized (active) {
-      // Phase 1: update ground items (timers + visibility)
+
       for (var item : active) {
         item.countdown();
         if (item.globalize()) {
@@ -122,7 +122,6 @@ public class GroundItemHandler {
         }
       }
 
-      // Phase 2: remove items
       Iterator<GroundItem> i = active.iterator();
       while (i.hasNext()) {
         var item = i.next();
@@ -146,7 +145,6 @@ public class GroundItemHandler {
         i.remove();
       }
 
-      // Phase 3: globalize items
       Iterator<GroundItem> gq = globalizeQueue.iterator();
       while (gq.hasNext()) {
         var groundItem = gq.next();

@@ -11,9 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-/**
- * SIMPLE: Bond manager for timer-based system
- */
 public class PetBondManager {
 
 	private static final Logger logger = Logger.getLogger(PetBondManager.class.getName());
@@ -28,16 +25,10 @@ public class PetBondManager {
 		this.dataManager = dataManager;
 	}
 
-	/**
-	 * Set growth callback
-	 */
 	public void setGrowthCallback(GrowthCheckCallback callback) {
 		this.growthCallback = callback;
 	}
 
-	/**
-	 * Get or create pet bond - PUBLIC method for timer system
-	 */
 	public PetBond getOrCreateBond(PetData petData) {
 		return petBonds.computeIfAbsent(petData, key -> {
 			PetBond bond = new PetBond();
@@ -47,9 +38,6 @@ public class PetBondManager {
 		});
 	}
 
-	/**
-	 * Update pet bond (legacy method for compatibility)
-	 */
 	public void updatePetBond(Pet pet, double experience, long actualTimeElapsed) {
 		try {
 			if (pet == null || pet.getData() == null) return;
@@ -61,12 +49,10 @@ public class PetBondManager {
 			bond.addExperience(experience);
 			bond.addActiveTime(actualTimeElapsed);
 
-			// Check for grade up
 			if (bond.getBondGrade() > oldGrade) {
 				handleBondGradeUp(pet, bond);
 			}
 
-			// Check for growth
 			checkForGrowth(pet, bond);
 
 		} catch (Exception e) {
@@ -74,25 +60,16 @@ public class PetBondManager {
 		}
 	}
 
-	/**
-	 * Check for growth and trigger if ready
-	 */
 	private void checkForGrowth(Pet pet, PetBond bond) {
 		if (growthCallback != null) {
 			growthCallback.checkGrowth(pet, bond);
 		}
 	}
 
-	/**
-	 * Interface for growth checking callback
-	 */
 	public interface GrowthCheckCallback {
 		void checkGrowth(Pet pet, PetBond bond);
 	}
 
-	/**
-	 * Handle bond grade increase
-	 */
 	private void handleBondGradeUp(Pet pet, PetBond bond) {
 		try {
 			if (pet == null || pet.getData() == null) return;
@@ -100,7 +77,6 @@ public class PetBondManager {
 			stoner.send(new SendMessage("Your bond with " + pet.getData().name() +
 				" reached grade " + bond.getBondGrade() + "!"));
 
-			// Send overhead message to the pet
 			if (pet.getPetStoner() != null && pet.getPetStoner().getUpdateFlags() != null) {
 				pet.getPetStoner().getUpdateFlags().sendForceMessage("*feels closer to master*");
 			}
@@ -113,22 +89,19 @@ public class PetBondManager {
 		}
 	}
 
-	/**
-	 * Record first summon
-	 */
 	public void recordFirstSummon(PetData petData) {
 		if (petData == null) return;
 
 		PetBond bond = petBonds.get(petData);
 
 		if (bond == null) {
-			// Truly first summon
+
 			bond = new PetBond();
 			bond.setFirstSummoned(System.currentTimeMillis());
 			petBonds.put(petData, bond);
 			logger.info("First summon: " + stoner.getUsername() + " - " + petData.name());
 		} else {
-			// Bond exists from save data
+
 			if (bond.getFirstSummoned() == 0) {
 				bond.setFirstSummoned(System.currentTimeMillis());
 			}
@@ -138,9 +111,6 @@ public class PetBondManager {
 		}
 	}
 
-	/**
-	 * Get bond grade for display
-	 */
 	public int getBondGrade(PetData petData) {
 		try {
 			PetBond bond = petBonds.get(petData);
@@ -151,35 +121,25 @@ public class PetBondManager {
 		}
 	}
 
-	/**
-	 * Transfer bond data during growth
-	 */
 	public void transferBond(PetData fromPet, PetData toPet, PetBond fromBond) {
-		// Create new bond for evolved pet
+
 		PetBond newBond = new PetBond();
-		newBond.setExperience(fromBond.getExperience() * 0.9); // Keep 90% experience
+		newBond.setExperience(fromBond.getExperience() * 0.9);
 		newBond.setActiveTime(fromBond.getActiveTime());
 		newBond.setFirstSummoned(fromBond.getFirstSummoned());
 
 		logger.info("Transferring bond: " + fromPet.name() + " -> " + toPet.name() +
 			" - " + (newBond.getActiveTime() / 60000) + " minutes");
 
-		// Update bond mapping
 		petBonds.remove(fromPet);
 		dataManager.deletePetBond(fromPet);
 		petBonds.put(toPet, newBond);
 	}
 
-	/**
-	 * Get all pet bonds
-	 */
 	public Map<PetData, PetBond> getAllBonds() {
 		return new HashMap<>(petBonds);
 	}
 
-	/**
-	 * Load bonds from data manager
-	 */
 	public void loadBonds(Map<PetData, PetBond> bonds) {
 		logger.info("Loading " + bonds.size() + " bonds for " + stoner.getUsername());
 		petBonds.clear();
@@ -193,9 +153,6 @@ public class PetBondManager {
 		}
 	}
 
-	/**
-	 * Force save all bonds
-	 */
 	public void forceSaveAllBonds() {
 		try {
 			for (Map.Entry<PetData, PetBond> entry : petBonds.entrySet()) {

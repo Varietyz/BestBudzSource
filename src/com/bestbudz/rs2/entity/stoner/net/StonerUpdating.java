@@ -29,8 +29,8 @@ public final class StonerUpdating {
 	public static void addStoner(
 		OutBuffer out, StonerUpdateFlags local, StonerUpdateFlags other, int index) {
 		out.writeBits(11, index);
-		out.writeBit(true); // placement required
-		out.writeBit(true); // update block required
+		out.writeBit(true);
+		out.writeBit(true);
 
 		Location delta = Utility.delta(local.getLocation(), other.getLocation());
 		out.writeBits(5, delta.getY());
@@ -106,7 +106,6 @@ public final class StonerUpdating {
 		block.writeShort(flags.getTurn90CCWEmote());
 		block.writeShort(flags.getRunEmote());
 
-		// FIXED: Use the captured display name
 		block.writeString(flags.getDisplayName());
 
 		if (flags.getStonerTitle() == null) {
@@ -135,12 +134,12 @@ public final class StonerUpdating {
 	}
 
 	public static void appendChat(StonerUpdateFlags flags, StreamBuffer.OutBuffer out) {
-		// Add null check for chat text
+
 		byte[] chatText = flags.getChatText();
 		if (chatText == null) {
-			// If chat text is null, don't write anything or write empty chat
+
 			logger.warning("Chat text is null for user: " + flags.getUsername());
-			return; // or write empty chat data if needed
+			return;
 		}
 
 		int colorAndEffect = ((flags.getChatColor() & 0xFF) << 8) | (flags.getChatEffects() & 0xFF);
@@ -158,7 +157,7 @@ public final class StonerUpdating {
 		boolean discardMovementQueue,
 		boolean attributesUpdate) {
 
-		out.writeBits(2, 3); // Placement update
+		out.writeBits(2, 3);
 		out.writeBits(2, z);
 		out.writeBit(discardMovementQueue);
 		out.writeBit(attributesUpdate);
@@ -168,7 +167,7 @@ public final class StonerUpdating {
 
 	public static void appendRun(
 		OutBuffer out, int direction, int direction2, boolean attributesUpdate) {
-		out.writeBits(2, 2); // Run update
+		out.writeBits(2, 2);
 		out.writeBits(3, direction);
 		out.writeBits(3, direction2);
 		out.writeBit(attributesUpdate);
@@ -179,7 +178,7 @@ public final class StonerUpdating {
 	}
 
 	public static void appendWalk(OutBuffer out, int direction, boolean attributesUpdate) {
-		out.writeBits(2, 1); // Walk update
+		out.writeBits(2, 1);
 		out.writeBits(3, direction);
 		out.writeBit(attributesUpdate);
 	}
@@ -204,15 +203,13 @@ public final class StonerUpdating {
 
 		out.writeBits(8, stoners.size());
 
-		// CRITICAL FIX: Process existing stoners in local list
 		for (Iterator<Stoner> it = stoners.iterator(); it.hasNext(); ) {
 			Stoner target = it.next();
 
-			// CRITICAL FIX: Null check and bounds check
 			if (target == null || target.getIndex() < 0 || target.getIndex() >= pFlags.length) {
 				it.remove();
 				out.writeBit(true);
-				out.writeBits(2, 3); // remove from local list
+				out.writeBits(2, 3);
 				continue;
 			}
 
@@ -231,12 +228,11 @@ public final class StonerUpdating {
 				}
 			} else {
 				out.writeBit(true);
-				out.writeBits(2, 3); // remove from local list
+				out.writeBits(2, 3);
 				it.remove();
 			}
 		}
 
-		// CRITICAL FIX: Add new stoners to local list with better logic
 		int added = 0;
 		final int maxLocalStoners = 255;
 		final int maxAddPerCycle = 15;
@@ -244,17 +240,14 @@ public final class StonerUpdating {
 		for (int i = 0; i < World.getStoners().length && stoners.size() < maxLocalStoners && added < maxAddPerCycle; i++) {
 			Stoner other = World.getStoners()[i];
 
-			// Skip if null, same stoner, or inactive
 			if (other == null || other == stoner || !other.isActive()) {
 				continue;
 			}
 
-			// Skip if already in local list (more efficient check)
 			if (stoners.contains(other)) {
 				continue;
 			}
 
-			// Bounds check for pFlags
 			if (i >= pFlags.length) {
 				continue;
 			}
@@ -265,7 +258,6 @@ public final class StonerUpdating {
 				&& flags.isVisible()
 				&& flags.getLocation().isViewableFrom(localLoc)) {
 
-				// CRITICAL FIX: Add debug logging for Discord bot and pets
 				if (World.isDiscordBot(other) || World.isPet(other)) {
 					System.out.println("VISIBILITY: Player " + stoner.getUsername() +
 						" attempting to add " + other.getUsername() +
@@ -281,7 +273,6 @@ public final class StonerUpdating {
 				updateState(flags, block, true, ignoreChat);
 				added++;
 
-				// Success debug
 				if (World.isDiscordBot(other) || World.isPet(other)) {
 					System.out.println("VISIBILITY: Successfully added " + other.getUsername() + " to " + stoner.getUsername() + "'s local list");
 				}
@@ -302,44 +293,37 @@ public final class StonerUpdating {
 
 	private static boolean shouldRemoveFromLocalList(Stoner viewer, Stoner target, StonerUpdateFlags flags, Location viewerLoc) {
 		if (target == null || flags == null) {
-			return true; // Remove null entries
+			return true;
 		}
 
 		if (!flags.isActive() || !flags.isVisible()) {
-			return true; // Remove inactive/invisible
+			return true;
 		}
 
 		if (!flags.getLocation().isViewableFrom(viewerLoc)) {
-			return true; // Remove if out of view range
+			return true;
 		}
 
-		// Don't remove pets or Discord bot unless they're actually gone
 		if (World.isDiscordBot(target) || World.isPet(target)) {
-			// Keep them in the list as long as they're active and in range
+
 			return false;
 		}
 
-		return false; // Keep in list
+		return false;
 	}
 
-	/**
-	 * CRITICAL FIX: Get original username for ignore checks
-	 * For pets, we need to check the owner's name, not the pet's internal name
-	 */
 	private static String getOriginalUsernameForIgnoreCheck(StonerUpdateFlags flags) {
 		String username = flags.getUsername();
 
-		// For pets, extract owner name for ignore checks
 		if (PetManager.isPetUsername(username)) {
-			// Pet usernames are formatted as "Pet_PETTYPE_OWNERNAME_timestamp"
+
 			String[] parts = username.split("_");
 			if (parts.length >= 4) {
-				// Extract owner name (3rd part)
+
 				return parts[2];
 			}
 		}
 
-		// For regular players and Discord bot
 		return username;
 	}
 
@@ -407,7 +391,6 @@ public final class StonerUpdating {
 		boolean forceAppearance,
 		boolean noChat) {
 
-		// Precompute flag states to avoid duplicate method calls
 		final boolean forceMove = flags.isForceMoveMask();
 		final boolean graphics = flags.isGraphicsUpdateRequired();
 		final boolean animation = flags.isAnimationUpdateRequired();
@@ -438,7 +421,6 @@ public final class StonerUpdating {
 			block.writeByte(mask);
 		}
 
-		// Only write blocks that are flagged for update
 		if (forceMove) {
 			appendForceMovement(flags, block);
 		}
@@ -492,13 +474,11 @@ public final class StonerUpdating {
 		final int localEndX = end.getX();
 		final int localEndY = end.getY();
 
-		// Write local start and relative end positions
 		block.writeByte(localStartX, ValueType.S);
 		block.writeByte(localStartY, ValueType.S);
 		block.writeByte(localStartX + localEndX, ValueType.S);
 		block.writeByte(localStartY + localEndY, ValueType.S);
 
-		// Write speeds and direction
 		block.writeShort(flags.getForceSpeed1(), ValueType.A, ByteOrder.LITTLE);
 		block.writeShort(flags.getForceSpeed2(), ValueType.A, ByteOrder.BIG);
 		block.writeByte(flags.getForceDirection(), ValueType.S);

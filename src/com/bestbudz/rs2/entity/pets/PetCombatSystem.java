@@ -8,33 +8,23 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.pets.abilities.PetAbility;
 
-/**
- * Pet combat system - Pure NPC combat without AutoCombat interference
- */
 public class PetCombatSystem {
 
-	/**
-	 * Process combat for a pet - called from pet's process() method
-	 */
 	public static void processPetCombat(Stoner pet) {
 		if (!canEngageInCombat(pet)) {
 			return;
 		}
 
-		// Pure NPC combat - find target using owner's NPCs
 		Mob target = findTargetForPet(pet);
 		if (target != null) {
-			// Select optimal style based on distance
+
 			selectAndSetPetCombatStyle(pet, target);
 
-			// Engage target directly
 			pet.getCombat().setAssault(target);
 
 			Entity actualTarget = pet.getCombat().getAssaulting();
 			if (actualTarget != null) {
-				//System.out.println("DEBUG: Pet " + pet.getIndex() + " actually assaulting " + actualTarget.getIndex());
 
-				// ===== FIXED: Find Pet object from pet stoner and notify PetMaster =====
 				Pet petObject = findPetObjectFromStoner(pet);
 				if (petObject != null) {
 					onPetCombatHit(petObject);
@@ -42,7 +32,6 @@ public class PetCombatSystem {
 			}
 		}
 
-		// Process pet abilities
 		Entity currentTarget = pet.getCombat().getAssaulting();
 		if (currentTarget != null && !currentTarget.isDead()) {
 			processPetAbilities(pet, currentTarget);
@@ -50,13 +39,12 @@ public class PetCombatSystem {
 	}
 
 	public static Pet findPetObjectFromStoner(Stoner petStoner) {
-		// Get the owner from the pet stoner's attributes
+
 		Stoner owner = (Stoner) petStoner.getAttributes().get("PET_OWNER");
 		if (owner == null || !owner.isActive()) {
 			return null;
 		}
 
-		// Search through the owner's active pets to find the matching one
 		for (Pet pet : owner.getActivePets()) {
 			if (pet.getPetStoner() == petStoner) {
 				return pet;
@@ -120,17 +108,15 @@ public class PetCombatSystem {
 		}
 	}
 
-	// Pure NPC style selection and setup
 	private static void selectAndSetPetCombatStyle(Stoner pet, Mob target) {
 		NpcCombatDefinition combatDef = (NpcCombatDefinition) pet.getAttributes().get("PET_COMBAT_DEFINITION");
 		if (combatDef == null) return;
 
-		// ADD: Style switching cooldown (5 seconds)
 		Long lastStyleChange = (Long) pet.getAttributes().get("PET_LAST_STYLE_CHANGE");
 		long currentTime = System.currentTimeMillis();
 
 		if (lastStyleChange != null && (currentTime - lastStyleChange) < 5000) {
-			return; // Don't switch too frequently
+			return;
 		}
 
 		try {
@@ -141,12 +127,10 @@ public class PetCombatSystem {
 
 			Combat.CombatTypes optimalStyle = selectNpcStyleForDistance(combatDef, distance);
 
-			// Only change if different from current
 			if (pet.getCombat().getCombatType() != optimalStyle) {
 				pet.getCombat().setCombatType(optimalStyle);
 				setupNpcCombatDataDirectly(pet, combatDef, optimalStyle);
 
-				// Store when we last changed style
 				pet.getAttributes().set("PET_LAST_STYLE_CHANGE", currentTime);
 
 				System.out.println("Pet " + pet.getUsername() + " switched to " + optimalStyle +
@@ -158,65 +142,56 @@ public class PetCombatSystem {
 		}
 	}
 
-	// NPC-style distance selection (no gear limitations)
 	private static Combat.CombatTypes selectNpcStyleForDistance(NpcCombatDefinition combatDef, int distance) {
 		boolean hasMelee = combatDef.getMelee() != null && combatDef.getMelee().length > 0;
 		boolean hasSagittarius = combatDef.getSagittarius() != null && combatDef.getSagittarius().length > 0;
 		boolean hasMage = combatDef.getMage() != null && combatDef.getMage().length > 0;
 
-		// Count available styles
 		java.util.List<Combat.CombatTypes> availableStyles = new java.util.ArrayList<>();
 
-		// Add styles that are effective at this distance
 		if (distance <= 1) {
-			// Close range: all styles can work at 1 tile, add variety
+
 			if (hasMelee) availableStyles.add(Combat.CombatTypes.MELEE);
 			if (hasSagittarius) availableStyles.add(Combat.CombatTypes.SAGITTARIUS);
 			if (hasMage) availableStyles.add(Combat.CombatTypes.MAGE);
 		} else if (distance <= 5) {
-			// Medium range: sagittarius and mage work well
+
 			if (hasSagittarius) availableStyles.add(Combat.CombatTypes.SAGITTARIUS);
 			if (hasMage) availableStyles.add(Combat.CombatTypes.MAGE);
-			// Melee can still work but less preferred
+
 			if (hasMelee && distance <= 3) availableStyles.add(Combat.CombatTypes.MELEE);
 		} else {
-			// Long range: prefer mage, sagittarius as backup
+
 			if (hasMage) availableStyles.add(Combat.CombatTypes.MAGE);
 			if (hasSagittarius) availableStyles.add(Combat.CombatTypes.SAGITTARIUS);
 		}
 
-		// If multiple styles available, add some randomness for variation
 		if (availableStyles.size() > 1) {
-			// 70% chance to use random style, 30% chance to use "optimal" style
+
 			if (Math.random() < 0.7) {
-				// Random selection for variety
+
 				int randomIndex = (int)(Math.random() * availableStyles.size());
 				return availableStyles.get(randomIndex);
 			}
 		}
 
-		// Fallback to optimal style or first available
 		if (!availableStyles.isEmpty()) {
 			return availableStyles.get(0);
 		}
 
-		// Final fallback
 		if (hasMage) return Combat.CombatTypes.MAGE;
 		if (hasSagittarius) return Combat.CombatTypes.SAGITTARIUS;
 		return Combat.CombatTypes.MELEE;
 	}
 
-	// Direct combat setup - bypasses PetCombatHandler to avoid conflicts
 	private static void setupNpcCombatDataDirectly(Stoner pet, NpcCombatDefinition combatDef, Combat.CombatTypes style) {
-		// Set max hit based on combat type
+
 		int maxHit = getMaxHitForCombatType(combatDef, style);
 		pet.getAttributes().set("PET_CURRENT_MAX_HIT", maxHit);
 
-		// Set proper assault delay from combat definition
 		int assaultDelay = getAssaultDelayForCombatType(combatDef, style);
 		pet.getCombat().setAssaultTimer(assaultDelay);
 
-		// Set up the combat class assault data with proper delays
 		setupCombatClassData(pet, combatDef, style);
 	}
 
@@ -238,7 +213,7 @@ public class PetCombatSystem {
 				}
 				break;
 		}
-		return 25; // Default damage
+		return 25;
 	}
 
 	private static int getAssaultDelayForCombatType(NpcCombatDefinition combatDef, Combat.CombatTypes type) {
@@ -259,7 +234,7 @@ public class PetCombatSystem {
 				}
 				break;
 		}
-		return 4; // Default 4 tick delay
+		return 4;
 	}
 
 	private static void setupCombatClassData(Stoner pet, NpcCombatDefinition combatDef, Combat.CombatTypes combatType) {

@@ -20,9 +20,6 @@ import com.bestbudz.rs2.content.minigames.godwars.GodWarsData.GodWarsNpc;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendConfig;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Handles all combat-related functionality for Stoner
- */
 public class StonerCombat {
 	private final Stoner stoner;
 	private final CombatInterface combatInterface;
@@ -30,12 +27,10 @@ public class StonerCombat {
 	private final RareDropEP rareDropEP;
 	private final AutoCombat autoCombat;
 
-	// Combat state
 	private long aggressionDelay = System.currentTimeMillis();
 	private long currentStunDelay;
 	private long setStunDelay;
 
-	// Special combat flags
 	private boolean hitZulrah;
 
 	public StonerCombat(Stoner stoner) {
@@ -54,10 +49,9 @@ public class StonerCombat {
 	}
 
 	public void reset() {
-		// Combat-specific reset logic if needed
+
 	}
 
-	// Combat interface delegation methods
 	public void afterCombatProcess(Entity assault) {
 		combatInterface.afterCombatProcess(assault);
 	}
@@ -93,10 +87,8 @@ public class StonerCombat {
 			hit.setDamage(stoner.getGrades()[3]);
 		}
 
-		// Apply damage to HP
 		stoner.getGrades()[3] = Math.max(0, stoner.getGrades()[3] - hit.getDamage());
 
-		// Update visual hit markers
 		if (!stoner.getUpdateFlags().isHitUpdate()) {
 			stoner.getUpdateFlags().sendHit(hit.getDamage(), hit.getHitType(), hit.getCombatHitType());
 		} else {
@@ -106,19 +98,16 @@ public class StonerCombat {
 		if (hit.getAssaulter() != null) {
 			stoner.getCombat().getDamageTracker().addDamage(hit.getAssaulter(), hit.getDamage());
 
-			// Enhanced retaliation for pets and players
 			if (stoner.isRetaliate() && stoner.getCombat().getAssaulting() == null) {
 				stoner.getCombat().setAssault(hit.getAssaulter());
 			}
 
 		}
 
-		// Check for death after damage is applied
 		if (!stoner.isDead()) {
 			checkForDeath();
 		}
 
-		// Notify the attacker that they hit this target
 		if (hit.getAssaulter() != null) {
 			hit.getAssaulter().onHit(stoner, hit);
 		}
@@ -176,10 +165,9 @@ public class StonerCombat {
 
 	public void retaliate(Entity assaulted) {
 		if (assaulted != null) {
-			// CRITICAL: Prevent PLAYERS from retaliating against pets - pets are untouchable
-			// But allow pets to retaliate against anything
+
 			if (!stoner.isPetStoner() && assaulted instanceof Stoner && ((Stoner) assaulted).isPetStoner()) {
-				return; // Skip retaliation - players cannot fight back against pets
+				return;
 			}
 
 			if (stoner.isRetaliate() && stoner.getCombat().getAssaulting() == null && !stoner.getMovementHandler().moving()) {
@@ -193,7 +181,6 @@ public class StonerCombat {
 			return;
 		}
 
-		// Handle special mob sequences
 		short[] override = new short[3];
 		if ((stoner.getCombat().inCombat()) && (stoner.getCombat().getLastAssaultedBy().isNpc())) {
 			Mob m = World.getNpcs()[stoner.getCombat().getLastAssaultedBy().getIndex()];
@@ -210,11 +197,10 @@ public class StonerCombat {
 			}
 		}
 
-		// Enhanced NPC detection
 		java.util.List<Mob> npcsToCheck = new java.util.ArrayList<>();
 
 		if (World.isDiscordBot(stoner) || World.isPet(stoner)) {
-			// Discord bot: Use world NPCs directly with proper filtering
+
 			Mob[] worldNpcs = World.getNpcs();
 			if (worldNpcs != null) {
 				for (Mob npc : worldNpcs) {
@@ -230,7 +216,7 @@ public class StonerCombat {
 				}
 			}
 		} else {
-			// Regular players: Use client NPCs but also check world NPCs as fallback
+
 			if (stoner.getClient().getNpcs() != null && !stoner.getClient().getNpcs().isEmpty()) {
 				npcsToCheck.addAll(stoner.getClient().getNpcs());
 			} else {
@@ -251,12 +237,10 @@ public class StonerCombat {
 			}
 		}
 
-		// Process each NPC for aggression
 		for (Mob npc : npcsToCheck) {
 			if ((npc.getCombat().getAssaulting() == null) && (npc.getCombatDefinition() != null)) {
 				boolean overrideCheck = false;
 
-				// Check for override NPCs
 				for (short overrideId : override) {
 					if ((short) npc.getId() == overrideId) {
 						overrideCheck = true;
@@ -268,19 +252,16 @@ public class StonerCombat {
 					continue;
 				}
 
-				// Skip NPCs owned by this player
 				if (npc.getOwner() == stoner) {
 					continue;
 				}
 
-				// Only process actually aggressive NPCs
 				if (!MobConstants.isAggressive(npc.getId())) {
 					continue;
 				}
 
 				if ((npc.getLocation().getZ() == stoner.getLocation().getZ()) && (!npc.isWalkToHome())) {
 
-					// Special handling for God Wars
 					if (stoner.getController().equals(ControllerManager.GOD_WARS_CONTROLLER)) {
 						GodWarsNpc npcData = GodWarsData.forId(npc.getId());
 						if (npcData != null) {
@@ -298,20 +279,17 @@ public class StonerCombat {
 						continue;
 					}
 
-					// Enhanced aggression logic for aggressive NPCs only
 					if (!npc.getCombat().inCombat() || npc.inMultiArea()) {
-						// Calculate proper distance
+
 						int distance = Math.max(
 							Math.abs(stoner.getLocation().getX() - npc.getLocation().getX()),
 							Math.abs(stoner.getLocation().getY() - npc.getLocation().getY())
 						);
 
-						// Proper aggression range calculation
 						int aggroRange = npc.getSize() * 2 + 2;
 
-						// Check if should attack
 						if (overrideCheck || (distance <= aggroRange)) {
-							// Only let the NPC attack the player, don't make player target NPC
+
 							npc.getCombat().setAssault(stoner);
 						}
 					}
@@ -334,7 +312,6 @@ public class StonerCombat {
 		aggressionDelay = System.currentTimeMillis();
 	}
 
-	// Getters and setters
 	public SpecialAssault getSpecialAssault() { return specialAssault; }
 	public RareDropEP getRareDropEP() { return rareDropEP; }
 	public AutoCombat getAutoCombat() { return autoCombat; }

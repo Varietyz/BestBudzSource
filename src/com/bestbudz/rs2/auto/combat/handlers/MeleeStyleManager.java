@@ -4,21 +4,17 @@ import com.bestbudz.rs2.entity.item.Equipment;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Manages melee combat style rotation for balanced profession training
- */
 public class MeleeStyleManager {
 
 	private final Stoner stoner;
 	private long lastStyleChangeTime = 0;
-	private static final long STYLE_CHANGE_INTERVAL = 120000; // 2 minutes per style
+	private static final long STYLE_CHANGE_INTERVAL = 120000;
 
-	// Style rotation order for balanced training
 	private final Equipment.AssaultStyles[] STYLE_ROTATION = {
-		Equipment.AssaultStyles.ACCURATE,    // Assault XP
-		Equipment.AssaultStyles.AGGRESSIVE,  // Vigour XP
-		Equipment.AssaultStyles.DEFENSIVE,   // Aegis XP
-		Equipment.AssaultStyles.CONTROLLED   // Balanced XP (all three)
+		Equipment.AssaultStyles.ACCURATE,
+		Equipment.AssaultStyles.AGGRESSIVE,
+		Equipment.AssaultStyles.DEFENSIVE,
+		Equipment.AssaultStyles.CONTROLLED
 	};
 
 	private int currentStyleIndex = 0;
@@ -28,9 +24,6 @@ public class MeleeStyleManager {
 		this.lastStyleChangeTime = System.currentTimeMillis();
 	}
 
-	/**
-	 * Check if melee style should be rotated and do it if needed
-	 */
 	public void processStyleRotation() {
 		if (!shouldRotateStyle()) {
 			return;
@@ -39,22 +32,15 @@ public class MeleeStyleManager {
 		rotateToNextStyle();
 	}
 
-	/**
-	 * Check if it's time to rotate the melee style
-	 */
 	private boolean shouldRotateStyle() {
 		long currentTime = System.currentTimeMillis();
 		return (currentTime - lastStyleChangeTime) >= STYLE_CHANGE_INTERVAL;
 	}
 
-	/**
-	 * Rotate to the next style in the sequence
-	 */
 	private void rotateToNextStyle() {
 		currentStyleIndex = (currentStyleIndex + 1) % STYLE_ROTATION.length;
 		Equipment.AssaultStyles newStyle = STYLE_ROTATION[currentStyleIndex];
 
-		// Apply the new style
 		stoner.getEquipment().setAssaultStyle(newStyle);
 		lastStyleChangeTime = System.currentTimeMillis();
 
@@ -63,9 +49,6 @@ public class MeleeStyleManager {
 		stoner.send(new SendMessage(message));
 	}
 
-	/**
-	 * Force a specific style (for manual control or special situations)
-	 */
 	public void forceStyle(Equipment.AssaultStyles style) {
 		for (int i = 0; i < STYLE_ROTATION.length; i++) {
 			if (STYLE_ROTATION[i] == style) {
@@ -81,16 +64,10 @@ public class MeleeStyleManager {
 		stoner.send(new SendMessage(message));
 	}
 
-	/**
-	 * Get current melee style
-	 */
 	public Equipment.AssaultStyles getCurrentStyle() {
 		return stoner.getEquipment().getAssaultStyle();
 	}
 
-	/**
-	 * Get user-friendly style name
-	 */
 	private String getStyleName(Equipment.AssaultStyles style) {
 		switch (style) {
 			case ACCURATE: return "Accurate";
@@ -101,9 +78,6 @@ public class MeleeStyleManager {
 		}
 	}
 
-	/**
-	 * Get the training benefit description
-	 */
 	private String getStyleBenefit(Equipment.AssaultStyles style) {
 		switch (style) {
 			case ACCURATE: return "Assault training";
@@ -114,16 +88,10 @@ public class MeleeStyleManager {
 		}
 	}
 
-	/**
-	 * Reset style rotation timing
-	 */
 	public void resetTiming() {
 		lastStyleChangeTime = System.currentTimeMillis();
 	}
 
-	/**
-	 * Get timing info for debugging
-	 */
 	public String getTimingInfo() {
 		long timeInCurrentStyle = System.currentTimeMillis() - lastStyleChangeTime;
 		long timeUntilNext = Math.max(0, STYLE_CHANGE_INTERVAL - timeInCurrentStyle);

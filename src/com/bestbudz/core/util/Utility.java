@@ -96,8 +96,6 @@ public class Utility {
 	return NumberFormat.getInstance().format(num);
 	}
 
-
-
 	public static String formatBestBucks(int amount) {
 	if (amount >= 10000000) {
 		return amount / 1000000 + "M";
@@ -273,7 +271,6 @@ public class Utility {
 	return (int) (java.lang.Math.random() * length);
 	}
 
-
 	public static int random(int range) {
 	return (int) (java.lang.Math.random() * (range + 1));
 	}
@@ -376,7 +373,6 @@ public class Utility {
 	}
 	return "" + price;
 	}
-
 
 	public static String getFormattedTime(int secs) {
 	if (secs < 60)

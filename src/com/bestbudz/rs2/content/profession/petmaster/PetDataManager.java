@@ -10,9 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-/**
- * MINIMAL FIX: Simply preserve ALL bond data instead of filtering by active pets
- */
 public class PetDataManager {
 
 	private static final String SAVE_DIRECTORY = "./data/profession/petmaster/";
@@ -21,7 +18,7 @@ public class PetDataManager {
 	private final com.bestbudz.rs2.entity.stoner.Stoner stoner;
 
 	static {
-		// Ensure save directory exists
+
 		try {
 			Files.createDirectories(Paths.get(SAVE_DIRECTORY));
 		} catch (IOException e) {
@@ -33,9 +30,6 @@ public class PetDataManager {
 		this.stoner = stoner;
 	}
 
-	/**
-	 * Save individual pet bond - called by PetBondManager
-	 */
 	public void savePetBond(PetData petData, PetBond bond) {
 		if (stoner == null || stoner.getUsername() == null || petData == null || bond == null) return;
 
@@ -43,7 +37,7 @@ public class PetDataManager {
 		Properties props = new Properties();
 
 		try {
-			// Load existing data first
+
 			Path filePath = Paths.get(filename);
 			if (Files.exists(filePath)) {
 				try (FileInputStream fis = new FileInputStream(filename)) {
@@ -51,14 +45,12 @@ public class PetDataManager {
 				}
 			}
 
-			// Save this specific pet bond data
 			String petPrefix = "pet.bond." + petData.name() + ".";
 			props.setProperty(petPrefix + "experience", String.valueOf(bond.getExperience()));
 			props.setProperty(petPrefix + "bondGrade", String.valueOf(bond.getBondGrade()));
 			props.setProperty(petPrefix + "activeTime", String.valueOf(bond.getActiveTime()));
 			props.setProperty(petPrefix + "firstSummoned", String.valueOf(bond.getFirstSummoned()));
 
-			// Write back to file
 			try (FileOutputStream fos = new FileOutputStream(filename)) {
 				props.store(fos, "PetMaster Profession Data for " + stoner.getUsername());
 			}
@@ -69,9 +61,6 @@ public class PetDataManager {
 		}
 	}
 
-	/**
-	 * Load all pet bond data for this stoner
-	 */
 	public Map<PetData, PetBond> loadData() {
 		Map<PetData, PetBond> bonds = new HashMap<>();
 
@@ -83,7 +72,7 @@ public class PetDataManager {
 		Path filePath = Paths.get(filename);
 
 		if (!Files.exists(filePath)) {
-			// No save file exists - this is fine for new players
+
 			return bonds;
 		}
 
@@ -92,11 +81,9 @@ public class PetDataManager {
 		try (FileInputStream fis = new FileInputStream(filename)) {
 			props.load(fis);
 
-			// Load pet bond data for all pet types
 			for (PetData petData : PetData.values()) {
 				String petPrefix = "pet.bond." + petData.name() + ".";
 
-				// Check if this pet has saved data
 				if (props.getProperty(petPrefix + "experience") != null) {
 					PetBond bond = new PetBond();
 
@@ -126,9 +113,6 @@ public class PetDataManager {
 		return bonds;
 	}
 
-	/**
-	 * FIXED: Save ALL bonds, don't filter by active status - preserves pickup/deploy cycles
-	 */
 	public void saveData(Map<PetData, PetBond> bonds) {
 		if (stoner == null || stoner.getUsername() == null || bonds == null) return;
 
@@ -136,7 +120,7 @@ public class PetDataManager {
 		Properties props = new Properties();
 
 		try {
-			// SAVE ALL BONDS - removed the filtering logic that was causing data loss
+
 			for (Map.Entry<PetData, PetBond> entry : bonds.entrySet()) {
 				PetData petData = entry.getKey();
 				PetBond bond = entry.getValue();
@@ -150,7 +134,6 @@ public class PetDataManager {
 				}
 			}
 
-			// Write to file
 			try (FileOutputStream fos = new FileOutputStream(filename)) {
 				props.store(fos, "PetMaster Profession Data for " + stoner.getUsername());
 			}
@@ -160,9 +143,6 @@ public class PetDataManager {
 		}
 	}
 
-	/**
-	 * Delete specific pet bond data - ONLY called during actual growth
-	 */
 	public void deletePetBond(PetData petData) {
 		if (stoner == null || stoner.getUsername() == null || petData == null) return;
 
@@ -170,7 +150,7 @@ public class PetDataManager {
 		Properties props = new Properties();
 
 		try {
-			// Load existing data first
+
 			Path filePath = Paths.get(filename);
 			if (Files.exists(filePath)) {
 				try (FileInputStream fis = new FileInputStream(filename)) {
@@ -178,14 +158,12 @@ public class PetDataManager {
 				}
 			}
 
-			// Remove all properties for this specific pet
 			String petPrefix = "pet.bond." + petData.name() + ".";
 			props.remove(petPrefix + "experience");
 			props.remove(petPrefix + "bondGrade");
 			props.remove(petPrefix + "activeTime");
 			props.remove(petPrefix + "firstSummoned");
 
-			// Write back to file
 			try (FileOutputStream fos = new FileOutputStream(filename)) {
 				props.store(fos, "PetMaster Profession Data for " + stoner.getUsername());
 			}

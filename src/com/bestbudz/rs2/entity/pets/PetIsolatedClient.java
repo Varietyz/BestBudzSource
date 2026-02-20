@@ -2,30 +2,26 @@ package com.bestbudz.rs2.entity.pets;
 
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
-/**
- * FINAL FIX: Truly isolated client for pets with proper stoner reference management
- */
 public class PetIsolatedClient extends com.bestbudz.rs2.entity.stoner.net.Client {
 	private final Stoner owner;
 	private volatile long lastPacketTime;
-	private Stoner petStoner; // Reference to the actual pet stoner
+	private Stoner petStoner;
 
 	public PetIsolatedClient(Stoner owner) {
-		super(null); // This no longer creates a conflicting Stoner instance
+		super(null);
 		this.owner = owner;
 		this.lastPacketTime = System.currentTimeMillis();
 		setStage(Stages.LOGGED_OUT);
 	}
 
-	// CRITICAL FIX: Set the pet stoner reference after creation
 	public void setPetStoner(Stoner petStoner) {
 		this.petStoner = petStoner;
-		setStoner(petStoner); // Set in parent Client class
+		setStoner(petStoner);
 	}
 
 	@Override
 	public void disconnect() {
-		// No actual network connection to disconnect
+
 	}
 
 	@Override
@@ -39,13 +35,13 @@ public class PetIsolatedClient extends com.bestbudz.rs2.entity.stoner.net.Client
 	@Override
 	public void processIncomingPackets() {
 		updateLastPacketTime();
-		// Minimal processing for pets
+
 	}
 
 	@Override
 	public void processOutgoingPackets() {
 		updateLastPacketTime();
-		// Pets don't send packets
+
 	}
 
 	@Override
@@ -68,13 +64,9 @@ public class PetIsolatedClient extends com.bestbudz.rs2.entity.stoner.net.Client
 		return true;
 	}
 
-	/**
-	 * CRITICAL FIX: Return empty NPC list for pets to avoid conflicts
-	 */
 	@Override
 	public java.util.List<com.bestbudz.rs2.entity.mob.Mob> getNpcs() {
-		// Pets don't need to see NPCs for combat/interaction
-		// This prevents conflicts with other entity NPC lists
+
 		return new java.util.ArrayList<>();
 	}
 

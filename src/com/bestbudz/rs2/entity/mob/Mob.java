@@ -22,14 +22,10 @@ import com.bestbudz.rs2.entity.mob.bosses.wild.*;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Simplified 317-style mob with communication
- */
 public class Mob extends Entity {
 
 	private static final Logger logger = Logger.getLogger(Mob.class.getSimpleName());
 
-	// Core identity
 	private short npcId;
 	private final boolean assaultable;
 	private final boolean face;
@@ -39,7 +35,6 @@ public class Mob extends Entity {
 	private byte faceDir;
 	private VirtualMobRegion virtualRegion = null;
 
-	// Component handlers
 	private final MobStateManager stateManager;
 	private final MobDefinitionProvider definitionProvider;
 	private final MobTransformationHandler transformationHandler;
@@ -58,14 +53,12 @@ public class Mob extends Entity {
 		this.lockFollow = lockFollow;
 		this.virtualRegion = virtualRegion;
 
-		// Initialize component handlers
 		this.stateManager = new MobStateManager(this);
 		this.definitionProvider = new MobDefinitionProvider(this);
 		this.transformationHandler = new MobTransformationHandler(this, npcId);
 		this.movementController = new MobMovementController(this, location, walks);
 		this.combatHandler = new MobCombatHandler(this);
 
-		// Set initial state
 		this.face = MobConstants.face(npcId);
 		this.noFollow = MobConstants.noFollow(this);
 		this.assaultable = getDefinition().isAssaultable();
@@ -81,23 +74,19 @@ public class Mob extends Entity {
 		setActive(true);
 		stateManager.setRespawnable(shouldRespawn);
 
-		// Initialize combat stats
 		initializeCombatStats();
 
-		// Special face directions
 		if (npcId == 8725) faceDir = 4;
 		else if ((npcId == 553) && (location.getX() == 3091) && (location.getY() == 3497)) faceDir = 4;
 		else faceDir = -1;
 
 		setRetaliate(assaultable);
 
-		// Add to GodWars bosses if applicable
 		if (GodWarsData.forId(npcId) != null && GodWarsData.bossNpc(GodWarsData.forId(npcId))) {
 			MobConstants.GODWARS_BOSSES.add(this);
 		}
 	}
 
-	// Constructors
 	public Mob(int npcId, boolean walks, boolean respawn, Location location) {
 		this(npcId, walks, location, null, false, false, null);
 	}
@@ -138,7 +127,6 @@ public class Mob extends Entity {
 		}
 	}
 
-	// Static methods
 	public static NpcDefinition getDefinition(int id) {
 		return MobDefinitionProvider.getDefinition(id);
 	}
@@ -158,32 +146,24 @@ public class Mob extends Entity {
 		logger.info("All MOB bosses have been spawned.");
 	}
 
-	/**
-	 * Simple 317-style aggro check
-	 */
 	private void checkAggression() {
-		// Only check aggression occasionally and if not already fighting
+
 		if (getCombat().getAssaulting() != null || Utility.randomNumber(20) != 0) {
 			return;
 		}
 
-		// Only aggressive mobs attack
 		if (!MobConstants.isAggressive(getId())) {
 			return;
 		}
 
-		// Find closest valid target
 		Stoner target = findClosestValidTarget();
 		if (target != null) {
 			getCombat().setAssault(target);
 		}
 	}
 
-	/**
-	 * Simple target finding
-	 */
 	private Stoner findClosestValidTarget() {
-		int aggroRange = getSize() + 4; // Simple aggro range
+		int aggroRange = getSize() + 4;
 		Stoner closest = null;
 		int closestDistance = Integer.MAX_VALUE;
 
@@ -203,26 +183,20 @@ public class Mob extends Entity {
 		return closest;
 	}
 
-	/**
-	 * Simple main processing - 317 style
-	 */
 	@Override
 	public void process() throws Exception {
-		// Validate ownership first
+
 		stateManager.validateOwnership();
 		if (stateManager.shouldRemove()) {
 			return;
 		}
 
-		// Simple aggression check for assaultable mobs
 		if (isAssaultable()) {
 			checkAggression();
 		}
 
-		// Process combat
 		combatHandler.process();
 
-		// Process movement
 		movementController.process();
 	}
 
@@ -231,7 +205,6 @@ public class Mob extends Entity {
 		stateManager.reset();
 	}
 
-	// Combat-related overrides
 	@Override
 	public void afterCombatProcess(Entity assault) {
 		combatHandler.afterCombatProcess(assault);
@@ -321,7 +294,6 @@ public class Mob extends Entity {
 		}
 	}
 
-	// Movement-related overrides
 	@Override
 	public Following getFollowing() {
 		return movementController.getFollowing();
@@ -332,7 +304,6 @@ public class Mob extends Entity {
 		return movementController.getMovementHandler();
 	}
 
-	// Delegation methods to components
 	public void addCombatant(Stoner p) {
 		combatHandler.addCombatant(p);
 	}
@@ -370,11 +341,11 @@ public class Mob extends Entity {
 	}
 
 	public void doAliveMobProcessing() {
-		// Override in subclasses
+
 	}
 
 	public void doPostHitProcessing(Hit hit) {
-		// Override in subclasses
+
 	}
 
 	public void onDeath() {
@@ -409,7 +380,6 @@ public class Mob extends Entity {
 		return movementController.withinMobWalkDistance(e);
 	}
 
-	// Getters and setters
 	public boolean face() { return face; }
 	public int getFaceDirection() { return faceDir; }
 	public void setFaceDir(int face) { faceDir = (byte) face; }
@@ -440,7 +410,6 @@ public class Mob extends Entity {
 	public boolean isCanAssault() { return stateManager.isCanAssault(); }
 	public void setCanAssault(boolean canAssault) { stateManager.setCanAssault(canAssault); }
 
-	// Component getters for internal use
 	public MobStateManager getStateManager() { return stateManager; }
 	public MobDefinitionProvider getDefinitionProvider() { return definitionProvider; }
 	public MobTransformationHandler getTransformationHandler() { return transformationHandler; }

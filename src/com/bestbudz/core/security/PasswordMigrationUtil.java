@@ -5,9 +5,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Utility to migrate existing plaintext passwords to encrypted format
- */
 public class PasswordMigrationUtil {
 
 	private static class PlayerPassword {
@@ -22,10 +19,6 @@ public class PasswordMigrationUtil {
 		}
 	}
 
-	/**
-	 * Migrates all plaintext passwords in the database to encrypted format
-	 * This should be run once during server maintenance
-	 */
 	public static void migrateAllPasswords() {
 		System.out.println("[PasswordMigration] Starting password migration...");
 
@@ -33,10 +26,9 @@ public class PasswordMigrationUtil {
 		List<PlayerPassword> playersToUpdate = new ArrayList<>();
 
 		try {
-			// First, add the encrypted column if it doesn't exist
+
 			addEncryptedColumnIfNeeded(conn);
 
-			// Find all players with unencrypted passwords
 			String selectSql = "SELECT username, password, password_encrypted FROM player WHERE password_encrypted IS NULL OR password_encrypted = 0";
 			try (PreparedStatement ps = conn.prepareStatement(selectSql);
 				 ResultSet rs = ps.executeQuery()) {
@@ -50,7 +42,6 @@ public class PasswordMigrationUtil {
 
 			System.out.println("[PasswordMigration] Found " + playersToUpdate.size() + " passwords to encrypt");
 
-			// Update each password
 			String updateSql = "UPDATE player SET password = ?, password_encrypted = 1 WHERE username = ?";
 			try (PreparedStatement updatePs = conn.prepareStatement(updateSql)) {
 				conn.setAutoCommit(false);
@@ -90,15 +81,12 @@ public class PasswordMigrationUtil {
 		}
 	}
 
-	/**
-	 * Adds the password_encrypted column to track which passwords are encrypted
-	 */
 	private static void addEncryptedColumnIfNeeded(Connection conn) throws SQLException {
-		// Check if column exists
+
 		DatabaseMetaData metaData = conn.getMetaData();
 		try (ResultSet columns = metaData.getColumns(null, null, "player", "password_encrypted")) {
 			if (!columns.next()) {
-				// Column doesn't exist, add it
+
 				String alterSql = "ALTER TABLE player ADD COLUMN password_encrypted INTEGER DEFAULT 0";
 				try (PreparedStatement ps = conn.prepareStatement(alterSql)) {
 					ps.executeUpdate();
@@ -108,21 +96,14 @@ public class PasswordMigrationUtil {
 		}
 	}
 
-	/**
-	 * Checks if a password is likely encrypted (Base64 format)
-	 */
 	public static boolean isPasswordEncrypted(String password) {
 		if (password == null || password.trim().isEmpty()) {
 			return false;
 		}
 
-		// Basic check for Base64 format (our encrypted passwords are Base64 encoded)
 		return password.matches("^[A-Za-z0-9+/]*={0,2}$") && password.length() > 20;
 	}
 
-	/**
-	 * Verify migration status
-	 */
 	public static void verifyMigration() {
 		Connection conn = SQLiteDB.getConnection();
 		try {

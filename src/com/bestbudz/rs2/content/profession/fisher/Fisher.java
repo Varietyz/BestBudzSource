@@ -270,31 +270,22 @@ public class Fisher {
   private int determineRollAmount() {
     double roll = Math.random();
 
-    // 0.0001% chance (1 in 1,000,000)
     if (roll <= 0.000001) return 1000;
 
-    // 0.005% chance (1 in 20,000)
     if (roll <= 0.00005) return 100;
 
-    // 0.01% chance (1 in 10,000)
     if (roll <= 0.0001) return 20;
 
-    // 0.05% chance (1 in 2,000)
     if (roll <= 0.0005) return 10;
 
-    // 0.1% chance (1 in 1,000)
     if (roll <= 0.001) return 5;
 
-    // 0.5% chance (1 in 200)
     if (roll <= 0.005) return 4;
 
-    // 1% chance (1 in 100)
     if (roll <= 0.01) return 3;
 
-    // 5% chance (1 in 20)
     if (roll <= 0.05) return 2;
 
-    // 95% fallback
     return 1;
   }
 
@@ -308,7 +299,7 @@ public class Fisher {
     }
 
     this.fisher = fisher;
-	
+
     stoner.getClient().queueOutgoingPacket(new SendSound(289, 0, 0));
 
     stoner.getUpdateFlags().sendAnimation(1768, 0);

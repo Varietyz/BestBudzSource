@@ -26,10 +26,10 @@ public final class WaveRegistry {
 				URL resource = resources.nextElement();
 
 				if (resource.getProtocol().equals("file")) {
-					// Running from file system (development)
+
 					discoverFromFileSystem(resource, path);
 				} else if (resource.getProtocol().equals("jar")) {
-					// Running from JAR (production)
+
 					discoverFromJar(resource, path);
 				}
 			}
@@ -39,7 +39,7 @@ public final class WaveRegistry {
 		} catch (Exception e) {
 			System.err.println("Failed to auto-discover waves: " + e.getMessage());
 			e.printStackTrace();
-			// Fallback to manual registration
+
 			registerWavesManually();
 		}
 	}
@@ -81,7 +81,6 @@ public final class WaveRegistry {
 		try {
 			Class<?> clazz = Class.forName(className);
 
-			// Check if it extends WaveDefinition
 			if (WaveDefinition.class.isAssignableFrom(clazz)) {
 				WaveDefinition wave = (WaveDefinition) clazz.getDeclaredConstructor().newInstance();
 				registerWave(wave);
@@ -97,12 +96,11 @@ public final class WaveRegistry {
 		waves.put(wave.getWaveNumber(), wave);
 	}
 
-	// Fallback method in case auto-discovery fails
 	private static void registerWavesManually() {
 		System.out.println("Falling back to manual wave registration...");
 
 		try {
-			// Use reflection to find and register known wave classes
+
 			for (int i = 1; i <= 15; i++) {
 				String className = WAVE_PACKAGE + ".Wave" + String.format("%02d", i);
 				try {
@@ -110,7 +108,7 @@ public final class WaveRegistry {
 					WaveDefinition wave = (WaveDefinition) clazz.getDeclaredConstructor().newInstance();
 					registerWave(wave);
 				} catch (ClassNotFoundException e) {
-					// Wave class doesn't exist, skip
+
 				}
 			}
 		} catch (Exception e) {
@@ -130,7 +128,6 @@ public final class WaveRegistry {
 		return waves.size();
 	}
 
-	// Debug method to list all registered waves
 	public static void printRegisteredWaves() {
 		System.out.println("Registered Waves:");
 		waves.entrySet().stream()

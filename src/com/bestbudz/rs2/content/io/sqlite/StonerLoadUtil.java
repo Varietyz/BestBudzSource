@@ -30,35 +30,33 @@ public final class StonerLoadUtil {
 			try (ResultSet rs = ps.executeQuery()) {
 				if (!rs.next()) {
 					System.out.println("[DB] No player found for '" + username + "'");
-					return false; // player not found!
+					return false;
 				}
 				System.out.println("[DB] Loaded player '" + username + "'");
 				int idx = 1;
 				stoner.setUsername(rs.getString(idx++));
 
-				// Handle password loading with encryption support
 				String storedPassword = rs.getString(idx++);
 
-				// Check if password_encrypted column exists and get its value
 				boolean isEncrypted = false;
 				try {
 					isEncrypted = rs.getInt("password_encrypted") == 1;
 				} catch (SQLException e) {
-					// Column doesn't exist yet, assume plaintext
+
 					isEncrypted = false;
 				}
 
 				if (isEncrypted && storedPassword != null) {
-					// Password is encrypted, decrypt it for session use
+
 					String decryptedPassword = PasswordEncryption.decrypt(storedPassword);
 					if (decryptedPassword != null) {
 						stoner.setPassword(decryptedPassword);
 					} else {
 						System.err.println("[DB] Failed to decrypt password for user: " + username);
-						stoner.setPassword(storedPassword); // Fallback to stored value
+						stoner.setPassword(storedPassword);
 					}
 				} else {
-					// Password is plaintext (legacy)
+
 					stoner.setPassword(storedPassword);
 				}
 
@@ -95,7 +93,7 @@ public final class StonerLoadUtil {
 				if (isPoisoned && poisonDmg > 0) {
 					stoner.poison(poisonDmg);
 				}
-				stoner.setPoisonDamage(poisonDmg); // ✅ use existing read
+				stoner.setPoisonDamage(poisonDmg);
 				stoner.getMercenary().setTask(rs.getString(idx++));
 				stoner.getMercenary().setAmount(rs.getByte(idx++));
 				String mercDiff = rs.getString(idx++);
@@ -152,7 +150,7 @@ public final class StonerLoadUtil {
 								AchievementList enumKey = AchievementList.valueOf((String) key);
 								stoner.getStonerAchievements().put(enumKey, ((Number) value).intValue());
 							} catch (IllegalArgumentException ignored) {
-								// Ignore unknown enum entries
+
 							}
 						}
 					}
@@ -178,7 +176,6 @@ public final class StonerLoadUtil {
 			}
 		}
 
-		// === Load containers as before ===
 		loadItems(conn, SaveConstants.TABLE_INVENTORY, username, stoner.getBox().getItems(), stoner);
 		loadItems(conn, SaveConstants.TABLE_EQUIPMENT, username, stoner.getEquipment().getItems(), stoner);
 		loadItems(conn, SaveConstants.TABLE_BANK, username, stoner.getBank().getItems(), stoner);

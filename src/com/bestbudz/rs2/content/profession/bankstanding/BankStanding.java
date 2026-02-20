@@ -8,18 +8,12 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Bank Standing - Instance-based AFK skill for individual players
- * Each player has their own BankStanding instance
- */
 public class BankStanding {
 
 	public static final int BANKSTANDING_SKILL_ID = 19;
 
-	// Player this instance belongs to
 	private final Stoner stoner;
 
-	// Session data
 	private boolean isActive = false;
 	private long sessionStartTime = 0;
 	private Location startLocation = null;
@@ -28,28 +22,22 @@ public class BankStanding {
 	private int standingMinutes = 0;
 	private int totalMovement = 0;
 	private int ticksStanding = 0;
-	private int processTicks = 0; // Counter for processing cycles
-	private int sessionXPGained = 0; // Track total XP gained this session
+	private int processTicks = 0;
+	private int sessionXPGained = 0;
 	private int sessionBonusXPGained = 0;
 
-	// XP and bonus constants - TWEAK THESE VALUES
-	private static final int BASE_XP = 850;              // Increased from 8 to 25
-	private static final int MAX_STANDING_BONUS = 35;   // Increased from 15 to 20
-	private static final int ACTIVITY_BONUS = 10;       // Increased from 5 to 10
+	private static final int BASE_XP = 850;
+	private static final int MAX_STANDING_BONUS = 35;
+	private static final int ACTIVITY_BONUS = 10;
 	private static final double BASE_MULTIPLIER = 1.2;
-	private static final int XP_INTERVAL_TICKS = 25;    // Reduced from 50 to 30 (more frequent XP)
-	private static final int PROCESS_INTERVAL = 5; // Process every 5 game ticks
+	private static final int XP_INTERVAL_TICKS = 25;
+	private static final int PROCESS_INTERVAL = 5;
 	public static int BANKSTANDING_RANGE = 2;
-	/**
-	 * Constructor - called when player logs in
-	 */
+
 	public BankStanding(Stoner stoner) {
 		this.stoner = stoner;
 	}
 
-	/**
-	 * Process this player's bank standing - MEMORY SAFE with exception handling
-	 */
 	public void process() {
 		try {
 			if (!stoner.isActive()) {
@@ -58,34 +46,29 @@ public class BankStanding {
 
 			processTicks++;
 
-			// Only check bank proximity every few ticks for performance
 			if (processTicks % PROCESS_INTERVAL == 0) {
 				boolean nearBank = isNearBank();
 
 				if (nearBank && !isActive) {
-					// Start bank standing
+
 					startSession();
 				} else if (!nearBank && isActive) {
-					// Stop bank standing
+
 					endSession();
 				}
 			}
 
-			// Continue processing if active
 			if (isActive) {
 				processTick();
 			}
 		} catch (Exception e) {
-			// Log error and safely stop bank standing to prevent cascading issues
+
 			System.err.println("BankStanding error for " + stoner.getUsername() + ": " + e.getMessage());
 			e.printStackTrace();
 			forceStop();
 		}
 	}
 
-	/**
-	 * Start a new bank standing session
-	 */
 	private void startSession() {
 		isActive = true;
 		sessionStartTime = System.currentTimeMillis();
@@ -95,16 +78,13 @@ public class BankStanding {
 		standingMinutes = 0;
 		totalMovement = 0;
 		ticksStanding = 0;
-		sessionXPGained = 0; // Reset session XP counter
+		sessionXPGained = 0;
 		sessionBonusXPGained = 0;
 
 		stoner.send(new SendMessage("@gre@You begin bank standing training..."));
 
 	}
 
-	/**
-	 * End the current bank standing session
-	 */
 	private void endSession() {
 		if (isActive) {
 			isActive = false;
@@ -112,7 +92,6 @@ public class BankStanding {
 			int minutes = (int) (duration / 60000);
 			int seconds = (int) ((duration % 60000) / 1000);
 
-			// Send summary message with total XP gained
 			if (sessionXPGained > 0) {
 				stoner.send(new SendMessage("@red@You stop bank standing training after " + minutes + "m " + seconds + "s."));
 				stoner.send(new SendMessage("@gre@Total bank standing experience gained: " + sessionXPGained));
@@ -123,26 +102,18 @@ public class BankStanding {
 		}
 	}
 
-	/**
-	 * Process a tick while bank standing is active
-	 */
 	private void processTick() {
 		ticksStanding++;
 		long currentTime = System.currentTimeMillis();
 
-		// Track movement from start position
 		updateMovementTracking();
 
-		// Give passive XP every ~30 seconds
 		if (ticksStanding % XP_INTERVAL_TICKS == 0) {
 			givePassiveXP();
 			updateStandingBonus(currentTime);
 		}
 	}
 
-	/**
-	 * Update movement tracking
-	 */
 	private void updateMovementTracking() {
 		if (startLocation != null) {
 			Location currentLoc = stoner.getLocation();
@@ -154,7 +125,6 @@ public class BankStanding {
 			if (distance > totalMovement) {
 				totalMovement = distance;
 
-				// If player moved too far, reduce effectiveness
 				if (totalMovement > 5) {
 					stoner.send(new SendMessage("@red@You've moved too far from your starting position!"));
 				}
@@ -162,122 +132,89 @@ public class BankStanding {
 		}
 	}
 
-	/**
-	 * Give passive bank standing XP
-	 */
 	private void givePassiveXP() {
 		int baseXP = calculatePassiveXP();
 
-		// Apply bank standing XP bonus to the base XP (not multiplied by it)
 		double finalXP = stoner.getProfession().addExperience(BANKSTANDING_SKILL_ID, baseXP);
 
-		// Track session XP
 		sessionXPGained += (int)finalXP;
 
 		lastXPTime = System.currentTimeMillis();
 	}
 
-	/**
-	 * Calculate passive XP based on standing conditions
-	 */
 	private int calculatePassiveXP() {
 		int xp = BASE_XP;
 
-		// Standing time bonus - FIXED: This should ADD to XP, not replace it
 		int timeBonus = Math.min(standingMinutes, MAX_STANDING_BONUS);
 		xp += timeBonus;
 
-		// Activity bonus (if they've done something recently)
 		long timeSinceActivity = System.currentTimeMillis() - lastActivityTime;
-		if (timeSinceActivity < 60000) { // Within last minute
+		if (timeSinceActivity < 60000) {
 			xp += ACTIVITY_BONUS;
 		}
 
-		// Movement penalty - FIXED: Only apply if moved significantly
 		if (totalMovement > 3) {
-			xp = Math.max(xp / 2, BASE_XP); // Halve XP but never below base
+			xp = Math.max(xp / 2, BASE_XP);
 		}
 		sessionBonusXPGained += xp - BASE_XP;
 
 		return xp;
 	}
 
-	/**
-	 * Update standing time bonus
-	 */
 	private void updateStandingBonus(long currentTime) {
 		if (sessionStartTime > 0) {
 			int newMinutes = (int) ((currentTime - sessionStartTime) / 60000);
 			if (newMinutes > standingMinutes && standingMinutes < MAX_STANDING_BONUS) {
 				standingMinutes = newMinutes;
-				// Calculate current percentage bonus
+
 				double currentBonus = (Math.min(standingMinutes, MAX_STANDING_BONUS) * 100.0) / BASE_XP;
 				stoner.send(new SendMessage("@blu@Bank standing bonus increased! (+" + String.format("%.1f", currentBonus) + "%)"));
 			}
 		}
 	}
 
-	/**
-	 * Record player activity for bonus calculations
-	 */
 	public void recordActivity() {
 		if (isActive) {
 			lastActivityTime = System.currentTimeMillis();
 		}
 	}
 
-	/**
-	 * Get XP multiplier for other skills
-	 */
 	public double getXPMultiplier() {
 		if (!isActive) {
 			return 1.0;
 		}
 
-		// Base multiplier with small bonus for standing time
-		double bonus = Math.min(standingMinutes * 0.02, 0.3); // Max +30% bonus
+		double bonus = Math.min(standingMinutes * 0.02, 0.3);
 		return BASE_MULTIPLIER + bonus;
 	}
 
-	/**
-	 * Apply bank standing XP bonus to other skills
-	 * This should be called from Profession.addExperience() method
-	 */
 	public int applyXPBonus(int skillId, int baseXP) {
-		// Don't apply multiplier to bank standing skill itself
+
 		if (skillId == BANKSTANDING_SKILL_ID || !isActive) {
 			return baseXP;
 		}
 
-		// Record activity
 		recordActivity();
 
-		// Apply multiplier
 		double multiplier = getXPMultiplier();
 
 		return (int) (baseXP * multiplier);
 	}
 
-	/**
-	 * Get session information for commands
-	 */
 	public String getSessionInfo() {
 		if (isActive) {
 			long duration = System.currentTimeMillis() - sessionStartTime;
 			int minutes = (int) (duration / 60000);
 			int seconds = (int) ((duration % 60000) / 1000);
 
-			// Calculate current percentage bonus from standing time
 			double standingBonus = (Math.min(standingMinutes, MAX_STANDING_BONUS) * 100.0) / BASE_XP;
 
-			// Calculate activity bonus percentage
 			long timeSinceActivity = System.currentTimeMillis() - lastActivityTime;
 			double activityBonus = 0;
-			if (timeSinceActivity < 60000) { // Within last minute
+			if (timeSinceActivity < 60000) {
 				activityBonus = (ACTIVITY_BONUS * 100.0) / BASE_XP;
 			}
 
-			// Total bonus percentage
 			double totalBonusPercent = standingBonus + activityBonus;
 
 			return String.format("Bank Standing: %dm %ds | Bonus: +%.1f%% XP | Bonus XP Gained: %d | Multiplier: %.2fx | Movement: %d tiles",
@@ -289,24 +226,16 @@ public class BankStanding {
 		}
 	}
 
-	/**
-	 * Check if player is near a bank - optimized version
-	 */
 	private boolean isNearBank() {
 		Location playerLoc = stoner.getLocation();
 
-		// Check bank objects first (more common)
 		if (hasNearbyBankObjects(playerLoc)) {
 			return true;
 		}
 
-		// Check bank NPCs
 		return hasNearbyBankNPCs(playerLoc);
 	}
 
-	/**
-	 * Check for nearby bank objects - MEMORY SAFE version
-	 */
 	private boolean hasNearbyBankObjects(Location playerLoc) {
 		Region region = Region.getRegion(playerLoc);
 		if (region == null) return false;
@@ -318,35 +247,30 @@ public class BankStanding {
 		int playerY = playerLoc.getY();
 		int playerZ = playerLoc.getZ();
 
-		// SAFE: Comprehensive Z bounds checking
 		if (playerZ < 0 || playerZ >= objects.length || objects[playerZ] == null) {
 			return false;
 		}
 
-		// Get region boundaries
 		int regionAbsX = (region.getId() >> 8) << 6;
 		int regionAbsY = (region.getId() & 0xff) << 6;
 
-		// Convert player position to region-local coordinates for array indexing
 		int playerLocalX = playerX - regionAbsX;
 		int playerLocalY = playerY - regionAbsY;
 
-		// Check area around player (tiles in each direction)
 		int startX = Math.max(0, playerLocalX - BANKSTANDING_RANGE);
 		int endX = Math.min(63, playerLocalX + BANKSTANDING_RANGE);
 		int startY = Math.max(0, playerLocalY - BANKSTANDING_RANGE);
 		int endY = Math.min(63, playerLocalY + BANKSTANDING_RANGE);
 
-		// MEMORY SAFE LOOP: Comprehensive bounds checking
 		for (int localX = startX; localX <= endX; localX++) {
-			// SAFE: Check X dimension bounds
+
 			if (localX >= 0 && localX < objects[playerZ].length && objects[playerZ][localX] != null) {
 				for (int localY = startY; localY <= endY; localY++) {
-					// CRITICAL FIX: Check Y dimension bounds before access
+
 					if (localY >= 0 && localY < objects[playerZ][localX].length) {
 						RSObject obj = objects[playerZ][localX][localY];
 						if (obj != null && isBankObject(obj.getId())) {
-							// RSObject stores actual world coordinates, so check distance directly
+
 							int deltaX = Math.abs(playerX - obj.getX());
 							int deltaY = Math.abs(playerY - obj.getY());
 
@@ -362,26 +286,20 @@ public class BankStanding {
 		return false;
 	}
 
-	/**
-	 * Check for nearby bank NPCs - MEMORY SAFE version
-	 */
 	private boolean hasNearbyBankNPCs(Location playerLoc) {
-		// CRITICAL FIX: Null check on World.getNpcs()
+
 		Mob[] npcs = World.getNpcs();
 		if (npcs == null) {
 			return false;
 		}
 
-		// SAFE LOOP: Use indexed loop with bounds checking instead of enhanced for
 		for (int i = 0; i < npcs.length; i++) {
 			Mob npc = npcs[i];
 			if (npc != null && npc.isActive() && isBankNPC(npc.getId())) {
 				Location npcLoc = npc.getLocation();
 
-				// SAFE: Null check on location
 				if (npcLoc == null) continue;
 
-				// Quick Z-level check first
 				if (npcLoc.getZ() != playerLoc.getZ()) {
 					continue;
 				}
@@ -397,11 +315,8 @@ public class BankStanding {
 		return false;
 	}
 
-	/**
-	 * Check if object is a bank object
-	 */
 	private static boolean isBankObject(int objectId) {
-		// Using the constants from BankStandingConstants for consistency
+
 		for (int bankObjectId : BankStandingConstants.BANK_OBJECT_IDS) {
 			if (objectId == bankObjectId) {
 				return true;
@@ -410,11 +325,8 @@ public class BankStanding {
 		return false;
 	}
 
-	/**
-	 * Check if NPC is a bank NPC
-	 */
 	private static boolean isBankNPC(int npcId) {
-		// Using the constants from BankStandingConstants for consistency
+
 		for (int bankNpcId : BankStandingConstants.BANK_NPC_IDS) {
 			if (npcId == bankNpcId) {
 				return true;
@@ -423,20 +335,14 @@ public class BankStanding {
 		return false;
 	}
 
-	/**
-	 * Get whether bank standing is currently active
-	 */
 	public boolean isActive() {
 		return isActive;
 	}
 
-	/**
-	 * Force stop bank standing (for teleports, logout, etc.)
-	 */
 	public void forceStop() {
 		if (isActive) {
 			isActive = false;
-			// Show XP summary when force stopped too
+
 			if (sessionXPGained > 0) {
 				stoner.send(new SendMessage("@red@Bank standing training interrupted."));
 				stoner.send(new SendMessage("@gre@Total bank standing experience gained: " + sessionXPGained));
@@ -447,9 +353,6 @@ public class BankStanding {
 		}
 	}
 
-	/**
-	 * Reset all session data to prevent memory leaks
-	 */
 	private void resetSession() {
 		isActive = false;
 		sessionStartTime = 0;
@@ -463,22 +366,16 @@ public class BankStanding {
 		processTicks = 0;
 	}
 
-	/**
-	 * Cleanup method to call on player logout - prevents memory leaks
-	 */
 	public void cleanup() {
 		if (isActive) {
 			forceStop();
 		}
 		resetSession();
-		// Clear any potential references
+
 		startLocation = null;
 	}
 
-	/**
-	 * Static declaration method (no longer needed but kept for compatibility)
-	 */
 	public static void declare() {
-		// No longer needed - each player instance handles itself
+
 	}
 }

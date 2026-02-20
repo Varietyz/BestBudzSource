@@ -60,11 +60,10 @@ public class Combat {
 
     target.getUpdateFlags().sendHit(hit.getDamage(), hit.getHitType(), hit.getCombatHitType());
 
-    // Show hit
-    target.setLastHitSuccess(hit.isSuccess()); // Update flag
+    target.setLastHitSuccess(hit.isSuccess());
 
     if (target.getCombat() != null) {
-      target.getCombat().updateHitChain(hit.getDamage()); // ✅ correct now
+      target.getCombat().updateHitChain(hit.getDamage());
       target.getCombat().setInCombat(hit.getAssaulter());
     }
   }
@@ -74,7 +73,7 @@ public class Combat {
   }
 
   public long getHitChainBonus() {
-    return hitChainStage * 10; // % bonus
+    return hitChainStage * 10;
   }
 
   public void resetHitChain() {
@@ -119,7 +118,7 @@ public class Combat {
     if (newDamage > lastDamageDealt) {
       lastDamageDealt = newDamage;
       chainPrimed = false;
-      advanceHitChain(); // Stage 1 starts here
+      advanceHitChain();
     } else {
       chainPrimed = false;
       resetHitChain();
@@ -164,7 +163,7 @@ public class Combat {
 		}
 
 		if (entity.isNpc()) {
-			// Force mobs to face their target regardless of movement state
+
 			if (assaulting != null) {
 				if (!assaulting.isNpc()) {
 					entity.getUpdateFlags().faceEntity(assaulting.getIndex() + 32768);
@@ -173,14 +172,13 @@ public class Combat {
 				}
 			}
 		} else {
-			// Players use the existing face() method
+
 			if (!entity.getMovementHandler().moving()) {
 				entity.face(assaulting);
 			}
 		}
 		entity.onCombatProcess(assaulting);
 
-			// Regular combat execution for players and NPCs
 			switch (combatType) {
 				case MELEE:
 					melee.execute(assaulting);
@@ -202,10 +200,9 @@ public class Combat {
 		if (entity instanceof Stoner && ((Stoner) entity).isPetStoner()) {
 			Stoner petStoner = (Stoner) entity;
 
-			// Find the Pet object and notify PetMaster
 			Pet petObject = findPetObjectFromStoner(petStoner);
 			if (petObject != null) {
-				// This could be called after successful hit/damage
+
 				onPetCombatActivity(petObject);
 			}
 		}
@@ -319,13 +316,11 @@ public class Combat {
 			return true;
 		}
 
-		// FIXED: Use proper tile distance for initial check
 		int tileDistance = Math.max(Math.abs(x - x2), Math.abs(y - y2));
 		if (tileDistance <= req) {
 			return true;
 		}
 
-		// Fallback to border checking for complex entity sizes
 		Location[] a = GameConstants.getBorder(x, y, entity.getSize());
 		Location[] b = GameConstants.getBorder(x2, y2, assaulting.getSize());
 
@@ -399,7 +394,7 @@ public class Combat {
     int dist = CombatConstants.getDistanceForCombatType(type);
 
 	  if (type == CombatTypes.MELEE) {
-		  dist = 1; // Allow adjacent tiles AND same tile
+		  dist = 1;
 	  }
 
 	  boolean ignoreClipping = false;
@@ -468,12 +463,11 @@ public class Combat {
     }
 
 	  if (!ignoreClipping && type == CombatTypes.MELEE) {
-		  // For melee, be much more lenient about clipping
-		  // Allow attack if ANY edge can reach target
+
 		  for (Location i : GameConstants.getEdges(
 			  entity.getLocation().getX(), entity.getLocation().getY(), entity.getSize())) {
 			  if (StraightPathFinder.isInteractionPathClear(i, assaulting.getLocation())) {
-				  return true; // Found one clear path, allow attack
+				  return true;
 			  }
 		  }
 		  return false;
@@ -481,37 +475,24 @@ public class Combat {
     return true;
   }
 
-	/**
-	 * Checks if the entity is currently performing a combat action
-	 */
 	public boolean isPerformingCombatAction() {
-		// You might track this with a flag that gets set during combat execution
-		// and cleared when the action completes
+
 		return isInCombat() && hasRecentCombatAction();
 	}
 
 	private boolean hasRecentCombatAction() {
-		// Check if a combat action was performed recently (within the last few ticks)
-		return (System.currentTimeMillis() - lastCombatActionTime) < 1800; // 3 ticks
+
+		return (System.currentTimeMillis() - lastCombatActionTime) < 1800;
 	}
 
-	/**
-	 * Checks if the entity is currently in combat (wrapper for existing inCombat method)
-	 */
 	public boolean isInCombat() {
 		return inCombat();
 	}
 
-	/**
-	 * Sets the timestamp when a combat action was performed
-	 */
 	public void setLastCombatActionTime(long time) {
 		this.lastCombatActionTime = time;
 	}
 
-	/**
-	 * Gets the last combat action timestamp
-	 */
 	public long getLastCombatActionTime() {
 		return lastCombatActionTime;
 	}

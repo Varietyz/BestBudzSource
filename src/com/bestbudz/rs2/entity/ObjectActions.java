@@ -96,8 +96,8 @@ public class ObjectActions
 {
 
 	private static boolean hasSmithableBars(int itemId) {
-		// Check if item is a bar that can be smithed
-		int[] bars = {2349, 2351, 2353, 2359, 2361, 2363}; // Bronze, Iron, Steel, Mith, Addy, Rune
+
+		int[] bars = {2349, 2351, 2353, 2359, 2361, 2363};
 		for (int barId : bars) {
 			if (itemId == barId) return true;
 		}
@@ -105,8 +105,8 @@ public class ObjectActions
 	}
 
 	private boolean hasSmeltableOres(int itemId) {
-		// Check if item is an ore that can be smelted
-		int[] ores = {438, 436, 440, 453, 447, 449, 451}; // Tin, Copper, Iron, Coal, Gold, Mith, Addy
+
+		int[] ores = {438, 436, 440, 453, 447, 449, 451};
 		for (int oreId : ores) {
 			if (itemId == oreId) return true;
 		}
@@ -173,7 +173,6 @@ public class ObjectActions
     if (BestbudzConstants.DEV_MODE) {
       stoner.getClient().queueOutgoingPacket(new SendMessage("option: " + option));
     }
-
 
     TaskQueue.queue(
         new FollowToEntityTask(stoner, mob) {
@@ -431,7 +430,7 @@ public class ObjectActions
             break;
           case 1306:
             break;
-          case 315://FREE
+          case 315:
             break;
           case 4936:
             break;
@@ -628,7 +627,7 @@ public class ObjectActions
             break;
           case 606:
             break;
-          case 315: //FREE
+          case 315:
             break;
           case 6524:
             PotionDecanting.decantAll(stoner);
@@ -643,7 +642,7 @@ public class ObjectActions
 
       case 4:
         switch (id) {
-          case 315://FREE
+          case 315:
             break;
         }
 
@@ -812,7 +811,7 @@ public class ObjectActions
     }
 
     if (id == 11834 || id == 6114) {
-      finishedBloodTrial(stoner, false); // Blood Trial
+      finishedBloodTrial(stoner, false);
       return;
     }
 
@@ -864,7 +863,6 @@ public class ObjectActions
             stoner, stoner.getLocation(), Region.getObject(x, y, stoner.getLocation().getZ()))) {
           return;
         }
-
 
         if (ObjectDef.getObjectDef(id) != null
             && ObjectDef.getObjectDef(id).name != null
@@ -1095,7 +1093,7 @@ public class ObjectActions
             stoner.teleport(new Location(2841, 3538, 0));
             stoner.send(new SendMessage("You climb down the stairs to the previous floor."));
             break;
-          case 7236: // FREE
+          case 7236:
             break;
           case 18987:
             stoner.send(new SendMessage("You have climbed down the ladder."));
@@ -1957,7 +1955,7 @@ public class ObjectActions
                 .queueOutgoingPacket(new SendMessage("You do not have anything to spin!"));
             break;
 
-			case 2097: // Anvil
+			case 2097:
 				for (Item i : stoner.getBox().getItems()) {
 					if (i != null && hasSmithableBars(i.getId())) {
 						Forging.SINGLETON.handleObjectClick(stoner, id);
@@ -1969,7 +1967,7 @@ public class ObjectActions
 					.queueOutgoingPacket(new SendMessage("You do not have any bars to hammer!"));
 				break;
 
-			case 26181: // Range
+			case 26181:
 				for (Item i : stoner.getBox().getItems()) {
 					if (i != null && FoodieData.forId(i.getId()) != null) {
 						Foodie.SINGLETON.handleObjectClick(stoner, id);
@@ -1981,11 +1979,11 @@ public class ObjectActions
 					.queueOutgoingPacket(new SendMessage("You do not have any raw food to cook!"));
 				break;
 
-			case 5249:  // Fyah (Fire Altar)
-			case 114:   // Fire
-			case 2732:  // Range (can burn on)
-			case 26185: // Other fire objects
-			case 14901: // Fire Altar
+			case 5249:
+			case 114:
+			case 2732:
+			case 26185:
+			case 14901:
 				for (Item i : stoner.getBox().getItems()) {
 					if (i != null && Pyromaniac.Wood.forId(i.getId()) != null) {
 						PyroAutoBurn.SINGLETON.handleObjectClick(stoner, id);

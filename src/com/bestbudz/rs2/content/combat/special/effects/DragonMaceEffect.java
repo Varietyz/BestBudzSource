@@ -7,10 +7,6 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Dragon Mace Special - "Prayer Smash"
- * A crushing blow that deals bonus damage and drains prayer/necromancy
- */
 public class DragonMaceEffect implements CombatEffect {
 
 	@Override
@@ -22,9 +18,8 @@ public class DragonMaceEffect implements CombatEffect {
 			double sacredPower = 1.0 + (FormulaData.getCombatEffectiveness(attacker) * 0.2);
 			int baseDamage = attacker.getLastDamageDealt();
 
-			// Prayer Smash - bonus damage that scales with target's prayer
 			long targetPrayer = victim.getGrades()[5];
-			double smashMultiplier = 0.4 + (targetPrayer / 1000.0) + (sacredPower * 0.1); // More damage vs high prayer
+			double smashMultiplier = 0.4 + (targetPrayer / 1000.0) + (sacredPower * 0.1);
 			int smashDamage = (int)(baseDamage * smashMultiplier);
 
 			if (smashDamage > 0) {
@@ -35,13 +30,11 @@ public class DragonMaceEffect implements CombatEffect {
 					smashDamage + " damage!"));
 			}
 
-			// Prayer Drain - drain based on damage dealt
 			int prayerDrain = (int)((baseDamage + smashDamage) * 0.4 * sacredPower);
 			if (prayerDrain > 0 && victim.getGrades()[5] > 0) {
 				victim.getGrades()[5] = Math.max(0, victim.getGrades()[5] - prayerDrain);
 			}
 
-			// Sacred Absorption - attacker gains prayer from drain
 			if (prayerDrain > 0) {
 				int absorbed = prayerDrain / 2;
 				if (attacker.getGrades()[5] < attacker.getMaxGrades()[5]) {
@@ -54,9 +47,8 @@ public class DragonMaceEffect implements CombatEffect {
 				}
 			}
 
-			// Divine Judgment - chance for massive damage vs evil targets
 			if (sacredPower > 2.0) {
-				double judgmentChance = (sacredPower - 2.0) * 15; // Up to 6% chance
+				double judgmentChance = (sacredPower - 2.0) * 15;
 				if (com.bestbudz.core.util.Utility.random(100) < judgmentChance) {
 					int judgmentDamage = baseDamage;
 

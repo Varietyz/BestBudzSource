@@ -5,9 +5,6 @@ import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
-/**
- * Manages equipment selection and optimization for different combat styles
- */
 public class EquipmentManager {
 
 	private final Stoner stoner;
@@ -22,9 +19,6 @@ public class EquipmentManager {
 		this.ammoManager = new AmmoManager(stoner);
 	}
 
-	/**
-	 * Get current combat style based on equipped weapon
-	 */
 	public CombatTypes getCurrentCombatStyle() {
 		Item weapon = stoner.getEquipment().getItems()[AutoCombatConfig.WEAPON_SLOT];
 		if (weapon == null) return null;
@@ -32,19 +26,13 @@ public class EquipmentManager {
 		return weaponSelector.determineWeaponStyle(weapon);
 	}
 
-	/**
-	 * Check if player has gear available for a specific style
-	 */
 	public boolean hasGearForStyle(CombatTypes style) {
 		return weaponSelector.findBestWeapon(style) != null;
 	}
 
-	/**
-	 * Equip gear for specified combat style
-	 */
 	public boolean equipStyleGear(CombatTypes style) {
 		try {
-			// First equip weapon
+
 			Item weapon = weaponSelector.findBestWeapon(style);
 			if (weapon == null) {
 				return false;
@@ -54,10 +42,8 @@ public class EquipmentManager {
 				return false;
 			}
 
-			// Optimize all armor slots for the combat style
 			armorOptimizer.optimizeArmorForStyle(style);
 
-			// Style-specific equipment
 			switch (style) {
 				case SAGITTARIUS:
 					ammoManager.ensureAmmoEquipped(weapon);
@@ -75,9 +61,6 @@ public class EquipmentManager {
 		}
 	}
 
-	/**
-	 * Equip item to specific slot
-	 */
 	public boolean equipItem(Item item, int targetSlot) {
 		for (int i = 0; i < stoner.getBox().getItems().length; i++) {
 			Item boxItem = stoner.getBox().getItems()[i];
@@ -93,23 +76,14 @@ public class EquipmentManager {
 		return false;
 	}
 
-	/**
-	 * Get items from player's box/inventory
-	 */
 	public Item[] getBoxItems() {
 		return stoner.getBox().getItems();
 	}
 
-	/**
-	 * Get currently equipped items
-	 */
 	public Item[] getEquippedItems() {
 		return stoner.getEquipment().getItems();
 	}
 
-	/**
-	 * Unequip item from slot
-	 */
 	public boolean unequipItem(int slot) {
 		try {
 			stoner.getEquipment().unequip(slot);

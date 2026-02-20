@@ -140,27 +140,20 @@ public class Walking {
 		return -1;
 	}
 
-	/**
-	 * ENHANCED: Gets direction toward spawn location for patrol behavior
-	 */
 	public static int getDirectionTowardSpawn(Mob mob) {
 		Location spawn = mob.getSpawnLocation();
 		Location current = mob.getLocation();
 
-		// If already at spawn, pick a random direction
 		if (current.equals(spawn)) {
 			return getRandomDirection(mob);
 		}
 
-		// Calculate direction toward spawn
 		int deltaX = Integer.compare(spawn.getX(), current.getX());
 		int deltaY = Integer.compare(spawn.getY(), current.getY());
 
-		// Find the best direction toward spawn
 		int[] preferredDirections = new int[3];
 		int dirCount = 0;
 
-		// Primary direction (diagonal if both deltas exist)
 		if (deltaX != 0 && deltaY != 0) {
 			int primaryDir = GameConstants.getDirection(current.getX(), current.getY(),
 				current.getX() + deltaX, current.getY() + deltaY);
@@ -169,7 +162,6 @@ public class Walking {
 			}
 		}
 
-		// Secondary directions (horizontal and vertical)
 		if (deltaX != 0) {
 			int horizontalDir = GameConstants.getDirection(current.getX(), current.getY(),
 				current.getX() + deltaX, current.getY());
@@ -186,7 +178,6 @@ public class Walking {
 			}
 		}
 
-		// Return best available direction, or random if none work
 		if (dirCount > 0) {
 			return preferredDirections[Utility.randomNumber(dirCount)];
 		}
@@ -194,31 +185,25 @@ public class Walking {
 		return getRandomDirection(mob);
 	}
 
-	/**
-	 * ENHANCED: Gets direction away from crowded areas to prevent clustering
-	 */
 	public static int getDirectionAwayFromCrowd(Mob mob) {
 		Location current = mob.getLocation();
-		int[] crowdDensity = new int[8]; // Density in each direction
+		int[] crowdDensity = new int[8];
 
-		// Check each direction for nearby mobs
 		for (int dir = 0; dir < 8; dir++) {
 			if (!withinMaxDistance(mob, dir) || !mob.getMovementHandler().canMoveTo(dir)) {
-				crowdDensity[dir] = 999; // Block unusable directions
+				crowdDensity[dir] = 999;
 				continue;
 			}
 
 			int checkX = current.getX() + GameConstants.DIR[dir][0];
 			int checkY = current.getY() + GameConstants.DIR[dir][1];
 
-			// Count nearby mobs in a 3x3 area around this direction
 			int nearbyMobs = 0;
 			for (int offsetX = -1; offsetX <= 1; offsetX++) {
 				for (int offsetY = -1; offsetY <= 1; offsetY++) {
 					int scanX = checkX + offsetX;
 					int scanY = checkY + offsetY;
 
-					// Count mobs at this location
 					for (Mob otherMob : World.getNpcs()) {
 						if (otherMob != null && otherMob != mob && otherMob.isActive()) {
 							if (otherMob.getLocation().getX() == scanX &&
@@ -234,7 +219,6 @@ public class Walking {
 			crowdDensity[dir] = nearbyMobs;
 		}
 
-		// Find direction(s) with lowest crowd density
 		int minDensity = 999;
 		for (int density : crowdDensity) {
 			if (density < minDensity) {
@@ -242,7 +226,6 @@ public class Walking {
 			}
 		}
 
-		// Collect all directions with minimum density
 		byte[] bestDirections = new byte[8];
 		int bestCount = 0;
 		for (int dir = 0; dir < 8; dir++) {
@@ -251,7 +234,6 @@ public class Walking {
 			}
 		}
 
-		// Return random direction from the least crowded options
 		if (bestCount > 0) {
 			return bestDirections[Utility.randomNumber(bestCount)];
 		}
@@ -267,11 +249,8 @@ public class Walking {
 		return region;
 	}
 
-	/**
-	 * ENHANCED: Smart walking with purposeful movement patterns
-	 */
 	public static void randomWalk(Mob mob) {
-		// Special behavior for specific mob types with increased frequency
+
 		if (mob.getId() == 6064
 			|| mob.getId() == 6063
 			|| mob.getId() == 1035
@@ -282,7 +261,7 @@ public class Walking {
 			|| mob.getId() == 1030
 			|| mob.getId() == 1029
 			|| mob.getId() == 1028) {
-			if (Utility.randomNumber(2) == 1) { // Much more frequent for testing
+			if (Utility.randomNumber(2) == 1) {
 				int dir = getRandomDirection(mob);
 				if (dir != -1)
 					SimplePathWalker.walkToNextTile(
@@ -293,30 +272,22 @@ public class Walking {
 			return;
 		}
 
-		// ENHANCED: Much more frequent smart walking for testing visibility
-		// Increased from 1/25 to 1/3 chance to see the intelligence clearly
 		if (Utility.randomNumber(3) == 0) {
-
-			// Determine movement behavior based on weighted probabilities:
-			// 50% - Patrol toward spawn area (territorial behavior)
-			// 30% - Avoid crowded areas (prevent clustering)
-			// 20% - Random exploration
 
 			int behavior = Utility.randomNumber(100);
 			int dir = -1;
 
 			if (behavior < 50) {
-				// Patrol behavior - move toward spawn area
+
 				dir = getDirectionTowardSpawn(mob);
 			} else if (behavior < 80) {
-				// Anti-clustering behavior - move away from crowds
+
 				dir = getDirectionAwayFromCrowd(mob);
 			} else {
-				// Random exploration - maintain some unpredictability
+
 				dir = getRandomDirection(mob);
 			}
 
-			// Execute the movement
 			if (dir != -1) {
 				SimplePathWalker.walkToNextTile(
 					mob,
@@ -385,7 +356,6 @@ public class Walking {
 		int yMin;
 		int xMin;
 
-		// ENHANCED: More reasonable movement ranges for intelligent behavior
 		if (mob.getId() == 6064
 			|| mob.getId() == 6063
 			|| mob.getId() == 1035
@@ -396,13 +366,13 @@ public class Walking {
 			|| mob.getId() == 1030
 			|| mob.getId() == 1029
 			|| mob.getId() == 1028) {
-			// Special mobs keep their large range
+
 			xMax = mob.getSpawnLocation().getX() + 15;
 			yMax = mob.getSpawnLocation().getY() + 15;
 			xMin = mob.getSpawnLocation().getX() - 15;
 			yMin = mob.getSpawnLocation().getY() - 15;
 		} else {
-			// INCREASED: Regular mobs now get 10-tile radius for very visible patrol behavior
+
 			int range = 10;
 			xMax = mob.getSpawnLocation().getX() + range;
 			yMax = mob.getSpawnLocation().getY() + range;

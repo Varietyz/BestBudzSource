@@ -18,16 +18,14 @@ public class ChaosElementAbility extends PetAbility {
 		pet.getUpdateFlags().sendForceMessage("*channels chaos*");
 
 		if (target != null && !target.isDead()) {
-			// Random teleport target (chaos element special)
+
 			int randomX = target.getLocation().getX() + (int)(Math.random() * 6) - 3;
 			int randomY = target.getLocation().getY() + (int)(Math.random() * 6) - 3;
-			//target.teleport(new com.bestbudz.rs2.entity.Location(randomX, randomY, target.getLocation().getZ()));
 
 			target.getUpdateFlags().sendGraphic(new Graphic(343, true));
 
-			// Deal damage using proper Hit system
 			int damage = 10 + (int)(Math.random() * 15);
-			Hit hit = new Hit(pet, damage, Hit.HitTypes.MAGE); // Chaos is magical
+			Hit hit = new Hit(pet, damage, Hit.HitTypes.MAGE);
 			target.hit(hit);
 		}
 	}

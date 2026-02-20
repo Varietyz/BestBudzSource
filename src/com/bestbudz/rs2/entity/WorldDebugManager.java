@@ -7,15 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Handles debugging and monitoring operations for the World
- * Extracted from World.java with 1:1 logic preservation
- */
 public class WorldDebugManager {
 
-	/**
-	 * Debug method to see what's happening during updates
-	 */
 	public void debugPlayerVisibility(Stoner[] stoners) {
 		System.out.println("=== PLAYER VISIBILITY DEBUG ===");
 
@@ -56,7 +49,6 @@ public class WorldDebugManager {
 				", UsernameToLong: " + player.getUsernameToLong() +
 				", Location: " + player.getLocation());
 
-			// Check what this player can see
 			System.out.println("    Can see:");
 			for (Stoner other : player.getStoners()) {
 				if (other != null) {
@@ -71,9 +63,6 @@ public class WorldDebugManager {
 		System.out.println("=== END DEBUG ===");
 	}
 
-	/**
-	 * Check for username collision issues
-	 */
 	public void checkUsernameCollisions(Stoner[] stoners) {
 		Map<Long, List<String>> usernameToLongMap = new HashMap<>();
 
@@ -97,7 +86,6 @@ public class WorldDebugManager {
 		System.out.println("=== END COLLISION CHECK ===");
 	}
 
-	// Helper methods for entity type checking
 	private boolean isDiscordBot(Stoner stoner) {
 		return stoner != null && DEFAULT_USERNAME.equals(stoner.getUsername());
 	}

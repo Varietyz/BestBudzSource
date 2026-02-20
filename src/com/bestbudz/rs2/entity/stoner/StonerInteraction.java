@@ -8,22 +8,16 @@ import com.bestbudz.rs2.entity.stoner.StonerAssistant;
 import com.bestbudz.rs2.entity.stoner.controllers.Controller;
 import com.bestbudz.rs2.entity.stoner.controllers.ControllerManager;
 
-/**
- * Handles player interactions with the world, interfaces, objects, and controllers
- */
 public class StonerInteraction {
 	private final Stoner stoner;
 	private final StonerAssistant stonerAssistant;
 	private final LocalObjects objects;
 	private final InterfaceManager interfaceManager;
 
-	// Dialogue system
 	private Dialogue dialogue = null;
 
-	// Controller system
 	private Controller controller = ControllerManager.DEFAULT_CONTROLLER;
 
-	// Cracking state (for certain activities)
 	public boolean isCracking;
 
 	public StonerInteraction(Stoner stoner) {
@@ -35,14 +29,11 @@ public class StonerInteraction {
 
 	public void process() {
 		if (stoner.isPetStoner()) {
-			return; // Pets don't need interaction processing
+			return;
 		}
-		// Any periodic interaction processing can go here
+
 	}
 
-	/**
-	 * Starts a dialogue with the player
-	 */
 	public void start(Dialogue dialogue) {
 		this.dialogue = dialogue;
 		if (dialogue != null) {
@@ -54,38 +45,25 @@ public class StonerInteraction {
 		}
 	}
 
-	/**
-	 * Sets the controller without initialization
-	 */
 	public boolean setControllerNoInit(Controller controller) {
 		this.controller = controller;
 		return true;
 	}
 
-	/**
-	 * Sets the controller with initialization
-	 */
 	public boolean setController(Controller controller) {
 		this.controller = controller;
 		controller.onControllerInit(stoner);
 		return true;
 	}
 
-	/**
-	 * Called when controller finishes
-	 */
 	public void onControllerFinish() {
 		controller = ControllerManager.DEFAULT_CONTROLLER;
 	}
 
-	/**
-	 * Checks if the player can save (based on controller)
-	 */
 	public boolean canSave() {
 		return controller.canSave();
 	}
 
-	// Getters and setters
 	public StonerAssistant getAssistant() { return stonerAssistant; }
 	public LocalObjects getObjects() { return objects; }
 	public InterfaceManager getInterfaceManager() { return interfaceManager; }

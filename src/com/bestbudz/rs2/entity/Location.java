@@ -56,7 +56,6 @@ public class Location {
 		return "Location(" + x + ", " + y + ", " + z + ")";
 	}
 
-	// Optimized accessors
 	public int getLocalX() {
 		return x - ((x >> 3) - REGION_OFFSET) * 8;
 	}
@@ -117,19 +116,16 @@ public class Location {
 		this.y += dy;
 	}
 
-	// Inline the view distance check – avoids Utility.delta(...) allocation
 	public boolean isViewableFrom(Location other) {
 		return this.z == other.z &&
 			Math.abs(this.x - other.x) <= VIEW_DISTANCE &&
 			Math.abs(this.y - other.y) <= VIEW_DISTANCE;
 	}
 
-	// Area flags – make static cached zones for better performance if needed
 	public boolean inKingBlackDragonArea() {
 		return x >= 2250 && x <= 2290 && y >= 4670 && y <= 4714;
 	}
 
-	// Optional: extract location check to utility for reuse
 	public boolean inBounds(Location sw, Location ne, boolean inclusive) {
 		if (inclusive) {
 			return x >= sw.x && x <= ne.x && y >= sw.y && y <= ne.y;

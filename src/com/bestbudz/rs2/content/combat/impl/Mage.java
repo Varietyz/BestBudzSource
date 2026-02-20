@@ -42,7 +42,6 @@ public class Mage {
 
 		entity.getCombat().updateTimers(assault.getAssaultDelay() + 1);
 
-		// Handle animations, graphics, and projectiles based on entity type
 		handleCombatVisuals(assaulting);
 
 		entity.doConsecutiveAssaults(assaulting);
@@ -58,7 +57,7 @@ public class Mage {
 	}
 
 	private void handlePetVisuals(Entity assaulting) {
-		// Handle pet-specific animation
+
 		Animation petAnimation = (Animation) entity.getAttributes().get("PET_MAGE_ANIMATION");
 		if (petAnimation != null) {
 			entity.getUpdateFlags().sendAnimation(petAnimation);
@@ -66,13 +65,11 @@ public class Mage {
 			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
 		}
 
-		// Handle pet-specific start graphic
 		Graphic petStartGraphic = (Graphic) entity.getAttributes().get("PET_MAGE_START");
 		if (petStartGraphic != null && petStartGraphic.getId() != 0 && petStartGraphic.getId() != 448) {
 			entity.getUpdateFlags().sendGraphic(petStartGraphic);
 		}
 
-		// Handle pet-specific projectile
 		Projectile petProjectile = (Projectile) entity.getAttributes().get("PET_MAGE_PROJECTILE");
 		if (petProjectile != null) {
 			sendProjectile(petProjectile, assaulting);
@@ -80,19 +77,17 @@ public class Mage {
 	}
 
 	private void handleRegularVisuals(Entity assaulting) {
-		// Handle regular animation (for stoners and other entities)
+
 		if (animation != null) {
 			entity.getUpdateFlags().sendAnimation(animation);
 			entity.setAnimationWithCombatLock(animation, Combat.CombatTypes.MAGE);
 			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
 		}
 
-		// Handle regular start graphic
 		if (start != null && start.getId() != 0) {
 			entity.getUpdateFlags().sendGraphic(start);
 		}
 
-		// Handle regular projectile
 		if (projectile != null) {
 			sendProjectile(projectile, assaulting);
 		}
@@ -163,13 +158,11 @@ public class Mage {
 			TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
 		}
 
-		// Handle end graphics separately for pets vs regular entities
 		Graphic endGraphic = getEndGraphic(success);
 
 		if (endGraphic != null) {
 			TaskQueue.queue(new GraphicTask(assault.getHitDelay(), false, endGraphic, assaulting));
 
-			// Handle double hit logic
 			if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(),
 				entity.getCombat().getHitChainStage(), entity, assaulting)) {
 				handleDoubleHit(hit, assaulting);
@@ -182,15 +175,15 @@ public class Mage {
 	private Graphic getEndGraphic(boolean success) {
 		if (success || entity.isNpc()) {
 			if (entity instanceof Stoner && ((Stoner) entity).isPetStoner()) {
-				// Pet-specific end graphic
+
 				Graphic petEndGraphic = (Graphic) entity.getAttributes().get("PET_MAGE_END");
-				return petEndGraphic; // No fallback for pets - returns null if not set
+				return petEndGraphic;
 			} else {
-				// Regular end graphic (for stoners and other entities)
+
 				return this.end;
 			}
 		} else if (!entity.isNpc()) {
-			// Miss graphic for non-NPCs
+
 			return new Graphic(85, 0, true);
 		}
 
@@ -204,7 +197,7 @@ public class Mage {
 			Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.DEFLECT);
 			final Entity target = assaulting;
 
-			TaskQueue.queue(new Task(2) { // 1 tick = 300ms
+			TaskQueue.queue(new Task(2) {
 				@Override
 				public void execute() {
 					Combat.applyHit(target, secondHit);

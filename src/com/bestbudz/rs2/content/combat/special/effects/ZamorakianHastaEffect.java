@@ -8,10 +8,6 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Zamorakian Hasta Special - "Chaos Strike"
- * A chaotic thrust that deals variable damage and creates unpredictable battlefield effects
- */
 public class ZamorakianHastaEffect implements CombatEffect {
 
 	@Override
@@ -19,8 +15,7 @@ public class ZamorakianHastaEffect implements CombatEffect {
 		double chaosIntensity = 1.0 + (FormulaData.getCombatEffectiveness(attacker) * 0.3);
 		int baseDamage = attacker.getLastDamageDealt();
 
-		// Chaos Strike - highly variable damage (can be very high or very low)
-		double chaosVariance = 0.5 + (Math.random() * 1.0 * chaosIntensity); // 0.5x to 1.5x+ multiplier
+		double chaosVariance = 0.5 + (Math.random() * 1.0 * chaosIntensity);
 		int chaosDamage = (int)(baseDamage * chaosVariance);
 
 		if (target.isNpc() && chaosDamage > 0) {
@@ -40,19 +35,16 @@ public class ZamorakianHastaEffect implements CombatEffect {
 			}
 		}
 
-		// Chaotic Displacement - unpredictable movement effect
 		performChaoticDisplacement(attacker, target, (int)chaosIntensity);
 
-		// Chaos Aura - random beneficial or detrimental effects
 		int chaosEffect = com.bestbudz.core.util.Utility.random(100);
 
-		if (chaosEffect < 15 + (chaosIntensity * 5)) { // 15-30% chance
+		if (chaosEffect < 15 + (chaosIntensity * 5)) {
 			applyRandomChaosEffect(attacker, target, chaosIntensity);
 		}
 
-		// Zamorak's Favor - chance for double damage on next attack
 		if (chaosIntensity > 2.0) {
-			double favorChance = (chaosIntensity - 2.0) * 15; // Up to 6% chance
+			double favorChance = (chaosIntensity - 2.0) * 15;
 			if (com.bestbudz.core.util.Utility.random(100) < favorChance) {
 				int favorDamage = baseDamage + chaosDamage;
 
@@ -63,8 +55,7 @@ public class ZamorakianHastaEffect implements CombatEffect {
 			}
 		}
 
-		// Chaos Mastery - build power from unpredictability
-		if (Math.abs(chaosVariance - 1.0) > 0.4) { // High variance builds mastery
+		if (Math.abs(chaosVariance - 1.0) > 0.4) {
 			int masteryBonus = (int)(Math.abs(chaosVariance - 1.0) * 50);
 			attacker.getAttributes().set("chaos_mastery", masteryBonus);
 			attacker.getAttributes().set("chaos_mastery_end", System.currentTimeMillis() + 18000);
@@ -77,11 +68,10 @@ public class ZamorakianHastaEffect implements CombatEffect {
 	}
 
 	private void performChaoticDisplacement(Stoner attacker, Entity target, int power) {
-		// Chaotic movement - can move target OR attacker, in random directions
-		boolean displaceSelf = com.bestbudz.core.util.Utility.random(100) < 30; // 30% chance to displace self
+
+		boolean displaceSelf = com.bestbudz.core.util.Utility.random(100) < 30;
 		Entity displaced = displaceSelf ? attacker : target;
 
-		// Random direction and distance
 		int[] directions = {-power, -1, 0, 1, power};
 		int deltaX = directions[com.bestbudz.core.util.Utility.random(directions.length)];
 		int deltaY = directions[com.bestbudz.core.util.Utility.random(directions.length)];
@@ -100,24 +90,24 @@ public class ZamorakianHastaEffect implements CombatEffect {
 		int effectPower = (int)(10 + chaosIntensity * 5);
 
 		switch (effect) {
-			case 0: // Chaos Strength
+			case 0:
 				attacker.getAttributes().set("chaos_strength", effectPower);
 				attacker.getAttributes().set("chaos_strength_end", System.currentTimeMillis() + 15000);
 				attacker.getClient().queueOutgoingPacket(new SendMessage("Chaotic energy surges through your muscles! (+" + effectPower + " Strength)"));
 				break;
 
-			case 1: // Chaos Speed
+			case 1:
 				attacker.getAttributes().set("chaos_speed", effectPower);
 				attacker.getAttributes().set("chaos_speed_end", System.currentTimeMillis() + 12000);
 				attacker.getClient().queueOutgoingPacket(new SendMessage("Chaos accelerates your movements! (+" + effectPower + "% speed)"));
 				break;
 
-			case 2: // Chaos Drain (target)
+			case 2:
 				if (target.isNpc()) {
 					Mob victim = com.bestbudz.rs2.entity.World.getNpcs()[target.getIndex()];
 					if (victim != null) {
-						// Randomly drain a stat
-						int[] stats = {0, 1, 2, 4, 5, 6}; // All combat stats
+
+						int[] stats = {0, 1, 2, 4, 5, 6};
 						int statToDrain = stats[com.bestbudz.core.util.Utility.random(stats.length)];
 
 						if (victim.getGrades()[statToDrain] > effectPower) {
@@ -127,13 +117,13 @@ public class ZamorakianHastaEffect implements CombatEffect {
 				}
 				break;
 
-			case 3: // Chaos Reflection
+			case 3:
 				attacker.getAttributes().set("chaos_reflection", effectPower);
 				attacker.getAttributes().set("chaos_reflection_end", System.currentTimeMillis() + 10000);
 				attacker.getClient().queueOutgoingPacket(new SendMessage("Chaos creates a reflective barrier! (" + effectPower + "% damage reflection)"));
 				break;
 
-			case 4: // Chaos Regeneration
+			case 4:
 				if (attacker.getGrades()[3] < attacker.getMaxGrades()[3]) {
 					long healing = Math.min(effectPower * 2, attacker.getMaxGrades()[3] - attacker.getGrades()[3]);
 					attacker.getGrades()[3] += healing;
@@ -142,7 +132,7 @@ public class ZamorakianHastaEffect implements CombatEffect {
 				}
 				break;
 
-			case 5: // Chaos Confusion (target accuracy reduction)
+			case 5:
 				if (target.isNpc()) {
 					target.getAttributes().set("chaos_confusion", effectPower);
 					target.getAttributes().set("chaos_confusion_end", System.currentTimeMillis() + 8000);
@@ -160,7 +150,7 @@ public class ZamorakianHastaEffect implements CombatEffect {
 				return true;
 			}
 		} catch (Exception e) {
-			// Fallback movement
+
 			entity.getMovementHandler().walkTo(deltaX > 0 ? 1 : deltaX < 0 ? -1 : 0,
 				deltaY > 0 ? 1 : deltaY < 0 ? -1 : 0);
 		}

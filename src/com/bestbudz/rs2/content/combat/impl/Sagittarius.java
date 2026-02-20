@@ -57,17 +57,14 @@ public class Sagittarius {
 		entity.setLastHitSuccess((success) || (entity.isIgnoreHitSuccess()));
 		entity.getCombat().updateTimers(assault.getAssaultDelay());
 
-		// Handle combat visuals based on entity type
 		handleCombatVisuals(assaulting);
 
 		TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
 
-		// Handle double hit
 		if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
 			handleDoubleHit(hit, assaulting);
 		}
 
-		// Handle end graphics
 		handleEndGraphic(assaulting);
 
 		assaulting.getCombat().setInCombat(entity);
@@ -84,7 +81,7 @@ public class Sagittarius {
 	}
 
 	private void handlePetVisuals(Entity assaulting) {
-		// Handle pet-specific animation
+
 		Animation petAnimation = (Animation) entity.getAttributes().get("PET_SAGITTARIUS_ANIMATION");
 		if (petAnimation != null) {
 			entity.getUpdateFlags().sendAnimation(petAnimation);
@@ -92,7 +89,6 @@ public class Sagittarius {
 			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
 		}
 
-		// Handle pet-specific start graphic
 		Graphic petStartGraphic = (Graphic) entity.getAttributes().get("PET_SAGITTARIUS_START");
 		Graphic petEndGraphic = (Graphic) entity.getAttributes().get("PET_SAGITTARIUS_END");
 		if (petStartGraphic != null) {
@@ -103,7 +99,6 @@ public class Sagittarius {
 			}
 		}
 
-		// Handle pet-specific projectile
 		Projectile petProjectile = (Projectile) entity.getAttributes().get("PET_SAGITTARIUS_PROJECTILE");
 		if (petProjectile != null) {
 			executeProjectile(assaulting, petProjectile);
@@ -111,19 +106,17 @@ public class Sagittarius {
 	}
 
 	private void handleRegularVisuals(Entity assaulting) {
-		// Handle regular animation (for stoners and other entities)
+
 		if (animation != null) {
 			entity.getUpdateFlags().sendAnimation(animation);
 			entity.setAnimationWithCombatLock(animation, Combat.CombatTypes.SAGITTARIUS);
 			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
 		}
 
-		// Handle regular start graphic
 		if (start != null) {
 			executeStartGraphic();
 		}
 
-		// Handle regular projectile
 		if (projectile != null) {
 			executeProjectile(assaulting);
 		}
@@ -133,10 +126,10 @@ public class Sagittarius {
 		Graphic endGraphic = null;
 
 		if (entity instanceof Stoner && ((Stoner) entity).isPetStoner()) {
-			// Pet-specific end graphic
+
 			endGraphic = (Graphic) entity.getAttributes().get("PET_SAGITTARIUS_END");
 		} else {
-			// Regular end graphic (for stoners and other entities)
+
 			endGraphic = this.end;
 		}
 
@@ -152,7 +145,7 @@ public class Sagittarius {
 			Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
 			final Entity target = assaulting;
 
-			TaskQueue.queue(new Task(2) { // 1 tick = 300ms
+			TaskQueue.queue(new Task(2) {
 				@Override
 				public void execute() {
 					Combat.applyHit(target, secondHit);

@@ -27,11 +27,11 @@ public class FoodHandler {
 		this.consumables = consumables;
 		this.expCalculator = new ExperienceCalculator(stoner);
 		this.specialEffects = new SpecialEffects(stoner);
-		this.allergySystem = stoner.getAllergySystem(); // Assume this exists on Stoner
+		this.allergySystem = stoner.getAllergySystem();
 	}
 
 	public boolean consumeFood(int id, int slot, Item consumable) {
-		// Apply special effects first
+
 		specialEffects.applySpecialFoodEffects(consumable);
 
 		FoodDefinition food = Item.getFoodDefinition(id);
@@ -43,48 +43,39 @@ public class FoodHandler {
 			return true;
 		}
 
-		// Check for allergies BEFORE consumption
 		AllergySystem.AllergyType allergy = allergySystem.getAllergyFor(id);
 		if (allergy != null && allergySystem.shouldTriggerAllergy(allergy)) {
 			int foodHealth = calculateFoodHealth(id, food);
 
-			// Handle item consumption (still consume the item)
 			handleFoodConsumption(slot, consumable, food);
 
-			// Apply allergic reaction instead of normal effects
 			allergySystem.applyAllergyReaction(allergy, foodHealth);
 
-			// Still play eating animation/sound but with different message
 			stoner.getClient().queueOutgoingPacket(new SendSound(317, 1, 2));
 			stoner.getUpdateFlags().sendAnimation(829, 0);
 
-			// Add Consumer experience for attempting consumption
 			expCalculator.addFoodExperience(Math.max(1, foodHealth / 2));
 
 			scheduleFoodCooldown(id, food);
 			return true;
 		}
 
-		// Normal consumption path
 		int foodHealth = calculateFoodHealth(id, food);
 		long targetHeal = calculateTargetHeal(id, foodHealth);
 
-		// Check for item preservation (Consumer mastery)
 		boolean preserveItem = allergySystem.shouldPreserveItem(allergySystem.getConsumerLevel());
 
 		if (!preserveItem) {
 			handleFoodConsumption(slot, consumable, food);
 		} else {
-			// Item preserved, just play effects
+
 			stoner.send(new SendMessage("@gre@Your Consumer mastery preserves the " + food.getName() + "!"));
 		}
 
 		applyFoodEffects(food, foodHealth, targetHeal);
 
-		// Apply Consumer mastery bonuses
 		allergySystem.applyConsumerMastery(foodHealth, allergySystem.getConsumerLevel());
 
-		// Build resistance if player has this allergy
 		if (allergy != null) {
 			allergySystem.handleAllergyExposure(allergy);
 		}
@@ -99,26 +90,22 @@ public class FoodHandler {
 		int advancements = stoner.getProfessionAdvances()[Professions.CONSUMER];
 		int baseHeal = food.getHeal();
 
-		// Special case for Saradomin brew equivalent
 		if (id == 15272) {
 			baseHeal = (int) Math.round(stoner.getMaxGrades()[3] * 0.23D);
 		}
 
-		// Consumer skill enhances food effectiveness - level OR advancement based
-		boolean canEnhance = (advancements >= 1) || (consumerLevel >= 105); // Tier 1 advancement OR 25% of 420
+		boolean canEnhance = (advancements >= 1) || (consumerLevel >= 105);
 
 		if (canEnhance) {
 			double enhancement = 1.0;
 
-			// Advancement-based enhancement (permanent)
-			if (advancements >= 1) enhancement += 0.05; // Tier 1: 5% bonus
-			if (advancements >= 2) enhancement += 0.05; // Tier 2: +5% more (10% total)
-			if (advancements >= 3) enhancement += 0.05; // Tier 3: +5% more (15% total)
-			if (advancements >= 4) enhancement += 0.05; // Tier 4: +5% more (20% total)
-			if (advancements >= 5) enhancement += 0.05; // Tier 5: +5% more (25% total, max)
+			if (advancements >= 1) enhancement += 0.05;
+			if (advancements >= 2) enhancement += 0.05;
+			if (advancements >= 3) enhancement += 0.05;
+			if (advancements >= 4) enhancement += 0.05;
+			if (advancements >= 5) enhancement += 0.05;
 
-			// Level-based enhancement (still scales with current level)
-			enhancement += (consumerLevel / 2100.0); // Up to 20% bonus at level 420
+			enhancement += (consumerLevel / 2100.0);
 
 			baseHeal = (int) (baseHeal * enhancement);
 		}

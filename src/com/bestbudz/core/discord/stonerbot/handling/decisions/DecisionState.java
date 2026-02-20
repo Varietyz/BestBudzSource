@@ -1,11 +1,7 @@
 package com.bestbudz.core.discord.stonerbot.handling.decisions;
 
-/**
- * Centralized state management for the Discord bot
- */
 public class DecisionState {
 
-	// Activity timing
 	private volatile long lastQuarryingSession = 0;
 	private volatile long lastLumberingSession = 0;
 	private volatile long lastEmoteTime = 0;
@@ -15,17 +11,14 @@ public class DecisionState {
 	private volatile long lastHomeReturnTime = 0;
 	private volatile long lastExploreTime = 0;
 
-	// Activity state
 	private volatile String lastActivity = "idle";
 	private volatile boolean combatSessionActive = false;
 	private volatile int combatSessionsWithoutReturn = 0;
 	private volatile boolean forceReturnHome = false;
 
-	// Emote state
 	private volatile boolean isEmoting = false;
 	private volatile long emoteStartTime = 0;
 
-	// Getters and setters
 	public long getLastQuarryingSession() { return lastQuarryingSession; }
 	public void setLastQuarryingSession(long time) { this.lastQuarryingSession = time; }
 
@@ -70,18 +63,12 @@ public class DecisionState {
 	public long getEmoteStartTime() { return emoteStartTime; }
 	public void setEmoteStartTime(long time) { this.emoteStartTime = time; }
 
-	/**
-	 * Reset home tracking state
-	 */
 	public void resetHomeTracking() {
 		lastHomeReturnTime = System.currentTimeMillis();
 		combatSessionsWithoutReturn = 0;
 		forceReturnHome = false;
 	}
 
-	/**
-	 * Get formatted statistics about current state
-	 */
 	public String getStats() {
 		long currentTime = System.currentTimeMillis();
 		return String.format(

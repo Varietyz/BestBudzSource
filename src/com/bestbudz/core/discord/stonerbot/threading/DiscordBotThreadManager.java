@@ -9,9 +9,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
-/**
- * Manages threading and message processing for Discord Bot
- */
 public class DiscordBotThreadManager implements Runnable {
 	private static final Logger logger = Logger.getLogger(DiscordBotThreadManager.class.getSimpleName());
 
@@ -20,7 +17,6 @@ public class DiscordBotThreadManager implements Runnable {
 	private final AtomicBoolean running = new AtomicBoolean(false);
 	private final AtomicLong lastUpdateTime = new AtomicLong(0);
 
-	// Message queue management
 	private final BlockingQueue<DiscordBotStoner.BotMessage> messageQueue =
 		new LinkedBlockingQueue<>(DiscordBotStonerConfig.MESSAGE_QUEUE_SIZE);
 
@@ -28,9 +24,6 @@ public class DiscordBotThreadManager implements Runnable {
 		this.bot = bot;
 	}
 
-	/**
-	 * Start the bot thread
-	 */
 	public void startThread() {
 		if (running.compareAndSet(false, true)) {
 			botThread = new Thread(this, "DiscordBot-Threading");
@@ -41,9 +34,6 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Stop the bot thread
-	 */
 	public void stopThread() {
 		if (running.compareAndSet(true, false)) {
 			if (botThread != null && botThread.isAlive()) {
@@ -59,9 +49,6 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Main thread execution loop
-	 */
 	@Override
 	public void run() {
 		lastUpdateTime.set(System.currentTimeMillis());
@@ -71,10 +58,8 @@ public class DiscordBotThreadManager implements Runnable {
 				processMessageBatch();
 				long currentTime = System.currentTimeMillis();
 
-				// Process core bot systems
 				processCoreSystemsLoop(currentTime);
 
-				// Regular updates
 				if (currentTime - lastUpdateTime.get() >= DiscordBotStonerConfig.UPDATE_INTERVAL) {
 					bot.performBotUpdate();
 					lastUpdateTime.set(currentTime);
@@ -91,24 +76,17 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Process core systems in priority order
-	 */
 	private void processCoreSystemsLoop(long currentTime) {
 		try {
-			// CRITICAL: Combat processing has highest priority
+
 			processCombatSystems();
 
-			// Movement validation and management
 			processMovementSystems(currentTime);
 
-			// Stationary period management
 			bot.getStationaryManager().manageStationaryPeriods(currentTime);
 
-			// Skill system updates
 			processSkillSystems();
 
-			// Decision making (lowest priority)
 			processDecisionSystems(currentTime);
 
 		} catch (Exception e) {
@@ -116,9 +94,6 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Process combat systems with highest priority
-	 */
 	private void processCombatSystems() {
 		try {
 			if (bot.getCombat() != null) {
@@ -133,15 +108,11 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Process movement systems
-	 */
 	private void processMovementSystems(long currentTime) {
 		try {
-			// Validate movement
+
 			bot.getBotLocation().validateMovement();
 
-			// Movement management (but don't interfere with combat)
 			if (!bot.getBotQuarrying().isCurrentlyMining() &&
 				!bot.getStationaryManager().isInStationaryPeriod() &&
 				!bot.getCombat().inCombat()) {
@@ -157,9 +128,6 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Process skill systems
-	 */
 	private void processSkillSystems() {
 		try {
 			if (DiscordBotStonerConfig.ENABLE_QUARRYING) {
@@ -174,10 +142,6 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-
-	/**
-	 * Process decision systems (lowest priority)
-	 */
 	private void processDecisionSystems(long currentTime) {
 		try {
 			if (!bot.getBotQuarrying().isQuarrying() &&
@@ -197,9 +161,6 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Process batch of messages from queue
-	 */
 	private void processMessageBatch() {
 		for (int i = 0; i < DiscordBotStonerConfig.MESSAGES_PER_BATCH; i++) {
 			DiscordBotStoner.BotMessage message = messageQueue.poll();
@@ -208,9 +169,6 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Process individual message
-	 */
 	private void processMessage(DiscordBotStoner.BotMessage message) {
 		try {
 			bot.getActions().processMessage(message);
@@ -219,12 +177,9 @@ public class DiscordBotThreadManager implements Runnable {
 		}
 	}
 
-	/**
-	 * Schedule a message with optional delay
-	 */
 	public void scheduleMessage(DiscordBotStoner.BotMessage message) {
 		if (message.getDelay() > 0) {
-			// Schedule for later execution
+
 			new Thread(() -> {
 				try {
 					Thread.sleep(message.getDelay());
@@ -236,23 +191,17 @@ public class DiscordBotThreadManager implements Runnable {
 				}
 			}, "BotDelayedMessage").start();
 		} else {
-			// Add immediately
+
 			if (!messageQueue.offer(message)) {
 				logger.warning("Bot message queue full, dropping message");
 			}
 		}
 	}
 
-	/**
-	 * Get queue size for monitoring
-	 */
 	public int getQueueSize() {
 		return messageQueue.size();
 	}
 
-	/**
-	 * Check if thread is running
-	 */
 	public boolean isRunning() {
 		return running.get();
 	}

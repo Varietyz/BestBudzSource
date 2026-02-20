@@ -64,10 +64,9 @@ public class MobDeathTask extends Task {
 				  mob.onDeath();
 				  MobDrops.dropItems(mob.getCombat().getDamageTracker().getKiller(), mob);
 
-				  // Flush any pending resonance messages before mob disappears
 				  Entity killer = mob.getCombat().getDamageTracker().getKiller();
 				  if (killer != null && !killer.isNpc()) {
-					  Stoner stoner = (Stoner) killer; // You might need to cast appropriately
+					  Stoner stoner = (Stoner) killer;
 					  if (stoner.getResonance() != null) {
 						  stoner.getResonance().flushPendingMessage();
 					  }

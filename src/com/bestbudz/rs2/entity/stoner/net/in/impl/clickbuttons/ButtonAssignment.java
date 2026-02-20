@@ -30,7 +30,6 @@ public class ButtonAssignment extends ClickButtonPacket {
 	public static final Map<Integer, ButtonHandler> BUTTON_HANDLERS = new HashMap<>();
 	public static final Map<Integer, String> LEADERBOARD_TYPES = new ConcurrentHashMap<>();
 
-	// Button ID constants ordered from lowest to highest
 	public static final class ButtonIds {
 		static final int RUN_TOGGLE_1 = 74;
 		static final int RETALIATE_1 = 150;
@@ -74,342 +73,220 @@ public class ButtonAssignment extends ClickButtonPacket {
 	}
 
 	public static void initializeButtonHandlers() {
-		// Order from lowest ID to highest ID
 
-		// 74 - Run toggle
 		BUTTON_HANDLERS.put(ButtonIds.RUN_TOGGLE_1, ClickButtonPacket::toggleRunning);
 
-		// 150 - Retaliate
 		BUTTON_HANDLERS.put(ButtonIds.RETALIATE_1, stoner -> stoner.setRetaliate(!stoner.isRetaliate()));
 
-		// 152 - Run toggle
 		BUTTON_HANDLERS.put(ButtonIds.RUN_TOGGLE_2, ClickButtonPacket::toggleRunning);
 
-		// 2094 - Cancel report
 		BUTTON_HANDLERS.put(ButtonIds.CANCEL_REPORT, ClickButtonPacket::cancelReport);
 
-		// 2202 - Money pouch
 		BUTTON_HANDLERS.put(2202, stoner -> stoner.send(new SendMessage("You have <col=255>" + Utility.format(stoner.getMoneyPouch()) + " </col>BestBucks on your Debit Card.")));
 
-		// 2203 - Payment option
 		BUTTON_HANDLERS.put(2203, ClickButtonPacket::handlePaymentOption);
 
-		// 3162 - Music volume max
 		BUTTON_HANDLERS.put(ButtonIds.MUSIC_VOLUME_MAX, stoner -> {
 			stoner.setMusicVolume((byte) 4);
 			stoner.getClient().queueOutgoingPacket(new SendConfig(168, 4));
 		});
 
-		// 3173 - Sound volume max
 		BUTTON_HANDLERS.put(ButtonIds.SOUND_VOLUME_MAX, stoner -> {
 			stoner.setSoundVolume((byte) 4);
 			stoner.getClient().queueOutgoingPacket(new SendConfig(169, 4));
 		});
 
-		// 3189 - Split private chat
 		BUTTON_HANDLERS.put(3189, stoner -> {
 			stoner.setSplitPrivateChat((byte) (stoner.getSplitPrivateChat() == 0 ? 1 : 0));
 			stoner.getClient().queueOutgoingPacket(new SendConfig(287, stoner.getSplitPrivateChat()));
 		});
 
-		// 4140 - Training interface 2
-		//BUTTON_HANDLERS.put(ButtonIds.TRAINING_INTERFACE_2, ClickButtonPacket::openTrainingInterface);
-
-		// 4143 - Profession interface 2
-		//BUTTON_HANDLERS.put(ButtonIds.PROFESSING_INTERFACE_2, ClickButtonPacket::openProfessionInterface);
-
-		// 4146 - PvP interface 2
-		//BUTTON_HANDLERS.put(ButtonIds.PVP_INTERFACE_2, ClickButtonPacket::openPvPInterface);
-
-		// 4150 - Boss interface 2
-		//BUTTON_HANDLERS.put(ButtonIds.BOSS_INTERFACE_2, ClickButtonPacket::openBossInterface);
-
-		// 6004 - Minigame interface 2
-		//BUTTON_HANDLERS.put(ButtonIds.MINIGAME_INTERFACE_2, ClickButtonPacket::openMinigameInterface);
-
-		// 6005 - Other interface 2
-		//BUTTON_HANDLERS.put(ButtonIds.OTHER_INTERFACE_2, ClickButtonPacket::openOtherInterface);
-
-		// 9118 - Close interface 1
 		BUTTON_HANDLERS.put(ButtonIds.CLOSE_INTERFACE_1, stoner -> stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces()));
 
-		// 9154 - Logout
 		BUTTON_HANDLERS.put(ButtonIds.LOGOUT, ClickButtonPacket::handleLogout);
 
-		// 14067 - Update appearance
 		BUTTON_HANDLERS.put(14067, ClickButtonPacket::updateAppearance);
 
-		// 15062 - Interface closer
 		BUTTON_HANDLERS.put(15062, stoner -> stoner.send(new SendRemoveInterfaces()));
 
-		// 24125 - Remove manual attribute
 		BUTTON_HANDLERS.put(24125, stoner -> stoner.getAttributes().remove("manual"));
 
-		// 24126 - Set manual attribute
 		BUTTON_HANDLERS.put(24126, stoner -> stoner.getAttributes().set("manual", (byte) 1));
 
-		// 29074 - Special attack restore
 		BUTTON_HANDLERS.put(ButtonIds.SPECIAL_ATTACK_RESTORE, ClickButtonPacket::handleSpecialAttackRestore);
 
-		// 33230 - Run toggle 3
 		BUTTON_HANDLERS.put(ButtonIds.RUN_TOGGLE_3, ClickButtonPacket::toggleRunning);
 
-		// 50235 - FREE
 		BUTTON_HANDLERS.put(52035, null);
 
-		// 50245 - FREE
 		BUTTON_HANDLERS.put(50245, null);
 
-		// 50253 - FREE
 		BUTTON_HANDLERS.put(50253, null);
 
-		// 51005 - FREE
 		BUTTON_HANDLERS.put(51005, null);
 
-		// 51013 - FREE
 		BUTTON_HANDLERS.put(51013, null);
 
-		// 51023 - FREE
 		BUTTON_HANDLERS.put(51023, null);
 
-		// 55095 - Weapon unload
 		BUTTON_HANDLERS.put(55095, ClickButtonPacket::handleWeaponUnload);
 
-		// 55096 - Interface closer
 		BUTTON_HANDLERS.put(55096, stoner -> stoner.send(new SendRemoveInterfaces()));
 
-		// 59097 - Combat formulas
 		BUTTON_HANDLERS.put(ButtonIds.COMBAT_FORMULAS, ClickButtonPacket::displayCombatFormulas);
 
-		// 59100 - FREE
 		BUTTON_HANDLERS.put(59100, null);
 
-		// 59103 - Price checker open
 		BUTTON_HANDLERS.put(ButtonIds.PRICE_CHECKER_OPEN, stoner -> stoner.getPriceChecker().open());
 
-		// 59206 - FREE
 		BUTTON_HANDLERS.put(59206, null);
 
-		// 66108 - FREE
 		BUTTON_HANDLERS.put(66108, null);
 
-		// 70209 - Enter X interface
 		BUTTON_HANDLERS.put(70209, stoner -> stoner.setEnterXInterfaceId(6969));
 
-		// 74214 - Run toggle 4
 		BUTTON_HANDLERS.put(ButtonIds.RUN_TOGGLE_4, ClickButtonPacket::toggleRunning);
 
-		// 75007 - Bolt enchanting
 		BUTTON_HANDLERS.put(75007, BoltEnchanting::open);
 
-		// 75010 - Home teleport 2
 		BUTTON_HANDLERS.put(ButtonIds.HOME_TELEPORT_2, ClickButtonPacket::handleHomeTeleport);
 
-		// 83051 - Close interface 2
 		BUTTON_HANDLERS.put(ButtonIds.CLOSE_INTERFACE_2, stoner -> stoner.getClient().queueOutgoingPacket(new SendRemoveInterfaces()));
 
-		// 83093 - Interface opener
 		BUTTON_HANDLERS.put(83093, stoner -> stoner.getClient().queueOutgoingPacket(new SendInterface(15106)));
 
-		// 84237 - Home teleport 3
 		BUTTON_HANDLERS.put(ButtonIds.HOME_TELEPORT_3, ClickButtonPacket::handleHomeTeleport);
 
-		// 89061 - Retaliate 2
 		BUTTON_HANDLERS.put(ButtonIds.RETALIATE_2, stoner -> stoner.setRetaliate(!stoner.isRetaliate()));
 
-		// 93202 - Retaliate
 		BUTTON_HANDLERS.put(93202, stoner -> stoner.setRetaliate(!stoner.isRetaliate()));
 
-		// 93209 - Retaliate
 		BUTTON_HANDLERS.put(93209, stoner -> stoner.setRetaliate(!stoner.isRetaliate()));
 
-		// 93217 - Retaliate
 		BUTTON_HANDLERS.put(93217, stoner -> stoner.setRetaliate(!stoner.isRetaliate()));
 
-		// 93225 - Retaliate
 		BUTTON_HANDLERS.put(93225, stoner -> stoner.setRetaliate(!stoner.isRetaliate()));
 
-		// 94051 - Retaliate
 		BUTTON_HANDLERS.put(94051, stoner -> stoner.setRetaliate(!stoner.isRetaliate()));
 
-		// 100228 - Multiple mouse buttons
 		BUTTON_HANDLERS.put(100228, stoner -> stoner.setMultipleMouseButtons((byte) (stoner.getMultipleMouseButtons() == 0 ? 1 : 0)));
 
-		// 100231 - Chat effects enabled
 		BUTTON_HANDLERS.put(100231, stoner -> stoner.setChatEffectsEnabled((byte) (stoner.getChatEffectsEnabled() == 0 ? 1 : 0)));
 
-		// 100237 - Accept aid
 		BUTTON_HANDLERS.put(100237, stoner -> stoner.setAcceptAid((byte) (stoner.getAcceptAid() == 0 ? 1 : 0)));
 
-		// 108005 - Interface opener
 		BUTTON_HANDLERS.put(108005, stoner -> stoner.getClient().queueOutgoingPacket(new SendInterface(19148)));
 
-		// 110046 - Transparent tab
 		BUTTON_HANDLERS.put(110046, stoner -> stoner.send(new SendMessage(":transparentTab:")));
 
-		// 110047 - Transparent chatbox
 		BUTTON_HANDLERS.put(110047, stoner -> stoner.send(new SendMessage(":transparentChatbox:")));
 
-		// 110048 - Side stones
 		BUTTON_HANDLERS.put(110048, stoner -> stoner.send(new SendMessage(":sideStones:")));
 
-		// 110245 - Save settings
 		BUTTON_HANDLERS.put(110245, ClickButtonPacket::saveSettings);
 
-		// 110248 - Reset settings
 		BUTTON_HANDLERS.put(110248, ClickButtonPacket::resetSettings);
 
-		// 111024 - Toggle advance colors
 		BUTTON_HANDLERS.put(111024, ClickButtonPacket::toggleAdvanceColors);
 
-		// 114220 - Open achievement tab
 		BUTTON_HANDLERS.put(114220, ClickButtonPacket::openAchievementTab);
 
-		// 114226 - Quest tab
 		BUTTON_HANDLERS.put(114226, stoner -> InterfaceHandler.writeText(new QuestTab(stoner)));
 
-		// 114229 - Staff commands
 		BUTTON_HANDLERS.put(ButtonIds.STAFF_COMMANDS, ClickButtonPacket::handleStaffCommands);
 
-		// 115065 - Show online stoners
 		BUTTON_HANDLERS.put(115065, ClickButtonPacket::showOnlineStoners);
 
-		// 115070 - Open points interface
 		BUTTON_HANDLERS.put(115070, ClickButtonPacket::openPointsInterface);
 
-		// 115071 - Open PVM tracker
 		BUTTON_HANDLERS.put(115071, ClickButtonPacket::openPvmTracker);
 
-		// 115074 - Handle spellbook switch
 		BUTTON_HANDLERS.put(115074, ClickButtonPacket::focusedMageBookSwap);
 
-		// 115075 - Handle spellbook switch
 		BUTTON_HANDLERS.put(115075, ClickButtonPacket::aoeMageBookSwap);
 
-		// 115076 - Drop table open
 		BUTTON_HANDLERS.put(115076, DropTable::open);
 
-		// 115077 - FREE
 		BUTTON_HANDLERS.put(115077, null);
 
-		// 115107 - Oziach dialogue
 		BUTTON_HANDLERS.put(115107, stoner -> stoner.start(new OziachDialogue(stoner)));
 
-		// 115108 - Jewelry creation task
 		BUTTON_HANDLERS.put(115108, JewelryCreationTask::sendInterface);
 
-		// 115109 - Hide tanning
 		BUTTON_HANDLERS.put(115109, HideTanning::sendTanningInterface);
 
-		// 115110 - Potion decanting
 		BUTTON_HANDLERS.put(115110, PotionDecanting::decantAll);
 
-		// 115114 - FREE
 		BUTTON_HANDLERS.put(115114, null);
 
-		// 115115 - Genie reset dialogue
 		BUTTON_HANDLERS.put(115115, stoner -> stoner.start(new GenieResetDialogue(stoner)));
 
-		// 115116 - Toggle Auto-Combat
 		BUTTON_HANDLERS.put(115116, stoner -> stoner.getAutoCombat().toggle());
 
-		// 115117 - Recharge resonance
 		BUTTON_HANDLERS.put(115117, ClickButtonPacket::rechargeResonance);
 
-		// 115118 - Handle skulling
 		BUTTON_HANDLERS.put(115118, ClickButtonPacket::handleSkulling);
 
-		// 115122 - Vannaka dialogue
 		BUTTON_HANDLERS.put(115122, null);
 
-		// 115123 - Neive dialogue
 		BUTTON_HANDLERS.put(115123, null);
 
-		// 115127 - Sailor dialogue
 		BUTTON_HANDLERS.put(115127, null);
 
-		// 115128 - Mystery box minigame
 		BUTTON_HANDLERS.put(115128, MysteryBoxMinigame::open);
 
-		// 115129 - Achievement dialogue
 		BUTTON_HANDLERS.put(115129, stoner -> stoner.start(new AchievementDialogue(stoner)));
 
-		// 117048 - Home teleport 1
 		BUTTON_HANDLERS.put(ButtonIds.HOME_TELEPORT_1, ClickButtonPacket::handleHomeTeleport);
 
-		// 121028 - Open BestBudz tab
 		BUTTON_HANDLERS.put(121028, ClickButtonPacket::openBestBudzTab);
 
-		// 127000 - Send interface
 		BUTTON_HANDLERS.put(127000, stoner -> stoner.send(new SendInterface(5292)));
 
-		// 140185 - Send interface
 		BUTTON_HANDLERS.put(140185, stoner -> stoner.send(new SendInterface(28200)));
 
-		// 140186 - Open settings interface
 		BUTTON_HANDLERS.put(140186, ClickButtonPacket::openSettingsInterface);
 
-		// 140189 - Open color chooser
 		BUTTON_HANDLERS.put(140189, ClickButtonPacket::openColorChooser);
 
-		// 151045 - Interface opener
 		BUTTON_HANDLERS.put(151045, stoner -> stoner.getClient().queueOutgoingPacket(new SendInterface(39700)));
 
-		// 154052 - Show online stoners
 		BUTTON_HANDLERS.put(154052, ClickButtonPacket::showOnlineStoners);
 
-		// 155026 - Interface opener
 		BUTTON_HANDLERS.put(155026, stoner -> stoner.getClient().queueOutgoingPacket(new SendInterface(38700)));
 
-		// 163046 - Submit report
 		BUTTON_HANDLERS.put(ButtonIds.SUBMIT_REPORT, ReportHandler::handleReport);
 
-		// 184163 - Interface closer
 		BUTTON_HANDLERS.put(184163, stoner -> stoner.send(new SendRemoveInterfaces()));
 
-		// 189121 - Price checker deposit all
 		BUTTON_HANDLERS.put(ButtonIds.PRICE_CHECKER_DEPOSIT_ALL, stoner -> stoner.getPriceChecker().depositeAll());
 
-		// 189124 - Don't ask message
 		BUTTON_HANDLERS.put(189124, stoner -> stoner.send(new SendMessage("Dont even ask..")));
 
-		// 189194 - Price checker withdraw all
 		BUTTON_HANDLERS.put(ButtonIds.PRICE_CHECKER_WITHDRAW_ALL, stoner -> stoner.getPriceChecker().withdrawAll());
 
-		// 190116 - Interface closer
 		BUTTON_HANDLERS.put(190116, stoner -> stoner.send(new SendRemoveInterfaces()));
 
-		// 194042 - Quest tab
 		BUTTON_HANDLERS.put(ButtonIds.QUEST_TAB, ClickButtonPacket::handleQuestTab);
 
-		// 195087 - Send interface
 		BUTTON_HANDLERS.put(195087, stoner -> stoner.send(new SendInterface(32500)));
 
-		// 201051 - Profile privacy (true)
 		BUTTON_HANDLERS.put(201051, stoner -> setProfilePrivacy(stoner, true));
 
-		// 201052 - Profile privacy (false)
 		BUTTON_HANDLERS.put(201052, stoner -> setProfilePrivacy(stoner, false));
 
-		// 201053 - Profile privacy (true)
 		BUTTON_HANDLERS.put(201053, stoner -> setProfilePrivacy(stoner, true));
 
-		// 201054 - Profile privacy (false)
 		BUTTON_HANDLERS.put(201054, stoner -> setProfilePrivacy(stoner, false));
 
-		// 201055 - FREE
 		BUTTON_HANDLERS.put(201055, null);
 
-		// 201059 - FREE
 		BUTTON_HANDLERS.put(201059, null);
 
-		// 209002 - Handle search options
 		BUTTON_HANDLERS.put(209002, ClickButtonPacket::handleSearchOptions);
 
-		// 211172 - Rest toggle
 		BUTTON_HANDLERS.put(ButtonIds.REST_TOGGLE, stoner -> stoner.getRunEnergy().toggleResting());
 
-		// 233110 - Drop table display
 		BUTTON_HANDLERS.put(ButtonIds.DROP_TABLE_DISPLAY, stoner -> DropTable.displayNpc(stoner, stoner.monsterSelected));
 	}
 
@@ -433,73 +310,72 @@ public class ButtonAssignment extends ClickButtonPacket {
 		SHOP_ACTIONS.put(115102, new ClickButtonPacket.ShopAction(6, "Mercenary shop"));
 		SHOP_ACTIONS.put(115103, new ClickButtonPacket.ShopAction(7, "Bounty shop"));
 
-		// Debug: Print shop actions size
 		System.out.println("DEBUG: Initialized " + SHOP_ACTIONS.size() + " shop actions");
 		System.out.println("DEBUG: Shop actions for failing buttons:");
 	}
 
 	public static void initializeTeleportLocations() {
-		TELEPORT_LOCATIONS.put(115132, new Location(3443, 2915)); // HOME
-		TELEPORT_LOCATIONS.put(115133, new Location(2843, 4832)); // AIR ALTAR
-		TELEPORT_LOCATIONS.put(115134, new Location(2787, 4839)); // MIND ALTAR
-		TELEPORT_LOCATIONS.put(115135, new Location(2718, 4837)); // WATER ALTAR
-		TELEPORT_LOCATIONS.put(115136, new Location(2660, 4840)); // EARTH ALTAR
-		TELEPORT_LOCATIONS.put(115137, new Location(2583, 4839)); // FIRE ALTAR
-		TELEPORT_LOCATIONS.put(115138, new Location(2524, 4842)); // BODY ALTAR
-		TELEPORT_LOCATIONS.put(115139, new Location(2144, 4833)); // COSMIC ALTAR
-		TELEPORT_LOCATIONS.put(115140, new Location(2273, 4842)); // CHAOS ALTAR
-		TELEPORT_LOCATIONS.put(115141, new Location(2400, 4839)); // NATURE ALTAR
-		TELEPORT_LOCATIONS.put(115142, new Location(2464, 4830)); // LAW ALTAR
-		TELEPORT_LOCATIONS.put(115143, new Location(2205, 4834)); // DEATH ALTAR
-		TELEPORT_LOCATIONS.put(115144, new Location(3417, 2923, 0)); // ROCK_CRABS
-		TELEPORT_LOCATIONS.put(115145, new Location(3117, 9856, 0)); // HILL_GIANTS
-		TELEPORT_LOCATIONS.put(115146, new Location(3293, 3182, 0)); // AL_KAHID
-		TELEPORT_LOCATIONS.put(115147, new Location(3362, 2889, 0)); // COWS
-		TELEPORT_LOCATIONS.put(115148, new Location(2321, 3804, 0)); // YAKS
-		TELEPORT_LOCATIONS.put(115149, new Location(2710, 9466, 0)); // BRIMHAVEN_DUNG
-		TELEPORT_LOCATIONS.put(115150, new Location(2884, 9798, 0)); // TAVERLY_DUNG
-		TELEPORT_LOCATIONS.put(115151, new Location(3428, 3538, 0)); // MERCENARY_TOWER
-		TELEPORT_LOCATIONS.put(115152, new Location(3202, 3860, 0)); // LAVA_DRAGONS
-		TELEPORT_LOCATIONS.put(115153, new Location(1747, 5324, 0)); // MITHRIL_DRAGONS
-		TELEPORT_LOCATIONS.put(115154, new Location(3184, 3947, 0)); // WILD_RESOURCE
-		TELEPORT_LOCATIONS.put(115155, new Location(3047, 4976, 1)); // STARTER
-		TELEPORT_LOCATIONS.put(115156, new Location(2747, 3444, 0)); // HANDINESS
-		TELEPORT_LOCATIONS.put(115157, new Location(3044, 9785, 0)); // QUARRYING
-		TELEPORT_LOCATIONS.put(115158, new Location(3186, 3425, 0)); // FORGING
-		TELEPORT_LOCATIONS.put(115159, new Location(2840, 3437, 0)); // FISHER
-		TELEPORT_LOCATIONS.put(115160, new Location(2722, 3473, 0)); // LUMBERING
-		TELEPORT_LOCATIONS.put(115161, new Location(2806, 3463, 0)); // BANKSTANDING
-		TELEPORT_LOCATIONS.put(115162, new Location(3087, 3515, 0)); // EDGEVILLE
-		TELEPORT_LOCATIONS.put(115163, new Location(3244, 3512, 0)); // VARROCK
-		TELEPORT_LOCATIONS.put(115164, new Location(3333, 3666, 0)); // EAST_DRAGONS
-		TELEPORT_LOCATIONS.put(115165, new Location(3002, 3626, 0)); // CASTLE
-		TELEPORT_LOCATIONS.put(115166, new Location(2540, 4717, 0)); // MAGE_BANK
-		TELEPORT_LOCATIONS.put(115167, new Location(2997, 3849, 0)); // KING_BLACK_DRAGON (Grade 276)
-		TELEPORT_LOCATIONS.put(115168, new Location(2336, 3692, 0)); // SEA_TROLL_QUEEN (Grade 170)
-		TELEPORT_LOCATIONS.put(115169, new Location(3806, 2844, 0)); // BARRELCHEST (Grade 190)
-		TELEPORT_LOCATIONS.put(115170, new Location(2948, 4385, 2)); // CORPOREAL_BEAST (Grade 785)
-		TELEPORT_LOCATIONS.put(115171, new Location(1909, 4367, 0)); // DAGGANNOTH_KINGS (Grade 303)
-		TELEPORT_LOCATIONS.put(115172, new Location(2882, 5308, 2)); // GOD_WARS
-		TELEPORT_LOCATIONS.put(115173, new Location(2268, 3070, 0)); // ZULRAH (Grade 725)
-		TELEPORT_LOCATIONS.put(115174, new Location(3696, 5807, 0)); // KRAKEN (Grade 291)
-		TELEPORT_LOCATIONS.put(115175, new Location(1760, 5163, 0)); // GIANT_MOLE (Grade 230)
-		TELEPORT_LOCATIONS.put(115176, new Location(3284, 3913, 0)); // CHAOS_ELEMENTAL (Grade 305)
-		TELEPORT_LOCATIONS.put(115177, new Location(3283, 3853, 0)); // CALLISTO (Grade 470)
-		TELEPORT_LOCATIONS.put(115178, new Location(3233, 3943, 0)); // SCORPIA (Grade 225)
-		TELEPORT_LOCATIONS.put(115179, new Location(3210, 3780, 0)); // VETION (Grade 454)
-		TELEPORT_LOCATIONS.put(115180, new Location(2981, 3837, 0)); // CHAOS_FANATIC (Grade 202)
-		TELEPORT_LOCATIONS.put(115181, new Location(2975, 3715, 0)); // CRAZY_ARCHAEOLOGIST (Grade 204)
-		TELEPORT_LOCATIONS.put(115182, new Location(3565, 3315, 0)); // BARROWS
-		TELEPORT_LOCATIONS.put(115183, new Location(2869, 3544, 0)); // WARRIORS_GUILD
-		TELEPORT_LOCATIONS.put(115184, new Location(3365, 3265, 0)); // DUEL_ARENA
-		TELEPORT_LOCATIONS.put(115185, new Location(2662, 2655, 0)); // PEST_CONTROL
-		TELEPORT_LOCATIONS.put(115186, new Location(2439, 5171, 0)); // FIGHT_CAVES
-		TELEPORT_LOCATIONS.put(115187, WeaponGameConstants.LOBBY_COODINATES); // WEAPON_GAME
-		//TELEPORT_LOCATIONS.put(115188, null); // FREE
-		TELEPORT_LOCATIONS.put(115189, StonerConstants.MEMEBER_AREA); // MEMBERSHIP
-		TELEPORT_LOCATIONS.put(115190, StonerConstants.STAFF_AREA); // STAFFZONE
-		TELEPORT_LOCATIONS.put(115191, new Location(3039, 4834, 0)); // ABYSS
-		TELEPORT_LOCATIONS.put(115192, new Location(2923, 4819, 0)); // ESSENCE MINE
+		TELEPORT_LOCATIONS.put(115132, new Location(3443, 2915));
+		TELEPORT_LOCATIONS.put(115133, new Location(2843, 4832));
+		TELEPORT_LOCATIONS.put(115134, new Location(2787, 4839));
+		TELEPORT_LOCATIONS.put(115135, new Location(2718, 4837));
+		TELEPORT_LOCATIONS.put(115136, new Location(2660, 4840));
+		TELEPORT_LOCATIONS.put(115137, new Location(2583, 4839));
+		TELEPORT_LOCATIONS.put(115138, new Location(2524, 4842));
+		TELEPORT_LOCATIONS.put(115139, new Location(2144, 4833));
+		TELEPORT_LOCATIONS.put(115140, new Location(2273, 4842));
+		TELEPORT_LOCATIONS.put(115141, new Location(2400, 4839));
+		TELEPORT_LOCATIONS.put(115142, new Location(2464, 4830));
+		TELEPORT_LOCATIONS.put(115143, new Location(2205, 4834));
+		TELEPORT_LOCATIONS.put(115144, new Location(3417, 2923, 0));
+		TELEPORT_LOCATIONS.put(115145, new Location(3117, 9856, 0));
+		TELEPORT_LOCATIONS.put(115146, new Location(3293, 3182, 0));
+		TELEPORT_LOCATIONS.put(115147, new Location(3362, 2889, 0));
+		TELEPORT_LOCATIONS.put(115148, new Location(2321, 3804, 0));
+		TELEPORT_LOCATIONS.put(115149, new Location(2710, 9466, 0));
+		TELEPORT_LOCATIONS.put(115150, new Location(2884, 9798, 0));
+		TELEPORT_LOCATIONS.put(115151, new Location(3428, 3538, 0));
+		TELEPORT_LOCATIONS.put(115152, new Location(3202, 3860, 0));
+		TELEPORT_LOCATIONS.put(115153, new Location(1747, 5324, 0));
+		TELEPORT_LOCATIONS.put(115154, new Location(3184, 3947, 0));
+		TELEPORT_LOCATIONS.put(115155, new Location(3047, 4976, 1));
+		TELEPORT_LOCATIONS.put(115156, new Location(2747, 3444, 0));
+		TELEPORT_LOCATIONS.put(115157, new Location(3044, 9785, 0));
+		TELEPORT_LOCATIONS.put(115158, new Location(3186, 3425, 0));
+		TELEPORT_LOCATIONS.put(115159, new Location(2840, 3437, 0));
+		TELEPORT_LOCATIONS.put(115160, new Location(2722, 3473, 0));
+		TELEPORT_LOCATIONS.put(115161, new Location(2806, 3463, 0));
+		TELEPORT_LOCATIONS.put(115162, new Location(3087, 3515, 0));
+		TELEPORT_LOCATIONS.put(115163, new Location(3244, 3512, 0));
+		TELEPORT_LOCATIONS.put(115164, new Location(3333, 3666, 0));
+		TELEPORT_LOCATIONS.put(115165, new Location(3002, 3626, 0));
+		TELEPORT_LOCATIONS.put(115166, new Location(2540, 4717, 0));
+		TELEPORT_LOCATIONS.put(115167, new Location(2997, 3849, 0));
+		TELEPORT_LOCATIONS.put(115168, new Location(2336, 3692, 0));
+		TELEPORT_LOCATIONS.put(115169, new Location(3806, 2844, 0));
+		TELEPORT_LOCATIONS.put(115170, new Location(2948, 4385, 2));
+		TELEPORT_LOCATIONS.put(115171, new Location(1909, 4367, 0));
+		TELEPORT_LOCATIONS.put(115172, new Location(2882, 5308, 2));
+		TELEPORT_LOCATIONS.put(115173, new Location(2268, 3070, 0));
+		TELEPORT_LOCATIONS.put(115174, new Location(3696, 5807, 0));
+		TELEPORT_LOCATIONS.put(115175, new Location(1760, 5163, 0));
+		TELEPORT_LOCATIONS.put(115176, new Location(3284, 3913, 0));
+		TELEPORT_LOCATIONS.put(115177, new Location(3283, 3853, 0));
+		TELEPORT_LOCATIONS.put(115178, new Location(3233, 3943, 0));
+		TELEPORT_LOCATIONS.put(115179, new Location(3210, 3780, 0));
+		TELEPORT_LOCATIONS.put(115180, new Location(2981, 3837, 0));
+		TELEPORT_LOCATIONS.put(115181, new Location(2975, 3715, 0));
+		TELEPORT_LOCATIONS.put(115182, new Location(3565, 3315, 0));
+		TELEPORT_LOCATIONS.put(115183, new Location(2869, 3544, 0));
+		TELEPORT_LOCATIONS.put(115184, new Location(3365, 3265, 0));
+		TELEPORT_LOCATIONS.put(115185, new Location(2662, 2655, 0));
+		TELEPORT_LOCATIONS.put(115186, new Location(2439, 5171, 0));
+		TELEPORT_LOCATIONS.put(115187, WeaponGameConstants.LOBBY_COODINATES);
+
+		TELEPORT_LOCATIONS.put(115189, StonerConstants.MEMEBER_AREA);
+		TELEPORT_LOCATIONS.put(115190, StonerConstants.STAFF_AREA);
+		TELEPORT_LOCATIONS.put(115191, new Location(3039, 4834, 0));
+		TELEPORT_LOCATIONS.put(115192, new Location(2923, 4819, 0));
 	}
 
 	public static void initializeLeaderboardTypes() {
@@ -586,7 +462,6 @@ public class ButtonAssignment extends ClickButtonPacket {
 			animID = animId;
 			gfxID = gfxId;
 		}
-
 
 	}
 

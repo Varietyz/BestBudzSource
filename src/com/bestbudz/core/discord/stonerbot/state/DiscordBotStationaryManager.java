@@ -6,16 +6,12 @@ import com.bestbudz.core.discord.stonerbot.config.DiscordBotStonerConfig;
 import java.util.Random;
 import java.util.logging.Logger;
 
-/**
- * Manages stationary periods and rest behavior for Discord Bot
- */
 public class DiscordBotStationaryManager {
 	private static final Logger logger = Logger.getLogger(DiscordBotStationaryManager.class.getSimpleName());
 
 	private final DiscordBotStoner bot;
 	private final Random random = new Random();
 
-	// Stationary period state
 	private volatile boolean inStationaryPeriod = false;
 	private volatile long stationaryPeriodStartTime = 0;
 	private volatile long stationaryPeriodDuration = 0;
@@ -26,9 +22,6 @@ public class DiscordBotStationaryManager {
 		this.lastEmoteTime = System.currentTimeMillis();
 	}
 
-	/**
-	 * Manage stationary periods - called from main thread loop
-	 */
 	public void manageStationaryPeriods(long currentTime) {
 		if (!DiscordBotStonerConfig.ENABLE_STATIONARY_PERIODS) {
 			return;
@@ -41,35 +34,25 @@ public class DiscordBotStationaryManager {
 		}
 	}
 
-	/**
-	 * Handle active stationary period
-	 */
 	private void handleActiveStationaryPeriod(long currentTime) {
-		// Check if stationary period should end
+
 		if (currentTime - stationaryPeriodStartTime >= stationaryPeriodDuration) {
 			endStationaryPeriod();
 			return;
 		}
 
-		// Perform emotes during rest period
 		if (shouldPerformStationaryEmote(currentTime)) {
 			performStationaryEmote();
 			lastEmoteTime = currentTime;
 		}
 	}
 
-	/**
-	 * Check if bot should start a stationary period
-	 */
 	private void checkForStationaryPeriodStart() {
 		if (Math.random() < DiscordBotStonerConfig.STATIONARY_START_CHANCE) {
 			startStationaryPeriod();
 		}
 	}
 
-	/**
-	 * Start a new stationary period
-	 */
 	public void startStationaryPeriod() {
 		inStationaryPeriod = true;
 		stationaryPeriodStartTime = System.currentTimeMillis();
@@ -84,9 +67,6 @@ public class DiscordBotStationaryManager {
 		}
 	}
 
-	/**
-	 * End the current stationary period
-	 */
 	public void endStationaryPeriod() {
 		inStationaryPeriod = false;
 		bot.setCurrentActivity("ending rest period");
@@ -96,9 +76,6 @@ public class DiscordBotStationaryManager {
 		}
 	}
 
-	/**
-	 * Force end stationary period (e.g., for combat)
-	 */
 	public void forceEndStationaryPeriod() {
 		if (inStationaryPeriod) {
 			inStationaryPeriod = false;
@@ -107,17 +84,11 @@ public class DiscordBotStationaryManager {
 		}
 	}
 
-	/**
-	 * Check if bot should perform emote during stationary period
-	 */
 	private boolean shouldPerformStationaryEmote(long currentTime) {
 		return currentTime - lastEmoteTime >= DiscordBotStonerConfig.STATIONARY_EMOTE_INTERVAL &&
 			Math.random() < DiscordBotStonerConfig.STATIONARY_EMOTE_CHANCE;
 	}
 
-	/**
-	 * Perform a stationary emote
-	 */
 	private void performStationaryEmote() {
 		try {
 			int randomEmote = DiscordBotStonerConfig.getRandomStationaryEmote();
@@ -132,12 +103,9 @@ public class DiscordBotStationaryManager {
 		}
 	}
 
-	/**
-	 * Perform idle emote (when not in stationary period)
-	 */
 	public void performIdleEmote() {
 		if (inStationaryPeriod) {
-			return; // Don't perform idle emotes during stationary periods
+			return;
 		}
 
 		try {
@@ -153,18 +121,10 @@ public class DiscordBotStationaryManager {
 		}
 	}
 
-	// === PUBLIC API ===
-
-	/**
-	 * Check if bot is currently in a stationary period
-	 */
 	public boolean isInStationaryPeriod() {
 		return inStationaryPeriod;
 	}
 
-	/**
-	 * Get remaining time in current stationary period
-	 */
 	public long getStationaryTimeRemaining() {
 		if (!inStationaryPeriod) {
 			return 0;
@@ -173,9 +133,6 @@ public class DiscordBotStationaryManager {
 		return Math.max(0, stationaryPeriodDuration - elapsed);
 	}
 
-	/**
-	 * Get stationary period progress (0.0 to 1.0)
-	 */
 	public double getStationaryProgress() {
 		if (!inStationaryPeriod) {
 			return 0.0;
@@ -184,16 +141,10 @@ public class DiscordBotStationaryManager {
 		return Math.min(1.0, (double) elapsed / stationaryPeriodDuration);
 	}
 
-	/**
-	 * Check if bot can perform actions (not resting)
-	 */
 	public boolean canPerformActions() {
 		return !inStationaryPeriod;
 	}
 
-	/**
-	 * Get current stationary status string
-	 */
 	public String getStationaryStatus() {
 		if (!inStationaryPeriod) {
 			return "Active";
@@ -203,9 +154,6 @@ public class DiscordBotStationaryManager {
 		return "Resting (" + (remaining / 1000) + "s remaining)";
 	}
 
-	/**
-	 * Reset stationary manager state
-	 */
 	public void reset() {
 		inStationaryPeriod = false;
 		stationaryPeriodStartTime = 0;

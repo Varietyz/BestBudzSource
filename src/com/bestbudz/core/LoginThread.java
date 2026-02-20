@@ -29,7 +29,7 @@ public class LoginThread extends Thread {
 	public static void cycle() {
 		Stoner stoner;
 		int processed = 0;
-		final int MAX_LOGINS_PER_CYCLE = 3; // Limit to prevent overflow
+		final int MAX_LOGINS_PER_CYCLE = 3;
 
 		while ((stoner = login.poll()) != null && processed < MAX_LOGINS_PER_CYCLE) {
 			handleLogin(stoner);
@@ -38,30 +38,29 @@ public class LoginThread extends Thread {
 
 		if (processed == 0) {
 			try {
-				Thread.sleep(50); // Sleep when idle
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 			}
 		} else if (processed >= MAX_LOGINS_PER_CYCLE) {
-			// Yield to other threads if we hit the limit
+
 			Thread.yield();
 		}
 	}
 
 	private static void handleLogin(Stoner stoner) {
-		// CRITICAL OPTIMIZATION: Fast-track Discord bot login
+
 		if (isDiscordBot(stoner)) {
 			handleDiscordBotLogin(stoner);
 			return;
 		}
 
-		// Regular login process for real players
 		System.out.println("Logging in: " + stoner.getUsername());
 		ChatBridgeManager.notifyPlayerJoin(stoner.getUsername());
 
 		boolean starter;
 		try {
-			starter = !StonerSave.load(stoner); // true if new player
+			starter = !StonerSave.load(stoner);
 		} catch (Exception e) {
 			sendLoginError(stoner, 11);
 			e.printStackTrace();
@@ -73,7 +72,6 @@ public class LoginThread extends Thread {
 			if (stoner.login(starter)) {
 				stoner.getClient().setStage(Client.Stages.LOGGED_IN);
 
-				// NEW: Trigger immediate player count check for non-bot players
 				if (!isDiscordBot(stoner)) {
 					DiscordManager.getInstance().onPlayerCountChanged();
 				}
@@ -89,18 +87,11 @@ public class LoginThread extends Thread {
 			stoner instanceof DiscordBotStoner;
 	}
 
-	/**
-	 * OPTIMIZED: Lightning-fast login for Discord bot
-	 */
 	private static void handleDiscordBotLogin(Stoner stoner) {
 		try {
 			System.out.println("Fast-track login for Discord bot");
 
-			// Skip ALL database operations for Discord bot
-			// Skip save/load entirely - bot doesn't need persistent data
-
-			// Minimal login process
-			if (stoner.login(false)) { // Not a starter, skip complex initialization
+			if (stoner.login(false)) {
 				stoner.getClient().setStage(Client.Stages.LOGGED_IN);
 				System.out.println("Discord bot logged in successfully with minimal overhead");
 			}
@@ -127,7 +118,7 @@ public class LoginThread extends Thread {
 				cycle();
 			} catch (Exception e) {
 				e.printStackTrace();
-				// Continue running even if there's an error
+
 			}
 		}
 	}

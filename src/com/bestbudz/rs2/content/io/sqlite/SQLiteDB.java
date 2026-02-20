@@ -57,7 +57,6 @@ public final class SQLiteDB {
 			stmt.execute("PRAGMA foreign_keys = ON;");
 			stmt.execute("PRAGMA defer_foreign_keys = OFF;");
 
-			// Player core data - All primitive and JSON fields in one table
       stmt.execute(
           "CREATE TABLE IF NOT EXISTS player ("
               + "username TEXT PRIMARY KEY COLLATE NOCASE,"
@@ -146,7 +145,6 @@ public final class SQLiteDB {
               + "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP"
               + ");");
 
-			// Inventory
 			stmt.execute(
 				"CREATE TABLE IF NOT EXISTS player_inventory (" +
 					"username TEXT COLLATE NOCASE," +
@@ -158,7 +156,6 @@ public final class SQLiteDB {
 					");"
 			);
 
-			// Equipment
 			stmt.execute(
 				"CREATE TABLE IF NOT EXISTS player_equipment (" +
 					"username TEXT COLLATE NOCASE," +
@@ -170,7 +167,6 @@ public final class SQLiteDB {
 					");"
 			);
 
-			// Bank
 			stmt.execute(
 				"CREATE TABLE IF NOT EXISTS player_bank (" +
 					"username TEXT COLLATE NOCASE," +
@@ -216,14 +212,13 @@ public final class SQLiteDB {
 		}
 	}
 
-	// com.bestbudz.rs2.content.io.sqlite.SQLiteDB
 	public static List<String> getAllPlayerUsernames() throws SQLException {
 		List<String> names = new ArrayList<>();
 		String sql = "SELECT username FROM player";
 		try (PreparedStatement ps = getConnection().prepareStatement(sql);
 			 ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
-				names.add(rs.getString(1).toLowerCase());   // keep everything lower-case
+				names.add(rs.getString(1).toLowerCase());
 			}
 		}
 		return names;

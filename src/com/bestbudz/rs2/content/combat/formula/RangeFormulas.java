@@ -10,17 +10,12 @@ import com.bestbudz.rs2.entity.item.ItemCheck;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
-/**
- * Enhanced Range Combat System - "Precision Hunter"
- * Features: Wind patterns, target tracking, arrow physics, hunter's instinct
- */
 public class RangeFormulas {
 
 	public static final double[][] SAGITTARIUS_RESONANCE_MODIFIERS = {
 		{3.0D, 0.05D}, {11.0D, 0.1D}, {19.0D, 0.15D}
 	};
 
-	// === WIND PATTERN SYSTEM ===
 	public static class WindPattern {
 		private double velocity = 0.0;
 		private double direction = 0.0;
@@ -39,10 +34,10 @@ public class RangeFormulas {
 
 		public void updateWind() {
 			long currentTime = System.currentTimeMillis();
-			if (currentTime - lastUpdate > 3000) { // Wind changes every 3 seconds
-				velocity = Math.random() * 2.0 - 1.0; // -1.0 to 1.0
+			if (currentTime - lastUpdate > 3000) {
+				velocity = Math.random() * 2.0 - 1.0;
 				direction = Math.random() * 360.0;
-				stability = (int)(Math.random() * 10) + 1; // 1-10 stability
+				stability = (int)(Math.random() * 10) + 1;
 				lastUpdate = currentTime;
 			}
 		}
@@ -52,7 +47,6 @@ public class RangeFormulas {
 		public int getStability() { return stability; }
 	}
 
-	// === HUNTER'S INSTINCT SYSTEM ===
 	public static class HunterInstinct {
 		private int trackingStreak = 0;
 		private double predatorFocus = 1.0;
@@ -87,37 +81,32 @@ public class RangeFormulas {
 		public int getConsecutiveMisses() { return consecutiveMisses; }
 	}
 
-	// === ARROW PHYSICS SYSTEM ===
 	private static double calculateArrowPhysics(Stoner archer, Entity target) {
 		WindPattern wind = WindPattern.getOrCreate(archer);
 		wind.updateWind();
 
-		// Distance affects accuracy and damage
 		double distance = calculateDistance(archer, target);
 		double optimalRange = getOptimalRange(archer);
 
-		// Sweet spot mechanics - optimal range provides bonus
 		double rangeEfficiency = 1.0;
 		if (distance <= optimalRange * 1.2 && distance >= optimalRange * 0.8) {
-			rangeEfficiency = 1.25; // 25% bonus in sweet spot
+			rangeEfficiency = 1.25;
 		} else if (distance > optimalRange * 2.0) {
-			rangeEfficiency = 0.75; // Penalty for extreme range
+			rangeEfficiency = 0.75;
 		}
 
-		// Wind compensation skill
 		double windCompensation = 1.0;
-		if (wind.getStability() < 5) { // Unstable wind
+		if (wind.getStability() < 5) {
 			windCompensation = 0.85 + (archer.getProfession().getGrades()[4] / 1000.0);
 		}
 
-		// Arrow trajectory calculation
 		double trajectory = Math.sin(distance / 100.0) * wind.getVelocity() * 0.1;
 
 		return rangeEfficiency * windCompensation * (1.0 - Math.abs(trajectory));
 	}
 
 	private static double calculateDistance(Entity archer, Entity target) {
-		// Simplified distance calculation based on position
+
 		return Math.abs(archer.getIndex() - target.getIndex()) / 10.0 + 5.0;
 	}
 
@@ -125,16 +114,13 @@ public class RangeFormulas {
 		Item weapon = archer.getEquipment().getItems()[3];
 		if (weapon == null) return 15.0;
 
-		// Different weapons have different optimal ranges
 		switch (weapon.getId()) {
-			case 11785: return 25.0; // Dark bow - long range
-			case 12926: return 12.0; // Toxic blowpipe - short range
-			case 11235: return 20.0; // Crystal bow - medium range
+			case 11785: return 25.0;
+			case 12926: return 12.0;
+			case 11235: return 20.0;
 			default: return 15.0;
 		}
 	}
-
-	// === ENHANCED ORIGINAL METHODS ===
 
 	public static long calculateRangeAegis(Entity defending) {
 		Stoner defender = null;
@@ -145,7 +131,6 @@ public class RangeFormulas {
 			if (defending.getBonuses() != null && defending.getGrades() != null) {
 				long baseAegis = defending.getGrades()[1] + defending.getBonuses()[9] + (defending.getBonuses()[9] / 2);
 
-				// NPCs get wind resistance based on their nature
 				WindPattern wind = WindPattern.getOrCreate(defending);
 				wind.updateWind();
 				double windResistance = 1.0 + (wind.getStability() / 20.0);
@@ -158,13 +143,12 @@ public class RangeFormulas {
 		long aegisGrade = defender.getProfession().getGrades()[1];
 		long baseAegis = aegisGrade + defender.getBonuses()[9] + (defender.getBonuses()[9] / 2);
 
-		// Environmental awareness bonus
 		WindPattern wind = WindPattern.getOrCreate(defender);
 		wind.updateWind();
 
 		double environmentalAwareness = 1.0;
-		if (defender.getProfession().getGrades()[4] > 80) { // High range level gives awareness
-			environmentalAwareness = 1.0 + (wind.getVelocity() * 0.05); // Use wind to dodge
+		if (defender.getProfession().getGrades()[4] > 80) {
+			environmentalAwareness = 1.0 + (wind.getVelocity() * 0.05);
 		}
 
 		return (long)(baseAegis * environmentalAwareness);
@@ -189,47 +173,39 @@ public class RangeFormulas {
 
 		double rangeGrade = assaulter.getProfession().getGrades()[4];
 
-		// Hunter's instinct affects accuracy
 		HunterInstinct instinct = HunterInstinct.getOrCreate(assaulter);
 		rangeGrade *= instinct.getPredatorFocus();
 
-		// Tracking streak bonus
 		if (instinct.getTrackingStreak() >= 5) {
-			rangeGrade *= 1.35; // Hunter's mark - 35% accuracy bonus
+			rangeGrade *= 1.35;
 		} else if (instinct.getTrackingStreak() >= 3) {
-			rangeGrade *= 1.15; // Steady aim - 15% accuracy bonus
+			rangeGrade *= 1.15;
 		}
 
-		// Miss penalty recovery system
 		if (instinct.getConsecutiveMisses() >= 3) {
-			rangeGrade *= 0.75; // Shaken confidence
+			rangeGrade *= 0.75;
 		}
 
-		// Special attack modifications
 		if (assaulter.getSpecialAssault().isInitialized()) {
 			rangeGrade *= getSagittariusSpecialAccuracyModifier(assaulter);
 
-			// Perfect shot mechanics for special attacks
 			if (instinct.getTrackingStreak() >= 7) {
-				rangeGrade *= 1.5; // Perfect shot guaranteed
+				rangeGrade *= 1.5;
 			}
 		}
 
-		// Void set bonus with hunter synergy
 		if (ItemCheck.wearingFullVoidSagittarius(assaulter)) {
 			rangeGrade += assaulter.getMaxGrades()[4] * 5.5;
 
 			if (assaulter.getSpecialAssault().isInitialized()) {
 				rangeGrade *= 5.50;
 
-				// Elite void marksman bonus
 				if (instinct.getPredatorFocus() > 2.0) {
 					rangeGrade *= 1.25;
 				}
 			}
 		}
 
-		// Arrow physics and wind calculation
 		if (assaulter.getCombat().getAssaulting() != null) {
 			double physicsModifier = calculateArrowPhysics(assaulter, assaulter.getCombat().getAssaulting());
 			rangeGrade *= physicsModifier;
@@ -252,17 +228,15 @@ public class RangeFormulas {
 			return 0;
 		}
 
-		// Toxic blowpipe special handling
 		if (weapon.getId() == 12926) {
 			if (stoner.getToxicBlowpipe().getBlowpipeAmmo() == null) {
 				return 0;
 			}
 			int baseVigour = stoner.getToxicBlowpipe().getBlowpipeAmmo().getSagittariusVigourBonus() + 40;
 
-			// Rapid fire bonus based on hunter's instinct
 			HunterInstinct instinct = HunterInstinct.getOrCreate(stoner);
 			if (instinct.getTrackingStreak() >= 10) {
-				baseVigour = (int)(baseVigour * 1.3); // Machine gun mode
+				baseVigour = (int)(baseVigour * 1.3);
 			}
 
 			return baseVigour;
@@ -270,7 +244,6 @@ public class RangeFormulas {
 
 		int rStr = stoner.getBonuses()[12];
 
-		// Thrown weapons or weapons without arrows
 		if ((weapon.getSagittariusDefinition().getType() == SagittariusWeaponDefinition.SagittariusTypes.THROWN)
 			|| (weapon.getSagittariusDefinition().getArrows() == null)
 			|| (weapon.getSagittariusDefinition().getArrows().length == 0)) {
@@ -280,9 +253,8 @@ public class RangeFormulas {
 			if (ammo != null) {
 				rStr = ammo.getSagittariusVigourBonus();
 
-				// Arrow mastery bonus
 				if (stoner.getProfession().getGrades()[4] > 90) {
-					rStr = (int)(rStr * 1.15); // 15% arrow efficiency bonus
+					rStr = (int)(rStr * 1.15);
 				}
 			}
 		}
@@ -293,9 +265,8 @@ public class RangeFormulas {
 	public static int enhancedSagittariusMaxHit(Stoner stoner) {
 		int baseMaxHit = getSagittariusMaxHit(stoner);
 
-		// Apply hunter's precision scaling
 		HunterInstinct instinct = HunterInstinct.getOrCreate(stoner);
-		double precisionScaling = 1.0 + (instinct.getTrackingStreak() * 0.02); // 2% per streak
+		double precisionScaling = 1.0 + (instinct.getTrackingStreak() * 0.02);
 
 		double enhancedHit = FormulaData.applyEmergentScaling(stoner, baseMaxHit * precisionScaling);
 		return (int)enhancedHit;
@@ -306,32 +277,28 @@ public class RangeFormulas {
 		int vBonus = 0;
 		int sBonus = 0;
 
-		// Hunter's focus affects damage potential
 		HunterInstinct instinct = HunterInstinct.getOrCreate(stoner);
 		pBonus *= instinct.getPredatorFocus();
 
-		// Void set with predator synergy
 		if (ItemCheck.wearingFullVoidSagittarius(stoner)) {
 			vBonus = 80;
 
-			// Apex predator bonus
 			if (instinct.getTrackingStreak() >= 15) {
-				vBonus = 120; // 50% more void bonus
+				vBonus = 120;
 			}
 		}
 
-		// Combat style bonuses with hunter adaptations
 		switch (stoner.getEquipment().getAssaultStyle()) {
 			case ACCURATE:
 				sBonus = 3;
 				if (instinct.getConsecutiveMisses() == 0) {
-					sBonus = 5; // Perfect accuracy streak
+					sBonus = 5;
 				}
 				break;
 			case AGGRESSIVE:
 				sBonus = 2;
 				if (instinct.getTrackingStreak() >= 5) {
-					sBonus = 4; // Aggressive hunter
+					sBonus = 4;
 				}
 				break;
 			case DEFENSIVE:
@@ -346,38 +313,32 @@ public class RangeFormulas {
 		int rngStr = getEffectiveSagittariusVigour(stoner);
 		double base = 5.0D + (eS + 8.0D) * (rngStr + 64) / 64.0D;
 
-		// Critical shot system
 		if (instinct.getTrackingStreak() >= 20) {
-			base *= 1.5; // Legendary marksman critical
+			base *= 1.5;
 		} else if (instinct.getTrackingStreak() >= 10) {
-			base *= 1.25; // Expert marksman critical
+			base *= 1.25;
 		}
 
-		// Special attack enhancements
 		if (stoner.getSpecialAssault().isInitialized()) {
 			base = (int) (base * getSagittariusSpecialModifier(stoner));
 
-			// Perfect timing bonus
 			if (instinct.getTrackingStreak() >= 7) {
-				base *= 1.2; // Perfect special timing
+				base *= 1.2;
 			}
 		}
 
-		// Mercenary helmet bonus
 		Item helm = stoner.getEquipment().getItems()[0];
 		if ((helm != null) && (helm.getId() == 15492) && (stoner.getCombat().getAssaulting().isNpc()) && (stoner.getMercenary().hasTask())) {
 			Mob m = World.getNpcs()[stoner.getCombat().getAssaulting().getIndex()];
 			if ((m != null) && (Mercenary.isMercenaryTask(stoner, m))) {
 				base += base * 0.125D;
 
-				// Contract killer precision
 				if (instinct.getTrackingStreak() >= 5) {
-					base += base * 0.075D; // Additional 7.5% for professional hits
+					base += base * 0.075D;
 				}
 			}
 		}
 
-		// Apply advance level scaling with hunter mastery
 		int lifeAdv = stoner.getProfessionAdvances()[3];
 		if (lifeAdv > 0) {
 			base += base * (lifeAdv * 0.03);
@@ -392,9 +353,8 @@ public class RangeFormulas {
 		if (sagitAdv > 0) {
 			base += base * (sagitAdv * 0.08);
 
-			// Master archer bonus
 			if (sagitAdv >= 10) {
-				base += base * (instinct.getTrackingStreak() * 0.005); // 0.5% per streak for masters
+				base += base * (instinct.getTrackingStreak() * 0.005);
 			}
 		}
 
@@ -408,15 +368,14 @@ public class RangeFormulas {
 			base += base * (mercAdv * 0.02);
 		}
 
-		// Environmental bonus
 		WindPattern wind = WindPattern.getOrCreate(stoner);
-		if (wind.getStability() >= 8) { // Calm conditions
-			base *= 1.1; // 10% bonus for perfect conditions
+		if (wind.getStability() >= 8) {
+			base *= 1.1;
 		}
 
 		double resonanceMultiplier = stoner.getResonance().applyResonanceEffects(1.0, Combat.CombatTypes.SAGITTARIUS);
 		base *= resonanceMultiplier;
-		
+
 		return (int) base / 11;
 	}
 
@@ -431,13 +390,13 @@ public class RangeFormulas {
 		double baseModifier = 1.0D;
 
 		switch (weapon.getId()) {
-			case 11785: // Dark bow
+			case 11785:
 				baseModifier = 2.0D;
 				break;
-			case 12926: // Toxic blowpipe
+			case 12926:
 				baseModifier = 1.4D;
 				break;
-			case 11235: // Crystal bow
+			case 11235:
 				if (arrow != null && arrow.getId() == 11212) {
 					baseModifier = 1.5D;
 				} else {
@@ -448,7 +407,7 @@ public class RangeFormulas {
 			case 15241:
 				baseModifier = 1.2D;
 				break;
-			case 9185: // Crossbow
+			case 9185:
 				if (arrow != null) {
 					switch (arrow.getId()) {
 						case 9243:
@@ -465,12 +424,10 @@ public class RangeFormulas {
 				break;
 		}
 
-		// Hunter's expertise enhances special accuracy
 		HunterInstinct instinct = HunterInstinct.getOrCreate(stoner);
 		if (instinct.getTrackingStreak() >= 8) {
-			baseModifier *= 1.25; // Master hunter special accuracy
+			baseModifier *= 1.25;
 		}
-
 
 		return baseModifier;
 	}
@@ -486,10 +443,10 @@ public class RangeFormulas {
 		double baseModifier = 1.0D;
 
 		switch (weapon.getId()) {
-			case 12926: // Toxic blowpipe
+			case 12926:
 				baseModifier = 1.5D;
 				break;
-			case 11235: // Crystal bow
+			case 11235:
 				if (arrow != null && arrow.getId() == 11212) {
 					baseModifier = 1.5D;
 				} else {
@@ -500,8 +457,8 @@ public class RangeFormulas {
 			case 15241:
 				baseModifier = 1.2D;
 				break;
-			case 11785: // Dark bow
-			case 9185: // Crossbow
+			case 11785:
+			case 9185:
 				if (arrow != null) {
 					switch (arrow.getId()) {
 						case 9243:
@@ -521,22 +478,16 @@ public class RangeFormulas {
 				break;
 		}
 
-		// Legendary marksman ultimate special
 		HunterInstinct instinct = HunterInstinct.getOrCreate(stoner);
 		if (instinct.getTrackingStreak() >= 25) {
-			baseModifier *= 2.0; // Legendary special attack
+			baseModifier *= 2.0;
 		} else if (instinct.getTrackingStreak() >= 12) {
-			baseModifier *= 1.5; // Expert special attack
+			baseModifier *= 1.5;
 		}
 
 		return baseModifier;
 	}
 
-	// === COMBAT EVENT INTEGRATION ===
-
-	/**
-	 * Call this after every ranged attack to update hunter systems
-	 */
 	public static void updateRangedCombat(Stoner archer, Entity target, boolean hit, int damage) {
 		if (archer == null) return;
 
@@ -548,13 +499,9 @@ public class RangeFormulas {
 			instinct.recordMiss();
 		}
 
-		// Update general combat evolution
 		FormulaData.updateCombatEvolution(archer, target, hit, damage);
 	}
 
-	/**
-	 * Get hunter status for player feedback
-	 */
 	public static String getHunterStatus(Stoner archer) {
 		if (archer == null) return "Unknown";
 

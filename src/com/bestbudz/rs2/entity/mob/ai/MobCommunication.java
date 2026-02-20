@@ -5,9 +5,6 @@ import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
-/**
- * Simplified communication system - just sends messages reliably
- */
 public class MobCommunication {
 	private final Mob mob;
 
@@ -36,11 +33,8 @@ public class MobCommunication {
 		this.mob = mob;
 	}
 
-	/**
-	 * Simple message sending - higher spam protection
-	 */
 	public void sendMessage(MessageType type) {
-		// 70% chance to skip message (reduced chattiness)
+
 		if (Utility.randomNumber(10) < 9) {
 			return;
 		}
@@ -52,11 +46,8 @@ public class MobCommunication {
 		}
 	}
 
-	/**
-	 * Combat messages - less frequent
-	 */
 	public void sendCombatMessage(Stoner player) {
-		// 60% chance to skip combat messages
+
 		if (Utility.randomNumber(10) < 9) {
 			return;
 		}
@@ -86,12 +77,9 @@ public class MobCommunication {
 		}
 	}
 
-	/**
-	 * Damage messages - only for major damage
-	 */
 	public void sendDamageMessage(long damage, long maxHealth) {
-		if (damage > maxHealth * 0.3) { // 30% or more damage (reduced frequency)
-			// Additional 50% chance to skip even major damage messages
+		if (damage > maxHealth * 0.3) {
+
 			if (Utility.randomNumber(2) == 0) {
 				String[] messages = getMessagesForType(MessageType.COMBAT_PAIN);
 				if (messages.length > 0) {
@@ -102,12 +90,9 @@ public class MobCommunication {
 		}
 	}
 
-	/**
-	 * All the stoner-themed messages (unchanged)
-	 */
 	private String[] getMessagesForType(MessageType type) {
 		switch (type) {
-			// Alert messages
+
 			case ALERT_INTRUDER:
 				return new String[]{
 					"Yo, someone's harshin' the mellow!",
@@ -228,7 +213,6 @@ public class MobCommunication {
 					"Close fighter, keep formation tight!"
 				};
 
-			// Combat engagement messages
 			case COMBAT_ENGAGE_GENERAL:
 				return new String[]{
 					"Time to spark up this fight!",
@@ -325,7 +309,6 @@ public class MobCommunication {
 					"Put down the sword, pick up the spliff!"
 				};
 
-			// Pain/damage messages
 			case COMBAT_PAIN:
 				return new String[]{
 					"Ow, bro, that's a vibe kill!",
@@ -350,7 +333,6 @@ public class MobCommunication {
 					"Bro, don't mess the mellow, man!"
 				};
 
-			// Other message types return simple defaults
 			default:
 				return new String[]{"..."};
 		}

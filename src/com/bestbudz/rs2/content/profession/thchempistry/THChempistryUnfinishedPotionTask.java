@@ -66,7 +66,6 @@ public class THChempistryUnfinishedPotionTask extends Task {
 		return true;
 	}
 
-	// NEW: Auto-create unfinished potions when items are used together
 	public static boolean autoCreateUnfinishedPotions(Stoner stoner, Item used, Item usedWith) {
 		UnfinishedPotionData data = UnfinishedPotionData.forId(used.getId() == 227 ? usedWith.getId() : used.getId());
 		if (data == null) {
@@ -77,7 +76,6 @@ public class THChempistryUnfinishedPotionTask extends Task {
 			return false;
 		}
 
-		// Check if player has multiple sets of ingredients
 		int waterVials = stoner.getBox().getItemAmount(227);
 		int weedAmount = stoner.getBox().getItemAmount(data.getWeedNeeded());
 		int maxPotions = Math.min(waterVials, weedAmount);
@@ -87,7 +85,7 @@ public class THChempistryUnfinishedPotionTask extends Task {
 			TaskQueue.queue(new AutoUnfinishedPotionTask(stoner, data));
 			return true;
 		} else {
-			// Single set - use normal interface
+
 			displayInterface(stoner, used, usedWith);
 			return true;
 		}
@@ -197,7 +195,6 @@ public class THChempistryUnfinishedPotionTask extends Task {
 	@Override
 	public void onStop() {}
 
-	// NEW: Auto-unfinished potion making task
 	private static class AutoUnfinishedPotionTask extends Task {
 		private final Stoner stoner;
 		private final UnfinishedPotionData data;
@@ -220,11 +217,10 @@ public class THChempistryUnfinishedPotionTask extends Task {
 				return;
 			}
 
-			// Make one unfinished potion
 			stoner.getUpdateFlags().sendAnimation(new Animation(363));
 			stoner.getClient().queueOutgoingPacket(new SendSound(281, 0, 0));
 
-			stoner.getBox().remove(227, 1); // Vial of water
+			stoner.getBox().remove(227, 1);
 			stoner.getBox().remove(data.getWeedNeeded(), 1);
 			stoner.getBox().add(new Item(data.getUnfPotion(), 1));
 

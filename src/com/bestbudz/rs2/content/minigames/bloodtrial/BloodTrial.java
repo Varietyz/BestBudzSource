@@ -23,20 +23,18 @@ public final class BloodTrial
 			return;
 		}
 
-		// Check ALL Blood Trial players to see if this mob is in their list
 		Stoner[] players = com.bestbudz.rs2.entity.World.getStoners();
 
 		for (Stoner player : players) {
 			if (player != null && player.getController().equals(CONTROLLER)) {
 				if (player.getBloodTrialDetails().removeNpc(mob)) {
-					// Mob was in this player's list and got removed
+
 					System.out.println("DEBUG: Removed mob " + mob.getId() + " from " + player.getUsername());
 
-					// Check if wave complete
 					if (player.getBloodTrialDetails().getKillAmount() == 0) {
 						handleWaveComplete(player);
 					}
-					return; // Found it, done
+					return;
 				}
 			}
 		}
@@ -63,12 +61,10 @@ public final class BloodTrial
 		p.send(new SendRemoveInterfaces());
 		p.setController(CONTROLLER);
 
-		// Initialize Z coordinate if needed
 		if (p.getBloodTrialDetails().getZ() == 0) {
 			p.getBloodTrialDetails().setZ(p);
 		}
 
-		// Teleport to entrance with player's Z coordinate
 		Location entrance = new Location(ENTRANCE.getX(), ENTRANCE.getY(), p.getBloodTrialDetails().getZ());
 		p.teleport(entrance);
 
@@ -92,13 +88,10 @@ public final class BloodTrial
 			return;
 		}
 
-		// Clean up all NPCs
 		stoner.getBloodTrialDetails().clearMobs();
 
-		// Reset controller
 		stoner.setController(ControllerManager.DEFAULT_CONTROLLER);
 
-		// Reset spawn locations
 		BloodTrialSpawns.resetUsedSpawns();
 	}
 }

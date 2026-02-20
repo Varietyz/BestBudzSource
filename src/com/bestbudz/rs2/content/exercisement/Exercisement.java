@@ -71,7 +71,6 @@ public enum Exercisement {
   public boolean fireObjectClick(Stoner stoner, Location location, RSObject obj) {
 	  Obstacle obstacle = obstacles.get(location);
 
-
 	  if (obstacle == null) {
       return false;
     }

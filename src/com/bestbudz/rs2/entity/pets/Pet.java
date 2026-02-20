@@ -9,9 +9,6 @@ import com.bestbudz.core.definitions.NpcDefinition;
 import com.bestbudz.core.util.GameDefinitionLoader;
 import java.util.Random;
 
-/**
- * Represents an individual pet instance
- */
 public class Pet {
 	private final Stoner owner;
 	private final PetData data;
@@ -28,7 +25,7 @@ public class Pet {
 	}
 
 private static Stoner createPetStoner(Stoner owner, PetData data) {
-	// Create pet with isolated client
+
 	Stoner pet = new Stoner(new PetIsolatedClient(owner));
 
 	if (pet.getClient() instanceof PetIsolatedClient) {
@@ -37,14 +34,13 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 
 	ChangeAppearancePacket.setToDefault(pet);
 
-	long randomId = Math.abs(new Random().nextLong() % 1000000000000L); // 12 digits max
+	long randomId = Math.abs(new Random().nextLong() % 1000000000000L);
 
 	String uniqueUsername = "Pet_" + randomId +  data.name() + "_" + owner.getUsername();
 
 	pet.setUsername(uniqueUsername);
 	pet.setPassword("");
 
-	// Set display name for appearance
 	String formattedDisplayName = PetUtils.formatPetDisplayName(data);
 	String ownerName = owner.getUsername() + "'s ";
 	pet.setDisplay(ownerName + formattedDisplayName);
@@ -74,7 +70,6 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 		((PetIsolatedClient) pet.getClient()).simulateLogin();
 	}
 
-	// Register with world
 	int petIndex = World.register(pet);
 	if (petIndex == -1) {
 		System.err.println("Failed to register pet in world!");
@@ -91,14 +86,13 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 }
 
 	private static void setupPetCombatAnimations(Stoner pet, PetData data) {
-		// Get the NPC combat definition
+
 		NpcCombatDefinition combatDef = GameDefinitionLoader.getNpcCombatDefinition(data.npcID);
 
 		if (combatDef != null) {
-			// CRITICAL: Store the entire combat definition for later use
+
 			pet.getAttributes().set("PET_COMBAT_DEFINITION", combatDef);
 
-			// Set up melee combat with proper NPC animations
 			if (combatDef.getMelee() != null && combatDef.getMelee().length > 0) {
 				NpcCombatDefinition.Melee meleeAttack = combatDef.getMelee()[0];
 				if (meleeAttack.getAssault() != null && meleeAttack.getAnimation() != null) {
@@ -109,7 +103,6 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 				}
 			}
 
-			// Set up mage combat with proper NPC animations
 			if (combatDef.getMage() != null && combatDef.getMage().length > 0) {
 				NpcCombatDefinition.Mage mageAttack = combatDef.getMage()[0];
 				if (mageAttack.getAssault() != null && mageAttack.getAnimation() != null) {
@@ -123,7 +116,6 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 				}
 			}
 
-			// Set up sagittarius combat with proper NPC animations
 			if (combatDef.getSagittarius() != null && combatDef.getSagittarius().length > 0) {
 				NpcCombatDefinition.Sagittarius sagittariusAttack = combatDef.getSagittarius()[0];
 				if (sagittariusAttack.getAssault() != null && sagittariusAttack.getAnimation() != null) {
@@ -137,7 +129,6 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 				}
 			}
 
-			// Store combat type and other animations
 			pet.getAttributes().set("PET_COMBAT_TYPE", combatDef.getCombatType());
 			if (combatDef.getBlock() != null) {
 				pet.getAttributes().set("PET_BLOCK_ANIMATION", combatDef.getBlock());
@@ -156,50 +147,44 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 		}
 	}
 
-	/**
-	 * Set all pet grades to 10x their NPC definition values
-	 */
 	private static void setPetGrades(Stoner pet, int npcID) {
 		NpcDefinition npcDef = GameDefinitionLoader.getNpcDefinition(npcID);
 
 		if (npcDef == null) {
-			// Enhanced default grades for pets (scaled appropriately)
+
 			long[] defaultGrades = {
-				1000,  // Attack
-				1000,  // Strength
-				1000,  // Defence
-				5000,  // Hitpoints (higher for survivability)
-				1000,  // Ranged
-				1000,  // Prayer
-				1000   // Magic
+				1000,
+				1000,
+				1000,
+				5000,
+				1000,
+				1000,
+				1000
 			};
 			pet.setGrades(defaultGrades.clone());
 			pet.setMaxGrades(defaultGrades.clone());
 			return;
 		}
 
-		// Get base grade from NPC definition and scale appropriately
-		int baseGrade = Math.max(50, npcDef.getGrade()); // Minimum 50 base grade
+		int baseGrade = Math.max(50, npcDef.getGrade());
 
-		// Scale differently for different stats
-		long attackGrade = baseGrade * 8L;   // Good attack for damage
-		long strengthGrade = baseGrade * 8L; // Good strength for damage
-		long defenceGrade = baseGrade * 6L;  // Reasonable defence
-		long rangedGrade = baseGrade * 6L;   // Reasonable ranged
-		long prayerGrade = baseGrade * 4L;   // Basic prayer
-		long magicGrade = baseGrade * 6L;    // Reasonable magic
+		long attackGrade = baseGrade * 8L;
+		long strengthGrade = baseGrade * 8L;
+		long defenceGrade = baseGrade * 6L;
+		long rangedGrade = baseGrade * 6L;
+		long prayerGrade = baseGrade * 4L;
+		long magicGrade = baseGrade * 6L;
 
-		// Special handling for HP - use existing calculation but ensure minimum
 		int petHP = Math.max(2000, PetDefinition.getPetHP(npcID));
 
 		long[] petGrades = {
-			attackGrade,   // Attack
-			strengthGrade, // Strength
-			defenceGrade,  // Defence
-			petHP,         // Hitpoints
-			rangedGrade,   // Ranged
-			prayerGrade,   // Prayer
-			magicGrade     // Magic
+			attackGrade,
+			strengthGrade,
+			defenceGrade,
+			petHP,
+			rangedGrade,
+			prayerGrade,
+			magicGrade
 		};
 
 		long[] petMaxGrades = petGrades.clone();
@@ -233,7 +218,6 @@ private static Stoner createPetStoner(Stoner owner, PetData data) {
 		petStoner.setVisible(false);
 		petStoner.setActive(false);
 
-		// CRITICAL FIX: Properly cleanup the isolated client
 		if (petStoner.getClient() instanceof PetIsolatedClient) {
 			((PetIsolatedClient) petStoner.getClient()).simulateLogout();
 		}

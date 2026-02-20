@@ -16,13 +16,10 @@ public final class GracefulShutdownHook extends Thread {
 	public void run() {
 		System.out.println("[Shutdown] Saving active players...");
 
-		// Send shutdown notification FIRST (before anything else)
-		// This ensures Discord gets the message before services shut down
 		try {
 			DiscordMessageManager.announceServerShutdown();
 			System.out.println("[Shutdown] Server shutdown notification sent to Discord");
 
-			// Give Discord time to send the message
 			Thread.sleep(2000);
 		} catch (Exception e) {
 			System.err.println("[Shutdown] Failed to send shutdown notification: " + e.getMessage());
@@ -34,7 +31,6 @@ public final class GracefulShutdownHook extends Thread {
 			}
 		}
 
-		// IMPORTANT: Save Discord bot state before shutdown
 		System.out.println("[Shutdown] Saving Discord bot state...");
 		try {
 			if (DiscordManager.getInstance().isActive() && DiscordManager.getInstance().getBotPlayer() != null) {
@@ -56,14 +52,11 @@ public final class GracefulShutdownHook extends Thread {
 		StonerLogger.SHUTDOWN_LOGGER.log("Logs", String.format(
 			"Server shutdown with %s online.", World.getActiveStoners()));
 
-		// Shutdown Discord services in proper order
 		try {
 			System.out.println("[Shutdown] Shutting down Discord services...");
 
-			// Shutdown Discord manager first
 			DiscordManager.getInstance().shutdown();
 
-			// Then shutdown the integration (this will handle any remaining cleanup)
 			DiscordServerIntegration.shutdownDiscordBot();
 
 			System.out.println("[Shutdown] Discord services shut down successfully");

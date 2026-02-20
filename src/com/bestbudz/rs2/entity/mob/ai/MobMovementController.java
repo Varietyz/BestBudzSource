@@ -13,9 +13,6 @@ import com.bestbudz.core.task.impl.MobWalkTask;
 import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.minigames.godwars.GodWarsData;
 
-/**
- * Simplified 317-style movement controller
- */
 public class MobMovementController {
 	private final Mob mob;
 	private final MovementHandler movementHandler;
@@ -33,36 +30,28 @@ public class MobMovementController {
 		this.movementHandler.resetMoveDirections();
 	}
 
-	/**
-	 * Simple movement processing - just follow or random walk
-	 */
 	public void process() {
 		if (mob.isDead()) {
 			return;
 		}
 
 		if (forceWalking) {
-			// Let force walking complete
+
 			return;
 		}
 
-		// Priority 1: Following
 		if (following.isFollowing()) {
 			following.process();
 			return;
 		}
 
-		// Priority 2: Random walking for non-assaultable mobs
 		if (!mob.isAssaultable() && walks) {
-			if (Utility.randomNumber(15) == 0) { // Simple random walk
+			if (Utility.randomNumber(15) == 0) {
 				Walking.randomWalk(mob);
 			}
 		}
 	}
 
-	/**
-	 * Simple random walk handler
-	 */
 	public void handleRandomWalk() {
 		if (!mob.isDead() &&
 			mob.getCombat().getAssaulting() == null &&
@@ -77,9 +66,6 @@ public class MobMovementController {
 		}
 	}
 
-	/**
-	 * God Wars movement (unchanged)
-	 */
 	public void handleGodWarsMovement() {
 		GodWarsData.GodWarsNpc npc = GodWarsData.forId(mob.getId());
 		if (npc != null && !mob.getCombat().inCombat()) {
@@ -104,21 +90,16 @@ public class MobMovementController {
 		}
 	}
 
-	/**
-	 * Simple distance check for walking home
-	 */
 	public boolean isWalkToHome() {
-		// God Wars bosses don't walk home
+
 		if (GodWarsData.forId(mob.getId()) != null && GodWarsData.bossNpc(GodWarsData.forId(mob.getId()))) {
 			return false;
 		}
 
-		// Owned mobs with ignore distance don't walk home
 		if (following.isIgnoreDistance() || mob.getOwner() != null) {
 			return false;
 		}
 
-		// Simple distance calculation
 		int distance = Math.abs(mob.getLocation().getX() - spawnLocation.getX()) +
 			Math.abs(mob.getLocation().getY() - spawnLocation.getY());
 
@@ -133,9 +114,6 @@ public class MobMovementController {
 		return distance > 2;
 	}
 
-	/**
-	 * Simple teleport
-	 */
 	public void teleport(Location p) {
 		Walking.setNpcOnTile(mob, false);
 		movementHandler.getLastLocation().setAs(new Location(p.getX(), p.getY() + 1));
@@ -145,23 +123,17 @@ public class MobMovementController {
 		movementHandler.resetMoveDirections();
 	}
 
-	/**
-	 * Simple retreat - just move away
-	 */
 	public void retreat() {
 		if (mob.getCombat().getAssaulting() != null) {
 			forceWalking = true;
 			mob.getCombat().reset();
-			// Simple retreat - move 5 tiles away
+
 			int newX = mob.getX() + (Utility.randomNumber(2) == 0 ? 5 : -5);
 			int newY = mob.getY() + (Utility.randomNumber(2) == 0 ? 5 : -5);
 			TaskQueue.queue(new MobWalkTask(mob, new Location(newX, newY), false));
 		}
 	}
 
-	/**
-	 * Simple walk distance check
-	 */
 	public boolean withinMobWalkDistance(Entity e) {
 		if (following.isIgnoreDistance() || mob.getOwner() != null) {
 			return true;
@@ -174,10 +146,9 @@ public class MobMovementController {
 	}
 
 	public void processMovement() {
-		// Override in subclasses for custom movement behavior
+
 	}
 
-	// Getters and setters
 	public MovementHandler getMovementHandler() { return movementHandler; }
 	public MobFollowing getFollowing() { return following; }
 	public Location getSpawnLocation() { return spawnLocation; }

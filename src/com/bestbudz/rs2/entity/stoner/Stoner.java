@@ -63,13 +63,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Core Stoner class - now focused on coordination and basic identity while maintaining
- * all legacy method signatures for backward compatibility
- */
 public class Stoner extends Entity {
 
-	// Core identity
 	private String username;
 	private String password;
 	private long usernameToLong;
@@ -77,7 +72,6 @@ public class Stoner extends Entity {
 	private boolean visible = true;
 	private String display;
 
-	// Component managers - each handles a specific concern
 	private final Client client;
 	private final StonerSession session;
 	private final StonerStats stats;
@@ -94,13 +88,11 @@ public class Stoner extends Entity {
 
 	private AllergySystem allergySystem;
 
-	// Legacy fields that are still accessed directly by external code
 	private final HashMap<AchievementList, Integer> stonerAchievements;
 	public static final Map<Location, Integer> pathMemory = new HashMap<>();
 	private final List<Stoner> stoners = new LinkedList<Stoner>();
-	private Stopwatch delay = new Stopwatch(); // Legacy delay field
+	private Stopwatch delay = new Stopwatch();
 
-	// Public fields that need to remain accessible
 	public int monsterSelected = 0;
 	public boolean playingMB = false;
 	public long lastReport = 0;
@@ -127,7 +119,6 @@ public class Stoner extends Entity {
 		client = new Client(null);
 		usernameToLong = 0L;
 
-		// Initialize all components
 		session = new StonerSession(this);
 		stats = new StonerStats(this);
 		combat = new StonerCombat(this);
@@ -141,7 +132,6 @@ public class Stoner extends Entity {
 		appearance = new StonerAppearance(this);
 		pets = new StonerPets(this);
 
-		// Initialize legacy achievement map
 		this.stonerAchievements = new HashMap<AchievementList, Integer>(AchievementList.values().length) {
 			private static final long serialVersionUID = -4629357800141530574L;
 			{
@@ -157,7 +147,6 @@ public class Stoner extends Entity {
 		getLocation().setAs(new Location(StonerConstants.HOME));
 		setNpc(false);
 
-		// Initialize all components
 		session = new StonerSession(this);
 		stats = new StonerStats(this);
 		combat = new StonerCombat(this);
@@ -171,7 +160,6 @@ public class Stoner extends Entity {
 		appearance = new StonerAppearance(this);
 		pets = new StonerPets(this);
 
-		// Initialize legacy achievement map
 		this.stonerAchievements = new HashMap<AchievementList, Integer>(AchievementList.values().length) {
 			private static final long serialVersionUID = -4629357800141530574L;
 			{
@@ -182,7 +170,6 @@ public class Stoner extends Entity {
 		};
 	}
 
-	// Path memory static methods - remain static for global access
 	public static void recordCollision(Location loc) {
 		pathMemory.put(loc, pathMemory.getOrDefault(loc, 0) + 1);
 	}
@@ -200,7 +187,6 @@ public class Stoner extends Entity {
 		return pathMemory.getOrDefault(loc, 0);
 	}
 
-	// Core lifecycle methods
 	public boolean login(boolean starter) throws Exception {
 		return session.handleLogin(starter);
 	}
@@ -252,7 +238,7 @@ public class Stoner extends Entity {
 	@Override
 	public void reset() {
 		if (isPetStoner()) {
-			// Minimal reset for pets
+
 			getMovementHandler().resetMoveDirections();
 			getFollowing().updateWaypoint();
 			getUpdateFlags().reset();
@@ -274,7 +260,6 @@ public class Stoner extends Entity {
 		getUpdateFlags().reset();
 	}
 
-	// Delegation methods for combat - CRITICAL: These must remain exactly as they were
 	@Override
 	public void afterCombatProcess(Entity assault) {
 		combat.afterCombatProcess(assault);
@@ -335,7 +320,6 @@ public class Stoner extends Entity {
 		combat.retaliate(assaulted);
 	}
 
-	// Delegation methods for movement - CRITICAL: These must remain exactly as they were
 	@Override
 	public Following getFollowing() {
 		return movement.getFollowing();
@@ -350,9 +334,6 @@ public class Stoner extends Entity {
 		movement.teleport(location);
 	}
 
-	// CRITICAL LEGACY DELEGATION METHODS - These maintain backward compatibility
-
-	// Combat interface delegation methods that external code expects
 	public void doAgressionCheck() {
 		combat.doAgressionCheck();
 	}
@@ -365,11 +346,9 @@ public class Stoner extends Entity {
 		combat.resetAggression();
 	}
 
-	// Inventory and financial methods that external code expects
 	public boolean payment(int amount) {
 		return inventory.payment(amount);
 	}
-
 
 	public void clearClanChat() {
 		social.clearClanChat();
@@ -390,7 +369,6 @@ public class Stoner extends Entity {
 		return social.deterquarryIcon(stoner);
 	}
 
-	// Movement methods that external code expects
 	public void changeZ(int z) {
 		movement.changeZ(z);
 	}
@@ -403,7 +381,6 @@ public class Stoner extends Entity {
 		return movement.withinRegion(other);
 	}
 
-	// Controller and interaction methods that external code expects
 	public boolean canSave() {
 		return interaction.canSave();
 	}
@@ -424,29 +401,25 @@ public class Stoner extends Entity {
 		interaction.start(dialogue);
 	}
 
-	// Stats methods that external code expects
 	public void incrDeaths() {
 		stats.incrDeaths();
 	}
 
-	// Utility methods
 	public void send(OutgoingPacket packet) {
 		if (client != null) {
 			client.queueOutgoingPacket(packet);
 		}
 	}
 
-	// Core getters/setters that external code expects
 	public Client getClient() { return client; }
 
 	public String getUsername() { return username; }
 
 	public void setUsername(String username) {
 		this.username = username;
-		// REMOVE THE PET SPECIAL CASE - just use the username as-is
+
 		this.usernameToLong = Utility.nameToLong(username.toLowerCase());
 
-		// Debug output for verification
 		if (isPet() || username.equals("BestBud")) {
 			System.out.println("Set username for " + username + " -> usernameToLong: " + this.usernameToLong);
 		}
@@ -469,7 +442,6 @@ public class Stoner extends Entity {
 	public String getDisplay() { return display; }
 	public void setDisplay(String display) { this.display = display; }
 
-	// Component accessors for when components need to be accessed directly
 	public StonerSession getSession() { return session; }
 	public StonerStats getStats() { return stats; }
 	public StonerCombat getStonerCombat() { return combat; }
@@ -481,16 +453,11 @@ public class Stoner extends Entity {
 	public StonerSettings getSettings() { return settings; }
 	public StonerPets getPets() { return pets; }
 
-	// === LEGACY METHOD DELEGATIONS FOR BACKWARD COMPATIBILITY ===
-	// These methods MUST exist exactly as they were in the original for external code to work
-
-	// Pet delegation methods
 	public boolean isPet() { return pets.isPet(); }
 	public void setPet(boolean pet) { pets.setPet(pet); }
 	public boolean isPetStoner() { return pets.isPetStoner(); }
 	public List<Pet> getActivePets() { return pets.getActivePets(); }
 
-	// Inventory and item management - CRITICAL legacy methods
 	public Box getBox() { return inventory.getBox(); }
 	public Bank getBank() { return inventory.getBank(); }
 	public Equipment getEquipment() { return inventory.getEquipment(); }
@@ -502,7 +469,6 @@ public class Stoner extends Entity {
 	public ItemDegrading getDegrading() { return inventory.getDegrading(); }
 	public Consumables getConsumables() { return inventory.getConsumables(); }
 
-	// Profession delegation - CRITICAL legacy methods
 	public Profession getProfession() { return professions.getProfession(); }
 	public MageProfession getMage() { return professions.getMage(); }
 	public SagittariusProfession getSagittarius() { return professions.getSagittarius(); }
@@ -512,22 +478,17 @@ public class Stoner extends Entity {
 	public Resonance getResonance() { return professions.getResonance(); }
 	public BankStanding getBankStanding() { return professions.getBankStanding(); }
 
-	// Minigames delegation - CRITICAL legacy methods
 	public StonerMinigames getMinigames() { return minigames.getStonerMinigames(); }
 	public Dueling getDueling() { return minigames.getDueling(); }
 	public BloodTrialDetails getBloodTrialDetails() { return minigames.getBloodTrialDetails(); }
 	public StonerProperties getProperties() { return minigames.getProperties(); }
 
-	// Movement and energy delegation - CRITICAL legacy methods
 	public RunEnergy getRunEnergy() { return movement.getRunEnergy(); }
 
-	// Appearance delegation - CRITICAL legacy methods
 	public StonerAnimations getAnimations() { return appearance.getAnimations(); }
 
-	// Social delegation - CRITICAL legacy methods
 	public PrivateMessaging getPrivateMessaging() { return social.getPrivateMessaging(); }
 
-	// Interaction delegation - CRITICAL legacy methods
 	public StonerAssistant getPA() { return interaction.getAssistant(); }
 	public InterfaceManager getInterfaceManager() { return interaction.getInterfaceManager(); }
 	public LocalObjects getObjects() { return interaction.getObjects(); }
@@ -535,12 +496,10 @@ public class Stoner extends Entity {
 	public void setDialogue(Dialogue d) { interaction.setDialogue(d); }
 	public Controller getController() { return interaction.getController(); }
 
-	// Combat delegation - CRITICAL legacy methods
 	public SpecialAssault getSpecialAssault() { return combat.getSpecialAssault(); }
 	public RareDropEP getRareDropEP() { return combat.getRareDropEP(); }
 	public AutoCombat getAutoCombat() { return combat.getAutoCombat(); }
 
-	// Stats delegation - CRITICAL legacy methods that external code expects
 	public HashMap<AchievementList, Integer> getStonerAchievements() { return stonerAchievements; }
 	public int getAchievementsPoints() { return stats.getAchievementsPoints(); }
 	public void addAchievementPoints(int points) { stats.addAchievementPoints(points); }
@@ -570,7 +529,6 @@ public class Stoner extends Entity {
 	public boolean isPouchPayment() { return stats.isPouchPayment(); }
 	public void setPouchPayment(boolean pouchPayment) { stats.setPouchPayment(pouchPayment); }
 
-	// Settings delegation - CRITICAL legacy methods
 	public byte getScreenBrightness() { return settings.getScreenBrightness(); }
 	public void setScreenBrightness(byte screenBrightness) { settings.setScreenBrightness(screenBrightness); }
 	public byte getMusicVolume() { return settings.getMusicVolume(); }
@@ -584,7 +542,6 @@ public class Stoner extends Entity {
 	public String getPin() { return settings.getPin(); }
 	public void setPin(String pin) { settings.setPin(pin); }
 
-	// Appearance delegation - CRITICAL legacy methods
 	public void setAppearance(int[] appearance) { this.appearance.setAppearance(appearance); }
 	public int[] getAppearance() { return appearance.getAppearance(); }
 	public byte[] getColors() { return appearance.getColors(); }
@@ -604,7 +561,6 @@ public class Stoner extends Entity {
 	public int getNpcAppearanceId() { return appearance.getNpcAppearanceId(); }
 	public void setNpcAppearanceId(short npcAppearanceId) { appearance.setNpcAppearanceId(npcAppearanceId); }
 
-	// Session delegation - CRITICAL legacy methods
 	public boolean needsPlacement() { return session.needsPlacement(); }
 	public void setNeedsPlacement(boolean needsPlacement) { session.setNeedsPlacement(needsPlacement); }
 	public boolean isResetMovementQueue() { return session.isResetMovementQueue(); }
@@ -626,7 +582,6 @@ public class Stoner extends Entity {
 	public String getLastKnownUID() { return session.getLastKnownUID(); }
 	public void setLastKnownUID(String lastKnownUID) { session.setLastKnownUID(lastKnownUID); }
 
-	// Movement delegation - CRITICAL legacy methods
 	public Location getCurrentRegion() { return movement.getCurrentRegion(); }
 	public void setCurrentRegion(Location currentRegion) { movement.setCurrentRegion(currentRegion); }
 	public boolean isHomeTeleporting() { return movement.isHomeTeleporting(); }
@@ -634,7 +589,6 @@ public class Stoner extends Entity {
 	public int getTeleportTo() { return movement.getTeleportTo(); }
 	public void setTeleportTo(int teleportTo) { movement.setTeleportTo(teleportTo); }
 
-	// Settings delegation - Additional CRITICAL legacy methods
 	public byte getMultipleMouseButtons() { return settings.getMultipleMouseButtons(); }
 	public void setMultipleMouseButtons(byte multipleMouseButtons) { settings.setMultipleMouseButtons(multipleMouseButtons); }
 	public byte getChatEffectsEnabled() { return settings.getChatEffectsEnabled(); }
@@ -668,7 +622,6 @@ public class Stoner extends Entity {
 	public byte getSideStones() { return settings.getSideStones(); }
 	public void setSideStones(byte sideStones) { settings.setSideStones(sideStones); }
 
-	// Stats delegation - Additional CRITICAL legacy methods
 	public ArrayList<String> getLastKilledStoners() { return stats.getLastKilledStoners(); }
 	public void setLastKilledStoners(ArrayList<String> lastKilledStoners) { stats.setLastKilledStoners(lastKilledStoners); }
 	public int getTotalAdvances() { return stats.getTotalAdvances(); }
@@ -719,13 +672,11 @@ public class Stoner extends Entity {
 	public int getBlackMarks() { return stats.getBlackMarks(); }
 	public void setBlackMarks(int blackMarks) { stats.setBlackMarks(blackMarks); }
 
-	// Social delegation - Additional CRITICAL legacy methods
 	public StonerTitle getStonerTitle() { return social.getStonerTitle(); }
 	public void setStonerTitle(StonerTitle stonerTitle) { social.setStonerTitle(stonerTitle); }
 	public String getYellTitle() { return social.getYellTitle(); }
 	public void setYellTitle(String yellTitle) { social.setYellTitle(yellTitle); }
 
-	// Inventory delegation - Additional CRITICAL legacy methods
 	public ToxicBlowpipe getToxicBlowpipe() { return inventory.getToxicBlowpipe(); }
 	public void setToxicBlowpipe(ToxicBlowpipe toxicBlowpipe) { inventory.setToxicBlowpipe(toxicBlowpipe); }
 	public TridentOfTheSeas getSeasTrident() { return inventory.getSeasTrident(); }
@@ -741,7 +692,6 @@ public class Stoner extends Entity {
 	public int getEnterXItemId() { return inventory.getEnterXItemId(); }
 	public void setEnterXItemId(int enterXItemId) { inventory.setEnterXItemId(enterXItemId); }
 
-	// Combat delegation - Additional CRITICAL legacy methods
 	public long getAggressionDelay() { return combat.getAggressionDelay(); }
 	public void setAggressionDelay(long aggressionDelay) { combat.setAggressionDelay(aggressionDelay); }
 	public long getCurrentStunDelay() { return combat.getCurrentStunDelay(); }
@@ -751,7 +701,6 @@ public class Stoner extends Entity {
 	public boolean isHitZulrah() { return combat.isHitZulrah(); }
 	public void setHitZulrah(boolean hitZulrah) { combat.setHitZulrah(hitZulrah); }
 
-	// Minigames delegation - Additional CRITICAL legacy methods
 	public boolean[] getKillRecord() { return minigames.getKillRecord(); }
 	public void setKillRecord(boolean[] killRecord) { minigames.setKillRecord(killRecord); }
 	public boolean isChestClicked() { return minigames.isChestClicked(); }
@@ -759,18 +708,15 @@ public class Stoner extends Entity {
 	public int getBarrowsKC() { return minigames.getBarrowsKC(); }
 	public void setBarrowsKC(int killCount) { minigames.setBarrowsKC(killCount); }
 
-	// Additional commonly used methods that external code expects
 	public boolean isBusy() { return getTrade().trading(); }
 	public boolean isBusyNoInterfaceCheck() { return getTrade().trading(); }
 
-	// Legacy getters for public fields that are now in components
 	public List<Stoner> getStoners() { return stoners; }
 	public Stopwatch getDelay() { return delay; }
 	public void setDelay(Stopwatch delay) { this.delay = delay; }
 
-	//PET SKILL
 	public PetMaster getPetMaster() { return professions.getPetMaster(); }
-	// Additional lifecycle methods that external code expects
+
 	public void start() {
 		getRunEnergy().tick();
 		startRegeneration();
@@ -785,7 +731,6 @@ public class Stoner extends Entity {
 		professions.displayResonanceStatus();
 	}
 
-	// Poison override from Entity - CRITICAL legacy behavior
 	@Override
 	public void poison(int start) {
 		if (isPoisoned()) {
@@ -797,13 +742,11 @@ public class Stoner extends Entity {
 		}
 	}
 
-	// Teleblock override - CRITICAL legacy behavior
 	@Override
 	public void teleblock(int i) {
 		super.teleblock(i);
 	}
 
-	// Object comparison - CRITICAL legacy behavior
 	@Override
 	public boolean equals(Object o) {
 		if ((o instanceof Stoner)) {
@@ -812,7 +755,6 @@ public class Stoner extends Entity {
 		return false;
 	}
 
-	// String representation - CRITICAL legacy behavior
 	@Override
 	public String toString() {
 		return "Stoner(" + getUsername() + ":" + getPassword() + " - " + client.getHost() + ")";
@@ -821,6 +763,5 @@ public class Stoner extends Entity {
 	public void getSkulling(long idx)
 	{
 	}
-
 
 }

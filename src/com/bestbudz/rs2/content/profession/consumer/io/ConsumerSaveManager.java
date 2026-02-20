@@ -16,7 +16,7 @@ public class ConsumerSaveManager {
 	private static final String FILE_EXTENSION = ".properties";
 
 	static {
-		// Ensure save directory exists
+
 		try {
 			Files.createDirectories(Paths.get(SAVE_DIRECTORY));
 		} catch (IOException e) {
@@ -24,9 +24,6 @@ public class ConsumerSaveManager {
 		}
 	}
 
-	/**
-	 * Save consumer profession data for a player
-	 */
 	public static void saveConsumerData(Stoner stoner) {
 		if (stoner.getUsername() == null) return;
 
@@ -34,7 +31,7 @@ public class ConsumerSaveManager {
 		Properties props = new Properties();
 
 		try {
-			// Save allergy resistance data
+
 			AllergySystem allergySystem = stoner.getAllergySystem();
 			if (allergySystem != null) {
 				Map<AllergySystem.AllergyType, Integer> resistance = allergySystem.getResistance();
@@ -45,11 +42,6 @@ public class ConsumerSaveManager {
 				}
 			}
 
-			// Save other consumer-specific data here in the future
-			// props.setProperty("consumer.special_unlocks", "...");
-			// props.setProperty("consumer.recipes_discovered", "...");
-
-			// Write to file
 			try (FileOutputStream fos = new FileOutputStream(filename)) {
 				props.store(fos, "Consumer Profession Data for " + stoner.getUsername());
 			}
@@ -59,9 +51,6 @@ public class ConsumerSaveManager {
 		}
 	}
 
-	/**
-	 * Load consumer profession data for a player
-	 */
 	public static void loadConsumerData(Stoner stoner) {
 		if (stoner.getUsername() == null) return;
 
@@ -69,7 +58,7 @@ public class ConsumerSaveManager {
 		Path filePath = Paths.get(filename);
 
 		if (!Files.exists(filePath)) {
-			// No save file exists - this is fine for new players
+
 			return;
 		}
 
@@ -78,7 +67,6 @@ public class ConsumerSaveManager {
 		try (FileInputStream fis = new FileInputStream(filename)) {
 			props.load(fis);
 
-			// Load allergy resistance data
 			AllergySystem allergySystem = stoner.getAllergySystem();
 			if (allergySystem != null) {
 				Map<AllergySystem.AllergyType, Integer> resistance = new HashMap<>();
@@ -99,16 +87,11 @@ public class ConsumerSaveManager {
 				allergySystem.setResistance(resistance);
 			}
 
-			// Load other consumer-specific data here in the future
-
 		} catch (IOException e) {
 			System.err.println("Failed to load consumer data for " + stoner.getUsername() + ": " + e.getMessage());
 		}
 	}
 
-	/**
-	 * Delete consumer save file (for account deletion/reset)
-	 */
 	public static void deleteConsumerData(String username) {
 		if (username == null) return;
 
@@ -122,9 +105,6 @@ public class ConsumerSaveManager {
 		}
 	}
 
-	/**
-	 * Check if consumer save file exists
-	 */
 	public static boolean hasConsumerSaveData(String username) {
 		if (username == null) return false;
 

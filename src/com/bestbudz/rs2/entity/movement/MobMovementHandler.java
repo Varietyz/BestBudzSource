@@ -28,9 +28,6 @@ public class MobMovementHandler extends MovementHandler {
 		return mob.getFollowing().isFollowing();
 	}
 
-	/**
-	 * SIMPLIFIED: Basic movement processing without complex collision handling
-	 */
 	@Override
 	public void process() {
 		if (mob.isDead() || mob.isFrozen() || mob.isStunned()) {
@@ -41,10 +38,9 @@ public class MobMovementHandler extends MovementHandler {
 		if (walkPoint != null && walkPoint.getDirection() != -1) {
 			int direction = walkPoint.getDirection();
 
-			// Check if movement is possible
 			Region region = Region.getRegion(mob.getLocation());
 			if (region.canMove(mob.getLocation(), direction)) {
-				// Execute movement
+
 				mob.getLocation().move(
 					GameConstants.DIR[direction][0],
 					GameConstants.DIR[direction][1]);
@@ -52,7 +48,7 @@ public class MobMovementHandler extends MovementHandler {
 				flag = true;
 				mob.getMovementHandler().getLastLocation().setAs(mob.getLocation());
 			} else {
-				// If blocked, just stop - no complex pathfinding
+
 				reset();
 			}
 		}

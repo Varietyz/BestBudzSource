@@ -329,7 +329,6 @@ public class Dueling {
       return false;
     }
 
-
     if ((ruleToggle[3]) && (ruleToggle[2]) && (ruleToggle[4])) {
       p.getClient()
           .queueOutgoingPacket(new SendMessage("You must enable one combat type to duel!"));

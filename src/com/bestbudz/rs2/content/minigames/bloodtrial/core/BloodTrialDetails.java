@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 public final class BloodTrialDetails
 {
-	// Use ConcurrentHashMap for thread safety
+
 	private final Set<Mob> mobs = ConcurrentHashMap.newKeySet();
 	private long waveStartTime = 0;
 	private int stage = 0;
@@ -23,17 +23,11 @@ public final class BloodTrialDetails
 		}
 	}
 
-	/**
-	 * Gets the count of ALIVE mobs only
-	 */
 	public int getKillAmount() {
 		cleanupDeadMobs();
 		return mobs.size();
 	}
 
-	/**
-	 * Gets the count of ALIVE mobs with detailed logging
-	 */
 	public int getKillAmountWithDebug() {
 		cleanupDeadMobs();
 		int aliveCount = 0;
@@ -41,7 +35,7 @@ public final class BloodTrialDetails
 
 		for (Mob mob : mobs) {
 			if (mob != null && mob.isActive() && !mob.isDead()) {
-				long currentHp = mob.getGrades()[0]; // Hitpoints is profession 0
+				long currentHp = mob.getGrades()[0];
 				aliveCount++;
 				System.out.println("  - Mob " + mob.getId() + " is ALIVE (HP: " + currentHp + ")");
 			} else {
@@ -53,9 +47,6 @@ public final class BloodTrialDetails
 		return aliveCount;
 	}
 
-	/**
-	 * Removes dead/inactive mobs from tracking
-	 */
 	private void cleanupDeadMobs() {
 		Iterator<Mob> iterator = mobs.iterator();
 		while (iterator.hasNext()) {
@@ -66,16 +57,10 @@ public final class BloodTrialDetails
 		}
 	}
 
-	/**
-	 * Check if wave is complete (no alive mobs remaining)
-	 */
 	public boolean isWaveComplete() {
 		return getKillAmount() == 0;
 	}
 
-	/**
-	 * Force check wave completion with cleanup and debug info
-	 */
 	public boolean forceCheckWaveComplete() {
 		System.out.println("DEBUG: Force checking wave completion for wave " + (stage + 1));
 		cleanupDeadMobs();
@@ -83,7 +68,7 @@ public final class BloodTrialDetails
 		int aliveCount = 0;
 		for (Mob mob : mobs) {
 			if (mob != null && mob.isActive() && !mob.isDead()) {
-				long currentHp = mob.getGrades()[0]; // Hitpoints is profession 0
+				long currentHp = mob.getGrades()[0];
 				aliveCount++;
 				System.out.println("DEBUG: Still alive - Mob " + mob.getId() + " at " + mob.getLocation() + " (HP: " + currentHp + ")");
 			}
@@ -131,9 +116,6 @@ public final class BloodTrialDetails
 		return removed;
 	}
 
-	/**
-	 * Force remove a mob even if it's not in our collection
-	 */
 	public void forceRemoveNpc(Mob mob) {
 		if (mob != null) {
 			boolean wasInCollection = mobs.remove(mob);

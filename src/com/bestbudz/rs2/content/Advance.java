@@ -40,38 +40,26 @@ public class Advance {
 		"Consumer"
 	};
 
-	/**
-	 * Check if a profession should auto-advance and perform the advancement
-	 * Called from Profession.addExperience() when XP is added
-	 */
 	public static void checkAutoAdvancement(Stoner stoner, int professionId) {
 		double currentXP = stoner.getProfession().getExperience()[professionId];
 
-		// Check for advancement notifications (420m to 500m XP)
 		if (currentXP >= NOTIFICATION_START_XP && currentXP < AUTO_ADVANCE_XP) {
 			checkAdvancementNotification(stoner, professionId, currentXP);
 		}
 
-		// Simple check: if XP >= 500M and they can advance, do it once
-		// After advancement, XP gets reset to low value, so this won't trigger again until next 500M
 		if (currentXP >= AUTO_ADVANCE_XP && canAdvance(stoner, professionId)) {
 			performAutoAdvancement(stoner, professionId);
 		}
 	}
 
-	/**
-	 * Send notification messages every 20m XP between 420m and 500m
-	 */
 	private static void checkAdvancementNotification(Stoner stoner, int professionId, double currentXP) {
-		// Calculate which notification threshold we've crossed
+
 		double progressXP = currentXP - NOTIFICATION_START_XP;
 		int notificationIndex = (int) (progressXP / NOTIFICATION_INTERVAL_XP);
 
-		// Check if we just crossed a notification threshold
 		double thresholdXP = NOTIFICATION_START_XP + (notificationIndex * NOTIFICATION_INTERVAL_XP);
 		double remainingXP = AUTO_ADVANCE_XP - currentXP;
 
-		// Only send notification if we're very close to the threshold (within 1000 XP)
 		if (Math.abs(currentXP - thresholdXP) < 1000 && remainingXP > 0) {
 			String professionName = getProfessionName(professionId);
 			String message = String.format(
@@ -83,17 +71,13 @@ public class Advance {
 		}
 	}
 
-	/**
-	 * Perform automatic advancement without user interaction
-	 */
 	private static void performAutoAdvancement(Stoner stoner, int professionId) {
 		AdvanceData data = AdvanceData.forProfession(professionId);
 		if (data == null) {
 			return;
 		}
 
-		// Reset profession levels
-		if (professionId == 3) { // Life profession
+		if (professionId == 3) {
 			stoner.getGrades()[professionId] = 3;
 			stoner.getMaxGrades()[professionId] = 3;
 			stoner.getProfession().getExperience()[professionId] =
@@ -105,7 +89,6 @@ public class Advance {
 				stoner.getProfession().getXPForGrade(professionId, 1);
 		}
 
-		// Update advancement counters
 		stoner.getProfessionAdvances()[professionId] += 1;
 		stoner.setTotalAdvances(stoner.getTotalAdvances() + 1);
 		stoner.setAdvancePoints(stoner.getAdvancePoints() + 1);
@@ -122,7 +105,6 @@ public class Advance {
 			stoner.send(new SendMessage("you've received +250 CannaCredits as Substitution"));
 		}
 
-		// Store rewards directly in bank instead of box
 		if (stoner.getBank().getFreeSlots() >= 4) {
 			stoner.getBank().add(new Item(data.getMastercape(), 1));
 			stoner.getBank().add(new Item(data.getSkillcape(), 1));
@@ -132,7 +114,7 @@ public class Advance {
 			stoner.send(new SendMessage("Awarded to bank: 1x " + getProfessionName(professionId) + " Cape, Cape(t), Hood & Master Cape."));
 			stoner.send(new SendMessage("you've also received: " + data.getCredits() + " CannaCredits for advancing!"));
 		} else if (stoner.getBox().getFreeSlots() >= 4) {
-			// Fallback to box if bank is full
+
 			stoner.getBox().add(new Item(data.getMastercape(), 1));
 			stoner.getBox().add(new Item(data.getSkillcape(), 1));
 			stoner.getBox().add(new Item(data.getSkillcapeT(), 1));
@@ -146,7 +128,6 @@ public class Advance {
 			stoner.send(new SendMessage("you've received: " + data.getCredits() + " CannaCredits for advancing! (+250 Credits Substitution"));
 		}
 
-		// Send advancement messages
 		stoner.send(new SendMessage(
 			"Auto-advanced " + ADVANCE_COLOR + getProfessionName(professionId) +
 				" to " + stoner.getProfessionAdvances()[professionId] + "</col>!"
@@ -159,7 +140,6 @@ public class Advance {
 				"</col>, SMOKE SESH!"
 		);
 
-		// Trigger achievement and updates
 		AchievementHandler.activateAchievement(stoner, AchievementList.ADVANCE_105_TIMES, 1);
 		stoner.getProfession().restore();
 		stoner.getProfession().update(professionId);

@@ -4,22 +4,15 @@ import com.bestbudz.core.discord.DiscordManager;
 import com.bestbudz.core.discord.messaging.DiscordMessageManager;
 import java.util.logging.Logger;
 
-/**
- * Integration class to properly start Discord bot with the server
- */
 public class DiscordServerIntegration {
 	private static final Logger logger = Logger.getLogger(DiscordServerIntegration.class.getSimpleName());
 
-	/**
-	 * Call this method during your server startup (after World is initialized)
-	 */
 	public static void initializeDiscordBot() {
 		logger.info("Initializing Discord integration...");
 
 		try {
 			DiscordManager discordManager = DiscordManager.getInstance();
 
-			// Initialize Discord bot asynchronously so it doesn't block server startup
 			discordManager.initialize().thenRun(() -> {
 				logger.info("Discord bot initialization completed successfully");
 			}).exceptionally(throwable -> {
@@ -34,17 +27,13 @@ public class DiscordServerIntegration {
 		}
 	}
 
-	/**
-	 * Call this method during server shutdown
-	 */
 	public static void shutdownDiscordBot() {
 		logger.info("Shutting down Discord integration...");
 
 		try {
-			// Send shutdown message before shutting down
+
 			DiscordMessageManager.announceServerShutdown();
 
-			// Give Discord time to send the message
 			Thread.sleep(2000);
 
 			DiscordManager discordManager = DiscordManager.getInstance();
@@ -57,12 +46,9 @@ public class DiscordServerIntegration {
 		}
 	}
 
-	/**
-	 * Send a server startup message to Discord
-	 */
 	public static void announceServerStartup() {
 		try {
-			// Wait a bit for the Discord messaging service to be fully initialized
+
 			Thread.sleep(5000);
 
 			DiscordMessageManager.announceServerStartup();
@@ -73,9 +59,6 @@ public class DiscordServerIntegration {
 		}
 	}
 
-	/**
-	 * Get status information about the Discord integration
-	 */
 	public static String getStatus() {
 		try {
 			DiscordManager discordManager = DiscordManager.getInstance();
@@ -91,7 +74,6 @@ public class DiscordServerIntegration {
 				botStatus = "Discord bot: Online and active";
 			}
 
-			// Add messaging service status
 			String messagingStatus = DiscordMessageManager.getStatus();
 
 			return botStatus + "\n" + messagingStatus;

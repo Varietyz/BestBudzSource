@@ -1,8 +1,5 @@
 package com.bestbudz.rs2.content.profession.petmaster.growth;
 
-/**
- * Growth requirements - kept identical to original for compatibility
- */
 public class GrowthRequirement {
 	private final int stonerGrade;
 	private final int bondGrade;

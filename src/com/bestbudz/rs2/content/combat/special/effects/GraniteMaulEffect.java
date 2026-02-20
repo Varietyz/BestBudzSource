@@ -7,10 +7,6 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Granite Maul Special - "Crushing Blow"
- * An instant, devastating strike that ignores attack delay and deals massive damage
- */
 public class GraniteMaulEffect implements CombatEffect {
 
 	@Override
@@ -22,8 +18,7 @@ public class GraniteMaulEffect implements CombatEffect {
 			double brutality = 1.0 + (FormulaData.getCombatEffectiveness(attacker) * 0.25);
 			int baseDamage = attacker.getLastDamageDealt();
 
-			// Crushing Blow - massive bonus damage with no delay penalty
-			double crushMultiplier = 0.6 + (brutality * 0.2); // 60-110% bonus damage
+			double crushMultiplier = 0.6 + (brutality * 0.2);
 			int crushDamage = (int)(baseDamage * crushMultiplier);
 
 			if (crushDamage > 0) {
@@ -34,24 +29,20 @@ public class GraniteMaulEffect implements CombatEffect {
 					crushDamage + " devastating damage!"));
 			}
 
-			// Armor Smash - reduce defense effectiveness
 			int armorSmash = (int)((baseDamage + crushDamage) * 0.25 * brutality);
 			if (armorSmash > 0 && victim.getGrades()[1] > 0) {
 				victim.getGrades()[1] = Math.max(0, victim.getGrades()[1] - armorSmash);
 
 				attacker.getClient().queueOutgoingPacket(new SendMessage("Your maul smashes through the creature's defenses!"));
 
-				// Store armor damage effect
 				victim.getAttributes().set("armor_smash", armorSmash);
 				victim.getAttributes().set("armor_smash_end", System.currentTimeMillis() + 15000);
 			}
 
-			// Instant Strike - no attack delay penalty for next attack
 			attacker.getAttributes().set("instant_strike", true);
 			attacker.getAttributes().set("instant_strike_end", System.currentTimeMillis() + 6000);
 			attacker.getClient().queueOutgoingPacket(new SendMessage("Granite power eliminates your next attack delay!"));
 
-			// Berserker Synergy - builds massive rage from successful crush
 			if (brutality > 2.0) {
 				int rageBoost = (int)((baseDamage + crushDamage) * 0.3);
 				attacker.getAttributes().set("granite_rage", rageBoost);
@@ -61,18 +52,16 @@ public class GraniteMaulEffect implements CombatEffect {
 					rageBoost + " combat power)"));
 			}
 
-			// Stunning Impact - chance to briefly disorient target
 			if (baseDamage + crushDamage > 30) {
-				double stunChance = brutality * 8; // Up to 32% chance
+				double stunChance = brutality * 8;
 				if (com.bestbudz.core.util.Utility.random(100) < stunChance) {
 					victim.getAttributes().set("granite_stun", System.currentTimeMillis() + 3000);
 					attacker.getClient().queueOutgoingPacket(new SendMessage("Your crushing blow staggers the creature!"));
 				}
 			}
 
-			// Combo Potential - chance for immediate follow-up
 			if (brutality > 2.5) {
-				double comboChance = (brutality - 2.5) * 20; // Up to 8% chance
+				double comboChance = (brutality - 2.5) * 20;
 				if (com.bestbudz.core.util.Utility.random(100) < comboChance) {
 					int comboDamage = (int)(baseDamage * 0.4);
 

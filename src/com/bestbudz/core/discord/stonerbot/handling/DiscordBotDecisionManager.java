@@ -7,15 +7,10 @@ import com.bestbudz.core.discord.stonerbot.handling.decisions.DecisionEmoteHandl
 import com.bestbudz.core.discord.stonerbot.handling.decisions.DecisionEvaluator;
 import com.bestbudz.core.discord.stonerbot.handling.decisions.DecisionState;
 
-/**
- * REFACTORED: Discord bot decision making with proper modular design
- * Maintains 1:1 functionality while being much easier to maintain and extend
- */
 public class DiscordBotDecisionManager {
 
 	private final DiscordBotStoner bot;
 
-	// Modular components
 	private final DecisionState state;
 	private final DecisionCombatManager combatManager;
 	private final DecisionEmoteHandler emoteHandler;
@@ -25,7 +20,6 @@ public class DiscordBotDecisionManager {
 	public DiscordBotDecisionManager(DiscordBotStoner bot) {
 		this.bot = bot;
 
-		// Initialize modular components
 		this.state = new DecisionState();
 		this.combatManager = new DecisionCombatManager(bot, state);
 		this.emoteHandler = new DecisionEmoteHandler(bot, state);
@@ -33,42 +27,33 @@ public class DiscordBotDecisionManager {
 		this.actionExecutor = new DecisionAction(bot, state, combatManager, emoteHandler);
 	}
 
-	/**
-	 * Main decision making method - REFACTORED with better modular design
-	 */
 	public void makeDecision() {
 		try {
 			long currentTime = System.currentTimeMillis();
 
-			// Update emote state first
 			emoteHandler.updateEmoteState();
 
-			// Skip if currently doing a skill activity
 			if (bot.getBotQuarrying().isQuarrying() || bot.getBotLumbering().isLumbering()) {
 				if (state.isCombatSessionActive()) combatManager.endCombatSession();
 				actionExecutor.updateCurrentActivity();
 				return;
 			}
 
-			// Skip if in stationary period
 			if (bot.isInStationaryPeriod()) {
 				if (state.isCombatSessionActive()) combatManager.endCombatSession();
 				actionExecutor.handleStationaryBehavior(currentTime);
 				return;
 			}
 
-			// Skip if moving (let movement complete)
 			if (bot.getBotLocation().isMoving()) {
 				if (state.isCombatSessionActive()) combatManager.endCombatSession();
 				return;
 			}
 
-			// Check if combat session should end
 			if (combatManager.shouldEndCombatSession(currentTime)) {
 				combatManager.endCombatSession();
 			}
 
-			// Priority-based decision making with home return enforcement
 			String decision = decisionEvaluator.choosePriorityDecision(currentTime);
 			actionExecutor.executeDecision(decision, currentTime);
 
@@ -77,9 +62,6 @@ public class DiscordBotDecisionManager {
 		}
 	}
 
-	/**
-	 * Get decision-making statistics with home tracking
-	 */
 	public String getDecisionStats() {
 		long currentTime = System.currentTimeMillis();
 		long timeSinceQuarrying = currentTime - state.getLastQuarryingSession();
@@ -95,17 +77,11 @@ public class DiscordBotDecisionManager {
 			state.getCombatSessionsWithoutReturn(), state.getLastActivity());
 	}
 
-	/**
-	 * Reset home tracking (useful for testing or manual overrides)
-	 */
 	public void resetHomeTracking() {
 		state.resetHomeTracking();
 		System.out.println("Home tracking reset - bot considers itself as having just returned home");
 	}
 
-	/**
-	 * Get home status for debugging
-	 */
 	public String getHomeStatus() {
 		long timeSinceHome = System.currentTimeMillis() - state.getLastHomeReturnTime();
 		int distanceFromHome = bot.getBotLocation().getDistanceFromHome();
@@ -115,28 +91,18 @@ public class DiscordBotDecisionManager {
 			distanceFromHome, timeSinceHome / 1000, state.getCombatSessionsWithoutReturn(), shouldForceReturn);
 	}
 
-	/**
-	 * Debug method to check NPC visibility for Discord bot
-	 */
 	public void debugNpcVisibility() {
 		combatManager.debugNpcVisibility();
 	}
 
-	/**
-	 * Check if bot is currently emoting (for external use)
-	 */
 	public boolean isCurrentlyEmoting() {
 		return emoteHandler.isCurrentlyEmoting();
 	}
 
-	/**
-	 * Force cancel any active emote (for external use)
-	 */
 	public void forceCancel() {
 		emoteHandler.forceCancel();
 	}
 
-	// Getters for accessing components if needed externally
 	public DecisionState getState() { return state; }
 	public DecisionCombatManager getCombatManager() { return combatManager; }
 	public DecisionEmoteHandler getEmoteHandler() { return emoteHandler; }

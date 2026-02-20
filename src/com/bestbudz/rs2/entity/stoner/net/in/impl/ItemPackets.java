@@ -68,10 +68,9 @@ public class ItemPackets extends IncomingPacket {
 
     switch (opcode) {
       case 145:
-			  // Add detailed logging for packet parsing
+
 			  System.out.println("=== PACKET 145 DEBUG START ===");
 			  System.out.println("Packet size: " + length);
-
 
 			  int interfaceId = in.readShort(StreamBuffer.ValueType.A);
 			  System.out.println("Read interfaceId: " + interfaceId);
@@ -142,7 +141,6 @@ public class ItemPackets extends IncomingPacket {
 				System.out.println("Equipment interface detected");
 				System.out.println("Checking slot " + slot + " for item presence");
 
-				// Log current equipment state
 				System.out.println("Current equipment array:");
 				for (int i = 0; i < stoner.getEquipment().getItems().length; i++) {
 					Item equipItem = stoner.getEquipment().getItems()[i];
@@ -159,7 +157,6 @@ public class ItemPackets extends IncomingPacket {
 
 				Item itemToUnequip = stoner.getEquipment().getItems()[slot];
 				System.out.println("Item to unequip: " + (itemToUnequip != null ? itemToUnequip.getId() + " x" + itemToUnequip.getAmount() : "null"));
-
 
 				System.out.println("Calling stoner.getEquipment().unequip(" + slot + ")");
 				stoner.getEquipment().unequip(slot);
@@ -695,12 +692,10 @@ public class ItemPackets extends IncomingPacket {
           return;
         }
 
-// Replace the entire THC-hempistry block with this:
 		  if (THChempistryMasterProcessor.SINGLETON.handleItemOnItem(stoner, itemUsed, usedWith)) {
 			  return;
 		  }
 
-// Keep the potion decanting at the end:
 		  if (PotionDecanting.decant(stoner, firstSlot, secondSlot)) {
 			  return;
 		  }

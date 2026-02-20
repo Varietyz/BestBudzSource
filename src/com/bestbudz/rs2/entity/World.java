@@ -19,9 +19,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendGameUpdateTimer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Main World class responsible for world state management and coordination
- */
 public class World {
 
 	public static final short MAX_STONERS = 2048;
@@ -38,15 +35,11 @@ public class World {
 	private static boolean updating = false;
 	private static boolean ignoreTick = false;
 
-	// Delegate instances
 	private static final WorldEntityManager entityManager = new WorldEntityManager(stoners, mobs);
 	private static final WorldUpdateManager updateManager = new WorldUpdateManager();
 	private static final WorldMessageManager messageManager = new WorldMessageManager();
 	private static final WorldDebugManager debugManager = new WorldDebugManager();
 
-	/**
-	 * Main world processing cycle
-	 */
 	public static void process() {
 		var pFlags = new StonerUpdateFlags[stoners.length];
 		var nFlags = new MobUpdateFlags[mobs.length];
@@ -59,25 +52,20 @@ public class World {
 			e.printStackTrace();
 		}
 
-		// Tick cannons first
 		for (var cannon : cannons) {
 			cannon.tick();
 		}
 
-		// Delegate to update manager for main processing
 		updateManager.processEntities(stoners, mobs, cannons, pFlags, nFlags);
 
-		// Update timer tick
 		if (updateTimer > -1 && ((World.updateTimer = (short) (updateTimer - 1)) == 0)) {
 			update();
 		}
 
-		// Reset tick ignore
 		if (ignoreTick) {
 			ignoreTick = false;
 		}
 
-		// Path memory decay (optimized for Discord bot)
 		if (World.getCycles() % 50 == 0) {
 			for (Stoner s : stoners) {
 				if (s != null && s.isActive() && !entityManager.isDiscordBot(s)) {
@@ -86,7 +74,6 @@ public class World {
 			}
 		}
 
-		// Debug output every 100 cycles
 		if (getCycles() % 100 == 0) {
 			debugManager.debugPlayerVisibility(stoners);
 			debugManager.checkUsernameCollisions(stoners);
@@ -95,7 +82,6 @@ public class World {
 		cycles++;
 	}
 
-	// Cannon management
 	public static void addCannon(DwarfCannon cannon) {
 		cannons.add(cannon);
 	}
@@ -104,7 +90,6 @@ public class World {
 		cannons.remove(cannon);
 	}
 
-	// Basic getters
 	public static long getCycles() {
 		return cycles;
 	}
@@ -121,7 +106,6 @@ public class World {
 		return updating;
 	}
 
-	// Delegate entity management methods
 	public static int getActiveStoners() {
 		return entityManager.getActiveStoners();
 	}
@@ -158,7 +142,6 @@ public class World {
 		return (stonerIndex > -1) && (stonerIndex < stoners.length);
 	}
 
-	// Registration methods
 	public static int register(Mob mob) {
 		return entityManager.register(mob, mobs);
 	}
@@ -176,10 +159,9 @@ public class World {
 	}
 
 	public static void remove(List<Mob> local) {
-		// Original method implementation - empty but preserved for API compatibility
+
 	}
 
-	// Update/shutdown methods
 	public static void initUpdate(int time, boolean reboot) {
 		worldUpdating = true;
 		for (Stoner p : stoners) {
@@ -211,7 +193,6 @@ public class World {
 		for (Stoner p : stoners) if (p != null) p.logout(true);
 	}
 
-	// Delegate messaging methods
 	public static void sendGlobalMessage(String message, boolean format) {
 		messageManager.sendGlobalMessage(stoners, message, format);
 		DiscordMessageManager.announceGameMessage(message);
@@ -247,7 +228,6 @@ public class World {
 		messageManager.sendRegionMessage(stoners, message, location);
 	}
 
-	// Staff count
 	public static int getStaff() {
 		int amount = 0;
 		for (Stoner stoners : World.getStoners()) {

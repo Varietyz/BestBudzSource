@@ -22,22 +22,20 @@ public class DiscordManager {
 	private DiscordBotItemHandler itemHandler;
 	private boolean active = false;
 
-	// NEW: Bot player state management
 	private final AtomicBoolean botPlayerActive = new AtomicBoolean(false);
 	private final AtomicBoolean shouldBotPlayerBeActive = new AtomicBoolean(false);
 	private long lastPlayerCountCheck = 0;
-	private static final long PLAYER_COUNT_CHECK_INTERVAL = 10000; // Check every 10 seconds
+	private static final long PLAYER_COUNT_CHECK_INTERVAL = 10000;
 
-	// Single executor optimized for Discord operations
 	private ExecutorService discordExecutor;
 
 	private DiscordManager() {
 		this.config = new DiscordConfig();
-		// Use a fixed thread pool instead of cached to prevent thread explosion
+
 		this.discordExecutor = Executors.newFixedThreadPool(2, r -> {
 			Thread t = new Thread(r, "Discord-Operations");
 			t.setDaemon(true);
-			t.setPriority(Thread.NORM_PRIORITY - 1); // Lower priority than game threads
+			t.setPriority(Thread.NORM_PRIORITY - 1);
 			return t;
 		});
 	}
@@ -58,12 +56,11 @@ public class DiscordManager {
 		return CompletableFuture.runAsync(() -> {
 			try {
 				bot = new DiscordBot(config);
-				bot.connect().join(); // Wait for bot to connect
+				bot.connect().join();
 
 				active = true;
 				logger.info("Discord bot initialized (game bot will spawn when players are online)");
 
-				// Start the player monitoring task
 				startPlayerMonitoring();
 
 			} catch (Exception e) {
@@ -74,9 +71,6 @@ public class DiscordManager {
 		}, discordExecutor);
 	}
 
-	/**
-	 * NEW: Start monitoring player count and manage bot player accordingly
-	 */
 	private void startPlayerMonitoring() {
 		CompletableFuture.runAsync(() -> {
 			while (active && !Thread.currentThread().isInterrupted()) {
@@ -88,7 +82,7 @@ public class DiscordManager {
 						lastPlayerCountCheck = currentTime;
 					}
 
-					Thread.sleep(5000); // Check every 5 seconds
+					Thread.sleep(5000);
 
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
@@ -100,11 +94,8 @@ public class DiscordManager {
 		}, discordExecutor);
 	}
 
-	/**
-	 * NEW: Check player count and manage bot player lifecycle
-	 */
 	private void checkAndManageBotPlayer() {
-		int realPlayerCount = World.getRealStonerCount(); // Uses existing World method
+		int realPlayerCount = World.getRealStonerCount();
 		boolean shouldBeActive = realPlayerCount > 0;
 
 		if (shouldBeActive != shouldBotPlayerBeActive.get()) {
@@ -120,20 +111,16 @@ public class DiscordManager {
 		}
 	}
 
-	/**
-	 * NEW: Create bot player asynchronously when needed
-	 */
 	private void createBotPlayerAsync() {
 		if (botPlayerActive.get()) {
-			return; // Already active
+			return;
 		}
 
 		CompletableFuture.runAsync(() -> {
 			try {
-				// Short delay to ensure world state is stable
+
 				Thread.sleep(2000);
 
-				// Double-check that we still need the bot player
 				if (!shouldBotPlayerBeActive.get()) {
 					logger.info("Bot player no longer needed, canceling creation");
 					return;
@@ -142,7 +129,6 @@ public class DiscordManager {
 				botPlayer = new DiscordBotStoner(bot);
 				botPlayer.initialize();
 
-				// Initialize item handler after bot player is created
 				itemHandler = new DiscordBotItemHandler(botPlayer);
 				botPlayerActive.set(true);
 
@@ -159,12 +145,9 @@ public class DiscordManager {
 		}, discordExecutor);
 	}
 
-	/**
-	 * NEW: Shutdown bot player asynchronously when no longer needed
-	 */
 	private void shutdownBotPlayerAsync() {
 		if (!botPlayerActive.get()) {
-			return; // Already inactive
+			return;
 		}
 
 		CompletableFuture.runAsync(() -> {
@@ -187,12 +170,9 @@ public class DiscordManager {
 		}, discordExecutor);
 	}
 
-	/**
-	 * NEW: Force check player count (can be called externally when players join/leave)
-	 */
 	public void onPlayerCountChanged() {
 		if (active) {
-			// Reset the timer to trigger immediate check
+
 			lastPlayerCountCheck = 0;
 		}
 	}
@@ -200,7 +180,6 @@ public class DiscordManager {
 	public void shutdown() {
 		logger.info("Shutting down Discord manager...");
 
-		// Shutdown bot player first
 		if (botPlayer != null) {
 			try {
 				botPlayer.shutdown();
@@ -213,7 +192,6 @@ public class DiscordManager {
 			}
 		}
 
-		// Shutdown Discord bot
 		if (bot != null) {
 			try {
 				bot.disconnect();
@@ -224,7 +202,6 @@ public class DiscordManager {
 			}
 		}
 
-		// Shutdown executor with shorter timeout
 		if (discordExecutor != null && !discordExecutor.isShutdown()) {
 			discordExecutor.shutdown();
 			try {
@@ -239,24 +216,15 @@ public class DiscordManager {
 		}
 	}
 
-	/**
-	 * NEW: Check if Discord is active (bot connected) but game bot may or may not be active
-	 */
 	public boolean isDiscordActive() {
 		return active && bot != null && bot.isConnected();
 	}
 
-	/**
-	 * MODIFIED: Check if both Discord and game bot are active
-	 */
 	public boolean isActive() {
 		return active && bot != null && bot.isConnected() &&
 			botPlayerActive.get() && botPlayer != null && botPlayer.isInitialized();
 	}
 
-	/**
-	 * NEW: Check if game bot player is currently active
-	 */
 	public boolean isBotPlayerActive() {
 		return botPlayerActive.get() && botPlayer != null && botPlayer.isInitialized();
 	}
@@ -281,31 +249,22 @@ public class DiscordManager {
 		return itemHandler;
 	}
 
-	/**
-	 * MODIFIED: Send game message to Discord (with null check for bot player)
-	 */
 	public void sendGameMessageToDiscord(String gameUsername, String message) {
 		if (isBotPlayerActive()) {
-			// Use the bot's own thread for Discord relay
+
 			botPlayer.relayGameChatToDiscord(gameUsername, message);
 		} else {
-			// Discord is active but game bot is not - could log this to Discord directly
+
 			logger.fine("Game message received but bot player is not active: " + gameUsername + ": " + message);
 		}
 	}
 
-	/**
-	 * MODIFIED: Handle item used on Discord bot (with null check)
-	 */
 	public void handleItemUsedOnBot(com.bestbudz.rs2.entity.stoner.Stoner player, int itemId, int itemSlot) {
 		if (isBotPlayerActive() && itemHandler != null) {
 			itemHandler.handleItemUsedOnBot(player, itemId, itemSlot);
 		}
 	}
 
-	/**
-	 * MODIFIED: Check if a stoner is the Discord bot (use World's method)
-	 */
 	public boolean isDiscordBot(com.bestbudz.rs2.entity.stoner.Stoner stoner) {
 		return World.isDiscordBot(stoner);
 	}

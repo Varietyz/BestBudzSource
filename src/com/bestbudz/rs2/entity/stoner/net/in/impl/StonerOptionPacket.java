@@ -66,9 +66,8 @@ public class StonerOptionPacket extends IncomingPacket {
 				}
 				Stoner target = World.getStoners()[slot];
 
-				// NEW: Check if target is a pet for pickup
 				if (PetManager.handleTradeRequest(stoner, target)) {
-					return; // Pet pickup handled, don't continue with trade
+					return;
 				}
 				TaskQueue.queue(
 					new FollowToEntityTask(stoner, World.getStoners()[slot]) {
@@ -98,9 +97,8 @@ public class StonerOptionPacket extends IncomingPacket {
 				}
 				Stoner tradeTarget = World.getStoners()[tradeSlot];
 
-				// NEW: Check if target is a pet for pickup
 				if (PetManager.handleTradeRequest(stoner, tradeTarget)) {
-					return; // Pet pickup handled, don't continue with trade
+					return;
 				}
 
 				TaskQueue.queue(
@@ -209,7 +207,6 @@ public class StonerOptionPacket extends IncomingPacket {
 
 				other = World.getStoners()[stonerSlot];
 
-				// NEW: Prevent casting spells on pets
 				if (PetManager.isPetStoner(other)) {
 					stoner.send(new SendMessage("You cannot cast spells on pets!"));
 					return;
@@ -232,23 +229,18 @@ public class StonerOptionPacket extends IncomingPacket {
 					return;
 				}
 
-				// NEW: Check if the target is the Discord bot
 				if (DiscordManager.getInstance().isDiscordBot(other)) {
-					// Validate the item slot and item
+
 					if (itemSlot >= 0 && itemSlot < stoner.getBox().getItems().length) {
 						Item playerItem = stoner.getBox().getItems()[itemSlot];
 						if (playerItem != null && playerItem.getId() == item) {
 
-							// Handle the item being used on the Discord bot
 							DiscordManager.getInstance().handleItemUsedOnBot(stoner, item, itemSlot);
 
-							return; // Exit early for Discord bot handling
+							return;
 						}
 					}
 				}
-
-				// Handle regular player-to-player item usage here if needed
-				// (existing code for normal stoner interactions)
 
 				break;
 		}

@@ -7,10 +7,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendProfession;
 
 import java.util.logging.Logger;
 
-/**
- * Handles Discord bot grades/levels and profession management
- * FIXED: Works with actual database format and save system
- */
 public class DiscordBotGrades {
 
 	private static final Logger logger = Logger.getLogger(DiscordBotGrades.class.getSimpleName());
@@ -21,26 +17,18 @@ public class DiscordBotGrades {
 		this.discordBot = discordBot;
 	}
 
-	/**
-	 * Setup default grades for the bot - ALL 21 PROFESSIONS
-	 * This directly modifies the arrays that get saved to the database
-	 */
 	public void setupDefaultGrades() {
 		try {
 			logger.info("Setting up Discord bot default grades for all 21 professions...");
 
-			// Ensure arrays are properly sized
 			ensureArraysProperlyInitialized();
 
-			// Set ALL 21 professions
 			for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
-				long targetGrade = (i == 3) ? 3 : 1; // Life skill = 3, others = 1
+				long targetGrade = (i == 3) ? 3 : 1;
 
-				// Set both current and max grades
 				discordBot.getGrades()[i] = targetGrade;
 				discordBot.getMaxGrades()[i] = targetGrade;
 
-				// Calculate and set the correct experience for this grade
 				double requiredExp = discordBot.getProfession().getXPForGrade(i, (int)targetGrade);
 				discordBot.getProfession().getExperience()[i] = requiredExp;
 
@@ -49,7 +37,6 @@ public class DiscordBotGrades {
 				logger.fine("Set profession " + i + " (" + professionName + ") to grade " + targetGrade + " with exp " + requiredExp);
 			}
 
-			// Set profession advances - ensure array is properly sized
 			if (discordBot.getProfessionAdvances() == null || discordBot.getProfessionAdvances().length != Professions.PROFESSION_COUNT) {
 				discordBot.setProfessionAdvances(new int[Professions.PROFESSION_COUNT]);
 			}
@@ -57,14 +44,11 @@ public class DiscordBotGrades {
 				discordBot.getProfessionAdvances()[i] = 0;
 			}
 
-			// Set total advances and advance points to 0
 			discordBot.setTotalAdvances(0);
 			discordBot.setAdvancePoints(0);
 
-			// Update the profession system to reflect the new grades
 			discordBot.getProfession().updateTotalGrade();
 
-			// Update all profession displays
 			updateAllProfessions();
 
 			logger.info("Discord bot grades set successfully for all 21 professions - Life=3, all others=1, Combat Level=" +
@@ -76,29 +60,23 @@ public class DiscordBotGrades {
 		}
 	}
 
-	/**
-	 * Ensure all arrays are properly initialized with correct sizes
-	 */
 	private void ensureArraysProperlyInitialized() {
-		// Check grades array
+
 		if (discordBot.getGrades() == null || discordBot.getGrades().length != Professions.PROFESSION_COUNT) {
 			logger.warning("Discord bot grades array wrong size, reinitializing");
 			discordBot.setGrades(new long[Professions.PROFESSION_COUNT]);
 		}
 
-		// Check max grades array
 		if (discordBot.getMaxGrades() == null || discordBot.getMaxGrades().length != Professions.PROFESSION_COUNT) {
 			logger.warning("Discord bot max grades array wrong size, reinitializing");
 			discordBot.setMaxGrades(new long[Professions.PROFESSION_COUNT]);
 		}
 
-		// Check experience array
 		if (discordBot.getProfession().getExperience() == null || discordBot.getProfession().getExperience().length != Professions.PROFESSION_COUNT) {
 			logger.warning("Discord bot experience array wrong size, reinitializing");
 			discordBot.getProfession().setExperience(new double[Professions.PROFESSION_COUNT]);
 		}
 
-		// Check profession advances array
 		if (discordBot.getProfessionAdvances() == null || discordBot.getProfessionAdvances().length != Professions.PROFESSION_COUNT) {
 			logger.warning("Discord bot profession advances array wrong size, reinitializing");
 			discordBot.setProfessionAdvances(new int[Professions.PROFESSION_COUNT]);
@@ -107,9 +85,6 @@ public class DiscordBotGrades {
 		logger.fine("All arrays properly sized for " + Professions.PROFESSION_COUNT + " professions");
 	}
 
-	/**
-	 * Update all profession displays for the bot
-	 */
 	public void updateAllProfessions() {
 		try {
 			for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
@@ -120,9 +95,6 @@ public class DiscordBotGrades {
 		}
 	}
 
-	/**
-	 * Update a specific profession display
-	 */
 	public void updateProfession(int professionId) {
 		try {
 			if (professionId >= 0 && professionId < Professions.PROFESSION_COUNT &&
@@ -140,21 +112,14 @@ public class DiscordBotGrades {
 		}
 	}
 
-	/**
-	 * Get current combat level calculation
-	 */
 	public int getCombatLevel() {
 		return discordBot.getProfession().calcCombatGrade();
 	}
 
-	/**
-	 * Get a summary of the bot's current grades
-	 */
 	public String getGradesSummary() {
 		StringBuilder summary = new StringBuilder();
 		summary.append("Discord Bot Grades (All 21 Professions):\n");
 
-		// Show all professions with their actual values
 		for (int i = 0; i < Math.min(Professions.PROFESSION_COUNT, discordBot.getGrades().length); i++) {
 			String professionName = (i < Professions.PROFESSION_NAMES.length) ?
 				Professions.PROFESSION_NAMES[i] : "Unknown";
@@ -177,9 +142,6 @@ public class DiscordBotGrades {
 		return summary.toString();
 	}
 
-	/**
-	 * Restore all grades to max (used after combat)
-	 */
 	public void restoreGrades() {
 		try {
 			for (int i = 0; i < Math.min(Professions.PROFESSION_COUNT, discordBot.getGrades().length); i++) {
@@ -193,9 +155,6 @@ public class DiscordBotGrades {
 		}
 	}
 
-	/**
-	 * Safely add experience to a profession (for when bot does activities)
-	 */
 	public void addExperience(int professionId, double experience) {
 		try {
 			if (professionId >= 0 && professionId < Professions.PROFESSION_COUNT) {
@@ -205,10 +164,8 @@ public class DiscordBotGrades {
 					Professions.PROFESSION_NAMES[professionId] : "Unknown";
 				logger.fine("Added " + addedExp + " experience to profession " + professionId + " (" + professionName + ")");
 
-				// Update the profession display
 				updateProfession(professionId);
 
-				// Trigger save since bot gained experience
 				if (discordBot instanceof DiscordBotStoner) {
 					((DiscordBotStoner) discordBot).getBotPersistence().onBotGradesChange();
 				}
@@ -218,15 +175,12 @@ public class DiscordBotGrades {
 		}
 	}
 
-	/**
-	 * Check if grades are at initial values (for debugging)
-	 */
 	public boolean areGradesAtInitialValues() {
 		try {
 			ensureArraysProperlyInitialized();
 
 			for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
-				long expectedGrade = (i == 3) ? 3 : 1; // Life=3, others=1
+				long expectedGrade = (i == 3) ? 3 : 1;
 				if (i >= discordBot.getGrades().length || i >= discordBot.getMaxGrades().length) {
 					return false;
 				}
@@ -241,9 +195,6 @@ public class DiscordBotGrades {
 		}
 	}
 
-	/**
-	 * Validate that all arrays are consistent and properly sized
-	 */
 	public boolean validateArrayConsistency() {
 		try {
 			boolean isValid = true;

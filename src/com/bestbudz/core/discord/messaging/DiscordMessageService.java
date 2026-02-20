@@ -1,4 +1,4 @@
-// DiscordMessageService.java
+
 package com.bestbudz.core.discord.messaging;
 
 import com.bestbudz.core.discord.core.DiscordBot;
@@ -12,27 +12,19 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
-/**
- * Centralized Discord messaging service that handles all Discord communications
- * Independent of bot player status - works even when bot is offline
- */
 public class DiscordMessageService implements Runnable {
 	private static final Logger logger = Logger.getLogger(DiscordMessageService.class.getSimpleName());
 
-	// Singleton instance
 	private static volatile DiscordMessageService instance;
 	private static final Object instanceLock = new Object();
 
-	// Discord connection
 	private volatile DiscordBot discordBot;
 	private volatile boolean isConnected = false;
 
-	// Message processing
 	private final BlockingQueue<DiscordMessage> messageQueue = new LinkedBlockingQueue<>(1000);
 	private final AtomicBoolean running = new AtomicBoolean(false);
 	private Thread processingThread;
 
-	// Channel cache
 	private volatile TextChannel chatChannel;
 	private volatile TextChannel statusChannel;
 	private volatile TextChannel levelsChannel;
@@ -41,7 +33,7 @@ public class DiscordMessageService implements Runnable {
 	private volatile TextChannel gameMessageChannel;
 
 	private DiscordMessageService() {
-		// Private constructor for singleton
+
 	}
 
 	public static DiscordMessageService getInstance() {
@@ -55,9 +47,6 @@ public class DiscordMessageService implements Runnable {
 		return instance;
 	}
 
-	/**
-	 * Initialize the messaging service with Discord bot
-	 */
 	public void initialize(DiscordBot discordBot) {
 		this.discordBot = discordBot;
 		initializeChannels();
@@ -65,9 +54,6 @@ public class DiscordMessageService implements Runnable {
 		logger.info("Discord messaging service initialized");
 	}
 
-	/**
-	 * Initialize Discord channel references
-	 */
 	private void initializeChannels() {
 		if (discordBot == null || discordBot.getJDA() == null) {
 			logger.warning("Cannot initialize channels - Discord bot not available");
@@ -97,9 +83,6 @@ public class DiscordMessageService implements Runnable {
 		}
 	}
 
-	/**
-	 * Start the message processing thread
-	 */
 	private void startProcessingThread() {
 		if (running.get()) {
 			return;
@@ -126,9 +109,6 @@ public class DiscordMessageService implements Runnable {
 		}
 	}
 
-	/**
-	 * Process individual Discord message
-	 */
 	private void processMessage(DiscordMessage message) {
 		if (!isConnected || discordBot == null) {
 			logger.warning("Cannot send Discord message - not connected");
@@ -161,9 +141,6 @@ public class DiscordMessageService implements Runnable {
 		}
 	}
 
-	/**
-	 * Get appropriate channel for message type
-	 */
 	private TextChannel getChannelForType(DiscordMessage.Type type) {
 		switch (type) {
 			case CHAT:
@@ -183,13 +160,10 @@ public class DiscordMessageService implements Runnable {
 			case GAME_MESSAGE:
 				return gameMessageChannel;
 			default:
-				return statusChannel; // Default fallback
+				return statusChannel;
 		}
 	}
 
-	/**
-	 * Format message based on type
-	 */
 	private String formatMessage(DiscordMessage message) {
 		switch (message.getType()) {
 			case CHAT:
@@ -246,78 +220,47 @@ public class DiscordMessageService implements Runnable {
 	private String formatGameMessage(DiscordMessage message) {
 		return "🖥️ **GAME MESSAGE**: " + message.getContent();
 	}
-	// Public API methods for sending different types of messages
 
-	/**
-	 * Send game chat message to Discord
-	 */
 	public void sendGameChat(String username, String message) {
 		queueMessage(new DiscordMessage(DiscordMessage.Type.CHAT, message, username));
 	}
 
-	/**
-	 * Send server status update
-	 */
 	public void sendServerStatus(String status) {
 		queueMessage(new DiscordMessage(DiscordMessage.Type.SERVER_STATUS, status));
 	}
 
-	/**
-	 * Send system announcement
-	 */
 	public void sendSystemAnnouncement(String announcement) {
 		queueMessage(new DiscordMessage(DiscordMessage.Type.SYSTEM_ANNOUNCEMENT, announcement));
 	}
 
-	/**
-	 * Send level up notification
-	 */
 	public void sendLevelUp(String username, String skill, int level) {
 		String message = username + " reached grade " + level + " in " + skill + "!";
 		queueMessage(new DiscordMessage(DiscordMessage.Type.LEVEL_UP, message, username));
 	}
 
-	/**
-	 * Send system announcement
-	 */
 	public void sendGameMessage(String message) {
 		queueMessage(new DiscordMessage(DiscordMessage.Type.GAME_MESSAGE, message));
 	}
 
-	/**
-	 * Send achievement notification
-	 */
 	public void sendAchievement(String username, String achievement) {
 		String message = username + " unlocked: " + achievement;
 		queueMessage(new DiscordMessage(DiscordMessage.Type.ACHIEVEMENT, message, username));
 	}
 
-	/**
-	 * Send staff alert
-	 */
 	public void sendStaffAlert(String alert) {
 		queueMessage(new DiscordMessage(DiscordMessage.Type.STAFF_ALERT, alert));
 	}
 
-	/**
-	 * Send admin message
-	 */
 	public void sendAdminMessage(String message) {
 		queueMessage(new DiscordMessage(DiscordMessage.Type.ADMIN_MESSAGE, message));
 	}
 
-	/**
-	 * Queue message for processing
-	 */
 	private void queueMessage(DiscordMessage message) {
 		if (!messageQueue.offer(message)) {
 			logger.warning("Discord message queue full - dropping message: " + message.getContent());
 		}
 	}
 
-	/**
-	 * Send immediate message (bypasses queue - use sparingly)
-	 */
 	public void sendImmediate(DiscordMessage.Type type, String content) {
 		sendImmediate(type, content, null);
 	}
@@ -327,16 +270,10 @@ public class DiscordMessageService implements Runnable {
 		processMessage(message);
 	}
 
-	/**
-	 * Check if service is connected and functional
-	 */
 	public boolean isConnected() {
 		return isConnected && discordBot != null && discordBot.getJDA() != null;
 	}
 
-	/**
-	 * Get connection status information
-	 */
 	public String getStatus() {
 		if (!isConnected()) {
 			return "Discord messaging: Disconnected";
@@ -353,9 +290,6 @@ public class DiscordMessageService implements Runnable {
 			messageQueue.size() + " messages queued)";
 	}
 
-	/**
-	 * Shutdown the messaging service
-	 */
 	public void shutdown() {
 		running.set(false);
 
@@ -368,7 +302,6 @@ public class DiscordMessageService implements Runnable {
 			}
 		}
 
-		// Process remaining messages
 		while (!messageQueue.isEmpty()) {
 			try {
 				DiscordMessage message = messageQueue.poll();
@@ -376,16 +309,13 @@ public class DiscordMessageService implements Runnable {
 					processMessage(message);
 				}
 			} catch (Exception e) {
-				// Ignore errors during shutdown
+
 			}
 		}
 
 		logger.info("Discord messaging service shut down");
 	}
 
-	/**
-	 * Reconnect to Discord (if connection was lost)
-	 */
 	public void reconnect() {
 		if (discordBot != null) {
 			initializeChannels();
@@ -395,6 +325,3 @@ public class DiscordMessageService implements Runnable {
 		}
 	}
 }
-
-
-

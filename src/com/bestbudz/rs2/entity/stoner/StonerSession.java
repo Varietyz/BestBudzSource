@@ -25,20 +25,15 @@ import com.bestbudz.rs2.content.dwarfcannon.DwarfMultiCannon;
 import com.bestbudz.core.discord.DiscordManager;
 import com.bestbudz.rs2.entity.pets.PetManager;
 
-/**
- * Handles session management, login/logout, timeouts, and connection state
- */
 public class StonerSession {
 	private final Stoner stoner;
 
-	// Session state
 	private boolean active = false;
 	private long timeout = 0L;
 	private long lastAction = System.currentTimeMillis();
 	private boolean needsPlacement = false;
 	private boolean resetMovementQueue = false;
 
-	// Login/logout data
 	private int yearCreated = 0;
 	private int dayCreated = 0;
 	private int lastLoginDay = 0;
@@ -47,7 +42,6 @@ public class StonerSession {
 	private long generalDelay;
 	private long lastRequestedLookup;
 
-	// Connection management
 	private String uid;
 	private String lastKnownUID;
 
@@ -131,7 +125,7 @@ public class StonerSession {
 
 		if (stoner.getResonanceInterface() == 0) {
 			stoner.setResonanceInterface(5608);
-			// Initialize resonance
+
 		}
 
 		stoner.send(new SendSidebarInterface(5, stoner.getResonanceInterface()));
@@ -179,7 +173,6 @@ public class StonerSession {
 		stoner.send(new SendStonerOption("Stalk", 4));
 		stoner.send(new SendStonerOption("Deal with", 5));
 
-		// Send all config packets
 		stoner.send(new SendConfig(166, stoner.getScreenBrightness()));
 		stoner.send(new SendConfig(171, stoner.getMultipleMouseButtons()));
 		stoner.send(new SendConfig(172, stoner.getChatEffectsEnabled()));
@@ -283,7 +276,7 @@ public class StonerSession {
 			SaveWorker.enqueueSave(stoner);
 			StonerSave.save(stoner);
 			ConsumerSaveManager.saveConsumerData(stoner);
-			// In your logout/disconnect handler
+
 			if (stoner.getPetMaster() != null) {
 				stoner.getPetMaster().save();
 			}
@@ -346,7 +339,6 @@ public class StonerSession {
 		return timeout > 0 && System.currentTimeMillis() > timeout;
 	}
 
-	// Getters and setters
 	public boolean isActive() { return active; }
 	public void setActive(boolean active) { this.active = active; }
 	public long getTimeout() { return timeout; }

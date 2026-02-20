@@ -111,12 +111,10 @@ public abstract class Entity implements CombatInterface {
 			return;
 		}
 
-		// PRIORITY 1: If entity is moving, don't override movement direction
 		if (getMovementHandler().moving()) {
-			return; // Let movement handler control facing direction
+			return;
 		}
 
-		// PRIORITY 2: Only face target when actually attacking (not just having a target)
 		boolean isActuallyAttacking = (getCombat().getAssaulting() != null &&
 			getCombat().getAssaultTimer() == 0 &&
 			getCombat().withinDistanceForAssault(getCombat().getCombatType(), false));
@@ -125,7 +123,6 @@ public abstract class Entity implements CombatInterface {
 			return;
 		}
 
-		// PRIORITY 3: Face the target only when not moving and actually attacking
 		if (!entity.isNpc()) {
 			updateFlags.faceEntity(entity.getIndex() + 32768);
 		} else {
@@ -426,7 +423,7 @@ public abstract class Entity implements CombatInterface {
   public void setDead(boolean dead) {
     this.dead = dead;
 	  if (dead) {
-		  clearAnimationLock(); // Clear locks when entity dies
+		  clearAnimationLock();
 	  }
   }
 
@@ -535,56 +532,35 @@ public abstract class Entity implements CombatInterface {
     }
   }
 
-	/**
-	 * Sets an animation lock for the specified duration (in game ticks)
-	 */
 	public void setAnimationLock(int ticks) {
-		this.animationLockEnd = System.currentTimeMillis() + (ticks * 600); // 600ms per tick
+		this.animationLockEnd = System.currentTimeMillis() + (ticks * 600);
 	}
 
-	/**
-	 * Checks if the entity is currently animation locked
-	 */
 	public boolean hasAnimationLock() {
 		return System.currentTimeMillis() < animationLockEnd;
 	}
 
-	/**
-	 * Clears the animation lock
-	 */
 	public void clearAnimationLock() {
 		this.animationLockEnd = 0;
 	}
 
-	/**
-	 * Gets the current animation
-	 */
 	public Animation getAnimation() {
 		return currentAnimation;
 	}
 
-	/**
-	 * Sets the current animation (without automatic movement locking)
-	 */
 	public void setAnimation(Animation animation) {
 		this.currentAnimation = animation;
 	}
 
-	/**
-	 * Sets animation and locks movement based on combat type and assault definitions
-	 */
 	public void setAnimationWithCombatLock(Animation animation, Combat.CombatTypes combatType) {
 		this.currentAnimation = animation;
 		if (animation != null) {
-			// Get duration from combat definitions based on combat type
+
 			int lockDuration = getCombatAnimationDuration(combatType);
 			setAnimationLock(lockDuration);
 		}
 	}
 
-	/**
-	 * Gets the animation lock duration based on combat type
-	 */
 	private int getCombatAnimationDuration(Combat.CombatTypes combatType) {
 		switch (combatType) {
 			case MELEE:
@@ -595,7 +571,7 @@ public abstract class Entity implements CombatInterface {
 				return getCombat().getSagittarius().getAssault() != null ?
 					getCombat().getSagittarius().getAssault().getAssaultDelay() : 2;
 			default:
-				return 2; // Default 2 ticks
+				return 2;
 		}
 	}
 

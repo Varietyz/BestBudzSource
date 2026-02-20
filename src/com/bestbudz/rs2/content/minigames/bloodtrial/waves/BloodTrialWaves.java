@@ -19,7 +19,6 @@ public class BloodTrialWaves
 
 		p.getClient().queueOutgoingPacket(new SendMessage("The next wave will start in a few seconds."));
 
-		// Initialize Z coordinate if needed
 		if (p.getBloodTrialDetails().getZ() == 0) {
 			p.getBloodTrialDetails().setZ(p);
 			p.changeZ(p.getBloodTrialDetails().getZ());
@@ -38,7 +37,7 @@ public class BloodTrialWaves
 					executeWave(p);
 					sendWaveMessage(p);
 				} catch (Exception e) {
-					// Log error and stop task
+
 					stop();
 				} finally {
 					stop();
@@ -47,7 +46,7 @@ public class BloodTrialWaves
 
 			@Override
 			public void onStop() {
-				// Reset spawn locations for next wave
+
 				BloodTrialSpawns.resetUsedSpawns();
 			}
 		});
@@ -57,10 +56,8 @@ public class BloodTrialWaves
 		int stage = p.getBloodTrialDetails().getStage();
 		WaveDefinition wave = WaveRegistry.getWave(stage);
 
-		// Call wave start hook
 		wave.onWaveStart(p);
 
-		// Spawn NPCs for this wave
 		wave.spawnNpcs(p);
 	}
 

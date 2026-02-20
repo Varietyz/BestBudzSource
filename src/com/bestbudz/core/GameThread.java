@@ -72,8 +72,6 @@ public class GameThread extends Thread {
 			LineCounter.run();
 		}
 
-		// 🔐 Initialize password security EARLY in startup process
-		// This should happen before any player data loading/saving
 		logger.info("Initializing password security..");
 		ServerStartupMigration.initializePasswordSecurity();
 
@@ -130,8 +128,7 @@ public class GameThread extends Thread {
 			}
 		}
 
-		// Auto-save task for active players
-		TaskQueue.queue(new Task(1000) { // 5 Min
+		TaskQueue.queue(new Task(1000) {
 			@Override
 			public void execute() {
 				for (Stoner stoner : World.getStoners()) {
@@ -144,11 +141,10 @@ public class GameThread extends Thread {
 
 			@Override
 			public void onStop() {
-				// NO-OP
+
 			}
 		});
 
-		// Initialize Discord integration
 		DiscordServerIntegration.initializeDiscordBot();
 		new Thread(() -> {
 			DiscordServerIntegration.announceServerStartup();
@@ -168,8 +164,7 @@ public class GameThread extends Thread {
 
 		try {
 			World.process();
-			//long start = System.nanoTime();
-			//System.out.println("World.process(): " + ((System.nanoTime() - start) / 1_000_000.0) + "ms");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -177,7 +172,7 @@ public class GameThread extends Thread {
 
 	@Override
 	public void run() {
-		int gameTick = 300; // Normal: 600 (300 = Double speed)
+		int gameTick = 300;
 		try {
 			while (!Thread.interrupted()) {
 				long s = System.nanoTime();

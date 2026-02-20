@@ -69,7 +69,6 @@ public class THChempistryFinishedPotionTask extends Task {
 		stoner.getProfession().addExperience(15, data.getExpGained());
 	}
 
-	// NEW: Auto-create finished potions when items are used together
 	public static boolean autoCreateFinishedPotions(Stoner stoner, Item used, Item usedWith) {
 		FinishedPotionData data = FinishedPotionData.forIds(used.getId(), usedWith.getId());
 		if (data == null) {
@@ -80,7 +79,6 @@ public class THChempistryFinishedPotionTask extends Task {
 			return false;
 		}
 
-		// Check if player has multiple sets of ingredients
 		int unfinishedAmount = stoner.getBox().getItemAmount(data.getUnfinishedPotion());
 		int ingredientAmount = stoner.getBox().getItemAmount(data.getItemNeeded());
 		int maxPotions = Math.min(unfinishedAmount, ingredientAmount);
@@ -90,7 +88,7 @@ public class THChempistryFinishedPotionTask extends Task {
 			TaskQueue.queue(new AutoFinishedPotionTask(stoner, data));
 			return true;
 		} else {
-			// Single set - use normal interface
+
 			return displayInterface(stoner, used, usedWith);
 		}
 	}
@@ -209,7 +207,6 @@ public class THChempistryFinishedPotionTask extends Task {
 	@Override
 	public void onStop() {}
 
-	// NEW: Auto-finished potion making task
 	private static class AutoFinishedPotionTask extends Task {
 		private final Stoner stoner;
 		private final FinishedPotionData data;
@@ -233,7 +230,6 @@ public class THChempistryFinishedPotionTask extends Task {
 				return;
 			}
 
-			// Make one finished potion
 			stoner.getClient().queueOutgoingPacket(new SendSound(281, 0, 0));
 			stoner.getUpdateFlags().sendAnimation(new Animation(363));
 

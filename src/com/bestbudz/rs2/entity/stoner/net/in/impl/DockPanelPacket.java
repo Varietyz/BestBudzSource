@@ -36,12 +36,10 @@ public class DockPanelPacket extends IncomingPacket {
 		}
 	}
 
-
-
 	private void handleBank(Stoner stoner, String[] args) {
 		switch (args[1]) {
 			case "open":
-				stoner.getBank().openBank(); // more appropriate than update()
+				stoner.getBank().openBank();
 				break;
 			case "withdraw":
 				if (args.length >= 4) {
@@ -92,7 +90,6 @@ public class DockPanelPacket extends IncomingPacket {
 				System.err.println("[DockPanelPacket] Unknown bank operation: " + args[1]);
 		}
 	}
-
 
 	@Override
 	public int getMaxDuplicates() {

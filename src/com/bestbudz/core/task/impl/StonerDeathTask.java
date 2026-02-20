@@ -54,8 +54,6 @@ public class StonerDeathTask extends Task {
 
             Entity killer = stoner.getCombat().getDamageTracker().getKiller();
 
-
-
             stop();
           }
 

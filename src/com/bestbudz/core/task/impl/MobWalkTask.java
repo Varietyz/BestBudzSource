@@ -48,7 +48,6 @@ public class MobWalkTask extends Task {
         return;
       }
 
-      // Delay only if a player is nearby
       for (Stoner stoner : World.getStoners()) {
         if (stoner != null && mob.getLocation().isViewableFrom(stoner.getLocation())) {
           wait = 15;
@@ -56,7 +55,6 @@ public class MobWalkTask extends Task {
         }
       }
 
-      // Teleport only if safe
       mob.teleport(destination);
     }
 

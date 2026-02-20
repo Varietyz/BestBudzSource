@@ -1,15 +1,11 @@
 package com.bestbudz.rs2.content.profession.petmaster.bond;
 
-/**
- * Enhanced pet bond tracking with growth integration
- */
 public class PetBond {
 	private double experience = 0.0;
 	private int bondGrade = 1;
 	private long activeTime = 0;
 	private long firstSummoned = 0;
 
-	// Bond grade thresholds
 	private static final double[] THRESHOLDS = {
 		0, 100, 300, 600, 1000, 1500, 2200, 3000, 4000, 5500, 7500
 	};
@@ -32,14 +28,10 @@ public class PetBond {
 		}
 	}
 
-	/**
-	 * Check if bond meets minimum requirements
-	 */
 	public boolean meetsRequirements(int requiredGrade, long requiredActiveTime) {
 		return this.bondGrade >= requiredGrade && this.activeTime >= requiredActiveTime;
 	}
 
-	// Getters and setters
 	public double getExperience() { return experience; }
 	public void setExperience(double experience) {
 		this.experience = experience;

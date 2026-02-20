@@ -5,9 +5,6 @@ import com.bestbudz.rs2.content.combat.Combat.CombatTypes;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 
-/**
- * Handles weapon selection and classification logic
- */
 public class WeaponSelector {
 
 	private final Stoner stoner;
@@ -16,9 +13,6 @@ public class WeaponSelector {
 		this.stoner = stoner;
 	}
 
-	/**
-	 * Determine combat style of a weapon
-	 */
 	public CombatTypes determineWeaponStyle(Item weapon) {
 		if (weapon == null || weapon.getEquipmentDefinition() == null) {
 			return null;
@@ -26,17 +20,14 @@ public class WeaponSelector {
 
 		String name = weapon.getDefinition().getName().toLowerCase();
 
-		// Check for sagittarius weapons first (most specific)
 		if (weapon.getSagittariusDefinition() != null) {
 			return CombatTypes.SAGITTARIUS;
 		}
 
-		// Check for mage weapons
 		if (name.contains("staff") || name.contains("wand")) {
 			return CombatTypes.MAGE;
 		}
 
-		// Check for melee weapons (must have weapon definition and not be ranged/mage)
 		if (weapon.getWeaponDefinition() != null &&
 			weapon.getSagittariusDefinition() == null &&
 			!isMageWeapon(name) &&
@@ -44,12 +35,9 @@ public class WeaponSelector {
 			return CombatTypes.MELEE;
 		}
 
-		return null; // Unknown weapon type
+		return null;
 	}
 
-	/**
-	 * Find best weapon for combat style
-	 */
 	public Item findBestWeapon(CombatTypes style) {
 		Item bestWeapon = null;
 		int bestScore = -1;
@@ -72,9 +60,6 @@ public class WeaponSelector {
 		return bestWeapon;
 	}
 
-	/**
-	 * Check if weapon is suitable for style
-	 */
 	public boolean isWeaponForStyle(Item weapon, CombatTypes style) {
 		if (weapon.getEquipmentDefinition() == null ||
 			weapon.getEquipmentDefinition().getSlot() != AutoCombatConfig.WEAPON_SLOT) {
@@ -95,32 +80,26 @@ public class WeaponSelector {
 		}
 	}
 
-	/**
-	 * Calculate weapon score for prioritization
-	 */
 	public int calculateWeaponScore(Item weapon) {
-		int score = weapon.getId() / 100; // Base tier score
+		int score = weapon.getId() / 100;
 
-		// Special attack weapons get high priority
 		if (weapon.getSpecialDefinition() != null) {
 			score += AutoCombatConfig.SPECIAL_WEAPON_BONUS;
 		}
 
-		// Two-handed weapons get bonus (usually more powerful)
 		if (weapon.getWeaponDefinition() != null && weapon.getWeaponDefinition().isTwoHanded()) {
 			score += AutoCombatConfig.TWO_HANDED_WEAPON_BONUS;
 		}
 
-		// Add weapon-specific bonuses from item bonuses
 		if (weapon.getItemBonuses() != null) {
 			short[] bonuses = weapon.getItemBonuses();
-			// Add all positive attack bonuses
+
 			for (int i = 0; i < Math.min(5, bonuses.length); i++) {
 				if (bonuses[i] > 0) {
 					score += bonuses[i] * AutoCombatConfig.ATTACK_BONUS_MULTIPLIER;
 				}
 			}
-			// Strength bonus is very important
+
 			if (bonuses.length > 10 && bonuses[10] > 0) {
 				score += bonuses[10] * AutoCombatConfig.STRENGTH_BONUS_MULTIPLIER;
 			}
@@ -129,9 +108,6 @@ public class WeaponSelector {
 		return score;
 	}
 
-	/**
-	 * Helper methods for weapon classification
-	 */
 	private boolean isMeleeWeapon(Item weapon, String name) {
 		return weapon.getWeaponDefinition() != null &&
 			weapon.getSagittariusDefinition() == null &&

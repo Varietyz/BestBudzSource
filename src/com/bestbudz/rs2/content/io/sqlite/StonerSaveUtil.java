@@ -26,23 +26,20 @@ public final class StonerSaveUtil {
 		try {
 			conn.setAutoCommit(false);
 
-			// Encrypt password if it's not already encrypted
 			String passwordToSave = stoner.getPassword();
-			boolean isEncrypted = true; // Assume we're saving encrypted
+			boolean isEncrypted = true;
 
-			// Check if the current password is plaintext (during session it might be)
 			if (passwordToSave != null && !isPasswordLikelyEncrypted(passwordToSave) && username != "BestBud") {
 				String encryptedPassword = PasswordEncryption.encrypt(passwordToSave);
 				if (encryptedPassword != null) {
 					passwordToSave = encryptedPassword;
 				} else {
 					System.err.println("[StonerSaveUtil] Failed to encrypt password for user: " + username);
-					// Keep original password and mark as not encrypted
+
 					isEncrypted = false;
 				}
 			}
 
-			// 1. Save player core state (all fields/arrays as JSON, 1 row, upsert)
 			final String playerUpsert =
 				"REPLACE INTO player (" +
 					"username, password, password_encrypted, x, y, z, rights, lastKnownUID, pin, credits, host, yellTitle, banned, banLength, moneyPouch, jailLength, shopCollection, lastClanChat, muted, isMember, jailed, muteLength, weaponPoints, fightCavesWave, mageBook, necromanceBook, retaliate, expLock, gwkc, poisoned, pouchPayment, poisonDmg, mercenaryTask, mercenaryAmount, mercenaryDifficulty, professionsGrade, experience, gender, appearance, colours, chatEffects, transparentPanel, transparentChatbox, sideStones, left, skullIcon, specialAssault, assaultStyle, assaultType, chillPoints, teleblockTime, familiarId, logStoner, pestPoints, arenaPoints, musicVolume, soundVolume, deaths, kills, rogueKills, rogueRecord, hunterKills, hunterRecord, bountyPoints, blackMarks, rareDropEP, rareDropsReceived, professionGoals, lastKilledStoners, stonerAchievements, achievementsPoints, unlockedCredits, quickNecromances, stonerProperties, counterExp, advancePoints, professionAdvances, totalAdvances, toxicBlowpipe, seasTrident, swampTrident, serpentineHelment, unlockedTitles, stonerTitle" +
@@ -54,12 +51,12 @@ public final class StonerSaveUtil {
 				int idx = 1;
 				ps.setString(idx++, stoner.getUsername());
 				ps.setString(idx++, passwordToSave);
-				ps.setInt(idx++, isEncrypted ? 1 : 0); // Add the password_encrypted flag
+				ps.setInt(idx++, isEncrypted ? 1 : 0);
 				ps.setInt(idx++, stoner.getLocation().getX());
 				ps.setInt(idx++, stoner.getLocation().getY());
 				ps.setInt(idx++, stoner.getLocation().getZ());
 				ps.setInt(idx++, stoner.getRights());
-				ps.setString(idx++, stoner.getUid());  // or stoner.getLastKnownUID()
+				ps.setString(idx++, stoner.getUid());
 				ps.setString(idx++, stoner.getPin());
 				ps.setInt(idx++, stoner.getCredits());
 				ps.setString(idx++, stoner.getClient().getHost());
@@ -69,7 +66,7 @@ public final class StonerSaveUtil {
 				ps.setLong(idx++, stoner.getMoneyPouch());
 				ps.setLong(idx++, stoner.getJailLength());
 				ps.setLong(idx++, stoner.getShopCollection());
-				ps.setString(idx++, stoner.lastClanChat); // Or stoner.getLastClanChat()
+				ps.setString(idx++, stoner.lastClanChat);
 				ps.setBoolean(idx++, stoner.isMuted());
 				ps.setBoolean(idx++, stoner.isMember());
 				ps.setBoolean(idx++, stoner.isJailed());
@@ -96,14 +93,14 @@ public final class StonerSaveUtil {
 				ps.setInt     (idx++, stoner.getTransparentPanel());
 				ps.setInt     (idx++, stoner.getTransparentChatbox());
 				ps.setInt     (idx++, stoner.getSideStones());
-				ps.setLong(idx++, 0); // Used to be skulling now FREE
-				ps.setInt(idx++, 0); // Used to be skulling now FREE
+				ps.setLong(idx++, 0);
+				ps.setInt(idx++, 0);
 				ps.setInt(idx++, stoner.getSpecialAssault().getAmount());
 				ps.setString(idx++, (stoner.getEquipment().getAssaultStyle() != null ? stoner.getEquipment().getAssaultStyle().name() : null));
 				ps.setString(idx++, (stoner.getAssaultType() != null ? stoner.getAssaultType().name() : null));
 				ps.setInt(idx++, stoner.getChillPoints());
 				ps.setInt(idx++, stoner.getTeleblockTime());
-				ps.setInt(idx++, -1); // FREE WAS SUMMONING
+				ps.setInt(idx++, -1);
 				ps.setBoolean(idx++, stoner.getClient().isLogStoner());
 				ps.setInt(idx++, stoner.getPestPoints());
 				ps.setInt(idx++, stoner.getArenaPoints());
@@ -130,7 +127,7 @@ public final class StonerSaveUtil {
 				ps.setInt(idx++, stoner.getAchievementsPoints());
 				ps.setString(idx++, gson.toJson(stoner.getUnlockedCredits()));
 				ps.setString(idx++, gson.toJson(stoner.getResonance().getResonanceFromDB()));
-				ps.setString(idx++, gson.toJson(stoner.getAttributes().getAttributes())); // stonerProperties
+				ps.setString(idx++, gson.toJson(stoner.getAttributes().getAttributes()));
 				ps.setDouble(idx++, stoner.getCounterExp());
 				ps.setInt(idx++, stoner.getAdvancePoints());
 				ps.setString(idx++, gson.toJson(stoner.getProfessionAdvances()));
@@ -144,8 +141,6 @@ public final class StonerSaveUtil {
 				ps.executeUpdate();
 			}
 
-
-			// 2. Save containers: inventory, equipment, bank (delete all then batch insert)
 			saveItemsBatch(conn, "player_inventory", username, stoner.getBox().getItems());
 			saveItemsBatch(conn, "player_equipment", username, stoner.getEquipment().getItems());
 			saveBankBatch(conn, "player_bank", username, stoner.getBank().getItems(), stoner.getBank().getTabAmounts());
@@ -171,14 +166,11 @@ public final class StonerSaveUtil {
 		}
 	}
 
-	/**
-	 * Simple check to determine if a password is likely encrypted (Base64 format)
-	 */
 	private static boolean isPasswordLikelyEncrypted(String password) {
 		if (password == null || password.trim().isEmpty()) {
 			return false;
 		}
-		// Check for Base64 characteristics and reasonable length for encrypted data
+
 		return password.matches("^[A-Za-z0-9+/]*={0,2}$") && password.length() > 20;
 	}
 
@@ -196,7 +188,7 @@ public final class StonerSaveUtil {
 				ps.setString(1, username);
 				ps.setInt(2, slot);
 				if (item == null || item.getId() <= 0 || item.getAmount() <= 0) {
-					ps.setInt(3, -1); // Sentinel for empty slot
+					ps.setInt(3, -1);
 					ps.setInt(4, 0);
 				} else {
 					ps.setInt(3, item.getId());
@@ -232,7 +224,7 @@ public final class StonerSaveUtil {
 					ps.setInt(4, item.getAmount());
 				}
 
-				ps.setString(5, tabJson); // same tab JSON for all rows
+				ps.setString(5, tabJson);
 				ps.addBatch();
 			}
 			ps.executeBatch();

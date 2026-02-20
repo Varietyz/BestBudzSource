@@ -23,9 +23,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Simplified 317-style combat handler with communication
- */
 public class MobCombatHandler {
 	private final Mob mob;
 	private final MobCommunication communication;
@@ -41,9 +38,6 @@ public class MobCombatHandler {
 		}
 	}
 
-	/**
-	 * Simple 317-style processing
-	 */
 	public void process() {
 		if (!mob.isAssaultable()) {
 			return;
@@ -54,18 +48,15 @@ public class MobCombatHandler {
 			return;
 		}
 
-		// Clean up dead combatants
 		manageCombatants();
 
-		// Simple movement logic
 		handleMovement();
 
-		// Process combat
 		mob.getCombat().process();
 	}
 
 	private void handleMovement() {
-		// Walk home if too far from spawn
+
 		if (mob.getMovementController().isWalkToHome()) {
 			mob.getCombat().reset();
 			mob.getFollowing().reset();
@@ -74,14 +65,12 @@ public class MobCombatHandler {
 			return;
 		}
 
-		// Random walking when not in combat
 		if (!mob.isDead() &&
 			mob.getCombat().getAssaulting() == null &&
 			!mob.getFollowing().isFollowing() &&
 			mob.getMovementController().isWalks() &&
 			!mob.getMovementController().isForceWalking()) {
 
-			// Simple random walk chance
 			if (Utility.randomNumber(10) == 0) {
 				Walking.randomWalk(mob);
 			}
@@ -89,9 +78,6 @@ public class MobCombatHandler {
 		}
 	}
 
-	/**
-	 * Simple hit handling
-	 */
 	public void handleHit(Hit hit) {
 		if (!mob.canTakeDamage()) {
 			return;
@@ -105,52 +91,44 @@ public class MobCombatHandler {
 
 		handleSpecialNpcHits(hit);
 
-		// Cap damage to current HP
 		if (hit.getDamage() > mob.getGrades()[3]) {
 			hit.setDamage(mob.getGrades()[3]);
 		}
 
-		// Apply damage
 		mob.getGrades()[3] = (short) (mob.getGrades()[3] - hit.getDamage());
 
-		// Update hit graphics
 		if (!mob.getUpdateFlags().isHitUpdate()) {
 			mob.getUpdateFlags().sendHit(hit.getDamage(), hit.getHitType(), hit.getCombatHitType());
 		} else {
 			mob.getUpdateFlags().sendHit2(hit.getDamage(), hit.getHitType(), hit.getCombatHitType());
 		}
 
-		// Handle attacker
 		if (hit.getAssaulter() != null) {
 			handleAssaulterHit(hit);
 		}
 
-		// Check for death
 		if (!mob.isDead()) {
 			mob.getStateManager().checkForDeath();
 		}
 
-		// Callback to attacker
 		if (hit.getAssaulter() != null) {
 			hit.getAssaulter().onHit(mob, hit);
 		}
 	}
 
 	public void onCombatProcess(Entity assault) {
-		// Special case for NPC 8133
+
 		if (mob.getId() == 8133 && mob.getCombat().getCombatType() == CombatTypes.MELEE && combatIndex == 0) {
 			mob.getUpdateFlags().sendGraphic(new Graphic(1834, 0, false));
 		}
 
 		assaulted = true;
 
-		// Send communication message (simplified)
 		if (!assault.isNpc()) {
 			Stoner player = (Stoner) assault;
 			communication.sendCombatMessage(player);
 		}
 
-		// Handle sounds and add to combatants
 		if (!assault.isNpc()) {
 			Stoner p = World.getStoners()[assault.getIndex()];
 			if (p != null) {
@@ -159,9 +137,6 @@ public class MobCombatHandler {
 		}
 	}
 
-	/**
-	 * Simple combatant management
-	 */
 	public void manageCombatants() {
 		if (combatants != null && combatants.size() > 0) {
 			if (mob.getCombat().getAssaulting() == null) {
@@ -196,7 +171,6 @@ public class MobCombatHandler {
 	private void handleSpecialNpcHits(Hit hit) {
 		int npcId = mob.getId();
 
-		// Kraken whirlpool logic
 		if (npcId == 493 && mob.getOwner() != null && mob.getOwner().inKraken()) {
 			if (hit.getDamage() != 0) {
 				hit.setDamage(0);
@@ -206,7 +180,6 @@ public class MobCombatHandler {
 			}
 		}
 
-		// Kraken boss logic
 		if (npcId == 496 && mob.getOwner() != null && mob.getOwner().inKraken()) {
 			if (mob.getOwner().whirlpoolsHit != 4) {
 				mob.getOwner().hit(new Hit(Utility.random(10)));
@@ -222,7 +195,6 @@ public class MobCombatHandler {
 			}
 		}
 
-		// Special defense NPCs
 		if (npcId == 2883 && (hit.getType() == Hit.HitTypes.MELEE || hit.getType() == Hit.HitTypes.SAGITTARIUS)) {
 			hit.setDamage(0);
 		}
@@ -237,17 +209,15 @@ public class MobCombatHandler {
 	}
 
 	private void handleAssaulterHit(Hit hit) {
-		// Track damage
+
 		mob.getCombat().getDamageTracker().addDamage(hit.getAssaulter(), hit.getDamage());
 
-		// Simple retaliation logic
 		if (mob.isRetaliate()) {
 			if (mob.getCombat().getAssaulting() == null || !mob.inMultiArea()) {
 				mob.getCombat().setAssault(hit.getAssaulter());
 			}
 		}
 
-		// Add to combatants and play sounds
 		if (!hit.getAssaulter().isNpc()) {
 			Stoner p = World.getStoners()[hit.getAssaulter().getIndex()];
 			if (p != null) {
@@ -257,7 +227,6 @@ public class MobCombatHandler {
 			}
 		}
 
-		// Post-hit processing
 		mob.doPostHitProcessing(hit);
 	}
 
@@ -279,7 +248,7 @@ public class MobCombatHandler {
 			case MELEE:
 				if (combatDef.getMelee() != null) {
 					int base = combatDef.getMelee()[combatIndex].getMax();
-					// Special case for NPC 1673
+
 					if (mob.getId() == 1673) {
 						base = (int) (base * (1.0D + (2.0D - mob.getGrades()[3] / mob.getMaxGrades()[3])));
 					}
@@ -308,7 +277,6 @@ public class MobCombatHandler {
 
 		CombatTypes combatType = CombatTypes.MELEE;
 
-		// Simple combat type selection
 		switch (def.getCombatType()) {
 			case MAGE:
 				combatType = CombatTypes.MAGE;
@@ -343,7 +311,6 @@ public class MobCombatHandler {
 		mob.getCombat().setCombatType(combatType);
 		mob.getCombat().setBlockAnimation(def.getBlock());
 
-		// Set combat data based on type
 		switch (combatType) {
 			case MELEE:
 				if (def.getMelee() == null || def.getMelee().length < 1) {
@@ -400,10 +367,9 @@ public class MobCombatHandler {
 	}
 
 	public void doAliveMobProcessing() {
-		// Override in subclasses for custom alive processing
+
 	}
 
-	// Getters and setters
 	public List<Stoner> getCombatants() {
 		if (combatants == null) {
 			combatants = new ArrayList<>();

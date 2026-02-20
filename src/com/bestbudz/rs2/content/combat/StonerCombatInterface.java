@@ -439,7 +439,6 @@ public class StonerCombatInterface implements CombatInterface {
       BarrowsSpecials.checkForBarrowsSpecial(stoner);
     }
 
-
     if (stoner.getCombat().getCombatType() == CombatTypes.MAGE) {
       stoner.getMage().getSpellCasting().appendMultiSpell(stoner);
     }

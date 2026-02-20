@@ -133,7 +133,7 @@ public class GameConstants {
         }
       }
 
-		int dist = Math.abs(x2 - x) + Math.abs(y2 - y); // inline to avoid function call
+		int dist = Math.abs(x2 - x) + Math.abs(y2 - y);
 
 		if (dist < lowDist) {
         lowX = x2;
@@ -146,12 +146,11 @@ public class GameConstants {
   }
 
 	private static final int[][] DIRECTION_LOOKUP = {
-		{5, 6, 7}, // dx: -1, 0, 1 — dy: -1
-		{3, -1, 4}, // dx: -1, 0, 1 — dy: 0
-		{0, 1, 2}   // dx: -1, 0, 1 — dy: +1
+		{5, 6, 7},
+		{3, -1, 4},
+		{0, 1, 2}
 	};
 
-	// Replaces getDirection(xDiff, yDiff)
 	public static int getDirection(int dx, int dy) {
 		if (dx < -1 || dx > 1 || dy < -1 || dy > 1) {
 			return -1;
@@ -159,7 +158,6 @@ public class GameConstants {
 		return DIRECTION_LOOKUP[dy + 1][dx + 1];
 	}
 
-	// Replaces getDirection(x, y, x2, y2)
 	public static int getDirection(int x, int y, int x2, int y2) {
 		int dx = x2 - x;
 		int dy = y2 - y;

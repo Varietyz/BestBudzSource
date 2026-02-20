@@ -113,7 +113,6 @@ public class Professions {
   public static final int CURRENT_RESONANCE_UPDATE_ID = 4012;
   public static final int MAX_RESONANCE_UPDATE_ID = 4013;
 
-
 	public static void declare() {
     EXPERIENCE_RATES[ASSAULT] = 1;
     EXPERIENCE_RATES[AEGIS] = 1;

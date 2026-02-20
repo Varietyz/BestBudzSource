@@ -7,10 +7,6 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Dragon Longsword Special - "Draconic Sweep"
- * A wide sweeping attack with increased accuracy and reach
- */
 public class DragonLongswordEffect implements CombatEffect {
 
 	@Override
@@ -22,8 +18,7 @@ public class DragonLongswordEffect implements CombatEffect {
 			double dragonicReach = 1.0 + (FormulaData.getCombatEffectiveness(attacker) * 0.2);
 			int baseDamage = attacker.getLastDamageDealt();
 
-			// Sweeping Strike - guaranteed accurate hit with bonus damage
-			double sweepMultiplier = 0.35 + (dragonicReach * 0.15); // 35-65% bonus
+			double sweepMultiplier = 0.35 + (dragonicReach * 0.15);
 			int sweepDamage = (int)(baseDamage * sweepMultiplier);
 
 			if (sweepDamage > 0) {
@@ -34,7 +29,6 @@ public class DragonLongswordEffect implements CombatEffect {
 					sweepDamage + " additional damage!"));
 			}
 
-			// Perfect Accuracy - next few attacks have enhanced accuracy
 			int accuracyBonus = (int)(dragonicReach * 12);
 			int accuracyAttacks = dragonicReach > 2.0 ? 3 : 2;
 
@@ -45,7 +39,6 @@ public class DragonLongswordEffect implements CombatEffect {
 			attacker.getClient().queueOutgoingPacket(new SendMessage("Dragon precision guides your next " +
 				accuracyAttacks + " attacks! (+" + accuracyBonus + "% accuracy)"));
 
-			// Reach Advantage - temporary defense bonus
 			int reachDefense = (int)(baseDamage * 0.2 * dragonicReach);
 			if (reachDefense > 0) {
 				attacker.getAttributes().set("reach_defense", reachDefense);
@@ -55,13 +48,11 @@ public class DragonLongswordEffect implements CombatEffect {
 					reachDefense + " Defense)"));
 			}
 
-			// Cleaving Strike - chance for area effect
 			if (dragonicReach > 2.2) {
-				double cleaveChance = (dragonicReach - 2.2) * 20; // Up to 6% chance
+				double cleaveChance = (dragonicReach - 2.2) * 20;
 				if (com.bestbudz.core.util.Utility.random(100) < cleaveChance) {
 					int cleaveDamage = sweepDamage / 2;
 
-					// Store area effect for nearby targets
 					target.getAttributes().set("cleave_damage", cleaveDamage);
 					target.getAttributes().set("cleave_radius", 1);
 
@@ -69,7 +60,6 @@ public class DragonLongswordEffect implements CombatEffect {
 				}
 			}
 
-			// Sword Mastery - build expertise with successful sweeps
 			Object masteryObj = attacker.getAttributes().get("sword_mastery");
 			int currentMastery = (masteryObj instanceof Integer) ? (Integer)masteryObj : 0;
 

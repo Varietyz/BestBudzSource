@@ -20,55 +20,42 @@ import java.util.List;
 public enum Handiness {
 	SINGLETON;
 
-	/**
-	 * Handles item on item interactions - automatically crafts all eligible items
-	 */
 	public boolean itemOnItem(Stoner stoner, Item use, Item with) {
 		if (stoner.getProfession().locked()) {
 			return false;
 		}
 
-		// Handle amulet stringing
 		if (isAmuletStringing(use, with)) {
 			AmuletStringing.stringAmulet(stoner, use.getId(), with.getId());
 			return true;
 		}
 
-
-		// Auto-craft all available handiness items
 		return autoCraftAllAvailableItems(stoner);
 	}
 
-	/**
-	 * Handles one-click object interactions for handiness activities
-	 */
 	public boolean handleObjectClick(Stoner stoner, int objectId) {
 		if (stoner.getProfession().locked()) {
 			return false;
 		}
 
 		switch (objectId) {
-			case 2644: // Spinning wheel
+			case 2644:
 				return autoCraftAllSpinning(stoner);
-			case 3998: // Furnace (glass making)
+			case 3998:
 				return autoCraftAllGlass(stoner);
-			case 14888: // Tanning table
+			case 14888:
 				return autoCraftAllTanning(stoner);
-			case 11666: // Jewelry furnace
+			case 11666:
 				return autoCraftAllJewelry(stoner);
 			default:
-				// For any other object, try general auto-crafting
+
 				return autoCraftAllAvailableItems(stoner);
 		}
 	}
 
-	/**
-	 * Automatically finds and crafts all available items in inventory
-	 */
 	private boolean autoCraftAllAvailableItems(Stoner stoner) {
 		List<HandinessTask> availableTasks = new ArrayList<>();
 
-		// Check for gems (chisel required)
 		if (stoner.getBox().contains(new Item(1755))) {
 			int[] gemIds = {1625, 1627, 1629, 1623, 1621, 1619, 1617, 1631, 6571};
 			for (int gemId : gemIds) {
@@ -78,14 +65,12 @@ public enum Handiness {
 			}
 		}
 
-		// Check for spinning materials
 		for (Spinnable spinnable : Spinnable.values()) {
 			if (stoner.getBox().contains(spinnable.getItem())) {
 				availableTasks.add(new HandinessTask(HandinessType.SPINNING, spinnable.getItem().getId(), 0));
 			}
 		}
 
-		// Check for glass making (need glassblowing pipe)
 		if (stoner.getBox().contains(new Item(1785))) {
 			for (Glass glass : Glass.values()) {
 				if (stoner.getBox().contains(new Item(glass.getMaterialId()))) {
@@ -94,7 +79,6 @@ public enum Handiness {
 			}
 		}
 
-		// Check for jewelry (need mould)
 		for (Jewelry jewelry : Jewelry.values()) {
 			boolean hasAllMaterials = true;
 			for (int materialId : jewelry.getMaterialsRequired()) {
@@ -108,7 +92,6 @@ public enum Handiness {
 			}
 		}
 
-		// Check for leather crafting (need needle and thread)
 		if (stoner.getBox().contains(new Item(1733)) && stoner.getBox().contains(new Item(1734))) {
 			for (Craftable craftable : Craftable.values()) {
 				if (stoner.getBox().contains(new Item(craftable.getItemId()))) {
@@ -126,9 +109,6 @@ public enum Handiness {
 		return true;
 	}
 
-	/**
-	 * Auto-craft all available spinning items
-	 */
 	private boolean autoCraftAllSpinning(Stoner stoner) {
 		List<HandinessTask> availableSpinning = new ArrayList<>();
 
@@ -147,18 +127,13 @@ public enum Handiness {
 		return true;
 	}
 
-	/**
-	 * Auto-craft all available glass items
-	 */
 	private boolean autoCraftAllGlass(Stoner stoner) {
 		List<HandinessTask> availableGlass = new ArrayList<>();
 
-		// Check for glass melting (requires bucket of sand + soda ash)
 		if (stoner.getBox().contains(new Item(1783)) && stoner.getBox().contains(new Item(1781))) {
 			availableGlass.add(new HandinessTask(HandinessType.GLASS_MELTING, 1781, 0));
 		}
 
-		// Check for glass blowing (requires molten glass + pipe)
 		if (stoner.getBox().contains(new Item(1785))) {
 			for (Glass glass : Glass.values()) {
 				if (stoner.getBox().contains(new Item(glass.getMaterialId()))) {
@@ -176,9 +151,6 @@ public enum Handiness {
 		return true;
 	}
 
-	/**
-	 * Auto-craft all available tanning
-	 */
 	private boolean autoCraftAllTanning(Stoner stoner) {
 		List<HandinessTask> availableTanning = new ArrayList<>();
 
@@ -197,9 +169,6 @@ public enum Handiness {
 		return true;
 	}
 
-	/**
-	 * Auto-craft all available jewelry
-	 */
 	private boolean autoCraftAllJewelry(Stoner stoner) {
 		List<HandinessTask> availableJewelry = new ArrayList<>();
 
@@ -225,9 +194,6 @@ public enum Handiness {
 		return true;
 	}
 
-	/**
-	 * Helper task class
-	 */
 	private static class HandinessTask {
 		final HandinessType type;
 		final int itemId;
@@ -240,24 +206,15 @@ public enum Handiness {
 		}
 	}
 
-	/**
-	 * Starts crafting for multiple item types
-	 */
 	private void startMultiHandiness(Stoner stoner, List<HandinessTask> handinessTasks) {
 		stoner.send(new SendMessage("@gre@Auto-handiness started - found " + handinessTasks.size() + " craftable items!"));
 		TaskQueue.queue(new MultiHandinessTask(stoner, handinessTasks));
 	}
 
-	/**
-	 * Helper method to check for amulet stringing
-	 */
 	private boolean isAmuletStringing(Item use, Item with) {
-		return (use.getId() == 1759 || with.getId() == 1759); // Ball of wool
+		return (use.getId() == 1759 || with.getId() == 1759);
 	}
 
-	/**
-	 * Multi-handiness task that cycles through all available item types
-	 */
 	private static class MultiHandinessTask extends Task {
 		private final Stoner stoner;
 		private final List<HandinessTask> handinessTasks;
@@ -316,13 +273,12 @@ public enum Handiness {
 		}
 
 		private void executeGemCutting(int gemId) {
-			// Simple gem cutting - cuts 1 gem
+
 			stoner.getUpdateFlags().sendAnimation(new Animation(885));
 			stoner.getBox().remove(new Item(gemId), true);
-			stoner.getBox().remove(new Item(1755), true); // chisel
-			stoner.getBox().add(new Item(1755)); // return chisel
+			stoner.getBox().remove(new Item(1755), true);
+			stoner.getBox().add(new Item(1755));
 
-			// Add cut gem (basic mapping)
 			int cutGemId = getCutGemId(gemId);
 			stoner.getBox().add(new Item(cutGemId));
 
@@ -357,9 +313,9 @@ public enum Handiness {
 		private void executeGlassMelting() {
 			if (stoner.getBox().contains(new Item(1783)) && stoner.getBox().contains(new Item(1781))) {
 				stoner.getUpdateFlags().sendAnimation(new Animation(899));
-				stoner.getBox().remove(new Item(1783), true); // soda ash
-				stoner.getBox().remove(new Item(1781), true); // bucket of sand
-				stoner.getBox().add(new Item(1775)); // molten glass
+				stoner.getBox().remove(new Item(1783), true);
+				stoner.getBox().remove(new Item(1781), true);
+				stoner.getBox().add(new Item(1775));
 				stoner.getProfession().addExperience(Professions.HANDINESS, 120.0);
 				stoner.send(new SendMessage("You heat the sand and soda ash in the furnace to make glass."));
 			}
@@ -408,7 +364,7 @@ public enum Handiness {
 				stoner.getBox().contains(new Item(1733)) && stoner.getBox().contains(new Item(1734))) {
 				stoner.getUpdateFlags().sendAnimation(new Animation(1249));
 				stoner.getBox().remove(new Item(craftable.getItemId()), true);
-				stoner.getBox().remove(new Item(1734), true); // thread
+				stoner.getBox().remove(new Item(1734), true);
 				stoner.getBox().add(new Item(craftable.getOutcome()));
 				stoner.getProfession().addExperience(Professions.HANDINESS, craftable.getExperience());
 
@@ -428,15 +384,15 @@ public enum Handiness {
 
 		private int getCutGemId(int uncut) {
 			switch (uncut) {
-				case 1625: return 1609; // Uncut sapphire -> sapphire
-				case 1627: return 1611; // Uncut emerald -> emerald
-				case 1629: return 1613; // Uncut ruby -> ruby
-				case 1623: return 1607; // Uncut diamond -> diamond
-				case 1621: return 1605; // Uncut dragonstone -> dragonstone
-				case 1619: return 1603; // Uncut onyx -> onyx
-				case 1617: return 1601; // Uncut jade -> jade
-				case 1631: return 1615; // Uncut red topaz -> red topaz
-				case 6571: return 6573; // Uncut opal -> opal
+				case 1625: return 1609;
+				case 1627: return 1611;
+				case 1629: return 1613;
+				case 1623: return 1607;
+				case 1621: return 1605;
+				case 1619: return 1603;
+				case 1617: return 1601;
+				case 1631: return 1615;
+				case 6571: return 6573;
 				default: return uncut;
 			}
 		}
@@ -495,9 +451,6 @@ public enum Handiness {
 		}
 	}
 
-	/**
-	 * Enhanced HandinessType enum
-	 */
 	public enum HandinessType {
 		GEM_CUTTING,
 		SPINNING,
@@ -508,7 +461,6 @@ public enum Handiness {
 		LEATHER_CRAFTING
 	}
 
-	// Legacy methods for button handling (disabled)
 	public boolean craft(Stoner stoner, int index, int amount) {
 		stoner.send(new SendMessage("@red@Manual crafting is disabled. Use item-on-item or click objects for auto-crafting."));
 		return false;

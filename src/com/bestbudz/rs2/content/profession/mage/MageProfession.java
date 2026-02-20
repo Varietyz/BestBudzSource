@@ -544,19 +544,18 @@ public class MageProfession {
 
 			  @Override
 			  public void onStop() {
-				  // Use the new Stoner pet system instead of old Mob pets
+
 				  if (stoner.getBossID() > 0) {
-					  // Find the PetData for this boss ID
+
 					  PetData petData = PetData.forNPC(stoner.getBossID());
 					  if (petData != null) {
-						  // Remove any existing pets first (handles teleportation cleanup)
+
 						  List<Pet> existingPets = new ArrayList<>(stoner.getActivePets());
 						  for (Pet pet : existingPets) {
 							  pet.remove();
 							  stoner.getActivePets().remove(pet);
 						  }
 
-						  // Spawn new pet at teleport destination
 						  Pet newPet = new Pet(stoner, petData);
 						  stoner.getActivePets().add(newPet);
 					  }

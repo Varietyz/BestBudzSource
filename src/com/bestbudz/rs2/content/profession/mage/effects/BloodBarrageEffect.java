@@ -30,4 +30,3 @@ public class BloodBarrageEffect implements CombatEffect {
     }
   }
 }
-

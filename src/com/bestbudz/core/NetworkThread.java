@@ -37,7 +37,6 @@ public class NetworkThread extends Thread {
 		GameObject obj;
 		int processed = 0;
 
-		// Limit object processing per cycle to prevent overflow
 		while ((obj = ObjectManager.getSend().poll()) != null && processed < 50) {
 			try {
 				ObjectManager.send(obj);
@@ -55,21 +54,18 @@ public class NetworkThread extends Thread {
 			if (s == null || !s.isActive()) continue;
 
 			try {
-				// CRITICAL OPTIMIZATION: Skip Discord bot entirely in NetworkThread
+
 				if (isDiscordBot(s)) {
-					// Discord bot handles its own networking in isolation
-					// Skip all processing here to avoid interference
+
 					continue;
 				}
 
-				// Full processing for real players only
 				s.getGroundItems().process();
 				s.getObjects().process();
 				s.getClient().processOutgoingPackets();
 
 				processed++;
 
-				// Yield control every 10 players to prevent thread hogging
 				if (processed % 10 == 0) {
 					Thread.yield();
 				}
@@ -88,15 +84,13 @@ public class NetworkThread extends Thread {
 	private void sleepIfNeeded(long start) {
 		long elapsed = (System.nanoTime() - start) / 1_000_000;
 
-		// Reduce target cycle time when there are many players
-		int realPlayerCount = World.getRealStonerCount(); // Exclude Discord bot from count
+		int realPlayerCount = World.getRealStonerCount();
 		long targetCycleTime = realPlayerCount > 50 ? 150 : 200;
 
 		if (elapsed < targetCycleTime) {
 			try {
 				long sleepTime = targetCycleTime - elapsed;
 
-				// Use more efficient sleep for very short durations
 				if (sleepTime <= 5) {
 					Thread.yield();
 				} else {
@@ -107,7 +101,7 @@ public class NetworkThread extends Thread {
 				Thread.currentThread().interrupt();
 			}
 		} else if (elapsed > targetCycleTime * 2) {
-			// Only log significant overflows to reduce spam
+
 			System.out.println("Network thread overflow: " + elapsed + "ms (target: " + targetCycleTime + "ms, real players: " + realPlayerCount + ")");
 		}
 	}
@@ -123,7 +117,6 @@ public class NetworkThread extends Thread {
 				processObjectQueue();
 				processStoners();
 
-				// Periodic optimization check (every 30 seconds)
 				long currentTime = System.currentTimeMillis();
 				if (currentTime - lastOptimizationCheck > 30000) {
 					optimizeIfNeeded();
@@ -139,18 +132,13 @@ public class NetworkThread extends Thread {
 		}
 	}
 
-	/**
-	 * Perform periodic optimizations based on current load
-	 */
 	private void optimizeIfNeeded() {
-		int realPlayerCount = World.getRealStonerCount(); // Exclude Discord bot
+		int realPlayerCount = World.getRealStonerCount();
 
-		// Suggest garbage collection if many real players are online
 		if (realPlayerCount > 100) {
-			System.gc(); // Hint to JVM - not guaranteed but can help
+			System.gc();
 		}
 
-		// Log performance statistics
 		if (cycles % 1000 == 0) {
 			System.out.println("Network thread: " + cycles + " cycles, " + realPlayerCount + " real players, " + World.getStonerCount() + " total entities");
 		}

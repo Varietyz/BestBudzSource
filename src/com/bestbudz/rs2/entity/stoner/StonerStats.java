@@ -10,20 +10,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Manages all player statistics, achievements, points, and progression data
- */
 public class StonerStats {
 	private final Stoner stoner;
 
-	// Experience and levels
 	private double expCounter;
 	private int[][] professionGoals = new int[Professions.PROFESSION_COUNT + 1][3];
 	private int[] professionAdvances = new int[Professions.PROFESSION_COUNT];
 	private int totalAdvances;
 	private int advancePoints;
 
-	// Achievement system
 	private final HashMap<AchievementList, Integer> stonerAchievements =
 		new HashMap<AchievementList, Integer>(AchievementList.values().length) {
 			private static final long serialVersionUID = -4629357800141530574L;
@@ -35,7 +30,6 @@ public class StonerStats {
 		};
 	private int achievementsPoints;
 
-	// Kill tracking
 	private ArrayList<String> lastKilledStoners = new ArrayList<String>();
 	private int kills = 0;
 	private int deaths = 0;
@@ -44,7 +38,6 @@ public class StonerStats {
 	private int hunterKills = 0;
 	private int hunterRecord = 0;
 
-	// Points systems
 	private int chillPoints = 50;
 	private int mercenaryPoints = 0;
 	private int pestPoints = 0;
@@ -54,30 +47,24 @@ public class StonerStats {
 	private int weaponKills;
 	private int weaponPoints;
 
-	// Currency and spending
 	private int cannacredits;
 	private int moneySpent;
 	private long moneyPouch;
 	private boolean pouchPayment;
 	private long shopCollection;
 
-	// Credit system
 	private Set<CannaCreditUnlocks> unlockedCredits =
 		new HashSet<CannaCreditUnlocks>(CannaCreditUnlocks.values().length);
 
-	// Profile stats
 	private int likes, dislikes, profileViews;
 	private long lastLike;
 	private byte likesGiven;
 	private boolean profilePrivacy;
 
-	// Clue scrolls
 	private int[] cluesCompleted = new int[4];
 
-	// Boss tracking
 	private int bossID;
 
-	// Member status
 	private boolean isMember = false;
 
 	public StonerStats(Stoner stoner) {
@@ -85,13 +72,12 @@ public class StonerStats {
 	}
 
 	public void process() {
-		// Any periodic stat processing can go here
+
 	}
 
-	// Experience methods
 	public void addExperience(int skill, double amount) {
 		expCounter += amount;
-		// Additional experience processing logic
+
 	}
 
 	public double getCounterExp() {
@@ -102,7 +88,6 @@ public class StonerStats {
 		expCounter += exp;
 	}
 
-	// Achievement methods
 	public void updateAchievement(AchievementList achievement, int progress) {
 		stonerAchievements.put(achievement, progress);
 	}
@@ -119,7 +104,6 @@ public class StonerStats {
 		achievementsPoints += points;
 	}
 
-	// Kill tracking methods
 	public void addKill() {
 		kills++;
 		InterfaceHandler.writeText(new QuestTab(stoner));
@@ -135,12 +119,10 @@ public class StonerStats {
 		InterfaceHandler.writeText(new QuestTab(stoner));
 	}
 
-	// Points management
 	public void addMercenaryPoints(int amount) {
 		mercenaryPoints += amount;
 	}
 
-	// Credit system
 	public void unlockCredit(CannaCreditUnlocks purchase) {
 		unlockedCredits.add(purchase);
 	}
@@ -149,7 +131,6 @@ public class StonerStats {
 		return unlockedCredits.contains(purchase);
 	}
 
-	// Getters and setters
 	public int[][] getProfessionGoals() { return professionGoals; }
 	public void setProfessionGoals(int[][] professionGoals) { this.professionGoals = professionGoals; }
 

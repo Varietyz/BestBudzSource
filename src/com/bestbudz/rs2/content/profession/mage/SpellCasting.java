@@ -34,7 +34,7 @@ public class SpellCasting {
   }
 
   public void appendMultiSpell(Stoner p) {
-    // Unconditionally allow AoE with larger radius
+
     byte affected = 0;
 
     Entity a = p.getCombat().getAssaulting();
@@ -43,15 +43,14 @@ public class SpellCasting {
     int x = a.getLocation().getX();
     int y = a.getLocation().getY();
 
-    // Allow PvM AoE
     for (Mob i : stoner.getClient().getNpcs()) {
       if (!i.equals(a)) {
         int dx = Math.abs(x - i.getLocation().getX());
         int dy = Math.abs(y - i.getLocation().getY());
-        if (dx <= 3 && dy <= 3) { // ← Tripled radius
+        if (dx <= 3 && dy <= 3) {
           p.getCombat().getMage().finish(i);
           affected++;
-          if (affected == 18) return; // Doubled affected
+          if (affected == 18) return;
         }
       }
     }
@@ -145,10 +144,10 @@ public class SpellCasting {
 		}
 		if (canCastSpell(castId)) {
 			this.castId = castId;
-			this.autocastId = castId;  // ← Add this line to enable autocast
+			this.autocastId = castId;
 			updateMageAssault();
 			stoner.updateCombatType();
-			//Autocast.resetAutoCastInterface(stoner);  // ← Add this to update the interface
+
 			stoner.getFollowing().setFollow(other, Following.FollowType.COMBAT);
 			stoner.getCombat().setAssaulting(other);
 			stoner.face(other);

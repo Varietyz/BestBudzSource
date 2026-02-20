@@ -6,18 +6,14 @@ import com.bestbudz.rs2.content.profession.fisher.Fisher;
 import com.bestbudz.rs2.content.profession.mage.MageProfession;
 import com.bestbudz.rs2.content.profession.melee.Melee;
 import com.bestbudz.rs2.content.profession.mercenary.Mercenary;
-import com.bestbudz.rs2.content.profession.petmaster.PetMaster; // ADD THIS
+import com.bestbudz.rs2.content.profession.petmaster.PetMaster;
 import com.bestbudz.rs2.content.profession.resonance.Resonance;
 import com.bestbudz.rs2.content.profession.sagittarius.SagittariusProfession;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Manages all profession/skill-related functionality
- */
 public class StonerProfessions {
 	private final Stoner stoner;
 
-	// All professions
 	private final Profession profession;
 	private final MageProfession mage;
 	private final SagittariusProfession sagittarius;
@@ -42,9 +38,6 @@ public class StonerProfessions {
 		this.bankStanding = new BankStanding(stoner);
 	}
 
-	/**
-	 * Initialize PetMaster when stoner is fully loaded
-	 */
 	private void ensurePetMasterInitialized() {
 		if (!petMasterInitialized && stoner != null &&
 			stoner.getUsername() != null && !stoner.getUsername().trim().isEmpty()) {
@@ -61,7 +54,7 @@ public class StonerProfessions {
 
 	public void process() {
 		if (stoner.isPetStoner()) {
-			return; // Pets don't need profession processing
+			return;
 		}
 
 		resonance.drain();
@@ -72,27 +65,17 @@ public class StonerProfessions {
 		}
 	}
 
-	/**
-	 * Save all profession data
-	 */
 	public void save() {
 		if (petMaster != null) {
 			petMaster.save();
 		}
 	}
 
-	/**
-	 * Displays the current resonance status to the player
-	 */
 	public void displayResonanceStatus() {
 		String status = resonance.getResonanceStats();
 		stoner.send(new SendMessage("@mag@" + status));
 	}
 
-	// Getters for all professions
-	/**
-	 * Get PetMaster with lazy initialization
-	 */
 	public PetMaster getPetMaster() {ensurePetMasterInitialized();return petMaster;}
 	public Profession getProfession() { return profession; }
 	public MageProfession getMage() { return mage; }

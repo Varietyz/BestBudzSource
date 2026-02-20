@@ -31,17 +31,14 @@ public class SimplePathWalker {
 			return;
 		}
 
-		// Diagonal blocked — try horizontal or vertical fallback
 		int horDir = GameConstants.getDirection(x, y, x + dx, y);
 		int verDir = GameConstants.getDirection(x, y, x, y + dy);
 
-		// Bias: vertical > horizontal (adjust this if you prefer the opposite)
 		if (verDir != -1 && walkable(mob, verDir)) {
 			Walking.walk(mob, verDir);
 		} else if (horDir != -1 && walkable(mob, horDir)) {
 			Walking.walk(mob, horDir);
 		}
-
 
 	}
 }

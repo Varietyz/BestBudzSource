@@ -18,12 +18,10 @@ public class PoisonStingAbility extends PetAbility {
 		if (target != null && !target.isDead()) {
 			target.getUpdateFlags().sendGraphic(new Graphic(172, true));
 
-			// Use existing poison system
 			target.poison(15);
 
-			// Immediate damage using proper Hit system
 			int damage = 5 + (int)(Math.random() * 10);
-			Hit hit = new Hit(pet, damage, Hit.HitTypes.POISON); // Poison damage type
+			Hit hit = new Hit(pet, damage, Hit.HitTypes.POISON);
 			target.hit(hit);
 		}
 	}

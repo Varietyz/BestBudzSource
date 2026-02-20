@@ -34,21 +34,16 @@ public enum Woodcarving {
 			return false;
 		}
 
-		// Auto-craft all available woodcarving items
 		return autoCraftAllAvailableItems(stoner);
 	}
 
-	/**
-	 * Automatically finds and crafts all available woodcarving items in inventory
-	 */
 	private boolean autoCraftAllAvailableItems(Stoner stoner) {
 		List<FletchableTask> availableFletchables = new ArrayList<>();
 
-		// Check all registered fletchables for items in inventory
 		for (Fletchable fletchable : FLETCHABLES.values()) {
-			// For each fletchable, check all possible items it can make
+
 			for (int i = 0; i < fletchable.getFletchableItems().length; i++) {
-				// Check if we have materials for this specific item
+
 				Item[] requiredItems = fletchable.getIngediants();
 				boolean hasAllMaterials = true;
 
@@ -70,22 +65,15 @@ public enum Woodcarving {
 			return true;
 		}
 
-		// Start multi-item crafting
 		startMultiItemCrafting(stoner, availableFletchables);
 		return true;
 	}
 
-	/**
-	 * Starts crafting for multiple item types
-	 */
 	private void startMultiItemCrafting(Stoner stoner, List<FletchableTask> fletchableTasks) {
 		stoner.send(new SendMessage("@gre@Auto-crafting started - found " + fletchableTasks.size() + " craftable items!"));
 		TaskQueue.queue(new MultiItemCraftingTask(stoner, fletchableTasks));
 	}
 
-	/**
-	 * Helper class to store fletchable and item index
-	 */
 	private static class FletchableTask {
 		final Fletchable fletchable;
 		final int itemIndex;
@@ -96,9 +84,6 @@ public enum Woodcarving {
 		}
 	}
 
-	/**
-	 * Multi-item crafting task that cycles through all available item types
-	 */
 	private static class MultiItemCraftingTask extends Task {
 		private final Stoner stoner;
 		private final List<FletchableTask> fletchableTasks;
@@ -112,18 +97,17 @@ public enum Woodcarving {
 
 		@Override
 		public void execute() {
-			// Check if inventory is full
+
 			if (!stoner.getBox().hasSpaceFor(new Item(1, 1))) {
 				stoner.send(new SendMessage("@gre@Auto-crafting stopped - inventory is full!"));
 				stop();
 				return;
 			}
 
-			// Find next item we can craft
 			FletchableTask nextTask = findNextCraftableItem();
 
 			if (nextTask == null) {
-				// No more items can be crafted
+
 				stoner.send(new SendMessage("@gre@Auto-crafting completed - no more materials available!"));
 				stop();
 				return;
@@ -133,28 +117,22 @@ public enum Woodcarving {
 			FletchableItem craftableItem = fletchable.getFletchableItems()[nextTask.itemIndex];
 			stoner.getProfession().lock(2);
 
-			// Perform the crafting
 			stoner.getUpdateFlags().sendAnimation(new Animation(fletchable.getAnimation()));
 			stoner.getProfession().addExperience(Professions.WOODCARVING, craftableItem.getExperience());
 			stoner.getBox().remove(fletchable.getIngediants(), true);
 			stoner.getBox().add(craftableItem.getProduct());
 
-			// Send production message if available
 			if (fletchable.getProductionMessage() != null) {
 				stoner.send(new SendMessage(fletchable.getProductionMessage()));
 			}
 		}
 
-		/**
-		 * Finds the next item that can be crafted with current materials
-		 */
 		private FletchableTask findNextCraftableItem() {
-			// Start from current task and cycle through all available tasks
+
 			for (int i = 0; i < fletchableTasks.size(); i++) {
 				int taskIndex = (currentTaskIndex + i) % fletchableTasks.size();
 				FletchableTask task = fletchableTasks.get(taskIndex);
 
-				// Check if we have materials for this item
 				Item[] requiredItems = task.fletchable.getIngediants();
 				boolean hasAllMaterials = true;
 
@@ -166,12 +144,12 @@ public enum Woodcarving {
 				}
 
 				if (hasAllMaterials) {
-					currentTaskIndex = (currentTaskIndex + i + 1) % fletchableTasks.size(); // Move to next for next time
+					currentTaskIndex = (currentTaskIndex + i + 1) % fletchableTasks.size();
 					return task;
 				}
 			}
 
-			return null; // No items can be crafted
+			return null;
 		}
 
 		@Override

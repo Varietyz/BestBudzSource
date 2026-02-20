@@ -1,9 +1,5 @@
 package com.bestbudz.rs2.entity.pets;
 
-/**
- * Pet data enumeration - maintains original structure and naming
- */
-
 public enum PetData {
 	KALPHITE_PRINCESS_FLY(12654, 6637),
 	KALPHITE_PRINCESS_BUG(12647, 6638),

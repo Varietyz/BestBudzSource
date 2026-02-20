@@ -28,7 +28,7 @@ public class MobUpdateList {
   }
 
   public void process() {
-    // Handle increments
+
     for (Mob mob : incr) {
       tracked.compute(
           mob,
@@ -42,7 +42,6 @@ public class MobUpdateList {
     }
     incr.clear();
 
-    // Handle decrements
     for (Mob mob : decr) {
       UpdateableMob u = tracked.get(mob);
       if (u != null) {
@@ -54,7 +53,6 @@ public class MobUpdateList {
     }
     decr.clear();
 
-    // Final removals
     for (Mob mob : remove) {
       tracked.remove(mob);
     }

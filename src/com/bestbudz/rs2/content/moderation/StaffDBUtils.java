@@ -6,17 +6,8 @@ import com.bestbudz.rs2.content.io.sqlite.SQLiteDB;
 import com.bestbudz.core.util.Utility;
 import java.sql.*;
 
-/**
- * StaffDBUtils - Database modification utilities for staff
- *
- * Handles all database operations for staff commands.
- * Each method reads parameters from stoner attributes.
- */
 public class StaffDBUtils {
 
-	/**
-	 * Change player password
-	 */
 	public static boolean changePassword(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		String newPassword = (String) stoner.getAttributes().get("staff_new_password");
@@ -48,9 +39,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Change player username
-	 */
 	public static boolean changeUsername(Stoner stoner) {
 		String oldName = DockStaff.getTargetPlayer(stoner);
 		String newName = (String) stoner.getAttributes().get("staff_new_username");
@@ -63,7 +51,6 @@ public class StaffDBUtils {
 		try (Connection conn = SQLiteDB.getConnection()) {
 			conn.setAutoCommit(false);
 
-			// Update all tables with foreign key references
 			String[] tables = {"player", "player_inventory", "player_equipment", "player_bank"};
 
 			for (String table : tables) {
@@ -86,9 +73,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Change player rights level
-	 */
 	public static boolean changeRights(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		Integer newRights = (Integer) stoner.getAttributes().get("staff_new_rights");
@@ -120,9 +104,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Change player location
-	 */
 	public static boolean changeLocation(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		Integer x = (Integer) stoner.getAttributes().get("staff_new_x");
@@ -158,9 +139,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Change player money pouch
-	 */
 	public static boolean changeMoney(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		Long newMoney = (Long) stoner.getAttributes().get("staff_new_money");
@@ -192,9 +170,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Change player credits
-	 */
 	public static boolean changeCredits(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		Integer newCredits = (Integer) stoner.getAttributes().get("staff_new_credits");
@@ -226,9 +201,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Change player kills
-	 */
 	public static boolean changeKills(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		Integer newKills = (Integer) stoner.getAttributes().get("staff_new_kills");
@@ -260,9 +232,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Change player deaths
-	 */
 	public static boolean changeDeaths(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		Integer newDeaths = (Integer) stoner.getAttributes().get("staff_new_deaths");
@@ -294,9 +263,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Change player host/IP
-	 */
 	public static boolean changeHost(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		String newHost = (String) stoner.getAttributes().get("staff_new_host");
@@ -328,9 +294,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Reset player stats (kills, deaths, experience, etc.)
-	 */
 	public static boolean resetStats(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		if (targetName == null) return false;
@@ -359,9 +322,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Search for players in database
-	 */
 	public static boolean searchPlayer(Stoner stoner) {
 		String searchTerm = (String) stoner.getAttributes().get("staff_search_term");
 		if (searchTerm == null || searchTerm.trim().isEmpty()) {
@@ -418,9 +378,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * View detailed player information
-	 */
 	public static boolean viewPlayerInfo(Stoner stoner) {
 		String targetName = DockStaff.getTargetPlayer(stoner);
 		if (targetName == null) return false;
@@ -437,7 +394,6 @@ public class StaffDBUtils {
 						return false;
 					}
 
-					// Display key information
 					stoner.send(new SendMessage("[ <col=255>DB</col> ] === Player Info: " + rs.getString("username") + " ==="));
 					stoner.send(new SendMessage("[ <col=255>DB</col> ] Rights: " + rs.getInt("rights")));
 					stoner.send(new SendMessage("[ <col=255>DB</col> ] Location: " + rs.getInt("x") + "," + rs.getInt("y") + "," + rs.getInt("z")));
@@ -446,7 +402,6 @@ public class StaffDBUtils {
 					stoner.send(new SendMessage("[ <col=255>DB</col> ] K/D: " + rs.getInt("kills") + "/" + rs.getInt("deaths")));
 					stoner.send(new SendMessage("[ <col=255>DB</col> ] Host: " + rs.getString("host")));
 
-					// Status information
 					boolean banned = rs.getBoolean("banned");
 					boolean muted = rs.getBoolean("muted");
 					boolean jailed = rs.getBoolean("jailed");
@@ -472,35 +427,28 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Get database statistics
-	 */
 	public static boolean getDatabaseStats(Stoner stoner) {
 		try (Connection conn = SQLiteDB.getConnection()) {
 			StringBuilder stats = new StringBuilder("[ <col=255>DB</col> ] Database Stats: ");
 
-			// Total players
 			try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM player")) {
 				try (ResultSet rs = ps.executeQuery()) {
 					if (rs.next()) stats.append("Total: ").append(rs.getInt(1)).append(" | ");
 				}
 			}
 
-			// Banned players
 			try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM player WHERE banned = 1")) {
 				try (ResultSet rs = ps.executeQuery()) {
 					if (rs.next()) stats.append("Banned: ").append(rs.getInt(1)).append(" | ");
 				}
 			}
 
-			// Muted players
 			try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM player WHERE muted = 1")) {
 				try (ResultSet rs = ps.executeQuery()) {
 					if (rs.next()) stats.append("Muted: ").append(rs.getInt(1)).append(" | ");
 				}
 			}
 
-			// Jailed players
 			try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM player WHERE jailed = 1")) {
 				try (ResultSet rs = ps.executeQuery()) {
 					if (rs.next()) stats.append("Jailed: ").append(rs.getInt(1));
@@ -516,14 +464,11 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Ban offline player via database
-	 */
 	public static boolean banOfflinePlayer(String targetName, String reason) {
 		try (Connection conn = SQLiteDB.getConnection()) {
 			String sql = "UPDATE player SET banned = 1, banLength = ? WHERE username = ? COLLATE NOCASE";
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
-				ps.setLong(1, System.currentTimeMillis() + (24 * 60 * 60 * 1000L)); // 24 hours
+				ps.setLong(1, System.currentTimeMillis() + (24 * 60 * 60 * 1000L));
 				ps.setString(2, targetName);
 
 				return ps.executeUpdate() > 0;
@@ -534,9 +479,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Unban offline player via database
-	 */
 	public static boolean unbanOfflinePlayer(String targetName) {
 		try (Connection conn = SQLiteDB.getConnection()) {
 			String sql = "UPDATE player SET banned = 0, banLength = 0 WHERE username = ? COLLATE NOCASE";
@@ -550,9 +492,6 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Generic field update method for future expansion
-	 */
 	public static boolean updatePlayerField(String targetName, String fieldName, Object value) {
 		try (Connection conn = SQLiteDB.getConnection()) {
 			String sql = "UPDATE player SET " + fieldName + " = ? WHERE username = ? COLLATE NOCASE";
@@ -567,11 +506,8 @@ public class StaffDBUtils {
 		}
 	}
 
-	/**
-	 * Backup player data before major changes
-	 */
 	public static boolean backupPlayerData(String targetName) {
-		// Could implement backup to separate table if needed
+
 		System.out.println("Backup requested for player: " + targetName);
 		return true;
 	}

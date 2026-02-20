@@ -7,10 +7,6 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Saradomin Godsword Special - "Divine Retribution"
- * A righteous strike that deals bonus damage and provides powerful healing/restoration
- */
 public class SaradominGodswordEffect implements CombatEffect {
 
 	@Override
@@ -20,8 +16,7 @@ public class SaradominGodswordEffect implements CombatEffect {
 
 		double divineGrace = 1.0 + (FormulaData.getCombatEffectiveness(attacker) * 0.3);
 
-		// Divine Smite - bonus holy damage
-		double smiteMultiplier = 0.25 + (divineGrace * 0.15); // 25-70% bonus damage
+		double smiteMultiplier = 0.25 + (divineGrace * 0.15);
 		int smiteDamage = (int)(baseDamage * smiteMultiplier);
 
 		if (target.isNpc() && smiteDamage > 0) {
@@ -35,12 +30,10 @@ public class SaradominGodswordEffect implements CombatEffect {
 			}
 		}
 
-		// Divine Restoration - enhanced healing based on total damage dealt
 		int totalDamage = baseDamage + smiteDamage;
-		long healthHealing = (long)(totalDamage * 0.6 * divineGrace); // 60-138% healing
-		long prayerHealing = (long)(totalDamage * 0.3 * divineGrace); // 30-69% prayer
+		long healthHealing = (long)(totalDamage * 0.6 * divineGrace);
+		long prayerHealing = (long)(totalDamage * 0.3 * divineGrace);
 
-		// Life Force Restoration
 		if (healthHealing > 9 && attacker.getGrades()[3] < attacker.getMaxGrades()[3]) {
 			long availableHealing = attacker.getMaxGrades()[3] - attacker.getGrades()[3];
 			long actualHealing = Math.min(healthHealing, availableHealing);
@@ -50,7 +43,6 @@ public class SaradominGodswordEffect implements CombatEffect {
 			attacker.getClient().queueOutgoingPacket(new SendMessage("Divine grace restores " + actualHealing + " Life!"));
 		}
 
-		// Prayer/Necromancy Restoration
 		if (prayerHealing > 4 && attacker.getGrades()[5] < attacker.getMaxGrades()[5]) {
 			long availablePrayer = attacker.getMaxGrades()[5] - attacker.getGrades()[5];
 			long actualPrayer = Math.min(prayerHealing, availablePrayer);
@@ -60,26 +52,23 @@ public class SaradominGodswordEffect implements CombatEffect {
 			attacker.getClient().queueOutgoingPacket(new SendMessage("Divine wisdom restores " + actualPrayer + " Resonance!"));
 		}
 
-		// Divine Blessing - temporary stat boost
 		if (divineGrace > 2.0) {
 			int blessingBoost = (int)(totalDamage * 0.2);
 
-			// Boost multiple stats temporarily
 			attacker.getAttributes().set("divine_blessing_attack", blessingBoost);
 			attacker.getAttributes().set("divine_blessing_strength", blessingBoost);
 			attacker.getAttributes().set("divine_blessing_defense", blessingBoost);
-			attacker.getAttributes().set("divine_blessing_end", System.currentTimeMillis() + 20000); // 20 seconds
+			attacker.getAttributes().set("divine_blessing_end", System.currentTimeMillis() + 20000);
 
 			attacker.getClient().queueOutgoingPacket(
 				new SendMessage("Divine blessing enhances your combat prowess! (+" +
 					blessingBoost + " Attack/Strength/Defense)"));
 		}
 
-		// Righteous Fury - chance for additional damage on next attack
 		if (divineGrace > 2.5) {
-			double furyChance = (divineGrace - 2.5) * 40; // Up to 8% chance
+			double furyChance = (divineGrace - 2.5) * 40;
 			if (com.bestbudz.core.util.Utility.random(100) < furyChance) {
-				int furyDamage = totalDamage; // 100% additional damage on next hit
+				int furyDamage = totalDamage;
 
 				attacker.getAttributes().set("righteous_fury", furyDamage);
 				attacker.getAttributes().set("righteous_fury_end", System.currentTimeMillis() + 15000);
@@ -88,24 +77,20 @@ public class SaradominGodswordEffect implements CombatEffect {
 			}
 		}
 
-		// Purifying Light - cleanse negative effects and boost resistance
 		if (totalDamage > 25) {
-			// Remove negative status effects (poison, stat drains, etc.)
+
 			attacker.getAttributes().remove("poison_damage");
 			attacker.getAttributes().remove("venom_damage");
 
-			// Grant temporary status immunity
-			attacker.getAttributes().set("divine_immunity", System.currentTimeMillis() + 30000); // 30 seconds
+			attacker.getAttributes().set("divine_immunity", System.currentTimeMillis() + 30000);
 
 			attacker.getClient().queueOutgoingPacket(new SendMessage("Purifying light cleanses you and grants divine protection!"));
 		}
 
-		// Area Consecration - beneficial effect for nearby allies
 		if (divineGrace > 2.8) {
 			int consecrationPower = (int)(totalDamage * 0.15);
 			attacker.getClient().queueOutgoingPacket(new SendMessage("Divine energy consecrates the battlefield!"));
 
-			// Store area blessing effect
 			attacker.getAttributes().set("consecration_power", consecrationPower);
 			attacker.getAttributes().set("consecration_end", System.currentTimeMillis() + 25000);
 		}

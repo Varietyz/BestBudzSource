@@ -129,7 +129,7 @@ public class Profession {
 
 		if (stoner.isPetStoner()) {
 			handlePetOwnerExperience(type, hit);
-			return; // Exit early - pets don't gain their own experience
+			return;
 		}
 
 		double exp = hit * 1.5D;
@@ -177,29 +177,23 @@ public class Profession {
 		addExperience(3, exp * meleeExp * 1.33D);
 	}
 
-	/**
-	 * Handle experience and messaging for pet owners
-	 */
 	private void handlePetOwnerExperience(CombatTypes type, long hit) {
 		Stoner owner = (Stoner) stoner.getAttributes().get("PET_OWNER");
 		if (owner == null || !owner.isActive()) {
 			return;
 		}
 
-		// Apply advancement multiplier if owner has 2+ advances in Pet Master
 		long experienceHit = hit;
 		if (owner.getProfessionAdvances()[17] >= 2) {
 			experienceHit = hit * owner.getProfessionAdvances()[17];
 		}
 
-		// Calculate base experience (same formula as regular combat)
 		double exp = experienceHit;
 		double totalExpGained = 0;
 
-		// Award experience to owner based on combat type
 		switch (type) {
 			case MELEE:
-				// Use owner's assault style for melee experience distribution
+
 				switch (owner.getEquipment().getAssaultStyle()) {
 					case ACCURATE:
 						totalExpGained += owner.getProfession().addExperience(0, exp * meleeExp);
@@ -236,10 +230,8 @@ public class Profession {
 				break;
 		}
 
-		// Always add hitpoints experience
 		totalExpGained += owner.getProfession().addExperience(3, exp * meleeExp * 1.33D);
 
-		// Send message to owner for significant hits
 		if (hit > 50 && totalExpGained > 0) {
 			String petName = PetUtils.formatPetDisplayName(
 				(PetData) stoner.getAttributes().get("PET_DATA")
@@ -258,7 +250,6 @@ public class Profession {
 			return 0;
 		}
 
-		// FIXED: Validate skill ID to prevent skill 20 XP gain
 		if (id < 0 || id >= Professions.PROFESSION_COUNT) {
 			System.err.println("Invalid skill ID: " + id + " (max: " + (Professions.PROFESSION_COUNT - 1) + ")");
 			return 0;
@@ -266,17 +257,12 @@ public class Profession {
 
 		experience = experience * Professions.EXPERIENCE_RATES[id] * 1.0D;
 
-		// FIXED: Simple Discord bot check without creating additional systems
 		boolean isDiscordBot = isDiscordBot(stoner);
 
 		if (isDiscordBot) {
-			// REMOVED: Auto-banking during XP gains to prevent conflicts
-			// The quarrying system already handles banking separately
-			//System.out.println("Discord bot gained XP: " + (int)experience + " in skill " + id + " (" +
-			//	Professions.PROFESSION_NAMES[id] + ")");
+
 		}
 
-		// Apply bank standing XP bonus to other skills (not to bank standing itself)
 		if (id != BankStanding.BANKSTANDING_SKILL_ID && stoner.getBankStanding().isActive()) {
 			int originalXP = (int) experience;
 			int bonusXP = stoner.getBankStanding().applyXPBonus(id, originalXP);
@@ -348,7 +334,6 @@ public class Profession {
 		long pet = stoner.getMaxGrades()[Professions.PET_MASTER];
 		int adv = stoner.getTotalAdvances();
 
-		// Core contributions
 		double tankFactor = def * 0.30 + hit * 0.30 + resonant * 0.20 + slay * 0.10 + pet * 0.10;
 		double hybridBias = (att + str + ran + mag + resonant + pet) / 4.0;
 
@@ -356,7 +341,6 @@ public class Profession {
 		double offensiveRange = ran * 0.50 + slay * 0.15 + resonant * 0.10 + pet * 0.10;
 		double offensiveMage = mag * 0.50 + slay * 0.15 + resonant * 0.10 + pet * 0.10;
 
-		// Determine dominant style
 		double offensiveFactor;
 		if (ran >= att && ran >= mag) {
 			offensiveFactor = offensiveRange;
@@ -366,7 +350,6 @@ public class Profession {
 			offensiveFactor = offensiveMelee;
 		}
 
-		// Composite score
 		double totalScore = hybridBias * 0.10 + tankFactor + offensiveFactor + adv * 0.20;
 
 		return (int) totalScore;
@@ -381,12 +364,11 @@ public class Profession {
 	}
 
 	public long getGradeForExperience(final int id, double experience) {
-		// Check for exact max grade first
+
 		if (experience >= EXP_FOR_GRADE[EXP_FOR_GRADE.length - 1]) {
 			return EXP_FOR_GRADE.length - 1;
 		}
 
-		// Binary search for the correct grade
 		int low = 0;
 		int high = EXP_FOR_GRADE.length - 1;
 		int result = 0;
@@ -500,9 +482,6 @@ public class Profession {
 		return lock > World.getCycles();
 	}
 
-	/**
-	 * FIXED: Simple Discord bot check
-	 */
 	private boolean isDiscordBot(Stoner stoner) {
 		return stoner instanceof com.bestbudz.core.discord.stonerbot.DiscordBotStoner ||
 			(stoner.getUsername() != null &&
@@ -523,7 +502,6 @@ public class Profession {
 		stoner.getClient().queueOutgoingPacket(new SendMessage(line1));
 		SaveWorker.enqueueSave(stoner);
 
-		// FIXED: Only trigger quickchat for Discord bot, not duplicate XP systems
 		if (isDiscordBot(stoner)) {
 			triggerProfessionQuickChat(profession);
 		}
@@ -553,18 +531,14 @@ public class Profession {
 		stoner.getUpdateFlags().setUpdateRequired(true);
 	}
 
-	/**
-	 * Trigger profession quickchat when leveling up
-	 */
 	private void triggerProfessionQuickChat(int profession) {
 		try {
-			// Find the corresponding chat button for this profession
+
 			int buttonId = getProfessionChatButton(profession);
 			if (buttonId != -1) {
 				System.out.println("Bot triggered profession quickchat for " +
 					Professions.PROFESSION_NAMES[profession] + " (button: " + buttonId + ")");
 
-				// Use the existing profession chat system
 				ProfessionsChat.handle(stoner, buttonId);
 			}
 		} catch (Exception e) {
@@ -572,9 +546,6 @@ public class Profession {
 		}
 	}
 
-	/**
-	 * Get the chat button ID for a profession
-	 */
 	private int getProfessionChatButton(int profession) {
 		switch (profession) {
 			case Professions.ASSAULT: return 94147;
@@ -691,7 +662,7 @@ public class Profession {
 		int capGrade = EXP_FOR_GRADE.length - 1;
 		for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
 			stoner.getMaxGrades()[i] = getGradeForExperience(i, experience[i]);
-			// Ensure current grade matches max grade
+
 			if (getGrades()[i] < stoner.getMaxGrades()[i]) {
 				getGrades()[i] = stoner.getMaxGrades()[i];
 			}
@@ -702,13 +673,11 @@ public class Profession {
 		totalGrade = 0;
 
 		for (int i = 0; i < Professions.PROFESSION_COUNT; i++) {
-			// Base grade from current max grade
+
 			long baseGrade = stoner.getMaxGrades()[i];
 
-			// Additional grades from advancements (1 advance = 420 grades)
 			long advancementGrades = stoner.getProfessionAdvances()[i] * 420L;
 
-			// Total effective grade for this profession
 			long effectiveGrade = baseGrade + advancementGrades;
 
 			totalGrade += effectiveGrade;

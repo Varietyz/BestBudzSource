@@ -24,7 +24,6 @@ public class Weedsmoker {
 			return false;
 		}
 
-
 		if (System.currentTimeMillis() - stoner.getCurrentStunDelay() < stoner.getSetStunDelay()) {
 			return false;
 		}
@@ -33,7 +32,6 @@ public class Weedsmoker {
 			return true;
 		}
 
-		// Check if player has multiple weed items for auto-smoking
 		int totalWeed = 0;
 		for (Item item : stoner.getBox().getItems()) {
 			if (item != null && Weed.forId(item.getId()) != null) {
@@ -42,12 +40,12 @@ public class Weedsmoker {
 		}
 
 		if (totalWeed > 1) {
-			// Start auto-smoking all weed
+
 			stoner.send(new SendMessage("You begin smoking all your weed..."));
 			TaskQueue.queue(new AutoSmokingTask(stoner));
 			return true;
 		} else {
-			// Single item - original smoking logic
+
 			stoner.setCurrentStunDelay(System.currentTimeMillis() + weed.getStunTime() * 1000L);
 			stoner.getUpdateFlags().sendGraphic(new Graphic(354, true));
 			stoner.getUpdateFlags().sendAnimation(new Animation(884));

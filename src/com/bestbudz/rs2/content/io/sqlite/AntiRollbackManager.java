@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Tracks last save metadata per player to prevent rollback abuse or save skips.
- */
 public final class AntiRollbackManager {
 
 	private static final ConcurrentHashMap<String, Long> saveTimestamps = new ConcurrentHashMap<>();
@@ -18,18 +15,11 @@ public final class AntiRollbackManager {
 
 	private AntiRollbackManager() {}
 
-	/**
-	 * Called during save to record last successful timestamp.
-	 */
 	public static void markSave(Stoner stoner) {
 		if (stoner == null || stoner.getUsername() == null) return;
 		saveTimestamps.put(stoner.getUsername().toLowerCase(), System.currentTimeMillis());
 	}
 
-
-	/**
-	 * Persist snapshot of all save tokens (on shutdown).
-	 */
 	public static void writeSnapshot() {
 		try (FileWriter fw = new FileWriter(FILE, false)) {
 			for (var entry : saveTimestamps.entrySet()) {
@@ -41,9 +31,6 @@ public final class AntiRollbackManager {
 		}
 	}
 
-	/**
-	 * Read snapshot on startup to recover last known state.
-	 */
 	public static void readSnapshot() {
 		if (!FILE.exists()) return;
 

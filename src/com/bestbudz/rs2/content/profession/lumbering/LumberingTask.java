@@ -9,7 +9,6 @@ import com.bestbudz.core.util.Utility;
 import com.bestbudz.rs2.content.achievements.AchievementHandler;
 import com.bestbudz.rs2.content.achievements.AchievementList;
 import com.bestbudz.rs2.content.profession.Professions;
-import com.bestbudz.rs2.entity.Animation;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.object.GameObject;
 import com.bestbudz.rs2.entity.stoner.Stoner;
@@ -57,10 +56,9 @@ public class LumberingTask extends Task {
 			return;
 		}
 
-		// Use a default axe instead of checking for equipped tools
-		LumberingAxeData axe = LumberingAxeData.forId(AXES[0]); // Default to first axe
+		LumberingAxeData axe = LumberingAxeData.forId(AXES[0]);
 		if (axe == null) {
-			// Fallback - create a basic axe data if needed
+
 			stoner
 				.getClient()
 				.queueOutgoingPacket(
@@ -79,7 +77,6 @@ public class LumberingTask extends Task {
 
 	private static boolean meetsRequirements(
 		Stoner stoner, LumberingTreeData data, GameObject object) {
-		// Removed grade requirement check
 
 		if (!Region.objectExists(
 			object.getId(),
@@ -99,7 +96,7 @@ public class LumberingTask extends Task {
 	}
 
 	private void animate() {
-		// Check if player leveled up and reset animation cycle
+
 		long currentLumberingLevel = stoner.getProfession().getGrades()[Professions.LUMBERING];
 		if (currentLumberingLevel > previousLumberingLevel) {
 			animationCycle = 0;
@@ -108,7 +105,6 @@ public class LumberingTask extends Task {
 
 		stoner.getClient().queueOutgoingPacket(new SendSound(472, 0, 0));
 
-		// Animation loops every 9 ticks (0-8, then resets to 0)
 		if (animationCycle % 9 == 0) {
 			stoner.getUpdateFlags().sendAnimation(axe.getAnimation());
 		}
@@ -178,16 +174,14 @@ public class LumberingTask extends Task {
 			.getClient()
 			.queueOutgoingPacket(new SendMessage("Your arm grew tired of wacking the tree."));
 
-		// INTEGRATION: Discord bot items go directly to bank
 		DiscordBotPrivileges.addItemWithBanking(stoner, tree.getReward(), 1);
 		stoner.getProfession().addExperience(Professions.LUMBERING, tree.getExperience());
 
-		// Auto-handle inventory management for Discord bot
 		DiscordBotPrivileges.handleInventoryManagement(stoner);
 	}
 
 	private boolean successfulAttemptChance() {
-		// Always return true for success since we removed grade requirements
+
 		return true;
 	}
 }

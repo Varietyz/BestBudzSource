@@ -40,7 +40,6 @@ public class CleanWeedTask extends Task {
 		TaskQueue.queue(new CleanWeedTask(stoner, amount, data));
 	}
 
-	// NEW: Auto-clean all untrimmed weed
 	public static boolean autoCleanAllWeed(Stoner stoner, int itemId) {
 		UntrimmedWeedData data = UntrimmedWeedData.forId(itemId);
 		if (data == null) {
@@ -51,7 +50,6 @@ public class CleanWeedTask extends Task {
 			return false;
 		}
 
-		// Check if player has multiple untrimmed weed items
 		int totalUntrimmed = 0;
 		for (Item item : stoner.getBox().getItems()) {
 			if (item != null && UntrimmedWeedData.forId(item.getId()) != null) {
@@ -64,7 +62,7 @@ public class CleanWeedTask extends Task {
 			TaskQueue.queue(new AutoCleanWeedTask(stoner));
 			return true;
 		} else {
-			// Single item - use normal cleaning
+
 			TaskQueue.queue(new CleanWeedTask(stoner, 0, data));
 			return true;
 		}
@@ -104,7 +102,6 @@ public class CleanWeedTask extends Task {
 	@Override
 	public void onStop() {}
 
-	// NEW: Auto-cleaning task for all untrimmed weed
 	private static class AutoCleanWeedTask extends Task {
 		private final Stoner stoner;
 
@@ -119,7 +116,6 @@ public class CleanWeedTask extends Task {
 				return;
 			}
 
-			// Find next untrimmed weed
 			UntrimmedWeedData data = null;
 			Item weedItem = null;
 
@@ -140,7 +136,6 @@ public class CleanWeedTask extends Task {
 				return;
 			}
 
-			// Clean one piece
 			stoner.getBox().remove(data.getUntrimmedWeed(), 1);
 			stoner.getBox().add(new Item(data.getCleanWeed(), 1));
 			stoner.getProfession().addExperience(15, data.getExp());

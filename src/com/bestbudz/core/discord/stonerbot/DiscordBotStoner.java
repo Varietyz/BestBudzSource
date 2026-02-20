@@ -7,7 +7,6 @@ import com.bestbudz.core.discord.stonerbot.threading.DiscordBotThreadManager;
 import com.bestbudz.core.discord.stonerbot.state.DiscordBotStationaryManager;
 import com.bestbudz.core.discord.stonerbot.client.DiscordBotIsolatedClient;
 
-// Import existing components
 import com.bestbudz.core.discord.stonerbot.handling.DiscordBotDecisionManager;
 import com.bestbudz.core.discord.stonerbot.automations.DiscordBotEmotes;
 import com.bestbudz.core.discord.stonerbot.automations.professions.DiscordBotLumbering;
@@ -30,34 +29,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
-/**
- * REFACTORED: Modular Discord Bot with separated concerns and configuration-driven design
- * - All parameters moved to DiscordBotStonerConfig
- * - Threading handled by DiscordBotThreadManager
- * - Banking handled by DiscordBotBankingManager
- * - Stationary periods handled by DiscordBotStationaryManager
- * - Client isolation handled by DiscordBotIsolatedClient
- */
 public class DiscordBotStoner extends Stoner implements Runnable {
 	private static final Logger logger = Logger.getLogger(DiscordBotStoner.class.getSimpleName());
 
-	// Core state management
 	private final AtomicBoolean isInitialized = new AtomicBoolean(false);
 	private final AtomicLong lastActivityTime = new AtomicLong(0);
 
-	// Update flags
 	private volatile boolean needsVisualUpdate = false;
 	private volatile boolean pendingMovement = false;
 
-	// Current activity
 	private volatile String currentActivity = "idle";
 
-	// === NEW MODULAR MANAGERS ===
 	private final DiscordBotThreadManager threadManager;
 	private final DiscordBotStationaryManager stationaryManager;
 	private final DiscordBotBankingManager bankingManager;
 
-	// === EXISTING COMPONENTS (unchanged interface) ===
 	private final DiscordBotAppearance appearance;
 	private final DiscordBotChat chat;
 	private final DiscordBotLocation location;
@@ -72,20 +58,17 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 	private final DiscordBotMovementManager movementManager;
 
 	public DiscordBotStoner(DiscordBot discordBot) {
-		// CRITICAL FIX: Call super first with new isolated client
+
 		super(new DiscordBotIsolatedClient());
 
-		// CRITICAL FIX: Set the bot reference in the client AFTER super() call
 		if (getClient() instanceof DiscordBotIsolatedClient) {
 			((DiscordBotIsolatedClient) getClient()).setBotStoner(this);
 		}
 
-		// Initialize NEW modular managers
 		this.threadManager = new DiscordBotThreadManager(this);
 		this.stationaryManager = new DiscordBotStationaryManager(this);
 		this.bankingManager = new DiscordBotBankingManager(this);
 
-		// Initialize existing components (unchanged)
 		this.appearance = new DiscordBotAppearance(this);
 		this.chat = new DiscordBotChat(this, discordBot);
 		this.location = new DiscordBotLocation(this);
@@ -99,14 +82,13 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 		this.decisionManager = new DiscordBotDecisionManager(this);
 		this.movementManager = new DiscordBotMovementManager(this);
 
-		// Bot setup using configuration - only if not already set
 		if (getUsername() == null || getUsername().isEmpty()) {
 			setUsername(DiscordBotStonerConfig.DEFAULT_USERNAME);
 		}
 		if (getDisplay() == null || getDisplay().isEmpty()) {
 			setDisplay(DiscordBotStonerConfig.DEFAULT_DISPLAY);
 		}
-		// Only set these if they're default values
+
 		if (getRights() == 0) {
 			setRights(DiscordBotStonerConfig.DEFAULT_RIGHTS);
 		}
@@ -117,7 +99,7 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 	}
 
 	public void initialize() {
-		// FIXED: Single atomic check prevents race condition
+
 		if (!isInitialized.compareAndSet(false, true)) {
 			logger.warning("Discord bot already initialized, ignoring duplicate call");
 			return;
@@ -134,24 +116,19 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 			setActive(true);
 			getClient().setStage(Client.Stages.LOGGED_IN);
 
-			// Initialize components in order
 			initializeComponents();
 
-			// Initialize isolated client
 			if (getClient() instanceof DiscordBotIsolatedClient) {
 				((DiscordBotIsolatedClient) getClient()).simulateLogin();
 			}
 
-			// Start thread manager
 			threadManager.startThread();
 			lastActivityTime.set(System.currentTimeMillis());
 
-			// Initialize combat system
 			initializeCombatSystem();
 
 			logger.info("Modular Discord bot initialized - index: " + index + " at location: " + getLocation());
 
-			// Schedule initial messages using thread manager
 			scheduleInitialMessages();
 
 		} catch (Exception e) {
@@ -162,32 +139,22 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 		}
 	}
 
-	/**
-	 * Initialize all components
-	 */
 	private void initializeComponents() {
-		// Set initial location
+
 		location.setInitialLocation();
 
-		// Initialize appearance
 		appearance.setupMinimalAppearance();
 
-		// Load saved state
 		persistence.loadBotState();
 		grades.updateAllProfessions();
 
-		// Initialize movement handler
 		getMovementHandler().reset();
 
-		// Initialize update flags
 		getUpdateFlags().setUpdateRequired(true);
 		setNeedsPlacement(true);
 		setAppearanceUpdateRequired(true);
 	}
 
-	/**
-	 * Initialize combat system
-	 */
 	private void initializeCombatSystem() {
 		if (DiscordBotStonerConfig.AUTO_COMBAT_ENABLED) {
 			if (getAutoCombat() != null) {
@@ -198,32 +165,22 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 		}
 	}
 
-	/**
-	 * Schedule initial system messages
-	 */
 	private void scheduleInitialMessages() {
-		// Send initial system announcement
+
 		threadManager.scheduleMessage(new BotMessage(BotMessage.Type.SYSTEM_BROADCAST,
 			DiscordBotStonerConfig.SYSTEM_ANNOUNCEMENT,
 			DiscordBotStonerConfig.DEFAULT_ANNOUNCEMENT_DELAY));
 
-		// Begin autonomous behavior after startup delay
 		threadManager.scheduleMessage(new BotMessage(BotMessage.Type.START_SKILLING,
 			"begin", DiscordBotStonerConfig.STARTUP_SKILL_DELAY));
 	}
 
-	/**
-	 * DELEGATED: Main run method now delegates to ThreadManager
-	 */
 	@Override
 	public void run() {
-		// The actual run logic is now handled by ThreadManager
+
 		threadManager.run();
 	}
 
-	/**
-	 * DELEGATED: Update method now uses modular managers
-	 */
 	public void performBotUpdate() {
 		if (!isInitialized.get() || !isActive()) {
 			return;
@@ -257,10 +214,9 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 		}
 
 		try {
-			// Save state
+
 			persistence.forceSaveBotState();
 
-			// Shutdown components
 			if (DiscordBotStonerConfig.ENABLE_EMOTES) {
 				emotes.shutdown();
 			}
@@ -273,15 +229,12 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 				lumbering.stopLumbering();
 			}
 
-			// Shutdown thread manager
 			threadManager.stopThread();
 
-			// Shutdown client
 			if (getClient() instanceof DiscordBotIsolatedClient) {
 				((DiscordBotIsolatedClient) getClient()).simulateLogout();
 			}
 
-			// Cleanup
 			World.unregister(this);
 			setActive(false);
 			isInitialized.set(false);
@@ -293,37 +246,22 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 		}
 	}
 
-	/**
-	 * DELEGATED: Message scheduling now handled by ThreadManager
-	 */
 	public void scheduleMessage(BotMessage message) {
 		threadManager.scheduleMessage(message);
 	}
 
-	/**
-	 * DELEGATED: Banking operations now handled by BankingManager
-	 */
 	public void performAutoBanking() {
 		bankingManager.performAutoBanking();
 	}
 
-	/**
-	 * DELEGATED: Banking operations
-	 */
 	public void addItemToBank(int itemId, int amount) {
 		bankingManager.addItemToBank(itemId, amount);
 	}
 
-	/**
-	 * DELEGATED: Direct banking
-	 */
 	public void addItemDirectlyToBank(int itemId, int amount) {
 		bankingManager.addItemDirectlyToBank(itemId, amount);
 	}
 
-	/**
-	 * DELEGATED: Inventory space check
-	 */
 	public boolean hasInventorySpace(int requiredSlots) {
 		return bankingManager.hasInventorySpace(requiredSlots);
 	}
@@ -333,7 +271,6 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 		if (isInitialized.get() && getClient() != null) {
 			getClient().resetLastPacketReceived();
 
-			// ALWAYS process AutoCombat first for Discord bot
 			if (getAutoCombat() != null) {
 				try {
 					getAutoCombat().process();
@@ -342,7 +279,6 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 				}
 			}
 
-			// Process regular combat (but AutoCombat should take precedence)
 			if (getCombat() != null) {
 				getCombat().process();
 			}
@@ -359,8 +295,6 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 		shutdown();
 	}
 
-	// === PUBLIC API METHODS ===
-
 	public void relayDiscordMessage(String discordUsername, String message) {
 		actions.relayDiscordMessage(discordUsername, message);
 	}
@@ -369,7 +303,6 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 		actions.relayGameChatToDiscord(username, message);
 	}
 
-	// === COMPONENT ACCESSORS (unchanged) ===
 	public DiscordBotPersistence getBotPersistence() { return persistence; }
 	public DiscordBotGrades getBotGrades() { return grades; }
 	public DiscordBotAppearance getBotAppearance() { return appearance; }
@@ -382,29 +315,22 @@ public class DiscordBotStoner extends Stoner implements Runnable {
 	public DiscordBotDecisionManager getDecisionManager() { return decisionManager; }
 	public DiscordBotMovementManager getMovementManager() { return movementManager; }
 
-	// === NEW MANAGER ACCESSORS ===
 	public DiscordBotThreadManager getThreadManager() { return threadManager; }
 	public DiscordBotStationaryManager getStationaryManager() { return stationaryManager; }
 	public DiscordBotBankingManager getBankingManager() { return bankingManager; }
 
-	// === STATUS ACCESSORS ===
 	public boolean isInitialized() { return isInitialized.get(); }
 	public String getCurrentActivity() { return currentActivity; }
 	public void setCurrentActivity(String activity) { this.currentActivity = activity; }
 	public long getLastActivityTime() { return lastActivityTime.get(); }
 	public void setLastActivityTime(long time) { lastActivityTime.set(time); }
 
-	// === STATIONARY PERIOD ACCESSORS (delegated) ===
 	public boolean isInStationaryPeriod() { return stationaryManager.isInStationaryPeriod(); }
 	public long getStationaryTimeRemaining() { return stationaryManager.getStationaryTimeRemaining(); }
 
-	// === UPDATE FLAGS ===
 	public void setNeedsVisualUpdate() { this.needsVisualUpdate = true; }
 	public void setPendingMovement() { this.pendingMovement = true; }
 
-	/**
-	 * UNCHANGED: Message class for internal bot communications
-	 */
 	public static class BotMessage {
 		public enum Type {
 			DISCORD_MESSAGE, MOVE, SYSTEM_BROADCAST, START_SKILLING, STOP_SKILLING, PERFORM_EMOTE

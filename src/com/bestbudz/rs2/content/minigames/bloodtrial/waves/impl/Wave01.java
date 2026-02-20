@@ -6,7 +6,7 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 
 public class Wave01 extends WaveDefinition {
 	public Wave01() {
-		super(0); // Zero-indexed to match existing stage system
+		super(0);
 	}
 
 	@Override
@@ -16,4 +16,3 @@ public class Wave01 extends WaveDefinition {
 		spawnNpc(player, BloodTrialNPCs.CRAWLING_HAND);
 	}
 }
-

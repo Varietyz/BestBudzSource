@@ -1,20 +1,17 @@
-// DiscordMessage.java
+
 package com.bestbudz.core.discord.messaging;
 
-/**
- * Represents a message to be sent to Discord with type and formatting information
- */
 public class DiscordMessage {
 	public enum Type {
-		CHAT,               // Player chat messages
-		SERVER_STATUS,      // Server online/offline status
-		SYSTEM_ANNOUNCEMENT,// General system announcements
-		LEVEL_UP,          // Player level up notifications
-		SKILL_PROGRESS,    // Skill progress updates
-		ADVANCEMENT,       // Quest/achievement completions
-		ACHIEVEMENT,       // Special achievements
-		STAFF_ALERT,       // Staff notifications
-		ADMIN_MESSAGE,      // Administrative messages
+		CHAT,
+		SERVER_STATUS,
+		SYSTEM_ANNOUNCEMENT,
+		LEVEL_UP,
+		SKILL_PROGRESS,
+		ADVANCEMENT,
+		ACHIEVEMENT,
+		STAFF_ALERT,
+		ADMIN_MESSAGE,
 		GAME_MESSAGE
 	}
 

@@ -197,7 +197,7 @@ public class UpdateFlags {
 		if (graphicsUpdateRequired) graphicsUpdateRequired = false;
 		if (animationUpdateRequired) {
 			animationUpdateRequired = false;
-			animationId = -1;  // Reset to "no animation"
+			animationId = -1;
 			animationDelay = 0;
 		}
 		if (faceToDirection) faceToDirection = false;
@@ -207,10 +207,9 @@ public class UpdateFlags {
 		if (isForceChatUpdate) isForceChatUpdate = false;
 		if (forceMovement) forceMovement = false;
 
-		// FIX: Reset face index without triggering updates
 		if (entityFaceIndex != 65535) {
 			entityFaceIndex = 65535;
-			entityFaceUpdate = false;  // Don't trigger update during reset
+			entityFaceUpdate = false;
 		}
 	}
 
@@ -273,6 +272,5 @@ public class UpdateFlags {
 		this.entityFaceUpdate = true;
 		this.isUpdateRequired = true;
 	}
-
 
 }

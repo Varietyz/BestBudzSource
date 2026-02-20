@@ -519,7 +519,6 @@ public class Region {
 		return true;
 	}
 
-
   public boolean blockedNorth(int x, int y, int z) {
     return (getClip(x, y + 1, z) & 0x1280120) != 0 || getClip(x, y + 1, z) == -1;
   }

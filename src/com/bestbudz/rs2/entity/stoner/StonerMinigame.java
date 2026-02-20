@@ -10,32 +10,26 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Manages all minigame-related functionality
- */
 public class StonerMinigame {
 	private final Stoner stoner;
-	private final StonerMinigames stonerMinigamesContent; // Renamed to avoid conflict
+	private final StonerMinigames stonerMinigamesContent;
 	private final Dueling dueling;
 	private final BloodTrialDetails jadDetails;
 	private final StonerProperties properties;
 
-	// Minigame state
 	public int monsterSelected = 0;
 	public boolean playingMB = false;
 
-	// Zulrah-specific data
 	public int whirlpoolsHit = 0;
 	public List<Mob> tentacles = new ArrayList<>();
 
-	// Barrows data
 	private boolean[] killRecord = new boolean[Brother.values().length];
 	private int killCount;
 	private boolean chestClicked;
 
 	public StonerMinigame(Stoner stoner) {
 		this.stoner = stoner;
-		this.stonerMinigamesContent = new StonerMinigames(stoner); // Use content class
+		this.stonerMinigamesContent = new StonerMinigames(stoner);
 		this.dueling = new Dueling(stoner);
 		this.jadDetails = new BloodTrialDetails();
 		this.properties = new StonerProperties(stoner);
@@ -43,21 +37,17 @@ public class StonerMinigame {
 
 	public void process() {
 		if (stoner.isPetStoner()) {
-			return; // Pets don't need minigame processing
+			return;
 		}
-		// Any periodic minigame processing can go here
+
 	}
 
-	/**
-	 * Starts the player in minigames that need initialization
-	 */
 	public void start() {
 		if (jadDetails.getStage() != 0) {
 			BloodTrial.loadGame(stoner);
 		}
 	}
 
-	// Getters and setters
 	public StonerMinigames getStonerMinigames() { return stonerMinigamesContent; }
 	public Dueling getDueling() { return dueling; }
 	public BloodTrialDetails getBloodTrialDetails() { return jadDetails; }
@@ -84,7 +74,6 @@ public class StonerMinigame {
 	public boolean isChestClicked() { return chestClicked; }
 	public void setChestClicked(boolean chestClicked) { this.chestClicked = chestClicked; }
 
-	// Convenience methods for barrows
 	public int getBarrowsKC() { return killCount; }
 	public void setBarrowsKC(int killCount) { this.killCount = killCount; }
 }

@@ -56,7 +56,6 @@ public class Melee {
 		entity.onAssault(assaulting, hit.getDamage(), CombatTypes.MELEE, success);
 		entity.getCombat().updateTimers(assault.getAssaultDelay());
 
-		// Handle animations based on entity type
 		handleCombatAnimation();
 
 		entity.doConsecutiveAssaults(assaulting);
@@ -74,7 +73,7 @@ public class Melee {
 	private void handleRegularAnimation() {
 		if (animation != null) {
 			entity.getUpdateFlags().sendAnimation(animation);
-			// Lock movement using combat definition duration
+
 			entity.setAnimationWithCombatLock(animation, Combat.CombatTypes.MELEE);
 			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
 		}
@@ -84,7 +83,7 @@ public class Melee {
 		Animation petAnimation = (Animation) entity.getAttributes().get("PET_MELEE_ANIMATION");
 		if (petAnimation != null) {
 			entity.getUpdateFlags().sendAnimation(petAnimation);
-			// Lock movement using combat definition duration
+
 			entity.setAnimationWithCombatLock(petAnimation, Combat.CombatTypes.MELEE);
 			entity.getCombat().setLastCombatActionTime(System.currentTimeMillis());
 		}
@@ -94,7 +93,6 @@ public class Melee {
 		assaulting.getCombat().setInCombat(entity);
 		TaskQueue.queue(new HitTask(assault.getHitDelay(), false, hit, assaulting));
 
-		// Handle double hit logic
 		if (FormulaData.isDoubleHit(entity.getCombat().getHitChance(), entity.getCombat().getHitChainStage(), entity, assaulting)) {
 			handleDoubleHit(hit, assaulting);
 		}
@@ -107,7 +105,7 @@ public class Melee {
 			Hit secondHit = new Hit(entity, secondHitDamage, Hit.HitTypes.MELEE);
 			final Entity target = assaulting;
 
-			TaskQueue.queue(new Task(2) { // 1 tick = 300ms
+			TaskQueue.queue(new Task(2) {
 				@Override
 				public void execute() {
 					Combat.applyHit(target, secondHit);

@@ -15,13 +15,11 @@ public class StonerFollowing extends Following {
 	private int formationOffsetX = 0;
 	private int formationOffsetY = 0;
 
-	// Radius-based following parameters
-	private static final int MIN_FOLLOW_DISTANCE = 1; // Minimum tiles to maintain
-	private static final int MAX_FOLLOW_DISTANCE = 2; // Maximum tiles before moving
-	private static final int PREFERRED_FOLLOW_DISTANCE = 1; // Preferred distance
+	private static final int MIN_FOLLOW_DISTANCE = 1;
+	private static final int MAX_FOLLOW_DISTANCE = 2;
+	private static final int PREFERRED_FOLLOW_DISTANCE = 1;
 	private static final Random random = new Random();
 
-	// Tracking for more natural movement
 	private Location lastTargetPosition = null;
 	private int ticksSinceLastMove = 0;
 	private Location preferredPosition = null;
@@ -41,17 +39,15 @@ public class StonerFollowing extends Following {
 	public void findPath(Location location) {
 		Location targetLocation = location;
 
-		// Handle pet formation logic
-		if (stoner.getCombat().inCombat()) return; // TEST
+		if (stoner.getCombat().inCombat()) return;
 
 		if (stoner.isPetStoner() && following != null) {
 			targetLocation = handlePetFormation(location);
 		} else if (type == FollowType.DEFAULT) {
-			// Apply radius-based following for regular stoners
+
 			targetLocation = getRadiusBasedTarget(location);
 		}
 
-		// Use pathfinding based on combat type
 		if (type == Following.FollowType.COMBAT) {
 			if (stoner.getCombat().getCombatType() == CombatTypes.MELEE)
 				RS317PathFinder.findRoute(stoner, targetLocation.getX(), targetLocation.getY(), false, 0, 0);
@@ -62,9 +58,6 @@ public class StonerFollowing extends Following {
 		}
 	}
 
-	/**
-	 * Handle pet formation positioning
-	 */
 	private Location handlePetFormation(Location location) {
 		Location targetLocation = new Location(
 			location.getX() + formationOffsetX,
@@ -72,7 +65,6 @@ public class StonerFollowing extends Following {
 			location.getZ()
 		);
 
-		// Check if target location is occupied by another pet
 		Stoner owner = findPetOwner();
 		if (owner != null && PetFormation.isLocationOccupiedByPet(owner, targetLocation, stoner)) {
 			int petIndex = getPetIndex(owner);
@@ -84,22 +76,17 @@ public class StonerFollowing extends Following {
 		return targetLocation;
 	}
 
-	/**
-	 * Get radius-based target location for natural following
-	 */
 	private Location getRadiusBasedTarget(Location targetLocation) {
 		if (following == null) return targetLocation;
 
 		Location currentPos = stoner.getLocation();
 		Location followingPos = following.getLocation();
 
-		// Calculate current distance to target
 		double currentDistance = Math.sqrt(
 			Math.pow(currentPos.getX() - followingPos.getX(), 2) +
 				Math.pow(currentPos.getY() - followingPos.getY(), 2)
 		);
 
-		// Track target movement
 		boolean targetMoved = lastTargetPosition == null ||
 			!lastTargetPosition.equals(followingPos);
 
@@ -110,29 +97,22 @@ public class StonerFollowing extends Following {
 			ticksSinceLastMove++;
 		}
 
-		// If we're within acceptable range and target hasn't moved much, don't move
 		if (currentDistance >= MIN_FOLLOW_DISTANCE &&
 			currentDistance <= MAX_FOLLOW_DISTANCE &&
 			ticksSinceLastMove > 2) {
 
-			// Stay in current position
 			return currentPos;
 		}
 
-		// If too far or target moved significantly, find new position
 		if (currentDistance > MAX_FOLLOW_DISTANCE || targetMoved) {
 			return findNaturalFollowPosition(followingPos);
 		}
 
-		// Default to current behavior
 		return targetLocation;
 	}
 
-	/**
-	 * Find a natural-looking position to follow from
-	 */
 	private Location findNaturalFollowPosition(Location targetPos) {
-		// If we have a stable preferred position and it's still good, keep using it
+
 		if (preferredPosition != null && positionStability > 0) {
 			double prefDistance = Math.sqrt(
 				Math.pow(preferredPosition.getX() - targetPos.getX(), 2) +
@@ -145,32 +125,26 @@ public class StonerFollowing extends Following {
 			}
 		}
 
-		// Find a new preferred position
 		Location newPos = generateFollowPosition(targetPos);
 		preferredPosition = newPos;
-		positionStability = 15 + random.nextInt(20); // Stay with this position for 5-15 ticks
+		positionStability = 15 + random.nextInt(20);
 
 		return newPos;
 	}
 
-	/**
-	 * Generate a position within follow radius that looks natural
-	 */
 	private Location generateFollowPosition(Location targetPos) {
-		// Try several positions and pick the best one
+
 		Location bestPos = null;
 		double bestScore = Double.MAX_VALUE;
 
 		for (int attempts = 0; attempts < 8; attempts++) {
-			// Generate angle (prefer positions behind and to sides)
+
 			double angle = random.nextDouble() * 2 * Math.PI;
 
-			// Bias towards positions behind the target (180-360 degrees relative to movement)
 			if (random.nextDouble() < 0.6) {
-				angle = Math.PI + (random.nextDouble() - 0.5) * Math.PI; // 90-270 degrees
+				angle = Math.PI + (random.nextDouble() - 0.5) * Math.PI;
 			}
 
-			// Random distance within preferred range
 			double distance = MIN_FOLLOW_DISTANCE +
 				random.nextDouble() * (PREFERRED_FOLLOW_DISTANCE - MIN_FOLLOW_DISTANCE);
 
@@ -179,7 +153,6 @@ public class StonerFollowing extends Following {
 
 			Location candidatePos = new Location(newX, newY, targetPos.getZ());
 
-			// Score this position
 			double score = scoreFollowPosition(candidatePos, targetPos);
 
 			if (score < bestScore) {
@@ -192,29 +165,20 @@ public class StonerFollowing extends Following {
 			new Location(targetPos.getX() - 1, targetPos.getY() - 1, targetPos.getZ());
 	}
 
-	/**
-	 * Score a potential follow position (lower is better)
-	 */
 	private double scoreFollowPosition(Location pos, Location targetPos) {
 		double score = 0;
 
-		// Distance from target (prefer PREFERRED_FOLLOW_DISTANCE)
 		double distance = Math.sqrt(
 			Math.pow(pos.getX() - targetPos.getX(), 2) +
 				Math.pow(pos.getY() - targetPos.getY(), 2)
 		);
 		score += Math.abs(distance - PREFERRED_FOLLOW_DISTANCE) * 2;
 
-		// Distance from current position (prefer closer moves)
 		double moveDistance = Math.sqrt(
 			Math.pow(pos.getX() - stoner.getLocation().getX(), 2) +
 				Math.pow(pos.getY() - stoner.getLocation().getY(), 2)
 		);
 		score += moveDistance;
-
-		// Prefer positions that are stable (away from other entities)
-		// This would require checking for other entities at the position
-		// score += checkPositionStability(pos);
 
 		return score;
 	}
@@ -251,7 +215,6 @@ public class StonerFollowing extends Following {
 				&& (stoner.getCombat().withinDistanceForAssault(stoner.getCombat().getCombatType(), true));
 		}
 
-		// Enhanced pause logic for pets
 		if (stoner.isPetStoner() && following != null) {
 			Location targetLocation = new Location(
 				following.getLocation().getX() + formationOffsetX,
@@ -267,14 +230,12 @@ public class StonerFollowing extends Following {
 			return distance <= 1;
 		}
 
-		// Enhanced pause logic for radius-based following
 		if (type == FollowType.DEFAULT && following != null) {
 			double distance = Math.sqrt(
 				Math.pow(stoner.getLocation().getX() - following.getLocation().getX(), 2) +
 					Math.pow(stoner.getLocation().getY() - following.getLocation().getY(), 2)
 			);
 
-			// Pause if within acceptable follow range
 			return distance >= MIN_FOLLOW_DISTANCE && distance <= MAX_FOLLOW_DISTANCE;
 		}
 
@@ -289,13 +250,11 @@ public class StonerFollowing extends Following {
 			stoner.getCombat().reset();
 		}
 
-		// Don't spam "can't reach" messages for pets
 		if (!stoner.isPetStoner()) {
 			stoner.getClient().queueOutgoingPacket(new SendMessage("I can't reach that!"));
 		}
 	}
 
-	// Helper methods for pet management
 	private Stoner findPetOwner() {
 		for (Stoner s : com.bestbudz.rs2.entity.World.getStoners()) {
 			if (s != null && s.isActive()) {

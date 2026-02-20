@@ -380,18 +380,12 @@ public class GameDefinitionLoader {
         continue;
       }
 
-      // System.out.println("  {");
-      // System.out.println("    \"id\": " + definition.getId() + ",");
-      // System.out.println("    \"requirements\": [");
       byte[] array = definition.getRequirements();
 
       for (int i = 0, complete = 0; i < array.length; i++) {
         if (array[i] == 1) {
           continue;
         }
-
-        // System.out.println("      {");
-        // System.out.println("        \"grade\": " + array[i] + ",");
 
         String name = "";
 
@@ -465,12 +459,9 @@ public class GameDefinitionLoader {
         }
 
         complete++;
-      //  System.out.println("        \"profession\": \"" + name + "\"");
-      //  System.out.println("      }" + (complete >= size ? "" : ","));
+
       }
 
-     // System.out.println("    ]");
-     // System.out.println("  },");
     }
 
     logger.info("Loaded " + Utility.format(list.size()) + " equipment definitions.");
@@ -595,45 +586,28 @@ public class GameDefinitionLoader {
         continue;
       }
 
-      // System.out.println("  {");
-      // System.out.println("    \"id\": " + i.getId() + ",");
-
       if (always) {
-        // System.out.println("	\"always\": [");
 
         for (int index = 0; index < i.getConstant().getDrops().length; index++) {
           ItemDrop drop = i.getConstant().getDrops()[index];
-          // System.out.println("      {");
-          // System.out.println("        \"itemId\": " + drop.getId() + ",");
-          // System.out.println("        \"minAmount\": " + drop.getMin() + ",");
-          // System.out.println("        \"maxAmount\": " + drop.getMax() + ",");
-          // System.out.println("        \"chance\": ALWAYS");
 
           if (index + 1 == i.getConstant().getDrops().length) {
-            // System.out.println("      }");
+
           } else {
-            // System.out.println("      },");
+
           }
         }
 
-        // System.out.println("    ],");
       }
-
-      // System.out.println("	\"drops\": [");
 
       if (common) {
         for (int index = 0; index < i.getCommon().getDrops().length; index++) {
           ItemDrop drop = i.getCommon().getDrops()[index];
-          // System.out.println("      {");
-          // System.out.println("        \"itemId\": " + drop.getId() + ",");
-          // System.out.println("        \"minAmount\": " + drop.getMin() + ",");
-          // System.out.println("        \"maxAmount\": " + drop.getMax() + ",");
-          // System.out.println("        \"chance\": COMMON");
 
           if (index + 1 == i.getCommon().getDrops().length && !uncommon && !rare) {
-            // System.out.println("      }");
+
           } else {
-            // System.out.println("      },");
+
           }
         }
       }
@@ -641,16 +615,11 @@ public class GameDefinitionLoader {
       if (uncommon) {
         for (int index = 0; index < i.getUncommon().getDrops().length; index++) {
           ItemDrop drop = i.getUncommon().getDrops()[index];
-          // System.out.println("      {");
-          // System.out.println("        \"itemId\": " + drop.getId() + ",");
-          // System.out.println("        \"minAmount\": " + drop.getMin() + ",");
-          // System.out.println("        \"maxAmount\": " + drop.getMax() + ",");
-          // System.out.println("        \"chance\": UNCOMMON");
 
           if (index + 1 == i.getUncommon().getDrops().length && !rare) {
-            // System.out.println("      }");
+
           } else {
-            // System.out.println("      },");
+
           }
         }
       }
@@ -658,22 +627,15 @@ public class GameDefinitionLoader {
       if (rare) {
         for (int index = 0; index < i.getRare().getDrops().length; index++) {
           ItemDrop drop = i.getRare().getDrops()[index];
-          // System.out.println("      {");
-          // System.out.println("        \"itemId\": " + drop.getId() + ",");
-          // System.out.println("        \"minAmount\": " + drop.getMin() + ",");
-          // System.out.println("        \"maxAmount\": " + drop.getMax() + ",");
-          // System.out.println("        \"chance\": RARE");
 
           if (index + 1 == i.getRare().getDrops().length) {
-            // System.out.println("      }");
+
           } else {
-            // System.out.println("      },");
+
           }
         }
       }
 
-      // System.out.println("	]");
-      // System.out.println("  },");
     }
 
     logger.info("Loaded " + Utility.format(list.size()) + " npc drops.");
@@ -694,7 +656,6 @@ public class GameDefinitionLoader {
       }
 
       Mob m = new Mob(def.getId(), def.isWalk(), def.getLocation());
-
 
       if (def.getFace() > 0) {
         m.setFaceDir(def.getFace());
@@ -775,7 +736,6 @@ public class GameDefinitionLoader {
 
 		logger.info("Successfully loaded all rare drops.");
 	}
-
 
   @SuppressWarnings("unchecked")
   public static void loadShopDefinitions() throws IOException {

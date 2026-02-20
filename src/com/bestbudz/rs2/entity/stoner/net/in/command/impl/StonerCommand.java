@@ -141,7 +141,6 @@ public class StonerCommand implements Command {
           return true;
         }
 
-
                   stoner.getBox().clear();
                   stoner.send(new SendMessage("You have emptied your box."));
                   stoner.send(new SendRemoveInterfaces());

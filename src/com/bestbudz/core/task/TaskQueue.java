@@ -11,9 +11,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class TaskQueue {
 
   private static final Queue<Task> adding = new ConcurrentLinkedQueue<>();
-  private static final Deque<Task> tasks = new ArrayDeque<>(256); // Better locality
+  private static final Deque<Task> tasks = new ArrayDeque<>(256);
 
-  /** Cancels all HitTasks on a specific entity */
   public static void cancelHitsOnEntity(Entity e) {
     for (Task t : tasks) {
       if (t instanceof HitTask) {
@@ -25,7 +24,6 @@ public class TaskQueue {
     }
   }
 
-  /** Handles movement-sensitive tasks */
   public static void onMovement(Entity e) {
     LinkedList<Task> active = e.getTasks();
     if (active == null) return;
@@ -39,15 +37,13 @@ public class TaskQueue {
     }
   }
 
-  /** Processes all pending and active tasks each tick */
   public static void process() {
-    // Phase 1: Move new tasks into main task pool
+
     Task task;
     while ((task = adding.poll()) != null) {
       tasks.add(task);
     }
 
-    // Phase 2: Execute or discard tasks
     Iterator<Task> it = tasks.iterator();
     while (it.hasNext()) {
       Task t = it.next();
@@ -79,14 +75,12 @@ public class TaskQueue {
     }
   }
 
-  /** Queues a new task for execution */
   public static Task queue(Task task) {
     if (task.stopped()) return task;
 
     if (task.isAssociated()) {
       Entity e = task.getEntity();
 
-      // Deduplication for NEVER_STACK tasks
       if (task.getStackType() == StackType.NEVER_STACK) {
         Iterator<Task> it = e.getTasks().iterator();
         while (it.hasNext()) {

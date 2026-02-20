@@ -7,10 +7,6 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-/**
- * Dragon Dagger Special - "Precision Strike"
- * A fast, accurate dual strike that gains power from consecutive hits
- */
 public class DragonDaggerEffect implements CombatEffect {
 
 	@Override
@@ -22,8 +18,7 @@ public class DragonDaggerEffect implements CombatEffect {
 			double precision = 1.0 + (FormulaData.getCombatEffectiveness(attacker) * 0.2);
 			int baseDamage = attacker.getLastDamageDealt();
 
-			// Dual Strike - second hit automatically follows
-			double secondHitMultiplier = 0.75 + (precision * 0.1); // 75-95% of first hit
+			double secondHitMultiplier = 0.75 + (precision * 0.1);
 			int secondHit = (int)(baseDamage * secondHitMultiplier);
 
 			if (secondHit > 0) {
@@ -34,7 +29,6 @@ public class DragonDaggerEffect implements CombatEffect {
 					secondHit + " additional damage!"));
 			}
 
-			// Precision Stacking - build accuracy for next attacks
 			Object streakObj = attacker.getAttributes().get("precision_streak");
 			int currentStreak = (streakObj instanceof Integer) ? (Integer)streakObj : 0;
 
@@ -52,9 +46,8 @@ public class DragonDaggerEffect implements CombatEffect {
 				attacker.getAttributes().set("precision_streak", currentStreak);
 			}
 
-			// Vital Strike - chance for critical damage based on precision
 			if (precision > 2.0 && currentStreak >= 3) {
-				double critChance = (precision - 2.0) * 15 + (currentStreak * 3); // Up to 24% chance
+				double critChance = (precision - 2.0) * 15 + (currentStreak * 3);
 				if (com.bestbudz.core.util.Utility.random(100) < critChance) {
 					int critDamage = (int)((baseDamage + secondHit) * 0.5);
 
@@ -68,7 +61,6 @@ public class DragonDaggerEffect implements CombatEffect {
 				}
 			}
 
-			// Speed Boost - daggers grant attack speed
 			if (baseDamage > 0) {
 				int speedBoost = (int)(precision * 5 + currentStreak);
 				attacker.getAttributes().set("dagger_speed", speedBoost);

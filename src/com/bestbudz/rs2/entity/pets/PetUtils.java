@@ -4,14 +4,8 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-/**
- * Utility methods for pet operations
- */
 public class PetUtils {
 
-	/**
-	 * Format pet name for display (e.g. "GIANT_EAGLE" -> "Pet Giant Eagle")
-	 */
 	public static String formatPetDisplayName(PetData petData) {
 		if (petData == null) {
 			return "Pet Unknown";
@@ -23,18 +17,10 @@ public class PetUtils {
 			.collect(Collectors.joining(" "));
 	}
 
-
-
-	/**
-	 * Check if a username belongs to a pet
-	 */
 	public static boolean isPetUsername(String username) {
 		return username != null && username.startsWith("Pet_");
 	}
 
-	/**
-	 * Extract pet data from username
-	 */
 	public static PetData getPetDataFromUsername(String username) {
 		if (!isPetUsername(username)) {
 			return null;
@@ -52,9 +38,6 @@ public class PetUtils {
 		return null;
 	}
 
-	/**
-	 * Check if a Stoner is a pet
-	 */
 	public static boolean isPetStoner(Stoner stoner) {
 		return stoner != null && stoner.isPet() && stoner.getUsername().startsWith("Pet_");
 	}

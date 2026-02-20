@@ -23,22 +23,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Handles all movement-related functionality including walking, running, teleporting, and following
- */
 public class StonerMovement {
 	private final Stoner stoner;
 	private final MovementHandler movementHandler;
 	private final Following following;
 	private final RunEnergy runEnergy;
 
-	// Current region tracking
 	private Location currentRegion = new Location(0, 0, 0);
 
-	// Path memory for collision avoidance
 	public static final Map<Location, Integer> pathMemory = new HashMap<>();
 
-	// Teleport state
 	public boolean homeTeleporting;
 	private int teleportTo;
 
@@ -58,20 +52,15 @@ public class StonerMovement {
 		movementHandler.resetMoveDirections();
 	}
 
-	/**
-	 * Teleports the player to a new location, handling pets and region changes
-	 */
 	public void teleport(Location location) {
 		boolean zChange = location.getZ() != stoner.getLocation().getZ();
 
-		// Handle pet teleportation - store pet data before teleporting
 		List<PetData> activePetData = new ArrayList<>();
 		if (stoner.getActivePets() != null && !stoner.getActivePets().isEmpty()) {
 			for (Pet pet : stoner.getActivePets()) {
 				activePetData.add(pet.getData());
 			}
 
-			// Remove existing pets (they'll be recreated at new location)
 			List<Pet> petsToRemove = new ArrayList<>(stoner.getActivePets());
 			for (Pet pet : petsToRemove) {
 				pet.remove();
@@ -116,26 +105,22 @@ public class StonerMovement {
 
 		TaskQueue.onMovement(stoner);
 
-		// Recreate pets at new location after teleport completes
 		if (!activePetData.isEmpty()) {
 			final Stoner teleportedStoner = stoner;
 			TaskQueue.queue(new Task(stoner, 2, true) {
 				@Override
 				public void execute() {
-					// FIXED: Recreate pets with proper formation
+
 					for (int i = 0; i < activePetData.size(); i++) {
 						PetData petData = activePetData.get(i);
 						Pet newPet = new Pet(teleportedStoner, petData);
 						teleportedStoner.getActivePets().add(newPet);
 
-						// CRITICAL FIX: Set formation position immediately
 						Location formationPos = PetFormation.getFormationPosition(
 							teleportedStoner, i, activePetData.size());
 
-						// Teleport pet to formation position
 						newPet.getPetStoner().teleport(formationPos);
 
-						// IMPORTANT: Set formation offset in the following system
 						Following following = newPet.getPetStoner().getFollowing();
 						if (following instanceof StonerFollowing) {
 							StonerFollowing stonerFollowing = (StonerFollowing) following;
@@ -149,7 +134,7 @@ public class StonerMovement {
 
 				@Override
 				public void onStop() {
-					// Optional: Send message about pets following
+
 					if (activePetData.size() == 1) {
 						teleportedStoner.send(new SendMessage("Your pet follows you to the new location."));
 					} else if (activePetData.size() > 1) {
@@ -160,9 +145,6 @@ public class StonerMovement {
 		}
 	}
 
-	/**
-	 * Changes the player's Z coordinate (height level)
-	 */
 	public void changeZ(int z) {
 		stoner.getLocation().setZ(z);
 		stoner.getSession().setNeedsPlacement(true);
@@ -175,9 +157,6 @@ public class StonerMovement {
 		stoner.send(new SendMapRegion(stoner));
 	}
 
-	/**
-	 * Checks if the player has moved far enough to require a region update
-	 */
 	public void checkForRegionChange() {
 		int deltaX = stoner.getLocation().getX() - getCurrentRegion().getRegionX() * 8;
 		int deltaY = stoner.getLocation().getY() - getCurrentRegion().getRegionY() * 8;
@@ -187,9 +166,6 @@ public class StonerMovement {
 		}
 	}
 
-	/**
-	 * Checks if a location is within the current region
-	 */
 	public boolean withinRegion(Location other) {
 		int deltaX = other.getX() - currentRegion.getRegionX() * 8;
 		int deltaY = other.getY() - currentRegion.getRegionY() * 8;
@@ -197,7 +173,6 @@ public class StonerMovement {
 		return (deltaX >= 2) && (deltaX <= 110) && (deltaY >= 2) && (deltaY <= 110);
 	}
 
-	// Getters and setters
 	public MovementHandler getMovementHandler() { return movementHandler; }
 	public Following getFollowing() { return following; }
 	public RunEnergy getRunEnergy() { return runEnergy; }

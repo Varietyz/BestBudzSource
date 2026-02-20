@@ -51,12 +51,10 @@ public class StonerMovementHandler extends MovementHandler {
 		  return;
 	  }
 
-	  // CRITICAL: If no region loaded, stop movement processing
 	  if (region == null) {
 		  System.err.println("No region loaded for " + stoner.getUsername() +
 			  " at " + currentLocation + ", stopping movement");
 
-		  // Reset movement state
 		  primaryDirection = -1;
 		  secondaryDirection = -1;
 		  return;

@@ -9,25 +9,16 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * DockStaff - Simple staff system focused on database modifications
- *
- * Provides clean button-based interface for staff to modify player data.
- * All operations use getAttributes() pattern for parameter passing.
- */
 public class DockStaff {
 
-	// Button ID range for staff commands
 	public static final int DOCK_STAFF_BUTTON_START = 116100;
 	public static final int DOCK_STAFF_BUTTON_END = 116200;
 
-	// Core staff action buttons
 	public static final int DOCK_STAFF_BAN_PLAYER = 116100;
 	public static final int DOCK_STAFF_UNBAN_PLAYER = 116101;
 	public static final int DOCK_STAFF_SELECT_TARGET = 116102;
 	public static final int DOCK_STAFF_CLEAR_TARGET = 116103;
 
-	// Database modification buttons
 	public static final int DOCK_STAFF_CHANGE_PASSWORD = 116110;
 	public static final int DOCK_STAFF_CHANGE_USERNAME = 116111;
 	public static final int DOCK_STAFF_CHANGE_RIGHTS = 116112;
@@ -39,38 +30,29 @@ public class DockStaff {
 	public static final int DOCK_STAFF_CHANGE_HOST = 116118;
 	public static final int DOCK_STAFF_RESET_STATS = 116119;
 
-	// Query and info buttons
 	public static final int DOCK_STAFF_SEARCH_PLAYER = 116120;
 	public static final int DOCK_STAFF_VIEW_INFO = 116121;
 	public static final int DOCK_STAFF_GET_ONLINE = 116122;
 	public static final int DOCK_STAFF_DB_STATS = 116123;
 
-	// Staff permission configuration - Simple username-based access
 	private static final Map<String, StaffLevel> STAFF_ACCESS = new HashMap<>();
 
 	public enum StaffLevel {
-		MODERATOR,    // Basic access - ban/unban, view info
-		ADMIN,        // Data modification access
-		OWNER         // Full access to everything
+		MODERATOR,
+		ADMIN,
+		OWNER
 	}
 
 	static {
-		// Configure staff access - EDIT THIS to add/remove staff
+
 		STAFF_ACCESS.put("jaybane", StaffLevel.OWNER);
-		// STAFF_ACCESS.put("adminname", StaffLevel.ADMIN);
-		// STAFF_ACCESS.put("modname", StaffLevel.MODERATOR);
+
 	}
 
-	/**
-	 * Check if button ID is in the dock staff range
-	 */
 	public static boolean isDockStaffButton(int buttonId) {
 		return buttonId >= DOCK_STAFF_BUTTON_START && buttonId <= DOCK_STAFF_BUTTON_END;
 	}
 
-	/**
-	 * Main button handler for all staff actions
-	 */
 	public static boolean handleStaffButton(int buttonId, Stoner stoner) {
 		if (!hasStaffAccess(stoner)) {
 			stoner.send(new SendMessage("[ <col=255>Staff</col> ] Access denied."));
@@ -81,7 +63,7 @@ public class DockStaff {
 
 		try {
 			switch (buttonId) {
-				// Basic actions
+
 				case DOCK_STAFF_BAN_PLAYER:
 					return banPlayer(stoner);
 				case DOCK_STAFF_UNBAN_PLAYER:
@@ -91,7 +73,6 @@ public class DockStaff {
 				case DOCK_STAFF_CLEAR_TARGET:
 					return clearTarget(stoner);
 
-				// Database modifications (require ADMIN+)
 				case DOCK_STAFF_CHANGE_PASSWORD:
 					return requiresAdmin(stoner) && StaffDBUtils.changePassword(stoner);
 				case DOCK_STAFF_CHANGE_USERNAME:
@@ -113,7 +94,6 @@ public class DockStaff {
 				case DOCK_STAFF_RESET_STATS:
 					return requiresAdmin(stoner) && StaffDBUtils.resetStats(stoner);
 
-				// Info and search
 				case DOCK_STAFF_SEARCH_PLAYER:
 					return StaffDBUtils.searchPlayer(stoner);
 				case DOCK_STAFF_VIEW_INFO:
@@ -135,9 +115,6 @@ public class DockStaff {
 		}
 	}
 
-	/**
-	 * Simple ban system
-	 */
 	public static boolean banPlayer(Stoner stoner) {
 		String targetName = getTargetPlayer(stoner);
 		if (targetName == null) return false;
@@ -145,16 +122,15 @@ public class DockStaff {
 		String reason = (String) stoner.getAttributes().get("staff_ban_reason");
 		if (reason == null) reason = "Banned by staff";
 
-		// Try online player first
 		Stoner target = World.getStonerByName(targetName);
 		if (target != null) {
 			target.setBanned(true);
-			target.setBanLength(System.currentTimeMillis() + (24 * 60 * 60 * 1000L)); // 24 hours
+			target.setBanLength(System.currentTimeMillis() + (24 * 60 * 60 * 1000L));
 			target.send(new SendMessage("[ <col=255>BestBudz</col> ] You have been banned: " + reason));
 			target.logout(true);
 			com.bestbudz.rs2.content.io.sqlite.StonerSave.save(target);
 		} else {
-			// Offline ban via database
+
 			if (!StaffDBUtils.banOfflinePlayer(targetName, reason)) {
 				stoner.send(new SendMessage("[ <col=255>Staff</col> ] Failed to ban " + targetName));
 				return false;
@@ -166,9 +142,6 @@ public class DockStaff {
 		return true;
 	}
 
-	/**
-	 * Simple unban system
-	 */
 	public static boolean unbanPlayer(Stoner stoner) {
 		String targetName = getTargetPlayer(stoner);
 		if (targetName == null) return false;
@@ -183,9 +156,6 @@ public class DockStaff {
 		}
 	}
 
-	/**
-	 * Select target player
-	 */
 	public static boolean selectTarget(Stoner stoner) {
 		List<Stoner> onlinePlayers = getOnlineStoners();
 		if (onlinePlayers.isEmpty()) {
@@ -207,18 +177,12 @@ public class DockStaff {
 		return true;
 	}
 
-	/**
-	 * Clear target player
-	 */
 	public static boolean clearTarget(Stoner stoner) {
 		stoner.getAttributes().remove("staff_target_player");
 		stoner.send(new SendMessage("[ <col=255>Staff</col> ] Target cleared."));
 		return true;
 	}
 
-	/**
-	 * Get online players list
-	 */
 	public static boolean getOnlinePlayers(Stoner stoner) {
 		List<Stoner> players = getOnlineStoners();
 		stoner.send(new SendMessage("[ <col=255>Staff</col> ] " + players.size() + " players online:"));
@@ -232,9 +196,6 @@ public class DockStaff {
 		return true;
 	}
 
-	/**
-	 * Helper method to get online stoners as a list
-	 */
 	private static List<Stoner> getOnlineStoners() {
 		List<Stoner> onlineStoners = new ArrayList<>();
 		Stoner[] stoners = World.getStoners();
@@ -248,11 +209,6 @@ public class DockStaff {
 		return onlineStoners;
 	}
 
-	// === UTILITY METHODS ===
-
-	/**
-	 * Get target player name from attributes
-	 */
 	public static String getTargetPlayer(Stoner stoner) {
 		String target = (String) stoner.getAttributes().get("staff_target_player");
 		if (target == null || target.trim().isEmpty()) {
@@ -262,24 +218,15 @@ public class DockStaff {
 		return target.trim();
 	}
 
-	/**
-	 * Check if player has staff access
-	 */
 	public static boolean hasStaffAccess(Stoner stoner) {
 		return STAFF_ACCESS.containsKey(stoner.getUsername().toLowerCase()) ||
 			StonerConstants.isStaff(stoner);
 	}
 
-	/**
-	 * Get staff level for player
-	 */
 	public static StaffLevel getStaffLevel(Stoner stoner) {
 		return STAFF_ACCESS.getOrDefault(stoner.getUsername().toLowerCase(), null);
 	}
 
-	/**
-	 * Check if player has admin access
-	 */
 	public static boolean requiresAdmin(Stoner stoner) {
 		StaffLevel level = getStaffLevel(stoner);
 		if (level == StaffLevel.ADMIN || level == StaffLevel.OWNER) {
@@ -289,9 +236,6 @@ public class DockStaff {
 		return false;
 	}
 
-	/**
-	 * Check if player has owner access
-	 */
 	public static boolean requiresOwner(Stoner stoner) {
 		StaffLevel level = getStaffLevel(stoner);
 		if (level == StaffLevel.OWNER) {
@@ -301,9 +245,6 @@ public class DockStaff {
 		return false;
 	}
 
-	/**
-	 * Log staff actions
-	 */
 	public static void logAction(Stoner executor, String action, String target, String details) {
 		String log = String.format("[STAFF] %s -> %s on %s: %s",
 			executor.getUsername(), action, target, details);

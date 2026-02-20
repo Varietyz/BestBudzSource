@@ -34,10 +34,6 @@ public class LoginDecoder extends ByteToMessageDecoder {
 		ctx.writeAndFlush(out.getBuffer()).addListener(ChannelFutureListener.CLOSE);
 	}
 
-	/**
-	 * Validates password against stored password (handles both encrypted and legacy plaintext)
-	 * Creates new user if username doesn't exist
-	 */
 	private boolean validatePassword(String username, String enteredPassword) {
 		Connection conn = SQLiteDB.getConnection();
 		String sql = "SELECT password, password_encrypted FROM player WHERE username = ?";
@@ -54,14 +50,14 @@ public class LoginDecoder extends ByteToMessageDecoder {
 				boolean isEncrypted = rs.getInt("password_encrypted") == 1;
 
 				if (isEncrypted) {
-					// Password is encrypted - verify using encryption utility
+
 					return PasswordEncryption.verify(enteredPassword, storedPassword);
 				} else {
-					// Legacy plaintext password - direct comparison
+
 					boolean matches = enteredPassword.equals(storedPassword);
 
 					if (matches) {
-						// Encrypt the password for future use
+
 						migrateUserPassword(username, enteredPassword);
 					}
 
@@ -74,9 +70,6 @@ public class LoginDecoder extends ByteToMessageDecoder {
 		}
 	}
 
-	/**
-	 * Creates a new user with encrypted password
-	 */
 	private boolean createNewUser(String username, String password) {
 		try {
 			String encryptedPassword = PasswordEncryption.encrypt(password);
@@ -100,9 +93,6 @@ public class LoginDecoder extends ByteToMessageDecoder {
 		}
 	}
 
-	/**
-	 * Migrates a single user's password to encrypted format
-	 */
 	private void migrateUserPassword(String username, String plainPassword) {
 		try {
 			String encryptedPassword = PasswordEncryption.encrypt(plainPassword);
@@ -157,7 +147,6 @@ public class LoginDecoder extends ByteToMessageDecoder {
 
 		name = name.trim();
 
-		// Validate password using new encryption-aware method
 		if (!validatePassword(name, pass)) {
 			sendReturnCode(ctx, Utility.LOGIN_RESPONSE_INVALID_CREDENTIALS);
 			return null;
@@ -172,7 +161,7 @@ public class LoginDecoder extends ByteToMessageDecoder {
 		stoner.setUid(uid);
 		stoner.setUsername(name);
 		stoner.setDisplay(name);
-		stoner.setPassword(pass); // Store the plaintext password for the session
+		stoner.setPassword(pass);
 		client.setEnteredPassword(pass);
 		client.setEncryptor(outCipher);
 
@@ -193,7 +182,7 @@ public class LoginDecoder extends ByteToMessageDecoder {
 				return;
 			}
 
-			in.readUnsignedByte(); // ignore
+			in.readUnsignedByte();
 			StreamBuffer.OutBuffer resp = StreamBuffer.newOutBuffer(17);
 			resp.writeLong(0);
 			resp.writeByte(0);
@@ -222,7 +211,7 @@ public class LoginDecoder extends ByteToMessageDecoder {
 				return;
 			}
 
-			in.readUnsignedByte(); // ignore
+			in.readUnsignedByte();
 			int clientVersion = in.readUnsignedShort();
 			int expectedVersion = CLIENT_VERSION;
 
@@ -236,10 +225,10 @@ public class LoginDecoder extends ByteToMessageDecoder {
 				return;
 			}
 
-			in.readByte(); // memory version
-			for (int i = 0; i < 9; i++) in.readInt(); // junk
+			in.readByte();
+			for (int i = 0; i < 9; i++) in.readInt();
 
-			in.readByte(); // magic ID
+			in.readByte();
 			int rsaOpcode = in.readByte();
 			if (rsaOpcode != 100) {
 				System.err.println("RSA block decode failed.");

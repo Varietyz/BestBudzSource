@@ -37,14 +37,12 @@ import java.util.*;
 
 public class ClickButtonPacket extends IncomingPacket {
 
-
 	static {
 		initializeTeleportLocations();
 		initializeShopActions();
 		initializeLeaderboardTypes();
 		initializeButtonHandlers();
 
-		// CRITICAL DEBUG: Check for shop buttons in wrong map
 		System.out.println("DEBUG: Checking for shop buttons in BUTTON_HANDLERS (should be NONE):");
 		for (Integer shopButtonId : SHOP_ACTIONS.keySet()) {
 			if (BUTTON_HANDLERS.containsKey(shopButtonId)) {
@@ -62,7 +60,6 @@ public class ClickButtonPacket extends IncomingPacket {
 		initializeButtonHandlers();
 	}
 
-	// Helper methods for button actions
 	public static void handleStaffCommands(Stoner stoner) {
 		if (!StonerConstants.isStaff(stoner)) return;
 
@@ -135,13 +132,13 @@ public class ClickButtonPacket extends IncomingPacket {
 
 		switch (currentMethod) {
 			case CASH:
-				// Currently cash, switch to debit
+
 				stoner.setPouchPayment(true);
 				stoner.send(new SendMessage("You will now be paying with your Debit Card."));
 				break;
 
 			case DEBIT:
-				// Currently debit, switch to cash
+
 				stoner.setPouchPayment(false);
 				stoner.send(new SendMessage("You will now be paying with your Cash."));
 				break;
@@ -283,7 +280,6 @@ public class ClickButtonPacket extends IncomingPacket {
 				stoner.send(new SendRemoveInterfaces());
 	}
 
-
 	public static void rechargeResonance(Stoner stoner) {
 		if (stoner.getProfession().getGrades()[Professions.RESONANCE] < stoner.getMaxGrades()[Professions.RESONANCE]) {
 			stoner.getProfession().setGrade(Professions.RESONANCE, stoner.getMaxGrades()[Professions.RESONANCE]);
@@ -321,14 +317,12 @@ public class ClickButtonPacket extends IncomingPacket {
 		stoner.getSpecialAssault().update();
 		stoner.getSpecialAssault().setInitialized(false);
 
-		// Update profession grades
 		stoner.getGrades()[Professions.ASSAULT] = (short) (stoner.getMaxGrades()[Professions.ASSAULT] * 0.9);
 		stoner.getGrades()[Professions.AEGIS] = (short) (stoner.getMaxGrades()[Professions.AEGIS] * 0.9);
 		stoner.getGrades()[Professions.SAGITTARIUS] = (short) (stoner.getMaxGrades()[Professions.SAGITTARIUS] * 0.9);
 		stoner.getGrades()[Professions.MAGE] = (short) (stoner.getMaxGrades()[Professions.MAGE] * 0.9);
 		stoner.getGrades()[Professions.VIGOUR] = (short) (stoner.getMaxGrades()[Professions.VIGOUR] * 1.2);
 
-		// Update profession displays
 		stoner.getProfession().update(Professions.ASSAULT);
 		stoner.getProfession().update(Professions.AEGIS);
 		stoner.getProfession().update(Professions.SAGITTARIUS);
@@ -337,7 +331,6 @@ public class ClickButtonPacket extends IncomingPacket {
 
 		stoner.getUpdateFlags().sendForceMessage("Raarrrrrgggggghhhhhhh!");
 	}
-
 
 	@Override
 	public int getMaxDuplicates() {
@@ -348,22 +341,18 @@ public class ClickButtonPacket extends IncomingPacket {
 	public void handle(Stoner stoner, StreamBuffer.InBuffer in, int opcode, int length) {
 		int buttonId = parseButtonId(in);
 
-		// Early exit conditions
 		if (shouldIgnoreClick(stoner)) {
 			return;
 		}
 
-		// Debug logging for developers
 		logButtonClick(stoner, buttonId);
 
-		// CRITICAL DEBUG: Check if this is a shop button
 		if (SHOP_ACTIONS.containsKey(buttonId)) {
 			if (StonerConstants.isOwner(stoner)) {
 				System.out.println("DEBUG: Button " + buttonId + " is a SHOP BUTTON - should be handled!");
 			}
 		}
 
-		// Handle special cases first
 		if (handleSpecialCases(stoner, buttonId)) {
 			if (StonerConstants.isOwner(stoner)) {
 				System.out.println("DEBUG: Button " + buttonId + " handled by special cases");
@@ -371,7 +360,6 @@ public class ClickButtonPacket extends IncomingPacket {
 			return;
 		}
 
-		// Handle mapped button actions (from static map)
 		ButtonHandler handler = BUTTON_HANDLERS.get(buttonId);
 		if (handler != null) {
 			if (StonerConstants.isOwner(stoner)) {
@@ -385,7 +373,6 @@ public class ClickButtonPacket extends IncomingPacket {
 			}
 		}
 
-		// Handle shop interfaces FIRST (before complex cases)
 		if (handleShopInterfaces(stoner, buttonId)) {
 			if (StonerConstants.isOwner(stoner)) {
 				System.out.println("DEBUG: Button " + buttonId + " handled by shop interfaces");
@@ -393,7 +380,6 @@ public class ClickButtonPacket extends IncomingPacket {
 			return;
 		}
 
-		// Handle teleport locations
 		if (handleTeleportLocations(stoner, buttonId)) {
 			if (StonerConstants.isOwner(stoner)) {
 				System.out.println("DEBUG: Button " + buttonId + " handled by teleport locations");
@@ -401,8 +387,6 @@ public class ClickButtonPacket extends IncomingPacket {
 			return;
 		}
 
-
-		// Handle complex cases that require additional logic
 		if (handleComplexCases(stoner, buttonId)) {
 			if (StonerConstants.isOwner(stoner)) {
 				System.out.println("DEBUG: Button " + buttonId + " handled by complex cases");
@@ -410,14 +394,12 @@ public class ClickButtonPacket extends IncomingPacket {
 			return;
 		}
 
-		// CRITICAL DEBUG: If we reach here with a shop button, something is wrong
 		if (SHOP_ACTIONS.containsKey(buttonId)) {
 			if (StonerConstants.isOwner(stoner)) {
 				System.out.println("ERROR: Shop button " + buttonId + " reached default cases - THIS SHOULD NOT HAPPEN!");
 			}
 		}
 
-		// Handle default cases (plugins, etc.) LAST
 		if (StonerConstants.isOwner(stoner)) {
 			if (buttonId == 50001){
 				System.out.println("DEBUG: Button " + buttonId + " Blocked from falling through!");
@@ -448,16 +430,13 @@ public class ClickButtonPacket extends IncomingPacket {
 	}
 
 	private boolean handleSpecialCases(Stoner stoner, int buttonId) {
-		// Handle drop table search
+
 		if (handleDropTableSearch(stoner, buttonId)) return true;
 
-		// Handle report system
 		if (handleReportSystem(stoner, buttonId)) return true;
 
-		// Handle easter ring
 		if (handleEasterRing(stoner, buttonId)) return true;
 
-		// Handle various content systems
 		if (LoyaltyShop.handleButtons(stoner, buttonId)) return true;
 		if (TeleportHandler.selection(stoner, buttonId)) return true;
 		return ProfessionGoal.handle(stoner, buttonId);
@@ -492,27 +471,24 @@ public class ClickButtonPacket extends IncomingPacket {
 	}
 
 	private boolean handleComplexCases(Stoner stoner, int buttonId) {
-		// Handle volume controls
+
 		if (handleVolumeControls(stoner, buttonId)) return true;
 
-		// Handle brightness controls
 		if (handleBrightnessControls(stoner, buttonId)) return true;
 
-		// Handle special attacks
 		return handleSpecialAttacks(stoner, buttonId);
 
-		// Handle interface navigation with parameters
 	}
 
 	private boolean handleVolumeControls(Stoner stoner, int buttonId) {
-		// Music volume controls
+
 		if (buttonId >= 3163 && buttonId <= 3166) {
 			byte volume = (byte) (3166 - buttonId);
 			stoner.setMusicVolume(volume);
 			stoner.getClient().queueOutgoingPacket(new SendConfig(168, volume));
 			return true;
 		}
-		// Sound volume controls
+
 		else if (buttonId >= 3174 && buttonId <= 3177) {
 			byte volume = (byte) (3177 - buttonId);
 			stoner.setSoundVolume(volume);
@@ -568,7 +544,7 @@ public class ClickButtonPacket extends IncomingPacket {
 	}
 
 	private void handleDefaultCases(Stoner stoner, int buttonId) {
-		// Handle plugin systems in order of priority
+
 		if (GenieLamp.handle(stoner, buttonId)) return;
 		if (GenieReset.handle(stoner, buttonId)) return;
 		if (AchievementButtons.handleButtons(stoner, buttonId)) return;
@@ -599,14 +575,11 @@ public class ClickButtonPacket extends IncomingPacket {
 		}
 	}
 
-	// Button handler interface for cleaner code organization
 	@FunctionalInterface
 	public interface ButtonHandler {
 		void handle(Stoner stoner);
 	}
 
-
-	// Helper class for shop actions
 	public static class ShopAction {
 		final int shopId;
 		final String message;
@@ -616,6 +589,5 @@ public class ClickButtonPacket extends IncomingPacket {
 			this.message = message;
 		}
 	}
-
 
 }

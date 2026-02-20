@@ -16,9 +16,6 @@ import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Main pet management system - handles spawning, pickup, and lifecycle events
- */
 public class PetManager {
 
 	private static final int MAX_ACTIVE_PETS = 5;
@@ -38,20 +35,15 @@ public class PetManager {
 			return true;
 		}
 
-
-
-		// NEW: Check if stoner already has this type of pet active
 		Pet existingPet = getActivePetOfType(stoner, data);
 		if (existingPet != null) {
 			String refusalMessage = generateStonedRefusalMessage(data);
 
-			// Send message to chat
 			stoner.send(new SendMessage(refusalMessage));
 
-			// Make the existing pet "speak" the refusal overhead
 			existingPet.getPetStoner().getUpdateFlags().sendForceMessage(refusalMessage);
 
-			return true; // Don't consume the item, just refuse to spawn
+			return true;
 		}
 
 		if (!removeItemFromInventory(stoner, itemID)) {
@@ -71,10 +63,6 @@ public class PetManager {
 		return true;
 	}
 
-	/**
-	 * NEW: Check if the stoner already has a pet of this type active
-	 * Returns the existing pet if found, null otherwise
-	 */
 	private static Pet getActivePetOfType(Stoner stoner, PetData petData) {
 		for (Pet pet : getActivePets(stoner)) {
 			if (pet.getData() == petData) {
@@ -84,9 +72,6 @@ public class PetManager {
 		return null;
 	}
 
-	/**
-	 * NEW: Generate a funny stoner-culture message for why the pet won't come out
-	 */
 	private static String generateStonedRefusalMessage(PetData petData) {
 		String petName = PetUtils.formatPetDisplayName(petData);
 
@@ -107,7 +92,6 @@ public class PetManager {
 			"Would glitch the matrix, man!"
 		};
 
-		// Pick a random message
 		return messages[(int) (Math.random() * messages.length)];
 	}
 
@@ -138,42 +122,34 @@ public class PetManager {
 		return true;
 	}
 
-	// Modified handleTradeRequest method in PetManager.java
 	public static boolean handleTradeRequest(Stoner stoner, Stoner target) {
-		// Check if the target is a pet
+
 		if (!PetUtils.isPetStoner(target)) {
-			return false; // Not a pet, continue with normal trade
+			return false;
 		}
 
-		// Find the pet object for this pet stoner
 		Pet pet = findActivePet(stoner, target);
 
-		// Check if this pet belongs to the requesting player
 		if (pet == null) {
-			// Pet doesn't belong to this player - RETALIATE!
+
 			retaliatedAttack = true;
 			performPetRetaliation(target, stoner);
 			retaliatedAttack = false;
-			return true; // Handled, don't continue with trade
+			return true;
 		}
 
-		// Attempt to pick up the pet (original logic for owner)
 		if (pickupPet(stoner, target)) {
 			stoner.send(new SendMessage("You pick up your " + PetUtils.formatPetDisplayName(pet.getData()) + "."));
 		}
 
-		return true; // Pet pickup was handled, don't continue with normal trade
+		return true;
 	}
 
-	/**
-	 * Handle pet retaliation against would-be abductors
-	 */
 	private static void performPetRetaliation(Stoner petStoner, Stoner abductor) {
-		// Get pet data for messages
+
 		PetData petData = PetUtils.getPetDataFromUsername(petStoner.getUsername());
 		String petDisplayName = petData != null ? PetUtils.formatPetDisplayName(petData) : "Pet";
 
-		// Random overhead messages for pet (immediate)
 		String[] petOverheads = {
 			"Bad touch! BAD!",
 			"Congratulations, you played yourself.",
@@ -192,7 +168,6 @@ public class PetManager {
 			"You just got rejected by a virtual animal."
 		};
 
-		// Random overhead messages for abductor (delayed)
 		String[] abductorOverheads = {
 			"Ow! Bad " + petDisplayName + "!",
 			"Ouch! That hurt!",
@@ -226,27 +201,21 @@ public class PetManager {
 			"You call that a pet? That's a mini boss!"
 		};
 
-		// Send immediate pet overhead message
 		String petOverhead = petOverheads[(int)(Math.random() * petOverheads.length)];
 		petStoner.getUpdateFlags().sendForceMessage(petOverhead);
 
-		// Chat messages
 		abductor.send(new SendMessage("The " + petDisplayName + " attacks you for trying to steal it!"));
 
-		// Notify owner
 		Stoner owner = (Stoner) petStoner.getAttributes().get("PET_OWNER");
 		if (owner != null && owner.isActive()) {
 			owner.send(new SendMessage("Your " + petDisplayName + " defended itself against " + abductor.getUsername() + "!"));
 		}
 
-		// Set up combat engagement around here (Facing the abducter for during the attack)
 		petStoner.getCombat().setAssaulting(abductor);
 		petStoner.face(abductor);
 
-		// Execute retaliation attack
 		executePetRetaliationAttack(petStoner, abductor);
 
-		// Schedule delayed effects
 		String abductorOverhead = abductorOverheads[(int)(Math.random() * abductorOverheads.length)];
 		com.bestbudz.core.task.TaskQueue.queue(new com.bestbudz.core.task.Task(null, 3) {
 			@Override
@@ -261,16 +230,14 @@ public class PetManager {
 			public void onStop() {}
 		});
 
-		// Schedule hit delivery and combat resolution
 		com.bestbudz.core.task.TaskQueue.queue(new com.bestbudz.core.task.Task(null, 6) {
 			@Override
 			public void execute() {
 				if (abductor.isActive()) {
-					// Apply damage and set combat states
+
 					long newHP = abductor.getGrades()[3];
 					abductor.getGrades()[3] = newHP;
 
-					// Handle death scenario
 					if (newHP <= 0) {
 						String[] deathTaunts = {
 							"LOL, get wrecked noob!",
@@ -303,7 +270,7 @@ public class PetManager {
 						abductor.setLastHitSuccess(true);
 						abductor.checkForDeath();
 					}
-					// after attack landed its hind, reface the owner
+
 					if (owner != null && owner.isActive()) {
 						petStoner.face(owner);
 					}
@@ -317,41 +284,35 @@ public class PetManager {
 		});
 	}
 
-	/**
-	 * Execute a single combat attack using pet's animation and graphics systems
-	 */
 	private static void executePetRetaliationAttack(Stoner petStoner, Stoner abductor) {
-		// Randomly select available combat type for visual effects
+
 		java.util.List<String> availableAttackTypes = new java.util.ArrayList<>();
 		if (petStoner.getAttributes().get("PET_MELEE_ANIMATION") != null) availableAttackTypes.add("MELEE");
 		if (petStoner.getAttributes().get("PET_SAGITTARIUS_ANIMATION") != null) availableAttackTypes.add("SAGITTARIUS");
 		if (petStoner.getAttributes().get("PET_MAGE_ANIMATION") != null) availableAttackTypes.add("MAGE");
 
-		// Force random combat type
 		String attackType = availableAttackTypes.get((int)(Math.random() * availableAttackTypes.size()));
 
-		// Set combat type and guaranteed damage
 		switch (attackType) {
 			case "MELEE":
 				petStoner.getCombat().setCombatType(Combat.CombatTypes.MELEE);
-				petStoner.getCombat().getMelee().setNextDamage(10 + (int)(Math.random() * 40)); // 50-200 guaranteed
+				petStoner.getCombat().getMelee().setNextDamage(10 + (int)(Math.random() * 40));
 				break;
 			case "SAGITTARIUS":
 				petStoner.getCombat().setCombatType(Combat.CombatTypes.SAGITTARIUS);
-				// Sagittarius doesn't have setNextDamage - it uses formula calculation
+
 				break;
 			case "MAGE":
 				petStoner.getCombat().setCombatType(Combat.CombatTypes.MAGE);
-				petStoner.getCombat().getMage().setNextHit(15 + (int)(Math.random() * 60)); // 60-240 guaranteed
+				petStoner.getCombat().getMage().setNextHit(15 + (int)(Math.random() * 60));
 				break;
 		}
 
-		// Force 100% hit success for retaliation
 		petStoner.setLastHitSuccess(true);
 	}
 
 	public static void handleLogout(Stoner stoner) {
-		// Create a copy of the list to avoid ConcurrentModificationException
+
 		List<Pet> activePets = new ArrayList<>(getActivePets(stoner));
 
 		for (Pet pet : activePets) {
@@ -370,7 +331,6 @@ public class PetManager {
 		}
 	}
 
-	// Helper methods
 	private static boolean canSpawnPet(Stoner stoner) {
 		return getActivePets(stoner).size() < MAX_ACTIVE_PETS;
 	}
@@ -385,31 +345,24 @@ public class PetManager {
 	}
 
 	private static void addPetToStoner(Stoner stoner, Pet pet) {
-		// Add to the new pet list
+
 		if (!stoner.getActivePets().contains(pet)) {
 			stoner.getActivePets().add(pet);
 		}
 
-		// IMMEDIATE: Force all pets to their formation positions right now
 		forceAllPetsToFormationPositions(stoner);
 	}
 
-	/**
-	 * Immediately teleport all pets to their correct formation positions
-	 */
 	private static void forceAllPetsToFormationPositions(Stoner owner) {
 		List<Pet> activePets = owner.getActivePets();
 
 		for (int i = 0; i < activePets.size(); i++) {
 			Pet pet = activePets.get(i);
 
-			// Calculate where this pet should be positioned
 			Location formationPos = PetFormation.getFormationPosition(owner, i, activePets.size());
 
-			// FORCE the pet to that position immediately
 			pet.getPetStoner().teleport(formationPos);
 
-			// ALSO set following offset for future owner movement
 			Following following = pet.getPetStoner().getFollowing();
 			if (following instanceof StonerFollowing) {
 				StonerFollowing stonerFollowing = (StonerFollowing) following;
@@ -418,7 +371,6 @@ public class PetManager {
 				stonerFollowing.setFormationOffset(offsetX, offsetY);
 			}
 
-			// Ensure pet is following owner for future movement
 			pet.getPetStoner().getFollowing().setFollow(owner);
 
 			System.out.println("DEBUG: Forced pet " + pet.getPetStoner().getUsername() +
@@ -428,9 +380,6 @@ public class PetManager {
 		}
 	}
 
-	/**
-	 * FIXED: Update all pet positions to maintain formation
-	 */
 	private static void updatePetFormations(Stoner owner) {
 		List<Pet> activePets = owner.getActivePets();
 
@@ -438,7 +387,6 @@ public class PetManager {
 			Pet pet = activePets.get(i);
 			Location formationPos = PetFormation.getFormationPosition(owner, i, activePets.size());
 
-			// FIXED: Cast to StonerFollowing to access the setFormationOffset method
 			Following following = pet.getPetStoner().getFollowing();
 			if (following instanceof StonerFollowing) {
 				StonerFollowing stonerFollowing = (StonerFollowing) following;
@@ -454,7 +402,6 @@ public class PetManager {
 		pet.remove();
 		stoner.getActivePets().remove(pet);
 
-		// CRITICAL FIX: Update formations after removing a pet
 		updatePetFormations(stoner);
 	}
 
@@ -527,11 +474,10 @@ public class PetManager {
 	}
 
 	public static List<Pet> getActivePets(Stoner stoner) {
-		// This uses the new pet list that you'll need to add to Stoner class
+
 		return stoner.getActivePets();
 	}
 
-	// Legacy compatibility methods - delegate to PetUtils
 	public static String formatPetDisplayName(PetData petData) {
 		return PetUtils.formatPetDisplayName(petData);
 	}

@@ -88,13 +88,11 @@ public class MoneyPouch {
 			return;
 		}
 
-		// Check if money pouch is already at max long value
 		if (stoner.getMoneyPouch() >= Long.MAX_VALUE) {
 			stoner.send(new SendMessage("Shit, yous a fancy pants. Really 9A and in need of more? Flex much?"));
 			return;
 		}
 
-		// Cap the amount to prevent overflow when adding to money pouch
 		long maxPossibleAddition = Long.MAX_VALUE - stoner.getMoneyPouch();
 		if (amount > maxPossibleAddition) {
 			amount = maxPossibleAddition;

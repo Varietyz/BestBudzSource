@@ -8,21 +8,19 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 public class KalphiteQueenAbility extends PetAbility {
 
 	public KalphiteQueenAbility() {
-		super("Kalphite Rage", 50, 0.15); // 15% chance, 50 tick cooldown
+		super("Kalphite Rage", 50, 0.15);
 	}
 
 	@Override
 	protected void performAbility(Stoner pet, Entity target) {
-		// Use existing animation/graphic system
+
 		pet.getUpdateFlags().sendForceMessage("*chittering angrily*");
 
-		// Apply temporary attack boost using PetCombatUtils utility
-		PetCombatUtils.applyTemporaryBonus(pet, "ATTACK", 15, 30000); // 30 seconds
+		PetCombatUtils.applyTemporaryBonus(pet, "ATTACK", 15, 30000);
 
-		// Deal extra damage using proper Hit system
 		if (target != null && !target.isDead()) {
 			int extraDamage = 15 + (int)(Math.random() * 15);
-			Hit hit = new Hit(pet, extraDamage, Hit.HitTypes.MELEE); // Physical rage attack
+			Hit hit = new Hit(pet, extraDamage, Hit.HitTypes.MELEE);
 			target.hit(hit);
 		}
 	}

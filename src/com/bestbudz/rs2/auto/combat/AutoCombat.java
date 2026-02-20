@@ -15,10 +15,6 @@ import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 import java.util.List;
 
-/**
- * Redesigned auto-combat system with pure time-based switching and memory for variety
- * Ensures balanced progression across all combat styles without rapid switching
- */
 public class AutoCombat {
 
 	private final Stoner stoner;
@@ -42,9 +38,6 @@ public class AutoCombat {
 		this.meleeStyleManager = new MeleeStyleManager(stoner);
 	}
 
-	/**
-	 * Main processing method - called from Stoner.process()
-	 */
 	public void process() {
 		if (!isAutoCombatActive()) {
 			return;
@@ -66,46 +59,38 @@ public class AutoCombat {
 	}
 
 	private boolean isAutoCombatActive() {
-		// CRITICAL: Always enable AutoCombat for pets
+
 		if (stoner.isPetStoner()) {
 			return false;
 		}
 
 		if (DiscordBotPrivileges.isDiscordBot(stoner)) {
-			return true; // Always active for special entities
+			return true;
 		}
-		return enabled; // User-controlled for normal players
+		return enabled;
 	}
 
 	private void processTargetEngagement(Mob target) {
 		int distance = targetFinder.getDistanceToTarget(target);
 
-		// Check if we should consider gear optimization (every 30 seconds)
 		if (timingManager.shouldCheckGearOptimization()) {
 			handleGearOptimization(target, distance);
 		}
 
-		// Handle melee style rotation when using melee combat
 		CombatTypes currentCombatStyle = equipmentManager.getCurrentCombatStyle();
 		if (currentCombatStyle == CombatTypes.MELEE) {
 			meleeStyleManager.processStyleRotation();
 		}
 
-		// Always attack regardless of gear optimization
 		engageTarget(target);
 	}
 
-	/**
-	 * Handle gear optimization based on timing and variety
-	 */
 	private void handleGearOptimization(Mob target, int distance) {
 		CombatTypes currentStyle = equipmentManager.getCurrentCombatStyle();
 
-		// Update timing manager with current style and gear
 		String gearFingerprint = timingManager.generateGearFingerprint(equipmentManager.getEquippedItems());
 		timingManager.setCurrentStyle(currentStyle, gearFingerprint);
 
-		// Check if we should consider switching styles
 		if (shouldConsiderStyleSwitch(target, distance)) {
 			CombatTypes newStyle = selectOptimalStyle(target, distance, currentStyle);
 			if (newStyle != null && newStyle != currentStyle) {
@@ -114,49 +99,37 @@ public class AutoCombat {
 		}
 	}
 
-	/**
-	 * Determine if we should consider switching styles
-	 */
 	private boolean shouldConsiderStyleSwitch(Mob target, int distance) {
-		// Always switch if no gear equipped
+
 		if (equipmentManager.getCurrentCombatStyle() == null) {
 			return true;
 		}
 
-		// Force variety if stuck too long
 		if (timingManager.shouldForceVariety()) {
 			timingManager.updateVarietyForceTime();
 			stoner.send(new SendMessage("Auto-combat: Forcing style variety after extended period"));
 			return true;
 		}
 
-		// Check if minimum time in current style has passed
 		if (!timingManager.canConsiderStyleSwitch()) {
 			return false;
 		}
 
-		// Check distance-based necessity
 		CombatTypes currentStyle = equipmentManager.getCurrentCombatStyle();
 		if (styleSelector.isStyleSuboptimalForDistance(currentStyle, distance)) {
 			return true;
 		}
 
-		// Probability-based switching with increasing chance over time
 		int switchProbability = timingManager.getStyleSwitchProbability();
 		return Utility.randomNumber(100) < switchProbability;
 	}
 
-	/**
-	 * Select optimal style considering current conditions, distance, and variety
-	 */
 	private CombatTypes selectOptimalStyle(Mob target, int distance, CombatTypes currentStyle) {
-		// Get base optimal style from style selector
+
 		CombatTypes baseOptimal = styleSelector.determineOptimalStyle(target, distance);
 
-		// Get styles that haven't been used recently for variety
 		List<CombatTypes> unusedStyles = timingManager.getUnusedStyles();
 
-		// Calculate scores for all available styles
 		CombatTypes bestStyle = null;
 		int bestScore = -1;
 
@@ -164,7 +137,7 @@ public class AutoCombat {
 
 		for (CombatTypes style : allStyles) {
 			if (!equipmentManager.hasGearForStyle(style)) {
-				continue; // Skip if no gear available
+				continue;
 			}
 
 			int score = calculateStyleScore(style, target, distance, baseOptimal, unusedStyles);
@@ -178,14 +151,10 @@ public class AutoCombat {
 		return bestStyle;
 	}
 
-	/**
-	 * Calculate comprehensive score for a style considering all factors
-	 */
 	private int calculateStyleScore(CombatTypes style, Mob target, int distance,
 									CombatTypes baseOptimal, List<CombatTypes> unusedStyles) {
 		int score = 0;
 
-		// Base preference from config
 		switch (style) {
 			case MELEE:
 				score += AutoCombatConfig.MELEE_BASE_PREFERENCE;
@@ -198,21 +167,16 @@ public class AutoCombat {
 				break;
 		}
 
-		// Target weakness bonus
 		score += getWeaknessBonus(style, target);
 
-		// Distance appropriateness bonus
 		score += getDistanceBonus(style, distance);
 
-		// Optimal style bonus
 		if (style == baseOptimal) {
 			score += 30;
 		}
 
-		// Variety bonus (haven't used recently)
 		score += timingManager.getVarietyBonus(style);
 
-		// Extra bonus for completely unused styles
 		if (unusedStyles.contains(style)) {
 			score += 40;
 		}
@@ -220,9 +184,6 @@ public class AutoCombat {
 		return score;
 	}
 
-	/**
-	 * Get weakness bonus for a style against target
-	 */
 	private int getWeaknessBonus(CombatTypes style, Mob target) {
 		switch (style) {
 			case MELEE:
@@ -236,9 +197,6 @@ public class AutoCombat {
 		}
 	}
 
-	/**
-	 * Get distance appropriateness bonus for a style
-	 */
 	private int getDistanceBonus(CombatTypes style, int distance) {
 		switch (style) {
 			case MELEE:
@@ -255,15 +213,12 @@ public class AutoCombat {
 		}
 	}
 
-	/**
-	 * Execute style switch with proper validation and timing
-	 */
 	private boolean executeStyleSwitch(CombatTypes targetStyle, Mob target) {
-		// Check if this gear setup was recently used
+
 		boolean success = equipmentManager.equipStyleGear(targetStyle);
 
 		if (!success) {
-			// Try fallback styles
+
 			CombatTypes[] fallbackOrder = styleSelector.getFallbackStyleOrder(target,
 				targetFinder.getDistanceToTarget(target));
 
@@ -281,10 +236,10 @@ public class AutoCombat {
 		}
 
 		if (success) {
-			// Validate the switch
+
 			CombatTypes actualStyle = equipmentManager.getCurrentCombatStyle();
 			if (actualStyle == targetStyle) {
-				// Update timing manager with new style
+
 				String gearFingerprint = timingManager.generateGearFingerprint(equipmentManager.getEquippedItems());
 				timingManager.setCurrentStyle(actualStyle, gearFingerprint);
 
@@ -299,9 +254,6 @@ public class AutoCombat {
 		return false;
 	}
 
-	/**
-	 * Engage target with current equipped gear
-	 */
 	private void engageTarget(Mob target) {
 		if (combatHandler.shouldCastSpells(target)) {
 			combatHandler.castSpell(target, AutoCombatConfig.DAMAGE_SPELLS);
@@ -312,28 +264,23 @@ public class AutoCombat {
 		combatHandler.initiateCombat(target);
 	}
 
-	/**
-	 * Toggle auto combat on/off
-	 */
 	public void toggle() {
-    // Discord bot cannot disable auto-combat
+
     if (DiscordBotPrivileges.isDiscordBot(stoner) || stoner.isPetStoner()) {
 			stoner.send(new SendMessage("Auto-combat is always enabled for Discord bots & pets!"));
 			return;
 		}
 
-		// Normal toggle logic
 		enabled = !enabled;
 		String status = enabled ? "enabled" : "disabled";
 		stoner.send(new SendMessage("Auto combat " + status + "."));
 
 		if (enabled) {
-			// Reset timings when re-enabling
+
 			timingManager.resetTimings();
 		}
 	}
 
-	// Getters
 	public boolean isEnabled() {
 		return enabled;
 	}

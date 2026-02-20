@@ -41,7 +41,6 @@ public class ChatBridgePlugin extends DiscordPlugin {
 	public void onEnable(DiscordBot bot) {
 		bot.getJDA().addEventListener(new ChatBridgeListener());
 
-		// Initialize centralized messaging service
 		DiscordMessageService.getInstance().initialize(bot);
 
 		System.out.println("ChatBridgePlugin: Connected to centralized messaging service");
@@ -49,13 +48,10 @@ public class ChatBridgePlugin extends DiscordPlugin {
 
 	@Override
 	public void onDisable() {
-		// Shutdown centralized messaging service
+
 		DiscordMessageService.getInstance().shutdown();
 	}
 
-	/**
-	 * Sanitizes Discord message for game chat
-	 */
 	private String sanitizeDiscordMessage(String content) {
 		String sanitized = DISCORD_FORMATTING_PATTERN.matcher(content).replaceAll("");
 		sanitized = EMOJI_PATTERN.matcher(sanitized).replaceAll("");
@@ -64,9 +60,6 @@ public class ChatBridgePlugin extends DiscordPlugin {
 		return sanitized;
 	}
 
-	/**
-	 * Sends Discord message to game using the ChatBridgeManager
-	 */
 	private void sendDiscordMessageToGame(String username, String content) {
 		String sanitized = sanitizeDiscordMessage(content);
 
@@ -74,7 +67,6 @@ public class ChatBridgePlugin extends DiscordPlugin {
 			return;
 		}
 
-		// Use the ChatBridgeManager to send the message through the bot player
 		com.bestbudz.rs2.entity.stoner.net.in.impl.ChatBridgeManager
 			.sendDiscordMessageToGame(username, sanitized);
 	}

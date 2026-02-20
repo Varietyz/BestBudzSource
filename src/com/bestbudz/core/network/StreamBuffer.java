@@ -93,7 +93,6 @@ public abstract class StreamBuffer {
 
 	  private final ByteBuf buffer;
 
-
 	  public InBuffer(ByteBuf buffer) {
       this.buffer = buffer;
     }
@@ -595,6 +594,5 @@ public abstract class StreamBuffer {
     }
 
   }
-
 
 }

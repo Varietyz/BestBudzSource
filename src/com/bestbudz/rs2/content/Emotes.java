@@ -23,7 +23,6 @@ public class Emotes {
 		new HashMap<Integer, ProfessionCapeEmote>();
 	private static final int[] YOYO_ANIMATIONS = {1457, 1458, 1459, 1460};
 
-	// Track active emotes with their starting locations
 	private static final Map<Stoner, EmoteTracker> activeEmotes = new ConcurrentHashMap<>();
 
 	public static boolean clickButton(Stoner stoner, int id) {
@@ -158,29 +157,26 @@ public class Emotes {
 	}
 
 	private static void startEmoteTracking(Stoner stoner, int animId, int gfxId) {
-		// Store current location when emote starts
+
 		EmoteTracker tracker = new EmoteTracker(stoner.getLocation(), animId, gfxId);
 		activeEmotes.put(stoner, tracker);
 
-		// Start monitoring thread for this player
 		new Thread(() -> {
 			while (activeEmotes.containsKey(stoner)) {
 				try {
-					Thread.sleep(100); // Check every 100ms
+					Thread.sleep(100);
 
 					EmoteTracker currentTracker = activeEmotes.get(stoner);
 					if (currentTracker != null) {
-						// Check if location changed
+
 						if (stoner.getLocation().getX() != currentTracker.startX ||
 							stoner.getLocation().getY() != currentTracker.startY) {
 
-							// Cancel emote
 							stoner.getUpdateFlags().sendAnimation(new Animation(-1));
 							if (currentTracker.gfxId != -1) {
 								stoner.getUpdateFlags().sendGraphic(Graphic.lowGraphic(-1, 0));
 							}
 
-							// Remove tracking
 							activeEmotes.remove(stoner);
 							break;
 						}
@@ -198,11 +194,9 @@ public class Emotes {
 			return;
 		}
 
-		// Store current location when emote starts
 		EmoteTracker tracker = new EmoteTracker(stoner.getLocation(), 1457, -1);
 		activeEmotes.put(stoner, tracker);
 
-		// Start the yo-yo sequence thread
 		new Thread(() -> {
 			java.util.Random random = new java.util.Random();
 
@@ -210,22 +204,19 @@ public class Emotes {
 				try {
 					EmoteTracker currentTracker = activeEmotes.get(stoner);
 					if (currentTracker != null) {
-						// Check if location changed
+
 						if (stoner.getLocation().getX() != currentTracker.startX ||
 							stoner.getLocation().getY() != currentTracker.startY) {
 
-							// Cancel emote
 							stoner.getUpdateFlags().sendAnimation(new Animation(-1));
 							activeEmotes.remove(stoner);
 							break;
 						}
 
-						// Play random yo-yo animation
 						int randomAnim = YOYO_ANIMATIONS[random.nextInt(YOYO_ANIMATIONS.length)];
 						stoner.getUpdateFlags().sendAnimation(new Animation(randomAnim));
 
-						// Wait for animation to complete (varies by animation, using average)
-						Thread.sleep(1300 + random.nextInt(300)); // 2-3 seconds
+						Thread.sleep(1300 + random.nextInt(300));
 					}
 				} catch (InterruptedException e) {
 					break;

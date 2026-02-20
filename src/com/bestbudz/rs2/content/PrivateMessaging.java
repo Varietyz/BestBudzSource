@@ -26,7 +26,7 @@ public class PrivateMessaging {
 	public PrivateMessaging(Stoner stoner) {
 		this.stoner = stoner;
 		try {
-			// load once for this session
+
 			everyone.addAll(SQLiteDB.getAllPlayerUsernames());
 		} catch (SQLException e) {
 			throw new RuntimeException("Could not load player list", e);
@@ -44,20 +44,17 @@ public class PrivateMessaging {
 	public void connect() {
 		stoner.getClient().queueOutgoingPacket(new SendPMServer(2));
 
-		// 1) online stoners
-// ONLINE stoners
 		Arrays.stream(World.getStoners())
 			.filter(Objects::nonNull)
 			.filter(Stoner::isActive)
 			.map(s -> s.getUsername().toLowerCase())
 			.sorted()
-			.forEach(name -> sendFriendUpdate(name));   // ← lambda instead of this::sendFriendUpdate
+			.forEach(name -> sendFriendUpdate(name));
 
-// OFFLINE stoners
 		everyone.stream()
 			.filter(name -> World.getStonerByName(name) == null)
 			.sorted()
-			.forEach(name -> sendFriendUpdate(name)); // same here
+			.forEach(name -> sendFriendUpdate(name));
 
 	}
 
@@ -67,7 +64,7 @@ public class PrivateMessaging {
 		stoner.getClient().queueOutgoingPacket(new SendFriendUpdate(id, online));
 	}
 
-	public Set<String> getIgnores() {      // ← change the return type
+	public Set<String> getIgnores() {
 		return ignores;
 	}
 

@@ -8,9 +8,6 @@ import com.bestbudz.rs2.entity.Location;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Simple object detection for Discord bot
- */
 public class DiscordBotObjectHandler {
 
 	private final DiscordBotStoner bot;
@@ -19,9 +16,6 @@ public class DiscordBotObjectHandler {
 		this.bot = bot;
 	}
 
-	/**
-	 * Find all objects within radius
-	 */
 	public Set<RSObject> findObjectsInRadius(Location center, int radius) {
 		Set<RSObject> objects = new HashSet<>();
 
@@ -44,9 +38,6 @@ public class DiscordBotObjectHandler {
 		return objects;
 	}
 
-	/**
-	 * Find specific object type in radius
-	 */
 	public Set<RSObject> findObjectsByType(Location center, int radius, int[] objectIds) {
 		Set<RSObject> matchingObjects = new HashSet<>();
 		Set<RSObject> allObjects = findObjectsInRadius(center, radius);
@@ -63,9 +54,6 @@ public class DiscordBotObjectHandler {
 		return matchingObjects;
 	}
 
-	/**
-	 * Calculate distance between locations
-	 */
 	private int calculateDistance(Location loc1, Location loc2) {
 		int deltaX = Math.abs(loc1.getX() - loc2.getX());
 		int deltaY = Math.abs(loc1.getY() - loc2.getY());

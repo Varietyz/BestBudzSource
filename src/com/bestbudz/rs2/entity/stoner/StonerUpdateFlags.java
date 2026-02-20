@@ -97,10 +97,10 @@ public final class StonerUpdateFlags {
 		stonerTitle = stoner.getStonerTitle();
 
 		if (stoner.isPet() && PetManager.isPetUsername(stoner.getUsername())) {
-			// For pets: Use the display name that was set during pet creation (e.g., "PlayerName's Giant Eagle")
+
 			displayName = stoner.getDisplay() != null ? stoner.getDisplay() : "Unknown Pet";
 		} else {
-			// For regular players and Discord bot: Use their username
+
 			displayName = stoner.getUsername();
 		}
 
@@ -233,14 +233,11 @@ public final class StonerUpdateFlags {
 		turn90CWEmote = ((short) stoner.getAnimations().getTurn90CWEmote());
 		turn90CCWEmote = ((short) stoner.getAnimations().getTurn90CCWEmote());
 
-		// CRITICAL FIX: Use UNIQUE identifier for update comparison, but display name for appearance
-		// This ensures each entity (pet, Discord bot, regular player) has a unique update identifier
 		if (stoner.isPet() && PetManager.isPetUsername(stoner.getUsername())) {
-			// For pets: Use the unique generated username for update system (internal tracking)
-			// This includes timestamps and owner info making it truly unique
-			username = stoner.getUsername(); // e.g., "Pet_GIANT_EAGLE_PlayerName_1234567890"
+
+			username = stoner.getUsername();
 		} else {
-			// For regular players and Discord bot: Use their actual username
+
 			username = stoner.getUsername();
 		}
 
@@ -263,7 +260,6 @@ public final class StonerUpdateFlags {
 		return 0;
 	}
 
-	// ... (rest of the getter methods remain the same)
 	public byte getAnimationDelay() {
 		return animationDelay;
 	}

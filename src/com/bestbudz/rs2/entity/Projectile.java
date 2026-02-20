@@ -35,7 +35,6 @@ public class Projectile {
 		this.curve = ((byte) curve);
 	}
 
-	// Enhanced copy constructor for proper cloning
 	public Projectile(Projectile p) {
 		id = p.id;
 		size = p.size;
@@ -46,16 +45,15 @@ public class Projectile {
 		curve = p.curve;
 	}
 
-	// NEW: Factory method specifically for creating scaled pet projectiles
 	public static Projectile createPetProjectile(Projectile original) {
-		// Scale to 30% of original size
+
 		int scaledStartHeight = Math.max(1, (int)(original.getStartHeight() * 0.3));
 		int scaledEndHeight = Math.max(1, (int)(original.getEndHeight() * 0.3));
 		int scaledCurve = Math.max(1, (int)(original.getCurve() * 0.3));
 
 		return new Projectile(
 			original.getId(),
-			1, // Keep size small for pets
+			1,
 			original.getDelay(),
 			original.getDuration(),
 			scaledStartHeight,

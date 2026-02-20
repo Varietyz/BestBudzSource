@@ -38,7 +38,7 @@ public class ObjectManager {
   }
 
 	public static void declare() {
-		// Clear existing active objects
+
 		for (GameObject obj : active) {
 			send(getBlankObject(obj.getLocation()));
 		}
@@ -67,8 +67,8 @@ public class ObjectManager {
 		spawnWithObject(14855, 3448, 2912, 0, 10, 0);
 		spawnWithObject(14854, 3447, 2912, 0, 10, 0);
 
-		spawnWithObject(2097, 3443, 2913, 0, 10, 1); // ANVIL
-		spawnWithObject(2097, 3440, 2913, 0, 10, 1); // ANVIL
+		spawnWithObject(2097, 3443, 2913, 0, 10, 1);
+		spawnWithObject(2097, 3440, 2913, 0, 10, 1);
 		spawnWithObject(2030, 3439, 2916, 0, 10, 1);
 
 		spawnWithObject(26181, 3443, 2922, 0, 10, 1);
@@ -87,7 +87,6 @@ public class ObjectManager {
 		spawnWithObject(1276, 3436, 2918, 0, 10, 1);
 		spawnWithObject(1276, 3432, 2898, 0, 10, 1);
 
-		// Decorative or map-specific objects (11764 group)
 		int[][] coords11764 = {
 			{3435, 2913}, {3432, 2917}, {3429, 2921},
 			{3432, 2903}, {3432, 2895}, {3435, 2887}
@@ -96,7 +95,6 @@ public class ObjectManager {
 			spawnWithObject(11764, pos[0], pos[1], 0, 10, 1);
 		}
 
-		// Multi-spot repeated types
 		spawnWithObject(11762, 3434, 2921, 0, 10, 1);
 		spawnWithObject(11762, 3420, 2920, 0, 10, 1);
 		spawnWithObject(11762, 3420, 2911, 0, 10, 1);
@@ -112,14 +110,12 @@ public class ObjectManager {
 		spawnWithObject(11756, 3413, 2922, 0, 10, 1);
 		spawnWithObject(11756, 3443, 2887, 0, 10, 1);
 
-		// Portal-like objects
 		spawnWithObject(7134, 3437, 2914, 0, 10, 1);
 		spawnWithObject(7134, 3436, 2917, 0, 10, 1);
 		spawnWithObject(7134, 3432, 2920, 0, 10, 1);
 		spawnWithObject(7134, 3437, 2921, 0, 10, 1);
 		spawnWithObject(7134, 3438, 2912, 0, 10, 1);
 
-		// Custom areas - group 1
 		spawnWithObject(11744, 3446, 2916, 0, 10, 3);
 		spawnWithObject(11744, 3446, 2915, 0, 10, 3);
 		spawnWithObject(14175, 3195, 3942, 0, 10, 3);
@@ -127,7 +123,6 @@ public class ObjectManager {
 		spawnWithObject(14175, 3175, 3937, 0, 10, 3);
 		spawnWithObject(14175, 3175, 3943, 0, 10, 3);
 
-		// Cleanup area - group 2
 		int[][] deleteCoords = {
 			{1863, 5328}, {1863, 5326}, {1863, 5323},
 			{1862, 5327}, {1862, 5326}, {1862, 5325},
@@ -140,7 +135,6 @@ public class ObjectManager {
 			deleteWithObject(coord[0], coord[1], 0);
 		}
 
-		// Replacements for group 2
 		spawnWithObject(1, 1866, 5323, 0, 10, 0);
 		spawnWithObject(1, 1865, 5323, 0, 10, 0);
 		spawnWithObject(11005, 1864, 5323, 0, 10, 1);
@@ -151,22 +145,18 @@ public class ObjectManager {
 			spawnWithObject(11744, x, 5330, 0, 10, 0);
 		}
 
-		// Other regions
 		spawnWithObject(11744, 2804, 3463, 0, 10, 1);
 		spawnWithObject(11744, 3599, 3522, 0, 10, 0);
 		spawnWithObject(11744, 3056, 3311, 0, 10, 0);
 		spawnWithObject(11744, 2662, 3375, 0, 10, 0);
 		spawnWithObject(11744, 2930, 4821, 0, 10, 0);
 
-		// HOME
 		spawnWithObject(26149, 3425, 2915, 0, 10, 0);
 
-		// Legacy cleanup - wilderness/legacy tiles
 		delete(3079, 3501, 0);
 		delete(3080, 3501, 0);
 		delete(3445, 3554, 2);
 
-		// Misc removals
 		remove(3431, 2891, 0);
 		remove(3431, 2892, 0);
 		deleteWithObject(3429, 2898, 0);
@@ -183,44 +173,43 @@ public class ObjectManager {
 		deleteWithObject(3444, 2904, 0);
 		deleteWithObject(3444, 2905, 0);
 
-		//BLOOD TRIAL
-		remove(2037, 4529, 0); // Center Table
-		remove(2037, 4527, 0); // Center Table
-		remove(2035, 4529, 0); // Center Table
-		remove(2035, 4527, 0); // Center Table
+		remove(2037, 4529, 0);
+		remove(2037, 4527, 0);
+		remove(2035, 4529, 0);
+		remove(2035, 4527, 0);
 
-		remove(2036, 4521, 0); // Throne
+		remove(2036, 4521, 0);
 
-		remove(2039, 4535, 0); // Pillar
-		remove(2039, 4521, 0); // Pillar
-		remove(2034, 4535, 0); // Pillar
-		remove(2034, 4521, 0); // Pillar
+		remove(2039, 4535, 0);
+		remove(2039, 4521, 0);
+		remove(2034, 4535, 0);
+		remove(2034, 4521, 0);
 
-		remove(2044, 4539, 0); // Chair
-		remove(2044, 4537, 0); // Table
-		remove(2044, 4536, 0); // Chair
-		remove(2044, 4535, 0); // Chair
-		remove(2044, 4533, 0); // Table
-		remove(2044, 4532, 0); // Chair
-		remove(2044, 4526, 0); // Chair
-		remove(2044, 4524, 0); // Table
-		remove(2044, 4523, 0); // Chair
-		remove(2044, 4522, 0); // Chair
-		remove(2044, 4520, 0); // Table
-		remove(2044, 4519, 0); // Chair
+		remove(2044, 4539, 0);
+		remove(2044, 4537, 0);
+		remove(2044, 4536, 0);
+		remove(2044, 4535, 0);
+		remove(2044, 4533, 0);
+		remove(2044, 4532, 0);
+		remove(2044, 4526, 0);
+		remove(2044, 4524, 0);
+		remove(2044, 4523, 0);
+		remove(2044, 4522, 0);
+		remove(2044, 4520, 0);
+		remove(2044, 4519, 0);
 
-		remove(2029, 4539, 0); // Chair
-		remove(2029, 4537, 0); // Table
-		remove(2029, 4536, 0); // Chair
-		remove(2029, 4535, 0); // Chair
-		remove(2029, 4533, 0); // Table
-		remove(2029, 4532, 0); // Chair
-		remove(2029, 4526, 0); // Chair
-		remove(2029, 4524, 0); // Table
-		remove(2029, 4523, 0); // Chair
-		remove(2029, 4522, 0); // Chair
-		remove(2029, 4520, 0); // Table
-		remove(2029, 4519, 0); // Chair
+		remove(2029, 4539, 0);
+		remove(2029, 4537, 0);
+		remove(2029, 4536, 0);
+		remove(2029, 4535, 0);
+		remove(2029, 4533, 0);
+		remove(2029, 4532, 0);
+		remove(2029, 4526, 0);
+		remove(2029, 4524, 0);
+		remove(2029, 4523, 0);
+		remove(2029, 4522, 0);
+		remove(2029, 4520, 0);
+		remove(2029, 4519, 0);
 
 	}
 
@@ -323,9 +312,9 @@ public class ObjectManager {
       var obj = register.pollFirst();
       if (obj == null) continue;
 
-      active.remove(obj); // ensures no duplicates
-      active.add(obj); // re-registers it
-      send.add(obj); // queues for sending
+      active.remove(obj);
+      active.add(obj);
+      send.add(obj);
     }
   }
 

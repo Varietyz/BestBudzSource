@@ -6,7 +6,6 @@ import com.bestbudz.rs2.entity.mob.Mob;
 import com.bestbudz.rs2.entity.stoner.Stoner;
 import com.bestbudz.rs2.entity.stoner.net.out.impl.SendMessage;
 
-
 public abstract class WaveDefinition {
 	private final int waveNumber;
 
@@ -18,48 +17,30 @@ public abstract class WaveDefinition {
 		return waveNumber;
 	}
 
-	/**
-	 * Called when the wave starts - spawn all NPCs and setup wave mechanics
-	 */
 	public abstract void spawnNpcs(Stoner player);
 
-	/**
-	 * Called when an NPC dies - handle any special death mechanics
-	 * @param player The player
-	 * @param mob The mob that died
-	 * @return true if special handling occurred, false for default behavior
-	 */
 	public boolean onNpcDeath(Stoner player, Mob mob) {
-		return false; // Default: no special handling
+		return false;
 	}
 
-	/**
-	 * Called when wave starts - setup any special mechanics
-	 */
 	public void onWaveStart(Stoner player) {
-		// Record wave start time for completion tracking
+
 		player.getBloodTrialDetails().setWaveStartTime(System.currentTimeMillis());
 
-		// Send wave start message
 		StringBuilder message = new StringBuilder(64);
 		message.append("Wave ").append(waveNumber + 1).append(" begins!");
 		player.send(new SendMessage(message.toString()));
 	}
 
-	/**
-	 * Called when wave completes - cleanup and rewards
-	 */
 	public void onWaveComplete(Stoner player) {
-		// Calculate completion time
+
 		long startTime = player.getBloodTrialDetails().getWaveStartTime();
 		long completionTime = System.currentTimeMillis() - startTime;
 		String timeString = formatTime(completionTime);
 
-		// Build completion message
 		StringBuilder message = new StringBuilder(128);
 		message.append("Wave ").append(waveNumber + 1).append(" completed in ").append(timeString);
 
-		// Add next wave info (if not final wave)
 		if (waveNumber < WaveRegistry.getMaxWaves() - 1) {
 			message.append(" - Wave ").append(waveNumber + 2).append(" starting soon!");
 		} else {
@@ -69,9 +50,6 @@ public abstract class WaveDefinition {
 		player.send(new SendMessage(message.toString()));
 	}
 
-	/**
-	 * Formats milliseconds into a readable time string
-	 */
 	private String formatTime(long milliseconds) {
 		if (milliseconds < 1000) {
 			return "< 1 second";
@@ -94,9 +72,6 @@ public abstract class WaveDefinition {
 		return time.toString();
 	}
 
-	/**
-	 * Utility method for spawning a single NPC at random location
-	 */
 	protected Mob spawnNpc(Stoner player, short npcId) {
 		Location spawnLocation = BloodTrialSpawns.getRandomSpawnLocation(player.getBloodTrialDetails().getZ());
 		Mob mob = new Mob(player, npcId, false, false, false, spawnLocation);
@@ -106,9 +81,6 @@ public abstract class WaveDefinition {
 		return mob;
 	}
 
-	/**
-	 * Utility method for spawning NPC at specific location
-	 */
 	protected Mob spawnNpcAt(Stoner player, short npcId, Location location) {
 		Mob mob = new Mob(player, npcId, false, false, false, location);
 		mob.getFollowing().setIgnoreDistance(true);
@@ -117,13 +89,6 @@ public abstract class WaveDefinition {
 		return mob;
 	}
 
-	/**
-	 * Centralized split mechanic - spawns multiple NPCs at the death location
-	 * @param player The player
-	 * @param deadMob The mob that died
-	 * @param spawnId The NPC ID to spawn
-	 * @param count How many to spawn
-	 */
 	protected void splitNpc(Stoner player, Mob deadMob, short spawnId, int count) {
 		Location deathLocation = deadMob.getLocation();
 
@@ -136,27 +101,20 @@ public abstract class WaveDefinition {
 		}
 	}
 
-	/**
-	 * Finds a nearby location for split spawns to avoid stacking
-	 * @param center The center location (where original mob died)
-	 * @param index The spawn index (0, 1, 2, etc.)
-	 * @return A location near the center but offset
-	 */
 	private Location findNearbySpawnLocation(Location center, int index) {
-		// Define offset patterns around the death location
+
 		int[][] offsets = {
-			{0, 0},   // First spawn at exact location
-			{1, 0},   // Second spawn 1 tile east
-			{-1, 0},  // Third spawn 1 tile west
-			{0, 1},   // Fourth spawn 1 tile north
-			{0, -1},  // Fifth spawn 1 tile south
-			{1, 1},   // Sixth spawn northeast
-			{-1, -1}, // Seventh spawn southwest
-			{1, -1},  // Eighth spawn southeast
-			{-1, 1}   // Ninth spawn northwest
+			{0, 0},
+			{1, 0},
+			{-1, 0},
+			{0, 1},
+			{0, -1},
+			{1, 1},
+			{-1, -1},
+			{1, -1},
+			{-1, 1}
 		};
 
-		// Use modulo to cycle through patterns if more spawns than patterns
 		int patternIndex = index % offsets.length;
 		int[] offset = offsets[patternIndex];
 

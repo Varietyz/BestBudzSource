@@ -1,11 +1,9 @@
 package com.bestbudz.core.cache.map;
 
 import com.bestbudz.core.cache.ByteStreamExt;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;

@@ -18,8 +18,6 @@ public class OttoGodblessed extends Dialogue {
   public boolean clickButton(int id) {
     switch (id) {
 
-
-
     }
     return false;
   }

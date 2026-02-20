@@ -33,11 +33,6 @@ public class Quarrying {
     Ore.declare();
   }
 
-	/**
-	 * CRITICAL FIXES for Quarrying.java - Discord Bot Integration
-	 * Replace the existing clickRock method with this implementation
-	 */
-
 	public static boolean clickRock(Stoner stoner, RSObject object) {
 		if (stoner.getProfession().locked() || object == null) {
 			return false;
@@ -45,34 +40,30 @@ public class Quarrying {
 
 		Ore ore = Ore.get(object.getId());
 		if (ore == null) {
-			//System.out.println("DEBUG: No ore found for object ID: " + object.getId());
+
 			return false;
 		}
 
-		// FIXED: Proper Discord bot detection
 		boolean isDiscordBot = isDiscordBot(stoner);
-		//System.out.println("DEBUG: Processing quarrying for " + stoner.getUsername() + ", isDiscordBot: " + isDiscordBot);
 
 		Pickaxe pickaxe = Pickaxe.TOOL_RING;
 
 		if (stoner.getCombat().inCombat() || stoner.getCombat().getAssaulting() != null) {
 			stoner.send(new SendMessage("You can't do that right now!"));
-			//System.out.println("DEBUG: Player in combat, cannot mine");
+
 			return false;
 		}
 
-		// FIXED: Proper inventory check for both players and bots
 		if (!isDiscordBot && stoner.getBox().getTakenSlots() == 28) {
 			DialogueManager.sendStatement(stoner, "Your box is full!");
-			//System.out.println("DEBUG: Normal player inventory full");
+
 			return false;
 		}
-		// Discord bot doesn't need inventory check due to auto-banking
 
 		if (!isDiscordBot) {
 			stoner.send(new SendMessage("You generated a pickaxe and started swinging at the rock."));
 		} else {
-			//System.out.println("DEBUG: Discord bot starting to mine " + ore.getName());
+
 		}
 
 		int ticks = ore.immunity == -1 ? 2 : ore.getImmunity() -
@@ -85,32 +76,28 @@ public class Quarrying {
 
 		int time = ore.getName().equalsIgnoreCase("gem rock") ? gemTick : ticks;
 
-		//System.out.println("DEBUG: Mining will take " + time + " ticks for " + ore.getName());
-
 		Pickaxe finalPickaxe = pickaxe;
 		TaskQueue.queue(new Task(stoner, 1, false, StackType.STACK, BreakType.ON_MOVE, TaskIdentifier.CURRENT_ACTION) {
 			int ticks = 0;
 
 			@Override
 			public void execute() {
-				// FIXED: Proper inventory check during execution
+
 				if (!isDiscordBot && stoner.getBox().getFreeSlots() == 0) {
 					DialogueManager.sendStatement(stoner, "Your box is full!");
-					//System.out.println("DEBUG: Stopping mining - inventory full during execution");
+
 					stop();
 					return;
 				}
 
 				if (ticks++ == time || DEAD_ORES.contains(new Location(object.getX(), object.getY(), object.getZ()))) {
-					// FIXED: Single reward per completion
-					//System.out.println("DEBUG: Mining completed for " + ore.getName() + " after " + ticks + " ticks");
+
 					addQuarryReward(stoner, ore, isDiscordBot);
 					stoner.getProfession().addExperience(Professions.QUARRYING, ore.getExp());
 					AchievementHandler.activateAchievement(stoner, AchievementList.QUARRY_12500_ROCKS, 1);
 
 					ticks = 0;
 
-					// FIXED: Proper completion check
 					if (!isDiscordBot && stoner.getBox().getFreeSlots() == 0) {
 						DialogueManager.sendStatement(stoner, "Your box is full!");
 						stop();
@@ -118,16 +105,13 @@ public class Quarrying {
 					return;
 				}
 
-				// Show mining animation
 				stoner.getUpdateFlags().sendAnimation(finalPickaxe.getAnimation());
 			}
 
 			@Override
 			public void onStop() {
 				stoner.getUpdateFlags().sendAnimation(new Animation(65535));
-				//System.out.println("DEBUG: Mining task stopped for " + stoner.getUsername());
 
-				// Handle rock replacement
 				if (ore.getReplacement() > 0) {
 					ObjectManager.spawnWithObject(ore.getReplacement(), object.getX(), object.getY(),
 						object.getZ(), object.getType(), object.getFace());
@@ -151,42 +135,31 @@ public class Quarrying {
 			}
 		});
 
-		//System.out.println("DEBUG: Successfully queued mining task for " + stoner.getUsername());
 		return true;
 	}
 
-	/**
-	 * FIXED: Simple Discord bot check
-	 */
 	private static boolean isDiscordBot(Stoner stoner) {
 		return stoner instanceof com.bestbudz.core.discord.stonerbot.DiscordBotStoner ||
 			(stoner.getUsername() != null &&
 				stoner.getUsername().equals(DiscordBotDefaults.DEFAULT_USERNAME));
 	}
 
-	/**
-	 * FIXED: Single reward system - no duplicates
-	 */
 	private static void addQuarryReward(Stoner stoner, Ore ore, boolean isDiscordBot) {
 		int[] rewards = ore.getOre();
 		int selectedReward = rewards[com.bestbudz.core.util.Utility.random(rewards.length - 1)];
-
-		//System.out.println("DEBUG: Adding reward " + selectedReward + " to " + stoner.getUsername() + " (isBot: " + isDiscordBot + ")");
 
 		if (isDiscordBot && stoner instanceof com.bestbudz.core.discord.stonerbot.DiscordBotStoner) {
 			com.bestbudz.core.discord.stonerbot.DiscordBotStoner bot =
 				(com.bestbudz.core.discord.stonerbot.DiscordBotStoner) stoner;
 
-			// FIXED: Use the existing auto-banking system
 			bot.addItemDirectlyToBank(selectedReward, 1);
-			//System.out.println("DEBUG: Added item " + selectedReward + " directly to Discord bot's bank");
+
 		} else {
-			// Normal player - add to inventory
+
 			stoner.getBox().add(selectedReward, 1);
-			//System.out.println("DEBUG: Added item " + selectedReward + " to normal player's inventory");
+
 		}
 	}
-
 
   public static void main(String[] args) {
     int pickaxe = Pickaxe.TOOL_RING.getWeight();

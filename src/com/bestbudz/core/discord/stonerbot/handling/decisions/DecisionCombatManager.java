@@ -5,21 +5,17 @@ import com.bestbudz.core.discord.stonerbot.handling.decisions.DecisionState;
 import com.bestbudz.rs2.entity.Location;
 import java.util.Random;
 
-/**
- * Handles combat-related decision making and operations
- */
 public class DecisionCombatManager {
 
 	private final DiscordBotStoner bot;
 	private final DecisionState state;
 	private final Random random = new Random();
 
-	// Combat areas for variety
 	private static final Location[] COMBAT_AREAS = {
-		new Location(3417, 2923, 0), // Primary combat area
-		new Location(3362, 2889, 0), // Secondary area
-		new Location(3400, 2950, 0), // Third area
-		new Location(3380, 2900, 0), // Fourth area
+		new Location(3417, 2923, 0),
+		new Location(3362, 2889, 0),
+		new Location(3400, 2950, 0),
+		new Location(3380, 2900, 0),
 	};
 
 	public DecisionCombatManager(DiscordBotStoner bot, DecisionState state) {
@@ -27,23 +23,18 @@ public class DecisionCombatManager {
 		this.state = state;
 	}
 
-	/**
-	 * Check if bot should seek combat (with limitations)
-	 */
 	public boolean shouldSeekCombat(long currentTime) {
-		// Don't seek combat if we just returned home or haven't been away long enough
-		if (currentTime - state.getLastHomeReturnTime() < 120000) { // Wait 2 minutes after returning home
+
+		if (currentTime - state.getLastHomeReturnTime() < 120000) {
 			return false;
 		}
 
-		// Don't seek combat if we've had too many sessions without returning
 		if (state.getCombatSessionsWithoutReturn() >= 2) {
 			return false;
 		}
 
-		// Normal combat seeking logic
-		if (currentTime - state.getLastCombatSession() > 240000) { // 4 minutes
-			if (Math.random() < 0.15) { // 15% chance
+		if (currentTime - state.getLastCombatSession() > 240000) {
+			if (Math.random() < 0.15) {
 				return true;
 			}
 		}
@@ -51,30 +42,23 @@ public class DecisionCombatManager {
 		return false;
 	}
 
-	/**
-	 * Check if should move towards combat area
-	 */
 	public boolean shouldMoveTowardsCombatArea(long currentTime) {
-		// Only if auto-combat is enabled
+
 		if (bot.getAutoCombat() == null || !bot.getAutoCombat().isEnabled()) {
 			return false;
 		}
 
-		// Don't interrupt other activities
 		if (bot.getBotQuarrying().isQuarrying() || bot.getBotLumbering().isLumbering()) {
 			return false;
 		}
 
-		// Don't move too frequently to combat area
 		if (currentTime - state.getLastCombatAreaMoveTime() < 200000) {
 			return false;
 		}
 
-		// Check if we're far from any combat area
 		Location currentLoc = bot.getLocation();
 		int distanceToNearestCombatArea = getDistanceToNearestCombatArea(currentLoc);
 
-		// Move to combat area if far from all of them
 		if (distanceToNearestCombatArea > 12) {
 			boolean hasNearbyNPCs = hasNearbyTargets();
 			if (!hasNearbyNPCs) {
@@ -86,9 +70,6 @@ public class DecisionCombatManager {
 		return false;
 	}
 
-	/**
-	 * Start a combat session
-	 */
 	public void startCombatSession() {
 		if (!state.isCombatSessionActive()) {
 			state.setCombatSessionActive(true);
@@ -97,20 +78,15 @@ public class DecisionCombatManager {
 		}
 	}
 
-	/**
-	 * End combat session
-	 */
 	public void endCombatSession() {
 		if (state.isCombatSessionActive()) {
 			state.setCombatSessionActive(false);
 			bot.getAutoCombat().setEnabled(false);
 
-			// Force stop any active combat
 			if (bot.getCombat().inCombat()) {
 				bot.getCombat().reset();
 			}
 
-			// Reset face direction when ending combat session
 			bot.setFaceDirection(-1);
 			bot.getUpdateFlags().faceEntity(-1);
 			bot.getUpdateFlags().faceDirection(-1);
@@ -120,84 +96,62 @@ public class DecisionCombatManager {
 		}
 	}
 
-	/**
-	 * Check if combat session should end
-	 */
 	public boolean shouldEndCombatSession(long currentTime) {
 		if (!state.isCombatSessionActive()) {
 			return false;
 		}
 
-		// End combat if:
-		// 1. Bot has been out of combat for 10+ seconds
-		// 2. Starting a skill activity
-		// 3. Manual timeout after 5 minutes
-
 		boolean outOfCombatTooLong = !bot.getCombat().inCombat() &&
-			(currentTime - state.getLastCombatSession()) > 10000; // 10 seconds
+			(currentTime - state.getLastCombatSession()) > 10000;
 
 		boolean skillActivityStarting = bot.getBotQuarrying().isQuarrying() ||
 			bot.getBotLumbering().isLumbering();
 
-		boolean combatTimeout = (currentTime - state.getLastCombatSession()) > 300000; // 5 minutes
+		boolean combatTimeout = (currentTime - state.getLastCombatSession()) > 300000;
 
 		return outOfCombatTooLong || skillActivityStarting || combatTimeout;
 	}
 
-	/**
-	 * Seek combat opportunities with area variety
-	 */
 	public void seekCombatOpportunities() {
 		try {
 			Location currentLoc = bot.getLocation();
 
-			// Choose a random combat area instead of always going to the closest
 			Location targetArea = COMBAT_AREAS[random.nextInt(COMBAT_AREAS.length)];
-			// Update Z coordinate to match current location
+
 			targetArea = new Location(targetArea.getX(), targetArea.getY(), currentLoc.getZ());
 
-			// Calculate distance to chosen area
 			int distance = Math.max(
 				Math.abs(currentLoc.getX() - targetArea.getX()),
 				Math.abs(currentLoc.getY() - targetArea.getY())
 			);
 
-			// Move towards the chosen combat area
 			bot.getBotLocation().performMove(targetArea);
 			System.out.println("Bot seeking combat at random area: " + targetArea +
 				" (distance: " + distance + ")");
 
-			// Send status update
 			bot.getActions().sendAutonomousStatusUpdate("Looking for worthy opponents!");
 
 		} catch (Exception e) {
 			System.out.println("Error seeking combat: " + e.getMessage());
-			// Fallback to area wander
+
 			bot.getBotLocation().performAreaWander();
 		}
 	}
 
-	/**
-	 * Move towards combat area with better pathfinding
-	 */
 	public void moveTowardsCombatArea() {
 		try {
 			Location currentLoc = bot.getLocation();
 
-			// Choose a random combat area
-			Location combatArea = COMBAT_AREAS[random.nextInt(Math.min(2, COMBAT_AREAS.length))]; // Use first 2 areas
+			Location combatArea = COMBAT_AREAS[random.nextInt(Math.min(2, COMBAT_AREAS.length))];
 			combatArea = new Location(combatArea.getX(), combatArea.getY(), currentLoc.getZ());
 
-			// Calculate direction towards combat area
 			int deltaX = combatArea.getX() - currentLoc.getX();
 			int deltaY = combatArea.getY() - currentLoc.getY();
 
 			int distance = Math.max(Math.abs(deltaX), Math.abs(deltaY));
 
-			// If we're very far, take bigger steps
 			int maxMove = distance > 20 ? 10 : (distance > 10 ? 8 : 6);
 
-			// Calculate movement direction
 			int moveX = 0;
 			int moveY = 0;
 
@@ -208,9 +162,8 @@ public class DecisionCombatManager {
 				moveY = Math.max(-maxMove, Math.min(maxMove, deltaY));
 			}
 
-			// If we're very close, add some randomness to avoid exact positioning
 			if (Math.abs(deltaX) <= 5 && Math.abs(deltaY) <= 5) {
-				moveX += (int)(Math.random() * 6) - 3; // -3 to +3 random offset
+				moveX += (int)(Math.random() * 6) - 3;
 				moveY += (int)(Math.random() * 6) - 3;
 			}
 
@@ -220,7 +173,6 @@ public class DecisionCombatManager {
 				currentLoc.getZ()
 			);
 
-			// Use the bot's movement system to go there
 			bot.getBotLocation().performMove(targetLoc);
 
 			System.out.println("Bot moving towards combat area: from " + currentLoc +
@@ -228,14 +180,11 @@ public class DecisionCombatManager {
 
 		} catch (Exception e) {
 			System.out.println("Error moving towards combat area: " + e.getMessage());
-			// Fallback to random movement
+
 			bot.getBotLocation().performRandomWalk(6, 2);
 		}
 	}
 
-	/**
-	 * Check for nearby combat targets
-	 */
 	public boolean hasNearbyTargets() {
 		try {
 			java.util.List<com.bestbudz.rs2.entity.mob.Mob> clientNpcs = bot.getClient().getNpcs();
@@ -257,7 +206,6 @@ public class DecisionCombatManager {
 				int distance = Math.abs(botLocation.getX() - npc.getLocation().getX()) +
 					Math.abs(botLocation.getY() - npc.getLocation().getY());
 
-				// Check within auto-combat range (DEFAULT_RADIUS = 10)
 				if (distance <= 10) {
 					targetsFound++;
 					System.out.println("Found combat target: NPC " + npc.getId() +
@@ -276,9 +224,6 @@ public class DecisionCombatManager {
 		}
 	}
 
-	/**
-	 * Get distance to nearest combat area
-	 */
 	private int getDistanceToNearestCombatArea(Location currentLoc) {
 		int minDistance = Integer.MAX_VALUE;
 
@@ -293,14 +238,10 @@ public class DecisionCombatManager {
 		return minDistance;
 	}
 
-	/**
-	 * Debug NPC visibility
-	 */
 	public void debugNpcVisibility() {
 		try {
 			System.out.println("=== Discord Bot NPC Debug ===");
 
-			// Check client NPCs
 			com.bestbudz.rs2.entity.mob.Mob[] clientNpcs = bot.getClient().getNpcs().toArray(new com.bestbudz.rs2.entity.mob.Mob[0]);
 			System.out.println("Client NPCs array length: " + (clientNpcs != null ? clientNpcs.length : "NULL"));
 
@@ -314,7 +255,6 @@ public class DecisionCombatManager {
 			}
 			System.out.println("Active NPCs in client: " + clientNpcCount);
 
-			// Check world NPCs
 			com.bestbudz.rs2.entity.mob.Mob[] worldNpcs = com.bestbudz.rs2.entity.World.getNpcs();
 			System.out.println("World NPCs array length: " + (worldNpcs != null ? worldNpcs.length : "NULL"));
 
@@ -327,7 +267,6 @@ public class DecisionCombatManager {
 					if (npc != null && npc.isActive()) {
 						worldNpcCount++;
 
-						// Check if nearby
 						int distance = Math.max(
 							Math.abs(botLoc.getX() - npc.getLocation().getX()),
 							Math.abs(botLoc.getY() - npc.getLocation().getY())

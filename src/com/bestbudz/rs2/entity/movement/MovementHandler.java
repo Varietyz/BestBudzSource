@@ -44,11 +44,10 @@ public abstract class MovementHandler {
 			reset();
 		}
 
-		// CRITICAL FIX: Reset combat target when manually moving (not combat following)
 		if (entity.getCombat().getAssaulting() != null &&
 			entity.getFollowing().getInteracting() == null) {
 			entity.getCombat().setAssaulting(null);
-			// Player is manually moving while having a combat target - clear it
+
 			entity.getCombat().reset();
 		}
 
@@ -82,21 +81,16 @@ public abstract class MovementHandler {
 		forced = false;
 	}
 
-	/**
-	 * Checks if the entity is locked by combat animations
-	 */
 	private boolean isCombatAnimationLocked() {
-		// Check if entity is performing a combat animation that should lock movement
+
 		if (entity.getCombat().isPerformingCombatAction()) {
 			return true;
 		}
 
-		// Check if entity has an animation lock timer
 		if (entity.hasAnimationLock()) {
 			return true;
 		}
 
-		// Check if current animation prevents movement (for specific combat animations)
 		if (entity.getAnimation() != null && isCombatAnimation(entity.getAnimation().getId())) {
 			return true;
 		}
@@ -104,20 +98,16 @@ public abstract class MovementHandler {
 		return false;
 	}
 
-	/**
-	 * Determines if an animation ID is a combat animation that should lock movement
-	 */
 	private boolean isCombatAnimation(int animationId) {
-		// Add your combat animation IDs here
-		// These are common RuneScape combat animation IDs, adjust for your server
+
 		switch (animationId) {
-			case 422: // Basic melee attack
-			case 423: // Melee attack variation
-			case 1162: // Magic spell casting
-			case 1161: // Magic spell casting variation
-			case 426: // Ranged attack
-			case 427: // Ranged attack variation
-				// Add more combat animation IDs as needed
+			case 422:
+			case 423:
+			case 1162:
+			case 1161:
+			case 426:
+			case 427:
+
 				return true;
 			default:
 				return false;
@@ -212,14 +202,11 @@ public abstract class MovementHandler {
 		this.forceMove = forceMove;
 	}
 
-	/**
-	 * Enhanced moving() method that includes combat animation locks
-	 */
 	public boolean moving() {
 		return (waypoints.size() > 0)
 			&& (!entity.isFrozen())
 			&& (!entity.isStunned())
-			&& (!isCombatAnimationLocked()); // NEW: Check for combat animation locks
+			&& (!isCombatAnimationLocked());
 	}
 
 	public abstract void process();
@@ -245,7 +232,6 @@ public abstract class MovementHandler {
 		int newX = location.getX() + x;
 		int newY = location.getY() + y;
 
-		// CRITICAL FIX: Reset combat when manually walking
 		if (!entity.getCombat().inCombat()) {
 			entity.getCombat().setAssaulting(null);
 			entity.getCombat().reset();

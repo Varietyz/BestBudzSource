@@ -19,10 +19,8 @@ import java.util.Set;
 public enum Forging {
 	SINGLETON;
 
-	// Bar IDs for easy reference
 	private static final int[] BARS = {2349, 2351, 2353, 2359, 2361, 2363};
 
-	// Forging items organized by bar type [barIndex][category][item]
 	private static final Item[][][] FORGING_ITEMS = {
 		{
 			{new Item(1206), new Item(1278), new Item(1322), new Item(1292), new Item(1308)},
@@ -68,38 +66,26 @@ public enum Forging {
 		}
 	};
 
-
-	/**
-	 * Handles item on object interactions for forging activities
-	 */
 	public boolean itemOnObject(Stoner stoner, Item item, int objectId) {
 		if (stoner.getProfession().locked()) {
 			return false;
 		}
 
-
-		// Check if it's an anvil or furnace
 		if (isAnvil(objectId)) {
-			// Using any item on anvil triggers auto-forging
+
 			return autoCraftAllForging(stoner);
 		} else if (isFurnace(objectId)) {
-			// Using any item on furnace triggers auto-smelting
+
 			return autoCraftAllSmelting(stoner);
 		}
 
 		return false;
 	}
 
-	/**
-	 * Check if object is an anvil
-	 */
 	private boolean isAnvil(int objectId) {
 		return objectId == 4306 || objectId == 2783 || objectId == 2097;
 	}
 
-	/**
-	 * Check if object is a furnace
-	 */
 	private boolean isFurnace(int objectId) {
 		return objectId == 3044 || objectId == 11666 || objectId == 45310 ||
 			objectId == 9472 || objectId == 9741 || objectId == 9371 ||
@@ -107,23 +93,18 @@ public enum Forging {
 			objectId == 26814 || objectId == 3998 || objectId == 4304;
 	}
 
-	/**
-	 * Handles one-click object interactions for forging activities
-	 */
 	public boolean handleObjectClick(Stoner stoner, int objectId) {
 		if (stoner.getProfession().locked()) {
 			return false;
 		}
 
-
 		switch (objectId) {
-			// Anvils - Auto-forging bars into items
+
 			case 4306:
 			case 2783:
 			case 2097:
 				return autoCraftAllForging(stoner);
 
-			// Furnaces - Auto-smelting ores into bars
 			case 3044:
 			case 11666:
 			case 45310:
@@ -139,18 +120,14 @@ public enum Forging {
 				return autoCraftAllSmelting(stoner);
 
 			default:
-				// For any other object, try general auto-crafting
+
 				return autoCraftAllAvailableItems(stoner);
 		}
 	}
 
-	/**
-	 * Automatically finds and crafts all available items in inventory
-	 */
 	private boolean autoCraftAllAvailableItems(Stoner stoner) {
 		List<ForgingTask> availableTasks = new ArrayList<>();
 
-		// Check for smelting first (ores -> bars)
 		for (SmeltingData smelting : SmeltingData.values()) {
 			boolean hasAllOres = true;
 			for (Item ore : smelting.getRequiredOres()) {
@@ -164,10 +141,9 @@ public enum Forging {
 			}
 		}
 
-		// Check for forging (bars -> items)
 		for (int barIndex = 0; barIndex < BARS.length; barIndex++) {
 			if (stoner.getBox().contains(new Item(BARS[barIndex]))) {
-				// Add all forgeable items for this bar type
+
 				for (int category = 0; category < FORGING_ITEMS[barIndex].length; category++) {
 					for (int itemIndex = 0; itemIndex < FORGING_ITEMS[barIndex][category].length; itemIndex++) {
 						Item forgingItem = FORGING_ITEMS[barIndex][category][itemIndex];
@@ -190,9 +166,6 @@ public enum Forging {
 		return true;
 	}
 
-	/**
-	 * Auto-craft all available smelting
-	 */
 	private boolean autoCraftAllSmelting(Stoner stoner) {
 		List<ForgingTask> availableSmelting = new ArrayList<>();
 
@@ -218,15 +191,12 @@ public enum Forging {
 		return true;
 	}
 
-	/**
-	 * Auto-craft all available forging
-	 */
 	private boolean autoCraftAllForging(Stoner stoner) {
 		List<ForgingTask> availableForging = new ArrayList<>();
 
 		for (int barIndex = 0; barIndex < BARS.length; barIndex++) {
 			if (stoner.getBox().contains(new Item(BARS[barIndex]))) {
-				// Add all forgeable items for this bar type
+
 				for (int category = 0; category < FORGING_ITEMS[barIndex].length; category++) {
 					for (int itemIndex = 0; itemIndex < FORGING_ITEMS[barIndex][category].length; itemIndex++) {
 						Item forgingItem = FORGING_ITEMS[barIndex][category][itemIndex];
@@ -249,30 +219,24 @@ public enum Forging {
 		return true;
 	}
 
-	/**
-	 * Get bar requirement for forging item
-	 */
 	private int getBarRequirement(int category, int itemIndex) {
-		// Simplified bar requirements - you can make this more complex
+
 		switch (category) {
-			case 0: // Weapons 1
+			case 0:
 				return itemIndex == 4 ? 3 : (itemIndex >= 2 ? 2 : 1);
-			case 1: // Weapons 2
+			case 1:
 				return itemIndex == 4 ? 2 : (itemIndex >= 2 ? 3 : 1);
-			case 2: // Armor 1
+			case 2:
 				return itemIndex >= 2 ? 3 : (itemIndex == 1 ? 3 : 1);
-			case 3: // Armor 2
+			case 3:
 				return itemIndex == 4 ? 1 : (itemIndex >= 2 ? 2 : 1);
-			case 4: // Other
+			case 4:
 				return 1;
 			default:
 				return 1;
 		}
 	}
 
-	/**
-	 * Helper task class
-	 */
 	private static class ForgingTask {
 		final ForgingType type;
 		final int itemId;
@@ -287,25 +251,16 @@ public enum Forging {
 		}
 	}
 
-	/**
-	 * Forging type enum
-	 */
 	public enum ForgingType {
 		SMELTING,
 		FORGING
 	}
 
-	/**
-	 * Starts crafting for multiple item types
-	 */
 	private void startMultiForging(Stoner stoner, List<ForgingTask> forgingTasks) {
 		stoner.send(new SendMessage("@gre@Auto-forging started - found " + forgingTasks.size() + " craftable items!"));
 		TaskQueue.queue(new MultiForgingTask(stoner, forgingTasks));
 	}
 
-	/**
-	 * Multi-forging task that cycles through all available item types
-	 */
 	private static class MultiForgingTask extends Task {
 		private final Stoner stoner;
 		private final List<ForgingTask> forgingTasks;
@@ -362,7 +317,6 @@ public enum Forging {
 			stoner.getUpdateFlags().sendAnimation(new Animation(899));
 			stoner.getBox().remove(smelting.getRequiredOres(), false);
 
-			// Special handling for iron bars (can fail)
 			if (smelting == SmeltingData.IRON_BAR) {
 				if (Professions.isSuccess(stoner, Professions.FORGING, smelting.getGradeRequired())) {
 					stoner.getBox().add(smelting.getResult(), false);
@@ -396,7 +350,7 @@ public enum Forging {
 			if (!stoner.getBox().hasItemAmount(barId, barRequirement)) return;
 
 			Item forgedItem = new Item(itemId);
-			// Handle stackable items
+
 			if (forgedItem.getDefinition().isStackable()) {
 				if (UNNOTED_STACK.contains(itemId)) {
 					forgedItem = new Item(itemId, 50);
@@ -404,7 +358,6 @@ public enum Forging {
 					forgedItem = new Item(itemId);
 				}
 			}
-
 
 			stoner.getUpdateFlags().sendAnimation(new Animation(898));
 			stoner.getClient().queueOutgoingPacket(new SendSound(468, 10, 10));
@@ -437,12 +390,12 @@ public enum Forging {
 
 		private double getExperienceForBar(int barId) {
 			switch (barId) {
-				case 2349: return 12.5; // Bronze
-				case 2351: return 25.0; // Iron
-				case 2353: return 37.5; // Steel
-				case 2359: return 50.0; // Mithril
-				case 2361: return 62.5; // Adamantite
-				case 2363: return 75.0; // Runite
+				case 2349: return 12.5;
+				case 2351: return 25.0;
+				case 2353: return 37.5;
+				case 2359: return 50.0;
+				case 2361: return 62.5;
+				case 2363: return 75.0;
 				default: return 12.5;
 			}
 		}
@@ -483,7 +436,6 @@ public enum Forging {
 		}
 	}
 
-	// Legacy methods for button handling (disabled)
 	public boolean craft(Stoner stoner, int index, int amount) {
 		stoner.send(new SendMessage("@red@Manual forging is disabled. Use item-on-item or click objects for auto-forging."));
 		return false;
