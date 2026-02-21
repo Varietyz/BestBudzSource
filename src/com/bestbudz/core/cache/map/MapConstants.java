@@ -1,10 +1,13 @@
 package com.bestbudz.core.cache.map;
 
 import com.bestbudz.rs2.GameConstants;
-import java.io.BufferedWriter;
-import java.io.File;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapConstants {
@@ -125,18 +128,20 @@ public class MapConstants {
     }
 
     try {
-      BufferedWriter writer =
-          new BufferedWriter(new FileWriter(new File("./data/def/ObjectAlternates.txt")));
-
+      List<Map<String, Integer>> entries = new ArrayList<>();
       for (int i = 0; i < 60000; i++) {
         if (alts[i] > 0) {
-          writer.write(i + ":" + alts[i]);
-          writer.newLine();
+          Map<String, Integer> entry = new HashMap<>();
+          entry.put("id", i);
+          entry.put("alt", alts[i]);
+          entries.add(entry);
         }
       }
-
-      writer.close();
-    } catch (Exception e) {
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      try (FileWriter writer = new FileWriter("./data/def/ObjectAlternates.json")) {
+        gson.toJson(entries, writer);
+      }
+    } catch (IOException e) {
       e.printStackTrace();
     }
 

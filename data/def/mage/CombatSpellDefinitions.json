@@ -1,0 +1,1935 @@
+[
+  {
+    "name": "Trident of the Seas",
+    "id": 9999,
+    "baseMaxHit": 30,
+    "baseExperience": 2.0,
+    "animation": {
+      "id": 791,
+      "delay": 0
+    },
+    "start": {
+      "id": 1251,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 1252,
+      "size": 1,
+      "delay": 50,
+      "duration": 65,
+      "startHeight": 30,
+      "endHeight": 30,
+      "curve": 2
+    },
+    "end": {
+      "id": 1253,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 75,
+    "weapon": [
+      11907
+    ],
+    "runes": []
+  },
+  {
+    "name": "Trident of the Swamp",
+    "id": 9998,
+    "baseMaxHit": 33,
+    "baseExperience": 3.0,
+    "animation": {
+      "id": 791,
+      "delay": 0
+    },
+    "start": {
+      "id": 665,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 1040,
+      "size": 1,
+      "delay": 50,
+      "duration": 65,
+      "startHeight": 30,
+      "endHeight": 30,
+      "curve": 2
+    },
+    "end": {
+      "id": 1042,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 75,
+    "weapon": [
+      12899
+    ],
+    "runes": []
+  },
+  {
+    "name": "Wind Strike",
+    "id": 1152,
+    "baseMaxHit": 2,
+    "baseExperience": 5.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 90,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 91,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 92,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 1,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 1
+      },
+      {
+        "id": 558,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Water Strike",
+    "id": 1154,
+    "baseMaxHit": 4,
+    "baseExperience": 7.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 93,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 94,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 95,
+      "height": 150,
+      "delay": 0
+    },
+    "grade": 5,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 1
+      },
+      {
+        "id": 558,
+        "amount": 1
+      },
+      {
+        "id": 555,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Earth strike",
+    "id": 1156,
+    "baseMaxHit": 6,
+    "baseExperience": 9.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 96,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 97,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 98,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 9,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 1
+      },
+      {
+        "id": 558,
+        "amount": 1
+      },
+      {
+        "id": 557,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Fire strike",
+    "id": 1158,
+    "baseMaxHit": 8,
+    "baseExperience": 11.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 99,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 100,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 101,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 13,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 2
+      },
+      {
+        "id": 558,
+        "amount": 1
+      },
+      {
+        "id": 554,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "name": "Air bolt",
+    "id": 1160,
+    "baseMaxHit": 9,
+    "baseExperience": 0.0,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 117,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 118,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 119,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 17,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 2
+      },
+      {
+        "id": 562,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Water bolt",
+    "id": 1163,
+    "baseMaxHit": 10,
+    "baseExperience": 16.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 120,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 121,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 122,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 23,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 2
+      },
+      {
+        "id": 562,
+        "amount": 1
+      },
+      {
+        "id": 555,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Earth bolt",
+    "id": 1166,
+    "baseMaxHit": 11,
+    "baseExperience": 0.0,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 123,
+      "height": 0,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 124,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 125,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 29,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 2
+      },
+      {
+        "id": 562,
+        "amount": 1
+      },
+      {
+        "id": 557,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "name": "Fire bolt",
+    "id": 1169,
+    "baseMaxHit": 12,
+    "baseExperience": 22.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 126,
+      "height": 0,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 127,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 128,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 35,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 3
+      },
+      {
+        "id": 562,
+        "amount": 1
+      },
+      {
+        "id": 554,
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Air blast",
+    "id": 1172,
+    "baseMaxHit": 13,
+    "baseExperience": 25.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 132,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 133,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 134,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 41,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 3
+      },
+      {
+        "id": 560,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Water blast",
+    "id": 1175,
+    "baseMaxHit": 14,
+    "baseExperience": 28.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 135,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 136,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 137,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 47,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 3
+      },
+      {
+        "id": 560,
+        "amount": 1
+      },
+      {
+        "id": 555,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "name": "Earth blast",
+    "id": 1177,
+    "baseMaxHit": 15,
+    "baseExperience": 31.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 138,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 139,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 140,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 47,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 3
+      },
+      {
+        "id": 560,
+        "amount": 1
+      },
+      {
+        "id": 557,
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Fire blast",
+    "id": 1181,
+    "baseMaxHit": 16,
+    "baseExperience": 34.5,
+    "animation": {
+      "id": 1162,
+      "delay": 0
+    },
+    "start": {
+      "id": 129,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 130,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 131,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 59,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 4
+      },
+      {
+        "id": 560,
+        "amount": 1
+      },
+      {
+        "id": 554,
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "name": "Air wave",
+    "id": 1183,
+    "baseMaxHit": 17,
+    "baseExperience": 36.0,
+    "animation": {
+      "id": 1167,
+      "delay": 0
+    },
+    "start": {
+      "id": 158,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 159,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 160,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 62,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 5
+      },
+      {
+        "id": 565,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Water wave",
+    "id": 1185,
+    "baseMaxHit": 18,
+    "baseExperience": 37.5,
+    "animation": {
+      "id": 1167,
+      "delay": 0
+    },
+    "start": {
+      "id": 161,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 162,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 163,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 65,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 5
+      },
+      {
+        "id": 565,
+        "amount": 1
+      },
+      {
+        "id": 556,
+        "amount": 7
+      }
+    ]
+  },
+  {
+    "name": "Earth wave",
+    "id": 1188,
+    "baseMaxHit": 19,
+    "baseExperience": 40.0,
+    "animation": {
+      "id": 1167,
+      "delay": 0
+    },
+    "start": {
+      "id": 164,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 165,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 166,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 70,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 5
+      },
+      {
+        "id": 565,
+        "amount": 1
+      },
+      {
+        "id": 557,
+        "amount": 7
+      }
+    ]
+  },
+  {
+    "name": "Fire wave",
+    "id": 1189,
+    "baseMaxHit": 20,
+    "baseExperience": 42.5,
+    "animation": {
+      "id": 1167,
+      "delay": 0
+    },
+    "start": {
+      "id": 155,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 156,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 157,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 75,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 556,
+        "amount": 5
+      },
+      {
+        "id": 565,
+        "amount": 1
+      },
+      {
+        "id": 554,
+        "amount": 7
+      }
+    ]
+  },
+  {
+    "name": "Tele block",
+    "id": 12445,
+    "baseMaxHit": 0,
+    "baseExperience": 0.0,
+    "animation": {
+      "id": 1819,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 344,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 345,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 85,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 563,
+        "amount": 1
+      },
+      {
+        "id": 562,
+        "amount": 1
+      },
+      {
+        "id": 560,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Smoke rush",
+    "id": 12939,
+    "baseMaxHit": 14,
+    "baseExperience": 31.0,
+    "animation": {
+      "id": 1978,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 385,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 387,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 50,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 554,
+        "amount": 1
+      },
+      {
+        "id": 556,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Shadow rush",
+    "id": 12987,
+    "baseMaxHit": 14,
+    "baseExperience": 31.0,
+    "animation": {
+      "id": 1978,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 378,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 379,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 52,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 562,
+        "amount": 2
+      },
+      {
+        "id": 556,
+        "amount": 1
+      },
+      {
+        "id": 566,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Blood rush",
+    "id": 12901,
+    "baseMaxHit": 15,
+    "baseExperience": 33.0,
+    "animation": {
+      "id": 1978,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 372,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 373,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 56,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 562,
+        "amount": 2
+      },
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 565,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Ice rush",
+    "id": 12861,
+    "baseMaxHit": 16,
+    "baseExperience": 36.0,
+    "animation": {
+      "id": 1978,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 360,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 361,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 58,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 562,
+        "amount": 2
+      },
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 555,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Smoke burst",
+    "id": 12963,
+    "baseMaxHit": 17,
+    "baseExperience": 36.0,
+    "animation": {
+      "id": 1979,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 386,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 390,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 62,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 562,
+        "amount": 4
+      },
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 556,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Shadow burst",
+    "id": 13011,
+    "baseMaxHit": 17,
+    "baseExperience": 0.0,
+    "animation": {
+      "id": 1979,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 378,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 382,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 64,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 562,
+        "amount": 4
+      },
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 566,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Blood burst",
+    "id": 12919,
+    "baseMaxHit": 21,
+    "baseExperience": 39.0,
+    "animation": {
+      "id": 1979,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 372,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 376,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 68,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 562,
+        "amount": 4
+      },
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 565,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Ice burst",
+    "id": 12881,
+    "baseMaxHit": 22,
+    "baseExperience": 0.0,
+    "animation": {
+      "id": 1979,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 363,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 70,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 562,
+        "amount": 4
+      },
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 555,
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Smoke blitz",
+    "id": 12951,
+    "baseMaxHit": 23,
+    "baseExperience": 42.0,
+    "animation": {
+      "id": 1978,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 386,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 388,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 74,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 554,
+        "amount": 2
+      },
+      {
+        "id": 556,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Shadow blitz",
+    "id": 12999,
+    "baseMaxHit": 24,
+    "baseExperience": 43.0,
+    "animation": {
+      "id": 1978,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 380,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 381,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 76,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 566,
+        "amount": 2
+      },
+      {
+        "id": 556,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Blood blitz",
+    "id": 12911,
+    "baseMaxHit": 25,
+    "baseExperience": 45.0,
+    "animation": {
+      "id": 1978,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 374,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 375,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 80,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 565,
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Ice blitz",
+    "id": 12871,
+    "baseMaxHit": 26,
+    "baseExperience": 46.0,
+    "animation": {
+      "id": 1978,
+      "delay": 0
+    },
+    "start": {
+      "id": 366,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 366,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 367,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 82,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 2
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 555,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "name": "Smoke barrage",
+    "id": 12975,
+    "baseMaxHit": 27,
+    "baseExperience": 48.0,
+    "animation": {
+      "id": 1979,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 386,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 391,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 86,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 4
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 554,
+        "amount": 4
+      },
+      {
+        "id": 556,
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Shadow barrage",
+    "id": 13023,
+    "baseMaxHit": 28,
+    "baseExperience": 48.0,
+    "animation": {
+      "id": 1979,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 380,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 383,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 88,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 4
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 556,
+        "amount": 2
+      },
+      {
+        "id": 566,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "name": "Blood barrage",
+    "id": 12929,
+    "baseMaxHit": 29,
+    "baseExperience": 51.0,
+    "animation": {
+      "id": 1979,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 374,
+      "size": 1,
+      "delay": 50,
+      "duration": 75,
+      "startHeight": 43,
+      "endHeight": 31,
+      "curve": 16
+    },
+    "end": {
+      "id": 377,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 92,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 4
+      },
+      {
+        "id": 565,
+        "amount": 4
+      },
+      {
+        "id": 566,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Ice barrage",
+    "id": 12891,
+    "baseMaxHit": 60,
+    "baseExperience": 82.0,
+    "animation": {
+      "id": 1979,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 369,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 94,
+    "weapon": [],
+    "runes": [
+      {
+        "id": 560,
+        "amount": 4
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 555,
+        "amount": 6
+      }
+    ]
+  },
+  {
+    "name": "Miasmic barrage",
+    "id": 21746,
+    "baseMaxHit": 35,
+    "baseExperience": 36.0,
+    "animation": {
+      "id": 10518,
+      "delay": 0
+    },
+    "start": {
+      "id": 1853,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 1854,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 97,
+    "weapon": [
+      13867,
+      13869
+    ],
+    "runes": [
+      {
+        "id": 566,
+        "amount": 4
+      },
+      {
+        "id": 565,
+        "amount": 4
+      },
+      {
+        "id": 557,
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Saradomin Strike",
+    "id": 1190,
+    "baseMaxHit": 20,
+    "baseExperience": 20.0,
+    "animation": {
+      "id": 811,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 76,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 60,
+    "weapon": [
+      2415
+    ],
+    "runes": [
+      {
+        "id": 554,
+        "amount": 2
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 556,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Claws of Guthix",
+    "id": 1191,
+    "baseMaxHit": 20,
+    "baseExperience": 20.0,
+    "animation": {
+      "id": 811,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 77,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 60,
+    "weapon": [
+      2416
+    ],
+    "runes": [
+      {
+        "id": 554,
+        "amount": 1
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 556,
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Flames of Zamorak",
+    "id": 1192,
+    "baseMaxHit": 20,
+    "baseExperience": 20.0,
+    "animation": {
+      "id": 811,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 78,
+      "height": 0,
+      "delay": 0
+    },
+    "grade": 60,
+    "weapon": [
+      2417
+    ],
+    "runes": [
+      {
+        "id": 554,
+        "amount": 4
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 556,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Entangle",
+    "id": 1592,
+    "baseMaxHit": 4,
+    "baseExperience": 20.0,
+    "animation": {
+      "id": 716,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 179,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 79,
+    "weapon": null,
+    "runes": [
+      {
+        "id": 557,
+        "amount": 5
+      },
+      {
+        "id": 555,
+        "amount": 5
+      },
+      {
+        "id": 561,
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Snare",
+    "id": 1582,
+    "baseMaxHit": 3,
+    "baseExperience": 15.0,
+    "animation": {
+      "id": 716,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 180,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 50,
+    "weapon": null,
+    "runes": [
+      {
+        "id": 557,
+        "amount": 4
+      },
+      {
+        "id": 555,
+        "amount": 4
+      },
+      {
+        "id": 561,
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "name": "Bind",
+    "id": 1572,
+    "baseMaxHit": 2,
+    "baseExperience": 7.0,
+    "animation": {
+      "id": 716,
+      "delay": 0
+    },
+    "start": null,
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 181,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 20,
+    "weapon": null,
+    "runes": [
+      {
+        "id": 557,
+        "amount": 3
+      },
+      {
+        "id": 555,
+        "amount": 3
+      },
+      {
+        "id": 561,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Miasmic rush",
+    "id": 21744,
+    "baseMaxHit": 17,
+    "baseExperience": 12.0,
+    "animation": {
+      "id": 10513,
+      "delay": 0
+    },
+    "start": {
+      "id": 1845,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 1846,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 61,
+    "weapon": [
+      13867,
+      13869
+    ],
+    "runes": [
+      {
+        "id": 562,
+        "amount": 2
+      },
+      {
+        "id": 557,
+        "amount": 1
+      },
+      {
+        "id": 566,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "name": "Miasmic burst",
+    "id": 22168,
+    "baseMaxHit": 22,
+    "baseExperience": 18.0,
+    "animation": {
+      "id": 10516,
+      "delay": 0
+    },
+    "start": {
+      "id": 1848,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 1849,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 73,
+    "weapon": [
+      13867,
+      13869
+    ],
+    "runes": [
+      {
+        "id": 562,
+        "amount": 4
+      },
+      {
+        "id": 557,
+        "amount": 2
+      },
+      {
+        "id": 566,
+        "amount": 2
+      }
+    ]
+  },
+  {
+    "name": "Miasmic blitz",
+    "id": 21745,
+    "baseMaxHit": 27,
+    "baseExperience": 25.0,
+    "animation": {
+      "id": 10524,
+      "delay": 0
+    },
+    "start": {
+      "id": 1850,
+      "height": 100,
+      "delay": 0
+    },
+    "projectile": {
+      "id": 0,
+      "size": 0,
+      "delay": 0,
+      "duration": 0,
+      "startHeight": 0,
+      "endHeight": 0,
+      "curve": 0
+    },
+    "end": {
+      "id": 1851,
+      "height": 100,
+      "delay": 0
+    },
+    "grade": 85,
+    "weapon": [
+      13867,
+      13869
+    ],
+    "runes": [
+      {
+        "id": 566,
+        "amount": 2
+      },
+      {
+        "id": 565,
+        "amount": 2
+      },
+      {
+        "id": 557,
+        "amount": 3
+      }
+    ]
+  }
+]

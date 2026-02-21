@@ -1,46 +1,45 @@
 package com.bestbudz.core.cache.map;
 
-import com.bestbudz.core.cache.ByteStreamExt;
-import com.bestbudz.core.util.Utility;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
+import com.bestbudz.core.util.Utility;
 
 public final class ObjectDef {
 
   private static final Logger logger = Logger.getLogger(ObjectDef.class.getSimpleName());
-  public static int[] streamIndices;
-  public static ObjectDef class46;
-  public static boolean lowMem;
-  private static ByteStreamExt stream;
+  private static ObjectDef[] defs;
   private static int objects = 0;
-  private static int cacheIndex;
-  private static ObjectDef[] cache;
-  public boolean aBoolean736;
+
   public String name;
-  public int objectSizeX;
-  public int anInt746;
-  public int anInt749;
+  public byte[] description;
   public int type;
-  public boolean aBoolean757;
-  public int anInt758;
-  public int[] childrenIDs;
+  public int objectSizeX;
   public int objectSizeY;
+  public boolean aBoolean779;
+  public boolean aBoolean757;
+  public boolean aBoolean767;
+  public boolean hasActions;
+  public String[] actions;
   public boolean aBoolean762;
   public boolean aBoolean764;
-  public boolean aBoolean767;
-  public int anInt768;
-  public int anInt774;
-  public int anInt775;
-  public byte[] description;
-  public boolean hasActions;
-  public boolean aBoolean779;
   public int anInt781;
-  public String[] actions;
+  public int anInt775;
+  public int anInt746;
+  public int anInt758;
+  public int anInt768;
+  public boolean aBoolean736;
+  public int anInt774;
+  public int anInt749;
+  public int[] childrenIDs;
+  int[] modifiedModelColors;
   int[] originalModelColors;
   int[] anIntArray773;
   int[] anIntArray776;
-  int[] modifiedModelColors;
-  private int anInt760;
-  private boolean aBoolean766;
 
   private ObjectDef() {
     type = -1;
@@ -51,425 +50,122 @@ public final class ObjectDef {
   }
 
   public static ObjectDef getObjectDef(int i) {
-    if (i > streamIndices.length) {
-      i = streamIndices.length - 1;
-    }
-
-    for (int j = 0; j < 20; j++) {
-      if (cache[j].type == i) {
-        return cache[j];
-      }
-    }
-
-    cacheIndex = (cacheIndex + 1) % 20;
-    class46 = cache[cacheIndex];
-
-    if (i > streamIndices.length - 1 || i < 0) {
-      return null;
-    }
-
-    stream.currentOffset = streamIndices[i];
-
-    class46.type = i;
-    class46.setDefaults();
-    class46.readValues(stream);
-
-    if (i == 14210 || i == 14211) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = false;
-      class46.objectSizeX = 2;
-    }
-
-    if (i == 14438 || i == 14437) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (i == 486) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (i == 14695) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-      class46.objectSizeX = 1;
-    }
-
-    if (i == 734) {
-      class46.aBoolean779 = false;
-      class46.aBoolean757 = false;
-    }
-
-    if (i == 509 || i == 510 || i == 511) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (i == 9292) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-      class46.objectSizeX = 1;
-    }
-
-    if (i == 9382) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (i == 9381) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (i == 9372) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (i == 9360) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (i == 24265) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (i == 9374) {
-      class46.aBoolean779 = true;
-      class46.aBoolean757 = true;
-    }
-
-    if (class46.name != null && class46.name.equalsIgnoreCase("flowerbed")) {
-      class46.aBoolean779 = false;
-      class46.aBoolean757 = false;
-    }
-
-    if (class46.name != null && class46.name.equalsIgnoreCase("jungle plant")) {
-      class46.aBoolean779 = false;
-      class46.aBoolean757 = false;
-    }
-
-    if (class46.name != null && class46.name.equalsIgnoreCase("creeping plant")) {
-      class46.aBoolean779 = false;
-      class46.aBoolean757 = false;
-    }
-
-    if (class46.name != null && class46.name.equalsIgnoreCase("flowers")) {
-      class46.aBoolean779 = false;
-      class46.aBoolean757 = false;
-    }
-
-    if (class46.name != null && class46.name.equalsIgnoreCase("sunflowers")) {
-      class46.aBoolean779 = false;
-      class46.aBoolean757 = false;
-    }
-
-    if (class46.name != null && class46.name.equalsIgnoreCase("flower")) {
-      class46.aBoolean779 = false;
-      class46.aBoolean757 = false;
-    }
-
-    if (class46.name != null && class46.name.equalsIgnoreCase("daisies") || i == 38692) {
-      class46.aBoolean779 = false;
-      class46.aBoolean757 = false;
-    }
-
-    switch (i) {
-      case 26621:
-      case 26620:
-      case 26619:
-      case 26618:
-
-      case 26561:
-      case 26562:
-
-      case 7836:
-      case 7837:
-      case 7838:
-      case 7839:
-      case 7848:
-      case 7847:
-      case 7849:
-      case 7850:
-      case 8150:
-      case 8151:
-      case 8152:
-      case 8153:
-      case 8550:
-      case 8551:
-      case 8552:
-      case 8553:
-      case 8554:
-      case 8555:
-      case 8556:
-      case 8557:
-      case 20973:
-      case 26606:
-      case 26611:
-      case 26613:
-      case 26626:
-      case 26608:
-      case 26607:
-      case 26603:
-      case 26580:
-      case 26604:
-      case 26609:
-      case 26600:
-      case 26601:
-      case 26610:
-      case 26616:
-      case 26612:
-      case 26605:
-      case 26602:
-        class46.hasActions = true;
-        break;
-
-      case 8720:
-      case 26492:
-      case 26796:
-      case 26797:
-      case 26798:
-      case 26799:
-      case 26800:
-      case 26801:
-      case 26802:
-      case 26803:
-      case 26804:
-      case 26805:
-      case 26806:
-      case 26807:
-      case 26808:
-      case 26809:
-      case 26810:
-      case 26811:
-      case 26812:
-      case 26813:
-      case 26814:
-      case 26815:
-      case 26816:
-      case 26817:
-      case 26818:
-      case 26819:
-      case 26820:
-      case 26821:
-        class46.name = "Chill Booth";
-        class46.actions = new String[5];
-        class46.actions[1] = "Open shop";
-        class46.hasActions = true;
-        break;
-
-		case 2097:
-			class46.name = "Anvil";
-			class46.description = "It's a solid iron block hammer thingy.".getBytes();
-			class46.actions = new String[5];
-			class46.actions[0] = "Hammer";
-			class46.hasActions = true;
-			break;
-
-		case 2030:
-			class46.name = "Forge";
-			class46.description = "Wondering if i could get my blunt lit here..".getBytes();
-			class46.hasActions = true;
-			break;
-
-		case 26181:
-			class46.name = "Stove";
-			class46.description = "Looks like someone attempted to cook meth on this stove.".getBytes();
-			class46.actions = new String[5];
-			class46.actions[0] = "Cook";
-			class46.hasActions = true;
-			break;
-
-		case 10377:
-			class46.name = "Giant's Glory Hole";
-			class46.description = "HOLY FUCK! There is a lot a semen in there!.".getBytes();
-			break;
-
-		case 10379:
-			class46.name = "Weed Stash";
-			class46.description = "You sniff the boxes & It's Cheese Haze!".getBytes();
-			break;
-
-		case 10380:
-			class46.name = "Trim Waste";
-			class46.description = "Boxes filled with trimmed cannabis leaves and branches.".getBytes();
-			break;
-
-		case 14854:
-		case 14855:
-		case 14856:
-			class46.name = "Fancy Rocks";
-			class46.description = "There are tons of gems in these rocks.".getBytes();
-			class46.hasActions = true;
-			break;
-
-		case 14901:
-			class46.name = "Fire Essence";
-			class46.description = "It compels you to keep burning wood, but it also pays you!.".getBytes();
-			class46.actions = new String[5];
-			class46.actions[0] = "Offer to";
-			class46.hasActions = true;
-			break;
-
-		case 26149:
-			class46.name = "Budz Core";
-			class46.description = "The BestBudz core, essence of all magic in the game.".getBytes();
-			class46.actions = new String[5];
-			class46.actions[0] = "Blood Trial";
-			class46.hasActions = true;
-			break;
-
-		case 6114:
-			class46.name = "Blood Trial";
-			class46.description = "Attempt to flee from the Blood Trial.".getBytes();
-			class46.actions = new String[5];
-			class46.actions[0] = "Flee";
-			class46.hasActions = true;
-			break;
-
-		case 10376:
-			class46.name = "Cocaïne Stall";
-			class46.description = "You look and wonder.. Where are the topless women?".getBytes();
-			break;
-
-      case 9472:
-      case 9371:
-        class46.name = "Stoner Market";
-        class46.actions = new String[5];
-        class46.actions[0] = "Info";
-        class46.actions[1] = "Edit Shop";
-        class46.actions[2] = "Explore Shops";
-        break;
-
-      case 22472:
-        class46.name = "Tablet";
-        class46.actions = new String[5];
-        class46.actions[0] = "Create";
-        break;
-
-      case 5249:
-        class46.name = "Fyah";
-        class46.description = "Bun dem!".getBytes();
-        break;
-
-      case 13712:
-        class46.name = "Tin";
-        class46.description = "It's a Tin ore.".getBytes();
-        class46.actions = new String[5];
-        class46.actions[0] = "Collect";
-        break;
-
-      case 13709:
-        class46.name = "Copper";
-        class46.description = "It's a Copper ore.".getBytes();
-        class46.actions = new String[5];
-        class46.actions[0] = "Collect";
-        break;
-
-      case 13711:
-        class46.name = "Iron";
-        class46.description = "It's a Iron ore.".getBytes();
-        class46.actions = new String[5];
-        class46.actions[0] = "Collect";
-        break;
-
-      case 13714:
-        class46.name = "Coal";
-        class46.description = "It's a Coal ore.".getBytes();
-        class46.actions = new String[5];
-        class46.actions[0] = "Collect";
-        break;
-
-      case 13718:
-        class46.name = "Mithril";
-        class46.description = "It's a Mithril ore.".getBytes();
-        class46.actions = new String[5];
-        class46.actions[0] = "Collect";
-        break;
-
-      case 14168:
-        class46.name = "Adamantite";
-        class46.description = "It's a Adamantite ore.".getBytes();
-        class46.actions = new String[5];
-        class46.actions[0] = "Collect";
-        break;
-
-      case 13707:
-        class46.name = "Gold";
-        class46.description = "It's a Gold ore.".getBytes();
-        class46.actions = new String[5];
-        class46.actions[0] = "Collect";
-        break;
-
-      case 14175:
-        class46.name = "Runite";
-        class46.description = "It's a Runite ore.".getBytes();
-        class46.actions = new String[5];
-        class46.actions[0] = "Collect";
-        break;
-
-      case 574:
-        class46.name = "Mage Spells";
-        class46.actions = new String[5];
-        class46.actions[0] = "Change";
-        break;
-
-      case 575:
-        class46.name = "Altar";
-        class46.actions = new String[5];
-        class46.actions[0] = "Restore";
-        break;
-
-      case 576:
-        class46.name = "Highscores";
-        class46.actions = new String[5];
-        class46.actions[0] = "View";
-        break;
-
-      case 4090:
-        class46.name = "Blood altar";
-        class46.actions = new String[5];
-        class46.actions[0] = "Imbue";
-        break;
-    }
-
-    return class46;
+    if (i < 0 || i >= objects) return null;
+    return defs[i];
   }
 
+  @SuppressWarnings("unchecked")
   public static void loadConfig() {
-    stream = new ByteStreamExt(getBuffer("loc.dat"));
-    ByteStreamExt stream = new ByteStreamExt(getBuffer("loc.idx"));
-    objects = stream.readUnsignedWord();
-    streamIndices = new int[objects];
-    int i = 2;
-    for (int j = 0; j < objects; j++) {
-      streamIndices[j] = i;
-      i += stream.readUnsignedWord();
+    try {
+      Gson gson = new Gson();
+      Type listType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+      List<Map<String, Object>> entries;
+
+      try (FileReader reader = new FileReader("./data/map/objectdata/object_definitions.json")) {
+        entries = gson.fromJson(reader, listType);
+      }
+
+      // Find max ID to size array
+      int maxId = 0;
+      for (Map<String, Object> entry : entries) {
+        int id = ((Number) entry.get("id")).intValue();
+        if (id > maxId) maxId = id;
+      }
+
+      defs = new ObjectDef[maxId + 1];
+      objects = maxId + 1;
+
+      // Initialize all entries with defaults
+      for (int i = 0; i < defs.length; i++) {
+        defs[i] = new ObjectDef();
+        defs[i].type = i;
+        defs[i].setDefaults();
+      }
+
+      // Populate from JSON
+      for (Map<String, Object> entry : entries) {
+        int id = ((Number) entry.get("id")).intValue();
+        ObjectDef def = defs[id];
+        def.type = id;
+
+        def.name = (String) entry.get("name");
+
+        if (entry.containsKey("description") && entry.get("description") != null) {
+          def.description = ((String) entry.get("description")).getBytes();
+        }
+
+        def.objectSizeX = getInt(entry, "sizeX", 1);
+        def.objectSizeY = getInt(entry, "sizeY", 1);
+        def.aBoolean779 = getBool(entry, "blocksMovement", true);
+        def.aBoolean757 = getBool(entry, "blocksProjectile", true);
+        def.aBoolean767 = getBool(entry, "isWalkable", true);
+        def.hasActions = getBool(entry, "hasActions", false);
+        def.aBoolean762 = getBool(entry, "adjustToTerrain", false);
+        def.aBoolean764 = getBool(entry, "nonFlatShading", false);
+        def.anInt781 = getInt(entry, "animation", -1);
+        def.anInt775 = getInt(entry, "decorDisplacement", 16);
+        def.anInt746 = getInt(entry, "mapScene", -1);
+        def.anInt758 = getInt(entry, "mapFunction", -1);
+        def.anInt768 = getInt(entry, "face", 0);
+        def.aBoolean736 = getBool(entry, "obstructsGround", false);
+        def.anInt774 = getInt(entry, "varbitId", -1);
+        def.anInt749 = getInt(entry, "configId", -1);
+
+        if (entry.containsKey("actions") && entry.get("actions") != null) {
+          List<String> actionList = (List<String>) entry.get("actions");
+          def.actions = new String[actionList.size()];
+          for (int j = 0; j < actionList.size(); j++) {
+            def.actions[j] = actionList.get(j);
+          }
+        }
+
+        if (entry.containsKey("childrenIDs") && entry.get("childrenIDs") != null) {
+          def.childrenIDs = toIntArray((List<Double>) entry.get("childrenIDs"));
+        }
+
+        if (entry.containsKey("modifiedModelColors") && entry.get("modifiedModelColors") != null) {
+          def.modifiedModelColors = toIntArray((List<Double>) entry.get("modifiedModelColors"));
+        }
+
+        if (entry.containsKey("originalModelColors") && entry.get("originalModelColors") != null) {
+          def.originalModelColors = toIntArray((List<Double>) entry.get("originalModelColors"));
+        }
+
+        if (entry.containsKey("modelIds") && entry.get("modelIds") != null) {
+          def.anIntArray773 = toIntArray((List<Double>) entry.get("modelIds"));
+        }
+
+        if (entry.containsKey("modelTypes") && entry.get("modelTypes") != null) {
+          def.anIntArray776 = toIntArray((List<Double>) entry.get("modelTypes"));
+        }
+      }
+
+      logger.info(Utility.format(objects) + " Objects have been loaded from JSON successfully.");
+    } catch (Exception e) {
+      logger.severe("Failed to load object definitions from JSON: " + e.getMessage());
+      e.printStackTrace();
     }
-    cache = new ObjectDef[20];
-    for (int k = 0; k < 20; k++) {
-      cache[k] = new ObjectDef();
-    }
-    logger.info(Utility.format(objects) + " Objects have been loaded successfully.");
   }
 
-  public static byte[] getBuffer(String s) {
-    try {
-      java.io.File f = new java.io.File("./data/map/objectdata/" + s);
-      if (!f.exists()) {
-        return null;
-      }
-      byte[] buffer = new byte[(int) f.length()];
-      java.io.DataInputStream dis = new java.io.DataInputStream(new java.io.FileInputStream(f));
-      dis.readFully(buffer);
-      dis.close();
-      return buffer;
-    } catch (Exception e) {
+  private static int getInt(Map<String, Object> map, String key, int defaultVal) {
+    Object v = map.get(key);
+    if (v == null) return defaultVal;
+    return ((Number) v).intValue();
+  }
+
+  private static boolean getBool(Map<String, Object> map, String key, boolean defaultVal) {
+    Object v = map.get(key);
+    if (v == null) return defaultVal;
+    return (Boolean) v;
+  }
+
+  private static int[] toIntArray(List<Double> list) {
+    if (list == null) return null;
+    int[] arr = new int[list.size()];
+    for (int i = 0; i < list.size(); i++) {
+      arr[i] = list.get(i).intValue();
     }
-    return null;
+    return arr;
   }
 
   private void setDefaults() {
@@ -494,109 +190,9 @@ public final class ObjectDef {
     aBoolean779 = true;
     anInt768 = 0;
     aBoolean736 = false;
-    aBoolean766 = false;
-    anInt760 = -1;
     anInt774 = -1;
     anInt749 = -1;
     childrenIDs = null;
-  }
-
-  private void readValues(ByteStreamExt stream) {
-
-    int flag = -1;
-    do {
-      int type = stream.readUnsignedByte();
-      if (type == 0) break;
-      if (type == 1) {
-        int len = stream.readUnsignedByte();
-        if (len > 0) {
-          if (anIntArray773 == null || lowMem) {
-            anIntArray776 = new int[len];
-            anIntArray773 = new int[len];
-            for (int k1 = 0; k1 < len; k1++) {
-              anIntArray773[k1] = stream.readUnsignedWord();
-              anIntArray776[k1] = stream.readUnsignedByte();
-            }
-          } else {
-            stream.currentOffset += len * 3;
-          }
-        }
-      } else if (type == 2) name = stream.readString();
-      else if (type == 3) description = stream.readBytes();
-      else if (type == 5) {
-        int len = stream.readUnsignedByte();
-        if (len > 0) {
-          if (anIntArray773 == null || lowMem) {
-            anIntArray776 = null;
-            anIntArray773 = new int[len];
-            for (int l1 = 0; l1 < len; l1++) anIntArray773[l1] = stream.readUnsignedWord();
-          } else {
-            stream.currentOffset += len * 2;
-          }
-        }
-      } else if (type == 14) objectSizeX = stream.readUnsignedByte();
-      else if (type == 15) objectSizeY = stream.readUnsignedByte();
-      else if (type == 17) aBoolean767 = false;
-      else if (type == 18) aBoolean757 = false;
-      else if (type == 19) hasActions = (stream.readUnsignedByte() == 1);
-      else if (type == 21) aBoolean762 = true;
-      else if (type == 22) {
-      } else if (type == 23) aBoolean764 = true;
-      else if (type == 24) {
-        anInt781 = stream.readUnsignedWord();
-        if (anInt781 == 65535) anInt781 = -1;
-      } else if (type == 28) anInt775 = stream.readUnsignedByte();
-      else if (type == 29) stream.readSignedByte();
-      else if (type == 39) stream.readSignedByte();
-      else if (type >= 30 && type < 39) {
-        if (actions == null) actions = new String[5];
-        actions[type - 30] = stream.readString();
-        if (actions[type - 30].equalsIgnoreCase("hidden")) actions[type - 30] = null;
-      } else if (type == 40) {
-        int i1 = stream.readUnsignedByte();
-        modifiedModelColors = new int[i1];
-        originalModelColors = new int[i1];
-        for (int i2 = 0; i2 < i1; i2++) {
-          modifiedModelColors[i2] = stream.readUnsignedWord();
-          originalModelColors[i2] = stream.readUnsignedWord();
-        }
-
-      } else if (type == 60) anInt746 = stream.readUnsignedWord();
-      else if (type == 62) {
-      } else if (type == 64) {
-      } else if (type == 65) stream.readUnsignedWord();
-      else if (type == 66) stream.readUnsignedWord();
-      else if (type == 67) stream.readUnsignedWord();
-      else if (type == 68) anInt758 = stream.readUnsignedWord();
-      else if (type == 69) anInt768 = stream.readUnsignedByte();
-      else if (type == 70) stream.readSignedWord();
-      else if (type == 71) stream.readSignedWord();
-      else if (type == 72) stream.readSignedWord();
-      else if (type == 73) aBoolean736 = true;
-      else if (type == 74) aBoolean766 = true;
-      else if (type == 75) anInt760 = stream.readUnsignedByte();
-      else if (type == 77) {
-        anInt774 = stream.readUnsignedWord();
-        if (anInt774 == 65535) anInt774 = -1;
-        anInt749 = stream.readUnsignedWord();
-        if (anInt749 == 65535) anInt749 = -1;
-        int j1 = stream.readUnsignedByte();
-        childrenIDs = new int[j1 + 1];
-        for (int j2 = 0; j2 <= j1; j2++) {
-          childrenIDs[j2] = stream.readUnsignedWord();
-          if (childrenIDs[j2] == 65535) childrenIDs[j2] = -1;
-        }
-      }
-    } while (true);
-    if (flag == -1 && name != "null" && name != null) {
-      hasActions = anIntArray773 != null && (anIntArray776 == null || anIntArray776[0] == 10);
-      if (actions != null) hasActions = true;
-    }
-    if (aBoolean766) {
-      aBoolean767 = false;
-      aBoolean757 = false;
-    }
-    if (anInt760 == -1) anInt760 = aBoolean767 ? 1 : 0;
   }
 
   public boolean hasActions() {

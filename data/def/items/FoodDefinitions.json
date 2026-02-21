@@ -1,0 +1,618 @@
+[
+  {
+    "id": 315,
+    "name": "Shrimps",
+    "heal": 3,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Shrimps."
+  },
+  {
+    "id": 1963,
+    "name": "Banana",
+    "heal": 2,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Banana."
+  },
+  {
+    "id": 6883,
+    "name": "Peach",
+    "heal": 8,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Peach."
+  },
+  {
+    "id": 3144,
+    "name": "Cooked Karambwan",
+    "heal": 18,
+    "delay": 0,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Cooked Karambwan."
+  },
+  {
+    "id": 3146,
+    "name": "Poison Karambwan",
+    "heal": -5,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Poisoned Karambwan; you feel like shit."
+  },
+  {
+    "id": 712,
+    "name": "Tea",
+    "heal": 1,
+    "delay": 3,
+    "replaceId": 1980,
+    "message": "You drink the tea."
+  },
+  {
+    "id": 319,
+    "name": "Anchovies",
+    "heal": 1,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Anchovies."
+  },
+  {
+    "id": 325,
+    "name": "Sardine",
+    "heal": 4,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Sardine."
+  },
+  {
+    "id": 329,
+    "name": "Salmon",
+    "heal": 9,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Salmon."
+  },
+  {
+    "id": 333,
+    "name": "Trout",
+    "heal": 7,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Trout."
+  },
+  {
+    "id": 339,
+    "name": "Cod",
+    "heal": 7,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Cod."
+  },
+  {
+    "id": 347,
+    "name": "Herring",
+    "heal": 5,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Herring."
+  },
+  {
+    "id": 351,
+    "name": "Pike",
+    "heal": 8,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Pike."
+  },
+  {
+    "id": 355,
+    "name": "Mackerel",
+    "heal": 6,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Mackerel."
+  },
+  {
+    "id": 361,
+    "name": "Tuna",
+    "heal": 10,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Tuna."
+  },
+  {
+    "id": 365,
+    "name": "Bass",
+    "heal": 13,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Bass."
+  },
+  {
+    "id": 373,
+    "name": "Swordfish",
+    "heal": 14,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Swordfish."
+  },
+  {
+    "id": 379,
+    "name": "Lobster",
+    "heal": 12,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Lobster."
+  },
+  {
+    "id": 385,
+    "name": "Shark",
+    "heal": 20,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Shark."
+  },
+  {
+    "id": 391,
+    "name": "Manta ray",
+    "heal": 22,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Manta ray."
+  },
+  {
+    "id": 397,
+    "name": "Sea turtle",
+    "heal": 21,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Sea turtle."
+  },
+  {
+    "id": 1891,
+    "name": "Cake",
+    "heal": 4,
+    "delay": 3,
+    "replaceId": 1893,
+    "message": "Stuffed your mouth with Cake."
+  },
+  {
+    "id": 1893,
+    "name": "2/3 cake",
+    "heal": 4,
+    "delay": 3,
+    "replaceId": 1895,
+    "message": "Stuffed your mouth with 2/3 cake."
+  },
+  {
+    "id": 1895,
+    "name": "Slice of cake",
+    "heal": 4,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Slice of cake."
+  },
+  {
+    "id": 1897,
+    "name": "Chocolate cake",
+    "heal": 4,
+    "delay": 3,
+    "replaceId": 1899,
+    "message": "Stuffed your mouth with Chocolate cake."
+  },
+  {
+    "id": 1899,
+    "name": "2/3 chocolate cake",
+    "heal": 4,
+    "delay": 3,
+    "replaceId": 1901,
+    "message": "Stuffed your mouth with 2/3 chocolate cake."
+  },
+  {
+    "id": 1901,
+    "name": "Chocolate slice",
+    "heal": 4,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Chocolate slice."
+  },
+  {
+    "id": 2140,
+    "name": "Cooked chicken",
+    "heal": 3,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Cooked chicken."
+  },
+  {
+    "id": 2142,
+    "name": "Cooked meat",
+    "heal": 3,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Cooked meat."
+  },
+  {
+    "id": 2289,
+    "name": "Plain pizza",
+    "heal": 7,
+    "delay": 3,
+    "replaceId": 2291,
+    "message": "Stuffed your mouth with Plain pizza."
+  },
+  {
+    "id": 2291,
+    "name": "1/2 plain pizza",
+    "heal": 7,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with 1/2 plain pizza."
+  },
+  {
+    "id": 2293,
+    "name": "Meat pizza",
+    "heal": 8,
+    "delay": 3,
+    "replaceId": 2295,
+    "message": "Stuffed your mouth with Meat pizza."
+  },
+  {
+    "id": 2295,
+    "name": "1/2 meat pizza",
+    "heal": 8,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with 1/2 meat pizza."
+  },
+  {
+    "id": 2297,
+    "name": "Anchovy pizza",
+    "heal": 9,
+    "delay": 3,
+    "replaceId": 2299,
+    "message": "Stuffed your mouth with Anchovy pizza."
+  },
+  {
+    "id": 2299,
+    "name": "1/2 anchovy pizza",
+    "heal": 9,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with 1/2 anchovy pizza."
+  },
+  {
+    "id": 2301,
+    "name": "Pineapple pizza",
+    "heal": 11,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Pineapple pizza."
+  },
+  {
+    "id": 2309,
+    "name": "Bread",
+    "heal": 5,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Bread."
+  },
+  {
+    "id": 2323,
+    "name": "Apple pie",
+    "heal": 7,
+    "delay": 1,
+    "replaceId": 2335,
+    "message": "Stuffed your mouth with Apple pie."
+  },
+  {
+    "id": 2325,
+    "name": "Redberry pie",
+    "heal": 5,
+    "delay": 1,
+    "replaceId": 2333,
+    "message": "Stuffed your mouth with Redberry pie."
+  },
+  {
+    "id": 2327,
+    "name": "Meat pie",
+    "heal": 6,
+    "delay": 1,
+    "replaceId": 2331,
+    "message": "Stuffed your mouth with Meat pie."
+  },
+  {
+    "id": 2331,
+    "name": "Half a meat pie",
+    "heal": 6,
+    "delay": 1,
+    "replaceId": 2313,
+    "message": "Stuffed your mouth with Half a meat pie."
+  },
+  {
+    "id": 2333,
+    "name": "Half a redberry pie",
+    "heal": 5,
+    "delay": 1,
+    "replaceId": 2313,
+    "message": "Stuffed your mouth with Half a redberry pie."
+  },
+  {
+    "id": 2335,
+    "name": "Half an apple pie",
+    "heal": 7,
+    "delay": 1,
+    "replaceId": 2313,
+    "message": "Stuffed your mouth with Half an apple pie."
+  },
+  {
+    "id": 4291,
+    "name": "Cooked chicken",
+    "heal": 3,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Cooked chicken."
+  },
+  {
+    "id": 4293,
+    "name": "Cooked meat",
+    "heal": 3,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Cooked meat."
+  },
+  {
+    "id": 4561,
+    "name": "Purple sweets",
+    "heal": 3,
+    "delay": 1,
+    "replaceId": -1,
+    "message": "The sugary goodness heals some energy."
+  },
+  {
+    "id": 6701,
+    "name": "Baked potato",
+    "heal": 4,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Baked potato."
+  },
+  {
+    "id": 6703,
+    "name": "Potato with butter",
+    "heal": 14,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Potato with butter."
+  },
+  {
+    "id": 6705,
+    "name": "Potato with cheese",
+    "heal": 16,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Potato with cheese."
+  },
+  {
+    "id": 6969,
+    "name": "Shark",
+    "heal": 20,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Shark."
+  },
+  {
+    "id": 7054,
+    "name": "Chilli potato",
+    "heal": 14,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Chilli potato."
+  },
+  {
+    "id": 7056,
+    "name": "Egg potato",
+    "heal": 16,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Egg potato."
+  },
+  {
+    "id": 7060,
+    "name": "Tuna potato",
+    "heal": 22,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Tuna potato."
+  },
+  {
+    "id": 7062,
+    "name": "Chilli con carne",
+    "heal": 5,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Chilli con carne."
+  },
+  {
+    "id": 7064,
+    "name": "Egg and tomato",
+    "heal": 5,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Egg and tomato."
+  },
+  {
+    "id": 7068,
+    "name": "Tuna and corn",
+    "heal": 13,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Tuna and corn."
+  },
+  {
+    "id": 7072,
+    "name": "Spicy sauce",
+    "heal": 2,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Spicy sauce."
+  },
+  {
+    "id": 7078,
+    "name": "Scrambled egg",
+    "heal": 5,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Scrambled egg."
+  },
+  {
+    "id": 7082,
+    "name": "Fried mushrooms",
+    "heal": 5,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Fried mushrooms."
+  },
+  {
+    "id": 7084,
+    "name": "Fried onions",
+    "heal": 5,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Fried onions."
+  },
+  {
+    "id": 7178,
+    "name": "Garden pie",
+    "heal": 6,
+    "delay": 1,
+    "replaceId": 7180,
+    "message": "Stuffed your mouth with Garden pie."
+  },
+  {
+    "id": 7180,
+    "name": "Half a garden pie",
+    "heal": 6,
+    "delay": 1,
+    "replaceId": 2313,
+    "message": "Stuffed your mouth with Half a garden pie."
+  },
+  {
+    "id": 7188,
+    "name": "Fish pie",
+    "heal": 6,
+    "delay": 1,
+    "replaceId": 7190,
+    "message": "Stuffed your mouth with Fish pie."
+  },
+  {
+    "id": 7190,
+    "name": "Half a fish pie",
+    "heal": 6,
+    "delay": 1,
+    "replaceId": 2313,
+    "message": "Stuffed your mouth with Half a fish pie."
+  },
+  {
+    "id": 7198,
+    "name": "Admiral pie",
+    "heal": 6,
+    "delay": 1,
+    "replaceId": 7200,
+    "message": "Stuffed your mouth with Admiral pie."
+  },
+  {
+    "id": 7200,
+    "name": "Half an admiral pie",
+    "heal": 6,
+    "delay": 1,
+    "replaceId": 2313,
+    "message": "Stuffed your mouth with Half an admiral pie."
+  },
+  {
+    "id": 7208,
+    "name": "Wild pie",
+    "heal": 11,
+    "delay": 1,
+    "replaceId": 7210,
+    "message": "Stuffed your mouth with Wild pie."
+  },
+  {
+    "id": 7210,
+    "name": "Half a wild pie",
+    "heal": 11,
+    "delay": 1,
+    "replaceId": 2313,
+    "message": "Stuffed your mouth with Half a wild pie."
+  },
+  {
+    "id": 7218,
+    "name": "Summer pie",
+    "heal": 11,
+    "delay": 1,
+    "replaceId": 7220,
+    "message": "Stuffed your mouth with Summer pie."
+  },
+  {
+    "id": 7220,
+    "name": "Half a summer pie",
+    "heal": 11,
+    "delay": 1,
+    "replaceId": 2313,
+    "message": "Stuffed your mouth with Half a summer pie."
+  },
+  {
+    "id": 7946,
+    "name": "Monkfish",
+    "heal": 16,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Monkfish."
+  },
+  {
+    "id": 10476,
+    "name": "Purple sweets",
+    "heal": 3,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "The sugary goodness restores some energy."
+  },
+  {
+    "id": 13433,
+    "name": "Crayfish",
+    "heal": 2,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Crayfish."
+  },
+  {
+    "id": 14825,
+    "name": "Monkfish",
+    "heal": 16,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Monkfish."
+  },
+  {
+    "id": 14831,
+    "name": "Swordfish",
+    "heal": 14,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Swordfish."
+  },
+  {
+    "id": 15266,
+    "name": "Cavefish",
+    "heal": 20,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Cavefish."
+  },
+  {
+    "id": 11936,
+    "name": "Dark crab",
+    "heal": 22,
+    "delay": 3,
+    "replaceId": -1,
+    "message": "Stuffed your mouth with Dark crab."
+  }
+]

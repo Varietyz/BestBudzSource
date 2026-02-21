@@ -1,0 +1,1554 @@
+[
+  {
+    "id": 12695,
+    "name": "Jah Powa (4)",
+    "replaceId": 12697,
+    "potionType": "NORMAL",
+    "professionData": null
+  },
+  {
+    "id": 12697,
+    "name": "Jah Powa (3)",
+    "replaceId": 12699,
+    "potionType": "NORMAL",
+    "professionData": null
+  },
+  {
+    "id": 12699,
+    "name": "Jah Powa (2)",
+    "replaceId": 12701,
+    "potionType": "NORMAL",
+    "professionData": null
+  },
+  {
+    "id": 12701,
+    "name": "Jah Powa (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": null
+  },
+  {
+    "id": 2452,
+    "name": null,
+    "replaceId": 2454,
+    "potionType": "ANTIFIRE",
+    "professionData": null
+  },
+  {
+    "id": 2454,
+    "name": null,
+    "replaceId": 2456,
+    "potionType": "ANTIFIRE",
+    "professionData": null
+  },
+  {
+    "id": 2456,
+    "name": null,
+    "replaceId": 2458,
+    "potionType": "ANTIFIRE",
+    "professionData": null
+  },
+  {
+    "id": 2458,
+    "name": null,
+    "replaceId": -1,
+    "potionType": "ANTIFIRE",
+    "professionData": null
+  },
+  {
+    "id": 113,
+    "name": "Vigour potion (4)",
+    "replaceId": 115,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "name": "Vigour potion (3)",
+    "replaceId": 117,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "name": "Vigour potion (2)",
+    "replaceId": 119,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "name": "Vigour potion (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "name": "Assault potion (3)",
+    "replaceId": 123,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "name": "Assault potion (2)",
+    "replaceId": 125,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "name": "Assault potion (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "name": "Steroid (3)",
+    "replaceId": 129,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 2,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 1,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 6,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 4,
+        "add": 10,
+        "modifier": 0.3
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "name": "Steroid (2)",
+    "replaceId": 131,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 2,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 1,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 6,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 4,
+        "add": 10,
+        "modifier": 0.3
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "name": "Steroid (1)",
+    "replaceId": -1,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 2,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 1,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 6,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 4,
+        "add": 10,
+        "modifier": 0.3
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "name": "Aegis potion (3)",
+    "replaceId": 135,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 1,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "name": "Aegis potion (2)",
+    "replaceId": 137,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 1,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "name": "Aegis potion (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 1,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "name": "Power of the resonancer (3)",
+    "replaceId": 141,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 5,
+        "add": 7,
+        "modifier": 0.25
+      }
+    ]
+  },
+  {
+    "id": 141,
+    "name": "Power of the resonancer (2)",
+    "replaceId": 143,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 5,
+        "add": 7,
+        "modifier": 0.25
+      }
+    ]
+  },
+  {
+    "id": 143,
+    "name": "Power of the resonancer (1)",
+    "replaceId": -1,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 5,
+        "add": 7,
+        "modifier": 0.25
+      }
+    ]
+  },
+  {
+    "id": 145,
+    "name": "Super assault (3)",
+    "replaceId": 147,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 147,
+    "name": "Super assault (2)",
+    "replaceId": 149,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "name": "Super assault (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "name": "Fish oil extract (3)",
+    "replaceId": 153,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 10,
+        "add": 3,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 153,
+    "name": "Fish oil extract (2)",
+    "replaceId": 155,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 10,
+        "add": 3,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 155,
+    "name": "Fish oil extract (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 10,
+        "add": 3,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 157,
+    "name": "Super vigour (3)",
+    "replaceId": 159,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 159,
+    "name": "Super vigour (2)",
+    "replaceId": 161,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 161,
+    "name": "Super vigour (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 169,
+    "name": "Power of the sagittarius (3)",
+    "replaceId": 171,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 4,
+        "add": 4,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 171,
+    "name": "Power of the sagittarius (2)",
+    "replaceId": 173,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 4,
+        "add": 4,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 173,
+    "name": "Power of the sagittarius (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 4,
+        "add": 4,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 189,
+    "name": "Zamorak brew (3)",
+    "replaceId": 191,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 2,
+        "modifier": 0.12
+      },
+      {
+        "professionId": 0,
+        "add": 2,
+        "modifier": 0.2
+      },
+      {
+        "professionId": 5,
+        "add": 9,
+        "modifier": 0.0
+      },
+      {
+        "professionId": 1,
+        "add": -2,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 3,
+        "add": 0,
+        "modifier": -0.12
+      }
+    ]
+  },
+  {
+    "id": 191,
+    "name": "Zamorak brew (2)",
+    "replaceId": 193,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 2,
+        "modifier": 0.12
+      },
+      {
+        "professionId": 0,
+        "add": 2,
+        "modifier": 0.2
+      },
+      {
+        "professionId": 5,
+        "add": 9,
+        "modifier": 0.0
+      },
+      {
+        "professionId": 1,
+        "add": -2,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 3,
+        "add": 0,
+        "modifier": -0.12
+      }
+    ]
+  },
+  {
+    "id": 193,
+    "name": "Zamorak brew (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 2,
+        "modifier": 0.12
+      },
+      {
+        "professionId": 0,
+        "add": 2,
+        "modifier": 0.2
+      },
+      {
+        "professionId": 5,
+        "add": 9,
+        "modifier": 0.0
+      },
+      {
+        "professionId": 1,
+        "add": -2,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 3,
+        "add": 0,
+        "modifier": -0.12
+      }
+    ]
+  },
+  {
+    "id": 2428,
+    "name": "Assault potion (4)",
+    "replaceId": 121,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 2430,
+    "name": "Steroid (4)",
+    "replaceId": 127,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 2,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 1,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 6,
+        "add": 10,
+        "modifier": 0.3
+      },
+      {
+        "professionId": 4,
+        "add": 10,
+        "modifier": 0.3
+      }
+    ]
+  },
+  {
+    "id": 2432,
+    "name": "Aegis potion (4)",
+    "replaceId": 133,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 1,
+        "add": 3,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 2434,
+    "name": "Power of the resonancer (4)",
+    "replaceId": 139,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 5,
+        "add": 7,
+        "modifier": 0.25
+      }
+    ]
+  },
+  {
+    "id": 2436,
+    "name": "Super assault (4)",
+    "replaceId": 145,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 2438,
+    "name": "Fish oil extract (4)",
+    "replaceId": 151,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 10,
+        "add": 3,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 2440,
+    "name": "Super vigour (4)",
+    "replaceId": 157,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 2444,
+    "name": "Power of the sagittarius (4)",
+    "replaceId": 169,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 4,
+        "add": 4,
+        "modifier": 0.1
+      }
+    ]
+  },
+  {
+    "id": 2450,
+    "name": "Zamorak brew (4)",
+    "replaceId": 189,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 2,
+        "add": 2,
+        "modifier": 0.12
+      },
+      {
+        "professionId": 0,
+        "add": 2,
+        "modifier": 0.2
+      },
+      {
+        "professionId": 5,
+        "add": 9,
+        "modifier": 0.0
+      },
+      {
+        "professionId": 1,
+        "add": -2,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 3,
+        "add": 0,
+        "modifier": -0.12
+      }
+    ]
+  },
+  {
+    "id": 3024,
+    "name": "Steroid v2 (4)",
+    "replaceId": 3026,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 0,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 1,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 2,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 4,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 5,
+        "add": 8,
+        "modifier": 0.33
+      },
+      {
+        "professionId": 21,
+        "add": 8,
+        "modifier": 0.33
+      },
+      {
+        "professionId": 6,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 7,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 8,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 9,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 10,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 11,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 12,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 13,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 14,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 15,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 16,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 17,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 18,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 19,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 20,
+        "add": 8,
+        "modifier": 0.25
+      }
+    ]
+  },
+  {
+    "id": 3026,
+    "name": "Steroid v2 (3)",
+    "replaceId": 3028,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 21,
+        "add": 8,
+        "modifier": 0.33
+      },
+      {
+        "professionId": 0,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 1,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 2,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 4,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 5,
+        "add": 8,
+        "modifier": 0.33
+      },
+      {
+        "professionId": 6,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 7,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 8,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 9,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 10,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 11,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 12,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 13,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 14,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 15,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 16,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 17,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 18,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 19,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 20,
+        "add": 8,
+        "modifier": 0.25
+      }
+    ]
+  },
+  {
+    "id": 3028,
+    "name": "Steroid v2 (2)",
+    "replaceId": 3030,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 21,
+        "add": 8,
+        "modifier": 0.33
+      },
+      {
+        "professionId": 0,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 1,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 2,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 4,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 5,
+        "add": 8,
+        "modifier": 0.33
+      },
+      {
+        "professionId": 6,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 7,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 8,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 9,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 10,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 11,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 12,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 13,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 14,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 15,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 16,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 17,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 18,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 19,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 20,
+        "add": 8,
+        "modifier": 0.25
+      }
+    ]
+  },
+  {
+    "id": 3030,
+    "name": "Steroid v2 (1)",
+    "replaceId": -1,
+    "potionType": "RESTORE",
+    "professionData": [
+      {
+        "professionId": 21,
+        "add": 8,
+        "modifier": 0.33
+      },
+      {
+        "professionId": 0,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 1,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 2,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 4,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 5,
+        "add": 8,
+        "modifier": 0.33
+      },
+      {
+        "professionId": 6,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 7,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 8,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 9,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 10,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 11,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 12,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 13,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 14,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 15,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 16,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 17,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 18,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 19,
+        "add": 8,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 20,
+        "add": 8,
+        "modifier": 0.25
+      }
+    ]
+  },
+  {
+    "id": 3032,
+    "name": "Weedsmoking potion (4)",
+    "replaceId": 3034,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 16,
+        "add": 3,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 3034,
+    "name": "Weedsmoking potion (3)",
+    "replaceId": 3036,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 16,
+        "add": 3,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 3036,
+    "name": "Weedsmoking potion (2)",
+    "replaceId": 3038,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 16,
+        "add": 3,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 3038,
+    "name": "Weedsmoking potion (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 16,
+        "add": 3,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 3040,
+    "name": "Mages elixir (4)",
+    "replaceId": 3042,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 6,
+        "add": 5,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 3042,
+    "name": "Mages elixir (3)",
+    "replaceId": 3044,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 6,
+        "add": 5,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 3044,
+    "name": "Mages elixir (2)",
+    "replaceId": 3046,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 6,
+        "add": 5,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 3046,
+    "name": "Mages elixir (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 6,
+        "add": 5,
+        "modifier": 0.0
+      }
+    ]
+  },
+  {
+    "id": 6685,
+    "name": "Healing ale of the gods (4)",
+    "replaceId": 6687,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 3,
+        "add": 2,
+        "modifier": 0.15
+      },
+      {
+        "professionId": 1,
+        "add": 0,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 2,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 0,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 6,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 4,
+        "add": 0,
+        "modifier": -0.1
+      }
+    ]
+  },
+  {
+    "id": 6687,
+    "name": "Healing ale of the gods (3)",
+    "replaceId": 6689,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 3,
+        "add": 2,
+        "modifier": 0.15
+      },
+      {
+        "professionId": 1,
+        "add": 0,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 2,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 0,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 6,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 4,
+        "add": 0,
+        "modifier": -0.1
+      }
+    ]
+  },
+  {
+    "id": 6689,
+    "name": "Healing ale of the gods (2)",
+    "replaceId": 6691,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 3,
+        "add": 2,
+        "modifier": 0.15
+      },
+      {
+        "professionId": 1,
+        "add": 0,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 2,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 0,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 6,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 4,
+        "add": 0,
+        "modifier": -0.1
+      }
+    ]
+  },
+  {
+    "id": 6691,
+    "name": "Healing ale of the gods (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 3,
+        "add": 2,
+        "modifier": 0.15
+      },
+      {
+        "professionId": 1,
+        "add": 0,
+        "modifier": 0.25
+      },
+      {
+        "professionId": 2,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 0,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 6,
+        "add": 0,
+        "modifier": -0.1
+      },
+      {
+        "professionId": 4,
+        "add": 0,
+        "modifier": -0.1
+      }
+    ]
+  },
+  {
+    "id": 3008,
+    "name": "Usain Bolt\u0027s Doping (4)",
+    "replaceId": 3010,
+    "potionType": "NORMAL",
+    "professionData": []
+  },
+  {
+    "id": 3010,
+    "name": "Usain Bolt\u0027s Doping (3)",
+    "replaceId": 3012,
+    "potionType": "NORMAL",
+    "professionData": []
+  },
+  {
+    "id": 3012,
+    "name": "Usain Bolt\u0027s Doping (2)",
+    "replaceId": 3014,
+    "potionType": "NORMAL",
+    "professionData": []
+  },
+  {
+    "id": 3014,
+    "name": "Usain Bolt\u0027s Doping (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": []
+  },
+  {
+    "id": 2446,
+    "name": "Cannabidiol Concentrate (4)",
+    "replaceId": 175,
+    "potionType": "NORMAL",
+    "professionData": []
+  },
+  {
+    "id": 175,
+    "name": "Cannabidiol Concentrate (3)",
+    "replaceId": 177,
+    "potionType": "NORMAL",
+    "professionData": []
+  },
+  {
+    "id": 177,
+    "name": "Cannabidiol Concentrate (2)",
+    "replaceId": 179,
+    "potionType": "NORMAL",
+    "professionData": []
+  },
+  {
+    "id": 179,
+    "name": "Cannabidiol Concentrate (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": []
+  },
+  {
+    "id": 2442,
+    "name": "Super aegis (4)",
+    "replaceId": 163,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 1,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 163,
+    "name": "Super aegis (3)",
+    "replaceId": 165,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 1,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 165,
+    "name": "Super aegis (2)",
+    "replaceId": 167,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 1,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  },
+  {
+    "id": 167,
+    "name": "Super aegis (1)",
+    "replaceId": -1,
+    "potionType": "NORMAL",
+    "professionData": [
+      {
+        "professionId": 1,
+        "add": 5,
+        "modifier": 0.15
+      }
+    ]
+  }
+]

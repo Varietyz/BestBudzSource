@@ -1,0 +1,20 @@
+{
+  "KALPHITE_PRINCESS_FLY": {
+    "firstSummoned": 1771603014400,
+    "experience": 7658.0,
+    "bondGrade": 11,
+    "activeTime": 79580000
+  },
+  "KALPHITE_PRINCESS_BUG": {
+    "bondGrade": 11,
+    "activeTime": 81320000,
+    "experience": 7767.0,
+    "firstSummoned": 1771602263095
+  },
+  "SMOKE_DEVIL": {
+    "bondGrade": 11,
+    "activeTime": 86235000,
+    "experience": 8318.5,
+    "firstSummoned": 1771603012253
+  }
+}

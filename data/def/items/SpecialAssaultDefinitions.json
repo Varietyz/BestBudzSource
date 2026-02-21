@@ -1,0 +1,345 @@
+[
+  {
+    "id": 1377,
+    "barId1": 7499,
+    "barId2": 7511,
+    "button": 29124,
+    "amount": 10.0
+  },
+  {
+    "id": 11235,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.5
+  },
+  {
+    "id": 12765,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.5
+  },
+  {
+    "id": 12766,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.5
+  },
+  {
+    "id": 12767,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.5
+  },
+  {
+    "id": 12768,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.5
+  },
+  {
+    "id": 20074,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 10.0
+  },
+  {
+    "id": 20076,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 10.0
+  },
+  {
+    "id": 15486,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 10.0
+  },
+  {
+    "id": 11802,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 5.0
+  },
+  {
+    "id": 11838,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 5.0
+  },
+  {
+    "id": 12809,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 5.0
+  },
+  {
+    "id": 11804,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 6.5
+  },
+  {
+    "id": 11806,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 5.0
+  },
+  {
+    "id": 11808,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 6.0
+  },
+  {
+    "id": 4151,
+    "barId1": 12323,
+    "barId2": 12335,
+    "button": 48034,
+    "amount": 5.0
+  },
+  {
+    "id": 12006,
+    "barId1": 12323,
+    "barId2": 12335,
+    "button": 48034,
+    "amount": 5.0
+  },
+  {
+    "id": 4178,
+    "barId1": 12323,
+    "barId2": 12335,
+    "button": 48034,
+    "amount": 5.0
+  },
+  {
+    "id": 12773,
+    "barId1": 12323,
+    "barId2": 12335,
+    "button": 48034,
+    "amount": 5.0
+  },
+  {
+    "id": 12774,
+    "barId1": 12323,
+    "barId2": 12335,
+    "button": 48034,
+    "amount": 5.0
+  },
+  {
+    "id": 5680,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 5698,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 11889,
+    "barId1": 7674,
+    "barId2": 7686,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 11824,
+    "barId1": 7674,
+    "barId2": 7686,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 1249,
+    "barId1": 7674,
+    "barId2": 7686,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 1215,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 1231,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 4587,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 5.5
+  },
+  {
+    "id": 1305,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 1434,
+    "barId1": 7624,
+    "barId2": 7636,
+    "button": 29199,
+    "amount": 2.5
+  },
+  {
+    "id": 13188,
+    "barId1": 7800,
+    "barId2": 7812,
+    "button": 30108,
+    "amount": 5.0
+  },
+  {
+    "id": 10887,
+    "barId1": 7624,
+    "barId2": 7636,
+    "button": 29199,
+    "amount": 5.0
+  },
+  {
+    "id": 4153,
+    "barId1": 7474,
+    "barId2": 7486,
+    "button": 29049,
+    "amount": 5.0
+  },
+  {
+    "id": 13902,
+    "barId1": 7474,
+    "barId2": 7486,
+    "button": 29049,
+    "amount": 3.5
+  },
+  {
+    "id": 13904,
+    "barId1": 7474,
+    "barId2": 7486,
+    "button": 29049,
+    "amount": 3.5
+  },
+  {
+    "id": 13926,
+    "barId1": 7474,
+    "barId2": 7486,
+    "button": 29038,
+    "amount": 3.5
+  },
+  {
+    "id": 13928,
+    "barId1": 7474,
+    "barId2": 7486,
+    "button": 29038,
+    "amount": 3.5
+  },
+  {
+    "id": 13899,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 2.5
+  },
+  {
+    "id": 13901,
+    "barId1": 7574,
+    "barId2": 7586,
+    "button": 29138,
+    "amount": 5.0
+  },
+  {
+    "id": 15241,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.5
+  },
+  {
+    "id": 861,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 10.0
+  },
+  {
+    "id": 12788,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 10.0
+  },
+  {
+    "id": 12926,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.0
+  },
+  {
+    "id": 11785,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 4.0
+  },
+  {
+    "id": 12926,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.0
+  },
+  {
+    "id": 6724,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.5
+  },
+  {
+    "id": 12924,
+    "barId1": 7549,
+    "barId2": 7561,
+    "button": 29124,
+    "amount": 5.0
+  },
+  {
+    "id": 13879,
+    "barId1": 7649,
+    "barId2": 7661,
+    "button": 29213,
+    "amount": 5.0
+  },
+  {
+    "id": 13880,
+    "barId1": 7649,
+    "barId2": 7661,
+    "button": 29213,
+    "amount": 5.0
+  }
+]

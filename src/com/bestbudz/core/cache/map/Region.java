@@ -258,7 +258,6 @@ public class Region {
     regions = set;
   }
 
-  public void createLadders() {}
 
   public void addDoor(int oId, int x, int y, int z, int type, int face) {
     int regionAbsX = (id >> 8) << 6;
@@ -553,7 +552,7 @@ public class Region {
 
   public boolean canShoot(int x, int y, int z, int direction) {
     if (direction == 0) {
-      return !shotBlockedWest(x, y, z) && !shotBlockedNorth(x, y, z) && !shotBlockedWest(x, y, z);
+      return !shotBlockedNorthWest(x, y, z) && !shotBlockedNorth(x, y, z) && !shotBlockedWest(x, y, z);
     } else if (direction == 1) {
       return !shotBlockedNorth(x, y, z);
     } else if (direction == 2) {
@@ -650,7 +649,7 @@ public class Region {
     }
 
     if (x - regionAbsX < 0 || y - regionAbsY < 0 || x - regionAbsX > 63 || y - regionAbsY > 63) {
-      return getRegion(x, y).getClip(x, y, z);
+      return getRegion(x, y).getShootable(x, y, z);
     }
 
     if (shootable[z] == null) {
@@ -688,19 +687,8 @@ public class Region {
 
     if (clips[height] == null) {
       clips[height] = new int[64][64];
-
-      for (int z = 0; z < 4; z++) {
-        for (int x2 = 0; x < 64; x++) {
-          for (int y2 = 0; y < 64; y++) {
-            clips[z][x2][y2] = -1;
-          }
-        }
-      }
     }
 
-    if (clips[height][x - regionAbsX][y - regionAbsY] == -1) {
-      clips[height][x - regionAbsX][y - regionAbsY] = 0;
-    }
     clips[height][x - regionAbsX][y - regionAbsY] += shift;
   }
 
@@ -722,16 +710,6 @@ public class Region {
     return !(regionAbsX < 0 || regionAbsY < 0 || regionAbsX > 63 || regionAbsY > 63);
   }
 
-  public void setClip(int x, int y, int z, int clip) {
-    int regionX = x >> 3;
-    int regionY = y >> 3;
-
-    if (clips[z] == null) {
-      return;
-    }
-
-    clips[z][x - regionX][y - regionY] = clip;
-  }
 
   public void setClipping(int x, int y, int z, int clip) {
     int regionAbsX = (id >> 8) << 6;

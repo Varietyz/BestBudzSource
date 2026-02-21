@@ -161,7 +161,7 @@ public class StonerMovement {
 		int deltaX = stoner.getLocation().getX() - getCurrentRegion().getRegionX() * 8;
 		int deltaY = stoner.getLocation().getY() - getCurrentRegion().getRegionY() * 8;
 
-		if ((deltaX < 16) || (deltaX >= 88) || (deltaY < 16) || (deltaY > 88)) {
+		if ((deltaX < 16) || (deltaX >= 88) || (deltaY < 16) || (deltaY >= 88)) {
 			stoner.send(new SendMapRegion(stoner));
 		}
 	}

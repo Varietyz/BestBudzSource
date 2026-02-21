@@ -1,0 +1,168 @@
+{
+  "regionId": 10312,
+  "absX": 2560,
+  "absY": 4608,
+  "groundFlags": [],
+  "objects": [
+    {
+      "id": 12532,
+      "x": 18,
+      "y": 16,
+      "level": 1,
+      "type": 10,
+      "direction": 0
+    },
+    {
+      "id": 12532,
+      "x": 19,
+      "y": 21,
+      "level": 1,
+      "type": 10,
+      "direction": 0
+    },
+    {
+      "id": 12533,
+      "x": 19,
+      "y": 17,
+      "level": 0,
+      "type": 22,
+      "direction": 0
+    },
+    {
+      "id": 12533,
+      "x": 20,
+      "y": 22,
+      "level": 0,
+      "type": 22,
+      "direction": 0
+    },
+    {
+      "id": 12534,
+      "x": 18,
+      "y": 17,
+      "level": 0,
+      "type": 22,
+      "direction": 3
+    },
+    {
+      "id": 12534,
+      "x": 19,
+      "y": 16,
+      "level": 0,
+      "type": 22,
+      "direction": 2
+    },
+    {
+      "id": 12534,
+      "x": 19,
+      "y": 18,
+      "level": 0,
+      "type": 22,
+      "direction": 0
+    },
+    {
+      "id": 12534,
+      "x": 19,
+      "y": 22,
+      "level": 0,
+      "type": 22,
+      "direction": 3
+    },
+    {
+      "id": 12534,
+      "x": 20,
+      "y": 17,
+      "level": 0,
+      "type": 22,
+      "direction": 1
+    },
+    {
+      "id": 12534,
+      "x": 20,
+      "y": 21,
+      "level": 0,
+      "type": 22,
+      "direction": 2
+    },
+    {
+      "id": 12534,
+      "x": 20,
+      "y": 23,
+      "level": 0,
+      "type": 22,
+      "direction": 0
+    },
+    {
+      "id": 12534,
+      "x": 21,
+      "y": 22,
+      "level": 0,
+      "type": 22,
+      "direction": 1
+    },
+    {
+      "id": 12535,
+      "x": 18,
+      "y": 16,
+      "level": 0,
+      "type": 22,
+      "direction": 2
+    },
+    {
+      "id": 12535,
+      "x": 18,
+      "y": 18,
+      "level": 0,
+      "type": 22,
+      "direction": 3
+    },
+    {
+      "id": 12535,
+      "x": 19,
+      "y": 21,
+      "level": 0,
+      "type": 22,
+      "direction": 2
+    },
+    {
+      "id": 12535,
+      "x": 19,
+      "y": 23,
+      "level": 0,
+      "type": 22,
+      "direction": 3
+    },
+    {
+      "id": 12535,
+      "x": 20,
+      "y": 16,
+      "level": 0,
+      "type": 22,
+      "direction": 1
+    },
+    {
+      "id": 12535,
+      "x": 20,
+      "y": 18,
+      "level": 0,
+      "type": 22,
+      "direction": 0
+    },
+    {
+      "id": 12535,
+      "x": 21,
+      "y": 21,
+      "level": 0,
+      "type": 22,
+      "direction": 1
+    },
+    {
+      "id": 12535,
+      "x": 21,
+      "y": 23,
+      "level": 0,
+      "type": 22,
+      "direction": 0
+    }
+  ]
+}

@@ -1,16 +1,12 @@
 package com.bestbudz.core.cache.map;
 
-import com.bestbudz.core.cache.ByteStream;
 import com.bestbudz.core.util.Utility;
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.*;
 import java.util.logging.Logger;
-import java.util.zip.GZIPInputStream;
 
 public class MapLoading {
 
@@ -20,48 +16,103 @@ public class MapLoading {
 
   private static int doors = 0;
 
+  @SuppressWarnings("unchecked")
   public static void load() {
     try {
-      File f = new File("./data/map/map_index");
-      byte[] buffer = new byte[(int) f.length()];
-      DataInputStream dis = new DataInputStream(new FileInputStream(f));
-      dis.readFully(buffer);
-      dis.close();
-      ByteStream in = new ByteStream(buffer);
-      int size = in.length() / 6;
-      in.readUnsignedWord();
-      Region.setRegions(new Region[size]);
-      int[] regionIds = new int[size];
-      int[] mapGroundFileIds = new int[size];
-      int[] mapObjectsFileIds = new int[size];
-      for (int i = 0; i < size; i++) {
-        regionIds[i] = in.getUShort();
-        mapGroundFileIds[i] = in.getUShort();
-        mapObjectsFileIds[i] = in.getUShort();
+      Gson gson = new Gson();
+
+      // Read region index
+      Type indexType = new TypeToken<Map<String, Object>>() {}.getType();
+      Map<String, Object> indexData;
+      try (FileReader reader = new FileReader("./data/map/maps_json/region_index.json")) {
+        indexData = gson.fromJson(reader, indexType);
       }
+
+      List<Map<String, Object>> regionEntries = (List<Map<String, Object>>) indexData.get("regions");
+      int size = regionEntries.size();
+      Region.setRegions(new Region[size]);
+
+      // Create regions first
+      int[] regionIds = new int[size];
       for (int i = 0; i < size; i++) {
+        regionIds[i] = ((Number) regionEntries.get(i).get("regionId")).intValue();
         Region.getRegions()[i] = new Region(regionIds[i]);
       }
+
+      // Load each region from its JSON file
+      Type regionType = new TypeToken<Map<String, Object>>() {}.getType();
       for (int i = 0; i < size; i++) {
-        byte[] file1 = getBuffer(new File("./data/map/mapdata/" + mapObjectsFileIds[i] + ".gz"));
-        byte[] file2 = getBuffer(new File("./data/map/mapdata/" + mapGroundFileIds[i] + ".gz"));
-        if (file1 == null || file2 == null) {
-          continue;
-        }
+        String regionFile = "./data/map/maps_json/" + regionIds[i] + ".json";
+        java.io.File f = new java.io.File(regionFile);
+        if (!f.exists()) continue;
+
         try {
-          loadMaps(regionIds[i], new ByteStream(file1), new ByteStream(file2));
+          Map<String, Object> regionData;
+          try (FileReader reader = new FileReader(regionFile)) {
+            regionData = gson.fromJson(reader, regionType);
+          }
+
+          int absX = ((Number) regionData.get("absX")).intValue();
+          int absY = ((Number) regionData.get("absY")).intValue();
+
+          // Process ground flags
+          List<Map<String, Object>> groundFlags =
+              (List<Map<String, Object>>) regionData.get("groundFlags");
+          int[][][] someArray = new int[4][64][64];
+          if (groundFlags != null) {
+            for (Map<String, Object> gf : groundFlags) {
+              int level = ((Number) gf.get("level")).intValue();
+              int x = ((Number) gf.get("x")).intValue();
+              int y = ((Number) gf.get("y")).intValue();
+              int flag = ((Number) gf.get("flag")).intValue();
+              someArray[level][x][y] = flag;
+            }
+          }
+
+          // Apply ground clipping
+          for (int lvl = 0; lvl < 4; lvl++) {
+            for (int x = 0; x < 64; x++) {
+              for (int y = 0; y < 64; y++) {
+                if ((someArray[lvl][x][y] & 1) == 1) {
+                  int height = lvl;
+                  if ((someArray[1][x][y] & 2) == 2) {
+                    height--;
+                  }
+                  if (height >= 0 && height <= 3) {
+                    addClipping(true, absX + x, absY + y, height, 0x200000);
+                  }
+                }
+              }
+            }
+          }
+
+          // Process objects
+          List<Map<String, Object>> objects =
+              (List<Map<String, Object>>) regionData.get("objects");
+          if (objects != null) {
+            for (Map<String, Object> obj : objects) {
+              int objectId = ((Number) obj.get("id")).intValue();
+              int localX = ((Number) obj.get("x")).intValue();
+              int localY = ((Number) obj.get("y")).intValue();
+              int height = ((Number) obj.get("level")).intValue();
+              int type = ((Number) obj.get("type")).intValue();
+              int direction = ((Number) obj.get("direction")).intValue();
+
+              if (localX < 0 || localX >= 64 || localY < 0 || localY >= 64) continue;
+              if ((someArray[1][localX][localY] & 2) == 2) {
+                height--;
+              }
+              if (height >= 0 && height <= 3) {
+                addObject(true, objectId, absX + localX, absY + localY, height, type, direction);
+              }
+            }
+          }
         } catch (Exception e) {
-          System.out.println(
-              "Error loading map region: "
-                  + regionIds[i]
-                  + ", ids: "
-                  + mapObjectsFileIds[i]
-                  + " and "
-                  + mapGroundFileIds[i]);
+          System.out.println("Error loading map region: " + regionIds[i] + ": " + e.getMessage());
         }
       }
 
-      logger.info(Utility.format(size) + " Maps have been loaded successfully.");
+      logger.info(Utility.format(size) + " Maps have been loaded from JSON successfully.");
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -438,105 +489,5 @@ public class MapLoading {
         }
       }
     }
-  }
-
-  private static void loadMaps(int regionId, ByteStream str1, ByteStream str2) {
-    int absX = (regionId >> 8) * 64;
-    int absY = (regionId & 0xff) * 64;
-    int[][][] someArray = new int[4][64][64];
-    for (int i = 0; i < 4; i++) {
-      for (int i2 = 0; i2 < 64; i2++) {
-        for (int i3 = 0; i3 < 64; i3++) {
-          while (true) {
-            int v = str2.getUByte();
-            if (v == 0) {
-              break;
-            } else if (v == 1) {
-              str2.skip(1);
-              break;
-            } else if (v <= 49) {
-              str2.skip(1);
-            } else if (v <= 81) {
-              someArray[i][i2][i3] = v - 49;
-            }
-          }
-        }
-      }
-    }
-    for (int i = 0; i < 4; i++) {
-      for (int i2 = 0; i2 < 64; i2++) {
-        for (int i3 = 0; i3 < 64; i3++) {
-          if ((someArray[i][i2][i3] & 1) == 1) {
-            int height = i;
-            if ((someArray[1][i2][i3] & 2) == 2) {
-              height--;
-            }
-            if (height >= 0 && height <= 3) {
-              addClipping(true, absX + i2, absY + i3, height, 0x200000);
-            }
-          }
-        }
-      }
-    }
-    int objectId = -1;
-    int incr;
-    while ((incr = str1.getUSmart()) != 0) {
-      objectId += incr;
-      int location = 0;
-      int incr2;
-      while ((incr2 = str1.getUSmart()) != 0) {
-        location += incr2 - 1;
-        int localX = (location >> 6 & 0x3f);
-        int localY = (location & 0x3f);
-        int height = location >> 12;
-        int objectData = str1.getUByte();
-        int type = objectData >> 2;
-        int direction = objectData & 0x3;
-        if (localX < 0 || localX >= 64 || localY < 0 || localY >= 64) {
-          continue;
-        }
-        if ((someArray[1][localX][localY] & 2) == 2) {
-          height--;
-        }
-        if (height >= 0 && height <= 3) {
-          addObject(true, objectId, absX + localX, absY + localY, height, type, direction);
-        }
-      }
-    }
-  }
-
-  public static byte[] getBuffer(File f) throws Exception {
-    if (!f.exists()) {
-      return null;
-    }
-    byte[] buffer = new byte[(int) f.length()];
-    DataInputStream dis = new DataInputStream(new FileInputStream(f));
-    dis.readFully(buffer);
-    dis.close();
-    byte[] gzipInputBuffer = new byte[999999];
-    int bufferlength = 0;
-    GZIPInputStream gzip = new GZIPInputStream(new ByteArrayInputStream(buffer));
-    do {
-      if (bufferlength == gzipInputBuffer.length) {
-        System.out.println("Error inflating data.\nGZIP buffer overflow.");
-        break;
-      }
-      int readByte =
-          gzip.read(gzipInputBuffer, bufferlength, gzipInputBuffer.length - bufferlength);
-      if (readByte == -1) {
-        break;
-      }
-      bufferlength += readByte;
-    } while (true);
-    byte[] inflated = new byte[bufferlength];
-    System.arraycopy(gzipInputBuffer, 0, inflated, 0, bufferlength);
-    buffer = inflated;
-
-    gzip.close();
-
-    if (buffer.length < 10) {
-      return null;
-    }
-    return buffer;
   }
 }

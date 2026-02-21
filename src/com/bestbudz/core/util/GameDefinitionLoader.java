@@ -21,13 +21,14 @@ import com.bestbudz.rs2.content.profession.Professions;
 import com.bestbudz.rs2.content.shopping.Shop;
 import com.bestbudz.rs2.entity.item.Item;
 import com.bestbudz.rs2.entity.mob.Mob;
-import com.thoughtworks.xstream.XStream;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class GameDefinitionLoader {
 
   private static final Logger logger = Logger.getLogger(GameDefinitionLoader.class.getSimpleName());
 
-  private static final XStream xStream = new XStream();
+  private static final Gson gson = new Gson();
   private static final Map<Integer, Integer> rareDropChances = new HashMap<Integer, Integer>();
   private static final Map<Integer, byte[][]> itemRequirements = new HashMap<Integer, byte[][]>();
   private static final Map<Integer, ItemDefinition> itemDefinitions =
@@ -72,87 +73,17 @@ public class GameDefinitionLoader {
 
   private GameDefinitionLoader() {}
 
+  private static <T> List<T> loadJsonList(String path, Type type) throws IOException {
+    try (FileReader reader = new FileReader(path)) {
+      return gson.fromJson(reader, type);
+    }
+  }
+
   public static final void clearAlternates() {
     alternates = null;
   }
 
   public static final void declare() {
-    xStream.allowTypes(
-        new Class[] {
-          com.bestbudz.core.definitions.ItemDropDefinition.class,
-          com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class,
-          com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class,
-          com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class,
-          com.bestbudz.core.definitions.ItemDropDefinition.ItemDrop.class,
-          com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.ScrollTypes.class,
-          com.bestbudz.rs2.entity.Location.class,
-          com.bestbudz.rs2.entity.item.Item.class,
-          com.bestbudz.rs2.entity.Projectile.class,
-          com.bestbudz.rs2.entity.Graphic.class,
-          com.bestbudz.rs2.entity.Animation.class,
-          com.bestbudz.core.definitions.NpcCombatDefinition.class,
-          com.bestbudz.core.definitions.NpcCombatDefinition.Profession.class,
-          com.bestbudz.core.definitions.NpcCombatDefinition.Melee.class,
-          com.bestbudz.core.definitions.NpcCombatDefinition.Mage.class,
-          com.bestbudz.core.definitions.NpcCombatDefinition.Sagittarius.class,
-          com.bestbudz.core.definitions.ItemDefinition.class,
-          com.bestbudz.core.definitions.ShopDefinition.class,
-          com.bestbudz.core.definitions.WeaponDefinition.class,
-          com.bestbudz.core.definitions.SpecialAssaultDefinition.class,
-          com.bestbudz.core.definitions.SagittariusWeaponDefinition.class,
-          com.bestbudz.core.definitions.SagittariusVigourDefinition.class,
-          com.bestbudz.core.definitions.FoodDefinition.class,
-          com.bestbudz.core.definitions.PotionDefinition.class,
-          com.bestbudz.core.definitions.PotionDefinition.ProfessionData.class,
-          com.bestbudz.core.definitions.ItemBonusDefinition.class,
-          com.bestbudz.core.definitions.CombatSpellDefinition.class,
-          com.bestbudz.core.definitions.NpcDefinition.class,
-          com.bestbudz.core.definitions.NpcSpawnDefinition.class,
-          com.bestbudz.core.definitions.EquipmentDefinition.class,
-        });
-
-    xStream.alias("ItemDropDefinition", com.bestbudz.core.definitions.ItemDropDefinition.class);
-    xStream.alias("constant", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
-    xStream.alias("common", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
-    xStream.alias("uncommon", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.class);
-    xStream.alias("itemDrop", com.bestbudz.core.definitions.ItemDropDefinition.ItemDrop.class);
-    xStream.alias(
-        "scroll", com.bestbudz.core.definitions.ItemDropDefinition.ItemDropTable.ScrollTypes.class);
-
-    xStream.alias("location", com.bestbudz.rs2.entity.Location.class);
-    xStream.alias("item", com.bestbudz.rs2.entity.item.Item.class);
-    xStream.alias("projectile", com.bestbudz.rs2.entity.Projectile.class);
-    xStream.alias("graphic", com.bestbudz.rs2.entity.Graphic.class);
-    xStream.alias("animation", com.bestbudz.rs2.entity.Animation.class);
-
-    xStream.alias("NpcCombatDefinition", com.bestbudz.core.definitions.NpcCombatDefinition.class);
-    xStream.alias("profession", com.bestbudz.core.definitions.NpcCombatDefinition.Profession.class);
-    xStream.alias("melee", com.bestbudz.core.definitions.NpcCombatDefinition.Melee.class);
-    xStream.alias("mage", com.bestbudz.core.definitions.NpcCombatDefinition.Mage.class);
-    xStream.alias(
-        "sagittarius", com.bestbudz.core.definitions.NpcCombatDefinition.Sagittarius.class);
-
-    xStream.alias("ItemDefinition", com.bestbudz.core.definitions.ItemDefinition.class);
-    xStream.alias("ShopDefinition", com.bestbudz.core.definitions.ShopDefinition.class);
-    xStream.alias("WeaponDefinition", com.bestbudz.core.definitions.WeaponDefinition.class);
-    xStream.alias(
-        "SpecialAssaultDefinition", com.bestbudz.core.definitions.SpecialAssaultDefinition.class);
-    xStream.alias(
-        "SagittariusWeaponDefinition",
-        com.bestbudz.core.definitions.SagittariusWeaponDefinition.class);
-    xStream.alias(
-        "SagittariusVigourDefinition",
-        com.bestbudz.core.definitions.SagittariusVigourDefinition.class);
-    xStream.alias("FoodDefinition", com.bestbudz.core.definitions.FoodDefinition.class);
-    xStream.alias("PotionDefinition", com.bestbudz.core.definitions.PotionDefinition.class);
-    xStream.alias(
-        "professionData", com.bestbudz.core.definitions.PotionDefinition.ProfessionData.class);
-    xStream.alias("ItemBonusDefinition", com.bestbudz.core.definitions.ItemBonusDefinition.class);
-    xStream.alias(
-        "CombatSpellDefinition", com.bestbudz.core.definitions.CombatSpellDefinition.class);
-    xStream.alias("NpcDefinition", com.bestbudz.core.definitions.NpcDefinition.class);
-    xStream.alias("NpcSpawnDefinition", com.bestbudz.core.definitions.NpcSpawnDefinition.class);
-    xStream.alias("EquipmentDefinition", com.bestbudz.core.definitions.EquipmentDefinition.class);
     logger.info("All GameDefinitions have been loaded.");
   }
 
@@ -315,190 +246,68 @@ public class GameDefinitionLoader {
     return weaponDefinitions.get(id);
   }
 
-  public static XStream getxStream() {
-    return xStream;
+  public static final void loadAlternateIds() throws IOException {
+    Type type = new TypeToken<List<Map<String, Object>>>() {}.getType();
+    List<Map<String, Object>> list = loadJsonList("./data/def/ObjectAlternates.json", type);
+    for (Map<String, Object> entry : list) {
+      int id = ((Number) entry.get("id")).intValue();
+      int alt = ((Number) entry.get("alt")).intValue();
+      alternates[id][0] = alt;
+    }
+    logger.info("Loaded " + Utility.format(list.size()) + " alternative object IDs.");
   }
 
-	public static final void loadAlternateIds() {
-		try (BufferedReader reader = new BufferedReader(new FileReader("./data/def/ObjectAlternates.txt"))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				line = line.trim();
-				if (line.isEmpty() || !line.contains(":")) {
-					System.err.println("[AltID] Skipping malformed line: " + line);
-					continue;
-				}
-				try {
-					int id = Integer.parseInt(line.substring(0, line.indexOf(":")));
-					int alt = Integer.parseInt(line.substring(line.indexOf(":") + 1));
-					alternates[id][0] = alt;
-				} catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-					System.err.println("[AltID] Invalid format: " + line);
-				}
-			}
-		} catch (Exception e) {
-			System.err.println("[AltID] Failed to load alternate IDs:");
-			e.printStackTrace();
-		}
-
-		logger.info("All alternative objects have been loaded.");
-	}
-
-  @SuppressWarnings("unchecked")
   public static void loadCombatSpellDefinitions() throws IOException {
     List<CombatSpellDefinition> list =
-        (List<CombatSpellDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/mage/CombatSpellDefinitions.xml"));
+        loadJsonList(
+            "./data/def/mage/CombatSpellDefinitions.json",
+            new TypeToken<List<CombatSpellDefinition>>() {}.getType());
     for (CombatSpellDefinition definition : list) {
       combatSpellDefinitions.put(definition.getId(), definition);
     }
     logger.info("Loaded " + Utility.format(list.size()) + " combat spell definitions.");
   }
 
-  @SuppressWarnings("unchecked")
   public static void loadEquipmentDefinitions() throws IOException {
     List<EquipmentDefinition> list =
-        (List<EquipmentDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/items/EquipmentDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/EquipmentDefinitions.json",
+            new TypeToken<List<EquipmentDefinition>>() {}.getType());
 
     for (EquipmentDefinition definition : list) {
-
       equipmentDefinitions.put(definition.getId(), definition);
-      int size = 0;
-
-      if (definition.getRequirements() != null) {
-        byte[] array = definition.getRequirements();
-
-        for (int i = 0; i < array.length; i++) {
-          if (array[i] > 1) {
-            size++;
-          }
-        }
-      }
-
-      if (size == 0) {
-        continue;
-      }
-
-      byte[] array = definition.getRequirements();
-
-      for (int i = 0, complete = 0; i < array.length; i++) {
-        if (array[i] == 1) {
-          continue;
-        }
-
-        String name = "";
-
-        switch (i) {
-          case 0:
-            name = "ASSAULT";
-            break;
-          case 1:
-            name = "AEGIS";
-            break;
-          case 2:
-            name = "VIGOUR";
-            break;
-          case 3:
-            name = "LIFE";
-            break;
-          case 4:
-            name = "SAGITTARIUS";
-            break;
-          case 5:
-            name = "RESONANCE";
-            break;
-          case 6:
-            name = "MAGE";
-            break;
-          case 7:
-            name = "FOODIE";
-            break;
-          case 8:
-            name = "LUMBERING";
-            break;
-          case 9:
-            name = "WOODCARVING";
-            break;
-          case 10:
-            name = "FISHER";
-            break;
-          case 11:
-            name = "PYROMANIAC";
-            break;
-          case 12:
-            name = "HANDINESS";
-            break;
-          case 13:
-            name = "FORGING";
-            break;
-          case 14:
-            name = "QUARRYING";
-            break;
-          case 15:
-            name = "THC-HEMPISTRY";
-            break;
-          case 16:
-            name = "WEEDSMOKING";
-            break;
-          case 17:
-            name = "PET_MASTER";
-            break;
-          case 18:
-            name = "MERCENARY";
-            break;
-          case 19:
-            name = "BANKSTANDING";
-            break;
-          case 20:
-            name = "HUNTER";
-            break;
-          case 21:
-            name = "CONSTRUCTION";
-            break;
-        }
-
-        complete++;
-
-      }
-
     }
 
     logger.info("Loaded " + Utility.format(list.size()) + " equipment definitions.");
   }
 
-  public static void main(String[] args) throws IOException {
-    declare();
-    loadNpcDropDefinitions();
-  }
-
-  @SuppressWarnings("unchecked")
   public static void loadFoodDefinitions() throws IOException {
     List<FoodDefinition> list =
-        (List<FoodDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/items/FoodDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/FoodDefinitions.json",
+            new TypeToken<List<FoodDefinition>>() {}.getType());
     for (FoodDefinition definition : list) {
       foodDefinitions.put(definition.getId(), definition);
     }
     logger.info("Loaded " + Utility.format(list.size()) + " food definitions.");
   }
 
-  @SuppressWarnings("unchecked")
   public static void loadItemBonusDefinitions() throws IOException {
     List<ItemBonusDefinition> list =
-        (List<ItemBonusDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/items/ItemBonusDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/ItemBonusDefinitions.json",
+            new TypeToken<List<ItemBonusDefinition>>() {}.getType());
     for (ItemBonusDefinition definition : list) {
       itemBonusDefinitions.put(definition.getId(), definition);
     }
     logger.info("Loaded " + Utility.format(list.size()) + " item bonus definitions.");
   }
 
-  @SuppressWarnings("unchecked")
   public static void loadItemDefinitions() throws IOException {
     List<ItemDefinition> list =
-        (List<ItemDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/items/ItemDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/ItemDefinitions.json",
+            new TypeToken<List<ItemDefinition>>() {}.getType());
     for (ItemDefinition definition : list) {
       itemDefinitions.put(definition.getId(), definition);
     }
@@ -514,11 +323,11 @@ public class GameDefinitionLoader {
     return itemBonusDefinitions;
   }
 
-  @SuppressWarnings("unchecked")
   public static void loadNpcCombatDefinitions() throws IOException {
     List<NpcCombatDefinition> list =
-        (List<NpcCombatDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/npcs/NpcCombatDefinitions.xml"));
+        loadJsonList(
+            "./data/def/npcs/NpcCombatDefinitions.json",
+            new TypeToken<List<NpcCombatDefinition>>() {}.getType());
     for (NpcCombatDefinition definition : list) {
       npcCombatDefinitions.put(definition.getId(), definition);
     }
@@ -526,11 +335,11 @@ public class GameDefinitionLoader {
     logger.info("Loaded " + Utility.format(list.size()) + " npc combat definitions.");
   }
 
-  @SuppressWarnings("unchecked")
   public static void loadNpcDefinitions() throws IOException {
     List<NpcDefinition> list =
-        (List<NpcDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/npcs/NpcDefinitions.xml"));
+        loadJsonList(
+            "./data/def/npcs/NpcDefinitions.json",
+            new TypeToken<List<NpcDefinition>>() {}.getType());
     for (NpcDefinition definition : list) {
       npcDefinitions.put(definition.getId(), definition);
     }
@@ -545,11 +354,11 @@ public class GameDefinitionLoader {
     return mobDropDefinitions;
   }
 
-  @SuppressWarnings("unchecked")
   public static void loadNpcDropDefinitions() throws IOException {
     List<ItemDropDefinition> list =
-        (List<ItemDropDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/npcs/ItemDropDefinitions.xml"));
+        loadJsonList(
+            "./data/def/npcs/ItemDropDefinitions.json",
+            new TypeToken<List<ItemDropDefinition>>() {}.getType());
     for (ItemDropDefinition def : list) {
       mobDropDefinitions.put(def.getId(), def);
     }
@@ -640,11 +449,12 @@ public class GameDefinitionLoader {
 
     logger.info("Loaded " + Utility.format(list.size()) + " npc drops.");
   }
-	@SuppressWarnings("unchecked")
+
   public static void loadNpcSpawns() throws IOException {
     List<NpcSpawnDefinition> list =
-        (List<NpcSpawnDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/npcs/NpcSpawnDefinitions.xml"));
+        loadJsonList(
+            "./data/def/npcs/NpcSpawnDefinitions.json",
+            new TypeToken<List<NpcSpawnDefinition>>() {}.getType());
     for (NpcSpawnDefinition def : list) {
       if (Region.getRegion(def.getLocation().getX(), def.getLocation().getY()) == null) {
         continue;
@@ -665,11 +475,12 @@ public class GameDefinitionLoader {
     }
     logger.info("Loaded " + Utility.format(list.size()) + " NPC spawns.");
   }
-	@SuppressWarnings("unchecked")
+
   public static void loadPotionDefinitions() throws IOException {
     List<PotionDefinition> list =
-        (List<PotionDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/items/PotionDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/PotionDefinitions.json",
+            new TypeToken<List<PotionDefinition>>() {}.getType());
     for (PotionDefinition definition : list) {
       if (definition.getName() == null) {
         definition.setName(itemDefinitions.get(definition.getId()).getName());
@@ -678,70 +489,46 @@ public class GameDefinitionLoader {
     }
     logger.info("Loaded " + Utility.format(list.size()) + " potion definitions.");
   }
-	@SuppressWarnings("unchecked")
+
   public static void loadSagittariusVigourDefinitions() throws IOException {
     List<SagittariusVigourDefinition> list =
-        (List<SagittariusVigourDefinition>)
-            xStream.fromXML(
-                new FileInputStream("./data/def/items/SagittariusVigourDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/SagittariusVigourDefinitions.json",
+            new TypeToken<List<SagittariusVigourDefinition>>() {}.getType());
     for (SagittariusVigourDefinition definition : list) {
       sagittariusVigourDefinitions.put(definition.getId(), definition);
     }
-    logger.info("Loaded " + Utility.format(list.size()) + " sagittarius vigour bonus definitions.");
+    logger.info(
+        "Loaded " + Utility.format(list.size()) + " sagittarius vigour bonus definitions.");
   }
-	@SuppressWarnings("unchecked")
+
   public static void loadSagittariusWeaponDefinitions() throws IOException {
     List<SagittariusWeaponDefinition> list =
-        (List<SagittariusWeaponDefinition>)
-            xStream.fromXML(
-                new FileInputStream("./data/def/items/SagittariusWeaponDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/SagittariusWeaponDefinitions.json",
+            new TypeToken<List<SagittariusWeaponDefinition>>() {}.getType());
     for (SagittariusWeaponDefinition definition : list) {
       sagittariusWeaponDefinitions.put(definition.getId(), definition);
     }
     logger.info("Loaded " + Utility.format(list.size()) + " sagittarius weapon definitions.");
   }
 
-	public static final void loadRareDropChances() {
-		try (BufferedReader reader = new BufferedReader(new FileReader("./data/def/npcs/DropChances.txt"))) {
-			String line;
+  public static final void loadRareDropChances() throws IOException {
+    Type type = new TypeToken<List<Map<String, Object>>>() {}.getType();
+    List<Map<String, Object>> list = loadJsonList("./data/def/npcs/DropChances.json", type);
+    for (Map<String, Object> entry : list) {
+      int id = ((Number) entry.get("id")).intValue();
+      int chance = ((Number) entry.get("chance")).intValue();
+      rareDropChances.put(id, chance);
+    }
+    logger.info("Loaded " + Utility.format(list.size()) + " rare drop chances.");
+  }
 
-			while ((line = reader.readLine()) != null) {
-				line = line.trim();
-				if (line.isEmpty() || line.startsWith("//")) {
-					continue;
-				}
-
-				try {
-					if (!line.contains(":") || !line.contains("/")) {
-						System.err.println("[RareDropChances] Skipping malformed line: " + line);
-						continue;
-					}
-
-					String[] parts = line.split(":");
-					int id = Integer.parseInt(parts[0].trim());
-
-					String dropPart = parts[1].split("/")[0].trim();
-					int chance = Integer.parseInt(dropPart);
-
-					rareDropChances.put(id, chance);
-
-				} catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-					System.err.println("[RareDropChances] Failed to parse line: " + line);
-				}
-			}
-		} catch (Exception e) {
-			System.err.println("[RareDropChances] Fatal error loading file:");
-			e.printStackTrace();
-		}
-
-		logger.info("Successfully loaded all rare drops.");
-	}
-
-  @SuppressWarnings("unchecked")
   public static void loadShopDefinitions() throws IOException {
     List<ShopDefinition> list =
-        (List<ShopDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/items/ShopDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/ShopDefinitions.json",
+            new TypeToken<List<ShopDefinition>>() {}.getType());
     for (ShopDefinition def : list) {
       Shop.getShops()[def.getId()] =
           new Shop(def.getId(), def.getItems(), def.isGeneral(), def.getName());
@@ -749,22 +536,22 @@ public class GameDefinitionLoader {
     logger.info("Loaded " + Utility.format(list.size()) + " shops.");
   }
 
-  @SuppressWarnings("unchecked")
   public static void loadSpecialAssaultDefinitions() throws IOException {
     List<SpecialAssaultDefinition> list =
-        (List<SpecialAssaultDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/items/SpecialAssaultDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/SpecialAssaultDefinitions.json",
+            new TypeToken<List<SpecialAssaultDefinition>>() {}.getType());
     for (SpecialAssaultDefinition definition : list) {
       specialAssaultDefinitions.put(definition.getId(), definition);
     }
     logger.info("Loaded " + Utility.format(list.size()) + " special assault definitions.");
   }
 
-  @SuppressWarnings("unchecked")
   public static void loadWeaponDefinitions() throws IOException {
     List<WeaponDefinition> list =
-        (List<WeaponDefinition>)
-            xStream.fromXML(new FileInputStream("./data/def/items/WeaponDefinitions.xml"));
+        loadJsonList(
+            "./data/def/items/WeaponDefinitions.json",
+            new TypeToken<List<WeaponDefinition>>() {}.getType());
     for (WeaponDefinition definition : list) {
       weaponDefinitions.put(definition.getId(), definition);
     }

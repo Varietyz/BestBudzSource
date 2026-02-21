@@ -1,0 +1,20 @@
+{
+  "TOY_JAD": {
+    "experience": 1794.0,
+    "bondGrade": 6,
+    "activeTime": 20890000,
+    "firstSummoned": 1751229403648
+  },
+  "INFANT_JAD": {
+    "experience": 26772.5,
+    "bondGrade": 11,
+    "activeTime": 135955000,
+    "firstSummoned": 1751225881068
+  },
+  "JAD": {
+    "experience": 1351.5,
+    "bondGrade": 5,
+    "activeTime": 12305000,
+    "firstSummoned": 1751225012947
+  }
+}

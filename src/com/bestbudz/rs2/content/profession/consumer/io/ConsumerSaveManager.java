@@ -2,18 +2,22 @@ package com.bestbudz.rs2.content.profession.consumer.io;
 
 import com.bestbudz.rs2.content.profession.consumer.allergies.AllergySystem;
 import com.bestbudz.rs2.entity.stoner.Stoner;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 public class ConsumerSaveManager {
 
 	private static final String SAVE_DIRECTORY = "./data/profession/consumer/";
-	private static final String FILE_EXTENSION = ".properties";
+	private static final String FILE_EXTENSION = ".json";
+	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	static {
 
@@ -28,22 +32,21 @@ public class ConsumerSaveManager {
 		if (stoner.getUsername() == null) return;
 
 		String filename = SAVE_DIRECTORY + stoner.getUsername().toLowerCase() + FILE_EXTENSION;
-		Properties props = new Properties();
 
 		try {
+			Map<String, Integer> data = new HashMap<>();
 
 			AllergySystem allergySystem = stoner.getAllergySystem();
 			if (allergySystem != null) {
 				Map<AllergySystem.AllergyType, Integer> resistance = allergySystem.getResistance();
 
 				for (Map.Entry<AllergySystem.AllergyType, Integer> entry : resistance.entrySet()) {
-					props.setProperty("allergy.resistance." + entry.getKey().name(),
-						entry.getValue().toString());
+					data.put(entry.getKey().name(), entry.getValue());
 				}
 			}
 
-			try (FileOutputStream fos = new FileOutputStream(filename)) {
-				props.store(fos, "Consumer Profession Data for " + stoner.getUsername());
+			try (FileWriter writer = new FileWriter(filename)) {
+				gson.toJson(data, writer);
 			}
 
 		} catch (IOException e) {
@@ -62,25 +65,20 @@ public class ConsumerSaveManager {
 			return;
 		}
 
-		Properties props = new Properties();
+		try (FileReader reader = new FileReader(filename)) {
+			Type type = new TypeToken<Map<String, Integer>>() {}.getType();
+			Map<String, Integer> data = gson.fromJson(reader, type);
 
-		try (FileInputStream fis = new FileInputStream(filename)) {
-			props.load(fis);
+			if (data == null) return;
 
 			AllergySystem allergySystem = stoner.getAllergySystem();
 			if (allergySystem != null) {
 				Map<AllergySystem.AllergyType, Integer> resistance = new HashMap<>();
 
 				for (AllergySystem.AllergyType allergyType : AllergySystem.AllergyType.values()) {
-					String key = "allergy.resistance." + allergyType.name();
-					String value = props.getProperty(key);
-
+					Integer value = data.get(allergyType.name());
 					if (value != null) {
-						try {
-							resistance.put(allergyType, Integer.parseInt(value));
-						} catch (NumberFormatException e) {
-							System.err.println("Invalid resistance value for " + allergyType + ": " + value);
-						}
+						resistance.put(allergyType, value);
 					}
 				}
 

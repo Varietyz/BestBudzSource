@@ -1,0 +1,708 @@
+[
+  {
+    "id": 0,
+    "name": "General Store",
+    "general": true,
+    "items": [
+      {
+        "id": 954,
+        "amount": 100
+      },
+      {
+        "id": 952,
+        "amount": 50000
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Close combat shop",
+    "general": false,
+    "items": [
+      {
+        "id": 11335,
+        "amount": 100
+      },
+      {
+        "id": 3140,
+        "amount": 100
+      },
+      {
+        "id": 11840,
+        "amount": 100
+      },
+      {
+        "id": 1187,
+        "amount": 100
+      },
+      {
+        "id": 4087,
+        "amount": 100
+      },
+      {
+        "id": 4585,
+        "amount": 100
+      },
+      {
+        "id": 7461,
+        "amount": 100
+      },
+      {
+        "id": 6735,
+        "amount": 100
+      },
+      {
+        "id": 6737,
+        "amount": 100
+      },
+      {
+        "id": 10364,
+        "amount": 100
+      },
+      {
+        "id": 6585,
+        "amount": 100
+      },
+      {
+        "id": 11920,
+        "amount": 100
+      },
+      {
+        "id": 6739,
+        "amount": 100
+      },
+      {
+        "id": 4587,
+        "amount": 100
+      },
+      {
+        "id": 3204,
+        "amount": 100
+      },
+      {
+        "id": 7158,
+        "amount": 100
+      },
+      {
+        "id": 5698,
+        "amount": 100
+      },
+      {
+        "id": 4151,
+        "amount": 100
+      },
+      {
+        "id": 12004,
+        "amount": 100
+      },
+      {
+        "id": 3751,
+        "amount": 100
+      },
+      {
+        "id": 3753,
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Sagittarius\u0027s shop",
+    "general": false,
+    "items": [
+      {
+        "id": 10376,
+        "amount": 100
+      },
+      {
+        "id": 10378,
+        "amount": 100
+      },
+      {
+        "id": 10380,
+        "amount": 100
+      },
+      {
+        "id": 10382,
+        "amount": 100
+      },
+      {
+        "id": 10384,
+        "amount": 100
+      },
+      {
+        "id": 10386,
+        "amount": 100
+      },
+      {
+        "id": 10388,
+        "amount": 100
+      },
+      {
+        "id": 10390,
+        "amount": 100
+      },
+      {
+        "id": 10368,
+        "amount": 100
+      },
+      {
+        "id": 10370,
+        "amount": 100
+      },
+      {
+        "id": 10372,
+        "amount": 100
+      },
+      {
+        "id": 10374,
+        "amount": 100
+      },
+      {
+        "id": 3749,
+        "amount": 100
+      },
+      {
+        "id": 2577,
+        "amount": 100
+      },
+      {
+        "id": 4212,
+        "amount": 100
+      },
+      {
+        "id": 11235,
+        "amount": 100
+      },
+      {
+        "id": 6733,
+        "amount": 100
+      },
+      {
+        "id": 12851,
+        "amount": 100
+      },
+      {
+        "id": 10499,
+        "amount": 100
+      },
+      {
+        "id": 892,
+        "amount": 10000000
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Professioning Store",
+    "general": false,
+    "items": [
+      {
+        "id": 6575,
+        "amount": 100
+      },
+      {
+        "id": 6577,
+        "amount": 100
+      },
+      {
+        "id": 1785,
+        "amount": 100
+      },
+      {
+        "id": 1733,
+        "amount": 1000
+      },
+      {
+        "id": 1739,
+        "amount": 10000
+      },
+      {
+        "id": 1742,
+        "amount": 10000
+      },
+      {
+        "id": 1744,
+        "amount": 10000
+      },
+      {
+        "id": 1734,
+        "amount": 10000
+      },
+      {
+        "id": 1735,
+        "amount": 100
+      },
+      {
+        "id": 1592,
+        "amount": 1000
+      },
+      {
+        "id": 1595,
+        "amount": 1000
+      },
+      {
+        "id": 1597,
+        "amount": 1000
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Mages shop",
+    "general": false,
+    "items": [
+      {
+        "id": 4675,
+        "amount": 100
+      },
+      {
+        "id": 2415,
+        "amount": 100
+      },
+      {
+        "id": 2416,
+        "amount": 100
+      },
+      {
+        "id": 2417,
+        "amount": 100
+      },
+      {
+        "id": 6914,
+        "amount": 100
+      },
+      {
+        "id": 6918,
+        "amount": 100
+      },
+      {
+        "id": 6916,
+        "amount": 100
+      },
+      {
+        "id": 6924,
+        "amount": 100
+      },
+      {
+        "id": 6920,
+        "amount": 100
+      },
+      {
+        "id": 6922,
+        "amount": 100
+      },
+      {
+        "id": 6889,
+        "amount": 100
+      },
+      {
+        "id": 6731,
+        "amount": 100
+      },
+      {
+        "id": 10366,
+        "amount": 100
+      },
+      {
+        "id": 3755,
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Pure shop",
+    "general": false,
+    "items": [
+      {
+        "id": 1725,
+        "amount": 100
+      },
+      {
+        "id": 1704,
+        "amount": 100
+      },
+      {
+        "id": 11090,
+        "amount": 100
+      },
+      {
+        "id": 2570,
+        "amount": 100
+      },
+      {
+        "id": 2550,
+        "amount": 100
+      },
+      {
+        "id": 11118,
+        "amount": 100
+      },
+      {
+        "id": 3840,
+        "amount": 100
+      },
+      {
+        "id": 3842,
+        "amount": 100
+      },
+      {
+        "id": 3844,
+        "amount": 100
+      },
+      {
+        "id": 3105,
+        "amount": 100
+      },
+      {
+        "id": 1540,
+        "amount": 100
+      },
+      {
+        "id": 9729,
+        "amount": 100
+      },
+      {
+        "id": 2890,
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Packs store",
+    "general": false,
+    "items": [
+      {
+        "id": 11879,
+        "amount": 100
+      },
+      {
+        "id": 11881,
+        "amount": 100
+      },
+      {
+        "id": 11885,
+        "amount": 100
+      },
+      {
+        "id": 12009,
+        "amount": 100
+      },
+      {
+        "id": 12859,
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "BankStanding store",
+    "general": false,
+    "items": [
+      {
+        "id": 5554,
+        "amount": 100
+      },
+      {
+        "id": 5553,
+        "amount": 100
+      },
+      {
+        "id": 5555,
+        "amount": 100
+      },
+      {
+        "id": 5556,
+        "amount": 100
+      },
+      {
+        "id": 5557,
+        "amount": 100
+      },
+      {
+        "id": 9946,
+        "amount": 100
+      },
+      {
+        "id": 9945,
+        "amount": 100
+      },
+      {
+        "id": 9472,
+        "amount": 100
+      },
+      {
+        "id": 12357,
+        "amount": 100
+      },
+      {
+        "id": 12432,
+        "amount": 100
+      },
+      {
+        "id": 12337,
+        "amount": 100
+      },
+      {
+        "id": 12335,
+        "amount": 100
+      },
+      {
+        "id": 12373,
+        "amount": 100
+      },
+      {
+        "id": 4565,
+        "amount": 100
+      },
+      {
+        "id": 12443,
+        "amount": 100
+      },
+      {
+        "id": 12441,
+        "amount": 100
+      },
+      {
+        "id": 12351,
+        "amount": 100
+      },
+      {
+        "id": 12393,
+        "amount": 100
+      },
+      {
+        "id": 12395,
+        "amount": 100
+      },
+      {
+        "id": 12397,
+        "amount": 100
+      },
+      {
+        "id": 12439,
+        "amount": 100
+      },
+      {
+        "id": 12319,
+        "amount": 100
+      },
+      {
+        "id": 11990,
+        "amount": 100
+      },
+      {
+        "id": 4566,
+        "amount": 100
+      },
+      {
+        "id": 1052,
+        "amount": 100
+      },
+      {
+        "id": 4084,
+        "amount": 100
+      },
+      {
+        "id": 13182,
+        "amount": 100
+      },
+      {
+        "id": 1037,
+        "amount": 100
+      },
+      {
+        "id": 12353,
+        "amount": 100
+      },
+      {
+        "id": 12355,
+        "amount": 100
+      },
+      {
+        "id": 9470,
+        "amount": 100
+      },
+      {
+        "id": 10392,
+        "amount": 100
+      },
+      {
+        "id": 10394,
+        "amount": 100
+      },
+      {
+        "id": 9005,
+        "amount": 100
+      },
+      {
+        "id": 1038,
+        "amount": 10
+      },
+      {
+        "id": 1040,
+        "amount": 10
+      },
+      {
+        "id": 1042,
+        "amount": 10
+      },
+      {
+        "id": 1044,
+        "amount": 10
+      },
+      {
+        "id": 1046,
+        "amount": 10
+      },
+      {
+        "id": 1048,
+        "amount": 10
+      },
+      {
+        "id": 11862,
+        "amount": 10
+      },
+      {
+        "id": 11863,
+        "amount": 10
+      },
+      {
+        "id": 12399,
+        "amount": 10
+      },
+      {
+        "id": 1050,
+        "amount": 10
+      },
+      {
+        "id": 1053,
+        "amount": 10
+      },
+      {
+        "id": 1055,
+        "amount": 10
+      },
+      {
+        "id": 1057,
+        "amount": 10
+      },
+      {
+        "id": 11847,
+        "amount": 10
+      },
+      {
+        "id": 775,
+        "amount": 10
+      },
+      {
+        "id": 1837,
+        "amount": 10
+      },
+      {
+        "id": 12647,
+        "amount": 1
+      },
+      {
+        "id": 12654,
+        "amount": 1
+      },
+      {
+        "id": 12648,
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "THC-hempistry store",
+    "general": false,
+    "items": [
+      {
+        "id": 233,
+        "amount": 5000
+      },
+      {
+        "id": 235,
+        "amount": 5000
+      },
+      {
+        "id": 1526,
+        "amount": 5000
+      },
+      {
+        "id": 225,
+        "amount": 5000
+      },
+      {
+        "id": 223,
+        "amount": 5000
+      },
+      {
+        "id": 1975,
+        "amount": 5000
+      },
+      {
+        "id": 239,
+        "amount": 5000
+      },
+      {
+        "id": 9736,
+        "amount": 5000
+      },
+      {
+        "id": 231,
+        "amount": 5000
+      },
+      {
+        "id": 2970,
+        "amount": 5000
+      },
+      {
+        "id": 6049,
+        "amount": 5000
+      },
+      {
+        "id": 245,
+        "amount": 5000
+      },
+      {
+        "id": 1942,
+        "amount": 5000
+      },
+      {
+        "id": 247,
+        "amount": 5000
+      },
+      {
+        "id": 6693,
+        "amount": 5000
+      },
+      {
+        "id": 221,
+        "amount": 5000
+      },
+      {
+        "id": 243,
+        "amount": 5000
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Oziach store",
+    "general": false,
+    "items": [
+      {
+        "id": 1127,
+        "amount": 10
+      },
+      {
+        "id": 1135,
+        "amount": 10
+      }
+    ]
+  }
+]

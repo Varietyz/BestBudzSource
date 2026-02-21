@@ -2,18 +2,22 @@ package com.bestbudz.rs2.content.profession.petmaster;
 
 import com.bestbudz.rs2.content.profession.petmaster.bond.PetBond;
 import com.bestbudz.rs2.entity.pets.PetData;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 public class PetDataManager {
 
 	private static final String SAVE_DIRECTORY = "./data/profession/petmaster/";
-	private static final String FILE_EXTENSION = ".properties";
+	private static final String FILE_EXTENSION = ".json";
+	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	private final com.bestbudz.rs2.entity.stoner.Stoner stoner;
 
@@ -33,32 +37,9 @@ public class PetDataManager {
 	public void savePetBond(PetData petData, PetBond bond) {
 		if (stoner == null || stoner.getUsername() == null || petData == null || bond == null) return;
 
-		String filename = SAVE_DIRECTORY + stoner.getUsername().toLowerCase() + FILE_EXTENSION;
-		Properties props = new Properties();
-
-		try {
-
-			Path filePath = Paths.get(filename);
-			if (Files.exists(filePath)) {
-				try (FileInputStream fis = new FileInputStream(filename)) {
-					props.load(fis);
-				}
-			}
-
-			String petPrefix = "pet.bond." + petData.name() + ".";
-			props.setProperty(petPrefix + "experience", String.valueOf(bond.getExperience()));
-			props.setProperty(petPrefix + "bondGrade", String.valueOf(bond.getBondGrade()));
-			props.setProperty(petPrefix + "activeTime", String.valueOf(bond.getActiveTime()));
-			props.setProperty(petPrefix + "firstSummoned", String.valueOf(bond.getFirstSummoned()));
-
-			try (FileOutputStream fos = new FileOutputStream(filename)) {
-				props.store(fos, "PetMaster Profession Data for " + stoner.getUsername());
-			}
-
-		} catch (IOException e) {
-			System.err.println("Failed to save pet bond for " + stoner.getUsername() +
-				" with pet " + petData.name() + ": " + e.getMessage());
-		}
+		Map<PetData, PetBond> bonds = loadData();
+		bonds.put(petData, bond);
+		saveData(bonds);
 	}
 
 	public Map<PetData, PetBond> loadData() {
@@ -76,33 +57,21 @@ public class PetDataManager {
 			return bonds;
 		}
 
-		Properties props = new Properties();
+		try (FileReader reader = new FileReader(filename)) {
+			Type type = new TypeToken<Map<String, PetBondData>>() {}.getType();
+			Map<String, PetBondData> data = gson.fromJson(reader, type);
 
-		try (FileInputStream fis = new FileInputStream(filename)) {
-			props.load(fis);
+			if (data == null) return bonds;
 
-			for (PetData petData : PetData.values()) {
-				String petPrefix = "pet.bond." + petData.name() + ".";
-
-				if (props.getProperty(petPrefix + "experience") != null) {
+			for (PetData pet : PetData.values()) {
+				PetBondData bondData = data.get(pet.name());
+				if (bondData != null) {
 					PetBond bond = new PetBond();
-
-					try {
-						double experience = Double.parseDouble(props.getProperty(petPrefix + "experience", "0.0"));
-						int bondGrade = Integer.parseInt(props.getProperty(petPrefix + "bondGrade", "1"));
-						long activeTime = Long.parseLong(props.getProperty(petPrefix + "activeTime", "0"));
-						long firstSummoned = Long.parseLong(props.getProperty(petPrefix + "firstSummoned", "0"));
-
-						bond.setExperience(experience);
-						bond.setBondGrade(bondGrade);
-						bond.setActiveTime(activeTime);
-						bond.setFirstSummoned(firstSummoned);
-
-						bonds.put(petData, bond);
-
-					} catch (NumberFormatException e) {
-						System.err.println("Invalid pet bond data for " + petData.name() + " for user " + stoner.getUsername());
-					}
+					bond.setExperience(bondData.experience);
+					bond.setBondGrade(bondData.bondGrade);
+					bond.setActiveTime(bondData.activeTime);
+					bond.setFirstSummoned(bondData.firstSummoned);
+					bonds.put(pet, bond);
 				}
 			}
 
@@ -117,25 +86,26 @@ public class PetDataManager {
 		if (stoner == null || stoner.getUsername() == null || bonds == null) return;
 
 		String filename = SAVE_DIRECTORY + stoner.getUsername().toLowerCase() + FILE_EXTENSION;
-		Properties props = new Properties();
 
 		try {
+			Map<String, PetBondData> data = new HashMap<>();
 
 			for (Map.Entry<PetData, PetBond> entry : bonds.entrySet()) {
 				PetData petData = entry.getKey();
 				PetBond bond = entry.getValue();
 
 				if (petData != null && bond != null) {
-					String petPrefix = "pet.bond." + petData.name() + ".";
-					props.setProperty(petPrefix + "experience", String.valueOf(bond.getExperience()));
-					props.setProperty(petPrefix + "bondGrade", String.valueOf(bond.getBondGrade()));
-					props.setProperty(petPrefix + "activeTime", String.valueOf(bond.getActiveTime()));
-					props.setProperty(petPrefix + "firstSummoned", String.valueOf(bond.getFirstSummoned()));
+					PetBondData bondData = new PetBondData();
+					bondData.experience = bond.getExperience();
+					bondData.bondGrade = bond.getBondGrade();
+					bondData.activeTime = bond.getActiveTime();
+					bondData.firstSummoned = bond.getFirstSummoned();
+					data.put(petData.name(), bondData);
 				}
 			}
 
-			try (FileOutputStream fos = new FileOutputStream(filename)) {
-				props.store(fos, "PetMaster Profession Data for " + stoner.getUsername());
+			try (FileWriter writer = new FileWriter(filename)) {
+				gson.toJson(data, writer);
 			}
 
 		} catch (IOException e) {
@@ -146,31 +116,15 @@ public class PetDataManager {
 	public void deletePetBond(PetData petData) {
 		if (stoner == null || stoner.getUsername() == null || petData == null) return;
 
-		String filename = SAVE_DIRECTORY + stoner.getUsername().toLowerCase() + FILE_EXTENSION;
-		Properties props = new Properties();
+		Map<PetData, PetBond> bonds = loadData();
+		bonds.remove(petData);
+		saveData(bonds);
+	}
 
-		try {
-
-			Path filePath = Paths.get(filename);
-			if (Files.exists(filePath)) {
-				try (FileInputStream fis = new FileInputStream(filename)) {
-					props.load(fis);
-				}
-			}
-
-			String petPrefix = "pet.bond." + petData.name() + ".";
-			props.remove(petPrefix + "experience");
-			props.remove(petPrefix + "bondGrade");
-			props.remove(petPrefix + "activeTime");
-			props.remove(petPrefix + "firstSummoned");
-
-			try (FileOutputStream fos = new FileOutputStream(filename)) {
-				props.store(fos, "PetMaster Profession Data for " + stoner.getUsername());
-			}
-
-		} catch (IOException e) {
-			System.err.println("Failed to delete pet bond for " + stoner.getUsername() +
-				" with pet " + petData.name() + ": " + e.getMessage());
-		}
+	private static class PetBondData {
+		double experience;
+		int bondGrade;
+		long activeTime;
+		long firstSummoned;
 	}
 }

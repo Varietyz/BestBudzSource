@@ -1,0 +1,417 @@
+[
+  {
+    "id": 12819,
+    "chance": 5,
+    "comment": "Sigil"
+  },
+  {
+    "id": 12823,
+    "chance": 5,
+    "comment": "Sigil"
+  },
+  {
+    "id": 12827,
+    "chance": 5,
+    "comment": "Sigil"
+  },
+  {
+    "id": 6731,
+    "chance": 50,
+    "comment": "Seers' ring"
+  },
+  {
+    "id": 6733,
+    "chance": 50,
+    "comment": "Archers' ring"
+  },
+  {
+    "id": 6735,
+    "chance": 50,
+    "comment": "Warrior ring"
+  },
+  {
+    "id": 6737,
+    "chance": 50,
+    "comment": "Berserker ring"
+  },
+  {
+    "id": 6571,
+    "chance": 15,
+    "comment": "Uncut onyx"
+  },
+  {
+    "id": 4151,
+    "chance": 70,
+    "comment": "Abyssal whip"
+  },
+  {
+    "id": 11235,
+    "chance": 50,
+    "comment": "Dark bow"
+  },
+  {
+    "id": 11212,
+    "chance": 70,
+    "comment": "Dragon arrow"
+  },
+  {
+    "id": 6528,
+    "chance": 65,
+    "comment": "Tzhaar-ket-om"
+  },
+  {
+    "id": 6529,
+    "chance": 110,
+    "comment": "Tokkul"
+  },
+  {
+    "id": 10887,
+    "chance": 80,
+    "comment": "Barrelchest anchor"
+  },
+  {
+    "id": 7158,
+    "chance": 35,
+    "comment": "Dragon 2h sword"
+  },
+  {
+    "id": 11286,
+    "chance": 19,
+    "comment": "Draconic visage"
+  },
+  {
+    "id": 6739,
+    "chance": 45,
+    "comment": "Dragon hatchet"
+  },
+  {
+    "id": 6524,
+    "chance": 52,
+    "comment": "Toktz-ket-xil"
+  },
+  {
+    "id": 11818,
+    "chance": 30,
+    "comment": "GS shard 1"
+  },
+  {
+    "id": 11820,
+    "chance": 30,
+    "comment": "GS shard 2"
+  },
+  {
+    "id": 11822,
+    "chance": 30,
+    "comment": "GS shard 3"
+  },
+  {
+    "id": 11830,
+    "chance": 15,
+    "comment": "Armadyl chainskirt"
+  },
+  {
+    "id": 11828,
+    "chance": 15,
+    "comment": "Armadyl chest plate"
+  },
+  {
+    "id": 11826,
+    "chance": 15,
+    "comment": "Armadyl helm"
+  },
+  {
+    "id": 11810,
+    "chance": 10,
+    "comment": "Armadyl hilt"
+  },
+  {
+    "id": 12649,
+    "chance": 8,
+    "comment": "Armadyl pet"
+  },
+  {
+    "id": 11814,
+    "chance": 25,
+    "comment": "Saradomin hilt"
+  },
+  {
+    "id": 11838,
+    "chance": 28,
+    "comment": "Saradomin sword"
+  },
+  {
+    "id": 11785,
+    "chance": 15,
+    "comment": "Armadyl crossbow"
+  },
+  {
+    "id": 12651,
+    "chance": 10,
+    "comment": "Saradomin pet"
+  },
+  {
+    "id": 11832,
+    "chance": 20,
+    "comment": "Bandos chest"
+  },
+  {
+    "id": 11834,
+    "chance": 20,
+    "comment": "Bandos tassets"
+  },
+  {
+    "id": 118836,
+    "chance": 30,
+    "comment": "Bandos boots"
+  },
+  {
+    "id": 11812,
+    "chance": 18,
+    "comment": "Bandos hilt"
+  },
+  {
+    "id": 12650,
+    "chance": 10,
+    "comment": "Bandos pet"
+  },
+  {
+    "id": 12643,
+    "chance": 10,
+    "comment": "Pet supreme"
+  },
+  {
+    "id": 12644,
+    "chance": 10,
+    "comment": "Pet prime"
+  },
+  {
+    "id": 12645,
+    "chance": 10,
+    "comment": "Pet rex"
+  },
+  {
+    "id": 11840,
+    "chance": 30,
+    "comment": "Dragon boots"
+  },
+  {
+    "id": 10858,
+    "chance": 60,
+    "comment": "Shadow sword"
+  },
+  {
+    "id": 11791,
+    "chance": 25,
+    "comment": "Staff of the Dead"
+  },
+  {
+    "id": 12652,
+    "chance": 10,
+    "comment": "Zamorak Pet"
+  },
+  {
+    "id": 11824,
+    "chance": 20,
+    "comment": "Zamorak Spear"
+  },
+  {
+    "id": 11905,
+    "chance": 15,
+    "comment": "Trident of seas"
+  },
+  {
+    "id": 12655,
+    "chance": 10,
+    "comment": "Kraken Pet"
+  },
+  {
+    "id": 12004,
+    "chance": 20,
+    "comment": "Kraken Tenacle"
+  },
+  {
+    "id": 11908,
+    "chance": 20,
+    "comment": "Trident"
+  },
+  {
+    "id": 11995,
+    "chance": 10,
+    "comment": "Chaos Elemental pet"
+  },
+  {
+    "id": 11920,
+    "chance": 30,
+    "comment": "Dragon Pickaxe"
+  },
+  {
+    "id": 12603,
+    "chance": 25,
+    "comment": "Tyrannical ring"
+  },
+  {
+    "id": 13178,
+    "chance": 10,
+    "comment": "Callisto Pet"
+  },
+  {
+    "id": 13181,
+    "chance": 10,
+    "comment": "Scorpia's offspring"
+  },
+  {
+    "id": 12601,
+    "chance": 15,
+    "comment": "Ring of the gods"
+  },
+  {
+    "id": 13180,
+    "chance": 10,
+    "comment": "Vet'ion pet"
+  },
+  {
+    "id": 11931,
+    "chance": 25,
+    "comment": "Malediction shard 1"
+  },
+  {
+    "id": 11928,
+    "chance": 25,
+    "comment": "Odium shard 1"
+  },
+  {
+    "id": 11932,
+    "chance": 25,
+    "comment": "Malediction shard 2"
+  },
+  {
+    "id": 11929,
+    "chance": 25,
+    "comment": "Odium shard 2"
+  },
+  {
+    "id": 11933,
+    "chance": 25,
+    "comment": "Malediction shard 3"
+  },
+  {
+    "id": 11930,
+    "chance": 25,
+    "comment": "Odium shard 3"
+  },
+  {
+    "id": 12833,
+    "chance": 51,
+    "comment": "Elixer"
+  },
+  {
+    "id": 12816,
+    "chance": 10,
+    "comment": "Pet Dark Core"
+  },
+  {
+    "id": 12927,
+    "chance": 45,
+    "comment": "Sperp Vis"
+  },
+  {
+    "id": 12922,
+    "chance": 35,
+    "comment": "Fang"
+  },
+  {
+    "id": 12932,
+    "chance": 35,
+    "comment": "Mage Fang"
+  },
+  {
+    "id": 12921,
+    "chance": 20,
+    "comment": "Zulrah Pet"
+  },
+  {
+    "id": 12646,
+    "chance": 10,
+    "comment": "Mole pet"
+  },
+  {
+    "id": 11816,
+    "chance": 15,
+    "comment": "Zammy hilt"
+  },
+  {
+    "id": 12653,
+    "chance": 10,
+    "comment": "KBD Pet"
+  },
+  {
+    "id": 9952,
+    "chance": 10,
+    "comment": "Imp"
+  },
+  {
+    "id": 9953,
+    "chance": 10,
+    "comment": "Kebbit"
+  },
+  {
+    "id": 9970,
+    "chance": 10,
+    "comment": "Butterfly"
+  },
+  {
+    "id": 9974,
+    "chance": 10,
+    "comment": "Giant Eagle"
+  },
+  {
+    "id": 11959,
+    "chance": 10,
+    "comment": "Black Chinchompa"
+  },
+  {
+    "id": 3257,
+    "chance": 10,
+    "comment": "Gnome"
+  },
+  {
+    "id": 5609,
+    "chance": 10,
+    "comment": "Chicken"
+  },
+  {
+    "id": 8137,
+    "chance": 10,
+    "comment": "Hellhound"
+  },
+  {
+    "id": 8134,
+    "chance": 10,
+    "comment": "Baby Dragon"
+  },
+  {
+    "id": 8138,
+    "chance": 10,
+    "comment": "Demon"
+  },
+  {
+    "id": 8305,
+    "chance": 10,
+    "comment": "Rocnar"
+  },
+  {
+    "id": 8304,
+    "chance": 10,
+    "comment": "Flambeed"
+  },
+  {
+    "id": 8303,
+    "chance": 10,
+    "comment": "Tentacle"
+  },
+  {
+    "id": 5567,
+    "chance": 10,
+    "comment": "Death"
+  }
+]
