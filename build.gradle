@@ -25,13 +25,10 @@ dependencies {
     implementation 'io.netty:netty-transport-classes-kqueue:4.2.1.Final'
 
     // Your local JARs
-    implementation name: 'gson-2.2.2'
+    implementation 'com.google.code.gson:gson:2.11.0'
     implementation name: 'json-lib-2.4-jdk15'
     implementation name: 'json-simple-1.1.1'
     implementation name: 'xpp3_min-1.1.4c'
-
-    // Other dependencies
-    implementation 'com.thoughtworks.xstream:xstream:1.4.21'
     implementation 'org.xerial:sqlite-jdbc:3.50.1.0'
 
     // Use stable JDA 4.4.0 that works reliably
