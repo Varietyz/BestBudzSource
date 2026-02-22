@@ -69,7 +69,7 @@ public class GameDefinitionLoader {
       new HashMap<Integer, SagittariusVigourDefinition>();
   private static final Map<Integer, ItemDropDefinition> mobDropDefinitions =
       new HashMap<Integer, ItemDropDefinition>();
-  private static int[][] alternates = new int[53000][1];
+  private static int[][] alternates;
 
   private GameDefinitionLoader() {}
 
@@ -107,6 +107,9 @@ public class GameDefinitionLoader {
   }
 
   public static int getAlternate(int id) {
+    if (alternates == null || id < 0 || id >= alternates.length) {
+      return 0;
+    }
     return alternates[id][0];
   }
 
@@ -249,6 +252,12 @@ public class GameDefinitionLoader {
   public static final void loadAlternateIds() throws IOException {
     Type type = new TypeToken<List<Map<String, Object>>>() {}.getType();
     List<Map<String, Object>> list = loadJsonList("./data/def/ObjectAlternates.json", type);
+    int maxId = 0;
+    for (Map<String, Object> entry : list) {
+      int id = ((Number) entry.get("id")).intValue();
+      if (id > maxId) maxId = id;
+    }
+    alternates = new int[maxId + 1][1];
     for (Map<String, Object> entry : list) {
       int id = ((Number) entry.get("id")).intValue();
       int alt = ((Number) entry.get("alt")).intValue();
